@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Pulse — bet entry with action cluster</title>
+<style>
+body{margin:0;background:#03070d;display:flex;justify-content:center;padding:24px;font-family:ui-monospace,Consolas,Menlo,monospace}
+.stage{width:680px;zoom:1.6}
+.p{background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:10px;padding:9px 11px}
+.chip{flex:1;height:20px;border-radius:5px;border:1px solid #1e3346;color:#7b93a6;font-size:11px;display:flex;align-items:center;justify-content:center}
+.lbl{color:#7b93a6;font-size:11px;letter-spacing:2px;display:block;margin-bottom:4px}
+.step{width:24px;height:24px;border-radius:6px;border:1px solid #1e3346;display:flex;align-items:center;justify-content:center;color:#dcecf2;font-size:13px}
+</style></head><body>
+<div class="stage">
+<div style="background:#060b12;border-radius:12px;padding:14px;">
+
+  <div style="height:38px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:8px;padding:0 14px;margin-bottom:10px;">
+    <span style="color:#dcecf2;font-size:12px;font-weight:500;letter-spacing:3px;">SWOOBZ <span style="color:#7b93a6;letter-spacing:1px;font-weight:400;">· PULSE · R0007 · SLOT 047</span></span>
+    <span style="color:#7b93a6;font-size:11px;letter-spacing:1px;">COHERENCE-1 · 44 RDS</span>
+    <span style="color:#f0b542;font-size:12px;font-weight:500;">BALANCE 1043.83</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:10px;margin-bottom:10px;">
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 4px;">
+        <span style="color:#7b93a6;font-size:30px;font-weight:500;line-height:1;">1.00x</span>
+        <span style="color:#7b93a6;font-size:11px;letter-spacing:1px;">NEXT TARGET 2.00x · <span style="color:#35e0d2;">50%</span></span>
+      </div>
+      <div style="background:rgba(10,16,25,.92);border:1px solid #1e3346;border-radius:12px;padding:10px;position:relative;">
+        <svg viewBox="0 0 430 250" style="width:100%;display:block;" aria-hidden="true">
+          <g stroke="#12202e" stroke-width="1"><line x1="0" y1="65" x2="430" y2="65"/><line x1="0" y1="147" x2="430" y2="147"/><line x1="0" y1="229" x2="430" y2="229"/></g>
+          <g fill="#4d6478" font-size="10" font-family="monospace"><text x="398" y="61">3.00x</text><text x="398" y="143">2.00x</text><text x="398" y="225">1.00x</text></g>
+          <polyline points="20,226 60,218 100,220 140,204 180,178 220,183 260,148 300,108 340,68 380,34" fill="none" stroke="#2c5a66" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.5"/>
+          <line x1="380" y1="34" x2="380" y2="232" stroke="#ff5d5d" stroke-width="2" opacity="0.35"/>
+          <text x="298" y="28" fill="#4d6478" font-size="10" font-family="monospace">LAST ROUND · 24.45x</text>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+          <span style="color:#dcecf2;font-size:20px;font-weight:500;letter-spacing:2px;">1.00x</span>
+          <span style="color:#7b93a6;font-size:11px;letter-spacing:2px;">SEED COMMITTED · AWAITING FIRST CANDLE</span>
+        </div>
+      </div>
+      <div style="color:#8fb0c4;font-size:11px;letter-spacing:1px;text-align:center;background:rgba(6,11,18,.8);border-radius:6px;padding:2px 10px;">COMMIT TO PRINT THE FIRST CANDLE · YOU CASH THE CANDLE, NOT THE TOP</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="p">
+        <span class="lbl">YOUR WAGER</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <span class="step">−</span>
+          <span style="color:#fff;font-size:16px;font-weight:500;">10.00 <span style="font-size:11px;color:#7b93a6;">USDC</span></span>
+          <span class="step">+</span>
+        </div>
+        <div style="display:flex;gap:3px;">
+          <span class="chip">5</span><span class="chip" style="background:#2a2410;border-color:#f0b542;color:#f0b542;">10</span><span class="chip">25</span><span class="chip">50</span><span class="chip">100</span>
+        </div>
+      </div>
+
+      <div style="background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:10px;overflow:hidden;">
+        <div style="padding:9px 11px 8px;">
+          <span class="lbl">AUTO CASH-OUT</span>
+          <div style="display:flex;gap:3px;">
+            <span class="chip">OFF</span><span class="chip">1.2x</span><span class="chip">1.5x</span><span class="chip" style="background:#0d3c38;border-color:#35e0d2;color:#8ff2e8;">2.0x</span><span class="chip">3.0x</span>
+          </div>
+        </div>
+        <div style="height:1px;background:#1e3346;"></div>
+        <div style="display:flex;justify-content:space-between;padding:5px 11px;">
+          <span style="color:#7b93a6;font-size:11px;letter-spacing:1px;">MIN 1.00 · RTP 95.5%</span>
+          <span style="color:#4d6478;font-size:11px;">aadff8 ✓</span>
+        </div>
+        <div style="height:42px;background:#35e0d2;display:flex;align-items:center;justify-content:center;color:#042220;font-size:12px;font-weight:500;letter-spacing:2px;">COMMIT →</div>
+      </div>
+
+      <div class="p" style="flex:1;display:flex;flex-direction:column;">
+        <span class="lbl">LIVE FEED</span>
+        <div style="font-size:11px;line-height:1.9;">
+          <div><span style="color:#35e0d2;">whale_0x3f</span> <span style="color:#7b93a6;">committed</span> <span style="color:#dcecf2;">50.00</span></div>
+          <div><span style="color:#35e0d2;">shrimp_0x91</span> <span style="color:#7b93a6;">committed</span> <span style="color:#dcecf2;">5.00</span></div>
+          <div><span style="color:#7b93a6;">last round · </span><span style="color:#35e0d2;">18 cashed</span><span style="color:#7b93a6;"> · </span><span style="color:#ff5d5d;">14 rugged</span></div>
+          <div><span style="color:#7b93a6;">23 IN THE NEXT ROUND</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:28px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:8px;padding:0 12px;">
+    <span style="color:#7b93a6;font-size:11px;letter-spacing:1px;">AWAITING COMMIT · SEED COMMITTED & HASHED</span>
+    <span style="display:flex;gap:5px;align-items:center;">
+      <span style="color:#7b93a6;font-size:11px;margin-right:3px;">LAST ROUNDS</span>
+      <span style="height:20px;display:inline-flex;align-items:center;padding:0 8px;border-radius:999px;background:#0d3c38;border:1px solid #1e5a4f;color:#35e0d2;font-size:11px;">4.85x</span>
+      <span style="height:20px;display:inline-flex;align-items:center;padding:0 8px;border-radius:999px;background:#0d3c38;border:1px solid #1e5a4f;color:#35e0d2;font-size:11px;">24.45x</span>
+      <span style="height:20px;display:inline-flex;align-items:center;padding:0 8px;border-radius:999px;background:#2a1414;border:1px solid #5a2222;color:#ff5d5d;font-size:11px;">1.08x</span>
+    </span>
+  </div>
+</div>
+</div>
+</body></html>

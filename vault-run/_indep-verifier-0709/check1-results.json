@@ -1,0 +1,172 @@
+{
+  "normal": {
+    "samples": [
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "0.869901"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "0.961726"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "0.992239"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "0.99893"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "vault-rhythm-badge-enter",
+        "animationDuration": "0.24s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      }
+    ],
+    "ariaLive": "polite"
+  },
+  "reduced": {
+    "samples": [
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      },
+      {
+        "tier": "rhythm",
+        "ariaLive": "polite",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationPlayState": "running",
+        "opacity": "1"
+      }
+    ],
+    "ariaLive": "polite"
+  }
+}

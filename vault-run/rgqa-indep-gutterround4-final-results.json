@@ -1,0 +1,160 @@
+{
+  "lobby_panel": {
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "lobby_gutterTestids": {
+    "left": true,
+    "hero": true,
+    "right": true,
+    "apein": true
+  },
+  "apein_style": {
+    "text": "ape in →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "cursor": "pointer",
+    "minWidth": "auto",
+    "width": "123.906px",
+    "cardWidth": 153.90625,
+    "btnWidth": 123.90625,
+    "overflowsCard": false,
+    "cardBackdropFilter": "blur(14px) saturate(1.15)",
+    "cardOpacity": "1"
+  },
+  "apein_click_fired": true,
+  "afterApein_betentryVisible": true,
+  "sendIt_click_fired": true,
+  "playing_panel_beforeReveal": {
+    "childElementCount": 0
+  },
+  "playing_gutterTestids": {
+    "left": true,
+    "status": true,
+    "right": true,
+    "actions": true
+  },
+  "takeProfit_style_disabled": {
+    "text": "take profitcrack one open first",
+    "disabled": true,
+    "opacity": "1",
+    "backgroundImage": "none",
+    "backgroundColor": "rgba(94, 234, 212, 0.08)",
+    "color": "rgba(255, 255, 255, 0.62)",
+    "cursor": "not-allowed",
+    "minWidth": "0px",
+    "width": "179.969px",
+    "cardWidth": 209.96875,
+    "btnWidth": 179.96875,
+    "overflowsCard": false,
+    "cardBackdropFilter": "blur(14px) saturate(1.15)",
+    "cardOpacity": "1"
+  },
+  "gotSafeReveal": true,
+  "takeProfit_style_enabled": {
+    "text": "TAKE PROFIT1.10 USDC · 1.10x",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "cursor": "pointer",
+    "minWidth": "0px",
+    "width": "159.438px",
+    "cardWidth": 189.4375,
+    "btnWidth": 159.4375,
+    "overflowsCard": false,
+    "cardBackdropFilter": "blur(14px) saturate(1.15)",
+    "cardOpacity": "1"
+  },
+  "cashout_click_fired": true,
+  "afterCashout_settledVisible": true,
+  "settled_panel": {
+    "childElementCount": 0
+  },
+  "settled_gutterTestids": {
+    "left": true,
+    "result": true,
+    "meta": true,
+    "rightNew": true,
+    "nextbet": true,
+    "betagain": true
+  },
+  "betAgain_style": {
+    "text": "bet again →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "cursor": "pointer",
+    "minWidth": "auto",
+    "width": "230px",
+    "cardWidth": 260,
+    "btnWidth": 230,
+    "overflowsCard": false,
+    "cardBackdropFilter": "blur(14px) saturate(1.15)",
+    "cardOpacity": "1"
+  },
+  "settled_resultText": "TAKE PROFITyou'll take it1.10x+0.10 USDC1 pumped",
+  "betAgain_click_fired": true,
+  "afterBetAgain_phase": {
+    "isPlaying": true,
+    "isSettled": false
+  },
+  "copyScan": {
+    "vault-lobby-hero": null,
+    "vault-lobby-apein": null,
+    "vault-playing-status": "PUMPINGcrack a compartment open · or take profitPump1.00xBag now1.00 USDCRugs3",
+    "vault-playing-actions": "MANUALTRAILtake profitcrack one open first",
+    "vault-settled-result": null,
+    "vault-settled-meta": null,
+    "vault-settled-betagain": null
+  },
+  "balanceVisible_afterAll": true,
+  "mobile_lobby_gutterDom": {
+    "lobbyLeft": 0,
+    "lobbyRight": 0
+  },
+  "mobile_lobby_hasApeIn": true,
+  "mobile_playing_gutterDom": {
+    "playingLeft": 0,
+    "playingRight": 0
+  },
+  "mobile_playing_hasTakeProfit": true,
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "contrast_apein": {
+    "ratios": [
+      11.404068708849923,
+      6.117688559496941
+    ],
+    "worst": 6.117688559496941
+  },
+  "contrast_takeProfit_disabled": {
+    "ratios": [
+      1.4793152265107137
+    ],
+    "worst": 1.4793152265107137
+  },
+  "contrast_takeProfit_enabled": {
+    "ratios": [
+      11.404068708849923,
+      6.117688559496941
+    ],
+    "worst": 6.117688559496941
+  },
+  "contrast_betAgain": {
+    "ratios": [
+      11.404068708849923,
+      6.117688559496941
+    ],
+    "worst": 6.117688559496941
+  }
+}

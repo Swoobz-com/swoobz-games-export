@@ -1,0 +1,376 @@
+{
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "BLUECHIPS": {
+    "purple": {
+      "found": false,
+      "purpleHits": [],
+      "samples": [
+        {
+          "x": 215,
+          "y": 133,
+          "r": 17,
+          "g": 25,
+          "b": 28,
+          "a": 255
+        },
+        {
+          "x": 215,
+          "y": 400,
+          "r": 83,
+          "g": 66,
+          "b": 22,
+          "a": 255
+        },
+        {
+          "x": 215,
+          "y": 667,
+          "r": 71,
+          "g": 56,
+          "b": 24,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 133,
+          "r": 90,
+          "g": 113,
+          "b": 131,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 400,
+          "r": 59,
+          "g": 73,
+          "b": 82,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 667,
+          "r": 49,
+          "g": 65,
+          "b": 80,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 133,
+          "r": 17,
+          "g": 25,
+          "b": 28,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 400,
+          "r": 87,
+          "g": 77,
+          "b": 46,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 667,
+          "r": 54,
+          "g": 45,
+          "b": 31,
+          "a": 255
+        }
+      ]
+    },
+    "align": {
+      "canvasW": 1290.796875,
+      "canvasH": 801,
+      "tile": 92.32441344000001,
+      "gap": 13.3952832,
+      "full": 515.2032,
+      "x0": 387.7968375,
+      "y0": 130.8834,
+      "rightEdgePx": 977.5937875,
+      "panelBleedRight": -387.79683750000004,
+      "panelBleedLeft": 387.7968375,
+      "lastTileBottom": 646.0866000000001,
+      "belowCanvas": -154.9133999999999
+    },
+    "perf": {
+      "fps": 230.9204061578775,
+      "clearRectFps": 239.76416639371112,
+      "commitCount": 0,
+      "elapsedMs": 3053,
+      "rafCount": 705,
+      "clearRectCount": 732,
+      "commitLog": []
+    },
+    "drawImageCalls": []
+  },
+  "ALTSEASON": {
+    "purple": {
+      "found": false,
+      "purpleHits": [],
+      "samples": [
+        {
+          "x": 215,
+          "y": 133,
+          "r": 7,
+          "g": 14,
+          "b": 18,
+          "a": 255
+        },
+        {
+          "x": 215,
+          "y": 400,
+          "r": 8,
+          "g": 14,
+          "b": 18,
+          "a": 255
+        },
+        {
+          "x": 215,
+          "y": 667,
+          "r": 7,
+          "g": 13,
+          "b": 15,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 133,
+          "r": 90,
+          "g": 113,
+          "b": 131,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 400,
+          "r": 63,
+          "g": 78,
+          "b": 86,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 667,
+          "r": 44,
+          "g": 60,
+          "b": 76,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 133,
+          "r": 8,
+          "g": 15,
+          "b": 18,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 400,
+          "r": 9,
+          "g": 14,
+          "b": 18,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 667,
+          "r": 7,
+          "g": 13,
+          "b": 16,
+          "a": 255
+        }
+      ]
+    },
+    "align": {
+      "canvasW": 1290.796875,
+      "canvasH": 801,
+      "tile": 92.32441344000001,
+      "gap": 13.3952832,
+      "full": 515.2032,
+      "x0": 387.7968375,
+      "y0": 130.8834,
+      "rightEdgePx": 977.5937875,
+      "panelBleedRight": -387.79683750000004,
+      "panelBleedLeft": 387.7968375,
+      "lastTileBottom": 646.0866000000001,
+      "belowCanvas": -154.9133999999999
+    },
+    "perf": {
+      "fps": 237.35537190082644,
+      "clearRectFps": 240.6611570247934,
+      "commitCount": 0,
+      "elapsedMs": 3025,
+      "rafCount": 718,
+      "clearRectCount": 728,
+      "commitLog": []
+    },
+    "drawImageCalls": []
+  },
+  "SHITCOIN": {
+    "purple": {
+      "found": false,
+      "purpleHits": [],
+      "samples": [
+        {
+          "x": 215,
+          "y": 133,
+          "r": 14,
+          "g": 12,
+          "b": 8,
+          "a": 255
+        },
+        {
+          "x": 215,
+          "y": 400,
+          "r": 38,
+          "g": 25,
+          "b": 24,
+          "a": 255
+        },
+        {
+          "x": 215,
+          "y": 667,
+          "r": 21,
+          "g": 12,
+          "b": 11,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 133,
+          "r": 238,
+          "g": 208,
+          "b": 138,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 400,
+          "r": 216,
+          "g": 168,
+          "b": 85,
+          "a": 255
+        },
+        {
+          "x": 645,
+          "y": 667,
+          "r": 72,
+          "g": 95,
+          "b": 109,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 133,
+          "r": 14,
+          "g": 11,
+          "b": 9,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 400,
+          "r": 13,
+          "g": 12,
+          "b": 10,
+          "a": 255
+        },
+        {
+          "x": 1075,
+          "y": 667,
+          "r": 12,
+          "g": 11,
+          "b": 9,
+          "a": 255
+        }
+      ]
+    },
+    "align": {
+      "canvasW": 1290.796875,
+      "canvasH": 801,
+      "tile": 62.11878582857144,
+      "gap": 13.3952832,
+      "full": 515.2032,
+      "x0": 387.7968375,
+      "y0": 130.8834,
+      "rightEdgePx": 977.5937875,
+      "panelBleedRight": -387.79683750000004,
+      "panelBleedLeft": 387.7968375,
+      "lastTileBottom": 646.0866000000001,
+      "belowCanvas": -154.9133999999999
+    },
+    "perf": {
+      "fps": 238.96448722203783,
+      "clearRectFps": 239.960172585463,
+      "commitCount": 0,
+      "elapsedMs": 3013,
+      "rafCount": 720,
+      "clearRectCount": 723,
+      "commitLog": []
+    },
+    "drawImageCalls": []
+  },
+  "assetFailures": [],
+  "resizeResults": [
+    {
+      "w": 1024,
+      "h": 768,
+      "tag": "1024x768",
+      "canvasState": {
+        "cssW": 908.078125,
+        "cssH": 683.515625,
+        "bufW": 908,
+        "bufH": 683
+      },
+      "snapHash": 830,
+      "commitsDuringResize": 2,
+      "commitsAfterSettle": 0
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "tag": "1440x900",
+      "canvasState": {
+        "cssW": 1290.796875,
+        "cssH": 801,
+        "bufW": 1290,
+        "bufH": 801
+      },
+      "snapHash": 807,
+      "commitsDuringResize": 2,
+      "commitsAfterSettle": 0
+    },
+    {
+      "w": 1920,
+      "h": 1080,
+      "tag": "1920x1080",
+      "canvasState": {
+        "cssW": 1646,
+        "cssH": 961.1875,
+        "bufW": 1646,
+        "bufH": 961
+      },
+      "snapHash": 793,
+      "commitsDuringResize": 2,
+      "commitsAfterSettle": 0
+    },
+    {
+      "w": 1440,
+      "h": 1920,
+      "tag": "1440x1920",
+      "canvasState": {
+        "cssW": 1290.796875,
+        "cssH": 1000,
+        "bufW": 1290,
+        "bufH": 1000
+      },
+      "snapHash": 810,
+      "commitsDuringResize": 2,
+      "commitsAfterSettle": 0
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+SWOOBZ
+gold chamber · assay hoard · RTP 96.50%
+SESSION · 1 LINE · 9 CLAIMED · +0.41
+BALANCE
+1000.41
+LINE CLAIMED
+9 discs · 1.41x
+PAYOUT
+1.41
+◆ SUN-STONE RECKONING · Standard Floor · 4 cracked discs in 10×10
+seed  eb9cd7929c61caba2d3135f85b6ac194ed86ed82b5a6898f617cfa8994632d4f
+copy
+hash  96a7e5505ad32ca9208e24d84254de74d958525ccb4f74492d5a143f6303c034
+copy
+round 0100000000000000 · re-derive Fisher-Yates → matches board
+TEMPLE DEPTH
+Lean Floor
+up to 15.79x
+3 cracked discs · RTP 96.50%
+Standard Floor
+up to 41.40x
+4 cracked discs · RTP 96.50%
+Heavy Floor
+up to 2335.03x
+8 cracked discs · RTP 96.50%
+CLAIM LINE
+09
+/ 8 min
+HOARD
+1.41 (1.41x)
+YOUR BET
+−
+1.00
++
+1.00
+5.00
+10.00
+25.00
+50.00
+BALANCE
+1000.41
+ASSAY AGAIN
+CLOSE
+PLAY SAFE
+Balance 1000.41. Line claimed. Payout 1.41.

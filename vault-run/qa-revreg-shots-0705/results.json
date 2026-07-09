@@ -1,0 +1,251 @@
+{
+  "widthsGapProbe": {
+    "1000": {
+      "leftGap": 32,
+      "leftOverlap": false,
+      "rightGap": 32,
+      "rightOverlap": false,
+      "rightOffscreen": false,
+      "viewportW": 1000,
+      "canvasWidth": 886
+    },
+    "1280": {
+      "leftGap": 31.98,
+      "leftOverlap": false,
+      "rightGap": 31.98,
+      "rightOverlap": false,
+      "rightOffscreen": false,
+      "viewportW": 1280,
+      "canvasWidth": 1143.59375
+    },
+    "1440": {
+      "leftGap": 31.99,
+      "leftOverlap": false,
+      "rightGap": 31.99,
+      "rightOverlap": false,
+      "rightOffscreen": false,
+      "viewportW": 1440,
+      "canvasWidth": 1290.796875
+    },
+    "1920": {
+      "leftGap": 32,
+      "leftOverlap": false,
+      "rightGap": 32,
+      "rightOverlap": false,
+      "rightOffscreen": false,
+      "viewportW": 1920,
+      "canvasWidth": 1646
+    },
+    "2560": {
+      "leftGap": 32,
+      "leftOverlap": false,
+      "rightGap": 32,
+      "rightOverlap": false,
+      "rightOffscreen": false,
+      "viewportW": 2560,
+      "canvasWidth": 1646
+    }
+  },
+  "phaseGeometry": {
+    "1440x900": {
+      "lobby": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "docScrollHeight": 900,
+        "docClientHeight": 900,
+        "pageScroll": false
+      },
+      "betentry": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "docScrollHeight": 900,
+        "docClientHeight": 900,
+        "pageScroll": false
+      },
+      "playing": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "docScrollHeight": 900,
+        "docClientHeight": 900,
+        "pageScroll": false
+      },
+      "settled": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "gutterCardA": 0,
+        "gutterCardARight": 0,
+        "docScrollHeight": 900,
+        "docClientHeight": 900,
+        "pageScroll": false
+      }
+    },
+    "1920x1080": {
+      "lobby": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "docScrollHeight": 1080,
+        "docClientHeight": 1080,
+        "pageScroll": false
+      },
+      "betentry": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "docScrollHeight": 1080,
+        "docClientHeight": 1080,
+        "pageScroll": false
+      },
+      "playing": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "docScrollHeight": 1080,
+        "docClientHeight": 1080,
+        "pageScroll": false
+      },
+      "settled": {
+        "testids": {
+          "mainGridRefCount": 0,
+          "gutterCardA": 0,
+          "gutterCardARight": 0
+        },
+        "gap": {
+          "leftGap": 31.99,
+          "leftOverlap": false,
+          "rightGap": 31.99,
+          "rightOverlap": false,
+          "rightOffscreen": false
+        },
+        "gutterCardA": 0,
+        "gutterCardARight": 0,
+        "docScrollHeight": 1080,
+        "docClientHeight": 1080,
+        "pageScroll": false
+      }
+    }
+  },
+  "mobile": {
+    "lobby": {
+      "gutterDomCount": 0,
+      "docScrollHeight": 844
+    },
+    "betentry": {
+      "gutterDomCount": 0
+    },
+    "playing": {
+      "gutterDomCount": 0
+    },
+    "settled": {
+      "gutterDomCount": 0
+    }
+  },
+  "errors": {
+    "1440x900": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "1920x1080": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "1000x900": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "390x844": []
+  },
+  "narrow1000": {
+    "lobby": {
+      "docScrollHeight": 900,
+      "docClientHeight": 900,
+      "bodyOverflowY": "auto"
+    },
+    "betentry": {
+      "docScrollHeight": 900,
+      "docClientHeight": 900,
+      "bodyOverflowY": "auto",
+      "gap": {
+        "leftGap": 32,
+        "leftOverlap": false,
+        "rightGap": 32,
+        "rightOverlap": false,
+        "rightOffscreen": false
+      }
+    },
+    "playing": {
+      "docScrollHeight": 900,
+      "docClientHeight": 900,
+      "bodyOverflowY": "auto"
+    },
+    "settled": {
+      "docScrollHeight": 900,
+      "docClientHeight": 900,
+      "bodyOverflowY": "auto"
+    }
+  }
+}

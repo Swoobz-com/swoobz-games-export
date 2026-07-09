@@ -1,0 +1,521 @@
+{
+  "pixel7-412x915": {
+    "checks": [
+      {
+        "extraRound": 1,
+        "trailLen": 40,
+        "outcome": "BUST"
+      }
+    ],
+    "httpStatus": 200,
+    "lobbyControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 82,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "ENTER THE ASSAY LINE",
+        "w": 207.95,
+        "h": 43,
+        "top": 597,
+        "left": 27,
+        "touchAction": "auto"
+      }
+    ],
+    "lobbyCtaThumbZonePct": 67.6,
+    "scrollBoxInitial": {
+      "scrollerX": 25,
+      "scrollerY": 143,
+      "scrollerW": 364,
+      "scrollerH": 364,
+      "canvasW": 1472,
+      "canvasH": 1472,
+      "touchAction": "pan-x pan-y",
+      "scrollWidth": 1472,
+      "scrollHeight": 1472,
+      "scrollLeft": 556,
+      "scrollTop": 556
+    },
+    "tilePx": 46,
+    "round1PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 82,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 544,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 544,
+        "left": 165,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 668,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: BEAD",
+        "w": 98.64,
+        "h": 40,
+        "top": 668,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PLUNGE ⚡ KEY",
+        "w": 364,
+        "h": 45,
+        "top": 716,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "odometerAfter7Taps": "07",
+    "plungeStateAt7": {
+      "disabled": true,
+      "opacity": "0.55",
+      "text": "PLUNGE ⚡ KEY"
+    },
+    "odometerAfter8Taps": "08",
+    "plungeStateAt8": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "PLUNGE ⚡ KEY"
+    },
+    "panDelta": {
+      "dLeft": 200,
+      "dTop": 0
+    },
+    "panMoved": true,
+    "odometerAfterPan": "08",
+    "trailLenAfterTapTo100": "100",
+    "perPageVisible": 49,
+    "trailLenAfterCapAttempt": "100",
+    "plungeStateAt100": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "PLUNGE ⚡ KEY"
+    },
+    "odometerAfterClear": "00",
+    "odometerRound1Final": "08",
+    "plungeBoxRound1": {
+      "x": 207,
+      "y": 738.5,
+      "w": 364,
+      "h": 45,
+      "top": 716,
+      "vh": 915
+    },
+    "plungeThumbZonePctRound1": 80.7,
+    "round1Outcome": "WIN",
+    "sessionChipAfterR1": "SESSION · 1 LINE · 8 CLAIMED · +0.32",
+    "safetyLinkBoxAfterR1": {
+      "w": 66.84,
+      "h": 40,
+      "top": 82,
+      "vh": 915
+    },
+    "assayAgainBoxR1": {
+      "x": 169.796875,
+      "y": 676.5625,
+      "w": 289.59375,
+      "h": 43,
+      "top": 655.0625,
+      "vh": 915
+    },
+    "closeBoxR1": {
+      "x": 355.796875,
+      "y": 676.5625,
+      "w": 66.40625,
+      "h": 43,
+      "top": 655.0625,
+      "vh": 915
+    },
+    "round2PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 82,
+        "left": 251,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 544,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 544,
+        "left": 165,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 668,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: INSTANT",
+        "w": 115.81,
+        "h": 40,
+        "top": 668,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "SAME LINE",
+        "w": 90.41,
+        "h": 40,
+        "top": 668,
+        "left": 223,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PLUNGE ⚡ KEY",
+        "w": 364,
+        "h": 45,
+        "top": 716,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "sameLineBoxR2": {
+      "x": 268.40625,
+      "y": 688,
+      "w": 90.40625,
+      "h": 40,
+      "top": 668,
+      "vh": 915
+    },
+    "clearBoxR2": {
+      "x": 58.1953125,
+      "y": 688,
+      "w": 66.390625,
+      "h": 40,
+      "top": 668,
+      "vh": 915
+    },
+    "paceBoxR2": {
+      "x": 157.296875,
+      "y": 688,
+      "w": 115.8125,
+      "h": 40,
+      "top": 668,
+      "vh": 915
+    },
+    "plungeBoxR2Predisable": {
+      "x": 207,
+      "y": 738.5,
+      "w": 364,
+      "h": 45,
+      "top": 716,
+      "vh": 915
+    },
+    "odometerAfterSameLine": "08",
+    "plungeBoxRound2": {
+      "x": 207,
+      "y": 738.5,
+      "w": 364,
+      "h": 45,
+      "top": 716,
+      "vh": 915
+    },
+    "plungeThumbZonePctRound2": 80.7,
+    "round2Outcome": "WIN",
+    "sessionChipAfterR2": "SESSION · 2 LINES · 16 CLAIMED · +0.65",
+    "outcomesSeen": [
+      "WIN",
+      "BUST"
+    ],
+    "sessionChipFinal": "SESSION · 3 LINES · 24 CLAIMED · -0.34",
+    "postAllRoundsPhaseIsPlanning": true
+  },
+  "iphone14pro-390x844": {
+    "checks": [],
+    "httpStatus": 304,
+    "lobbyControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 82,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "ENTER THE ASSAY LINE",
+        "w": 207.95,
+        "h": 43,
+        "top": 575,
+        "left": 27,
+        "touchAction": "auto"
+      }
+    ],
+    "lobbyCtaThumbZonePct": 70.7,
+    "scrollBoxInitial": {
+      "scrollerX": 25,
+      "scrollerY": 143,
+      "scrollerW": 342,
+      "scrollerH": 342,
+      "canvasW": 1472,
+      "canvasH": 1472,
+      "touchAction": "pan-x pan-y",
+      "scrollWidth": 1472,
+      "scrollHeight": 1472,
+      "scrollLeft": 556,
+      "scrollTop": 556
+    },
+    "tilePx": 46,
+    "round1PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 82,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 522,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 522,
+        "left": 153,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 646,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: BEAD",
+        "w": 98.64,
+        "h": 40,
+        "top": 646,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PLUNGE ⚡ KEY",
+        "w": 342,
+        "h": 45,
+        "top": 694,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "odometerAfter7Taps": "07",
+    "plungeStateAt7": {
+      "disabled": true,
+      "opacity": "0.55",
+      "text": "PLUNGE ⚡ KEY"
+    },
+    "odometerAfter8Taps": "08",
+    "plungeStateAt8": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "PLUNGE ⚡ KEY"
+    },
+    "panDelta": {
+      "dLeft": 147,
+      "dTop": 0
+    },
+    "panMoved": true,
+    "odometerAfterPan": "08",
+    "trailLenAfterTapTo100": "100",
+    "perPageVisible": 49,
+    "trailLenAfterCapAttempt": "100",
+    "plungeStateAt100": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "PLUNGE ⚡ KEY"
+    },
+    "odometerAfterClear": "00",
+    "odometerRound1Final": "08",
+    "plungeBoxRound1": {
+      "x": 196,
+      "y": 716.5,
+      "w": 342,
+      "h": 45,
+      "top": 694,
+      "vh": 844
+    },
+    "plungeThumbZonePctRound1": 84.9,
+    "round1Outcome": "BUST",
+    "sessionChipAfterR1": "SESSION · 1 LINE · 2 CLAIMED · -1.00",
+    "safetyLinkBoxAfterR1": {
+      "w": 66.41,
+      "h": 40,
+      "top": 82,
+      "vh": 844
+    },
+    "assayAgainBoxR1": {
+      "x": 158.796875,
+      "y": 666.90625,
+      "w": 267.59375,
+      "h": 43,
+      "top": 645.40625,
+      "vh": 844
+    },
+    "closeBoxR1": {
+      "x": 333.796875,
+      "y": 666.90625,
+      "w": 66.40625,
+      "h": 43,
+      "top": 645.40625,
+      "vh": 844
+    },
+    "round2PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.41,
+        "h": 40,
+        "top": 82,
+        "left": 249,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 522,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 522,
+        "left": 153,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 646,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: INSTANT",
+        "w": 115.81,
+        "h": 40,
+        "top": 646,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "SAME LINE",
+        "w": 90.41,
+        "h": 40,
+        "top": 646,
+        "left": 223,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PLUNGE ⚡ KEY",
+        "w": 342,
+        "h": 45,
+        "top": 694,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "sameLineBoxR2": {
+      "x": 268.40625,
+      "y": 666,
+      "w": 90.40625,
+      "h": 40,
+      "top": 646,
+      "vh": 844
+    },
+    "clearBoxR2": {
+      "x": 58.1953125,
+      "y": 666,
+      "w": 66.390625,
+      "h": 40,
+      "top": 646,
+      "vh": 844
+    },
+    "paceBoxR2": {
+      "x": 157.296875,
+      "y": 666,
+      "w": 115.8125,
+      "h": 40,
+      "top": 646,
+      "vh": 844
+    },
+    "plungeBoxR2Predisable": {
+      "x": 196,
+      "y": 716.5,
+      "w": 342,
+      "h": 45,
+      "top": 694,
+      "vh": 844
+    },
+    "odometerAfterSameLine": "08",
+    "plungeBoxRound2": {
+      "x": 196,
+      "y": 716.5,
+      "w": 342,
+      "h": 45,
+      "top": 694,
+      "vh": 844
+    },
+    "plungeThumbZonePctRound2": 84.9,
+    "round2Outcome": "WIN",
+    "sessionChipAfterR2": "SESSION · 2 LINES · 10 CLAIMED · -0.67",
+    "outcomesSeen": [
+      "BUST",
+      "WIN"
+    ],
+    "sessionChipFinal": "SESSION · 2 LINES · 10 CLAIMED · -0.67",
+    "postAllRoundsPhaseIsPlanning": true
+  },
+  "errors": []
+}

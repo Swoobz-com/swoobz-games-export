@@ -1,0 +1,17 @@
+Swoobz games export
+====================
+
+originals/  = source components from app/player/src/components/originals/
+generated/  = public assets from app/player/public/assets/generated/
+
+Games included:
+  oo_fisher     source: originals/oo_fisher      assets: generated/oo-fisher
+  oo_rei        source: originals/oo_rei         assets: generated/oo-rei   (~684MB of cinematic/myth renders)
+  pulse         source: originals/pulse          assets: generated/pulse
+  Rug or Riches source: originals/vault          assets: generated/rug-or-riches (crypto-ape theme)
+                                                  + generated/vault (alt heist/iris-door theme)
+
+Note: "Rug or Riches" uses code slug `vault` (per originals-lobby/originalsCatalog.ts).
+      It is the degen crypto-ape Mines game. Two art packs are included.
+
+Excluded: node_modules, .DS_Store

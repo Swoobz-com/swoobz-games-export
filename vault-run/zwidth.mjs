@@ -1,0 +1,10 @@
+import puppeteer from 'puppeteer-core';
+const EXE='C:/Program Files/Google/Chrome/Application/chrome.exe';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const browser=await puppeteer.launch({executablePath:EXE,headless:false,defaultViewport:{width:390,height:844,deviceScaleFactor:1},args:['--window-size=410,984']});
+const page=(await browser.pages())[0];
+await page.goto('http://localhost:5181/',{waitUntil:'networkidle2',timeout:60000});
+await wait(1500);
+const w=await page.evaluate(()=>({sw:document.documentElement.scrollWidth, iw:window.innerWidth}));
+console.log(JSON.stringify(w));
+await browser.close();

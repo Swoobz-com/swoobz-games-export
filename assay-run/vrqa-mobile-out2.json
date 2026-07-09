@@ -1,0 +1,143 @@
+{
+  "mobile390": {
+    "lobbyOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "lobbyWordmarkCount": 2,
+    "backdropPresent": true,
+    "planningOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "boardRect": {
+      "canvasRect": {
+        "x": -531,
+        "y": -412,
+        "w": 1472,
+        "h": 1472
+      },
+      "wrapperRect": {
+        "x": 25,
+        "y": 144,
+        "w": 342,
+        "h": 342
+      },
+      "scrollLeft": 556,
+      "scrollTop": 556
+    },
+    "painted9": 9,
+    "trailOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "settledInfo1": {
+      "found": true,
+      "outcome": "WIN",
+      "rect": {
+        "top": 646.40625,
+        "bottom": 689.40625
+      },
+      "viewportOverlapsCanvas": false
+    },
+    "settledOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "painted38_attempt1": 38,
+    "bustAttemptReport": {
+      "attempts": 1,
+      "found": true,
+      "busted": true,
+      "rect": {
+        "top": 646.40625,
+        "bottom": 689.40625
+      }
+    },
+    "settledBustOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    }
+  },
+  "mobile412": {
+    "lobbyOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "lobbyWordmarkCount": 2,
+    "backdropPresent": true,
+    "planningOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "boardRect": {
+      "canvasRect": {
+        "x": -531,
+        "y": -412,
+        "w": 1472,
+        "h": 1472
+      },
+      "wrapperRect": {
+        "x": 25,
+        "y": 144,
+        "w": 364,
+        "h": 364
+      },
+      "scrollLeft": 556,
+      "scrollTop": 556
+    },
+    "painted9": 9,
+    "trailOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "settledInfo1": {
+      "found": true,
+      "outcome": "WIN",
+      "rect": {
+        "top": 656.0625,
+        "bottom": 699.0625
+      },
+      "viewportOverlapsCanvas": false
+    },
+    "settledOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "painted38_attempt1": 38,
+    "bustAttemptReport": {
+      "attempts": 1,
+      "found": true,
+      "busted": true,
+      "rect": {
+        "top": 656.0625,
+        "bottom": 699.0625
+      }
+    },
+    "settledBustOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    }
+  },
+  "consoleErrors": []
+}

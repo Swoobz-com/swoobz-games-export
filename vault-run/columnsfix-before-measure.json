@@ -1,0 +1,68 @@
+[
+  {
+    "vp": "1440",
+    "clicked": true,
+    "measure": {
+      "board": {
+        "top": -294,
+        "bottom": 408,
+        "left": 74.59375,
+        "right": 1365.390625,
+        "width": 1290.796875,
+        "height": 702
+      },
+      "panel": {
+        "top": 409,
+        "bottom": 899.640625,
+        "left": 74.59375,
+        "right": 1365.390625,
+        "width": 1290.796875,
+        "height": 490.640625
+      },
+      "modeRow": {
+        "top": 593,
+        "bottom": 686.640625,
+        "left": 359.984375,
+        "right": 1079.984375,
+        "width": 720,
+        "height": 93.640625
+      },
+      "modeRowCount": 1,
+      "modeCardWidth": 234.65625,
+      "modeCardCount": 3
+    }
+  },
+  {
+    "vp": "1920",
+    "clicked": true,
+    "measure": {
+      "board": {
+        "top": -254,
+        "bottom": 588.390625,
+        "left": 137,
+        "right": 1783,
+        "width": 1646,
+        "height": 842.390625
+      },
+      "panel": {
+        "top": 589.390625,
+        "bottom": 1080.03125,
+        "left": 137,
+        "right": 1783,
+        "width": 1646,
+        "height": 490.640625
+      },
+      "modeRow": {
+        "top": 773.390625,
+        "bottom": 867.03125,
+        "left": 600,
+        "right": 1320,
+        "width": 720,
+        "height": 93.640625
+      },
+      "modeRowCount": 1,
+      "modeCardWidth": 234.65625,
+      "modeCardCount": 3
+    }
+  }
+]

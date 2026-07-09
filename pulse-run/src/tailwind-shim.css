@@ -1,0 +1,21 @@
+/*
+ * Minimal Tailwind utility shim for the Pulse standalone runner.
+ *
+ * The game's components are almost entirely inline-styled, EXCEPT the curve
+ * <canvas> (and its reduced-motion fallback) which use Tailwind utility
+ * classes. Without Tailwind those classes are no-ops, so the canvas falls back
+ * to its 300x150 HTML default anchored top-left — the whole game appeared
+ * crammed into the top-left corner. These rules restore exactly the utilities
+ * those two elements need. (The `pulse-*` and `sr-only` classes are defined in
+ * PulseExperience's own <style> block, so they are NOT needed here.)
+ */
+.block { display: block; }
+.flex { display: flex; }
+.h-full { height: 100%; }
+.w-full { width: 100%; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.rounded-xl { border-radius: 0.75rem; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.bg-bg-secondary { background: #050b13; }
+.text-text-muted { color: rgba(255, 255, 255, 0.62); }

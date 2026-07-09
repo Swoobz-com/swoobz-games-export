@@ -1,0 +1,160 @@
+{
+  "lobby": {
+    "hasAutopickText": false,
+    "hasOwnershipPointsWord": false,
+    "gutterLeftCardA": {
+      "top": 459,
+      "bottom": 603.171875,
+      "left": 94.59375,
+      "right": 294.59375,
+      "width": 200,
+      "height": 144.171875,
+      "text": "SESSION PULSEBEST—WON · LOST0 · 0NET—no rounds yet this session · crack the first compartment to start the tape."
+    },
+    "gutterRightCardA": {
+      "top": 459,
+      "bottom": 603.171875,
+      "left": 1145.390625,
+      "right": 1345.390625,
+      "width": 200,
+      "height": 144.171875,
+      "text": "SESSION PULSEBEST—WON · LOST0 · 0NET—no rounds yet this session · crack the first compartment to start the tape."
+    }
+  },
+  "betEntry": {
+    "hasAutopickText": false,
+    "betentryLeft": {
+      "top": 131,
+      "bottom": 131,
+      "left": 94.59375,
+      "right": 94.59375,
+      "width": 0,
+      "height": 0,
+      "text": ""
+    },
+    "betentryRight": {
+      "top": 131,
+      "bottom": 847,
+      "left": 1062.109375,
+      "right": 1322.109375,
+      "width": 260,
+      "height": 716,
+      "text": "PICK YOUR WORLDmore rugs · bigger pumpsBLUECHIPSNORMAL3 rugs · 5×5RTP 97% · edge 3%sensible. still a rug waiting to happen.ALTSEASONHARD5 rugs · 5×5RTP 97% · edge 3%alts pumping. some go to zero.SHITC"
+    }
+  },
+  "playing": {
+    "hasAutopickText": false,
+    "hasRhythmBadgeText": true,
+    "playingLeft": null,
+    "playingRight": null,
+    "note": "STOP button never observed running — cascade likely completed within first poll tick"
+  },
+  "settled1440": {
+    "outcomeType": "win-or-completed",
+    "settledPanelText": "\n    RUG OR RICHESSETTLED · LOSSR0002SAFE LEFT 21SESSION · 1 ROUND · -1.00 USDCBALANCE · 999.00 USDCRUGGEDDOWN HORRENDOUS−1.00 USDCbet again →✓ verified0100000000000000view receipt ↓RUGGEDdown horrendousBUST-1.00 USDC1 before the rugSESSION META+1pts · 1.5x loss-amplifiedNEXT BET−1.00 USDC+bet again",
+    "settledLeft": {
+      "top": 129,
+      "bottom": 408,
+      "left": 94.59375,
+      "right": 244.265625,
+      "width": 149.671875,
+      "height": 279,
+      "text": "RUGGEDdown horrendousBUST-1.00 USDC1 before the rugSESSION META+1pts · 1.5x loss-amplified"
+    },
+    "settledResult": {
+      "top": 129,
+      "bottom": 289,
+      "left": 94.59375,
+      "right": 244.265625,
+      "width": 149.671875,
+      "height": 160,
+      "text": "RUGGEDdown horrendousBUST-1.00 USDC1 before the rug"
+    },
+    "settledMeta": {
+      "top": 305,
+      "bottom": 408,
+      "left": 94.59375,
+      "right": 244.265625,
+      "width": 149.671875,
+      "height": 103,
+      "text": "SESSION META+1pts · 1.5x loss-amplified"
+    },
+    "settledRightNew": {
+      "top": 129,
+      "bottom": 450,
+      "left": 1085.390625,
+      "right": 1345.390625,
+      "width": 260,
+      "height": 321,
+      "text": "NEXT BET−1.00 USDC+bet again →bet again · same trail →change mode ↗share ↗"
+    },
+    "settledNextBet": {
+      "top": 129,
+      "bottom": 261,
+      "left": 1085.390625,
+      "right": 1345.390625,
+      "width": 260,
+      "height": 132,
+      "text": "NEXT BET−1.00 USDC+"
+    },
+    "settledBetAgain": {
+      "top": 277,
+      "bottom": 450,
+      "left": 1085.390625,
+      "right": 1345.390625,
+      "width": 260,
+      "height": 173,
+      "text": "bet again →bet again · same trail →change mode ↗share ↗"
+    },
+    "gutterRight400": {
+      "top": 457,
+      "bottom": 523,
+      "left": 1149.765625,
+      "right": 1345.390625,
+      "width": 195.625,
+      "height": 66,
+      "text": "✓ verified0100000000000000view receipt ↓"
+    },
+    "gutterCardB": null,
+    "gutterCardC": {
+      "top": 457,
+      "bottom": 523,
+      "left": 1149.765625,
+      "right": 1345.390625,
+      "width": 195.625,
+      "height": 66,
+      "text": "✓ verified0100000000000000view receipt ↓"
+    },
+    "group1Bottom": 450,
+    "group2Top": 457,
+    "overlapPx": -7
+  },
+  "settled1920": {
+    "settledRightNew": {
+      "top": 129,
+      "bottom": 450,
+      "left": 1503,
+      "right": 1763,
+      "width": 260,
+      "height": 321,
+      "text": "NEXT BET−1.00 USDC+bet again →bet again · same trail →change mode ↗share ↗"
+    },
+    "gutterRight400": {
+      "top": 457,
+      "bottom": 523,
+      "left": 1567.375,
+      "right": 1763,
+      "width": 195.625,
+      "height": 66,
+      "text": "✓ verified0100000000000000view receipt ↓"
+    },
+    "overlapPx": -7
+  },
+  "settledRug": {
+    "note": "could not force a RUG within retry budget"
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

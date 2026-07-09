@@ -1,0 +1,92 @@
+{
+  "1440x900": {
+    "lobby": {
+      "colCount": 3,
+      "gaps": [
+        32,
+        32
+      ],
+      "barPadding": "22px 32px 26px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    },
+    "betentry": {
+      "colCount": 2,
+      "gaps": [
+        32
+      ],
+      "barPadding": "0px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    },
+    "playing": {
+      "colCount": 3,
+      "gaps": [
+        32,
+        32
+      ],
+      "barPadding": "22px 32px 26px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    },
+    "settled": {
+      "colCount": 3,
+      "gaps": [
+        32,
+        32
+      ],
+      "barPadding": "22px 32px 26px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    }
+  },
+  "1920x1080": {
+    "lobby": {
+      "colCount": 3,
+      "gaps": [
+        32,
+        32
+      ],
+      "barPadding": "22px 32px 26px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    },
+    "betentry": {
+      "colCount": 2,
+      "gaps": [
+        32
+      ],
+      "barPadding": "0px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    },
+    "playing": {
+      "colCount": 3,
+      "gaps": [
+        32,
+        32
+      ],
+      "barPadding": "22px 32px 26px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    },
+    "settled": {
+      "colCount": 3,
+      "gaps": [
+        32,
+        32
+      ],
+      "barPadding": "22px 32px 26px",
+      "barGap": "32px",
+      "barDisplay": "flex",
+      "barFlexDirection": "row"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+import puppeteer from 'puppeteer-core';
+const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const PORT = process.argv[2] || '5313';
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', defaultViewport: { width: 1440, height: 900 } });
+const page = await browser.newPage();
+const all404s = [];
+page.on('response', (resp) => { if (resp.status() >= 400) all404s.push(`${resp.status()} ${resp.request().resourceType()} ${resp.url()}`); });
+page.on('requestfailed', (req) => { all404s.push(`FAILED ${req.resourceType()} ${req.url()} ${req.failure()?.errorText}`); });
+await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'networkidle0' });
+await wait(2000);
+console.log('ALL 4xx/5xx/failed requests on initial load:');
+console.log(JSON.stringify(all404s, null, 2));
+await browser.close();

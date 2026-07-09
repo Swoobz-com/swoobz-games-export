@@ -1,0 +1,379 @@
+{
+  "lobby": {
+    "overflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412,
+      "overflowX": 0
+    },
+    "screenshot": "shots-finalgate-0707c/pixel7-1-lobby.png"
+  },
+  "betEntry": {
+    "tierOk": false,
+    "overflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412,
+      "overflowX": 0
+    },
+    "screenshot": "shots-finalgate-0707c/pixel7-2-bet-entry.png"
+  },
+  "planningFreePick": {
+    "armed": true,
+    "overflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412,
+      "overflowX": 0
+    },
+    "screenshot": "shots-finalgate-0707c/pixel7-3-planning-freepick.png"
+  },
+  "settledWin": {
+    "won": true,
+    "winAttempts": 1,
+    "hero": {
+      "text": "LINE CLAIMED",
+      "present": false,
+      "rect": null
+    },
+    "cert": {
+      "certBlock": {
+        "left": 0,
+        "top": 0,
+        "right": 412,
+        "bottom": 915,
+        "width": 412,
+        "height": 915
+      },
+      "sealRect": null,
+      "hexSpanRects": [
+        {
+          "left": 32,
+          "top": 480.59375,
+          "right": 332,
+          "bottom": 506.84375,
+          "width": 300,
+          "height": 26.25
+        },
+        {
+          "left": 32,
+          "top": 524.59375,
+          "right": 332,
+          "bottom": 550.84375,
+          "width": 300,
+          "height": 26.25
+        }
+      ],
+      "sealHexOverlapAreas": [
+        null,
+        null
+      ],
+      "docWidth": 412,
+      "certScrollWidth": 412,
+      "certClientWidth": 412,
+      "hexOverflowsViewport": [
+        false,
+        false
+      ]
+    },
+    "overflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412,
+      "overflowX": 0
+    },
+    "screenshot": "shots-finalgate-0707c/pixel7-6-settled-win.png",
+    "midCascadeScreenshot": "shots-finalgate-0707c/pixel7-3b-active-staggered-win-midcascade.png"
+  },
+  "activeInstant": {
+    "bustTierOk": false,
+    "instantBustFrame": "shots-finalgate-0707c/pixel7-4-active-instant-bustmoment.png",
+    "instantSignal": {
+      "coinImgCount": 0,
+      "haulText": "HAULhaul builds as the line runs"
+    },
+    "instantBustSettled": true,
+    "settledScreenshot": "shots-finalgate-0707c/pixel7-7-settled-bust-instant.png",
+    "cert": {
+      "certBlock": {
+        "left": 0,
+        "top": 0,
+        "right": 412,
+        "bottom": 915,
+        "width": 412,
+        "height": 915
+      },
+      "sealRect": null,
+      "hexSpanRects": [
+        {
+          "left": 32,
+          "top": 480.59375,
+          "right": 332,
+          "bottom": 506.84375,
+          "width": 300,
+          "height": 26.25
+        },
+        {
+          "left": 32,
+          "top": 524.59375,
+          "right": 332,
+          "bottom": 550.84375,
+          "width": 300,
+          "height": 26.25
+        }
+      ],
+      "sealHexOverlapAreas": [
+        null,
+        null
+      ],
+      "docWidth": 412,
+      "certScrollWidth": 412,
+      "certClientWidth": 412,
+      "hexOverflowsViewport": [
+        false,
+        false
+      ]
+    },
+    "overflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412,
+      "overflowX": 0
+    }
+  },
+  "activeStaggered": {
+    "staggeredBustFrame": "shots-finalgate-0707c/pixel7-5-active-staggered-bustmoment.png",
+    "staggeredSignal": {
+      "coinImgCount": 0,
+      "haulText": "HAULhaul builds as the line runs"
+    },
+    "staggeredBustSettled": true,
+    "settledScreenshot": "shots-finalgate-0707c/pixel7-7b-settled-bust-staggered.png",
+    "cert": {
+      "certBlock": {
+        "left": 0,
+        "top": 0,
+        "right": 412,
+        "bottom": 915,
+        "width": 412,
+        "height": 915
+      },
+      "sealRect": null,
+      "hexSpanRects": [
+        {
+          "left": 32,
+          "top": 480.59375,
+          "right": 332,
+          "bottom": 506.84375,
+          "width": 300,
+          "height": 26.25
+        },
+        {
+          "left": 32,
+          "top": 524.59375,
+          "right": 332,
+          "bottom": 550.84375,
+          "width": 300,
+          "height": 26.25
+        }
+      ],
+      "sealHexOverlapAreas": [
+        null,
+        null
+      ],
+      "docWidth": 412,
+      "certScrollWidth": 412,
+      "certClientWidth": 412,
+      "hexOverflowsViewport": [
+        false,
+        false
+      ]
+    },
+    "overflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412,
+      "overflowX": 0
+    }
+  },
+  "settledBust": {
+    "instant": {
+      "settled": true,
+      "screenshot": "shots-finalgate-0707c/pixel7-7-settled-bust-instant.png",
+      "cert": {
+        "certBlock": {
+          "left": 0,
+          "top": 0,
+          "right": 412,
+          "bottom": 915,
+          "width": 412,
+          "height": 915
+        },
+        "sealRect": null,
+        "hexSpanRects": [
+          {
+            "left": 32,
+            "top": 480.59375,
+            "right": 332,
+            "bottom": 506.84375,
+            "width": 300,
+            "height": 26.25
+          },
+          {
+            "left": 32,
+            "top": 524.59375,
+            "right": 332,
+            "bottom": 550.84375,
+            "width": 300,
+            "height": 26.25
+          }
+        ],
+        "sealHexOverlapAreas": [
+          null,
+          null
+        ],
+        "docWidth": 412,
+        "certScrollWidth": 412,
+        "certClientWidth": 412,
+        "hexOverflowsViewport": [
+          false,
+          false
+        ]
+      }
+    },
+    "staggered": {
+      "settled": true,
+      "screenshot": "shots-finalgate-0707c/pixel7-7b-settled-bust-staggered.png",
+      "cert": {
+        "certBlock": {
+          "left": 0,
+          "top": 0,
+          "right": 412,
+          "bottom": 915,
+          "width": 412,
+          "height": 915
+        },
+        "sealRect": null,
+        "hexSpanRects": [
+          {
+            "left": 32,
+            "top": 480.59375,
+            "right": 332,
+            "bottom": 506.84375,
+            "width": 300,
+            "height": 26.25
+          },
+          {
+            "left": 32,
+            "top": 524.59375,
+            "right": 332,
+            "bottom": 550.84375,
+            "width": 300,
+            "height": 26.25
+          }
+        ],
+        "sealHexOverlapAreas": [
+          null,
+          null
+        ],
+        "docWidth": 412,
+        "certScrollWidth": 412,
+        "certClientWidth": 412,
+        "hexOverflowsViewport": [
+          false,
+          false
+        ]
+      }
+    }
+  },
+  "darkRegisterSample": [
+    {
+      "x": 82,
+      "y": 183,
+      "r": 11,
+      "g": 17,
+      "b": 21,
+      "hex": "#0b1115",
+      "lum": 0.005
+    },
+    {
+      "x": 412,
+      "y": 183,
+      "r": 9,
+      "g": 27,
+      "b": 39,
+      "hex": "#091b27",
+      "lum": 0.01
+    },
+    {
+      "x": 742,
+      "y": 183,
+      "r": 11,
+      "g": 21,
+      "b": 27,
+      "hex": "#0b151b",
+      "lum": 0.007
+    },
+    {
+      "x": 82,
+      "y": 915,
+      "r": 4,
+      "g": 12,
+      "b": 19,
+      "hex": "#040c13",
+      "lum": 0.003
+    },
+    {
+      "x": 412,
+      "y": 915,
+      "r": 4,
+      "g": 12,
+      "b": 18,
+      "hex": "#040c12",
+      "lum": 0.003
+    },
+    {
+      "x": 742,
+      "y": 915,
+      "r": 49,
+      "g": 72,
+      "b": 91,
+      "hex": "#31485b",
+      "lum": 0.06
+    },
+    {
+      "x": 82,
+      "y": 1647,
+      "r": 7,
+      "g": 17,
+      "b": 25,
+      "hex": "#071119",
+      "lum": 0.005
+    },
+    {
+      "x": 412,
+      "y": 1647,
+      "r": 5,
+      "g": 15,
+      "b": 22,
+      "hex": "#050f16",
+      "lum": 0.004
+    },
+    {
+      "x": 742,
+      "y": 1647,
+      "r": 7,
+      "g": 17,
+      "b": 25,
+      "hex": "#071119",
+      "lum": 0.005
+    }
+  ],
+  "httpStatus": 304
+}

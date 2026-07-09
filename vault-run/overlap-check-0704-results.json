@@ -1,0 +1,116 @@
+{
+  "v1440": {
+    "w": 1440,
+    "h": 900,
+    "rects": {
+      "cardC": {
+        "top": 457,
+        "bottom": 523,
+        "left": 1149.765625,
+        "right": 1345.390625,
+        "w": 195.625,
+        "h": 66
+      },
+      "gutterRight": {
+        "top": 457,
+        "bottom": 523,
+        "left": 1149.765625,
+        "right": 1345.390625,
+        "w": 195.625,
+        "h": 66
+      },
+      "receiptBody": {
+        "top": 410,
+        "bottom": 671,
+        "left": 1062.109375,
+        "right": 1322.109375,
+        "w": 260,
+        "h": 261
+      },
+      "receiptGutterCard": {
+        "testid": "vault-settled-receipt-gutter",
+        "top": 410,
+        "bottom": 671,
+        "left": 1062.109375,
+        "right": 1322.109375
+      }
+    },
+    "overlapCardC_vs_ReceiptCard": true
+  },
+  "v1920": {
+    "w": 1920,
+    "h": 1080,
+    "rects": {
+      "cardC": {
+        "top": 457.40625,
+        "bottom": 523.40625,
+        "left": 1567.375,
+        "right": 1763,
+        "w": 195.625,
+        "h": 66
+      },
+      "gutterRight": {
+        "top": 457.40625,
+        "bottom": 523.40625,
+        "left": 1567.375,
+        "right": 1763,
+        "w": 195.625,
+        "h": 66
+      },
+      "receiptBody": {
+        "top": 410.40625,
+        "bottom": 671.40625,
+        "left": 1364.140625,
+        "right": 1624.140625,
+        "w": 260,
+        "h": 261
+      },
+      "receiptGutterCard": {
+        "testid": "vault-settled-receipt-gutter",
+        "top": 410.40625,
+        "bottom": 671.40625,
+        "left": 1364.140625,
+        "right": 1624.140625
+      }
+    },
+    "overlapCardC_vs_ReceiptCard": true
+  },
+  "v1150": {
+    "w": 1150,
+    "h": 850,
+    "rects": {
+      "cardC": {
+        "top": 457,
+        "bottom": 523,
+        "left": 871.375,
+        "right": 1067,
+        "w": 195.625,
+        "h": 66
+      },
+      "gutterRight": {
+        "top": 457,
+        "bottom": 523,
+        "left": 871.375,
+        "right": 1067,
+        "w": 195.625,
+        "h": 66
+      },
+      "receiptBody": {
+        "top": 423,
+        "bottom": 745.546875,
+        "left": 899.890625,
+        "right": 1086.984375,
+        "w": 187.09375,
+        "h": 322.546875
+      },
+      "receiptGutterCard": {
+        "testid": "vault-settled-receipt-gutter",
+        "top": 423,
+        "bottom": 745.546875,
+        "left": 899.890625,
+        "right": 1086.984375
+      }
+    },
+    "overlapCardC_vs_ReceiptCard": true
+  }
+}

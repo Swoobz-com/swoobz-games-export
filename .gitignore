@@ -1,0 +1,17 @@
+node_modules/
+dist/
+generated/
+output/
+.vite/
+.turbo/
+.next/
+*.local
+*.log
+vite-*.log
+shots/
+shots-*/
+_*.mjs
+*.zip
+*.mp4
+*.mov
+*.webm

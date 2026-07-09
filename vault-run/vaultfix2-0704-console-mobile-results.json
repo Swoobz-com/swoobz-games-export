@@ -1,0 +1,27 @@
+{
+  "desktop_1440x900": {
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "foundDesktopIds": [],
+    "phaseCounts": {
+      "lobby": 11,
+      "betentry": 9,
+      "playing": 11,
+      "settled": 13
+    }
+  },
+  "mobile_390x844": {
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "foundDesktopIds": [],
+    "phaseCounts": {
+      "lobby": 2,
+      "betentry": 2,
+      "playing": 1,
+      "settled": 4
+    }
+  }
+}

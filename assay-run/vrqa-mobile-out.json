@@ -1,0 +1,101 @@
+{
+  "mobile390": {
+    "lobbyOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "lobbyWordmarkCount": 2,
+    "backdropPresent": true,
+    "planningOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "boardRect": {
+      "x": -531,
+      "y": -412,
+      "w": 1472,
+      "h": 1472
+    },
+    "trailOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "settledInfo1": {
+      "found": false,
+      "outcome": "WIN"
+    },
+    "settledOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    },
+    "bustAttemptReport": {
+      "attempts": 4,
+      "found": false,
+      "busted": false
+    },
+    "settledBustOverflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 844,
+      "innerHeight": 844
+    }
+  },
+  "mobile412": {
+    "lobbyOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "lobbyWordmarkCount": 2,
+    "backdropPresent": true,
+    "planningOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "boardRect": {
+      "x": -531,
+      "y": -412,
+      "w": 1472,
+      "h": 1472
+    },
+    "trailOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "settledInfo1": {
+      "found": false,
+      "outcome": "WIN"
+    },
+    "settledOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    },
+    "bustAttemptReport": {
+      "attempts": 4,
+      "found": false,
+      "busted": false
+    },
+    "settledBustOverflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "scrollHeight": 915,
+      "innerHeight": 915
+    }
+  },
+  "consoleErrors": []
+}

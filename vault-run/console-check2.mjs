@@ -1,0 +1,10 @@
+import puppeteer from 'puppeteer-core';
+const EXE = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const PORT = process.argv[2] || '5182';
+const browser = await puppeteer.launch({ executablePath: EXE, headless: false, defaultViewport: { width: 390, height: 844 } });
+const page = (await browser.pages())[0];
+page.on('response', (res) => { if (res.status() === 404) console.log('404:', res.url()); });
+await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'networkidle2', timeout: 60000 });
+await wait(2000);
+await browser.close();

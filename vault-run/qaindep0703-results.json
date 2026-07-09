@@ -1,0 +1,650 @@
+[
+  {
+    "tag": "D1440",
+    "W": 1440,
+    "H": 900,
+    "lobbyVoid": {
+      "viewportH": 900,
+      "headerTop": 0,
+      "footerBottom": 1013,
+      "voidTotal": -113,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "lobbyBar": {
+      "top": 777,
+      "bottom": 954,
+      "height": 177,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 107,
+          "right": 678,
+          "top": 799,
+          "bottom": 928,
+          "width": 572
+        },
+        {
+          "left": 678,
+          "right": 1064,
+          "top": 799,
+          "bottom": 928,
+          "width": 386
+        },
+        {
+          "left": 1064,
+          "right": 1333,
+          "top": 799,
+          "bottom": 928,
+          "width": 269
+        }
+      ]
+    },
+    "betentryBar": {
+      "top": 734,
+      "bottom": 1249,
+      "height": 515,
+      "colCount": 5,
+      "cols": [
+        {
+          "left": 507,
+          "right": 933,
+          "top": 749,
+          "bottom": 761,
+          "width": 426
+        },
+        {
+          "left": 507,
+          "right": 933,
+          "top": 773,
+          "bottom": 883,
+          "width": 426
+        },
+        {
+          "left": 507,
+          "right": 933,
+          "top": 895,
+          "bottom": 1124,
+          "width": 426
+        },
+        {
+          "left": 507,
+          "right": 933,
+          "top": 1136,
+          "bottom": 1174,
+          "width": 426
+        },
+        {
+          "left": 507,
+          "right": 933,
+          "top": 1188,
+          "bottom": 1231,
+          "width": 426
+        }
+      ]
+    },
+    "playingVoid": {
+      "viewportH": 900,
+      "headerTop": -142,
+      "footerBottom": 885,
+      "voidTotal": -127,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "playingBar": {
+      "top": 635,
+      "bottom": 813,
+      "height": 178,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 107,
+          "right": 541,
+          "top": 658,
+          "bottom": 787,
+          "width": 434
+        },
+        {
+          "left": 541,
+          "right": 904,
+          "top": 658,
+          "bottom": 787,
+          "width": 363
+        },
+        {
+          "left": 904,
+          "right": 1333,
+          "top": 658,
+          "bottom": 787,
+          "width": 430
+        }
+      ]
+    },
+    "playingMidRoundReached": true,
+    "settledWinResult": {
+      "ok": true,
+      "attempt": 0,
+      "label": "Took profit at 1.53x, won 0.53 USDC"
+    },
+    "settledWinVoid": {
+      "viewportH": 900,
+      "headerTop": -142,
+      "footerBottom": 937,
+      "voidTotal": -179,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "settledWinBar": {
+      "top": 635,
+      "bottom": 855,
+      "height": 220,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 108,
+          "right": 568,
+          "top": 658,
+          "bottom": 829,
+          "width": 460
+        },
+        {
+          "left": 568,
+          "right": 925,
+          "top": 658,
+          "bottom": 829,
+          "width": 358
+        },
+        {
+          "left": 925,
+          "right": 1332,
+          "top": 658,
+          "bottom": 829,
+          "width": 407
+        }
+      ]
+    },
+    "settledRugResult": {
+      "ok": true,
+      "attempt": 0,
+      "label": "Rugged at 1.00x, lost 1.00 USDC"
+    },
+    "settledRugVoid": {
+      "viewportH": 900,
+      "headerTop": -142,
+      "footerBottom": 939,
+      "voidTotal": -181,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "settledRugBar": {
+      "top": 635,
+      "bottom": 855,
+      "height": 220,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 108,
+          "right": 568,
+          "top": 658,
+          "bottom": 829,
+          "width": 460
+        },
+        {
+          "left": 568,
+          "right": 925,
+          "top": 658,
+          "bottom": 829,
+          "width": 358
+        },
+        {
+          "left": 925,
+          "right": 1332,
+          "top": 658,
+          "bottom": 829,
+          "width": 407
+        }
+      ]
+    },
+    "cyanHits": []
+  },
+  {
+    "tag": "D1920",
+    "W": 1920,
+    "H": 1080,
+    "lobbyVoid": {
+      "viewportH": 1080,
+      "headerTop": 0,
+      "footerBottom": 1138,
+      "voidTotal": -58,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "lobbyBar": {
+      "top": 917,
+      "bottom": 1079,
+      "height": 161,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 169,
+          "right": 959,
+          "top": 939,
+          "bottom": 1053,
+          "width": 790
+        },
+        {
+          "left": 959,
+          "right": 1482,
+          "top": 939,
+          "bottom": 1053,
+          "width": 523
+        },
+        {
+          "left": 1482,
+          "right": 1751,
+          "top": 939,
+          "bottom": 1053,
+          "width": 269
+        }
+      ]
+    },
+    "betentryBar": {
+      "top": 917,
+      "bottom": 1433,
+      "height": 515,
+      "colCount": 5,
+      "cols": [
+        {
+          "left": 747,
+          "right": 1173,
+          "top": 932,
+          "bottom": 944,
+          "width": 426
+        },
+        {
+          "left": 747,
+          "right": 1173,
+          "top": 956,
+          "bottom": 1066,
+          "width": 426
+        },
+        {
+          "left": 747,
+          "right": 1173,
+          "top": 1078,
+          "bottom": 1308,
+          "width": 426
+        },
+        {
+          "left": 747,
+          "right": 1173,
+          "top": 1320,
+          "bottom": 1358,
+          "width": 426
+        },
+        {
+          "left": 747,
+          "right": 1173,
+          "top": 1372,
+          "bottom": 1415,
+          "width": 426
+        }
+      ]
+    },
+    "playingVoid": {
+      "viewportH": 1080,
+      "headerTop": -92,
+      "footerBottom": 1065,
+      "voidTotal": -77,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "playingBar": {
+      "top": 825,
+      "bottom": 993,
+      "height": 168,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 169,
+          "right": 735,
+          "top": 848,
+          "bottom": 967,
+          "width": 566
+        },
+        {
+          "left": 735,
+          "right": 1199,
+          "top": 848,
+          "bottom": 967,
+          "width": 464
+        },
+        {
+          "left": 1199,
+          "right": 1751,
+          "top": 848,
+          "bottom": 967,
+          "width": 552
+        }
+      ]
+    },
+    "playingMidRoundReached": true,
+    "settledWinResult": {
+      "ok": true,
+      "attempt": 0,
+      "label": "Took profit at 1.53x, won 0.53 USDC"
+    },
+    "settledWinVoid": {
+      "viewportH": 1080,
+      "headerTop": -92,
+      "footerBottom": 1107,
+      "voidTotal": -119,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "settledWinBar": {
+      "top": 825,
+      "bottom": 1025,
+      "height": 200,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 170,
+          "right": 770,
+          "top": 848,
+          "bottom": 999,
+          "width": 600
+        },
+        {
+          "left": 770,
+          "right": 1228,
+          "top": 848,
+          "bottom": 999,
+          "width": 458
+        },
+        {
+          "left": 1228,
+          "right": 1750,
+          "top": 848,
+          "bottom": 999,
+          "width": 522
+        }
+      ]
+    },
+    "settledRugResult": {
+      "ok": true,
+      "attempt": 0,
+      "label": "Rugged at 1.00x, lost 1.00 USDC"
+    },
+    "settledRugVoid": {
+      "viewportH": 1080,
+      "headerTop": -92,
+      "footerBottom": 1109,
+      "voidTotal": -121,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "settledRugBar": {
+      "top": 825,
+      "bottom": 1025,
+      "height": 200,
+      "colCount": 3,
+      "cols": [
+        {
+          "left": 170,
+          "right": 770,
+          "top": 848,
+          "bottom": 999,
+          "width": 600
+        },
+        {
+          "left": 770,
+          "right": 1228,
+          "top": 848,
+          "bottom": 999,
+          "width": 458
+        },
+        {
+          "left": 1228,
+          "right": 1750,
+          "top": 848,
+          "bottom": 999,
+          "width": 522
+        }
+      ]
+    },
+    "cyanHits": []
+  },
+  {
+    "tag": "M390",
+    "W": 390,
+    "H": 844,
+    "lobbyVoid": {
+      "viewportH": 844,
+      "headerTop": 0,
+      "footerBottom": 850,
+      "voidTotal": -6,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "lobbyBar": {
+      "top": 591,
+      "bottom": 791,
+      "height": 200,
+      "colCount": 2,
+      "cols": [
+        {
+          "left": 35,
+          "right": 355,
+          "top": 607,
+          "bottom": 716,
+          "width": 320
+        },
+        {
+          "left": 35,
+          "right": 355,
+          "top": 730,
+          "bottom": 773,
+          "width": 320
+        }
+      ]
+    },
+    "betentryBar": {
+      "top": 591,
+      "bottom": 1177,
+      "height": 587,
+      "colCount": 5,
+      "cols": [
+        {
+          "left": 34,
+          "right": 356,
+          "top": 606,
+          "bottom": 630,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 642,
+          "bottom": 752,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 764,
+          "bottom": 1017,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 1029,
+          "bottom": 1067,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 1081,
+          "bottom": 1159,
+          "width": 322
+        }
+      ]
+    },
+    "playingVoid": {
+      "viewportH": 844,
+      "headerTop": -88,
+      "footerBottom": 829,
+      "voidTotal": -73,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "playingBar": {
+      "top": 510,
+      "bottom": 744,
+      "height": 234,
+      "colCount": 2,
+      "cols": [
+        {
+          "left": 33,
+          "right": 357,
+          "top": 523,
+          "bottom": 599,
+          "width": 324
+        },
+        {
+          "left": 33,
+          "right": 357,
+          "top": 609,
+          "bottom": 728,
+          "width": 324
+        }
+      ]
+    },
+    "playingMidRoundReached": true,
+    "settledWinResult": {
+      "ok": true,
+      "attempt": 0,
+      "label": "Took profit at 1.53x, won 0.53 USDC"
+    },
+    "settledWinVoid": {
+      "viewportH": 844,
+      "headerTop": -88,
+      "footerBottom": 966,
+      "voidTotal": -210,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "settledWinBar": {
+      "top": 557,
+      "bottom": 884,
+      "height": 327,
+      "colCount": 4,
+      "cols": [
+        {
+          "left": 34,
+          "right": 356,
+          "top": 572,
+          "bottom": 651,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 662,
+          "bottom": 714,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 725,
+          "bottom": 828,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 839,
+          "bottom": 866,
+          "width": 322
+        }
+      ]
+    },
+    "settledRugResult": {
+      "ok": true,
+      "attempt": 0,
+      "label": "Rugged at 1.00x, lost 1.00 USDC"
+    },
+    "settledRugVoid": {
+      "viewportH": 844,
+      "headerTop": 0,
+      "footerBottom": 1056,
+      "voidTotal": -212,
+      "firstTag": "DIV",
+      "firstCls": "",
+      "lastTag": "DIV",
+      "lastCls": ""
+    },
+    "settledRugBar": {
+      "top": 645,
+      "bottom": 972,
+      "height": 327,
+      "colCount": 4,
+      "cols": [
+        {
+          "left": 34,
+          "right": 356,
+          "top": 660,
+          "bottom": 739,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 750,
+          "bottom": 802,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 813,
+          "bottom": 916,
+          "width": 322
+        },
+        {
+          "left": 34,
+          "right": 356,
+          "top": 927,
+          "bottom": 954,
+          "width": 322
+        }
+      ]
+    },
+    "cyanHits": []
+  }
+]

@@ -1,0 +1,104 @@
+[
+  {
+    "vp": "D1440",
+    "lobby": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "betentry": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "betentryOptionsOpen": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "playing": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "settled": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "settledReached": true
+  },
+  {
+    "vp": "D1920",
+    "lobby": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "betentry": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "betentryOptionsOpen": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "playing": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "settled": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "settledReached": true
+  },
+  {
+    "vp": "M390",
+    "lobby": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "betentry": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "betentryOptionsOpen": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "playing": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "settled": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "hasOverflow": false,
+      "topOffenders": []
+    },
+    "settledReached": true
+  }
+]

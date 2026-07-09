@@ -1,0 +1,163 @@
+{
+  "attemptA": {
+    "drive": {
+      "reached": true
+    },
+    "snap": {
+      "boardRebetBtn": {
+        "x": 643.796875,
+        "y": 705.5,
+        "width": 152.375,
+        "height": 44,
+        "background": "rgb(255, 77, 77) none repeat scroll 0% 0% / auto padding-box border-box",
+        "backgroundColor": "rgb(255, 77, 77)",
+        "backgroundImage": "none",
+        "text": "bet again →"
+      },
+      "nextBetBtn": {
+        "x": 1037.515625,
+        "y": 246.5,
+        "width": 260,
+        "height": 44,
+        "background": "rgb(255, 77, 77) none repeat scroll 0% 0% / auto padding-box border-box",
+        "backgroundColor": "rgb(255, 77, 77)",
+        "backgroundImage": "none",
+        "text": "bet again →"
+      },
+      "resultCardText": "RUGGEDgot SBF’dBUST-1.00 USDC0 before the rug",
+      "metaCardText": "SESSION META+1pts · 1.5x loss-amplified",
+      "receiptCardText": "VERIFIED✓ verifiedview receipt ↓",
+      "resultCardEyebrowColor": "rgb(255, 77, 77)",
+      "newSetupPresent": true,
+      "changeModePresent": false,
+      "sidebarPulseCount": 0,
+      "pageHTML_bodyTextIncludesBAGGED": false,
+      "pageHTML_bodyTextIncludesRUGGED": true
+    },
+    "receipt": {
+      "toggleFound": true,
+      "before": false,
+      "after": {
+        "present": true,
+        "rect": {
+          "x": 1037.515625,
+          "y": 538.5,
+          "width": 200,
+          "height": 240
+        },
+        "color": "rgb(244, 246, 250)",
+        "fontSize": "16px",
+        "text": "round id0100000000000000server seed hashf14cdaa52121e28276d7327ee924b8d4e31b78b65ce05895f75a9e72b6340816server seedf7dee821025ec37637fe3a198eaef7225d25e43a760f636788fd9e66e8a191camixer1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cbgrid5×5rugs3safe tiles revealed0reveal tracerugs tha"
+      }
+    },
+    "pageErrors": []
+  },
+  "wins": [
+    {
+      "round": 0,
+      "snap": {
+        "boardRebetBtn": {
+          "x": 643.796875,
+          "y": 706.5,
+          "width": 152.375,
+          "height": 44,
+          "background": "rgba(0, 0, 0, 0) linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90)) repeat scroll 0% 0% / auto padding-box border-box",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+          "text": "bet again →"
+        },
+        "nextBetBtn": {
+          "x": 1037.515625,
+          "y": 247.5,
+          "width": 260,
+          "height": 44,
+          "background": "rgba(0, 0, 0, 0) linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90)) repeat scroll 0% 0% / auto padding-box border-box",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+          "text": "bet again →"
+        },
+        "resultCardText": "TAKE PROFITyou'll take it1.10x+0.10 USDC1 pumped",
+        "metaCardText": "SESSION META+1pts · 1.0x on the win",
+        "receiptCardText": "VERIFIED✓ verifiedview receipt ↓",
+        "resultCardEyebrowColor": "rgb(34, 211, 125)",
+        "newSetupPresent": true,
+        "changeModePresent": false,
+        "sidebarPulseCount": 0,
+        "pageHTML_bodyTextIncludesBAGGED": false,
+        "pageHTML_bodyTextIncludesRUGGED": false
+      },
+      "receipt": {
+        "toggleFound": true,
+        "before": false,
+        "after": {
+          "present": true,
+          "rect": {
+            "x": 1037.515625,
+            "y": 539.5,
+            "width": 200,
+            "height": 240
+          },
+          "color": "rgb(244, 246, 250)",
+          "fontSize": "16px",
+          "text": "round id0100000000000000server seed hashada85598319a83c38399fcbc096ac51cf799bd5021d2ccc0941be7e96a102681server seed12a33aea3747abfb93e1974ed6b0f2e0fb6948e158b63a1fe626063d1f11ac96mixer1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cbgrid5×5rugs3safe tiles revealed1reveal trace12rugs t"
+        }
+      },
+      "pageErrors": []
+    }
+  ],
+  "losses": [
+    {
+      "drive": {
+        "reached": true
+      },
+      "snap": {
+        "boardRebetBtn": {
+          "x": 643.796875,
+          "y": 705.5,
+          "width": 152.375,
+          "height": 44,
+          "background": "rgb(255, 77, 77) none repeat scroll 0% 0% / auto padding-box border-box",
+          "backgroundColor": "rgb(255, 77, 77)",
+          "backgroundImage": "none",
+          "text": "bet again →"
+        },
+        "nextBetBtn": {
+          "x": 1037.515625,
+          "y": 246.5,
+          "width": 260,
+          "height": 44,
+          "background": "rgb(255, 77, 77) none repeat scroll 0% 0% / auto padding-box border-box",
+          "backgroundColor": "rgb(255, 77, 77)",
+          "backgroundImage": "none",
+          "text": "bet again →"
+        },
+        "resultCardText": "RUGGEDgot SBF’dBUST-1.00 USDC0 before the rug",
+        "metaCardText": "SESSION META+1pts · 1.5x loss-amplified",
+        "receiptCardText": "VERIFIED✓ verifiedview receipt ↓",
+        "resultCardEyebrowColor": "rgb(255, 77, 77)",
+        "newSetupPresent": true,
+        "changeModePresent": false,
+        "sidebarPulseCount": 0,
+        "pageHTML_bodyTextIncludesBAGGED": false,
+        "pageHTML_bodyTextIncludesRUGGED": true
+      },
+      "receipt": {
+        "toggleFound": true,
+        "before": false,
+        "after": {
+          "present": true,
+          "rect": {
+            "x": 1037.515625,
+            "y": 538.5,
+            "width": 200,
+            "height": 240
+          },
+          "color": "rgb(244, 246, 250)",
+          "fontSize": "16px",
+          "text": "round id0100000000000000server seed hashf14cdaa52121e28276d7327ee924b8d4e31b78b65ce05895f75a9e72b6340816server seedf7dee821025ec37637fe3a198eaef7225d25e43a760f636788fd9e66e8a191camixer1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cbgrid5×5rugs3safe tiles revealed0reveal tracerugs tha"
+        }
+      },
+      "pageErrors": []
+    }
+  ]
+}

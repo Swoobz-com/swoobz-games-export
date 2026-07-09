@@ -1,0 +1,12 @@
+/* Minimal Tailwind utility shim for the standalone runner — restores the
+   handful of utility classes a game canvas may rely on for sizing. */
+.block { display: block; }
+.flex { display: flex; }
+.h-full { height: 100%; }
+.w-full { width: 100%; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.rounded-xl { border-radius: 0.75rem; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.bg-bg-secondary { background: #050b13; }
+.text-text-muted { color: rgba(255, 255, 255, 0.62); }

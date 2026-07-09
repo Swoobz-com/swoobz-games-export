@@ -1,0 +1,270 @@
+==== desktop-1440x900__bluechips__win ====
+assert1_http200: true
+assert5_response: true 33
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): false
+fix1 grid/keyboard: true true
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":true,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: n/a-desktop undefined undefined
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":80,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== desktop-1440x900__bluechips__loss ====
+assert1_http200: false
+assert5_response: true 18
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): false
+fix1 grid/keyboard: true true
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":true,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: n/a-desktop undefined undefined
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":83,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== desktop-1440x900__altseason__win ====
+assert1_http200: false
+assert5_response: true 35
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): false
+fix1 grid/keyboard: true true
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":true,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: n/a-desktop undefined undefined
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":78,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== desktop-1440x900__altseason__loss ====
+assert1_http200: false
+assert5_response: true 34
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): false
+fix1 grid/keyboard: true true
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":true,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: n/a-desktop undefined undefined
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":90,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== desktop-1440x900__shitcoin__win ====
+assert1_http200: false
+assert5_response: true 35
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: false
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): false
+fix1 grid/keyboard: true true
+probe8 tapTutorial: {"preWaitPhase":"settled","postWaitPhase":"settled","autoClosedDuringWait":false,"cashOutStillReachable":false}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":true,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: n/a-desktop undefined undefined
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":85,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== desktop-1440x900__shitcoin__loss ====
+assert1_http200: false
+assert5_response: true 22
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: false
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): false
+fix1 grid/keyboard: true true
+probe8 tapTutorial: {"preWaitPhase":"settled","postWaitPhase":"settled","autoClosedDuringWait":false,"cashOutStillReachable":false}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":true,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: n/a-desktop undefined undefined
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":76,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-pixel7__bluechips__win ====
+assert1_http200: false
+assert5_response: true 32
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 745 915
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":93,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-pixel7__bluechips__loss ====
+assert1_http200: false
+assert5_response: false null
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: false
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): null
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"settled","autoClosedDuringWait":true,"cashOutStillReachable":false}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 744 915
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":86,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-pixel7__altseason__win ====
+assert1_http200: false
+assert5_response: true 25
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 745 915
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":69,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-pixel7__altseason__loss ====
+assert1_http200: false
+assert5_response: true 23
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 744 915
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":94,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-pixel7__shitcoin__win ====
+assert1_http200: false
+assert5_response: true 33
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 745 915
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":81,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-pixel7__shitcoin__loss ====
+assert1_http200: false
+assert5_response: false null
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: false
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): null
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"settled","autoClosedDuringWait":true,"cashOutStillReachable":false}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 744 915
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":97,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-iphone14pro__bluechips__win ====
+assert1_http200: false
+assert5_response: true 25
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 697 844
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":86,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-iphone14pro__bluechips__loss ====
+assert1_http200: false
+assert5_response: true 29
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 722 844
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":148,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-iphone14pro__altseason__win ====
+assert1_http200: false
+assert5_response: true 50
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 697 844
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":197,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-iphone14pro__altseason__loss ====
+assert1_http200: false
+assert5_response: true 44
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 722 844
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":121,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-iphone14pro__shitcoin__win ====
+assert1_http200: false
+assert5_response: true 42
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 697 844
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":168,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true
+==== mobile-iphone14pro__shitcoin__loss ====
+assert1_http200: false
+assert5_response: true 27
+cashOutPreReveal disabled: true | disclosure: take profitcrack one open first
+assert6_cashOutReachableAfterReveal: true
+probe6_cashOutBelowCanvas(desktop=false expected/mobile=true expected): true
+fix1 grid/keyboard: desktop-only-check-skipped-on-mobile skipped
+probe8 tapTutorial: {"preWaitPhase":"playing-or-other","postWaitPhase":"playing-or-other","autoClosedDuringWait":false,"cashOutStillReachable":true}
+assert7 glassbox: {"verifiedChipOrTextPresent":true,"receiptCardPresent":false,"mismatchPresent":false}
+fix7 mixerAbsent: true
+fix3 betAgainAboveFold: true 722 844
+probe2 restart: {"betAgainClicked":true,"restartedIntoFreshRound":true,"restartMs":132,"staleSettledPanelAfterRestart":false}
+consoleErrors: ["Failed to load resource: the server responded with a status of 404 (Not Found)"]
+pageErrors: []
+probe3 changeWager changed: true

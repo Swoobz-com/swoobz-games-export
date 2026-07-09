@@ -1,0 +1,466 @@
+{
+  "desktop": {
+    "tag": "desktop-1440",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "semantics": {
+      "found": true,
+      "role": "dialog",
+      "ariaModal": "true",
+      "labelledby": "abyss-info-title",
+      "titleFound": true,
+      "titleText": "HOW TO PLAY",
+      "titleVisible": true
+    },
+    "focusOnOpenMouse": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "escCloses": true,
+    "focusAfterEsc": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "keyboardReachedTrigger": {
+      "reached": true,
+      "tabPresses": 4
+    },
+    "openedByKeyboard": true,
+    "focusOnOpenKeyboard": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "tabContainment": {
+      "forwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedForward": false,
+      "wrappedForward": true,
+      "backwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedBackward": false,
+      "wrappedBackward": false,
+      "focusableCount": 2
+    },
+    "closedAfterContainmentTrace": true,
+    "tabReachedBottomClose": true,
+    "closedByKeyboardCloseBtn": true,
+    "focusAfterKeyboardCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "mouseCloseClicked": true,
+    "closedByMouseCloseBtn": true,
+    "focusAfterMouseCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "closedByXBtn": true,
+    "focusAfterXBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "focusRings": {
+      "trigger": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/desktop-1440-trigger-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/desktop-1440-trigger-focused.png"
+      },
+      "closeX": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/desktop-1440-closeX-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/desktop-1440-closeX-focused.png"
+      },
+      "bottomClose": {
+        "ok": true,
+        "diffPct": 11.03,
+        "blurredPath": "shots-infopanel-indep-0707/desktop-1440-bottomClose-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/desktop-1440-bottomClose-focused.png"
+      }
+    },
+    "contrast": {
+      "title": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "HOW TO PLAY",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "subtitle": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "ABYSS LINE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "eyebrowTheDive": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "THE DIVE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "claimLine": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "CLAIM LINE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "runTheLine": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "RUN THE LINE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "seaMine": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "sea-mine",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "busts": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "busts",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "rtpProse": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "return to player",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "provablyFair": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "PROVABLY FAIR",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "glassBoxProse": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "Glass Box receipt",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "closeButtonText": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "CLOSE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "haulLabel": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "HAUL",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      }
+    },
+    "emDashPresent": false,
+    "dialogTextSample": "HOW TO PLAY\nABYSS LINE\n×\n\nTHE DIVE\n\nThe sub lights a board of gold ducats. Plot your CLAIM LINE by tapping 8 to 60 ducats · they need not connect, pick freely. Then RUN THE LINE to commit. On reveal, every safe ducat loads gold into the HAUL, but a cracked ducat (a sea-mine) busts the whole run. Prove the full line and it cashes out.\n\nDIVE DEPTH · DEPTH FLOORS\n\nREEF SHELF\n6 mines · up to 8.95x\nMID",
+    "reducedMotion": {
+      "opened": true,
+      "animationName": "none",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "reducedMotionStillOpenAfterWait": true,
+    "motionOn": {
+      "opened": true,
+      "animationName": "assayDialogIn",
+      "opacity": "0.374407"
+    },
+    "consoleErrors": []
+  },
+  "mobile": {
+    "tag": "mobile-412",
+    "viewport": {
+      "width": 412,
+      "height": 915
+    },
+    "semantics": {
+      "found": true,
+      "role": "dialog",
+      "ariaModal": "true",
+      "labelledby": "abyss-info-title",
+      "titleFound": true,
+      "titleText": "HOW TO PLAY",
+      "titleVisible": true
+    },
+    "focusOnOpenMouse": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "escCloses": true,
+    "focusAfterEsc": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "keyboardReachedTrigger": {
+      "reached": true,
+      "tabPresses": 5
+    },
+    "openedByKeyboard": true,
+    "focusOnOpenKeyboard": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "tabContainment": {
+      "forwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedForward": false,
+      "wrappedForward": true,
+      "backwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedBackward": false,
+      "wrappedBackward": false,
+      "focusableCount": 2
+    },
+    "closedAfterContainmentTrace": true,
+    "tabReachedBottomClose": true,
+    "closedByKeyboardCloseBtn": true,
+    "focusAfterKeyboardCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "mouseCloseClicked": true,
+    "closedByMouseCloseBtn": true,
+    "focusAfterMouseCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "closedByXBtn": true,
+    "focusAfterXBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "focusRings": {
+      "trigger": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/mobile-412-trigger-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/mobile-412-trigger-focused.png"
+      },
+      "closeX": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/mobile-412-closeX-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/mobile-412-closeX-focused.png"
+      },
+      "bottomClose": {
+        "ok": true,
+        "diffPct": 11.15,
+        "blurredPath": "shots-infopanel-indep-0707/mobile-412-bottomClose-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/mobile-412-bottomClose-focused.png"
+      }
+    },
+    "contrast": {
+      "title": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "HOW TO PLAY",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "subtitle": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "ABYSS LINE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "eyebrowTheDive": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "THE DIVE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "claimLine": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "CLAIM LINE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "runTheLine": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "RUN THE LINE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "seaMine": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "sea-mine",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "busts": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "busts",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "rtpProse": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "return to player",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "provablyFair": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "PROVABLY FAIR",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "glassBoxProse": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "Glass Box receipt",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "closeButtonText": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "CLOSE",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      },
+      "haulLabel": {
+        "ok": false,
+        "reason": "gradient not parsed",
+        "needle": "HAUL",
+        "dlgBackgroundImage": "linear-gradient(160deg, rgb(16, 48, 66), rgb(8, 27, 40) 60%, rgb(3, 9, 15))"
+      }
+    },
+    "emDashPresent": false,
+    "dialogTextSample": "HOW TO PLAY\nABYSS LINE\n×\n\nTHE DIVE\n\nThe sub lights a board of gold ducats. Plot your CLAIM LINE by tapping 8 to 60 ducats · they need not connect, pick freely. Then RUN THE LINE to commit. On reveal, every safe ducat loads gold into the HAUL, but a cracked ducat (a sea-mine) busts the whole run. Prove the full line and it cashes out.\n\nDIVE DEPTH · DEPTH FLOORS\n\nREEF SHELF\n6 mines · up to 8.95x\nMID",
+    "reducedMotion": {
+      "opened": true,
+      "animationName": "none",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "reducedMotionStillOpenAfterWait": true,
+    "motionOn": {
+      "opened": true,
+      "animationName": "assayDialogIn",
+      "opacity": "0.367783"
+    },
+    "consoleErrors": []
+  }
+}

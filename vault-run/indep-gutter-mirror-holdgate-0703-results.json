@@ -1,0 +1,221 @@
+{
+  "lobby_1440_rightMirror": {
+    "top": 457,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 601.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "lobby_1440_leftCardA": {
+    "top": 457,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 601.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "lobby_1440_edges": {
+    "shellLeft": 74.59375,
+    "shellW": 1290.796875,
+    "shellH": 702,
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875
+  },
+  "lobby_1440_cyan": 0,
+  "betentry_1440_rightMirror": {
+    "top": 457,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 601.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "playing_1440_rightMirror": {
+    "top": 355,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 499.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "playing_1440_edges": {
+    "shellLeft": 74.59375,
+    "shellW": 1290.796875,
+    "shellH": 702,
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875
+  },
+  "playing_1440_cta": {
+    "text": "take profitcrack one open first",
+    "opacity": "1",
+    "backgroundColor": "rgba(94, 234, 212, 0.08)",
+    "inBar": true
+  },
+  "settled_1440_reached": true,
+  "settled_1440_rightMirror_absent": true,
+  "settled_1440_leftCardA_absent": true,
+  "settled_1440_cardB": null,
+  "settled_1440_cardC": {
+    "top": 355,
+    "left": 1149.765625,
+    "right": 1345.390625,
+    "bottom": 421,
+    "width": 195.625,
+    "height": 66,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "settled_1440_cta": {
+    "text": "bet again →",
+    "opacity": "1",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "inBar": true
+  },
+  "settled_1440_cyan": 0,
+  "lobby_1440x1920_rightMirror": {
+    "top": 795.25,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 939.421875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "lobby_1440x1920_edges": {
+    "shellLeft": 74.59375,
+    "shellW": 1290.796875,
+    "shellH": 1000,
+    "gridLeft": 364.7921875,
+    "gridRight": 1075.1921875
+  },
+  "betentry_1440x1920_rightMirror": {
+    "top": 674.171875,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 818.34375,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "playing_1440x1920_rightMirror": {
+    "top": 770.5,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 914.671875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "lobby_1920_rightMirror": {
+    "top": 457,
+    "left": 1563,
+    "right": 1763,
+    "bottom": 601.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "lobby_1920_edges": {
+    "shellLeft": 137,
+    "shellW": 1646,
+    "shellH": 842.390625,
+    "gridLeft": 660.78285,
+    "gridRight": 1259.21715
+  },
+  "betentry_1920_rightMirror": {
+    "top": 457,
+    "left": 1563,
+    "right": 1763,
+    "bottom": 601.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "playing_1920_rightMirror": {
+    "top": 395,
+    "left": 1563,
+    "right": 1763,
+    "bottom": 539.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "normal"
+  },
+  "playing_1920_edges": {
+    "shellLeft": 137,
+    "shellW": 1646,
+    "shellH": 842.390625,
+    "gridLeft": 660.78285,
+    "gridRight": 1259.21715
+  },
+  "mobile_lobby_counts": {
+    "rightMirror": 0,
+    "leftCardA": 0,
+    "rightWrap": 0,
+    "leftWrap": 0
+  },
+  "mobile_betentry_counts": {
+    "rightMirror": 0
+  },
+  "mobile_playing_counts": {
+    "rightMirror": 0
+  }
+}

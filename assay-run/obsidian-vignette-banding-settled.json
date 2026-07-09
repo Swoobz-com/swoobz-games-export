@@ -1,0 +1,292 @@
+{
+  "file": "shots-obsidian-0705/desktop-1440x900-05-settled-fullpage.png",
+  "width": 1440,
+  "height": 900,
+  "corners": {
+    "topLeft": [
+      23,
+      18,
+      14
+    ],
+    "topRight": [
+      13,
+      12,
+      9
+    ],
+    "bottomLeft": [
+      37,
+      25,
+      14
+    ],
+    "bottomRight": [
+      29,
+      19,
+      12
+    ],
+    "center": [
+      28,
+      19,
+      8
+    ]
+  },
+  "leftMargin": {
+    "y50": {
+      "numPlateaus": 226,
+      "sampleCount": 298,
+      "maxRun": 14,
+      "maxDelta": 92,
+      "avgDelta": 1.938,
+      "bandEvents": 0
+    },
+    "y150": {
+      "numPlateaus": 262,
+      "sampleCount": 298,
+      "maxRun": 10,
+      "maxDelta": 61,
+      "avgDelta": 1.716,
+      "bandEvents": 0
+    },
+    "y250": {
+      "numPlateaus": 272,
+      "sampleCount": 298,
+      "maxRun": 5,
+      "maxDelta": 62,
+      "avgDelta": 2.229,
+      "bandEvents": 0
+    },
+    "y350": {
+      "numPlateaus": 283,
+      "sampleCount": 298,
+      "maxRun": 3,
+      "maxDelta": 64,
+      "avgDelta": 2.28,
+      "bandEvents": 0
+    },
+    "y450": {
+      "numPlateaus": 259,
+      "sampleCount": 298,
+      "maxRun": 7,
+      "maxDelta": 67,
+      "avgDelta": 2.802,
+      "bandEvents": 0
+    },
+    "y550": {
+      "numPlateaus": 234,
+      "sampleCount": 298,
+      "maxRun": 16,
+      "maxDelta": 67,
+      "avgDelta": 2.494,
+      "bandEvents": 0
+    },
+    "y650": {
+      "numPlateaus": 235,
+      "sampleCount": 298,
+      "maxRun": 18,
+      "maxDelta": 49,
+      "avgDelta": 2.312,
+      "bandEvents": 0
+    },
+    "y750": {
+      "numPlateaus": 237,
+      "sampleCount": 298,
+      "maxRun": 15,
+      "maxDelta": 58,
+      "avgDelta": 2.322,
+      "bandEvents": 0
+    }
+  },
+  "rightMargin": {
+    "y50": {
+      "numPlateaus": 155,
+      "sampleCount": 299,
+      "maxRun": 42,
+      "maxDelta": 7,
+      "avgDelta": 1.084,
+      "bandEvents": 0
+    },
+    "y150": {
+      "numPlateaus": 233,
+      "sampleCount": 299,
+      "maxRun": 23,
+      "maxDelta": 5,
+      "avgDelta": 1.543,
+      "bandEvents": 0
+    },
+    "y250": {
+      "numPlateaus": 252,
+      "sampleCount": 299,
+      "maxRun": 20,
+      "maxDelta": 44,
+      "avgDelta": 2.203,
+      "bandEvents": 0
+    },
+    "y350": {
+      "numPlateaus": 204,
+      "sampleCount": 299,
+      "maxRun": 64,
+      "maxDelta": 48,
+      "avgDelta": 2.458,
+      "bandEvents": 0
+    },
+    "y450": {
+      "numPlateaus": 277,
+      "sampleCount": 299,
+      "maxRun": 7,
+      "maxDelta": 93,
+      "avgDelta": 2.793,
+      "bandEvents": 0
+    },
+    "y550": {
+      "numPlateaus": 254,
+      "sampleCount": 299,
+      "maxRun": 16,
+      "maxDelta": 40,
+      "avgDelta": 2.138,
+      "bandEvents": 0
+    },
+    "y650": {
+      "numPlateaus": 297,
+      "sampleCount": 299,
+      "maxRun": 2,
+      "maxDelta": 36,
+      "avgDelta": 2.044,
+      "bandEvents": 0
+    },
+    "y750": {
+      "numPlateaus": 257,
+      "sampleCount": 299,
+      "maxRun": 13,
+      "maxDelta": 31,
+      "avgDelta": 2.027,
+      "bandEvents": 0
+    }
+  },
+  "topBand": {
+    "y5": {
+      "numPlateaus": 1055,
+      "sampleCount": 1440,
+      "maxRun": 55,
+      "maxDelta": 3,
+      "avgDelta": 1.195,
+      "bandEvents": 0
+    },
+    "y20": {
+      "numPlateaus": 1093,
+      "sampleCount": 1440,
+      "maxRun": 71,
+      "maxDelta": 124,
+      "avgDelta": 3.557,
+      "bandEvents": 1
+    },
+    "y40": {
+      "numPlateaus": 810,
+      "sampleCount": 1440,
+      "maxRun": 204,
+      "maxDelta": 75,
+      "avgDelta": 1.985,
+      "bandEvents": 2
+    },
+    "y60": {
+      "numPlateaus": 1056,
+      "sampleCount": 1440,
+      "maxRun": 38,
+      "maxDelta": 155,
+      "avgDelta": 4.29,
+      "bandEvents": 0
+    },
+    "y90": {
+      "numPlateaus": 1154,
+      "sampleCount": 1440,
+      "maxRun": 18,
+      "maxDelta": 155,
+      "avgDelta": 6.348,
+      "bandEvents": 0
+    }
+  },
+  "bottomBand": {
+    "y894": {
+      "numPlateaus": 1340,
+      "sampleCount": 1440,
+      "maxRun": 7,
+      "maxDelta": 42,
+      "avgDelta": 1.679,
+      "bandEvents": 0
+    },
+    "y870": {
+      "numPlateaus": 1183,
+      "sampleCount": 1440,
+      "maxRun": 34,
+      "maxDelta": 45,
+      "avgDelta": 1.68,
+      "bandEvents": 0
+    },
+    "y840": {
+      "numPlateaus": 1206,
+      "sampleCount": 1440,
+      "maxRun": 24,
+      "maxDelta": 43,
+      "avgDelta": 1.688,
+      "bandEvents": 0
+    }
+  },
+  "leftMarginCol": {
+    "x20": {
+      "numPlateaus": 855,
+      "sampleCount": 890,
+      "maxRun": 8,
+      "maxDelta": 40,
+      "bandEvents": 0
+    },
+    "x60": {
+      "numPlateaus": 874,
+      "sampleCount": 890,
+      "maxRun": 6,
+      "maxDelta": 56,
+      "bandEvents": 0
+    },
+    "x120": {
+      "numPlateaus": 867,
+      "sampleCount": 890,
+      "maxRun": 4,
+      "maxDelta": 60,
+      "bandEvents": 0
+    },
+    "x200": {
+      "numPlateaus": 878,
+      "sampleCount": 890,
+      "maxRun": 4,
+      "maxDelta": 37,
+      "bandEvents": 0
+    }
+  },
+  "rightMarginCol": {
+    "x1420": {
+      "numPlateaus": 826,
+      "sampleCount": 890,
+      "maxRun": 16,
+      "maxDelta": 162,
+      "bandEvents": 0
+    },
+    "x1380": {
+      "numPlateaus": 870,
+      "sampleCount": 890,
+      "maxRun": 3,
+      "maxDelta": 162,
+      "bandEvents": 0
+    },
+    "x1320": {
+      "numPlateaus": 840,
+      "sampleCount": 890,
+      "maxRun": 20,
+      "maxDelta": 112,
+      "bandEvents": 0
+    },
+    "x1240": {
+      "numPlateaus": 888,
+      "sampleCount": 890,
+      "maxRun": 2,
+      "maxDelta": 37,
+      "bandEvents": 0
+    }
+  }
+}

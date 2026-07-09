@@ -1,0 +1,14 @@
+{
+  "normal": {
+    "tier": "rhythm",
+    "animationName": "vault-rhythm-badge-enter",
+    "animationDuration": "0.24s",
+    "animationPlayState": "running"
+  },
+  "reduced": {
+    "tier": "rhythm",
+    "animationName": "none",
+    "animationDuration": "0s",
+    "animationPlayState": "running"
+  }
+}

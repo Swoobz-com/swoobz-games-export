@@ -1,0 +1,312 @@
+{
+  "1440x900": {
+    "lobbyOverflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 918,
+      "innerHeight": 900
+    },
+    "lobbyBackdropBgImage": "radial-gradient(120% 90% at 70% 10%, rgba(20, 26, 36, 0.55) 0%, rgba(7, 8, 12, 0.86) 55%, rgba(7, 8, 12, 0.94) 100%), url(\"http://localhost:5187/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-exp",
+    "lobbyWordmarks": [
+      {
+        "src": "/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/originals/assay/assets/wordmark.svg",
+        "w": 24.609375,
+        "h": 16
+      },
+      {
+        "src": "/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/originals/assay/assets/wordmark.svg",
+        "w": 80,
+        "h": 52
+      }
+    ],
+    "planningOverflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 900,
+      "innerHeight": 900
+    },
+    "boardRect": {
+      "x": 474,
+      "y": 144,
+      "w": 492,
+      "h": 530
+    },
+    "gaugeStripDeltaPx": 38,
+    "headerPlateConsolePresent": true,
+    "coinDormantSample": {
+      "center": [
+        58,
+        63,
+        75,
+        255
+      ],
+      "corner": [
+        17,
+        20,
+        27,
+        255
+      ]
+    },
+    "trailPaintedOverflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 900,
+      "innerHeight": 900
+    },
+    "settledOverflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 900,
+      "innerHeight": 900
+    },
+    "settledPass1": {
+      "found": true,
+      "outcome": "WIN",
+      "rect": {
+        "top": 804.6875,
+        "bottom": 847.6875
+      },
+      "bodyTextSample": "SWOOBZ\nore-board · pre-dawn assay · RTP 96.50%\nSESSION · 1 LINE · 9 CLAIMED · +0.38\nPLAY SAFE\nBALANCE\n1000.38\nCLAIM PROVEN\n9 nubs · 1.38x\nPAYOUT\n1.38\n◆ GLASS BOX CERTIFICATE · 40 bad veins in 32×32\nseed  e5182fa8e30ec510"
+    },
+    "ctaAboveFoldPx_pass1": 0,
+    "specimenPlatePresent_pass1": true,
+    "coinProvenSample_afterFirstTilesRevealed": {
+      "center": [
+        108,
+        168,
+        195,
+        255
+      ],
+      "corner": [
+        17,
+        20,
+        27,
+        255
+      ]
+    },
+    "bustAttemptReport": {
+      "attempts": 1,
+      "found": true,
+      "busted": true,
+      "rect": {
+        "top": 804.6875,
+        "bottom": 847.6875
+      },
+      "bodyTextSample": "SWOOBZ\nore-board · pre-dawn assay · RTP 96.50%\nSESSION · 1 LINE · 11 CLAIMED · -1.00\nPLAY SAFE\nBALANCE\n999.00\nBAD VEIN · BUSTED\nbusted at nub 12 of 38\nPAYOUT\n0.00\n◆ GLASS BOX CERTIFICATE · 40 bad veins in 32×32\nseed  3af"
+    },
+    "ctaAboveFoldPx_bust": 0,
+    "settledBustOverflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 900,
+      "innerHeight": 900
+    }
+  },
+  "1920x1080": {
+    "lobbyOverflow": {
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "scrollHeight": 1080,
+      "innerHeight": 1080
+    },
+    "lobbyBackdropBgImage": "radial-gradient(120% 90% at 70% 10%, rgba(20, 26, 36, 0.55) 0%, rgba(7, 8, 12, 0.86) 55%, rgba(7, 8, 12, 0.94) 100%), url(\"http://localhost:5187/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-exp",
+    "lobbyWordmarks": [
+      {
+        "src": "/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/originals/assay/assets/wordmark.svg",
+        "w": 24.609375,
+        "h": 16
+      },
+      {
+        "src": "/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/originals/assay/assets/wordmark.svg",
+        "w": 80,
+        "h": 52
+      }
+    ],
+    "planningOverflow": {
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "scrollHeight": 1080,
+      "innerHeight": 1080
+    },
+    "boardRect": {
+      "x": 624,
+      "y": 144,
+      "w": 672,
+      "h": 710
+    },
+    "gaugeStripDeltaPx": 38,
+    "headerPlateConsolePresent": true,
+    "coinDormantSample": {
+      "center": [
+        56,
+        61,
+        72,
+        255
+      ],
+      "corner": [
+        16,
+        19,
+        26,
+        255
+      ]
+    },
+    "trailPaintedOverflow": {
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "scrollHeight": 1080,
+      "innerHeight": 1080
+    },
+    "settledOverflow": {
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "scrollHeight": 1080,
+      "innerHeight": 1080
+    },
+    "settledPass1": {
+      "found": true,
+      "outcome": "WIN",
+      "rect": {
+        "top": 984.6875,
+        "bottom": 1027.6875
+      },
+      "bodyTextSample": "SWOOBZ\nore-board · pre-dawn assay · RTP 96.50%\nSESSION · 1 LINE · 9 CLAIMED · +0.38\nPLAY SAFE\nBALANCE\n1000.38\nCLAIM PROVEN\n9 nubs · 1.38x\nPAYOUT\n1.38\n◆ GLASS BOX CERTIFICATE · 40 bad veins in 32×32\nseed  e814db38862669c3"
+    },
+    "ctaAboveFoldPx_pass1": 0,
+    "specimenPlatePresent_pass1": true,
+    "coinProvenSample_afterFirstTilesRevealed": {
+      "center": [
+        137,
+        197,
+        224,
+        255
+      ],
+      "corner": [
+        16,
+        19,
+        26,
+        255
+      ]
+    },
+    "bustAttemptReport": {
+      "attempts": 1,
+      "found": true,
+      "busted": true,
+      "rect": {
+        "top": 984.6875,
+        "bottom": 1027.6875
+      },
+      "bodyTextSample": "SWOOBZ\nore-board · pre-dawn assay · RTP 96.50%\nSESSION · 1 LINE · 15 CLAIMED · -1.00\nPLAY SAFE\nBALANCE\n999.00\nBAD VEIN · BUSTED\nbusted at nub 16 of 38\nPAYOUT\n0.00\n◆ GLASS BOX CERTIFICATE · 40 bad veins in 32×32\nseed  844"
+    },
+    "ctaAboveFoldPx_bust": 0,
+    "settledBustOverflow": {
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "scrollHeight": 1080,
+      "innerHeight": 1080
+    }
+  },
+  "2560x1440": {
+    "lobbyOverflow": {
+      "scrollWidth": 2560,
+      "innerWidth": 2560,
+      "scrollHeight": 1440,
+      "innerHeight": 1440
+    },
+    "lobbyBackdropBgImage": "radial-gradient(120% 90% at 70% 10%, rgba(20, 26, 36, 0.55) 0%, rgba(7, 8, 12, 0.86) 55%, rgba(7, 8, 12, 0.94) 100%), url(\"http://localhost:5187/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-exp",
+    "lobbyWordmarks": [
+      {
+        "src": "/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/originals/assay/assets/wordmark.svg",
+        "w": 24.609375,
+        "h": 16
+      },
+      {
+        "src": "/@fs/C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/originals/assay/assets/wordmark.svg",
+        "w": 80,
+        "h": 52
+      }
+    ],
+    "planningOverflow": {
+      "scrollWidth": 2560,
+      "innerWidth": 2560,
+      "scrollHeight": 1440,
+      "innerHeight": 1440
+    },
+    "boardRect": {
+      "x": 800,
+      "y": 144,
+      "w": 960,
+      "h": 998
+    },
+    "gaugeStripDeltaPx": 38,
+    "headerPlateConsolePresent": true,
+    "coinDormantSample": {
+      "center": [
+        53,
+        59,
+        69,
+        255
+      ],
+      "corner": [
+        17,
+        20,
+        27,
+        255
+      ]
+    },
+    "trailPaintedOverflow": {
+      "scrollWidth": 2560,
+      "innerWidth": 2560,
+      "scrollHeight": 1440,
+      "innerHeight": 1440
+    },
+    "settledOverflow": {
+      "scrollWidth": 2560,
+      "innerWidth": 2560,
+      "scrollHeight": 1440,
+      "innerHeight": 1440
+    },
+    "settledPass1": {
+      "found": true,
+      "outcome": "WIN",
+      "rect": {
+        "top": 1272.6875,
+        "bottom": 1315.6875
+      },
+      "bodyTextSample": "SWOOBZ\nore-board · pre-dawn assay · RTP 96.50%\nSESSION · 1 LINE · 9 CLAIMED · +0.38\nPLAY SAFE\nBALANCE\n1000.38\nCLAIM PROVEN\n9 nubs · 1.38x\nPAYOUT\n1.38\n◆ GLASS BOX CERTIFICATE · 40 bad veins in 32×32\nseed  3c4fa847edafb2ef"
+    },
+    "ctaAboveFoldPx_pass1": 0,
+    "specimenPlatePresent_pass1": true,
+    "coinProvenSample_afterFirstTilesRevealed": {
+      "center": [
+        106,
+        209,
+        235,
+        255
+      ],
+      "corner": [
+        17,
+        20,
+        27,
+        255
+      ]
+    },
+    "bustAttemptReport": {
+      "attempts": 1,
+      "found": true,
+      "busted": true,
+      "rect": {
+        "top": 1272.6875,
+        "bottom": 1315.6875
+      },
+      "bodyTextSample": "SWOOBZ\nore-board · pre-dawn assay · RTP 96.50%\nSESSION · 1 LINE · 6 CLAIMED · -1.00\nPLAY SAFE\nBALANCE\n999.00\nBAD VEIN · BUSTED\nbusted at nub 7 of 38\nPAYOUT\n0.00\n◆ GLASS BOX CERTIFICATE · 40 bad veins in 32×32\nseed  94b6d"
+    },
+    "ctaAboveFoldPx_bust": 0,
+    "settledBustOverflow": {
+      "scrollWidth": 2560,
+      "innerWidth": 2560,
+      "scrollHeight": 1440,
+      "innerHeight": 1440
+    }
+  },
+  "consoleErrors": []
+}

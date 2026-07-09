@@ -1,0 +1,802 @@
+{
+  "desktop": {
+    "tag": "desktop-1440",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "semantics": {
+      "found": true,
+      "role": "dialog",
+      "ariaModal": "true",
+      "labelledby": "abyss-info-title",
+      "titleFound": true,
+      "titleText": "HOW TO PLAY",
+      "titleVisible": true
+    },
+    "focusOnOpenMouse": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "escCloses": true,
+    "focusAfterEsc": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "keyboardReachedTrigger": {
+      "reached": true,
+      "tabPresses": 4
+    },
+    "openedByKeyboard": true,
+    "focusOnOpenKeyboard": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "tabContainment": {
+      "forwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedForward": false,
+      "wrappedForward": true,
+      "backwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedBackward": false,
+      "wrappedBackward": false,
+      "focusableCount": 2
+    },
+    "closedAfterContainmentTrace": true,
+    "tabReachedBottomClose": true,
+    "closedByKeyboardCloseBtn": true,
+    "focusAfterKeyboardCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "mouseCloseClicked": true,
+    "closedByMouseCloseBtn": true,
+    "focusAfterMouseCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "closedByXBtn": true,
+    "focusAfterXBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "focusRings": {
+      "trigger": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/desktop-1440-trigger-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/desktop-1440-trigger-focused.png"
+      },
+      "closeX": {
+        "ok": true,
+        "diffPct": 19.52,
+        "blurredPath": "shots-infopanel-indep-0707/desktop-1440-closeX-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/desktop-1440-closeX-focused.png"
+      },
+      "bottomClose": {
+        "ok": true,
+        "diffPct": 11.03,
+        "blurredPath": "shots-infopanel-indep-0707/desktop-1440-bottomClose-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/desktop-1440-bottomClose-focused.png"
+      }
+    },
+    "contrast": {
+      "title": {
+        "ok": true,
+        "needle": "HOW TO PLAY",
+        "text": "HOW TO PLAY",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          15,
+          45,
+          62
+        ],
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "ratio": 12.47,
+        "sampleX": 645.8125,
+        "sampleY": 124.5
+      },
+      "subtitle": {
+        "ok": true,
+        "needle": "ABYSS LINE",
+        "text": "ABYSS LINE",
+        "fg": [
+          240,
+          181,
+          66
+        ],
+        "bg": [
+          15,
+          45,
+          62
+        ],
+        "fontSize": "10.5px",
+        "fontWeight": "400",
+        "ratio": 7.78,
+        "sampleX": 616,
+        "sampleY": 143
+      },
+      "eyebrowTheDive": {
+        "ok": true,
+        "needle": "THE DIVE",
+        "text": "THE DIVE",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          14,
+          43,
+          60
+        ],
+        "fontSize": "10.5px",
+        "fontWeight": "400",
+        "ratio": 11.22,
+        "sampleX": 600.40625,
+        "sampleY": 179
+      },
+      "claimLine": {
+        "ok": true,
+        "needle": "CLAIM LINE",
+        "text": "CLAIM LINE",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          96,
+          116,
+          127
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 3.73,
+        "sampleX": 864.140625,
+        "sampleY": 200
+      },
+      "runTheLine": {
+        "ok": true,
+        "needle": "RUN THE LINE",
+        "text": "RUN THE LINE",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          12,
+          37,
+          53
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 12.04,
+        "sampleX": 916.65625,
+        "sampleY": 219.4375
+      },
+      "seaMine": {
+        "ok": true,
+        "needle": "sea-mine",
+        "text": "sea-mine",
+        "fg": [
+          255,
+          93,
+          93
+        ],
+        "bg": [
+          12,
+          38,
+          53
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 5.19,
+        "sampleX": 752.9375,
+        "sampleY": 258.3125
+      },
+      "busts": {
+        "ok": true,
+        "needle": "busts",
+        "text": "busts",
+        "fg": [
+          255,
+          93,
+          93
+        ],
+        "bg": [
+          11,
+          37,
+          52
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 5.25,
+        "sampleX": 791.515625,
+        "sampleY": 258.3125
+      },
+      "rtpProse": {
+        "ok": true,
+        "needle": "return to player",
+        "text": "More mines means more risk and a higher top multiplier. The ",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          8,
+          28,
+          42
+        ],
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "ratio": 15.1,
+        "sampleX": 923,
+        "sampleY": 426.1875
+      },
+      "provablyFair": {
+        "ok": true,
+        "needle": "PROVABLY FAIR",
+        "text": "PROVABLY FAIR",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          7,
+          23,
+          35
+        ],
+        "fontSize": "10.5px",
+        "fontWeight": "400",
+        "ratio": 13.87,
+        "sampleX": 639.40625,
+        "sampleY": 637.25
+      },
+      "glassBoxProse": {
+        "ok": true,
+        "needle": "Glass Box receipt",
+        "text": "Every dive is provably fair. The Glass Box receipt on the se",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          5,
+          17,
+          26
+        ],
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "ratio": 16.58,
+        "sampleX": 923,
+        "sampleY": 658.25
+      },
+      "closeButtonText": {
+        "ok": true,
+        "needle": "CLOSE",
+        "text": "CLOSE",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          38,
+          58,
+          74
+        ],
+        "fontSize": "11px",
+        "fontWeight": "600",
+        "ratio": 10.22,
+        "sampleX": 747.75,
+        "sampleY": 764
+      },
+      "haulLabel": {
+        "ok": true,
+        "needle": "HAUL",
+        "text": "to commit. On reveal, every safe ducat loads gold into the H",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          12,
+          37,
+          52
+        ],
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "ratio": 13.73,
+        "sampleX": 906.625,
+        "sampleY": 238.875
+      }
+    },
+    "emDashPresent": false,
+    "dialogTextSample": "HOW TO PLAY\nABYSS LINE\n×\n\nTHE DIVE\n\nThe sub lights a board of gold ducats. Plot your CLAIM LINE by tapping 8 to 60 ducats · they need not connect, pick freely. Then RUN THE LINE to commit. On reveal, every safe ducat loads gold into the HAUL, but a cracked ducat (a sea-mine) busts the whole run. Prove the full line and it cashes out.\n\nDIVE DEPTH · DEPTH FLOORS\n\nREEF SHELF\n6 mines · up to 8.95x\nMID",
+    "reducedMotion": {
+      "opened": true,
+      "animationName": "none",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "reducedMotionStillOpenAfterWait": true,
+    "motionOn": {
+      "opened": true,
+      "animationName": "assayDialogIn",
+      "opacity": "0.547575"
+    },
+    "consoleErrors": []
+  },
+  "mobile": {
+    "tag": "mobile-412",
+    "viewport": {
+      "width": 412,
+      "height": 915
+    },
+    "semantics": {
+      "found": true,
+      "role": "dialog",
+      "ariaModal": "true",
+      "labelledby": "abyss-info-title",
+      "titleFound": true,
+      "titleText": "HOW TO PLAY",
+      "titleVisible": true
+    },
+    "focusOnOpenMouse": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "escCloses": true,
+    "focusAfterEsc": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "keyboardReachedTrigger": {
+      "reached": true,
+      "tabPresses": 5
+    },
+    "openedByKeyboard": true,
+    "focusOnOpenKeyboard": {
+      "isTrigger": false,
+      "insideDialog": true,
+      "tag": "BUTTON",
+      "label": "Close how to play"
+    },
+    "tabContainment": {
+      "forwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedForward": false,
+      "wrappedForward": true,
+      "backwardTrace": [
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "CLOSE"
+        },
+        {
+          "isTrigger": false,
+          "insideDialog": true,
+          "tag": "BUTTON",
+          "label": "Close how to play"
+        }
+      ],
+      "escapedBackward": false,
+      "wrappedBackward": false,
+      "focusableCount": 2
+    },
+    "closedAfterContainmentTrace": true,
+    "tabReachedBottomClose": true,
+    "closedByKeyboardCloseBtn": true,
+    "focusAfterKeyboardCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "mouseCloseClicked": true,
+    "closedByMouseCloseBtn": true,
+    "focusAfterMouseCloseBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "closedByXBtn": true,
+    "focusAfterXBtn": {
+      "isTrigger": true,
+      "insideDialog": false,
+      "tag": "BUTTON",
+      "label": "How to play · Abyss Line game info"
+    },
+    "focusRings": {
+      "trigger": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/mobile-412-trigger-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/mobile-412-trigger-focused.png"
+      },
+      "closeX": {
+        "ok": true,
+        "diffPct": 16.89,
+        "blurredPath": "shots-infopanel-indep-0707/mobile-412-closeX-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/mobile-412-closeX-focused.png"
+      },
+      "bottomClose": {
+        "ok": true,
+        "diffPct": 11.15,
+        "blurredPath": "shots-infopanel-indep-0707/mobile-412-bottomClose-blurred.png",
+        "focusedPath": "shots-infopanel-indep-0707/mobile-412-bottomClose-focused.png"
+      }
+    },
+    "contrast": {
+      "title": {
+        "ok": true,
+        "needle": "HOW TO PLAY",
+        "text": "HOW TO PLAY",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          15,
+          45,
+          62
+        ],
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "ratio": 12.47,
+        "sampleX": 152.8125,
+        "sampleY": 112.5625
+      },
+      "subtitle": {
+        "ok": true,
+        "needle": "ABYSS LINE",
+        "text": "ABYSS LINE",
+        "fg": [
+          240,
+          181,
+          66
+        ],
+        "bg": [
+          15,
+          45,
+          62
+        ],
+        "fontSize": "10.5px",
+        "fontWeight": "400",
+        "ratio": 7.78,
+        "sampleX": 123,
+        "sampleY": 131.0625
+      },
+      "eyebrowTheDive": {
+        "ok": true,
+        "needle": "THE DIVE",
+        "text": "THE DIVE",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          15,
+          44,
+          61
+        ],
+        "fontSize": "10.5px",
+        "fontWeight": "400",
+        "ratio": 11.07,
+        "sampleX": 107.40625,
+        "sampleY": 167.0625
+      },
+      "claimLine": {
+        "ok": true,
+        "needle": "CLAIM LINE",
+        "text": "CLAIM LINE",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          12,
+          39,
+          54
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 11.8,
+        "sampleX": 371.140625,
+        "sampleY": 188.0625
+      },
+      "runTheLine": {
+        "ok": true,
+        "needle": "RUN THE LINE",
+        "text": "RUN THE LINE",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          14,
+          41,
+          57
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 11.49,
+        "sampleX": 154.765625,
+        "sampleY": 226.9375
+      },
+      "seaMine": {
+        "ok": true,
+        "needle": "sea-mine",
+        "text": "sea-mine",
+        "fg": [
+          255,
+          93,
+          93
+        ],
+        "bg": [
+          12,
+          36,
+          52
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 5.29,
+        "sampleX": 364.84375,
+        "sampleY": 246.375
+      },
+      "busts": {
+        "ok": true,
+        "needle": "busts",
+        "text": "busts",
+        "fg": [
+          255,
+          93,
+          93
+        ],
+        "bg": [
+          70,
+          92,
+          105
+        ],
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "ratio": 2.33,
+        "sampleX": 77.28125,
+        "sampleY": 265.8125
+      },
+      "rtpProse": {
+        "ok": true,
+        "needle": "return to player",
+        "text": "More mines means more risk and a higher top multiplier. The ",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          9,
+          29,
+          43
+        ],
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "ratio": 14.94,
+        "sampleX": 374.25,
+        "sampleY": 414.25
+      },
+      "provablyFair": {
+        "ok": true,
+        "needle": "PROVABLY FAIR",
+        "text": "PROVABLY FAIR",
+        "fg": [
+          143,
+          242,
+          232
+        ],
+        "bg": [
+          7,
+          23,
+          34
+        ],
+        "fontSize": "10.5px",
+        "fontWeight": "400",
+        "ratio": 13.89,
+        "sampleX": 146.40625,
+        "sampleY": 644.75
+      },
+      "glassBoxProse": {
+        "ok": true,
+        "needle": "Glass Box receipt",
+        "text": "Every dive is provably fair. The Glass Box receipt on the se",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          5,
+          17,
+          26
+        ],
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "ratio": 16.58,
+        "sampleX": 388,
+        "sampleY": 665.75
+      },
+      "closeButtonText": {
+        "ok": true,
+        "needle": "CLOSE",
+        "text": "CLOSE",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          39,
+          59,
+          74
+        ],
+        "fontSize": "11px",
+        "fontWeight": "600",
+        "ratio": 10.09,
+        "sampleX": 233.75,
+        "sampleY": 790.9375
+      },
+      "haulLabel": {
+        "ok": true,
+        "needle": "HAUL",
+        "text": "to commit. On reveal, every safe ducat loads gold into the H",
+        "fg": [
+          230,
+          241,
+          245
+        ],
+        "bg": [
+          12,
+          38,
+          53
+        ],
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "ratio": 13.59,
+        "sampleX": 367.0625,
+        "sampleY": 226.9375
+      }
+    },
+    "emDashPresent": false,
+    "dialogTextSample": "HOW TO PLAY\nABYSS LINE\n×\n\nTHE DIVE\n\nThe sub lights a board of gold ducats. Plot your CLAIM LINE by tapping 8 to 60 ducats · they need not connect, pick freely. Then RUN THE LINE to commit. On reveal, every safe ducat loads gold into the HAUL, but a cracked ducat (a sea-mine) busts the whole run. Prove the full line and it cashes out.\n\nDIVE DEPTH · DEPTH FLOORS\n\nREEF SHELF\n6 mines · up to 8.95x\nMID",
+    "reducedMotion": {
+      "opened": true,
+      "animationName": "none",
+      "opacity": "1",
+      "transform": "none"
+    },
+    "reducedMotionStillOpenAfterWait": true,
+    "motionOn": {
+      "opened": true,
+      "animationName": "assayDialogIn",
+      "opacity": "0.546884"
+    },
+    "consoleErrors": []
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "bluechips-lobby-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 57672,
+    "ratio": 0.0445,
+    "bandCounts": {
+      "control-column": 53500,
+      "board-backdrop": 4172
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 74,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 848
+    }
+  },
+  "bluechips-playing-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 31485,
+    "ratio": 0.02429,
+    "bandCounts": {
+      "control-column": 25287,
+      "board-backdrop": 6198
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 105,
+      "maxX": 1365,
+      "minY": 108,
+      "maxY": 783
+    }
+  },
+  "bluechips-settled-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 59213,
+    "ratio": 0.04569,
+    "bandCounts": {
+      "control-column": 59118,
+      "board-backdrop": 95
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 394,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 659
+    }
+  },
+  "altseason-lobby-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 59223,
+    "ratio": 0.0457,
+    "bandCounts": {
+      "control-column": 52170,
+      "board-backdrop": 7053
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 74,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 848
+    }
+  },
+  "altseason-playing-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 38472,
+    "ratio": 0.02969,
+    "bandCounts": {
+      "control-column": 28196,
+      "board-backdrop": 10276
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 105,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 783
+    }
+  },
+  "altseason-settled-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 373617,
+    "ratio": 0.28828,
+    "bandCounts": {
+      "board-backdrop": 302035,
+      "control-column": 71582
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 81,
+      "maxX": 1365,
+      "minY": 63,
+      "maxY": 857
+    }
+  },
+  "shitcoin-lobby-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 107093,
+    "ratio": 0.08263,
+    "bandCounts": {
+      "control-column": 49748,
+      "board-backdrop": 57345
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 74,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 848
+    }
+  },
+  "shitcoin-playing-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 87351,
+    "ratio": 0.0674,
+    "bandCounts": {
+      "control-column": 28903,
+      "board-backdrop": 58448
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 105,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 783
+    }
+  },
+  "shitcoin-settled-desktop.png": {
+    "width": 1440,
+    "height": 900,
+    "totalDiffPixels": 79605,
+    "ratio": 0.06142,
+    "bandCounts": {
+      "control-column": 65562,
+      "board-backdrop": 14043
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 266,
+      "maxX": 1365,
+      "minY": 107,
+      "maxY": 758
+    }
+  },
+  "altseason-lobby-mobile.png": {
+    "width": 780,
+    "height": 1688,
+    "totalDiffPixels": 98578,
+    "ratio": 0.07487,
+    "bandCounts": {
+      "header": 10419,
+      "board-backdrop": 74047,
+      "control-column(bottom-bar)": 14112
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 34,
+      "maxX": 779,
+      "minY": 0,
+      "maxY": 1687
+    }
+  },
+  "altseason-playing-mobile.png": {
+    "width": 780,
+    "height": 1688,
+    "totalDiffPixels": 134496,
+    "ratio": 0.10215,
+    "bandCounts": {
+      "header": 2400,
+      "board-backdrop": 112645,
+      "control-column(bottom-bar)": 19451
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 32,
+      "maxX": 779,
+      "minY": 0,
+      "maxY": 1687
+    }
+  },
+  "altseason-settled-mobile.png": {
+    "width": 780,
+    "height": 1688,
+    "totalDiffPixels": 670711,
+    "ratio": 0.50941,
+    "bandCounts": {
+      "header": 7798,
+      "board-backdrop": 570125,
+      "control-column(bottom-bar)": 92788
+    },
+    "boundingBoxOfAllDiffs": {
+      "count": 0,
+      "minX": 32,
+      "maxX": 779,
+      "minY": 0,
+      "maxY": 1687
+    }
+  }
+}

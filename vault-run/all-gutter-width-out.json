@@ -1,0 +1,194 @@
+{
+  "label": "lobby",
+  "out": {
+    "vault-lobby-left": {
+      "stackW": 260,
+      "stackMaxWidth": "260px",
+      "children": [
+        {
+          "w": 294,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-lobby-right": {
+      "stackW": 157.90625,
+      "stackMaxWidth": "260px",
+      "children": [
+        {
+          "w": 191.90625,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-playing-left": null,
+    "vault-playing-right": null,
+    "vault-settled-left": null,
+    "vault-settled-right": null,
+    "vault-gutter-left": null,
+    "vault-gutter-right": null,
+    "vault-settled-result": null,
+    "vault-settled-meta": null,
+    "vault-settled-next": null,
+    "vault-gutter-card-a": null
+  }
+}
+{
+  "label": "betentry",
+  "out": {
+    "vault-lobby-left": null,
+    "vault-lobby-right": null,
+    "vault-playing-left": null,
+    "vault-playing-right": null,
+    "vault-settled-left": null,
+    "vault-settled-right": null,
+    "vault-gutter-left": null,
+    "vault-gutter-right": null,
+    "vault-settled-result": null,
+    "vault-settled-meta": null,
+    "vault-settled-next": null,
+    "vault-gutter-card-a": null
+  }
+}
+{
+  "label": "playing",
+  "out": {
+    "vault-lobby-left": null,
+    "vault-lobby-right": null,
+    "vault-playing-left": {
+      "stackW": 260,
+      "stackMaxWidth": "260px",
+      "children": [
+        {
+          "w": 294,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-playing-right": {
+      "stackW": 234,
+      "stackMaxWidth": "260px",
+      "children": [
+        {
+          "w": 268,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-settled-left": null,
+    "vault-settled-right": null,
+    "vault-gutter-left": null,
+    "vault-gutter-right": null,
+    "vault-settled-result": null,
+    "vault-settled-meta": null,
+    "vault-settled-next": null,
+    "vault-gutter-card-a": null
+  }
+}
+{
+  "label": "settled",
+  "out": {
+    "vault-lobby-left": null,
+    "vault-lobby-right": null,
+    "vault-playing-left": null,
+    "vault-playing-right": null,
+    "vault-settled-left": {
+      "stackW": 209.5,
+      "stackMaxWidth": "260px",
+      "children": [
+        {
+          "w": 243.5,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 243.5,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-settled-right": {
+      "stackW": 260,
+      "stackMaxWidth": "260px",
+      "children": [
+        {
+          "w": 294,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-gutter-left": null,
+    "vault-gutter-right": {
+      "stackW": 200,
+      "stackMaxWidth": "200px",
+      "children": [
+        {
+          "w": 234,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-settled-result": {
+      "stackW": 243.5,
+      "stackMaxWidth": "none",
+      "children": [
+        {
+          "w": 209.5,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 209.5,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 209.5,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 96.765625,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-settled-meta": {
+      "stackW": 243.5,
+      "stackMaxWidth": "none",
+      "children": [
+        {
+          "w": 209.5,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 209.5,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 209.5,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-settled-next": {
+      "stackW": 294,
+      "stackMaxWidth": "none",
+      "children": [
+        {
+          "w": 260,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 260,
+          "boxSizing": "content-box"
+        },
+        {
+          "w": 260,
+          "boxSizing": "border-box"
+        },
+        {
+          "w": 260,
+          "boxSizing": "content-box"
+        }
+      ]
+    },
+    "vault-gutter-card-a": null
+  }
+}

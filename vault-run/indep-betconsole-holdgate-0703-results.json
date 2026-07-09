@@ -1,0 +1,205 @@
+{
+  "D1440_lobby": {
+    "width": 1290.796875,
+    "height": 702
+  },
+  "D1440_betentry": {
+    "board": {
+      "top": 31,
+      "bottom": 733,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 734,
+      "bottom": 1224.640625,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 490.640625
+    },
+    "inner": {
+      "top": 773,
+      "bottom": 1206.640625,
+      "left": 359.984375,
+      "right": 1079.984375,
+      "width": 720,
+      "height": 433.640625
+    },
+    "cyanCount": 0,
+    "cyanSample": []
+  },
+  "D1440_playing": {
+    "board": {
+      "top": -68,
+      "bottom": 634,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 634,
+      "bottom": 812.78125,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 178.78125
+    }
+  },
+  "D1440_settled_outcome": "Rugged at 1.00x, lost 1.00 USDC",
+  "D1440_settled": {
+    "board": {
+      "top": -95,
+      "bottom": 607,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 607,
+      "bottom": 801,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 194
+    }
+  },
+  "D1920_lobby": {
+    "width": 1646,
+    "height": 842.390625
+  },
+  "D1920_betentry": {
+    "board": {
+      "top": 74,
+      "bottom": 916.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 842.390625
+    },
+    "panel": {
+      "top": 917.390625,
+      "bottom": 1408.03125,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 490.640625
+    },
+    "inner": {
+      "top": 956.390625,
+      "bottom": 1390.03125,
+      "left": 600,
+      "right": 1320,
+      "width": 720,
+      "height": 433.640625
+    },
+    "cyanCount": 0,
+    "cyanSample": []
+  },
+  "D1920_playing": {
+    "board": {
+      "top": -37,
+      "bottom": 805.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 842.390625
+    },
+    "panel": {
+      "top": 805.390625,
+      "bottom": 981.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 176
+    }
+  },
+  "D1920_settled_outcome": "Rugged at 1.00x, lost 1.00 USDC",
+  "D1920_settled": {
+    "board": {
+      "top": -37,
+      "bottom": 805.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 842.390625
+    },
+    "panel": {
+      "top": 805.390625,
+      "bottom": 981.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 176
+    }
+  },
+  "M390_betentry": {
+    "board": {
+      "top": 101,
+      "bottom": 590.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 489.515625
+    },
+    "panel": {
+      "top": 590.515625,
+      "bottom": 1177.4375,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 586.921875
+    },
+    "inner": {
+      "top": 641.515625,
+      "bottom": 1159.4375,
+      "left": 34,
+      "right": 356,
+      "width": 322,
+      "height": 517.921875
+    },
+    "cyanCount": 0,
+    "cyanSample": []
+  },
+  "M390_playing": {
+    "board": {
+      "top": 20,
+      "bottom": 509.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 489.515625
+    },
+    "panel": {
+      "top": 509.515625,
+      "bottom": 743.703125,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 234.1875
+    }
+  },
+  "M390_settled_outcome": "Rugged at 1.00x, lost 1.00 USDC",
+  "M390_settled": {
+    "board": {
+      "top": 155,
+      "bottom": 644.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 489.515625
+    },
+    "panel": {
+      "top": 644.515625,
+      "bottom": 971.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 327
+    }
+  }
+}

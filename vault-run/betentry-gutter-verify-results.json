@@ -1,0 +1,164 @@
+{
+  "panel_1440": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0,
+    "hasSetYourPlay": false,
+    "hasBetConsoleRoot": false
+  },
+  "yourbet_1440": {
+    "top": 169.5,
+    "left": 94.59375,
+    "right": 318.59375,
+    "bottom": 310.5,
+    "width": 224,
+    "height": 141,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.16)"
+  },
+  "confirm_1440": {
+    "top": 326.5,
+    "left": 94.59375,
+    "right": 318.59375,
+    "bottom": 430.5,
+    "width": 224,
+    "height": 104,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.4)"
+  },
+  "world_1440": {
+    "top": 169.5,
+    "left": 1085.390625,
+    "right": 1345.390625,
+    "bottom": 710.421875,
+    "width": 260,
+    "height": 540.921875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.16)"
+  },
+  "edges_1440": {
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875
+  },
+  "stepper_changed": true,
+  "stepper_before": "YOUR BET−1.00 USDC+15102550",
+  "stepper_after": "YOUR BET−1.25 USDC+15102550",
+  "preset25_pressed": "true",
+  "altseason_pressed": "true",
+  "sendIt_style_before": {
+    "text": "SEND IT →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "cursor": "pointer"
+  },
+  "afterSendIt_worldCardGone": true,
+  "afterSendIt_phaseLabel": true,
+  "cyan_1440": 0,
+  "yourbet_1440h1920": {
+    "top": 530.5,
+    "left": 94.59375,
+    "right": 318.59375,
+    "bottom": 671.5,
+    "width": 224,
+    "height": 141,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.16)"
+  },
+  "confirm_1440h1920": {
+    "top": 687.5,
+    "left": 94.59375,
+    "right": 318.59375,
+    "bottom": 791.5,
+    "width": 224,
+    "height": 104,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.4)"
+  },
+  "world_1440h1920": {
+    "top": 530.5,
+    "left": 1085.390625,
+    "right": 1345.390625,
+    "bottom": 1071.421875,
+    "width": 260,
+    "height": 540.921875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.16)"
+  },
+  "edges_1440h1920": {
+    "gridLeft": 364.7921875,
+    "gridRight": 1075.1921875
+  },
+  "yourbet_1920": {
+    "top": 189.296875,
+    "left": 157,
+    "right": 381,
+    "bottom": 330.296875,
+    "width": 224,
+    "height": 141,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.16)"
+  },
+  "confirm_1920": {
+    "top": 346.296875,
+    "left": 157,
+    "right": 381,
+    "bottom": 450.296875,
+    "width": 224,
+    "height": 104,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.4)"
+  },
+  "world_1920": {
+    "top": 189.296875,
+    "left": 1503,
+    "right": 1763,
+    "bottom": 730.21875,
+    "width": 260,
+    "height": 540.921875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "borderColor": "rgba(255, 197, 61, 0.16)"
+  },
+  "edges_1920": {
+    "gridLeft": 660.78285,
+    "gridRight": 1259.21715
+  },
+  "panel_1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0,
+    "hasSetYourPlay": false,
+    "hasBetConsoleRoot": false
+  },
+  "mobile_hasSetYourPlay": true,
+  "mobile_hasBetConsoleRoot": true,
+  "mobile_gutterDom": {
+    "yourbet": 0,
+    "confirm": 0,
+    "world": 0
+  },
+  "grep_topOffset_400": 2,
+  "grep_BETENTRY_GUTTER_topOffset_72": 5,
+  "grep_placeBet_calls": 4,
+  "grep_gutterCard_reused": 5
+}

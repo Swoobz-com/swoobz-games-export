@@ -1,0 +1,26 @@
+[
+  {
+    "vp": "D1440",
+    "phase": "betentry",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "hasOverflow": false,
+    "topOffenders": []
+  },
+  {
+    "vp": "D1920",
+    "phase": "betentry",
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "hasOverflow": false,
+    "topOffenders": []
+  },
+  {
+    "vp": "M390",
+    "phase": "betentry",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "topOffenders": []
+  }
+]
