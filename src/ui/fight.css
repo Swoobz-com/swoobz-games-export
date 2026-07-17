@@ -1,0 +1,771 @@
+/* Frozen Requiem — arcade presentation styling.
+   Compositor-friendly only: transform + opacity + filter keyframes, no per-frame layout.
+   All magic timings live as module consts in FightExperience.tsx; durations here mirror the
+   CSS-only ambient loops (idle breathing, pulses) which have no gameplay coupling. */
+
+:root {
+  --fr-base: #060a12;
+  --fr-ice: #9fd8ff;
+  --fr-ice-deep: #3f6f9a;
+  --fr-steel-1: #dfe9f4;
+  --fr-steel-2: #8fa6bd;
+  --fr-steel-3: #47576b;
+  --fr-gold: #c9a55c;
+  --fr-gold-deep: #8a6d2f;
+  --fr-danger: #cc2626;
+  --fr-plate: rgba(10, 16, 26, 0.86);
+  --fr-plate-edge: rgba(159, 216, 255, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.fr-viewport {
+  position: fixed;
+  inset: 0;
+  background: var(--fr-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Geist', system-ui, sans-serif;
+  color: var(--fr-steel-1);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.fr-stage {
+  position: relative;
+  width: min(100vw, calc(100vh * 2816 / 1536));
+  height: min(100vh, calc(100vw * 1536 / 2816));
+  aspect-ratio: 2816 / 1536;
+  overflow: hidden;
+  background-color: #0a1018;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 120px rgba(0, 0, 0, 0.7) inset;
+  --sw: 10px; /* set by ResizeObserver to stage width/100 */
+  --sh: 10px; /* stage height/100 */
+}
+
+/* Slow-mo + zoom applied to the whole stage on a round/match-ending hit. */
+.fr-stage.fr-ko-zoom {
+  transition: transform 240ms ease-out;
+}
+.fr-stage.fr-ko-zoom.fr-ko-zoom-active {
+  transform: scale(1.15);
+}
+.fr-stage.fr-shake {
+  animation: fr-shake 150ms ease-in-out 1;
+}
+@keyframes fr-shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(calc(var(--sw) * -0.6), calc(var(--sh) * 0.4)); }
+  40% { transform: translate(calc(var(--sw) * 0.5), calc(var(--sh) * -0.5)); }
+  60% { transform: translate(calc(var(--sw) * -0.4), calc(var(--sh) * 0.3)); }
+  80% { transform: translate(calc(var(--sw) * 0.3), calc(var(--sh) * -0.2)); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------------- Fighters ---------------- */
+.fr-fighter {
+  position: absolute;
+  transform-origin: 50% 100%;
+  will-change: transform;
+  pointer-events: none;
+}
+.fr-fighter-breathe {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  animation: fr-breathe 2600ms ease-in-out infinite;
+}
+.fr-fighter img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.55));
+  transition: filter 300ms ease;
+}
+@keyframes fr-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.012); }
+}
+.fr-fighter.fr-winner img {
+  filter: drop-shadow(0 0 calc(var(--sw) * 1.2) rgba(201, 165, 92, 0.85))
+    drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.55));
+}
+.fr-fighter.fr-loser img {
+  filter: grayscale(0.75) brightness(0.6)
+    drop-shadow(0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.5));
+}
+.fr-ground-shadow {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+/* ---------------- HUD name plates ---------------- */
+.fr-nameplate {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--sw) * 0.6);
+  background: linear-gradient(180deg, #1a2942 0%, #0b1322 100%);
+  border: 1px solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.25);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--fr-steel-1);
+  text-shadow: 0 1px 2px #000;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ---------------- Health bars ---------------- */
+.fr-hpbar {
+  position: absolute;
+  display: flex;
+  gap: calc(var(--sw) * 0.12);
+}
+.fr-hpseg {
+  flex: 1 1 0;
+  position: relative;
+  border-radius: calc(var(--sw) * 0.1);
+  overflow: hidden;
+}
+/* "lost" = opaque dark plate covering the baked ice bar (art shows through remaining). */
+.fr-hpseg-cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 8, 14, 0.9), rgba(2, 4, 8, 0.94));
+  transform: scaleX(1);
+  transform-origin: center;
+  opacity: 1;
+  border-radius: inherit;
+}
+.fr-hpseg.fr-hp-present .fr-hpseg-cover {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.fr-hpseg.fr-hp-collapsing .fr-hpseg-cover {
+  animation: fr-hp-collapse 300ms ease-in forwards;
+}
+.fr-hpseg.fr-hp-flashing .fr-hpseg-flash {
+  animation: fr-hp-flash 160ms steps(1, end) 2;
+}
+.fr-hpseg-flash {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  opacity: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+@keyframes fr-hp-flash {
+  0% { opacity: 0.9; }
+  50% { opacity: 0; }
+  100% { opacity: 0.9; }
+}
+@keyframes fr-hp-collapse {
+  0% { transform: scaleX(0); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+/* last remaining segment: red pulse ~2Hz */
+.fr-hpseg.fr-hp-critical .fr-hpseg-crit {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at center, rgba(204, 38, 38, 0.7), rgba(204, 38, 38, 0.1));
+  mix-blend-mode: screen;
+  animation: fr-hp-crit 500ms ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes fr-hp-crit {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.85; }
+}
+
+/* ---------------- Pips ---------------- */
+.fr-pips {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+.fr-pip {
+  border-radius: 50%;
+  border: calc(var(--sw) * 0.12) solid var(--fr-gold-deep);
+  background: rgba(8, 12, 20, 0.6);
+  transition: transform 200ms ease;
+}
+.fr-pip.fr-pip-won {
+  background: radial-gradient(circle at 38% 34%, #ffe9b0, var(--fr-gold) 60%, var(--fr-gold-deep));
+  border-color: var(--fr-gold);
+  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(201, 165, 92, 0.8);
+}
+.fr-pip.fr-pip-pop {
+  animation: fr-pip-pop 200ms ease-out;
+}
+@keyframes fr-pip-pop {
+  0% { transform: scale(1.6); }
+  100% { transform: scale(1); }
+}
+
+/* ---------------- Timer plate ---------------- */
+.fr-timer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #2b3646 0%, #10161f 46%, #1c2530 100%);
+  border: calc(var(--sw) * 0.1) solid #55708c;
+  border-radius: calc(var(--sw) * 0.3);
+  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(0, 0, 0, 0.6) inset,
+    0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.4) rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.fr-timer-digit {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(180deg, #eaf6ff 0%, #a9d8f5 40%, #4f83aa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 calc(var(--sw) * 0.3) rgba(159, 216, 255, 0.4);
+}
+.fr-timer.fr-timer-danger .fr-timer-digit {
+  background: linear-gradient(180deg, #ffd3d3 0%, #ff6a6a 45%, #b01a1a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: fr-timer-pulse 500ms ease-in-out infinite;
+}
+@keyframes fr-timer-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+/* ---------------- Portraits ---------------- */
+.fr-portrait {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  background: #0a1018;
+  box-shadow: 0 0 0 calc(var(--sw) * 0.05) rgba(0, 0, 0, 0.4) inset;
+}
+.fr-portrait img {
+  position: absolute;
+}
+
+/* ---------------- Banners ---------------- */
+.fr-banner-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 40;
+}
+.fr-banner {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: skew(-6deg) scale(1);
+  background: linear-gradient(180deg, var(--fr-steel-1) 0%, var(--fr-steel-2) 45%, var(--fr-steel-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* No -webkit-text-stroke here: stroked gradient-clipped text sprays miter-spike
+     artifacts at sharp glyph corners in Chrome. Tight drop-shadows fake the outline. */
+  filter: drop-shadow(0 0 calc(var(--sw) * 0.05) rgba(4, 8, 14, 0.95))
+    drop-shadow(0 0 calc(var(--sw) * 0.05) rgba(4, 8, 14, 0.9))
+    drop-shadow(0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.7));
+  text-align: center;
+  white-space: pre-line;
+}
+.fr-banner.fr-banner-danger {
+  background: linear-gradient(180deg, #ffdede 0%, #ff5a5a 45%, #8f1414 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.fr-banner.fr-banner-gold {
+  background: linear-gradient(180deg, #ffefc4 0%, var(--fr-gold) 45%, var(--fr-gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.fr-banner-slam {
+  animation: fr-banner-slam var(--fr-slam-ms, 150ms) cubic-bezier(0.2, 1.4, 0.3, 1) 1 both;
+}
+@keyframes fr-banner-slam {
+  0% { transform: skew(-6deg) scale(3); opacity: 0; }
+  70% { opacity: 1; }
+  100% { transform: skew(-6deg) scale(1); opacity: 1; }
+}
+.fr-reduced .fr-banner-slam {
+  animation: none;
+}
+
+/* ---------------- Reveal plates ---------------- */
+.fr-reveal-plate {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  perspective: 600px;
+  z-index: 30;
+  pointer-events: none;
+}
+.fr-reveal-plate-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.3);
+  padding: calc(var(--sh) * 0.5) calc(var(--sw) * 0.5);
+  background: linear-gradient(180deg, #2a3648 0%, #141c28 100%);
+  border: calc(var(--sw) * 0.08) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.3);
+  box-shadow: 0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.6);
+  transform-origin: center bottom;
+  animation: fr-plate-flip 250ms ease-out both;
+}
+@keyframes fr-plate-flip {
+  0% { transform: rotateX(90deg); opacity: 0; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+.fr-reduced .fr-reveal-plate-inner {
+  animation: none;
+}
+.fr-reveal-plate-label {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--fr-ice);
+  line-height: 1;
+}
+.fr-reveal-plate .fr-move-icon {
+  color: var(--fr-steel-1);
+}
+
+/* ---------------- Effects: sparks, flares, clash ---------------- */
+.fr-fx-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+}
+.fr-hitspark {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: #fffbe0;
+  animation: fr-hitspark 130ms ease-out forwards;
+}
+@keyframes fr-hitspark {
+  0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.3) rotate(35deg); opacity: 0; }
+}
+.fr-clash-flash {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(159, 216, 255, 0.5) 35%, rgba(159, 216, 255, 0) 70%);
+  animation: fr-clash-flash 320ms ease-out forwards;
+}
+@keyframes fr-clash-flash {
+  0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0.1; }
+  30% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+.fr-shield-flare {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: calc(var(--sw) * 0.14) solid rgba(230, 245, 255, 0.95);
+  box-shadow: 0 0 calc(var(--sw) * 0.8) rgba(159, 216, 255, 0.9);
+  animation: fr-shield 220ms ease-out forwards;
+}
+@keyframes fr-shield {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.25); opacity: 0; }
+}
+.fr-dust-flash {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center bottom, rgba(220, 230, 245, 0.7), rgba(220, 230, 245, 0) 70%);
+  animation: fr-dust 260ms ease-out forwards;
+}
+@keyframes fr-dust {
+  0% { transform: translate(-50%, -100%) scale(0.3); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translate(-50%, -100%) scale(1.5); opacity: 0; }
+}
+
+/* ---------------- Screen overlays (title / mode / vs / victory) ---------------- */
+.fr-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  text-align: center;
+}
+.fr-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(6, 10, 18, 0.55) 0%, rgba(6, 10, 18, 0.9) 100%);
+}
+.fr-overlay-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 calc(var(--sw) * 4);
+}
+
+.fr-logo {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  transform: skew(-5deg);
+  background: linear-gradient(180deg, #eaf6ff 0%, #a9d8f5 42%, #3f6f9a 78%, #24425c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Same miter-spike avoidance as .fr-banner: outline via tight drop-shadows, no stroke. */
+  filter: drop-shadow(0 0 calc(var(--sw) * 0.04) rgba(4, 8, 14, 0.95))
+    drop-shadow(0 0 calc(var(--sw) * 0.04) rgba(4, 8, 14, 0.9))
+    drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.7));
+}
+.fr-logo-sub {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  color: var(--fr-ice);
+  letter-spacing: 0.42em;
+  opacity: 0.85;
+  margin-top: calc(var(--sh) * 1);
+}
+.fr-press {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--fr-steel-1);
+  animation: fr-press-pulse 1400ms ease-in-out infinite;
+}
+@keyframes fr-press-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.fr-reduced .fr-press,
+.fr-reduced .fr-fighter-breathe,
+.fr-reduced .fr-timer.fr-timer-danger .fr-timer-digit,
+.fr-reduced .fr-hpseg.fr-hp-critical .fr-hpseg-crit,
+.fr-reduced .fr-pip.fr-pip-pop {
+  animation: none;
+}
+
+/* Section titles */
+.fr-section-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fr-ice);
+  text-shadow: 0 2px 6px #000;
+}
+
+/* Mode cards */
+.fr-cards {
+  display: flex;
+  gap: calc(var(--sw) * 2);
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.fr-card {
+  flex: 1 1 0;
+  min-width: calc(var(--sw) * 24);
+  max-width: calc(var(--sw) * 34);
+  background: linear-gradient(180deg, rgba(20, 30, 46, 0.92), rgba(8, 13, 22, 0.94));
+  border: calc(var(--sw) * 0.08) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.6);
+  padding: calc(var(--sh) * 1.6) calc(var(--sw) * 1.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.8);
+}
+.fr-card h3 {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--fr-steel-1);
+  text-transform: uppercase;
+}
+.fr-plaques {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.7);
+  width: 100%;
+}
+
+/* Buttons */
+.fr-btn {
+  font-family: 'Geist', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fr-steel-1);
+  background: linear-gradient(180deg, #263447 0%, #141d2a 100%);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.35);
+  cursor: pointer;
+  transition: transform 90ms ease, box-shadow 90ms ease, border-color 90ms ease;
+  min-height: 44px;
+}
+.fr-btn:hover,
+.fr-btn:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--fr-ice);
+  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.4);
+  outline: none;
+}
+.fr-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+.fr-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.fr-btn-primary {
+  background: linear-gradient(180deg, #2f4d6b 0%, #16324a 100%);
+  border-color: var(--fr-ice);
+}
+.fr-btn-gold {
+  border-color: var(--fr-gold);
+}
+
+.fr-plaque {
+  text-align: left;
+  padding: calc(var(--sh) * 0.7) calc(var(--sw) * 1);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.15);
+}
+.fr-plaque-name {
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+.fr-plaque-diff {
+  color: var(--fr-gold);
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+}
+.fr-plaque-hint {
+  font-size: 0.8em;
+  color: var(--fr-steel-2);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.fr-roomcode {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--fr-ice);
+  background: rgba(6, 10, 18, 0.7);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.35);
+  padding: calc(var(--sh) * 0.7) calc(var(--sw) * 1.2);
+}
+.fr-waiting {
+  color: var(--fr-steel-2);
+  font-family: 'Geist Mono', monospace;
+  animation: fr-press-pulse 1400ms ease-in-out infinite;
+}
+.fr-input {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--fr-steel-1);
+  background: rgba(6, 10, 18, 0.8);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.3);
+  padding: calc(var(--sh) * 0.5) calc(var(--sw) * 0.8);
+  min-height: 44px;
+  width: 100%;
+}
+.fr-danger-text {
+  color: var(--fr-danger);
+  font-family: 'Geist Mono', monospace;
+}
+
+/* ---------------- Pick controls ---------------- */
+.fr-pickbar {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--sh) * 3);
+  transform: translateX(-50%);
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 1);
+  width: 100%;
+  padding: 0 calc(var(--sw) * 2);
+}
+.fr-legend {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.5);
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  font-size: calc(var(--sw) * 0.95);
+  letter-spacing: 0.08em;
+  color: var(--fr-steel-2);
+  background: rgba(6, 10, 18, 0.7);
+  border: 1px solid rgba(159, 216, 255, 0.18);
+  border-radius: calc(var(--sw) * 0.3);
+  padding: calc(var(--sh) * 0.35) calc(var(--sw) * 0.9);
+}
+.fr-legend b {
+  color: var(--fr-ice);
+}
+.fr-legend .fr-arrow {
+  color: var(--fr-gold);
+}
+.fr-picks {
+  display: flex;
+  gap: calc(var(--sw) * 1.2);
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+}
+.fr-pick {
+  position: relative;
+  flex: 1 1 0;
+  max-width: calc(var(--sw) * 15);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.5);
+  padding: calc(var(--sh) * 1) calc(var(--sw) * 0.6);
+  cursor: pointer;
+  background: linear-gradient(180deg, rgba(38, 54, 74, 0.95), rgba(14, 22, 34, 0.96));
+  border: calc(var(--sw) * 0.1) solid;
+  border-image: linear-gradient(180deg, #9fd8ff, #3f6f9a) 1;
+  border-radius: calc(var(--sw) * 0.45);
+  color: var(--fr-steel-1);
+  transition: transform 90ms ease, box-shadow 120ms ease, opacity 150ms ease, filter 150ms ease;
+  min-height: 44px;
+}
+.fr-pick:hover:not(:disabled),
+.fr-pick:focus-visible:not(:disabled) {
+  transform: translateY(-6px);
+  box-shadow: 0 calc(var(--sh) * 0.6) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5),
+    0 0 calc(var(--sw) * 0.8) rgba(159, 216, 255, 0.45);
+  outline: none;
+}
+.fr-pick:active:not(:disabled) {
+  transform: translateY(0) scale(0.96);
+}
+.fr-pick-label {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  font-size: calc(var(--sw) * 1.35);
+}
+.fr-pick-tip {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: calc(var(--sw) * 0.82);
+  color: var(--fr-steel-2);
+  text-align: center;
+  line-height: 1.15;
+  min-height: calc(var(--sw) * 2);
+}
+.fr-pick .fr-move-icon {
+  width: calc(var(--sw) * 3.4);
+  height: calc(var(--sw) * 3.4);
+  color: var(--fr-ice);
+}
+.fr-pick.fr-pick-chosen {
+  border-image: linear-gradient(180deg, #d9f2ff, #6fb0dd) 1;
+  box-shadow: 0 0 calc(var(--sw) * 1.4) rgba(159, 216, 255, 0.8);
+  transform: translateY(-3px) scale(1.04);
+}
+.fr-pick.fr-pick-dim {
+  opacity: 0.4;
+  filter: grayscale(0.6);
+}
+.fr-locked-tag {
+  position: absolute;
+  top: calc(var(--sh) * -1.4);
+  font-family: 'Geist Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--fr-ice);
+  font-size: calc(var(--sw) * 0.9);
+  text-shadow: 0 1px 3px #000;
+}
+
+/* Finish them / match point */
+.fr-finish-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: radial-gradient(ellipse at var(--fr-spot-x, 50%) 60%, rgba(6, 10, 18, 0) 20%, rgba(6, 10, 18, 0.55) 75%);
+}
+
+/* Victory screen */
+.fr-victory-quote {
+  font-family: 'Geist', sans-serif;
+  font-style: italic;
+  color: var(--fr-steel-1);
+  background: rgba(6, 10, 18, 0.7);
+  border-left: calc(var(--sw) * 0.2) solid var(--fr-gold);
+  border-radius: calc(var(--sw) * 0.2);
+  padding: calc(var(--sh) * 0.8) calc(var(--sw) * 1.4);
+  max-width: calc(var(--sw) * 42);
+  line-height: 1.35;
+}
+.fr-menu {
+  display: flex;
+  gap: calc(var(--sw) * 1.2);
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.fr-soon-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.7em;
+  color: var(--fr-gold);
+  letter-spacing: 0.12em;
+  margin-left: 0.5em;
+}
+
+.fr-back {
+  position: absolute;
+  left: calc(var(--sw) * 2);
+  top: calc(var(--sh) * 2);
+  z-index: 55;
+}
