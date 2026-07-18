@@ -107,14 +107,20 @@ const SELECT_CAL = {
 // --- Choreography timings (module-const; RG-C5). All transform-based, single flashes. ---
 const CHO = {
   LUNGE_MS: 120,
-  LUNGE_X: 6, // % stage width toward opponent
-  STEP_X: 3,
+  // Attacker travel raised ~2.3x (was 6 / 3). Fighters stand at 24%/76% stage width, so the
+  // advance now eats a real slice of the 52%-wide gap and reads as a committed lunge, not a twitch.
+  LUNGE_X: 14, // % stage width toward opponent
+  STEP_X: 7,
   HITSTOP_MS: 100,
   KO_HITSTOP_MS: 120,
-  KNOCKBACK_X: 3,
-  HURT_TILT: 7, // deg
+  // Defender reaction raised modestly (was 3 / 7): a deeper knock + tilt that then springs home on
+  // SETTLE_EASE with a slight overshoot instead of a linear snap — recoil with follow-through.
+  KNOCKBACK_X: 5,
+  HURT_TILT: 9, // deg
   SPARK_MS: 130,
-  SHAKE_MS: 150,
+  // Screenshake lengthened (was 150) into a decaying ripple — big first oscillation, small second
+  // (the fr-shake keyframe amplitude mirrors this) — so an impact reads as a ground-ripple, not a buzz.
+  SHAKE_MS: 220,
   CLASH_FREEZE_MS: 200,
   CLASH_LUNGE_X: 9,
   GRAB_JITTER_DEG: 2,
@@ -123,7 +129,11 @@ const CHO = {
   SLAM_DIP_Y: 2,
   BLOCK_REBOUND_X: 4,
   BLOCK_TINK_MS: 90,
-  RETURN_MS: 200,
+  RETURN_MS: 220,
+  // Motion curves (module-const; RG-C5). WINDUP eases INTO an advance (slow anticipation ->
+  // snappy arrival); SETTLE springs a return home with ~10% overshoot instead of a linear snap-back.
+  LUNGE_EASE: 'cubic-bezier(0.5, 0, 0.9, 0.3)',
+  SETTLE_EASE: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
   // KO beat: 120ms hitstop -> ~800ms slow-mo zoom -> snap back.
   KO_ZOOM_IN_MS: 120,
   KO_ZOOM_HOLD_MS: 800,
@@ -250,7 +260,9 @@ interface FxUnit {
   scale: number;
   transition: string;
 }
-const IDLE_UNIT: FxUnit = { tx: 0, ty: 0, rot: 0, scale: 1, transition: `transform ${CHO.RETURN_MS}ms ease` };
+// The resting transform. Its return rides SETTLE_EASE so a fighter easing back to centre (e.g. a
+// knocked-back loser recovering between exchanges) overshoots ~10% then rests, matching the beat.
+const IDLE_UNIT: FxUnit = { tx: 0, ty: 0, rot: 0, scale: 1, transition: `transform ${CHO.RETURN_MS}ms ${CHO.SETTLE_EASE}` };
 
 interface FxState {
   p1: FxUnit;
@@ -645,9 +657,12 @@ function Banner({ text, kind, slamMs }: { text: string; kind?: 'danger' | 'gold'
 }
 
 function RevealPlate({ move, cx, faceDown }: { move: Move | null; cx: number; faceDown: boolean }): JSX.Element {
+  // Re-key the inner on the shown face so its entrance flip re-runs ONCE when a face-down "?" swaps
+  // to the revealed move (a single eased card-flip, no multi-bounce) instead of an instant pop.
+  const faceKey = faceDown || !move ? 'down' : move;
   return (
     <div className="fr-reveal-plate" style={{ left: `${cx}%`, top: `${CAL.revealY}%` }}>
-      <div className="fr-reveal-plate-inner">
+      <div className="fr-reveal-plate-inner" key={faceKey}>
         {faceDown || !move ? (
           <span className="fr-reveal-plate-label" style={{ fontSize: 'calc(var(--sh) * 3.4)' }}>
             ?
@@ -884,6 +899,10 @@ export function FightExperience(): JSX.Element {
     const roundEnding = Boolean(matchState.roundOver);
     const freeze = 'transform 0ms linear';
     const snappy = (ms: number) => `transform ${ms}ms cubic-bezier(0.2, 0.9, 0.2, 1)`;
+    // Wind-up (ease-in: slow anticipation -> snappy arrival) for advances; settle (spring
+    // overshoot) for returns home. Both read their curve from CHO — one module-const tuning surface.
+    const windup = (ms: number) => `transform ${ms}ms ${CHO.LUNGE_EASE}`;
+    const settle = (ms: number) => `transform ${ms}ms ${CHO.SETTLE_EASE}`;
 
     const winnerSide: 'p1' | 'p2' | null = lastOutcome.kind === 'hit' ? lastOutcome.winner : null;
     // toward-opponent sign: p1 lunges +x (right), p2 lunges -x (left).
@@ -934,8 +953,8 @@ export function FightExperience(): JSX.Element {
       // §7.4: CLASH plays NO impact burst — the existing clash presentation stays. Both lunge to
       // near-centre, freeze, white radial flash + CLASH pop, rebound.
       set(
-        { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) },
-        { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) },
+        { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) },
+        { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) },
       );
       at(() => {
         dispatchFx({ clash: true, nonce: fx.nonce + 2 });
@@ -943,8 +962,8 @@ export function FightExperience(): JSX.Element {
       }, CHO.LUNGE_MS);
       at(() => {
         dispatchFx({
-          p1: { tx: 0, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.RETURN_MS) },
-          p2: { tx: 0, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.RETURN_MS) },
+          p1: { tx: 0, ty: 0, rot: 0, scale: 1, transition: settle(CHO.RETURN_MS) },
+          p2: { tx: 0, ty: 0, rot: 0, scale: 1, transition: settle(CHO.RETURN_MS) },
         });
       }, CHO.LUNGE_MS + CHO.CLASH_FREEZE_MS);
       return () => clearCho();
@@ -1000,7 +1019,7 @@ export function FightExperience(): JSX.Element {
         at(() => dispatchFx({ p1: u.p1, p2: u.p2 }), contactAt + hitstopMs);
       }
     } else if (move === 'strike') {
-      const lunge: FxUnit = { tx: sign(w) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) };
+      const lunge: FxUnit = { tx: sign(w) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) };
       const wu = winnerUnit(lunge);
       set(wu.p1, wu.p2);
       const hitstop = roundEnding ? CHO.KO_HITSTOP_MS : CHO.HITSTOP_MS;
@@ -1021,16 +1040,16 @@ export function FightExperience(): JSX.Element {
       }, CHO.LUNGE_MS);
       scheduleImpactClear(w, CHO.LUNGE_MS);
       at(() => {
-        const wu2: FxUnit = { ...IDLE_UNIT, transition: snappy(CHO.RETURN_MS) };
-        // Round-ending hit: launch the loser back (§7.5); otherwise the held knockback + tilt.
+        const wu2: FxUnit = { ...IDLE_UNIT, transition: settle(CHO.RETURN_MS) };
+        // Round-ending hit: launch the loser back (§7.5); otherwise the held knockback + tilt, settled.
         const lu2: FxUnit = roundEnding
           ? launchUnit(w)
-          : { tx: sign(w) * CHO.KNOCKBACK_X, ty: 0, rot: sign(w) * CHO.HURT_TILT, scale: 1, transition: snappy(CHO.RETURN_MS) };
+          : { tx: sign(w) * CHO.KNOCKBACK_X, ty: 0, rot: sign(w) * CHO.HURT_TILT, scale: 1, transition: settle(CHO.RETURN_MS) };
         const u = bothUnits(wu2, lu2);
         dispatchFx({ p1: u.p1, p2: u.p2, spark: null });
       }, CHO.LUNGE_MS + hitstop);
     } else if (move === 'throw') {
-      const step: FxUnit = { tx: sign(w) * CHO.STEP_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) };
+      const step: FxUnit = { tx: sign(w) * CHO.STEP_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) };
       const su = winnerUnit(step);
       set(su.p1, su.p2);
       // Grab shake on the victim.
@@ -1069,7 +1088,7 @@ export function FightExperience(): JSX.Element {
       }, slamAt + 260);
     } else {
       // block wins over strike: attacker (loser) lunges, shield flare on winner, attacker rebounds.
-      const attackerLunge: FxUnit = { tx: sign(l) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) };
+      const attackerLunge: FxUnit = { tx: sign(l) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) };
       const u0 = bothUnits(IDLE_UNIT, attackerLunge);
       set(u0.p1, u0.p2);
       at(() => {
@@ -1241,6 +1260,29 @@ export function FightExperience(): JSX.Element {
         {/* Effects layer */}
         {inFight && (
           <div className="fr-fx-layer">
+            {/* Contact fx — a soft radial glow, an expanding shockwave ring, and the damage floater
+                — all DERIVED from the single impact dispatch (fires on every damage-dealing hit:
+                strike/throw/block/clip, never a clash) and anchored at the defender's chest via
+                impactAt. Keyed by nonce so they restart per exchange. Being CSS animations they keep
+                swelling / drifting THROUGH the video hitstop freeze: the resolve moment never fully
+                stops moving. Derived from impact, not spark, because spark is cleared at hitstop-end
+                (it would truncate the 700ms floater) and never fires on throw/block. */}
+            {fx.impact && (
+              <div
+                key={`iglow-${fx.nonce}`}
+                className="fr-impact-glow"
+                aria-hidden="true"
+                style={{ left: `${fx.impact.xPct}%`, top: `${fx.impact.yPct}%`, width: 'calc(var(--sw) * 12)', height: 'calc(var(--sw) * 12)' }}
+              />
+            )}
+            {fx.impact && (
+              <div
+                key={`iring-${fx.nonce}`}
+                className="fr-impact-ring"
+                aria-hidden="true"
+                style={{ left: `${fx.impact.xPct}%`, top: `${fx.impact.yPct}%`, width: 'calc(var(--sw) * 7)', height: 'calc(var(--sw) * 7)' }}
+              />
+            )}
             {fx.spark && (
               <svg
                 key={`spark-${fx.nonce}`}
@@ -1251,6 +1293,18 @@ export function FightExperience(): JSX.Element {
               >
                 <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" fill="#fffbe0" stroke="#fff" strokeWidth="2" />
               </svg>
+            )}
+            {/* Damage floater: a constant "-1" (steel/HP palette). The value is FIXED by design
+                (RG-C5) — identical for both sides, never scaled by hit / stake / streak. */}
+            {fx.impact && (
+              <div
+                key={`dmg-${fx.nonce}`}
+                className="fr-damage-floater"
+                aria-hidden="true"
+                style={{ left: `${fx.impact.xPct}%`, top: `${fx.impact.yPct - 6}%`, fontSize: 'calc(var(--sh) * 3.2)' }}
+              >
+                -1
+              </div>
             )}
             {fx.clash && (
               <div
