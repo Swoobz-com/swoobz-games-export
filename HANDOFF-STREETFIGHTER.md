@@ -2,208 +2,201 @@
 
 Working title Frozen Requiem. Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
-is canonical. HEAD at handoff: `bcdfebb` (phase 5). Everything below is verified, not
-self-reported: every phase was live-driven headless before its commit.
+is canonical. HEAD at handoff: `91c1277` (phase 11b complete). Everything below is
+VERIFIED, not self-reported: every phase was live-driven headless before its commit.
+Rewritten clean 2026-07-18 end-of-session (the old phase-by-phase log grew unreadable;
+git history has the detail).
 
-## 0. Operating model (Tim's standing directive)
+## 0. Operating model (Tim's standing directive — read first)
+
 You are the ORCHESTRATOR: plan, brief, verify, review, commit. Specialized subagents
 (Opus 4.8 builders via the Agent tool) do the building from implementation-grade briefs
-(see `subagent-briefing` skill: context/task/constraints/expected output/verification).
-NEVER trust a builder's self-report - re-run its gates, then live-drive the real game
-yourself before committing. Tim approves every credit spend per batch (hard law).
+(`subagent-briefing` skill: context/task/constraints/expected output/verification).
+NEVER trust a builder's self-report — re-run its gates yourself, then live-drive the
+real game before committing. Tim approves every credit spend per batch (hard law);
+he answers fast and concretely — when he reports a visual defect, treat his diagnosis
+as a hypothesis and MEASURE (his reports have been right about the symptom every time,
+~half the time about the mechanism). Update project memory + this handoff at every
+phase boundary.
 
-## 1. What exists (by phase / commit)
-1. `8530a15` spec + art + scaffold. `4cbe2ac` phase 1: pure engine + AI + provider +
-   transport seam + audio (34 tests). `7c1c165` phase 2: full arcade presentation
-   (baked-HUD overlays via CALIBRATION %, keyed fighters, choreography, all screens).
-2. `100a5e7` phase 3: Swoobz chassis - WINNER-TAKES-ALL stakes (stake S, NPC matches S,
-   pot 2S, winner takes all; bigint lamports; balance in localStorage
-   `frozen-requiem.balance.v1`; BetConsole copied verbatim from `originals/_shared`,
-   skinned; MATCH RECEIPT; SWOOBZ mark; PLAY SAFE) + MK-style generated IDLE loops for
-   both fighters (Seedance 2.0, anchor-locked).
-3. `6671223` phase 4: CHARACTER-CONTRACT.md (the swappable-character law) + manifest
-   registry `src/characters/` + proof trio clips (GORVAK attack_strike, VOLTA hit,
-   GORVAK ember fx_impact) + provider hit windows (RESOLVE_HIT_MS 2000 / KO 2400) +
-   THE FACING RULE + burst screen-blend + radial feather.
-4. `bcdfebb` phase 5: CHARACTER SELECT (MK1 reference) + RUNTIME SLOTS: player pick =
-   left slot, opponent = right; `isMirrored(def, slot)` mirrors fighter + ALL clips +
-   portrait; opponent name dynamic everywhere. Both pick paths live-verified.
-5. `849e51c` phase 6: CHARACTER SELECT v2 per Tim's `input/characterselectionidle.mp4`
-   (MK1): full-body LIVE IDLE previews (`SelectPreview`, `SELECT_CAL` tunable block),
-   name plate at the pick's feet, 22-slot roster strip (2 real + 20 mystery "?", two
-   rows of 11), CONFIRM bottom-right. Zero credits (reuses keyed idles). Live-verified
-   both pick paths. NOTE: sibling previews keyed by def.id mean a pick-swap MOVES the
-   React instances (loops continue seamlessly, no remount) - intended, do not "fix".
-6a. `5223276` phase 9: COMBO-STRING BATCH + multi-contact choreography. VOLTA full kit
-   (strike [1292,2167,3167] / throw [1000,2333] / block [2417,2875] / hit re-rolled,
-   direction FIXED) + GORVAK hit; contacts?: number[] + hitRetrigger + "N HITS"
-   counter + "-1" on final contact only; CONTRACT §9; keyer global magenta suppress
-   (phase-4 note claimed it existed - it never did). GORVAK throw/block REJECTED at
-   QA (dirty anchor plate: interior grey wedge in fighter-1-keyed.png + square anchor
-   vs 16:9 outpainting = grey-disc hallucinations; one re-roll grew a visible human
-   opponent). Clean plate rebuilt (scratchpad gorvak-anchor-clean3.png); regeneration
-   = +72cr awaiting Tim. 360cr spent this batch. All paths live-verified, 57/57.
-6b. `84ca203` phase 9b: GORVAK kit COMPLETE (Tim approved +72cr, batch total 432cr).
-   Clean plate = persistent media `35867470-54cd-4e75-94a6-10b915c61b19` (RETIRES the
-   dirty 23fb74be anchor for all future GORVAK gens). throw [1208,1875] + block
-   [2000,2417] clean, keyed, live-verified. BOTH characters ship the full 5-clip
-   combo kit; every attack path proven in both slots. AI-drive lesson: repeated
-   same-move picks teach the AI to counter - randomize picks when hunting a win.
-6c. `99d2665` phase 10: CLIP-DRIVEN CLASH - both fighters play their shared attack
-   clip, freeze together at the later first-contact (CLASH_CLIP_FREEZE_MS 260), frost
-   shock rings through the freeze, then cut to idle + settle (strings do NOT play out
-   post-freeze). CSS fallback byte-identical for clip-less characters. Provider
-   RESOLVE_MS 700->1800 (single use site = clash delay). Live-verified frame-locked.
-6d. `8508e8d` phase 11: VARIANT TAKES (contract 10: >=2 per non-idle state, uniform
-   random per exchange, clipVariants resolver) + SPECIAL FINISHERS (contract 11:
-   `special` state on round-ending wins; baked elemental trail = the sanctioned
-   exception, fire APPROVED at Scorpion bar). GORVAK flame-circle + VOLTA lightning
-   spin. Wave 504cr. Lessons IN PROJECT MEMORY phase-11 entry: grab-verb prompts
-   materialize limbs; impact flashes need "the impact is INVISIBLE"; late hit reads
-   fix by head-trim; big effects need WIDE FRAMING or they clip at the source frame
-   (Tim: "make the box bigger"); keyer magenta-family flood for bloom; ALL-FRAME
-   numeric haze scan + visual adjudication over dark.
-6e. `20583b0` phase 11b: SPECIAL EDGE-FEATHER. Tim caught the flame ring cutting at a
-   straight line in-game; edge-touch scan proved the effect runs off the SOURCE frame
-   at the whip peak (Seedance composes effects to its canvas regardless of framing
-   prompts - wide-framing shrinks but does NOT eliminate edge contact). FIX =
-   ENGINEERING, not regeneration: smoothstep alpha feather, outer 48px top/left/right
-   + 40px bottom with a protected center feet column (scratchpad edge-feather.mjs /
-   bottom-feather.mjs patterns). Effects now dissolve into embers at extremities.
-   LAW for future effect clips: after keying, edge-feather ANY clip whose effect
-   touches a source edge; verify with the edge-touch alpha scan, not eyes.
-6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
-   = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
-   raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
-   floater derived from fx.impact (fires on clipless exchanges too; CSS keeps animating
-   THROUGH hitstop = the anti-static trick), eased HP drain + plate flip. Remaining
-   static-ness = the 5 missing body clips (the pending credit batch).
+## 1. What the game is now (state at HEAD)
 
-Game flow: title -> mode (CPU personality brute/warden/oracle or friend create/join) ->
-charSelect -> stake -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-of-3,
-5s shot clock, tie=CLASH) -> receipt -> rematch/character select/quit.
+A complete, playable, staked MK-style duel. Flow: title -> mode (CPU personality
+brute/warden/oracle or friend create/join) -> character select (MK1-style: live idle
+previews, 22-slot roster = 2 real + 20 mystery "?") -> stake (winner-takes-all, pot 2S)
+-> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-of-3, 5s shot clock,
+tie=CLASH) -> receipt -> rematch/character select/quit.
 
-## 2. Architecture map
-- `src/engine/fightEngine.ts` + `fightAi.ts` - **BYTE-FROZEN since phase 1**. Never
-  edit; every commit gate checks `git diff --stat` shows them untouched.
-- `src/engine/fightStakes.ts` - pure bigint stake math (16 tests).
-- `src/provider/fightProvider.ts` - the whole state machine. Module-const timings
-  (RG-C5). StrictMode-safe: NO side effects in setState updaters; refs mirror state.
-  Identity-agnostic (never knows WHICH character - the Experience owns `playerId`).
-- `src/characters/` - types + `gorvak.ts` / `volta.ts` manifests + registry. A new
-  character = ONE new manifest file (tile, fight, portraits all follow).
-- `src/ui/FightExperience.tsx` - zero-prop presentation. CALIBRATION const block =
-  %-positions over the baked-HUD background art (do not touch values). CHO block =
-  choreography consts. CLIP_RATE = 2.0.
-- `src/ui/fight.css` - NEVER combine -webkit-text-stroke with background-clip:text
-  gradient text (Chrome miter-spike bug; use stacked drop-shadows).
-- `src/transport/matchTransport.ts` - PvP seam. LocalSimTransport fakes the friend;
-  real WebSocket slots in later without touching engine/provider.
-- `scripts/key-idle-clips.mjs` - clip keying (border-seeded flood matte, 5px edge-band
-  despill 0.12, GLOBAL magenta-family suppress [safe ONLY while no character wears
-  magenta], 2px feather, union-bbox crop, cal JSON emission via `--still`).
-- `CHARACTER-CONTRACT.md` - THE LAW for characters/clips/effects/facing. Read fully
-  before any character work. FIGHT-SPEC.md section 8 overrides earlier sections.
+BOTH characters (GORVAK orc / VOLTA cyber-brawler) ship the FULL kit — 12 clips each:
+- idle (1, the anchor hub) + TWO interchangeable takes of attack_strike / attack_throw
+  / attack_block / hit (contract §10: uniform-random per exchange, distinct actions)
+- a SPECIAL finisher (contract §11): GORVAK flaming cleaver circle, VOLTA lightning
+  spin — plays automatically on any round-ending win, baked elemental trail (the
+  sanctioned effect exception, "Scorpion quality" per Tim; fire is APPROVED for
+  specials — the earlier fire ban applied to the old ember impact-burst only)
 
-## 3. Hard-won learnings (each cost real debugging - do not relearn)
-1. **"i dont see the animation" = window truncation.** Attack clips are a 2s beat with
-   contact at 875ms; the provider's old 700ms resolve window cut the swing pre-contact
-   and clamped hitstop onto a windup frame (reads as stutter). Hit windows must FIT the
-   clip beat (RESOLVE_HIT_MS/RESOLVE_KO_MS). If a future clip's contact overruns its
-   window, the UI clamp keeps the beat landing - but fix the window, not the clamp.
-2. **Judge character facing by the HEAD at FULL resolution.** VOLTA's body stances left
-   but her head looks right; at thumbnail size I mis-QA'd her as left-facing, shipped
-   her unmirrored, and Tim caught it. The head is what reads.
-3. **THE FACING RULE (contract section 4).** Slot is runtime; left slot faces right,
-   right slot faces left; mirror when `faces` disagrees. The mirror wraps the WHOLE
-   video stack so clips can never desync from the still.
-4. **Directional acting must be prompted in ART space.** VOLTA's hit clip was prompted
-   in screen space ("blow from frame-left") and is inverted for the unmirrored left
-   slot (whips TOWARD the attacker). Correct rule: the blow comes from the character's
-   FACING side in the raw clip; then it reads right in both slots. Re-roll queued.
-5. **Ground-truth probe for "is the clip playing": hook `HTMLMediaElement.play` via
-   `page.evaluateOnNewDocument`.** DOM opacity sampling missed everything and burned an
-   hour; the play-hook found the truth in one run.
-6. **Impact effects: generate on PURE BLACK, composite `mix-blend-mode: screen`, then
-   (a) trim to the detonation window (Seedance rains embers for the full duration),
-   (b) tag color range on re-encode AND (c) radial-feather mask the element - untagged
-   limited-range black lifts to grey and screen blend shows a hard box.**
-7. **Seedance preset interception:** prompts matching a Higgsfield preset return a
-   notice instead of generating; retry with `declined_preset_id`. DIFFERENT presets can
-   fire on different prompts ("3D RENDER", "IN THE DARK") - decline each id as it appears.
-8. **Anchor lock works:** `start_image == end_image == image_references` = seamless
-   loop + identity + drop the duplicated last frame (n<120 of 121). Idle restarts at
-   currentTime=0 on return (frame 0 IS the anchor).
-9. **Keying:** sample the screen color per frame (border-ring median), border-seeded
-   flood fill (protects interior by construction), edge-band despill only - PLUS the
-   global magenta-suppress for interior motion-blur pockets (safe only while no
-   character wears magenta; gate it per character). Verify mattes over black AND white
-   AND grey on first/mid/high-motion/last frames. Transparent plane never pure black.
-10. **This environment lies about background dev servers**: a "killed" task
-    notification does NOT mean the server died - `curl -s -o /dev/null -w "%{http_code}"
-    http://localhost:5340/` is the truth. It DID die once too - then restart per the
-    DEV-SERVER HYGIENE LAW (kill only PIDs whose command line points at THIS project).
-11. **Headless verification recipe:** puppeteer-core via
-    `createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/package.json')`
-    + system Chrome `C:/Program Files/Google/Chrome/Application/chrome.exe` + arg
-    `--autoplay-policy=no-user-gesture-required` (else videos never play headless).
-    Click buttons by regex on textContent OR aria-label. Beware regex traps: the moves
-    legend "STRIKE > THROW > BLOCK" matches /strike/ at ALL times.
-12. **Chrome text-stroke miter-spike bug** (global memory `chrome-text-stroke-miter-spikes`).
+Presentation systems, all clip-driven: combo strings (1-3 `contacts` per attack take,
+per-contact ring/glow/echo/spark/hitstop/shake, defender hit-clip re-trigger via
+`hitRetrigger`, "N HITS" counter, "-1" floater on the FINAL contact only), clip-driven
+CLASH (both play the shared attack state, freeze together at the later first-contact,
+frost shock rings, cut back to idle), frost parry arc on block wins, eased everything
+(wind-up/settle curves, decaying shake, HP drain, card-flip reveals). KO = hitstop +
+launch + zoom. Zero remaining CSS-only combat paths in practice (the pre-clip
+choreography survives as the contract fallback ladder for future clip-less characters).
 
-## 4. Credit / generation facts (Higgsfield)
-- Balance was ~1,963 credits after phases 3-4 (idle 90 + proof trio 135). Seedance 2.0
-  1080p std 5s = 45 cr/clip; 4s = 45; 720p = 22.5. ALWAYS `get_cost` preflight + Tim's
-  per-batch OK (AskUserQuestion). MCP upload works agent-side: `media_upload` ->
-  presigned PUT -> `media_confirm`.
-- Persistent confirmed media ids (reusable as start/end/image_references):
-  GORVAK magenta anchor `23fb74be-90db-4b64-850c-ed1e39ed0b9a`,
-  VOLTA magenta anchor `19539771-3ddb-424d-a9af-a5bfc280957a`,
+## 2. Architecture map (stable — learn before touching anything)
+
+- `src/engine/fightEngine.ts` + `fightAi.ts` — **BYTE-FROZEN since phase 1**. Never
+  edit; every commit checks `git diff --stat` shows them untouched.
+- `src/engine/fightStakes.ts` — pure bigint stake math.
+- `src/provider/fightProvider.ts` — the state machine. Module-const timings (RG-C5),
+  StrictMode-safe, identity-agnostic. Resolve windows: RESOLVE_HIT_MS 2000 /
+  RESOLVE_KO_MS 2400 / RESOLVE_MS 1800 (clash; single use site). Windows must FIT the
+  clip beat — a too-short window cuts the swing pre-contact ("i dont see the animation").
+- `src/characters/` — types + manifests + registry. `clips` accepts
+  `FighterClip | FighterClip[]` (variant takes); `clipVariants(def, state)` in types.ts
+  is THE resolver every path routes through. A new character = ONE manifest file.
+  `special` is a state like any other. NO fxImpact on current characters (deprecated
+  after the ember rejection; §7 machinery remains legal but opt-in).
+- `src/ui/FightExperience.tsx` — zero-prop presentation. CAL block (baked-HUD
+  %-positions, do not touch values) / SELECT_CAL (char-select previews) / CHO
+  (choreography consts incl. LUNGE_EASE/SETTLE_EASE, CLASH_CLIP_FREEZE_MS 260).
+  CLIP_RATE = 2.0. Fighter stacks one preloaded <video> per VARIANT (key
+  `${state}-${i}`), never src-swaps. Variant pick per exchange is dispatched into
+  FxState (p1Var/p2Var) so render + timing read the SAME index.
+- `src/ui/fight.css` — never combine -webkit-text-stroke with background-clip:text
+  (Chrome miter-spike). Fight fx all on the smoothness curve cubic-bezier(0.22,1,0.36,1).
+- `src/transport/matchTransport.ts` — PvP seam; LocalSimTransport fakes the friend.
+- `scripts/key-idle-clips.mjs` — THE keying recipe: border-ring median screen color,
+  tight global key + border-seeded flood fill (candidacy = distance OR magenta-family
+  min(R-G,B-G)>45, which catches effect-bloomed backdrop), edge-band despill 0.12,
+  GLOBAL interior magenta-family suppress (SUPPRESS_MIN 28 / KEEP 0.25 — safe ONLY
+  while no character wears magenta), 2px feather, union-bbox crop, cal JSON via
+  `--still` (cals are NEVER hand-derived).
+- `CHARACTER-CONTRACT.md` — THE LAW. §9 combo strings, §10 variants, §11 specials.
+  Read fully before any character work. FIGHT-SPEC.md §8 overrides earlier sections.
+
+## 3. Hard-won learnings (each cost real debugging — do not relearn)
+
+Generation (Seedance 2.0 via Higgsfield MCP):
+1. **Anchor hygiene is everything.** A dirty anchor plate (interior grey remnant,
+   baked shadow) comes back as grey-disc hallucinations; one re-roll even grew a
+   visible human opponent. Inspect the plate at full res; rebuild from the keyed still
+   on pure magenta; scrub remnants with a SEEDED flood fill (bbox thresholding overshoots
+   onto costume highlights). Match `aspect_ratio` to the anchor or pass "auto" — forced
+   16:9 from a square anchor outpaints hallucination zones. (Global skill
+   higgsfield-generation carries this law.)
+2. **Grab-verb mime prompts MATERIALIZE the opponent** (a phantom severed arm appeared
+   mid-throw). Solo prompts must avoid grabbing-an-opponent verbs and state "she is the
+   ONLY thing in the frame, only her own two arms appear, hands stay empty".
+3. **Hit-reaction prompts bake impact flashes** unless negatived: "the impact itself is
+   INVISIBLE: no flash, no glow, no shockwave; the background stays plain flat magenta".
+4. **Effect clips run off the SOURCE frame** (global memory `effect-clip-edge-cut`):
+   the straight cut Tim reported was in the pixels, not a CSS box. Wide-framing prompts
+   ("character occupies the middle half") shrink but never eliminate it. After keying
+   ANY effect clip: per-frame edge-touch alpha scan (numbers convict; spot frames lie),
+   then post-key smoothstep edge feather (48px top/left/right + 40px bottom with a
+   protected center feet column). Never re-generate for this; never enlarge boxes.
+5. **A late-reading reaction clip can be head-trimmed free** if the trim point is still
+   the anchor pose (VOLTA's fold: dropped 14 lead frames, beat now inside the
+   early-impact law).
+6. **Preset interception:** prompts matching a Higgsfield preset ("IN THE DARK") return
+   a notice; retry with `declined_preset_id`. Different prompts trip different presets.
+7. **Anchor lock works:** start==end==image_references = seamless loop + identity.
+   Directional acting must be prompted in ART space (the blow comes from the character's
+   FACING side — RIGHT for both current characters); screen-space prompts invert when
+   the slot mirrors.
+8. **Costume drift under strong effect light** (fire washed GORVAK's outfit warm):
+   lock it in the prompt ("his outfit stays dark leather ... even when lit by fire").
+
+QA discipline:
+9. **Numeric all-frame scans, never 2-3 spot frames.** A washed backdrop plate hid
+   exactly between my sample frames; the border haze scan (alpha coverage in the outer
+   12% band, every frame) caught it. But border coverage alone cannot convict when a
+   legit effect occupies the band — always adjudicate visually OVER DARK.
+10. **Judge facing by the HEAD at full resolution** (VOLTA's body stances left, head
+    reads right). Judge mattes over black AND white; the magenta plate hides magenta-
+    family defects and edge cuts.
+11. **Ground truth for "is the clip playing"**: hook HTMLMediaElement.play via
+    page.evaluateOnNewDocument; DOM opacity sampling misses everything.
+12. **A headless click helper must VERIFY registration** (pick buttons unmount on lock)
+    and retry — fire-and-forget clicks silently miss the pick window and the 5s shot
+    clock auto-picks, which once framed the game for a bug it didn't have.
+13. **The AI reads pick patterns** (warden counters throw-spam): drives that hunt a
+    specific outcome must RANDOMIZE picks.
+14. **contacts are MEASURED, never guessed**: motion-energy peaks (scratchpad
+    measure-contacts.mjs pattern) confirmed frame-by-frame on the sheet.
+
+Environment:
+15. **Background dev-server notifications lie** — `curl -s -o /dev/null -w "%{http_code}"
+    http://localhost:5340/` is the truth. DEV-SERVER HYGIENE LAW applies (kill only
+    PIDs whose command line points at THIS project).
+16. **Parallel `curl ... & ... & wait` in the Bash tool loses the downloads** when the
+    shell returns early — download sequentially.
+17. **Headless recipe:** puppeteer-core via
+    `createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/package.json')`,
+    system Chrome, `--autoplay-policy=no-user-gesture-required`. Reusable drivers in the
+    session scratchpad: verify-final.mjs (variant+special hunt), verify-combo.mjs,
+    hunt-parry.mjs, capture-resolve.mjs (dense frames), probe-pick.mjs, haze-scan.mjs,
+    measure-contacts.mjs, edge-feather.mjs / bottom-feather.mjs (port to scripts/ when
+    next needed — scratchpads die with sessions).
+18. **The environment persists shell cwd across commands**: a `cd` into batch-raw once
+    leaked 14 QA intermediates into a repo-root commit (cleaned in `9e4240f`). Prefer
+    absolute paths; check `git status` before `git add -A`.
+
+## 4. Credits / generation facts (Higgsfield MCP)
+
+- Balance ~1,050 after this session (~950 spent total: phase-9 batch 432 + phase-11
+  wave 504). Seedance 2.0 4s 1080p std = 36 cr/clip. ALWAYS `get_cost` preflight +
+  Tim's per-batch OK. Upload path works agent-side: `media_upload` -> presigned PUT
+  (curl) -> `media_confirm`.
+- Persistent media ids (start/end/image_references):
+  **GORVAK CLEAN anchor `35867470-54cd-4e75-94a6-10b915c61b19`** (USE THIS — the old
+  `23fb74be...` is RETIRED, it carries the grey wedge that caused hallucinations),
+  VOLTA anchor `19539771-3ddb-424d-a9af-a5bfc280957a`,
   black plate 1024 `b757c6e3-263a-4eb6-a800-d37fd3391c77`.
-- Accepted generations (provenance): idle `a1f13fe5.../15bc5056...`, strike
-  `80d1ec37...`, volta hit `4c29d10d...` (DIRECTION INVERTED - re-roll), ember fx
-  `ea304005...`.
+- Full job-id provenance: scratchpad batch-jobs.md (dead with the session) — but every
+  accepted clip is committed in public/assets and its job id is in the phase commit
+  messages / project memory.
 
-## 5. What to do next (in order)
-1. **The remaining clip batch** (needs Tim's OK, ~360 cr at 1080p): GORVAK
-   attack_throw + attack_block + hit; VOLTA attack_strike + attack_throw + attack_block
-   + her voltage fx_impact + RE-ROLL of her hit with corrected direction. Prompt rules:
-   contract sections 3/5/7 + facing rule (directional acting in ART space - for BOTH
-   characters the blow/attack direction references their FACING side, which is RIGHT
-   for both). ALL input refs now studied: `fightingref.mp4` (MK1 fight - THE MOVEMENT
-   LAW, see MOTION DOCTRINE in project memory: full-body commitment, whole-body
-   defender reactions, contact ~40-50% of clip, eased return to anchor),
-   `hiteffect.mp4` (vault game - the SMOOTHNESS language, phase 7), `effect.mp4`
-   (MK1 fire explosion - REJECTED by Tim: no fire/ember in any prompt or asset,
-   ever), `kick fight reference.mp4` (timing), `characterselectionidle.mp4` (phase
-   6). BATCH CHANGE: VOLTA's voltage fx_impact is DROPPED (contact fx are
-   CSS-authored since phase 7/8) - batch = 7 body clips (~315 cr @ 1080p 5s).
-   Pipeline per contract section 6; keying via scripts/key-idle-clips.mjs (use
-   `--still` to emit cal JSON - never hand-derive); fill manifests; live-verify BOTH
-   pick paths; commit.
-2. **Contact-sync polish after the batch:** per-move contactMs measured from each QA
-   sheet; consider starting the defender's hit clip slightly BEFORE contact so the whip
-   lands at unfreeze (currently starts at contact).
-3. **Backlog (Tim-prioritized):** real multiplayer transport (WebSocket) behind
-   MatchTransport; friend-mode staked flow live-verified end-to-end (only fake-connect
-   was driven); loss-path receipt live check (math is unit-tested); VS splash diagonal
-   split per spec; reveal plate stagger (P2 shows "?" until resolve - needs provider
-   contract change); announcer VO; `ko`/`victory` clips (optional states).
-4. **If Tim reports feel issues:** CLIP_RATE (2.0) vs provider windows are the levers;
-   GORVAK's strike has mid-swing weapon drift (cleaver reads as staff ~frames 50-60,
-   invisible at speed - re-roll only if Tim notices).
+## 5. What to do next (in Tim's priority order, none started)
+
+1. **`ko` / `victory` optional states** (~144 cr for both characters, or 288 with §10
+   variant pairs — ask Tim which). ko ends held on the ground OFF-anchor (contract §1);
+   victory returns to anchor. Wire = manifest data only; Fighter already treats unknown
+   states generically and `handleClipEnd` already holds `ko`.
+2. **Real multiplayer transport**: WebSocket behind MatchTransport; friend-mode staked
+   flow live-verified end-to-end (only fake-connect was ever driven).
+3. **Announcer VO** (RG-C5: zero-param audio fns, value-independent).
+4. **VS splash diagonal split** per FIGHT-SPEC.
+5. **Loss-path receipt live check** (math is unit-tested; never watched live).
+6. **Character #3**: one art drop from Tim -> keyed still -> clean anchor plate
+   (inspect it!) -> acting table (contract §3) -> 9-clip kit (idle + 2x4 states,
+   ~324 cr) + optional special (+36) -> key -> measure contacts -> ONE manifest file ->
+   live-drive both slots. The entire pipeline is proven; every law above applies.
+7. **If Tim reports feel issues**: CLIP_RATE (2.0) and provider windows are the levers;
+   GORVAK's strike-A has mid-swing weapon drift (cleaver reads as staff ~f50-60,
+   invisible at speed — re-roll only if Tim notices).
 
 ## 6. Gates before ANY commit (all of them, quote real output)
-`npx tsc --noEmit` clean; `npx vitest run` 50/50 (66 after new stake tests? no - 50
-now, grows with new test files); `npm run build` ok; `git diff --stat` shows
-fightEngine.ts + fightAi.ts untouched; live headless drive of the changed surface
-(screenshots, both pick paths for anything touching characters); no em-dashes in
-user-facing copy; RG-C5 (zero-param audio, module-const timings, value-independent
-celebrations). Commit with Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>.
-Repo git config: user.name Tim, user.email erstrijbis@gmail.com (already set locally).
+
+`npx tsc --noEmit` clean; `npx vitest run` **62/62** (grows with new test files);
+`npm run build` ok; `git diff --stat` shows fightEngine.ts + fightAi.ts untouched;
+live headless drive of the changed surface (both pick paths for anything touching
+characters; randomized picks; screenshots); for effect clips: edge-touch scan + haze
+scan + composite over dark; no em-dashes in user-facing copy; RG-C5 (zero-param audio,
+module-const timings, value-independent celebrations — the variant pick derives from
+Math.random only, the special from round state only). Commit with
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>. Repo git config: user.name Tim,
+user.email erstrijbis@gmail.com (set locally).
 
 ## 7. Memory locations
+
 Project memory: `~/.claude/projects/...streetfighter/memory/frozen-requiem-state.md`
-(kept current through phase 5). Global: `~/.claude/memory/MEMORY.md` index +
-`chrome-text-stroke-miter-spikes.md`. Update both at the end of any session that
-learns something durable (SAVE-GLOBAL LAW).
+(current through phase 11b — the full phase log lives there + in git history).
+Global: `~/.claude/memory/MEMORY.md` index; this session added `effect-clip-edge-cut.md`
+and earlier `genvideo-character-clip-lessons.md`; the anchor-hygiene law is in the
+global `higgsfield-generation` skill (stormforge repo, junctioned). Artifacts for Tim:
+`specials-preview.mp4` at the repo root (side-by-side finishers export) + the
+claude.ai artifact "Frozen Requiem: Special Attacks". Update memory + this handoff at
+every phase boundary (SAVE-GLOBAL LAW).
