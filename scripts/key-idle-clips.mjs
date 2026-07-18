@@ -70,12 +70,19 @@ for (const f of files) {
   const screen = [med(rs), med(gs), med(bs)];
 
   // 2. Matte: tight global key + border-seeded flood fill over loose candidates.
+  // Flood candidacy is distance-based PLUS magenta-family: an emissive effect (fire ring,
+  // lightning arc) LIGHTS the magenta backdrop around the character, lifting it far beyond the
+  // distance threshold while keeping the magenta structure (R and B both well above G). Fire is
+  // R>>B and lightning cores are near-white (G high), so both fail the family test and survive;
+  // washed/bloomed backdrop floods away. Border-seeded, so interiors stay protected. SAFE only
+  // while no character wears magenta (same gate as the interior suppress).
   const alpha = new Uint8Array(W * H).fill(255);
   const cand = new Uint8Array(W * H);
   const t2 = TIGHT * TIGHT, l2 = LOOSE * LOOSE;
   for (let p = 0, i = 0; p < W * H; p++, i += 4) {
-    const q = dist2(d[i], d[i + 1], d[i + 2], screen);
-    if (q < l2) cand[p] = 1;
+    const r = d[i], g = d[i + 1], b = d[i + 2];
+    const q = dist2(r, g, b, screen);
+    if (q < l2 || Math.min(r - g, b - g) > 45) cand[p] = 1;
     if (q < t2) alpha[p] = 0;
   }
   const stack = [];

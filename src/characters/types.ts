@@ -6,6 +6,13 @@
 
 // §1 state vocabulary. `idle` is the hub; `attack_*`/`hit` drive the exchange beats; `ko`
 // and `victory` are optional. CLASH needs no clip (both play their attack clip).
+// `special` is the optional signature FINISHER (contract §11): it plays in place of the
+// winner's normal attack clip on a ROUND-ENDING win, when the character ships one. It is the
+// ONE state whose clip may carry the character's elemental trail BAKED INTO the body (the
+// Tim-approved exception to the effect-free-body rule of §7, held to the Scorpion-quality bar);
+// every other state stays effect-free. It is NOT a move mapping (never in ATTACK_STATE) and is
+// never selectable, never value-dependent — round state only (RG-C5). Absent = the normal
+// attack clip plays exactly as today.
 export type FighterState =
   | 'idle'
   | 'attack_strike'
@@ -13,7 +20,8 @@ export type FighterState =
   | 'attack_block'
   | 'hit'
   | 'ko'
-  | 'victory';
+  | 'victory'
+  | 'special';
 
 /** Percent placement of a clip inside the square fighter box (of the box's own size), chosen
  *  so the clip's ANCHOR frame lands pixel-on-pixel over the still. EMITTED as JSON by
@@ -71,7 +79,27 @@ export interface FighterDef {
    *  mirrored character's clips must be prompted in ART space (opposite of screen space). */
   faces: 'left' | 'right';
   portrait: FighterPortrait; // head-crop params for HUD medallions + select tiles
-  clips: Partial<Record<FighterState, FighterClip>>;
+  /** THE VARIANT LAW (contract §10): a state may own ONE clip OR a LIST of interchangeable takes.
+   *  Variants are DIFFERENT takes of the SAME state (same acting family — a strike is still a
+   *  strike — but distinct actions), so a repeated win never looks pixel-identical. A single clip
+   *  and a one-element list mean the SAME thing (see clipVariants), so today's single-clip
+   *  manifests stay byte-identical. Each take carries its OWN cal + contacts (every take has its
+   *  own geometry and beat times — a variant is NOT a re-timing of another). `idle` stays a single
+   *  clip: it is THE anchor hub, the one loop every state returns to, so it is never varied. */
+  clips: Partial<Record<FighterState, FighterClip | FighterClip[]>>;
   quotes: string[]; // win-screen lines, in character
   fxImpact?: FighterFxImpact; // §7 impact burst; optional, filled when the clip is generated
+}
+
+/** THE VARIANT LAW accessor (contract §10). Normalises a state's manifest entry into a flat list
+ *  of takes: [] when the state ships no clip, [single] when it ships one, or the array as-is when
+ *  it ships a list. PURE (no React, no DOM) so it is the ONE reader every render + timing path
+ *  routes through — a state's variant count has exactly one source of truth. A variant is chosen
+ *  per EXCHANGE (never per contact: every contact of a string is the same take), by the choreography
+ *  at resolve start. With a single-clip manifest this always yields a one-element list, so the choice
+ *  is forced to index 0 and behaviour is byte-identical to the pre-variant beat. */
+export function clipVariants(def: FighterDef, state: FighterState): FighterClip[] {
+  const entry = def.clips[state];
+  if (!entry) return [];
+  return Array.isArray(entry) ? entry : [entry];
 }

@@ -197,3 +197,56 @@ makes a win READ as a flurry without touching the math.
 - **Contact fx are CSS-authored (see §7).** The generated `fx_impact` burst is deprecated for new
   characters; the ring/echo/glow/floater/counter above are the sanctioned contact presentation. The
   §7 burst machinery stays legal but opt-in.
+
+## 10. The variant law (every non-idle state ships >= 2 interchangeable takes)
+
+A repeated win must never look pixel-identical. So every state EXCEPT `idle` ships AT LEAST TWO
+interchangeable TAKES; one is chosen uniform-random per exchange. `idle` is exempt — it is THE
+anchor hub, the one loop every state returns to, so it is never varied (a single take, forever).
+
+- **Same acting family, distinct actions.** All takes of a state are the SAME state — a strike take
+  is still a strike (contract §3 acting) — but they are DIFFERENT actions (e.g. GORVAK's cleaver: an
+  overhead chop take AND a horizontal sweep take), so back-to-back wins read fresh, not looped.
+- **Each take carries its OWN measured cal + contacts.** A variant is NOT a re-timing of another
+  clip: every take is its own generated clip with its own geometry (`cal`) and its own beat times
+  (`contacts`/`contactMs`), each measured off its own QA sheet EXACTLY like a single clip (§9), never
+  copied from a sibling and never guessed.
+- **The manifest holds a clip OR a list.** `clips[state]` is either one `FighterClip` (one take) or a
+  `FighterClip[]` (a list of takes). `clipVariants(def, state)` normalises both to a flat list ([],
+  [one], or the array) — it is the ONE reader every render + timing path routes through. A single
+  clip and a one-element list mean the SAME thing, so single-clip manifests stay byte-identical.
+- **Chosen per EXCHANGE, never per contact.** The choreography picks the take at resolve start (from
+  `Math.random` only — RG-C5: never from stake, streak, or outcome value) and dispatches the index so
+  the render layer AND all contact/clash timing read the SAME take. Every contact of a combo STRING
+  (§9) belongs to that one chosen take; a re-pick (e.g. a StrictMode re-run) re-picks render + timing
+  together and cannot desync them.
+- **File naming.** Take A keeps the existing single-clip name `<id>-<state>.webm` (so shipped files
+  are unchanged); later takes are `<id>-<state>-b.webm`, `<id>-<state>-c.webm`, and so on. Idle stays
+  the single `<id>-idle.webm`.
+- **Fallback ladder unchanged.** A state with ZERO takes ([]) still falls back exactly as §4: missing
+  `attack_*`/`hit` -> the pre-clip CSS choreography; missing `idle` -> the breathing still.
+
+## 11. The special law (optional signature finisher)
+
+A character MAY ship a `special` state: a signature FINISHER clip. It is the ONE deliberate exception
+to the effect-free-body rule (§7): the character's elemental trail is BAKED INTO the special clip's
+body (GORVAK = a flaming cleaver circle; VOLTA = a lightning spin), held to the Scorpion-quality bar —
+added after Tim approved fire at that quality. Every other state stays effect-free.
+
+- **Plays on round-ending wins ONLY, never selectable, never value-dependent.** When an exchange's win
+  TAKES the round (the choreography's `roundEnding` flag) and the WINNER ships a `special`, the winner
+  plays `special` in place of its normal `attack_<move>` clip. The trigger is ROUND STATE only — never
+  the stake, the streak, or any money value (RG-C5 clean, like every other beat). A player never picks
+  it; it is not a move (it is NOT in `ATTACK_STATE`).
+- **Measured and timed EXACTLY like an attack clip.** `special` carries its own `cal` and 2-3 `contacts`
+  (§9), each read off its QA sheet, never guessed. The round-ending choreography (multi-contact string,
+  KO hitstop on the final contact, KO zoom, loser launch) reads the special clip's contacts identically
+  to an attack clip's — the ONLY thing that changes is WHICH clip the winner plays.
+- **Anchor-locked, effect fully dissipated by the final frame.** Like every non-`ko` clip (§2) it starts
+  and ends on THE anchor pose, and it is a ONE-SHOT: it returns to idle on its own end (never loops). The
+  baked elemental trail must be fully gone by the last frame so the return-to-idle handoff is seamless.
+- **`special` may be varied like any non-idle state (§10)** — a clip OR a list of takes, read through
+  `clipVariants`. It is preloaded per-take alongside every other state.
+- **Falls back to the normal attack clip when absent.** A character with no `special` plays its normal
+  `attack_<move>` finisher on a round-ending win, exactly as before. The swap is invisible until a
+  manifest ships a `special` take.

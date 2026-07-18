@@ -13,6 +13,8 @@ import type { Move } from '../engine/fightEngine';
 import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
 import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
 import type { FighterDef, FighterState } from '../characters';
+// clipVariants is imported from the types module directly (the barrel re-exports only the types).
+import { clipVariants } from '../characters/types';
 // The character-select screen is the ONE place the UI fires its own sound (a UI tick on tile
 // selection). This does NOT double-fire: the provider is silent during 'charSelect'. Every
 // in-fight sound still comes from the provider at its beat, so the UI never touches audio there.
@@ -55,6 +57,19 @@ const BG_URL = `${ASSET_BASE}assets/background.png`;
 const CLIP_RATE = 2.0;
 // Fallback attack contact if a clip omits contactMs (40% of a 4s clip, in pre-CLIP_RATE time).
 const DEFAULT_CONTACT_MS = 1600;
+
+/**
+ * THE VARIANT LAW pick (contract §10). Chooses which interchangeable take of a state plays THIS
+ * exchange, from `n` available takes. RG-C5: the choice derives ONLY from Math.random — NEVER from
+ * the stake, the streak, the outcome, or any value — so which take you see carries no information
+ * about the money. A one-variant state short-circuits to index 0 WITHOUT drawing from Math.random,
+ * which is what keeps today's single-clip manifests byte-identical (no RNG is consumed, the render
+ * and the timing math both read take 0). Chosen once per exchange, never per contact.
+ */
+function pickVariant(n: number): number {
+  if (n <= 1) return 0;
+  return Math.floor(Math.random() * n);
+}
 
 /**
  * THE COMBO-STRING LAW (contract §9): derive an attack clip's contact times for the choreography
@@ -305,6 +320,12 @@ interface FxState {
   // the Fighter). Stays 'idle' whenever the pre-clip CSS choreography is driving the beat.
   p1State: FighterState;
   p2State: FighterState;
+  // §10 VARIANT LAW: which take (index into clipVariants(def, pXState)) each fighter shows this
+  // exchange. The SINGLE source of truth — both the render layer AND all timing math read the same
+  // index, so a re-picked variant can never desync the geometry/beats from what is on screen. Set
+  // together with pXState (a state that returns to idle resets its var to 0; idle is always single).
+  p1Var: number;
+  p2Var: number;
   hitstop: boolean; // freezes BOTH state videos during the hitstop window (clip choreography)
   // §7 impact burst: which attacker's fx_impact fires, and where (defender contact point). `final`
   // (§9 COMBO-STRING LAW): true only on the LAST contact of a string — the ring/glow/echo fire at
@@ -327,6 +348,8 @@ const FX_INIT: FxState = {
   p2: IDLE_UNIT,
   p1State: 'idle',
   p2State: 'idle',
+  p1Var: 0,
+  p2Var: 0,
   hitstop: false,
   impact: null,
   hitRetrigger: 0,
@@ -510,6 +533,7 @@ function Fighter({
   fx,
   poseClass,
   activeState,
+  activeVar,
   paused,
   hitRetrigger,
   reduced,
@@ -522,6 +546,7 @@ function Fighter({
   fx: FxUnit;
   poseClass: string;
   activeState: FighterState;
+  activeVar: number; // §10 VARIANT LAW: which take of activeState to show (chosen by the parent)
   paused: boolean; // hitstop: freeze the current state video
   hitRetrigger: number; // §9 combo-string re-contact pulse (restarts a CURRENT 'hit' clip mid-flow)
   reduced: boolean;
@@ -532,34 +557,44 @@ function Fighter({
   // slow decode (or a browser without VP9 alpha) never shows an empty fighter slot — it is
   // also the ultimate fallback when a character has no clips at all (contract §4 ladder).
   const [live, setLive] = useState(false);
-  const videoRefs = useRef<Partial<Record<FighterState, HTMLVideoElement | null>>>({});
+  // Keyed by `${state}-${variantIndex}` — every take of every state has its own preloaded element.
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const states = Object.keys(def.clips) as FighterState[];
 
   // Fallback ladder: show the requested state's clip if the character ships it, else fall
-  // back to idle, else the breathing still (states.length === 0).
-  const displayState: FighterState = def.clips[activeState]
+  // back to idle, else the breathing still (no clips at all). Reads through clipVariants so a
+  // state counts as "shipped" only when it has >=1 take (an empty list is not a clip).
+  const displayState: FighterState = clipVariants(def, activeState).length > 0
     ? activeState
-    : def.clips.idle
+    : clipVariants(def, 'idle').length > 0
       ? 'idle'
       : activeState;
+  // §10 VARIANT LAW: the take shown for displayState. When displayState is the requested activeState
+  // the parent's chosen index applies; when the ladder fell back to idle (always a single take) the
+  // clamp collapses it to 0. So a fallback never indexes past a state's take list.
+  const displayVariants = clipVariants(def, displayState);
+  const activeIdx = displayVariants.length > 0 ? Math.min(activeVar, displayVariants.length - 1) : 0;
+  const activeKey = `${displayState}-${activeIdx}`;
 
   // Drive playback when the displayed state changes. One-shots restart from frame 0 and play
   // once (at CLIP_RATE); returning to idle restarts it at frame 0 too — its frame 0 IS the
   // anchor pose (contract §2), so the handoff is seamless.
   useEffect(() => {
     if (reduced) return;
-    const v = videoRefs.current[displayState];
+    const v = videoRefs.current[activeKey];
     if (!v) return;
     v.playbackRate = displayState === 'idle' ? 1 : CLIP_RATE;
     v.currentTime = 0;
     const p = v.play();
     if (p && typeof p.catch === 'function') p.catch(() => {});
-  }, [displayState, reduced]);
+    // activeKey folds in both displayState and the chosen take, so a same-state variant swap across
+    // exchanges (e.g. two strike wins with different takes) also restarts the newly-active clip.
+  }, [activeKey, displayState, reduced]);
 
-  // Hitstop: pause/resume the CURRENT state video (the parent freezes both fighters together).
+  // Hitstop: pause/resume the CURRENT state+take video (the parent freezes both fighters together).
   useEffect(() => {
     if (reduced) return;
-    const v = videoRefs.current[displayState];
+    const v = videoRefs.current[activeKey];
     if (!v) return;
     if (paused) {
       v.pause();
@@ -567,7 +602,7 @@ function Fighter({
       const p = v.play();
       if (p && typeof p.catch === 'function') p.catch(() => {});
     }
-  }, [paused, displayState, reduced]);
+  }, [paused, activeKey, reduced]);
 
   // §9 COMBO-STRING re-contact restart. On contacts i>=1 of an attack string the defender is ALREADY
   // in its 'hit' state, so the displayState-change effect above does NOT fire (re-setting the same
@@ -577,7 +612,7 @@ function Fighter({
   useEffect(() => {
     if (reduced) return;
     if (displayState !== 'hit') return;
-    const v = videoRefs.current[displayState];
+    const v = videoRefs.current[activeKey];
     if (!v) return;
     v.currentTime = 0;
     const p = v.play();
@@ -608,34 +643,39 @@ function Fighter({
       <div className="fr-fighter-breathe" style={live ? { animation: 'none' } : undefined}>
         <img src={`${assetBase}${def.still}`} alt="" draggable={false} style={{ opacity: live ? 0 : 1 }} />
       </div>
-      {/* One stacked <video> per shipped clip, all preloaded and opacity-toggled — never a
-          src swap mid-fight (that decode-blanks). Only idle loops; other states play once. */}
+      {/* §10 VARIANT LAW: one stacked <video> PER TAKE of every shipped state, ALL preloaded and
+          opacity-toggled — never a src swap mid-fight (that decode-blanks). The active element is
+          the chosen take of displayState. Only idle loops/autoplays; other takes play once, driven
+          by the parent's state/variant pick. A single-clip manifest yields exactly one take per
+          state, so this stack is element-for-element the same as before (keys gain a `-0` suffix). */}
       {states.map((state) => {
-        const clip = def.clips[state]!;
         const isIdle = state === 'idle';
-        return (
-          <video
-            key={state}
-            ref={(el) => {
-              videoRefs.current[state] = el;
-            }}
-            className="fr-state-video"
-            src={`${assetBase}${clip.url}`}
-            muted
-            loop={isIdle}
-            autoPlay={isIdle}
-            playsInline
-            preload="auto"
-            onPlaying={isIdle ? () => setLive(true) : undefined}
-            onEnded={isIdle ? undefined : () => onClipEnd(state)}
-            style={{
-              height: `${clip.cal.h}%`,
-              bottom: `${clip.cal.bottom}%`,
-              left: `${clip.cal.left}%`,
-              opacity: !reduced && state === displayState ? 1 : 0,
-            }}
-          />
-        );
+        return clipVariants(def, state).map((clip, i) => {
+          const key = `${state}-${i}`;
+          return (
+            <video
+              key={key}
+              ref={(el) => {
+                videoRefs.current[key] = el;
+              }}
+              className="fr-state-video"
+              src={`${assetBase}${clip.url}`}
+              muted
+              loop={isIdle}
+              autoPlay={isIdle}
+              playsInline
+              preload="auto"
+              onPlaying={isIdle ? () => setLive(true) : undefined}
+              onEnded={isIdle ? undefined : () => onClipEnd(state)}
+              style={{
+                height: `${clip.cal.h}%`,
+                bottom: `${clip.cal.bottom}%`,
+                left: `${clip.cal.left}%`,
+                opacity: !reduced && key === activeKey ? 1 : 0,
+              }}
+            />
+          );
+        });
       })}
       </div>
     </div>
@@ -831,7 +871,9 @@ function SelectPreview({
   // Fighter); it is also the ultimate fallback when a def ships no idle clip (contract §4 ladder).
   const [live, setLive] = useState(false);
   const mirrored = isMirrored(def, slot);
-  const idle = def.clips.idle;
+  // §10: idle is always a single take (the anchor hub is never varied) — read it through the
+  // variant accessor so the select preview stays a pure still+idle surface, untouched by variants.
+  const idle = clipVariants(def, 'idle')[0];
   return (
     <div
       className="fr-select-preview"
@@ -951,6 +993,8 @@ export function FightExperience(): JSX.Element {
           p2: IDLE_UNIT,
           p1State: 'idle',
           p2State: 'idle',
+          p1Var: 0,
+          p2Var: 0,
           hitstop: false,
           impact: null,
           spark: null,
@@ -1009,6 +1053,8 @@ export function FightExperience(): JSX.Element {
         p2: IDLE_UNIT,
         p1State: 'idle',
         p2State: 'idle',
+        p1Var: 0,
+        p2Var: 0,
         hitstop: false,
         impact: null,
         spark: null,
@@ -1026,30 +1072,37 @@ export function FightExperience(): JSX.Element {
       const clashMove: Move | null = lastRecord?.p1 ?? null;
       const clashAtk = clashMove ? ATTACK_STATE[clashMove] : null;
       // CLIP-DRIVEN CLASH GATE (contract §1): fires ONLY when BOTH defs ship clips[attack_<move>]
-      // (exact-match, the SAME gate style as useClipChoreo). If either lacks it, the pre-clip CSS
-      // lunge clash below runs BYTE-IDENTICALLY — zero behavior change for future clip-less characters.
-      const clashUseClips = clashAtk != null && Boolean(p1Def.clips[clashAtk]) && Boolean(p2Def.clips[clashAtk]);
+      // (exact-match via clipVariants — a state counts only with >=1 take). If either lacks it, the
+      // pre-clip CSS lunge clash below runs BYTE-IDENTICALLY — zero change for future clip-less chars.
+      const clashUseClips =
+        clashAtk != null && clipVariants(p1Def, clashAtk).length > 0 && clipVariants(p2Def, clashAtk).length > 0;
 
       if (clashUseClips) {
         const atk = clashAtk!;
-        // The shared CLASH MOMENT: each fighter's FIRST contact (contract §9 COMBO-STRING form),
-        // scaled into beat time (/CLIP_RATE). T = the LATER of the two — the frame at which BOTH
-        // weapons have reached extension. Clamped into the resolve window (same guard style as
+        // §10 VARIANT LAW: each fighter picks its OWN take of the shared attack state, independently
+        // and uniform-random (RG-C5). These indices feed BOTH the clash-timing math below AND the
+        // dispatched p1Var/p2Var the render reads — one source of truth, so a StrictMode re-run just
+        // re-picks both together (the render always reads the take the timers were scheduled from).
+        const p1ClashVar = pickVariant(clipVariants(p1Def, atk).length);
+        const p2ClashVar = pickVariant(clipVariants(p2Def, atk).length);
+        // The shared CLASH MOMENT: each fighter's FIRST contact (contract §9 COMBO-STRING form) of ITS
+        // chosen take, scaled into beat time (/CLIP_RATE). T = the LATER of the two — the frame at which
+        // BOTH weapons have reached extension. Clamped into the resolve window (same guard style as
         // deriveContactTimes) so the freeze + rebound always fit before 'resolve' hands off.
-        const firstContact = (d: FighterDef): number => {
-          const clip = d.clips[atk]!;
+        const firstContact = (d: FighterDef, vi: number): number => {
+          const clip = clipVariants(d, atk)[vi];
           const raw = clip.contacts?.[0] ?? clip.contactMs ?? DEFAULT_CONTACT_MS;
           return raw / CLIP_RATE;
         };
         const latestT = Math.max(0, RESOLVE_MS - CHO.CLASH_CLIP_FREEZE_MS - CHO.RETURN_MS - 40);
-        const clashT = Math.min(Math.max(firstContact(p1Def), firstContact(p2Def)), latestT);
-        // Both fighters: switch to their attack clip (the state CHANGE restarts each from frame 0 via
-        // the Fighter displayState effect) AND drive toward centre, easing to full CLASH_LUNGE_X
-        // extension exactly at the clash moment (windup(clashT) matches the clip's swing-in).
+        const clashT = Math.min(Math.max(firstContact(p1Def, p1ClashVar), firstContact(p2Def, p2ClashVar)), latestT);
+        // Both fighters: switch to their chosen attack take (the state CHANGE restarts each from frame 0
+        // via the Fighter effect) AND drive toward centre, easing to full CLASH_LUNGE_X extension exactly
+        // at the clash moment (windup(clashT) matches the clip's swing-in).
         set(
           { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(clashT) },
           { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(clashT) },
-          { p1State: atk, p2State: atk },
+          { p1State: atk, p2State: atk, p1Var: p1ClashVar, p2Var: p2ClashVar },
         );
         at(() => {
           // CLASH MOMENT: hitstop-freeze BOTH videos at extension, fire the upgraded clash fx (flash +
@@ -1070,6 +1123,8 @@ export function FightExperience(): JSX.Element {
           dispatchFx({
             p1State: 'idle',
             p2State: 'idle',
+            p1Var: 0,
+            p2Var: 0,
             hitstop: false,
             p1: { tx: 0, ty: 0, rot: 0, scale: 1, transition: settle(CHO.RETURN_MS) },
             p2: { tx: 0, ty: 0, rot: 0, scale: 1, transition: settle(CHO.RETURN_MS) },
@@ -1104,23 +1159,45 @@ export function FightExperience(): JSX.Element {
     const winnerUnit = (u: FxUnit): { p1: FxUnit; p2: FxUnit } => (w === 'p1' ? { p1: u, p2: IDLE_UNIT } : { p1: IDLE_UNIT, p2: u });
     const bothUnits = (wu: FxUnit, lu: FxUnit): { p1: FxUnit; p2: FxUnit } =>
       w === 'p1' ? { p1: wu, p2: lu } : { p1: lu, p2: wu };
-    const setStates = (wState: FighterState, lState: FighterState, extra: Partial<FxState> = {}) =>
-      dispatchFx(w === 'p1' ? { p1State: wState, p2State: lState, ...extra } : { p1State: lState, p2State: wState, ...extra });
+    // §10 VARIANT LAW: sets winner/loser states AND their chosen take indices together, mapped to the
+    // p1/p2 slots the same way. State + take are ALWAYS dispatched as a pair so render and timing never
+    // read a stale variant for a fresh state.
+    const setStates = (wState: FighterState, lState: FighterState, wVar: number, lVar: number, extra: Partial<FxState> = {}) =>
+      dispatchFx(
+        w === 'p1'
+          ? { p1State: wState, p1Var: wVar, p2State: lState, p2Var: lVar, ...extra }
+          : { p1State: lState, p1Var: lVar, p2State: wState, p2Var: wVar, ...extra },
+      );
 
     // Fallback ladder (contract §4): play clips only when the attacker ships attack_<move> AND
     // the defender ships hit; otherwise the pre-clip CSS choreography below runs UNCHANGED
     // (pixel-identical to today, where no character has attack clips yet).
     const atkState = ATTACK_STATE[move];
-    const attackerHasClip = Boolean(defForSide(w).clips[atkState]);
-    const defenderHasHit = Boolean(defForSide(l).clips.hit);
-    const loserHasKo = Boolean(defForSide(l).clips.ko);
+    const attackerHasClip = clipVariants(defForSide(w), atkState).length > 0;
+    const defenderHasHit = clipVariants(defForSide(l), 'hit').length > 0;
+    const loserHasKo = clipVariants(defForSide(l), 'ko').length > 0;
     const useClipChoreo = attackerHasClip && defenderHasHit;
 
     if (useClipChoreo) {
-      // Attacker plays its attack clip from resolve; at each contact the blow lands (defender
-      // hit/ko + spark + impact burst + hitstop freeze of BOTH videos). Clips return to idle on
-      // their own end (handleClipEnd); ko holds its last frame off-anchor.
-      const clip = defForSide(w).clips[atkState]!;
+      // §11 THE SPECIAL LAW (finisher swap). On a ROUND-ENDING win, if the WINNER ships a `special`
+      // signature clip (>=1 take), the attacker plays `special` in place of its normal attack state
+      // — value-independent, driven purely by round state (RG-C5). It is the ONLY divergence from the
+      // normal clip beat: `special` is variant-picked and its contacts/cal drive the choreography
+      // EXACTLY like an attack clip (multi-contact machinery, KO hitstop on the final contact, KO
+      // zoom spot, loser launch — all the round-ending behavior below reads the special clip's
+      // contacts). Absent (no round end, or no special shipped) -> attackerState stays atkState, so
+      // the whole path is byte-identical to the normal attack-clip beat.
+      const winnerHasSpecial = roundEnding && clipVariants(defForSide(w), 'special').length > 0;
+      const attackerState: FighterState = winnerHasSpecial ? 'special' : atkState;
+      // §10 VARIANT LAW: the attacker picks a uniform-random take of its played state THIS exchange
+      // (RG-C5 — from Math.random only). The SAME index drives the contact/cal timing below AND the
+      // dispatched p1Var/p2Var the render reads, so the beats always match the take on screen.
+      const pickedAtkVar = pickVariant(clipVariants(defForSide(w), attackerState).length);
+      // Attacker plays its chosen take from resolve (its normal attack, or its special finisher when
+      // §11 applies); at each contact the blow lands (defender hit/ko + spark + impact burst + hitstop
+      // freeze of BOTH videos). Clips return to idle on their own end (handleClipEnd); ko holds its
+      // last frame off-anchor.
+      const clip = clipVariants(defForSide(w), attackerState)[pickedAtkVar];
       const hitstopMs = roundEnding ? CHO.KO_HITSTOP_MS : CHO.HITSTOP_MS;
       // THE COMBO-STRING LAW (contract §9). An attack clip is a 1-3 contact STRING; each blow lands
       // at its own contact time, scaled + clamped into the resolve window (RESOLVE_HIT_MS /
@@ -1132,8 +1209,12 @@ export function FightExperience(): JSX.Element {
       const lastIdx = contactList.length - 1;
       // The defender's reaction state is decided ONCE, at the first contact (as the single beat did).
       const loserState: FighterState = roundEnding && loserHasKo ? 'ko' : 'hit';
+      // §10: the defender's reaction take (of whichever state it resolves to — hit, or ko when
+      // round-ending) is also picked uniform-random this exchange. Single-take states force index 0.
+      const pickedLoserVar = pickVariant(clipVariants(defForSide(l), loserState).length);
       const multi = contactList.length >= 2;
-      setStates(atkState, 'idle');
+      // Attacker to its chosen take (attack or §11 special); defender stays idle (its var is 0) until first contact.
+      setStates(attackerState, 'idle', pickedAtkVar, 0);
       contactList.forEach((contactAt, i) => {
         const isFinal = i === lastIdx;
         at(() => {
@@ -1141,8 +1222,9 @@ export function FightExperience(): JSX.Element {
           // contact (final flag) — three "-1"s would lie about HP (RG-C5 honesty).
           const impact = { ...impactAt(w, l), final: isFinal };
           if (i === 0) {
-            // First contact: defender switches to hit/ko — this state CHANGE restarts its clip.
-            setStates(atkState, loserState, {
+            // First contact: defender switches to its chosen hit/ko take — this state CHANGE restarts
+            // its clip. Attacker keeps its chosen take (pickedAtkVar) through the whole string.
+            setStates(attackerState, loserState, pickedAtkVar, pickedLoserVar, {
               spark: { xPct: contactX, yPct: CAL.contactY },
               hitstop: true,
               impact,
@@ -1407,6 +1489,7 @@ export function FightExperience(): JSX.Element {
               fx={fx.p1}
               poseClass={poseClass('p1')}
               activeState={fx.p1State}
+              activeVar={fx.p1Var}
               paused={fx.hitstop}
               hitRetrigger={fx.hitRetrigger}
               reduced={reduced}
@@ -1420,6 +1503,7 @@ export function FightExperience(): JSX.Element {
               fx={fx.p2}
               poseClass={poseClass('p2')}
               activeState={fx.p2State}
+              activeVar={fx.p2Var}
               paused={fx.hitstop}
               hitRetrigger={fx.hitRetrigger}
               reduced={reduced}
