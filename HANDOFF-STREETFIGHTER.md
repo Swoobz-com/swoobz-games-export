@@ -132,9 +132,14 @@ charSelect -> stake -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-
    + her voltage fx_impact + RE-ROLL of her hit with corrected direction. Prompt rules:
    contract sections 3/5/7 + facing rule (directional acting in ART space - for BOTH
    characters the blow/attack direction references their FACING side, which is RIGHT
-   for both). Study `input/kick fight reference.mp4` (timing) + `input/hiteffect.mp4`
-   (Tim added it - NOT yet studied; check what it shows before prompting the fx).
-   (`input/characterselectionidle.mp4` is already consumed - phase 6.)
+   for both). ALL input refs now studied: `fightingref.mp4` (MK1 fight - THE MOVEMENT
+   LAW, see MOTION DOCTRINE in project memory: full-body commitment, whole-body
+   defender reactions, contact ~40-50% of clip, eased return to anchor),
+   `hiteffect.mp4` (vault game - the SMOOTHNESS language, phase 7), `effect.mp4`
+   (MK1 fire explosion - REJECTED by Tim: no fire/ember in any prompt or asset,
+   ever), `kick fight reference.mp4` (timing), `characterselectionidle.mp4` (phase
+   6). BATCH CHANGE: VOLTA's voltage fx_impact is DROPPED (contact fx are
+   CSS-authored since phase 7/8) - batch = 7 body clips (~315 cr @ 1080p 5s).
    Pipeline per contract section 6; keying via scripts/key-idle-clips.mjs (use
    `--still` to emit cal JSON - never hand-derive); fill manifests; live-verify BOTH
    pick paths; commit.
