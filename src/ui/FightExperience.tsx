@@ -7,7 +7,7 @@
 // the UI never calls the audio layer (avoids double-firing).
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { RESOLVE_HIT_MS, RESOLVE_KO_MS, useFightController } from '../provider/fightProvider';
+import { RESOLVE_HIT_MS, RESOLVE_KO_MS, RESOLVE_MS, useFightController } from '../provider/fightProvider';
 import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
 import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
@@ -143,6 +143,11 @@ const CHO = {
   SHAKE_MS: 220,
   CLASH_FREEZE_MS: 200,
   CLASH_LUNGE_X: 9,
+  // CLIP-DRIVEN CLASH hitstop (contract §1): when both fighters ship the shared attack clip a clash
+  // freezes BOTH videos at the meeting point. It is the drama beat (both committed the same move and
+  // CLANGED), so it holds LONGER than a hit's 100ms HITSTOP_MS and than the clip-less CSS clash's
+  // 200ms CLASH_FREEZE_MS — 260ms so the shock ring + spark read before the rebound. Module-const (RG-C5).
+  CLASH_CLIP_FREEZE_MS: 260,
   GRAB_JITTER_DEG: 2,
   GRAB_CYCLES: 3,
   GRAB_CYCLE_MS: 70,
@@ -1015,8 +1020,66 @@ export function FightExperience(): JSX.Element {
     }
 
     if (lastOutcome.kind === 'clash') {
-      // §7.4: CLASH plays NO impact burst — the existing clash presentation stays. Both lunge to
-      // near-centre, freeze, white radial flash + CLASH pop, rebound.
+      // A clash = both fighters picked the SAME move, so both play the SAME attack STATE clip (strike
+      // vs strike, throw vs throw, block vs block). The clashed move is read off the just-committed
+      // history record (both picks are equal in a clash); its attack state is the exact-match key.
+      const clashMove: Move | null = lastRecord?.p1 ?? null;
+      const clashAtk = clashMove ? ATTACK_STATE[clashMove] : null;
+      // CLIP-DRIVEN CLASH GATE (contract §1): fires ONLY when BOTH defs ship clips[attack_<move>]
+      // (exact-match, the SAME gate style as useClipChoreo). If either lacks it, the pre-clip CSS
+      // lunge clash below runs BYTE-IDENTICALLY — zero behavior change for future clip-less characters.
+      const clashUseClips = clashAtk != null && Boolean(p1Def.clips[clashAtk]) && Boolean(p2Def.clips[clashAtk]);
+
+      if (clashUseClips) {
+        const atk = clashAtk!;
+        // The shared CLASH MOMENT: each fighter's FIRST contact (contract §9 COMBO-STRING form),
+        // scaled into beat time (/CLIP_RATE). T = the LATER of the two — the frame at which BOTH
+        // weapons have reached extension. Clamped into the resolve window (same guard style as
+        // deriveContactTimes) so the freeze + rebound always fit before 'resolve' hands off.
+        const firstContact = (d: FighterDef): number => {
+          const clip = d.clips[atk]!;
+          const raw = clip.contacts?.[0] ?? clip.contactMs ?? DEFAULT_CONTACT_MS;
+          return raw / CLIP_RATE;
+        };
+        const latestT = Math.max(0, RESOLVE_MS - CHO.CLASH_CLIP_FREEZE_MS - CHO.RETURN_MS - 40);
+        const clashT = Math.min(Math.max(firstContact(p1Def), firstContact(p2Def)), latestT);
+        // Both fighters: switch to their attack clip (the state CHANGE restarts each from frame 0 via
+        // the Fighter displayState effect) AND drive toward centre, easing to full CLASH_LUNGE_X
+        // extension exactly at the clash moment (windup(clashT) matches the clip's swing-in).
+        set(
+          { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(clashT) },
+          { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(clashT) },
+          { p1State: atk, p2State: atk },
+        );
+        at(() => {
+          // CLASH MOMENT: hitstop-freeze BOTH videos at extension, fire the upgraded clash fx (flash +
+          // double shock ring + spark, all keyed by this nonce), and shake. Transform held frozen.
+          dispatchFx({
+            clash: true,
+            hitstop: true,
+            p1: { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: freeze },
+            p2: { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: freeze },
+            nonce: fx.nonce + 2,
+          });
+          triggerShake();
+        }, clashT);
+        at(() => {
+          // After the freeze: CUT both back to idle (restarts idle at its anchor frame 0) and settle
+          // home from the CLASH_LUNGE_X positions on SETTLE_EASE. The combo strings are NOT played out
+          // — no damage happened, so post-freeze whiffing swings would read as noise. Both knocked to guard.
+          dispatchFx({
+            p1State: 'idle',
+            p2State: 'idle',
+            hitstop: false,
+            p1: { tx: 0, ty: 0, rot: 0, scale: 1, transition: settle(CHO.RETURN_MS) },
+            p2: { tx: 0, ty: 0, rot: 0, scale: 1, transition: settle(CHO.RETURN_MS) },
+          });
+        }, clashT + CHO.CLASH_CLIP_FREEZE_MS);
+        return () => clearCho();
+      }
+
+      // §7.4 FALLBACK (clip-less characters): CLASH plays NO impact burst — the pre-clip CSS
+      // presentation stays. Both lunge to near-centre, freeze, white radial flash + CLASH pop, rebound.
       set(
         { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) },
         { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) },
@@ -1437,6 +1500,38 @@ export function FightExperience(): JSX.Element {
                 className="fr-clash-flash"
                 style={{ width: 'calc(var(--sw) * 20)', height: 'calc(var(--sw) * 20)' }}
               />
+            )}
+            {/* CLASH shock ring + echo — the hit fx's frost language, but LARGER and CENTRED at the
+                meeting point (same 50% / 62% anchor as .fr-clash-flash). Both CSS animations, keyed by
+                nonce so they keep swelling THROUGH the clip hitstop freeze. No gold, no fire (RG-C5). */}
+            {fx.clash && (
+              <div
+                key={`clashring-${fx.nonce}`}
+                className="fr-clash-ring"
+                aria-hidden="true"
+                style={{ width: 'calc(var(--sw) * 16)', height: 'calc(var(--sw) * 16)' }}
+              />
+            )}
+            {fx.clash && (
+              <div
+                key={`clashring2-${fx.nonce}`}
+                className="fr-clash-ring-echo"
+                aria-hidden="true"
+                style={{ width: 'calc(var(--sw) * 11)', height: 'calc(var(--sw) * 11)' }}
+              />
+            )}
+            {/* CLASH spark star — the glint at the meeting point (same star path as the hit spark,
+                centred, frost/white). Keyed by nonce; runs through the freeze. */}
+            {fx.clash && (
+              <svg
+                key={`clashspark-${fx.nonce}`}
+                className="fr-clash-spark"
+                style={{ width: 'calc(var(--sw) * 9)', height: 'calc(var(--sw) * 9)' }}
+                viewBox="0 0 100 100"
+                aria-hidden="true"
+              >
+                <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" fill="#fffbe0" stroke="#fff" strokeWidth="2" />
+              </svg>
             )}
             {/* BLOCK parry — a frost ice-glass arc + deflection ripple AT the blocker, facing the
                 attacker. Distinct from the HIT beat (which lands ring + echo + glow + "-1" on the

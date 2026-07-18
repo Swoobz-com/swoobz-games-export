@@ -570,6 +570,67 @@
   30% { opacity: 1; }
   100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
 }
+/* CLASH shock ring + echo — the hit ring's frost language (same cubic-bezier(0.22,1,0.36,1)) but
+   LARGER, CENTRED at the meeting point (left 50% / top 62%, matching .fr-clash-flash) and ~500ms so
+   the clang reads as a double shockwave. Frost/steel palette ONLY (gold is the money family, never
+   the fight). CSS animations, so they keep swelling THROUGH the clip hitstop freeze. */
+.fr-clash-ring {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: calc(var(--sw) * 0.22) solid rgba(230, 245, 255, 0.95);
+  box-shadow: 0 0 calc(var(--sw) * 1) rgba(159, 216, 255, 0.6), inset 0 0 calc(var(--sw) * 0.5) rgba(159, 216, 255, 0.4);
+  pointer-events: none;
+  animation: fr-clash-ring 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes fr-clash-ring {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.95; }
+  100% { transform: translate(-50%, -50%) scale(1.55); opacity: 0; }
+}
+/* Echo: a tighter second ring trailing by 90ms, so the clash reads LAYERED (same frost curve). The
+   `both` fill holds it invisible through the delay so it never pre-flashes. */
+.fr-clash-ring-echo {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: calc(var(--sw) * 0.13) solid rgba(207, 232, 255, 0.6);
+  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.45);
+  pointer-events: none;
+  animation: fr-clash-ring-echo 500ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+@keyframes fr-clash-ring-echo {
+  0% { transform: translate(-50%, -50%) scale(0.18); opacity: 0; }
+  25% { opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+}
+/* CLASH spark star — a clean frost glint at the meeting point (same star path as the hit spark),
+   centred, a touch longer (200ms) than the 130ms hit spark so it reads at the clang. */
+.fr-clash-spark {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%);
+  color: #fffbe0;
+  pointer-events: none;
+  animation: fr-clash-spark 200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes fr-clash-spark {
+  0% { transform: translate(-50%, -50%) scale(0.4) rotate(-12deg); opacity: 0; }
+  35% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.35) rotate(20deg); opacity: 0; }
+}
+/* Reduced motion never sets fx.clash (the reduced branch returns before the clash choreo), so these
+   never render — the display:none is belt-and-suspenders, matching the .fr-impact-* reduced rules. */
+.fr-reduced .fr-clash-ring,
+.fr-reduced .fr-clash-ring-echo,
+.fr-reduced .fr-clash-spark,
+.fr-reduced .fr-clash-flash {
+  display: none;
+}
 /* BLOCK PARRY — the blocker's moment, in the fight's smooth-and-clean language. A curved
    ice-glass arc materializes FACING the attacker (eased scale-in + brightness swell over ~180ms),
    holds through the tink, then dissipates with an eased fade + slight expansion over ~300ms. Reads

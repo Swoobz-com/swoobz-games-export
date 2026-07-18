@@ -122,8 +122,11 @@ export const ROUND_INTRO_SILENCE_MS = 350;
 // FIGHT! banner: slam-in 100ms + hold 600ms + out 200ms. Picking unlocks when it lands.
 export const FIGHT_BANNER_MS = 900;
 export const REVEAL_MS = 550;
-// Clash window (both attack, flash, rebound - no clips need to play through).
-export const RESOLVE_MS = 700;
+// Clash window. Sized for the CLIP-DRIVEN clash (contract §1): both fighters play their shared
+// attack clip up to the LATER first-contact (worst real pair ~1208ms beat: VOLTA block 2417/CLIP_RATE),
+// + the 260ms clip-clash hitstop + the ~220ms rebound to guard. 700ms cut the swing before its
+// contact frame; 1800ms fits the whole beat (the clip-less CSS fallback still finishes inside it).
+export const RESOLVE_MS = 1800;
 // Normal hit: fits the full attack-clip beat (4s clip at CLIP_RATE 2 = 2s: windup,
 // contact at ~875ms, hit reaction + recovery to anchor).
 export const RESOLVE_HIT_MS = 2000;
@@ -351,8 +354,9 @@ export function useFightController(
       outcomeSound(outcome, roundEnding);
 
       // Hits get a clip-sized window (the attack clip beat is ~2s at CLIP_RATE with contact
-      // at ~875ms; a 700ms window cut the swing before its contact frame). Clash keeps the
-      // short snappy window - its presentation is the ~700ms lunge-flash-rebound.
+      // at ~875ms; a 700ms window cut the swing before its contact frame). The clash window is
+      // clip-sized too since the clip-driven clash (contract §1: both swing to the later
+      // first-contact, freeze, rebound) - see RESOLVE_MS.
       const resolveDelay = roundEnding
         ? RESOLVE_KO_MS
         : outcome.kind === 'hit'
