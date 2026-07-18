@@ -43,6 +43,12 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
    vs 16:9 outpainting = grey-disc hallucinations; one re-roll grew a visible human
    opponent). Clean plate rebuilt (scratchpad gorvak-anchor-clean3.png); regeneration
    = +72cr awaiting Tim. 360cr spent this batch. All paths live-verified, 57/57.
+6b. `84ca203` phase 9b: GORVAK kit COMPLETE (Tim approved +72cr, batch total 432cr).
+   Clean plate = persistent media `35867470-54cd-4e75-94a6-10b915c61b19` (RETIRES the
+   dirty 23fb74be anchor for all future GORVAK gens). throw [1208,1875] + block
+   [2000,2417] clean, keyed, live-verified. BOTH characters ship the full 5-clip
+   combo kit; every attack path proven in both slots. AI-drive lesson: repeated
+   same-move picks teach the AI to counter - randomize picks when hunting a win.
 6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
    = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
    raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
