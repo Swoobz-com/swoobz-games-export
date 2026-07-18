@@ -49,6 +49,11 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
    [2000,2417] clean, keyed, live-verified. BOTH characters ship the full 5-clip
    combo kit; every attack path proven in both slots. AI-drive lesson: repeated
    same-move picks teach the AI to counter - randomize picks when hunting a win.
+6c. `99d2665` phase 10: CLIP-DRIVEN CLASH - both fighters play their shared attack
+   clip, freeze together at the later first-contact (CLASH_CLIP_FREEZE_MS 260), frost
+   shock rings through the freeze, then cut to idle + settle (strings do NOT play out
+   post-freeze). CSS fallback byte-identical for clip-less characters. Provider
+   RESOLVE_MS 700->1800 (single use site = clash delay). Live-verified frame-locked.
 6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
    = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
    raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
