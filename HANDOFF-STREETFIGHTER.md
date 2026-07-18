@@ -54,6 +54,15 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
    shock rings through the freeze, then cut to idle + settle (strings do NOT play out
    post-freeze). CSS fallback byte-identical for clip-less characters. Provider
    RESOLVE_MS 700->1800 (single use site = clash delay). Live-verified frame-locked.
+6d. `8508e8d` phase 11: VARIANT TAKES (contract 10: >=2 per non-idle state, uniform
+   random per exchange, clipVariants resolver) + SPECIAL FINISHERS (contract 11:
+   `special` state on round-ending wins; baked elemental trail = the sanctioned
+   exception, fire APPROVED at Scorpion bar). GORVAK flame-circle + VOLTA lightning
+   spin. Wave 504cr. Lessons IN PROJECT MEMORY phase-11 entry: grab-verb prompts
+   materialize limbs; impact flashes need "the impact is INVISIBLE"; late hit reads
+   fix by head-trim; big effects need WIDE FRAMING or they clip at the source frame
+   (Tim: "make the box bigger"); keyer magenta-family flood for bloom; ALL-FRAME
+   numeric haze scan + visual adjudication over dark.
 6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
    = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
    raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
