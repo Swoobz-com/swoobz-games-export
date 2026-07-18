@@ -63,6 +63,15 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
    fix by head-trim; big effects need WIDE FRAMING or they clip at the source frame
    (Tim: "make the box bigger"); keyer magenta-family flood for bloom; ALL-FRAME
    numeric haze scan + visual adjudication over dark.
+6e. `20583b0` phase 11b: SPECIAL EDGE-FEATHER. Tim caught the flame ring cutting at a
+   straight line in-game; edge-touch scan proved the effect runs off the SOURCE frame
+   at the whip peak (Seedance composes effects to its canvas regardless of framing
+   prompts - wide-framing shrinks but does NOT eliminate edge contact). FIX =
+   ENGINEERING, not regeneration: smoothstep alpha feather, outer 48px top/left/right
+   + 40px bottom with a protected center feet column (scratchpad edge-feather.mjs /
+   bottom-feather.mjs patterns). Effects now dissolve into embers at extremities.
+   LAW for future effect clips: after keying, edge-feather ANY clip whose effect
+   touches a source edge; verify with the edge-touch alpha scan, not eyes.
 6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
    = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
    raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
