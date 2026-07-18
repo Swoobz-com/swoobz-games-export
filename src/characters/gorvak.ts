@@ -19,12 +19,12 @@ export const GORVAK: FighterDef = {
     // Contract 10: every non-idle state ships >= 2 interchangeable takes (own cal + contacts,
     // uniform-random per exchange). Take A keeps the original filename; takes B+ add -b/-c.
     attack_strike: [
-      {
-        url: 'assets/fighter-1-attack-strike.webm',
-        cal: { h: 97.49, bottom: 2.47, left: 49.94 },
-        // Cleaver arc lands just before halfway through the 4s clip (QA read: frame ~42-44 @24fps).
-        contactMs: 1750,
-      },
+      // Take A PULLED at the 2026-07-18 full-clip QA sweep: a pale lavender disc (keyed backdrop
+      // light remnant) hangs frame-fixed behind his torso for the whole strike (f33-79) AND the
+      // cleaver morphs into a thin staff at full extension (the known mid-swing drift, f43-67 -
+      // paired with the disc it no longer hides at speed). The state runs on the B take (contract
+      // 10 deviation, on record) until a regenerated take passes QA. The webm stays in
+      // public/assets for reference; it is just unwired.
       {
         url: 'assets/fighter-1-attack-strike-b.webm',
         cal: { h: 105.64, bottom: 2.15, left: 50 },
@@ -81,6 +81,21 @@ export const GORVAK: FighterDef = {
       // Charge -> cleaver rip -> igniting full-circle sweep (wide-framed regeneration so the
       // whole flame ring lives inside the canvas; motion peaks f38 / f47 / f62).
       contacts: [1583, 1958, 2583],
+    },
+    // Contract 1 optional states, phase 12 (2026-07-18). ko is the ONE off-anchor clip: strength
+    // leaves him, knees buckle, he crashes down and holds motionless on the ground (head-trimmed
+    // 24 lead frames on the motion-energy trace so the buckle reads inside the early-impact law;
+    // trim-point pose verified near-anchor, masked by the KO hitstop + launch).
+    ko: {
+      url: 'assets/fighter-1-ko.webm',
+      cal: { h: 97.66, bottom: -3.08, left: 48.75 },
+    },
+    // Round-win taunt: cleaver raised overhead, held proud, back to the anchor. The blade tip
+    // crosses the source frame top mid-raise, so the keyed frames carry the 48px top edge-feather
+    // (scripts/edge-feather.mjs) - the tip dissolves instead of cutting flat.
+    victory: {
+      url: 'assets/fighter-1-victory.webm',
+      cal: { h: 110.9, bottom: -2.93, left: 42.7 },
     },
   },
   // fxImpact intentionally omitted. The generated ember-and-bone burst was reviewed and REJECTED:

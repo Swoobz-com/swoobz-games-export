@@ -335,6 +335,12 @@ interface FxState {
   // §9 COMBO-STRING re-contact pulse: bumps at every contact i>=1 of a string so the defender's
   // CURRENT hit clip restarts from frame 0 mid-flow (a state re-set alone would NOT restart it).
   hitRetrigger: number;
+  // VICTORY CHAIN arm (contract §1 `victory`). Set by the round-ending clip choreography when the
+  // WINNER ships a `victory` take: when that side's FINISHER clip reaches its natural end (the
+  // `clipEnd` action), it chains into `victory` (at `varIdx`, §10) instead of idle. Lives IN
+  // FxState (not a ref) so the pure reducer can consume it against the LIVE pXState, and so the
+  // roundEnd/matchEnd dwell can hold it across the resolve boundary (see phaseReset).
+  victoryChain: { side: 'p1' | 'p2'; varIdx: number } | null;
   spark: { xPct: number; yPct: number } | null;
   // BLOCK parry: placed at the BLOCKER's chest. `facing` (toward the attacker) picks the arc's
   // direction so the ice-glass shield always curves into the incoming blow.
@@ -353,6 +359,7 @@ const FX_INIT: FxState = {
   hitstop: false,
   impact: null,
   hitRetrigger: 0,
+  victoryChain: null,
   spark: null,
   shield: null,
   dust: null,
@@ -360,7 +367,75 @@ const FX_INIT: FxState = {
   nonce: 0,
 };
 
-function fxReducer(state: FxState, patch: Partial<FxState>): FxState {
+/** Non-patch reducer actions. Both decide against the LIVE pXState/pXVar, which a dispatching
+ *  closure (an effect with intentionally-narrow deps, or a video's onEnded callback created at
+ *  render time) cannot reliably see — so the decision lives in the pure reducer, which is also
+ *  what makes it StrictMode double-invoke safe (same state in, same state out, no side effects).
+ *
+ *  `clipEnd` — a one-shot state video reached its natural end. Every preloaded take keeps playing
+ *  hidden after it is deactivated (opacity 0, never src-swapped), so onEnded also fires for STALE
+ *  clips from earlier exchanges; the reducer acts ONLY when the ended element (state + take) IS
+ *  what that fighter currently shows. For the current element: `ko` holds its last frame
+ *  (contract §2); a FINISHER with an armed victoryChain for that side chains into `victory` at
+ *  the armed take and consumes the arm (§1); everything else returns to idle (frame 0 = anchor).
+ *
+ *  `phaseReset` — leaving 'resolve'. Clears all transient choreography (transforms, hitstop,
+ *  flashes) — but during the roundEnd/matchEnd DWELL the body language persists: the KO'd loser
+ *  stays DOWN through the K.O. banner (and behind the match receipt), the winner's victory taunt
+ *  keeps playing, and an armed-but-unfired chain survives (race-proofing: the provider's phase
+ *  flip and the finisher's onEnded land within ~1ms of each other, in either order). Any other
+ *  phase (next round, stake, char select, title) is a FULL reset: both fighters back to idle and
+ *  the chain dropped, so a new round never inherits a stale ko/victory/arm. */
+type FxAction =
+  | Partial<FxState>
+  | { kind: 'clipEnd'; side: 'p1' | 'p2'; state: FighterState; varIdx: number }
+  | { kind: 'phaseReset'; dwell: boolean };
+
+function fxReducer(state: FxState, action: FxAction): FxState {
+  if ('kind' in action && action.kind === 'clipEnd') {
+    const cur = action.side === 'p1' ? state.p1State : state.p2State;
+    const curVar = action.side === 'p1' ? state.p1Var : state.p2Var;
+    // Stale end (a hidden, previously-deactivated clip ran out): ignore. This is what stops an
+    // old hit/attack clip's late onEnded consuming the victory arm mid-finisher or cutting a
+    // live clip — only the element actually on screen may drive a transition.
+    if (action.state !== cur || action.varIdx !== curVar) return state;
+    if (cur === 'ko') return state; // ko holds its last frame off-anchor (contract §2)
+    const chain = state.victoryChain;
+    if (chain && chain.side === action.side && cur !== 'victory') {
+      // FINISHER end -> chain into the armed victory take (state + take dispatched together, §10).
+      return action.side === 'p1'
+        ? { ...state, p1State: 'victory', p1Var: chain.varIdx, victoryChain: null }
+        : { ...state, p2State: 'victory', p2Var: chain.varIdx, victoryChain: null };
+    }
+    return action.side === 'p1'
+      ? { ...state, p1State: 'idle', p1Var: 0 }
+      : { ...state, p2State: 'idle', p2Var: 0 };
+  }
+  if ('kind' in action && action.kind === 'phaseReset') {
+    // Hold a side through the dwell when it is mid-death (ko), mid-taunt (victory), or its
+    // finisher is still playing with the chain armed (the arm fires on the clip's natural end).
+    const hold = (side: 'p1' | 'p2', s: FighterState): boolean =>
+      action.dwell && (s === 'ko' || s === 'victory' || side === state.victoryChain?.side);
+    const holdP1 = hold('p1', state.p1State);
+    const holdP2 = hold('p2', state.p2State);
+    return {
+      ...state,
+      p1: IDLE_UNIT,
+      p2: IDLE_UNIT,
+      p1State: holdP1 ? state.p1State : 'idle',
+      p1Var: holdP1 ? state.p1Var : 0,
+      p2State: holdP2 ? state.p2State : 'idle',
+      p2Var: holdP2 ? state.p2Var : 0,
+      hitstop: false,
+      impact: null,
+      victoryChain: action.dwell ? state.victoryChain : null,
+      spark: null,
+      shield: null,
+      dust: null,
+      clash: false,
+    };
+  }
+  const patch = action as Partial<FxState>;
   return { ...state, ...patch, nonce: patch.nonce ?? state.nonce };
 }
 
@@ -551,7 +626,10 @@ function Fighter({
   hitRetrigger: number; // §9 combo-string re-contact pulse (restarts a CURRENT 'hit' clip mid-flow)
   reduced: boolean;
   mirrored: boolean; // THE FACING RULE result for this fighter's runtime slot (computed by the parent)
-  onClipEnd: (state: FighterState) => void;
+  // Natural end of a one-shot take. Reports (state, take index) so the parent's reducer can tell
+  // the CURRENTLY-SHOWN element from a stale hidden one (deactivated takes keep playing at
+  // opacity 0 and their onEnded still fires — acting on those would cut live clips).
+  onClipEnd: (state: FighterState, varIdx: number) => void;
 }): JSX.Element {
   // The still stays underneath until the idle loop is actually rendering frames, so a
   // slow decode (or a browser without VP9 alpha) never shows an empty fighter slot — it is
@@ -666,7 +744,7 @@ function Fighter({
               playsInline
               preload="auto"
               onPlaying={isIdle ? () => setLive(true) : undefined}
-              onEnded={isIdle ? undefined : () => onClipEnd(state)}
+              onEnded={isIdle ? undefined : () => onClipEnd(state, i)}
               style={{
                 height: `${clip.cal.h}%`,
                 bottom: `${clip.cal.bottom}%`,
@@ -969,10 +1047,15 @@ export function FightExperience(): JSX.Element {
   // A one-shot state clip ended (or was interrupted): return that fighter to idle so the idle
   // video restarts at frame 0 (the anchor). KO is the exception — it holds its last frame off
   // the anchor (contract §2), so it never returns to idle here.
+  // A one-shot state clip reached its natural end. ALL policy lives in the fxReducer's `clipEnd`
+  // action (see its doctrine comment): stale hidden clips are ignored, ko holds, an armed
+  // victoryChain fires the finisher->victory swap, everything else returns to idle. Deliberately
+  // NO phase guard: the finisher's onEnded races the resolve->roundEnd flip within ~1ms
+  // (measured), and the arm survives into the dwell, so the chain fires on either side of the
+  // boundary. The (state, varIdx) pair identifies exactly WHICH element ended.
   const handleClipEnd = useCallback(
-    (side: 'p1' | 'p2', state: FighterState) => {
-      if (state === 'ko') return;
-      dispatchFx(side === 'p1' ? { p1State: 'idle' } : { p2State: 'idle' });
+    (side: 'p1' | 'p2', state: FighterState, varIdx: number) => {
+      dispatchFx({ kind: 'clipEnd', side, state, varIdx });
     },
     [dispatchFx],
   );
@@ -988,20 +1071,13 @@ export function FightExperience(): JSX.Element {
     if (phase !== 'resolve' || !lastOutcome) {
       clearCho();
       if (phase !== 'resolve') {
-        dispatchFx({
-          p1: IDLE_UNIT,
-          p2: IDLE_UNIT,
-          p1State: 'idle',
-          p2State: 'idle',
-          p1Var: 0,
-          p2Var: 0,
-          hitstop: false,
-          impact: null,
-          spark: null,
-          shield: null,
-          dust: null,
-          clash: false,
-        });
+        // POST-RESOLVE DWELL: on the roundEnd/matchEnd phases the ko body stays down and the
+        // victory taunt keeps playing (or still chains off the finisher); everything transient
+        // (transforms, hitstop, impact, spark) resets exactly as before. On ANY other phase this
+        // is the full both-to-idle reset (chain dropped), so the next round always starts clean.
+        // The hold decision lives in the pure fxReducer (it needs the LIVE pXState/victoryChain,
+        // not this effect's possibly-stale closure).
+        dispatchFx({ kind: 'phaseReset', dwell: phase === 'roundEnd' || phase === 'matchEnd' });
         setKoZoom(null);
         setHitsCounter(null); // §9: the combo tally never survives leaving 'resolve'.
       }
@@ -1057,6 +1133,7 @@ export function FightExperience(): JSX.Element {
         p2Var: 0,
         hitstop: false,
         impact: null,
+        victoryChain: null,
         spark: null,
         shield: null,
         dust: null,
@@ -1189,6 +1266,15 @@ export function FightExperience(): JSX.Element {
       // the whole path is byte-identical to the normal attack-clip beat.
       const winnerHasSpecial = roundEnding && clipVariants(defForSide(w), 'special').length > 0;
       const attackerState: FighterState = winnerHasSpecial ? 'special' : atkState;
+      // VICTORY CHAIN (§1 `victory`): on a ROUND-ENDING win, if the winner ships a `victory` take,
+      // arm the finisher->victory chain (dispatched WITH the attacker's state below, one source of
+      // truth). The trigger is ROUND STATE only (RG-C5 — never stake / streak / value); the take is
+      // Math.random only (§10). The reducer's `clipEnd` action consumes the arm when the finisher's
+      // natural end fires and swaps the winner into `victory`; victory then returns to idle on its
+      // own end like any one-shot. Absent (no round end, or no victory take) the arm stays null and
+      // the winner returns straight to idle — byte-identical to the pre-victory beat.
+      const victoryTakes = roundEnding ? clipVariants(defForSide(w), 'victory').length : 0;
+      const chainArm = victoryTakes > 0 ? { side: w, varIdx: pickVariant(victoryTakes) } : null;
       // §10 VARIANT LAW: the attacker picks a uniform-random take of its played state THIS exchange
       // (RG-C5 — from Math.random only). The SAME index drives the contact/cal timing below AND the
       // dispatched p1Var/p2Var the render reads, so the beats always match the take on screen.
@@ -1213,8 +1299,10 @@ export function FightExperience(): JSX.Element {
       // round-ending) is also picked uniform-random this exchange. Single-take states force index 0.
       const pickedLoserVar = pickVariant(clipVariants(defForSide(l), loserState).length);
       const multi = contactList.length >= 2;
-      // Attacker to its chosen take (attack or §11 special); defender stays idle (its var is 0) until first contact.
-      setStates(attackerState, 'idle', pickedAtkVar, 0);
+      // Attacker to its chosen take (attack or §11 special); defender stays idle (its var is 0)
+      // until first contact. The victory arm rides the same dispatch (explicitly null when not
+      // round-ending, so a fresh exchange can never inherit a stale arm).
+      setStates(attackerState, 'idle', pickedAtkVar, 0, { victoryChain: chainArm });
       contactList.forEach((contactAt, i) => {
         const isFinal = i === lastIdx;
         at(() => {
@@ -1494,7 +1582,7 @@ export function FightExperience(): JSX.Element {
               hitRetrigger={fx.hitRetrigger}
               reduced={reduced}
               mirrored={p1Mirrored}
-              onClipEnd={(s) => handleClipEnd('p1', s)}
+              onClipEnd={(s, vi) => handleClipEnd('p1', s, vi)}
             />
             <Fighter
               def={p2Def}
@@ -1508,7 +1596,7 @@ export function FightExperience(): JSX.Element {
               hitRetrigger={fx.hitRetrigger}
               reduced={reduced}
               mirrored={p2Mirrored}
-              onClipEnd={(s) => handleClipEnd('p2', s)}
+              onClipEnd={(s, vi) => handleClipEnd('p2', s, vi)}
             />
           </>
         )}

@@ -43,13 +43,11 @@ export const VOLTA: FighterDef = {
         // Clinch grab -> violent shove-off (two honest blows; the counter reads "2 HITS").
         contacts: [1000, 2333],
       },
-      {
-        url: 'assets/fighter-2-attack-throw-b.webm',
-        cal: { h: 96.26, bottom: 3.75, left: 56 },
-        // Judo hip-throw sweep -> back-elbow (sheet frames f38 / f62; solo-safe re-roll after
-        // the arm-drag take materialized a phantom limb and was rejected).
-        contacts: [1583, 2583],
-      },
+      // Take B PULLED at the 2026-07-18 full-clip QA sweep: the hip-throw re-roll STILL carries a
+      // baked phantom opponent (magenta ghost body + disembodied forearm reaching in from the
+      // right, f22-39) - the second phantom in a row for this acting. CRITICAL, so the state runs
+      // on one take (contract 10 deviation, on record) until a regenerated solo-safe take passes
+      // QA. The webm stays in public/assets for reference; it is just unwired.
     ],
     attack_block: [
       {
@@ -84,6 +82,20 @@ export const VOLTA: FighterDef = {
       cal: { h: 99.93, bottom: 0.33, left: 50.28 },
       // Backfist -> full spinning voltage circle (wide-framed regeneration; peaks f38 / f62).
       contacts: [1583, 2583],
+    },
+    // Contract 1 optional states, phase 12 (2026-07-18). ko is the ONE off-anchor clip: guard
+    // drops, legs give out, she collapses onto her side and holds motionless (head-trimmed 20
+    // lead frames on the motion-energy trace; trim-point pose verified near-anchor).
+    ko: {
+      url: 'assets/fighter-2-ko.webm',
+      cal: { h: 89.24, bottom: -0.12, left: 47.63 },
+    },
+    // Round-win taunt: spinning backfist flourish -> crossed-gauntlet pose -> back to the anchor.
+    // Her extended leg brushes the source frame right edge for 3 fast spin frames; those carry
+    // the 48px right edge-feather (scripts/edge-feather.mjs).
+    victory: {
+      url: 'assets/fighter-2-victory.webm',
+      cal: { h: 94.21, bottom: 3.4, left: 56.41 },
     },
   },
   quotes: [
