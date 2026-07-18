@@ -34,6 +34,12 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
    rows of 11), CONFIRM bottom-right. Zero credits (reuses keyed idles). Live-verified
    both pick paths. NOTE: sibling previews keyed by def.id mean a pick-swap MOVES the
    React instances (loops continue seamlessly, no remount) - intended, do not "fix".
+6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
+   = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
+   raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
+   floater derived from fx.impact (fires on clipless exchanges too; CSS keeps animating
+   THROUGH hitstop = the anti-static trick), eased HP drain + plate flip. Remaining
+   static-ness = the 5 missing body clips (the pending credit batch).
 
 Game flow: title -> mode (CPU personality brute/warden/oracle or friend create/join) ->
 charSelect -> stake -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-of-3,
