@@ -121,9 +121,13 @@ export const ROUND_INTRO_SILENCE_MS = 350;
 // FIGHT! banner: slam-in 100ms + hold 600ms + out 200ms. Picking unlocks when it lands.
 export const FIGHT_BANNER_MS = 900;
 export const REVEAL_MS = 550;
+// Clash window (both attack, flash, rebound - no clips need to play through).
 export const RESOLVE_MS = 700;
-// Round/match-ending hit: 120ms hitstop + ~800ms slow-mo zoom + snap back.
-export const RESOLVE_KO_MS = 1400;
+// Normal hit: fits the full attack-clip beat (4s clip at CLIP_RATE 2 = 2s: windup,
+// contact at ~875ms, hit reaction + recovery to anchor).
+export const RESOLVE_HIT_MS = 2000;
+// Round/match-ending hit: the clip beat + hitstop + slow-mo zoom + launch.
+export const RESOLVE_KO_MS = 2400;
 export const ROUND_END_MS = 2000;
 
 interface PendingPicks {
@@ -338,7 +342,14 @@ export function useFightController(
       const roundEnding = Boolean(next.roundOver);
       outcomeSound(outcome, roundEnding);
 
-      const resolveDelay = roundEnding ? RESOLVE_KO_MS : RESOLVE_MS;
+      // Hits get a clip-sized window (the attack clip beat is ~2s at CLIP_RATE with contact
+      // at ~875ms; a 700ms window cut the swing before its contact frame). Clash keeps the
+      // short snappy window - its presentation is the ~700ms lunge-flash-rebound.
+      const resolveDelay = roundEnding
+        ? RESOLVE_KO_MS
+        : outcome.kind === 'hit'
+          ? RESOLVE_HIT_MS
+          : RESOLVE_MS;
       schedule(() => {
         if (next.matchOver) {
           playVictory();

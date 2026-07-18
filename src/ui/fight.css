@@ -89,9 +89,10 @@
   filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.55));
   transition: filter 300ms ease;
 }
-/* MK-style generated idle loop (alpha WebM). Sized/offset per fighter via IDLE_CAL in
-   FightExperience.tsx so the anchor frame lands exactly over the still underneath. */
-.fr-idle-video {
+/* Generated state clips (alpha WebM), stacked one per shipped state and opacity-toggled.
+   Sized/offset per clip via its own cal (ClipCal in the manifest) so the anchor frame lands
+   exactly over the still underneath. Only idle loops; other states play once then return. */
+.fr-state-video {
   position: absolute;
   width: auto;
   transform: translateX(-50%);
@@ -104,18 +105,40 @@
   50% { transform: scaleY(1.012); }
 }
 .fr-fighter.fr-winner img,
-.fr-fighter.fr-winner .fr-idle-video {
+.fr-fighter.fr-winner .fr-state-video {
   filter: drop-shadow(0 0 calc(var(--sw) * 1.2) rgba(201, 165, 92, 0.85))
     drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.55));
 }
 .fr-fighter.fr-loser img,
-.fr-fighter.fr-loser .fr-idle-video {
+.fr-fighter.fr-loser .fr-state-video {
   filter: grayscale(0.75) brightness(0.6)
     drop-shadow(0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.5));
 }
-/* Reduced motion: no looping video, the still comes back (its breathe animation is
+/* Reduced motion: no state videos, the still comes back (its breathe animation is
    separately disabled by the existing .fr-reduced rule). */
-.fr-reduced .fr-idle-video {
+.fr-reduced .fr-state-video {
+  display: none;
+}
+
+/* §7 impact-burst overlay: emissive burst on PURE BLACK, additive via screen blend (no
+   keying, no fringe). Above the fighters, below the banners. */
+.fr-impact-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 28;
+}
+.fr-impact-fx {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: opacity;
+  /* Radial feather: kills the video's rectangular boundary even when its encoded black is
+     slightly lifted (limited-range decode), which screen blend would show as a grey box. */
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 46%, transparent 74%);
+  mask-image: radial-gradient(circle closest-side, #000 46%, transparent 74%);
+}
+.fr-reduced .fr-impact-fx {
   display: none;
 }
 .fr-reduced .fr-fighter img {

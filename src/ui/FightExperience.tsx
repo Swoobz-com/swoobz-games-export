@@ -7,10 +7,12 @@
 // the UI never calls the audio layer (avoids double-firing).
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { useFightController } from '../provider/fightProvider';
+import { RESOLVE_HIT_MS, RESOLVE_KO_MS, useFightController } from '../provider/fightProvider';
 import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
 import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
+import { ATTACK_STATE, getFighter } from '../characters';
+import type { FighterDef, FighterState } from '../characters';
 import { BetConsole, type BetConsoleTheme } from './shared/BetConsole';
 import './fight.css';
 
@@ -42,21 +44,13 @@ const FR_BET_THEME: BetConsoleTheme = {
 
 const ASSET_BASE = import.meta.env.BASE_URL;
 const BG_URL = `${ASSET_BASE}assets/background.png`;
-const F1_URL = `${ASSET_BASE}assets/fighter-1-keyed.png`;
-const F2_URL = `${ASSET_BASE}assets/fighter-2-keyed.png`;
-const F1_IDLE_URL = `${ASSET_BASE}assets/fighter-1-idle.webm`;
-const F2_IDLE_URL = `${ASSET_BASE}assets/fighter-2-idle.webm`;
 
-/** Placement of the idle-loop videos inside the square fighter box, in PERCENT of the box.
- *  The clips are content-cropped (character fills the video canvas) while the still PNGs
- *  carry canvas margins, so each video is sized/offset so its anchor-frame character lands
- *  pixel-on-pixel over the still: same height, same feet line, same horizontal center.
- *  Derived from the PNG alpha bboxes vs the clip crop boxes; nudge only if a fighter
- *  visibly pops when the video takes over from the still. */
-const IDLE_CAL = {
-  p1: { h: 93.46, bottom: 2.23, left: 41.54 },
-  p2: { h: 84.31, bottom: 4.93, left: 51.31 },
-} as const;
+// State clips play at 2x (a 4s clip -> a 2s beat; MK weight) — contract §5. This is GLOBAL
+// rhythm and so lives ONLY as a module const; per-character numbers (cal, contactMs) live
+// ONLY in the manifests. Idle keeps its natural rate (it is the 5s loop, not a state beat).
+const CLIP_RATE = 2.0;
+// Fallback attack contact if a clip omits contactMs (40% of a 4s clip, in pre-CLIP_RATE time).
+const DEFAULT_CONTACT_MS = 1600;
 
 // ============================================================================================
 // CALIBRATION — every HUD/stage overlay position, in PERCENT of the 2816x1536 stage box.
@@ -117,29 +111,17 @@ const CHO = {
   // KO beat: 120ms hitstop -> ~800ms slow-mo zoom -> snap back.
   KO_ZOOM_IN_MS: 120,
   KO_ZOOM_HOLD_MS: 800,
+  // Launched-knockback on a ROUND-ENDING hit (§7.5, MK juggle): the loser flies back with a
+  // slight up + rotation, layered on the hit/KO treatment. Module-const; off under reduced motion.
+  LAUNCH_X: 8, // % stage width, away from the winner
+  LAUNCH_Y: 4, // % stage height, upward
+  LAUNCH_ROT: 14, // deg
+  LAUNCH_MS: 260,
+  // Impact-burst placement (§7): nudge toward the attacker + chest height as a fraction of h.
+  IMPACT_NUDGE_X: 4, // % stage width
+  IMPACT_CHEST_FRAC: 0.62,
+  IMPACT_SIZE: 22, // burst square, % of stage height
 } as const;
-
-// --- Character identities ---
-interface FighterId {
-  name: string;
-  quotes: string[];
-}
-const GORVAK: FighterId = {
-  name: 'GORVAK',
-  quotes: [
-    'The cathedral keeps only the standing.',
-    'Steel bends. Bone breaks. I do neither.',
-    'You picked wrong. That was the whole fight.',
-  ],
-};
-const VOLTA: FighterId = {
-  name: 'VOLTA',
-  quotes: [
-    'Circuit closed. You were the resistance.',
-    'Faster than a fist, colder than the ice.',
-    'Every read was mine. You just felt it late.',
-  ],
-};
 
 const MOVE_LABEL: Record<Move, string> = { strike: 'STRIKE', throw: 'THROW', block: 'BLOCK' };
 const MOVE_TIP: Record<Move, string> = {
@@ -257,13 +239,32 @@ const IDLE_UNIT: FxUnit = { tx: 0, ty: 0, rot: 0, scale: 1, transition: `transfo
 interface FxState {
   p1: FxUnit;
   p2: FxUnit;
+  // Which animation state each fighter's stacked clips show (fallback ladder resolves it in
+  // the Fighter). Stays 'idle' whenever the pre-clip CSS choreography is driving the beat.
+  p1State: FighterState;
+  p2State: FighterState;
+  hitstop: boolean; // freezes BOTH state videos during the hitstop window (clip choreography)
+  // §7 impact burst: which attacker's fx_impact fires, and where (defender contact point).
+  impact: { side: 'p1' | 'p2'; xPct: number; yPct: number } | null;
   spark: { xPct: number; yPct: number } | null;
   shield: { xPct: number; yPct: number } | null;
   dust: { xPct: number; yPct: number } | null;
   clash: boolean;
   nonce: number; // bumps to restart flash animations
 }
-const FX_INIT: FxState = { p1: IDLE_UNIT, p2: IDLE_UNIT, spark: null, shield: null, dust: null, clash: false, nonce: 0 };
+const FX_INIT: FxState = {
+  p1: IDLE_UNIT,
+  p2: IDLE_UNIT,
+  p1State: 'idle',
+  p2State: 'idle',
+  hitstop: false,
+  impact: null,
+  spark: null,
+  shield: null,
+  dust: null,
+  clash: false,
+  nonce: 0,
+};
 
 function fxReducer(state: FxState, patch: Partial<FxState>): FxState {
   return { ...state, ...patch, nonce: patch.nonce ?? state.nonce };
@@ -373,28 +374,47 @@ function TimerPlate({ seconds, danger }: { seconds: number; danger: boolean }): 
   );
 }
 
-function NamePlate({ id, side }: { id: FighterId; side: 'p1' | 'p2' }): JSX.Element {
+function NamePlate({ name, side }: { name: string; side: 'p1' | 'p2' }): JSX.Element {
   const rect = side === 'p1' ? CAL.nameP1 : CAL.nameP2;
   return (
     <div
       className="fr-nameplate"
       style={{ ...pctRect(rect), justifyContent: side === 'p1' ? 'flex-start' : 'flex-end', fontSize: 'calc(var(--sh) * 1.9)' }}
     >
-      {id.name}
+      {name}
     </div>
   );
+}
+
+/** The left slot must face right and the right slot must face left; when the art's own
+ *  facing disagrees, that fighter (and its portrait) renders mirrored. */
+function isMirrored(def: FighterDef): boolean {
+  return def.faces !== (def.side === 'left' ? 'right' : 'left');
 }
 
 function Portrait({
   url,
   cfg,
+  mirrored,
 }: {
   url: string;
   cfg: { cx: number; cy: number; r: number; headX: number; headY: number; zoom: number };
+  mirrored: boolean;
 }): JSX.Element {
   const size = `calc(var(--sw) * ${cfg.r * 2})`;
   return (
-    <div className="fr-portrait" style={{ left: `${cfg.cx}%`, top: `${cfg.cy}%`, width: size, height: size }}>
+    <div
+      className="fr-portrait"
+      style={{
+        left: `${cfg.cx}%`,
+        top: `${cfg.cy}%`,
+        width: size,
+        height: size,
+        // Same mirror rule as the fighter: the medallion must look INTO the fight. Flipping
+        // the container flips window + crop math together, so headX/headY keep working.
+        transform: `translate(-50%, -50%)${mirrored ? ' scaleX(-1)' : ''}`,
+      }}
+    >
       <img
         src={url}
         alt=""
@@ -410,23 +430,72 @@ function Portrait({
 }
 
 function Fighter({
-  url,
-  idleUrl,
-  idleCal,
+  def,
+  assetBase,
   cfg,
   fx,
   poseClass,
+  activeState,
+  paused,
+  reduced,
+  onClipEnd,
 }: {
-  url: string;
-  idleUrl: string;
-  idleCal: { h: number; bottom: number; left: number };
+  def: FighterDef;
+  assetBase: string;
   cfg: { cx: number; feetY: number; h: number };
   fx: FxUnit;
   poseClass: string;
+  activeState: FighterState;
+  paused: boolean; // hitstop: freeze the current state video
+  reduced: boolean;
+  onClipEnd: (state: FighterState) => void;
 }): JSX.Element {
   // The still stays underneath until the idle loop is actually rendering frames, so a
-  // slow decode (or a browser without VP9 alpha) never shows an empty fighter slot.
+  // slow decode (or a browser without VP9 alpha) never shows an empty fighter slot — it is
+  // also the ultimate fallback when a character has no clips at all (contract §4 ladder).
   const [live, setLive] = useState(false);
+  const videoRefs = useRef<Partial<Record<FighterState, HTMLVideoElement | null>>>({});
+  const states = Object.keys(def.clips) as FighterState[];
+
+  // Fallback ladder: show the requested state's clip if the character ships it, else fall
+  // back to idle, else the breathing still (states.length === 0).
+  const displayState: FighterState = def.clips[activeState]
+    ? activeState
+    : def.clips.idle
+      ? 'idle'
+      : activeState;
+
+  // Drive playback when the displayed state changes. One-shots restart from frame 0 and play
+  // once (at CLIP_RATE); returning to idle restarts it at frame 0 too — its frame 0 IS the
+  // anchor pose (contract §2), so the handoff is seamless.
+  useEffect(() => {
+    if (reduced) return;
+    const v = videoRefs.current[displayState];
+    if (!v) return;
+    v.playbackRate = displayState === 'idle' ? 1 : CLIP_RATE;
+    v.currentTime = 0;
+    const p = v.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  }, [displayState, reduced]);
+
+  // Hitstop: pause/resume the CURRENT state video (the parent freezes both fighters together).
+  useEffect(() => {
+    if (reduced) return;
+    const v = videoRefs.current[displayState];
+    if (!v) return;
+    if (paused) {
+      v.pause();
+    } else {
+      const p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    }
+  }, [paused, displayState, reduced]);
+
+  // Mirror when the art's facing disagrees with the slot's required facing (left slot must
+  // face right, right slot must face left). The flip wraps the WHOLE box content (still +
+  // every state video) so the anchor-over-still alignment and cals survive unchanged; the
+  // fx lunge transforms stay on the outer box and keep their screen-space direction.
+  const mirrored = isMirrored(def);
   return (
     <div
       className={`fr-fighter ${poseClass}`}
@@ -439,24 +508,101 @@ function Fighter({
         transition: fx.transition,
       }}
     >
+      <div style={{ position: 'absolute', inset: 0, transform: mirrored ? 'scaleX(-1)' : undefined }}>
       <div className="fr-fighter-breathe" style={live ? { animation: 'none' } : undefined}>
-        <img src={url} alt="" draggable={false} style={{ opacity: live ? 0 : 1 }} />
+        <img src={`${assetBase}${def.still}`} alt="" draggable={false} style={{ opacity: live ? 0 : 1 }} />
       </div>
+      {/* One stacked <video> per shipped clip, all preloaded and opacity-toggled — never a
+          src swap mid-fight (that decode-blanks). Only idle loops; other states play once. */}
+      {states.map((state) => {
+        const clip = def.clips[state]!;
+        const isIdle = state === 'idle';
+        return (
+          <video
+            key={state}
+            ref={(el) => {
+              videoRefs.current[state] = el;
+            }}
+            className="fr-state-video"
+            src={`${assetBase}${clip.url}`}
+            muted
+            loop={isIdle}
+            autoPlay={isIdle}
+            playsInline
+            preload="auto"
+            onPlaying={isIdle ? () => setLive(true) : undefined}
+            onEnded={isIdle ? undefined : () => onClipEnd(state)}
+            style={{
+              height: `${clip.cal.h}%`,
+              bottom: `${clip.cal.bottom}%`,
+              left: `${clip.cal.left}%`,
+              opacity: !reduced && state === displayState ? 1 : 0,
+            }}
+          />
+        );
+      })}
+      </div>
+    </div>
+  );
+}
+
+// §7 impact overlay — a stage-level sibling ABOVE the fighters, BELOW the banners. Preloads
+// BOTH fighters' emissive fx_impact bursts (stacked, opacity/play-toggled, never src-swapped),
+// composited on PURE BLACK with mix-blend-mode: screen. A right-slot attacker fires leftward,
+// so its burst art is mirrored. Absent fx_impact = nothing renders (existing hit flash only).
+function ImpactLayer({
+  p1Def,
+  p2Def,
+  assetBase,
+  impact,
+  reduced,
+}: {
+  p1Def: FighterDef;
+  p2Def: FighterDef;
+  assetBase: string;
+  impact: FxState['impact'];
+  reduced: boolean;
+}): JSX.Element | null {
+  const p1Ref = useRef<HTMLVideoElement>(null);
+  const p2Ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (reduced || !impact) return;
+    const v = (impact.side === 'p1' ? p1Ref : p2Ref).current;
+    if (!v) return;
+    v.currentTime = 0;
+    const p = v.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  }, [impact, reduced]);
+  if (reduced) return null;
+  const burst = (side: 'p1' | 'p2', def: FighterDef, ref: React.RefObject<HTMLVideoElement>) => {
+    const fxImpact = def.fxImpact;
+    if (!fxImpact) return null;
+    const active = impact?.side === side;
+    const mirror = side === 'p2'; // right-slot attacker fires leftward -> mirror the burst
+    return (
       <video
-        className="fr-idle-video"
-        src={idleUrl}
+        key={side}
+        ref={ref}
+        className="fr-impact-fx"
+        src={`${assetBase}${fxImpact.url}`}
         muted
-        loop
-        autoPlay
         playsInline
         preload="auto"
-        onPlaying={() => setLive(true)}
         style={{
-          height: `${idleCal.h}%`,
-          bottom: `${idleCal.bottom}%`,
-          left: `${idleCal.left}%`,
+          left: `${impact?.xPct ?? 50}%`,
+          top: `${impact?.yPct ?? 50}%`,
+          width: `calc(var(--sh) * ${CHO.IMPACT_SIZE})`,
+          height: `calc(var(--sh) * ${CHO.IMPACT_SIZE})`,
+          opacity: active ? 1 : 0,
+          transform: `translate(-50%, -50%) scaleX(${mirror ? -1 : 1})`,
         }}
       />
+    );
+  };
+  return (
+    <div className="fr-impact-layer" aria-hidden="true">
+      {burst('p1', p1Def, p1Ref)}
+      {burst('p2', p2Def, p2Ref)}
     </div>
   );
 }
@@ -507,6 +653,15 @@ export function FightExperience(): JSX.Element {
   const stageRef = useRef<HTMLDivElement>(null);
   useStageMetrics(stageRef);
 
+  // The two combatants, resolved from the registry. This is the ONE place the ids are named;
+  // a future character-select screen sets them. Everything character-specific below (stills,
+  // clips, cals, names, quotes, fx bursts) flows from these defs — no character asset or name
+  // is hardcoded in this file anymore.
+  const p1Def = getFighter('gorvak');
+  const p2Def = getFighter('volta');
+  const p1Still = `${ASSET_BASE}${p1Def.still}`;
+  const p2Still = `${ASSET_BASE}${p2Def.still}`;
+
   const [joinCode, setJoinCode] = useState('');
   const [quoteIndex] = useState(() => Math.floor(Math.random() * 3));
 
@@ -533,6 +688,17 @@ export function FightExperience(): JSX.Element {
     choTimers.current.push(setTimeout(fn, ms));
   }, []);
 
+  // A one-shot state clip ended (or was interrupted): return that fighter to idle so the idle
+  // video restarts at frame 0 (the anchor). KO is the exception — it holds its last frame off
+  // the anchor (contract §2), so it never returns to idle here.
+  const handleClipEnd = useCallback(
+    (side: 'p1' | 'p2', state: FighterState) => {
+      if (state === 'ko') return;
+      dispatchFx(side === 'p1' ? { p1State: 'idle' } : { p2State: 'idle' });
+    },
+    [dispatchFx],
+  );
+
   const { phase, matchState, lastOutcome, playerPick, mode, aiPersonality, friend, shotClockSeconds } = ctl;
 
   // Reconstruct both picks for the reveal plates from the just-committed history record.
@@ -544,7 +710,18 @@ export function FightExperience(): JSX.Element {
     if (phase !== 'resolve' || !lastOutcome) {
       clearCho();
       if (phase !== 'resolve') {
-        dispatchFx({ p1: IDLE_UNIT, p2: IDLE_UNIT, spark: null, shield: null, dust: null, clash: false });
+        dispatchFx({
+          p1: IDLE_UNIT,
+          p2: IDLE_UNIT,
+          p1State: 'idle',
+          p2State: 'idle',
+          hitstop: false,
+          impact: null,
+          spark: null,
+          shield: null,
+          dust: null,
+          clash: false,
+        });
         setKoZoom(null);
       }
       return undefined;
@@ -560,17 +737,48 @@ export function FightExperience(): JSX.Element {
     const loserSide: 'p1' | 'p2' | null = winnerSide ? (winnerSide === 'p1' ? 'p2' : 'p1') : null;
     const contactX = loserSide === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx;
 
+    const defForSide = (s: 'p1' | 'p2') => (s === 'p1' ? p1Def : p2Def);
+    // §7 impact burst at the defender's contact point: chest height, nudged toward the attacker.
+    const impactAt = (winner: 'p1' | 'p2', loser: 'p1' | 'p2'): FxState['impact'] => {
+      const d = loser === 'p1' ? CAL.fighterP1 : CAL.fighterP2;
+      return { side: winner, xPct: d.cx - sign(winner) * CHO.IMPACT_NUDGE_X, yPct: d.feetY - CHO.IMPACT_CHEST_FRAC * d.h };
+    };
+    const scheduleImpactClear = (winner: 'p1' | 'p2', atMs: number) => {
+      const dur = defForSide(winner).fxImpact?.durationMs;
+      if (dur) at(() => dispatchFx({ impact: null }), atMs + dur);
+    };
+    // §7.5 launched-knockback: the loser flies away from the winner with a slight up + rotation.
+    const launchUnit = (winner: 'p1' | 'p2'): FxUnit => ({
+      tx: sign(winner) * CHO.LAUNCH_X,
+      ty: -CHO.LAUNCH_Y,
+      rot: sign(winner) * CHO.LAUNCH_ROT,
+      scale: 1,
+      transition: snappy(CHO.LAUNCH_MS),
+    });
+
     const set = (p1: FxUnit, p2: FxUnit, extra: Partial<FxState> = {}) =>
       dispatchFx({ p1, p2, nonce: fx.nonce + 1, spark: null, shield: null, dust: null, clash: false, ...extra });
 
     if (reduced) {
-      // Reduced motion: no lunges/shake/zoom, keep information (banners still show via phase).
-      dispatchFx({ p1: IDLE_UNIT, p2: IDLE_UNIT, spark: null, shield: null, dust: null, clash: false });
+      // Reduced motion: no lunges/shake/zoom/launch/videos, keep information (banners via phase).
+      dispatchFx({
+        p1: IDLE_UNIT,
+        p2: IDLE_UNIT,
+        p1State: 'idle',
+        p2State: 'idle',
+        hitstop: false,
+        impact: null,
+        spark: null,
+        shield: null,
+        dust: null,
+        clash: false,
+      });
       return () => clearCho();
     }
 
     if (lastOutcome.kind === 'clash') {
-      // Both lunge to near-centre, freeze, white radial flash + CLASH pop, rebound.
+      // §7.4: CLASH plays NO impact burst — the existing clash presentation stays. Both lunge to
+      // near-centre, freeze, white radial flash + CLASH pop, rebound.
       set(
         { tx: CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) },
         { tx: -CHO.CLASH_LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) },
@@ -591,17 +799,59 @@ export function FightExperience(): JSX.Element {
     // hit
     const w = winnerSide as 'p1' | 'p2';
     const l = loserSide as 'p1' | 'p2';
+    const move = lastOutcome.move;
     const winnerUnit = (u: FxUnit): { p1: FxUnit; p2: FxUnit } => (w === 'p1' ? { p1: u, p2: IDLE_UNIT } : { p1: IDLE_UNIT, p2: u });
     const bothUnits = (wu: FxUnit, lu: FxUnit): { p1: FxUnit; p2: FxUnit } =>
       w === 'p1' ? { p1: wu, p2: lu } : { p1: lu, p2: wu };
+    const setStates = (wState: FighterState, lState: FighterState, extra: Partial<FxState> = {}) =>
+      dispatchFx(w === 'p1' ? { p1State: wState, p2State: lState, ...extra } : { p1State: lState, p2State: wState, ...extra });
 
-    if (lastOutcome.move === 'strike') {
+    // Fallback ladder (contract §4): play clips only when the attacker ships attack_<move> AND
+    // the defender ships hit; otherwise the pre-clip CSS choreography below runs UNCHANGED
+    // (pixel-identical to today, where no character has attack clips yet).
+    const atkState = ATTACK_STATE[move];
+    const attackerHasClip = Boolean(defForSide(w).clips[atkState]);
+    const defenderHasHit = Boolean(defForSide(l).clips.hit);
+    const loserHasKo = Boolean(defForSide(l).clips.ko);
+    const useClipChoreo = attackerHasClip && defenderHasHit;
+
+    if (useClipChoreo) {
+      // Attacker plays its attack clip from resolve; at contactMs/CLIP_RATE the blow lands
+      // (defender hit/ko + spark + impact burst + hitstop freeze of BOTH videos). Clips return
+      // to idle on their own end (handleClipEnd); ko holds its last frame off-anchor.
+      const clip = defForSide(w).clips[atkState]!;
+      const hitstopMs = roundEnding ? CHO.KO_HITSTOP_MS : CHO.HITSTOP_MS;
+      // Contact fires at contactMs/CLIP_RATE (contract §5). The provider's hit windows
+      // (RESOLVE_HIT_MS / RESOLVE_KO_MS) are sized to fit the whole clip beat, so the true
+      // contact time always fits; the clamp stays only as a safety net for a future clip
+      // whose contact would overrun its window (the beat must ALWAYS land inside 'resolve').
+      const resolveWindow = roundEnding ? RESOLVE_KO_MS : RESOLVE_HIT_MS;
+      const contactAt = Math.min((clip.contactMs ?? DEFAULT_CONTACT_MS) / CLIP_RATE, Math.max(0, resolveWindow - hitstopMs - 40));
+      setStates(atkState, 'idle');
+      at(() => {
+        const loserState: FighterState = roundEnding && loserHasKo ? 'ko' : 'hit';
+        setStates(atkState, loserState, {
+          spark: { xPct: contactX, yPct: CAL.contactY },
+          hitstop: true,
+          impact: impactAt(w, l),
+          nonce: fx.nonce + 3,
+        });
+        if (roundEnding) setKoZoom({ active: false, spotX: contactX });
+        else triggerShake();
+      }, contactAt);
+      scheduleImpactClear(w, contactAt);
+      at(() => dispatchFx({ hitstop: false }), contactAt + hitstopMs);
+      if (roundEnding) {
+        const u = bothUnits(IDLE_UNIT, launchUnit(w));
+        at(() => dispatchFx({ p1: u.p1, p2: u.p2 }), contactAt + hitstopMs);
+      }
+    } else if (move === 'strike') {
       const lunge: FxUnit = { tx: sign(w) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) };
       const wu = winnerUnit(lunge);
       set(wu.p1, wu.p2);
       const hitstop = roundEnding ? CHO.KO_HITSTOP_MS : CHO.HITSTOP_MS;
       at(() => {
-        // Contact: spark, hitstop freeze, knockback + tilt, screenshake.
+        // Contact: spark, impact burst, hitstop freeze, knockback + tilt, screenshake.
         const frozenW: FxUnit = { tx: sign(w) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: freeze };
         const frozenL: FxUnit = {
           tx: sign(w) * CHO.KNOCKBACK_X,
@@ -611,23 +861,21 @@ export function FightExperience(): JSX.Element {
           transition: freeze,
         };
         const u = bothUnits(frozenW, frozenL);
-        dispatchFx({ p1: u.p1, p2: u.p2, spark: { xPct: contactX, yPct: CAL.contactY }, nonce: fx.nonce + 3 });
+        dispatchFx({ p1: u.p1, p2: u.p2, spark: { xPct: contactX, yPct: CAL.contactY }, impact: impactAt(w, l), nonce: fx.nonce + 3 });
         if (roundEnding) setKoZoom({ active: false, spotX: contactX });
         else triggerShake();
       }, CHO.LUNGE_MS);
+      scheduleImpactClear(w, CHO.LUNGE_MS);
       at(() => {
         const wu2: FxUnit = { ...IDLE_UNIT, transition: snappy(CHO.RETURN_MS) };
-        const lu2: FxUnit = {
-          tx: sign(w) * CHO.KNOCKBACK_X,
-          ty: 0,
-          rot: sign(w) * CHO.HURT_TILT,
-          scale: 1,
-          transition: snappy(CHO.RETURN_MS),
-        };
+        // Round-ending hit: launch the loser back (§7.5); otherwise the held knockback + tilt.
+        const lu2: FxUnit = roundEnding
+          ? launchUnit(w)
+          : { tx: sign(w) * CHO.KNOCKBACK_X, ty: 0, rot: sign(w) * CHO.HURT_TILT, scale: 1, transition: snappy(CHO.RETURN_MS) };
         const u = bothUnits(wu2, lu2);
         dispatchFx({ p1: u.p1, p2: u.p2, spark: null });
       }, CHO.LUNGE_MS + hitstop);
-    } else if (lastOutcome.move === 'throw') {
+    } else if (move === 'throw') {
       const step: FxUnit = { tx: sign(w) * CHO.STEP_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) };
       const su = winnerUnit(step);
       set(su.p1, su.p2);
@@ -645,17 +893,26 @@ export function FightExperience(): JSX.Element {
           dispatchFx({ p1: u.p1, p2: u.p2 });
         }, CHO.LUNGE_MS + c * CHO.GRAB_CYCLE_MS);
       }
+      const slamAt = CHO.LUNGE_MS + CHO.GRAB_CYCLES * CHO.GRAB_CYCLE_MS;
       at(() => {
-        // Slam dip + squash + dust at floor.
+        // Slam dip + squash + dust + impact burst at the floor.
         const slam: FxUnit = { tx: 0, ty: CHO.SLAM_DIP_Y, rot: 0, scale: 1, transition: snappy(120) };
         const u = bothUnits(step, slam);
-        dispatchFx({ p1: u.p1, p2: u.p2, dust: { xPct: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx, yPct: CAL.shadow.y }, nonce: fx.nonce + 4 });
+        dispatchFx({
+          p1: u.p1,
+          p2: u.p2,
+          dust: { xPct: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx, yPct: CAL.shadow.y },
+          impact: impactAt(w, l),
+          nonce: fx.nonce + 4,
+        });
         if (roundEnding) setKoZoom({ active: false, spotX: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx });
         else triggerShake();
-      }, CHO.LUNGE_MS + CHO.GRAB_CYCLES * CHO.GRAB_CYCLE_MS);
+      }, slamAt);
+      scheduleImpactClear(w, slamAt);
       at(() => {
-        dispatchFx({ p1: IDLE_UNIT, p2: IDLE_UNIT, dust: null });
-      }, CHO.LUNGE_MS + CHO.GRAB_CYCLES * CHO.GRAB_CYCLE_MS + 260);
+        const end = roundEnding ? bothUnits(IDLE_UNIT, launchUnit(w)) : { p1: IDLE_UNIT, p2: IDLE_UNIT };
+        dispatchFx({ p1: end.p1, p2: end.p2, dust: null });
+      }, slamAt + 260);
     } else {
       // block wins over strike: attacker (loser) lunges, shield flare on winner, attacker rebounds.
       const attackerLunge: FxUnit = { tx: sign(l) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: snappy(CHO.LUNGE_MS) };
@@ -665,15 +922,20 @@ export function FightExperience(): JSX.Element {
         const wx = w === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx;
         dispatchFx({ shield: { xPct: wx, yPct: CAL.contactY }, nonce: fx.nonce + 5 });
       }, CHO.LUNGE_MS);
+      const counterAt = CHO.LUNGE_MS + CHO.BLOCK_TINK_MS;
       at(() => {
-        // tink pause, then counter-smack knockback of the attacker.
+        // tink pause, then counter-smack knockback of the attacker + impact burst on the attacker.
         const rebound: FxUnit = { tx: sign(w) * CHO.BLOCK_REBOUND_X, ty: 0, rot: sign(w) * CHO.HURT_TILT, scale: 1, transition: snappy(140) };
         const u = bothUnits(IDLE_UNIT, rebound);
-        dispatchFx({ p1: u.p1, p2: u.p2, shield: null });
+        dispatchFx({ p1: u.p1, p2: u.p2, shield: null, impact: impactAt(w, l) });
         if (roundEnding) setKoZoom({ active: false, spotX: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx });
         else triggerShake();
-      }, CHO.LUNGE_MS + CHO.BLOCK_TINK_MS);
-      at(() => dispatchFx({ p1: IDLE_UNIT, p2: IDLE_UNIT }), CHO.LUNGE_MS + CHO.BLOCK_TINK_MS + 260);
+      }, counterAt);
+      scheduleImpactClear(w, counterAt);
+      at(() => {
+        const end = roundEnding ? bothUnits(IDLE_UNIT, launchUnit(w)) : { p1: IDLE_UNIT, p2: IDLE_UNIT };
+        dispatchFx({ p1: end.p1, p2: end.p2 });
+      }, counterAt + 260);
     }
 
     // KO zoom timeline (round/match-ending hit).
@@ -683,7 +945,8 @@ export function FightExperience(): JSX.Element {
     }
 
     return () => clearCho();
-    // fx.nonce intentionally excluded — we snapshot it at schedule time.
+    // fx.nonce intentionally excluded — snapshotted at schedule time. p1Def/p2Def are stable
+    // registry refs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, lastOutcome, reduced]);
 
@@ -738,7 +1001,7 @@ export function FightExperience(): JSX.Element {
     if (phase === 'resolve' && matchState.roundOver) return <Banner key="ko" text="K.O." kind="danger" slamMs={140} />;
     if (phase === 'roundEnd') {
       if (matchState.flawless) return <Banner key="flawless" text="FLAWLESS" kind="gold" slamMs={150} />;
-      const wn = roundWinner === 'p1' ? GORVAK.name : VOLTA.name;
+      const wn = roundWinner === 'p1' ? p1Def.name : p2Def.name;
       return <Banner key="roundwin" text={`${wn} WINS THE ROUND`} slamMs={150} />;
     }
     return null;
@@ -767,10 +1030,34 @@ export function FightExperience(): JSX.Element {
               className="fr-ground-shadow"
               style={{ left: `${CAL.fighterP2.cx}%`, top: `${CAL.shadow.y}%`, width: `${CAL.shadow.w}%`, height: `${CAL.shadow.h}%` }}
             />
-            <Fighter url={F1_URL} idleUrl={F1_IDLE_URL} idleCal={IDLE_CAL.p1} cfg={CAL.fighterP1} fx={fx.p1} poseClass={poseClass('p1')} />
-            <Fighter url={F2_URL} idleUrl={F2_IDLE_URL} idleCal={IDLE_CAL.p2} cfg={CAL.fighterP2} fx={fx.p2} poseClass={poseClass('p2')} />
+            <Fighter
+              def={p1Def}
+              assetBase={ASSET_BASE}
+              cfg={CAL.fighterP1}
+              fx={fx.p1}
+              poseClass={poseClass('p1')}
+              activeState={fx.p1State}
+              paused={fx.hitstop}
+              reduced={reduced}
+              onClipEnd={(s) => handleClipEnd('p1', s)}
+            />
+            <Fighter
+              def={p2Def}
+              assetBase={ASSET_BASE}
+              cfg={CAL.fighterP2}
+              fx={fx.p2}
+              poseClass={poseClass('p2')}
+              activeState={fx.p2State}
+              paused={fx.hitstop}
+              reduced={reduced}
+              onClipEnd={(s) => handleClipEnd('p2', s)}
+            />
           </>
         )}
+
+        {/* §7 impact-burst overlay — above the fighters, below the banners. Nothing renders
+            until a fighter ships an fx_impact clip. */}
+        {inFight && <ImpactLayer p1Def={p1Def} p2Def={p2Def} assetBase={ASSET_BASE} impact={fx.impact} reduced={reduced} />}
 
         {/* Effects layer */}
         {inFight && (
@@ -821,15 +1108,15 @@ export function FightExperience(): JSX.Element {
         {/* Baked-HUD overlays */}
         {inFight && (
           <>
-            <NamePlate id={GORVAK} side="p1" />
-            <NamePlate id={VOLTA} side="p2" />
+            <NamePlate name={p1Def.name} side="p1" />
+            <NamePlate name={p2Def.name} side="p2" />
             <HealthBar hp={matchState.p1.hp} side="p1" reduced={reduced} />
             <HealthBar hp={matchState.p2.hp} side="p2" reduced={reduced} />
             <Pips won={matchState.p1.roundsWon} side="p1" />
             <Pips won={matchState.p2.roundsWon} side="p2" />
             <TimerPlate seconds={shotClockSeconds} danger={timerDanger} />
-            <Portrait url={F1_URL} cfg={CAL.portraitP1} />
-            <Portrait url={F2_URL} cfg={CAL.portraitP2} />
+            <Portrait url={p1Still} cfg={CAL.portraitP1} mirrored={isMirrored(p1Def)} />
+            <Portrait url={p2Still} cfg={CAL.portraitP2} mirrored={isMirrored(p2Def)} />
           </>
         )}
 
@@ -905,7 +1192,7 @@ export function FightExperience(): JSX.Element {
                 hint={
                   mode === 'friend'
                     ? 'WINNER TAKES ALL. YOUR RIVAL MATCHES YOUR STAKE.'
-                    : 'WINNER TAKES ALL. VOLTA MATCHES YOUR STAKE.'
+                    : `WINNER TAKES ALL. ${p2Def.name} MATCHES YOUR STAKE.`
                 }
                 wagerLabel="YOUR STAKE"
                 wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
@@ -1052,11 +1339,11 @@ export function FightExperience(): JSX.Element {
             <div className="fr-overlay-content">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'calc(var(--sw) * 2)' }}>
                 <div className="fr-nameplate" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
-                  {GORVAK.name}
+                  {p1Def.name}
                 </div>
                 <div className="fr-banner" style={{ fontSize: 'calc(var(--sh) * 12)' }}>VS</div>
                 <div className="fr-nameplate" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
-                  {mode === 'cpu' ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? VOLTA.name : VOLTA.name}
+                  {mode === 'cpu' ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? p2Def.name : p2Def.name}
                 </div>
               </div>
             </div>
@@ -1068,7 +1355,7 @@ export function FightExperience(): JSX.Element {
             <div className="fr-scrim" />
             <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 2)' }}>
               <div className="fr-banner fr-banner-gold" style={{ fontSize: 'calc(var(--sh) * 11)' }}>
-                {(matchWinner === 'p1' ? GORVAK : VOLTA).name} WINS
+                {(matchWinner === 'p1' ? p1Def : p2Def).name} WINS
               </div>
               {ctl.receipt && (
                 <div className={`fr-receipt${ctl.receipt.playerWon ? ' fr-receipt-win' : ' fr-receipt-loss'}`}>
@@ -1079,7 +1366,7 @@ export function FightExperience(): JSX.Element {
                       <b>{formatUsd(ctl.receipt.stakeLamports)}</b>
                     </div>
                     <div className="fr-receipt-row">
-                      <span>{mode === 'friend' ? 'RIVAL STAKE' : 'VOLTA STAKE'}</span>
+                      <span>{mode === 'friend' ? 'RIVAL STAKE' : `${p2Def.name} STAKE`}</span>
                       <b>{formatUsd(ctl.receipt.opponentStakeLamports)}</b>
                     </div>
                     <div className="fr-receipt-row">
@@ -1104,7 +1391,7 @@ export function FightExperience(): JSX.Element {
                 </div>
               )}
               <div className="fr-victory-quote" style={{ fontSize: 'calc(var(--sh) * 2) ' }}>
-                {(matchWinner === 'p1' ? GORVAK : VOLTA).quotes[quoteIndex]}
+                {(matchWinner === 'p1' ? p1Def : p2Def).quotes[quoteIndex]}
               </div>
               <div className="fr-menu" style={{ marginTop: 'calc(var(--sh) * 1.5)' }}>
                 <button

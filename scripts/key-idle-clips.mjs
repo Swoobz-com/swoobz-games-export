@@ -2,13 +2,31 @@
 // border-ring-sampled screen color, tight global key + border-seeded flood fill,
 // 3px edge-band-only despill, 2px feather, neutral (non-black) transparent plane,
 // union-bbox crop across all frames so feet calibration in-game still lands.
+//
+// Usage: node scripts/key-idle-clips.mjs <inFramesDir> <outDir> [--still <anchor-png>]
+//   --still <path>: after the crop, EMIT the placement cal to <outDir>.cal.json — the
+//   { h, bottom, left } percentages that land the clip's ANCHOR frame (frame 0 of the crop)
+//   pixel-on-pixel over the still PNG inside the square fighter box. cal is thus NEVER
+//   hand-derived (contract §4). See computeCal() for the math.
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 const require = createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter/package.json');
 const { PNG } = require('pngjs');
 
-const [inDir, outDir] = process.argv.slice(2);
+// Parse positional args + the optional --still flag (order-independent).
+const argv = process.argv.slice(2);
+let stillPath = null;
+const positional = [];
+for (let i = 0; i < argv.length; i += 1) {
+  if (argv[i] === '--still') {
+    stillPath = argv[i + 1];
+    i += 1;
+  } else {
+    positional.push(argv[i]);
+  }
+}
+const [inDir, outDir] = positional;
 fs.mkdirSync(outDir, { recursive: true });
 const files = fs.readdirSync(inDir).filter((f) => f.endsWith('.png')).sort();
 
@@ -130,3 +148,73 @@ for (const kp of keyedPaths) {
   fs.writeFileSync(kp, PNG.sync.write(dst));
 }
 console.log(`\nbbox x${bx0} y${by0} ${cw}x${ch} frames=${keyedPaths.length}`);
+
+// ---- Optional: emit the placement cal (contract §4) ---------------------------------------
+// The alpha content bbox of a PNG. A row/col counts as content only when it has >= COV pixels
+// with alpha >= A_THR, so a lossy feather/halo of a few stray semi-transparent pixels does not
+// inflate the box. This is the ONE geometry primitive both measurements share.
+const A_THR = 128;
+const COV = 3;
+function contentBBox(png) {
+  const { width: W, height: H, data: d } = png;
+  const rowc = new Int32Array(H);
+  const colc = new Int32Array(W);
+  for (let y = 0; y < H; y += 1) {
+    for (let x = 0; x < W; x += 1) {
+      if (d[(y * W + x) * 4 + 3] >= A_THR) {
+        rowc[y] += 1;
+        colc[x] += 1;
+      }
+    }
+  }
+  let x0 = 0;
+  let x1 = W - 1;
+  let y0 = 0;
+  let y1 = H - 1;
+  while (y0 < H && rowc[y0] < COV) y0 += 1;
+  while (y1 >= 0 && rowc[y1] < COV) y1 -= 1;
+  while (x0 < W && colc[x0] < COV) x0 += 1;
+  while (x1 >= 0 && colc[x1] < COV) x1 -= 1;
+  // Content edges in continuous coords: pixel i covers [i, i+1], so the right/bottom edge is
+  // (x1+1)/(y1+1) and the centre is the midpoint of the covered span.
+  return { W, H, x0, y0, x1, y1, ch: y1 - y0 + 1, cx: (x0 + x1 + 1) / 2, bottomGap: H - (y1 + 1) };
+}
+
+// Solve { h, bottom, left } (all % of the square fighter box) so the clip's anchor frame lands
+// pixel-on-pixel over the still. The still is drawn object-fit:contain, object-position:bottom
+// center; the video element is height=h%, bottom=bottom%, horizontally centred at left%.
+function computeCal(still, anchor) {
+  // --- Still geometry inside the box (box side = 1 unit). contain scale = min(1/W, 1/H). ---
+  const k = Math.min(1 / still.W, 1 / still.H);
+  const onH = still.ch * k; // still content height as a box fraction
+  const onBG = still.bottomGap * k; // still content bottom gap as a box fraction
+  //   contain centres the image horizontally: left edge at (1 - W*k)/2, content centre = that
+  //   plus cx*k.
+  const onCX = (1 - still.W * k) / 2 + still.cx * k; // still content centre-x as a box fraction
+
+  // --- Anchor-frame geometry inside the crop (the crop canvas IS the video element box). ---
+  const vchFrac = anchor.ch / anchor.H; // content height / crop height
+  const bgFracV = anchor.bottomGap / anchor.H; // content bottom gap / crop height
+  const cxFracV = anchor.cx / anchor.W; // content centre-x / crop width
+  const AR = anchor.W / anchor.H; // crop aspect (width / height)
+
+  //   video element height = h% of box; on-screen content height = (h/100)*vchFrac -> match onH
+  const h = (100 * onH) / vchFrac;
+  //   on-screen content bottom = bottom% + h*bgFracV -> match onBG
+  const bottom = 100 * onBG - h * bgFracV;
+  //   on-screen content centre-x = left% + h*(cxFracV - 0.5)*AR -> match onCX
+  const left = 100 * onCX - h * (cxFracV - 0.5) * AR;
+
+  const r = (n) => Math.round(n * 100) / 100;
+  return { h: r(h), bottom: r(bottom), left: r(left) };
+}
+
+if (stillPath) {
+  const still = contentBBox(PNG.sync.read(fs.readFileSync(stillPath)));
+  // Frame 0 of the CROPPED clip IS the anchor pose (contract §2).
+  const anchor = contentBBox(PNG.sync.read(fs.readFileSync(keyedPaths[0])));
+  const cal = computeCal(still, anchor);
+  const calPath = `${outDir}.cal.json`;
+  fs.writeFileSync(calPath, JSON.stringify(cal, null, 2));
+  console.log(`cal ${JSON.stringify(cal)} -> ${calPath}`);
+}
