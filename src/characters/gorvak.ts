@@ -23,6 +23,13 @@ export const GORVAK: FighterDef = {
       // Cleaver arc lands just before halfway through the 4s clip (QA read: frame ~42-44 @24fps).
       contactMs: 1750,
     },
+    // attack_throw / attack_block: generated but REJECTED at QA (anchor-plate grey-remnant
+    // hallucinations); re-generation from the cleaned anchor plate is queued on Tim's credit OK.
+    // Until then those wins play the pre-clip CSS choreography (contract §4 ladder).
+    hit: {
+      url: 'assets/fighter-1-hit.webm',
+      cal: { h: 98.04, bottom: 1.99, left: 50.23 },
+    },
   },
   // fxImpact intentionally omitted. The generated ember-and-bone burst was reviewed and REJECTED:
   // it read as noise against the frost palette, so it is removed from presentation. Contract §7

@@ -28,6 +28,13 @@ export interface FighterClip {
   url: string; // asset path, relative to import.meta.env.BASE_URL (resolved in the Experience)
   cal: ClipCal;
   contactMs?: number; // attack clips: when the blow lands, in CLIP time (pre-CLIP_RATE)
+  /** THE COMBO-STRING LAW (contract §1/§9): an attack clip is a 1-3 contact STRING (one clip,
+   *  multiple blows). `contacts` are the blow-landing times, in CLIP time ms (pre-CLIP_RATE),
+   *  ASCENDING, each measured off the QA sheet EXACTLY like `contactMs` (never guessed). When
+   *  present, `contacts` SUPERSEDES `contactMs`; `contactMs` stays as the single-contact form, so
+   *  existing manifests are unchanged. Damage is still 1 per exchange — the string is PRESENTATION
+   *  (the defender re-plays one universal hit clip at every contact; the "-1" shows once). */
+  contacts?: number[];
 }
 
 /** Attacker-owned emissive impact burst (contract §7). NOT a body state — it is an additive

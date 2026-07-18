@@ -56,6 +56,26 @@ const CLIP_RATE = 2.0;
 // Fallback attack contact if a clip omits contactMs (40% of a 4s clip, in pre-CLIP_RATE time).
 const DEFAULT_CONTACT_MS = 1600;
 
+/**
+ * THE COMBO-STRING LAW (contract §9): derive an attack clip's contact times for the choreography
+ * beat. An attack clip is a 1-3 contact STRING: `contacts` (ascending, CLIP-time ms) SUPERSEDES the
+ * single-contact `contactMs`; a clip with neither falls back to DEFAULT_CONTACT_MS. Each contact is
+ * scaled from CLIP time into beat time (/CLIP_RATE) and clamped into the resolve window with the SAME
+ * guard as the pre-combo single-contact form — the latest a blow may land is `resolveWindow - hitstop
+ * - 40ms`, so the LAST contact always leaves room for its hitstop and the whole string lands inside
+ * 'resolve'. A single-contact clip => a list of one => byte-identical to the pre-combo beat. PURE (no
+ * React, no DOM) so the derivation is unit-testable in isolation.
+ */
+export function deriveContactTimes(
+  clip: { contacts?: number[]; contactMs?: number },
+  resolveWindow: number,
+  hitstopMs: number,
+): number[] {
+  const raw = clip.contacts ?? (clip.contactMs != null ? [clip.contactMs] : [DEFAULT_CONTACT_MS]);
+  const latest = Math.max(0, resolveWindow - hitstopMs - 40);
+  return raw.map((c) => Math.min(c / CLIP_RATE, latest));
+}
+
 // ============================================================================================
 // CALIBRATION — every HUD/stage overlay position, in PERCENT of the 2816x1536 stage box.
 // Eyeballed from the baked art; nudge these numbers to fine-tune alignment. Nothing else in
@@ -151,6 +171,11 @@ const CHO = {
   IMPACT_NUDGE_X: 4, // % stage width
   IMPACT_CHEST_FRAC: 0.62,
   IMPACT_SIZE: 22, // burst square, % of stage height
+  // HITS COUNTER (combo-string, §9): the on-stage "N HITS" tally pops from the 2nd contact on,
+  // holds after the last contact, then fades. Timings ONLY — the eased pop curve lives in
+  // fight.css. RG-C5: the tally is the CONTACT COUNT, never a stake / win / streak value.
+  HITS_HOLD_MS: 600, // linger after the LAST contact before the tally starts fading
+  HITS_FADE_MS: 260, // fade-out duration (mirrors the .fr-hits-leaving keyframe in fight.css)
 } as const;
 
 const MOVE_LABEL: Record<Move, string> = { strike: 'STRIKE', throw: 'THROW', block: 'BLOCK' };
@@ -276,8 +301,14 @@ interface FxState {
   p1State: FighterState;
   p2State: FighterState;
   hitstop: boolean; // freezes BOTH state videos during the hitstop window (clip choreography)
-  // §7 impact burst: which attacker's fx_impact fires, and where (defender contact point).
-  impact: { side: 'p1' | 'p2'; xPct: number; yPct: number } | null;
+  // §7 impact burst: which attacker's fx_impact fires, and where (defender contact point). `final`
+  // (§9 COMBO-STRING LAW): true only on the LAST contact of a string — the ring/glow/echo fire at
+  // EVERY contact, but the "-1" damage floater renders ONLY when final (damage is 1; three "-1"s
+  // would lie about HP — RG-C5 honesty). Single-contact / pre-clip beats always set final: true.
+  impact: { side: 'p1' | 'p2'; xPct: number; yPct: number; final: boolean } | null;
+  // §9 COMBO-STRING re-contact pulse: bumps at every contact i>=1 of a string so the defender's
+  // CURRENT hit clip restarts from frame 0 mid-flow (a state re-set alone would NOT restart it).
+  hitRetrigger: number;
   spark: { xPct: number; yPct: number } | null;
   // BLOCK parry: placed at the BLOCKER's chest. `facing` (toward the attacker) picks the arc's
   // direction so the ice-glass shield always curves into the incoming blow.
@@ -293,6 +324,7 @@ const FX_INIT: FxState = {
   p2State: 'idle',
   hitstop: false,
   impact: null,
+  hitRetrigger: 0,
   spark: null,
   shield: null,
   dust: null,
@@ -474,6 +506,7 @@ function Fighter({
   poseClass,
   activeState,
   paused,
+  hitRetrigger,
   reduced,
   mirrored,
   onClipEnd,
@@ -485,6 +518,7 @@ function Fighter({
   poseClass: string;
   activeState: FighterState;
   paused: boolean; // hitstop: freeze the current state video
+  hitRetrigger: number; // §9 combo-string re-contact pulse (restarts a CURRENT 'hit' clip mid-flow)
   reduced: boolean;
   mirrored: boolean; // THE FACING RULE result for this fighter's runtime slot (computed by the parent)
   onClipEnd: (state: FighterState) => void;
@@ -529,6 +563,24 @@ function Fighter({
       if (p && typeof p.catch === 'function') p.catch(() => {});
     }
   }, [paused, displayState, reduced]);
+
+  // §9 COMBO-STRING re-contact restart. On contacts i>=1 of an attack string the defender is ALREADY
+  // in its 'hit' state, so the displayState-change effect above does NOT fire (re-setting the same
+  // state is a no-op) — this watches the parent's hitRetrigger pulse instead and restarts the CURRENT
+  // clip from frame 0 so each blow re-plays the whole flinch. Guarded to 'hit' ONLY: idle must keep
+  // looping (a restart would stutter it) and 'ko' holds its last frame off-anchor (contract §2).
+  useEffect(() => {
+    if (reduced) return;
+    if (displayState !== 'hit') return;
+    const v = videoRefs.current[displayState];
+    if (!v) return;
+    v.currentTime = 0;
+    const p = v.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+    // Fires ONLY on the hitRetrigger pulse; displayState/reduced are read as current values (the
+    // displayState effect owns state-change restarts). Excluded deps are intentional.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hitRetrigger]);
 
   // Mirror when the art's facing disagrees with the slot's required facing (left slot must
   // face right, right slot must face left) — decided by the parent from the runtime slot. The
@@ -842,6 +894,10 @@ export function FightExperience(): JSX.Element {
 
   const [fx, dispatchFx] = useReducer(fxReducer, FX_INIT);
   const [koZoom, setKoZoom] = useState<{ active: boolean; spotX: number } | null>(null);
+  // §9 COMBO-STRING hits tally. `count` = blows landed so far (>=2); `key` = the contact index that
+  // last updated it (re-keys the pop so it re-fires per update); `leaving` flips to fade it out. Text
+  // derives ONLY from the choreography contact index — never a stake / win value (RG-C5).
+  const [hitsCounter, setHitsCounter] = useState<{ count: number; key: number; leaving: boolean } | null>(null);
   const [shake, setShake] = useState(false);
   const choTimers = useRef<Array<ReturnType<typeof setTimeout>>>([]);
   const shakeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -898,6 +954,7 @@ export function FightExperience(): JSX.Element {
           clash: false,
         });
         setKoZoom(null);
+        setHitsCounter(null); // §9: the combo tally never survives leaving 'resolve'.
       }
       return undefined;
     }
@@ -918,9 +975,11 @@ export function FightExperience(): JSX.Element {
 
     const defForSide = (s: 'p1' | 'p2') => (s === 'p1' ? p1Def : p2Def);
     // §7 impact burst at the defender's contact point: chest height, nudged toward the attacker.
-    const impactAt = (winner: 'p1' | 'p2', loser: 'p1' | 'p2'): FxState['impact'] => {
+    // `final: true` by default so the single-contact / pre-clip beats show the "-1" exactly as
+    // before; the §9 multi-contact loop overrides `final` per contact (only the last is final).
+    const impactAt = (winner: 'p1' | 'p2', loser: 'p1' | 'p2'): NonNullable<FxState['impact']> => {
       const d = loser === 'p1' ? CAL.fighterP1 : CAL.fighterP2;
-      return { side: winner, xPct: d.cx - sign(winner) * CHO.IMPACT_NUDGE_X, yPct: d.feetY - CHO.IMPACT_CHEST_FRAC * d.h };
+      return { side: winner, xPct: d.cx - sign(winner) * CHO.IMPACT_NUDGE_X, yPct: d.feetY - CHO.IMPACT_CHEST_FRAC * d.h, final: true };
     };
     const scheduleImpactClear = (winner: 'p1' | 'p2', atMs: number) => {
       const dur = defForSide(winner).fxImpact?.durationMs;
@@ -995,34 +1054,73 @@ export function FightExperience(): JSX.Element {
     const useClipChoreo = attackerHasClip && defenderHasHit;
 
     if (useClipChoreo) {
-      // Attacker plays its attack clip from resolve; at contactMs/CLIP_RATE the blow lands
-      // (defender hit/ko + spark + impact burst + hitstop freeze of BOTH videos). Clips return
-      // to idle on their own end (handleClipEnd); ko holds its last frame off-anchor.
+      // Attacker plays its attack clip from resolve; at each contact the blow lands (defender
+      // hit/ko + spark + impact burst + hitstop freeze of BOTH videos). Clips return to idle on
+      // their own end (handleClipEnd); ko holds its last frame off-anchor.
       const clip = defForSide(w).clips[atkState]!;
       const hitstopMs = roundEnding ? CHO.KO_HITSTOP_MS : CHO.HITSTOP_MS;
-      // Contact fires at contactMs/CLIP_RATE (contract §5). The provider's hit windows
-      // (RESOLVE_HIT_MS / RESOLVE_KO_MS) are sized to fit the whole clip beat, so the true
-      // contact time always fits; the clamp stays only as a safety net for a future clip
-      // whose contact would overrun its window (the beat must ALWAYS land inside 'resolve').
+      // THE COMBO-STRING LAW (contract §9). An attack clip is a 1-3 contact STRING; each blow lands
+      // at its own contact time, scaled + clamped into the resolve window (RESOLVE_HIT_MS /
+      // RESOLVE_KO_MS, sized to fit the whole beat). A single-contact clip => a list of ONE => this
+      // is byte-identical to the pre-combo beat. Damage stays 1 per exchange — the string is pure
+      // PRESENTATION: the defender re-plays ONE universal hit clip at every contact.
       const resolveWindow = roundEnding ? RESOLVE_KO_MS : RESOLVE_HIT_MS;
-      const contactAt = Math.min((clip.contactMs ?? DEFAULT_CONTACT_MS) / CLIP_RATE, Math.max(0, resolveWindow - hitstopMs - 40));
+      const contactList = deriveContactTimes(clip, resolveWindow, hitstopMs);
+      const lastIdx = contactList.length - 1;
+      // The defender's reaction state is decided ONCE, at the first contact (as the single beat did).
+      const loserState: FighterState = roundEnding && loserHasKo ? 'ko' : 'hit';
+      const multi = contactList.length >= 2;
       setStates(atkState, 'idle');
-      at(() => {
-        const loserState: FighterState = roundEnding && loserHasKo ? 'ko' : 'hit';
-        setStates(atkState, loserState, {
-          spark: { xPct: contactX, yPct: CAL.contactY },
-          hitstop: true,
-          impact: impactAt(w, l),
-          nonce: fx.nonce + 3,
-        });
-        if (roundEnding) setKoZoom({ active: false, spotX: contactX });
-        else triggerShake();
-      }, contactAt);
-      scheduleImpactClear(w, contactAt);
-      at(() => dispatchFx({ hitstop: false }), contactAt + hitstopMs);
+      contactList.forEach((contactAt, i) => {
+        const isFinal = i === lastIdx;
+        at(() => {
+          // Fresh ring/glow/echo per contact (distinct, ascending nonce); the "-1" only on the final
+          // contact (final flag) — three "-1"s would lie about HP (RG-C5 honesty).
+          const impact = { ...impactAt(w, l), final: isFinal };
+          if (i === 0) {
+            // First contact: defender switches to hit/ko — this state CHANGE restarts its clip.
+            setStates(atkState, loserState, {
+              spark: { xPct: contactX, yPct: CAL.contactY },
+              hitstop: true,
+              impact,
+              nonce: fx.nonce + 3 + i,
+            });
+          } else {
+            // Re-contact (i>=1): the defender is already in its hit clip, so bump hitRetrigger to
+            // RESTART it from frame 0 mid-flow (a same-state re-set would not). No state change here.
+            dispatchFx({
+              spark: { xPct: contactX, yPct: CAL.contactY },
+              hitstop: true,
+              impact,
+              nonce: fx.nonce + 3 + i,
+              hitRetrigger: fx.hitRetrigger + i,
+            });
+          }
+          // HITS COUNTER: from the 2nd contact on, pop "N HITS" (N = blows landed). Text derives ONLY
+          // from the contact index — never a stake / win value (RG-C5). Multi-contact strings only.
+          if (multi && i >= 1) setHitsCounter({ count: i + 1, key: i, leaving: false });
+          // Screenshake per contact (NOT on round-ending contacts — same rule as the single beat).
+          // The KO zoom spot is armed ONLY on the FINAL contact when round-ending (it is the finisher).
+          if (roundEnding) {
+            if (isFinal) setKoZoom({ active: false, spotX: contactX });
+          } else {
+            triggerShake();
+          }
+        }, contactAt);
+        scheduleImpactClear(w, contactAt);
+        at(() => dispatchFx({ hitstop: false }), contactAt + hitstopMs);
+      });
+      const finalAt = contactList[lastIdx];
       if (roundEnding) {
+        // Launch the loser back only after the FINAL contact's hitstop (§7.5, MK juggle).
         const u = bothUnits(IDLE_UNIT, launchUnit(w));
-        at(() => dispatchFx({ p1: u.p1, p2: u.p2 }), contactAt + hitstopMs);
+        at(() => dispatchFx({ p1: u.p1, p2: u.p2 }), finalAt + hitstopMs);
+      }
+      if (multi) {
+        // Hold the tally after the last contact, then fade it (functional updaters only — no side
+        // effects in the updater, StrictMode-safe; mirrors the koZoom pattern).
+        at(() => setHitsCounter((h) => (h ? { ...h, leaving: true } : h)), finalAt + CHO.HITS_HOLD_MS);
+        at(() => setHitsCounter(null), finalAt + CHO.HITS_HOLD_MS + CHO.HITS_FADE_MS);
       }
     } else if (move === 'strike') {
       const lunge: FxUnit = { tx: sign(w) * CHO.LUNGE_X, ty: 0, rot: 0, scale: 1, transition: windup(CHO.LUNGE_MS) };
@@ -1247,6 +1345,7 @@ export function FightExperience(): JSX.Element {
               poseClass={poseClass('p1')}
               activeState={fx.p1State}
               paused={fx.hitstop}
+              hitRetrigger={fx.hitRetrigger}
               reduced={reduced}
               mirrored={p1Mirrored}
               onClipEnd={(s) => handleClipEnd('p1', s)}
@@ -1259,6 +1358,7 @@ export function FightExperience(): JSX.Element {
               poseClass={poseClass('p2')}
               activeState={fx.p2State}
               paused={fx.hitstop}
+              hitRetrigger={fx.hitRetrigger}
               reduced={reduced}
               mirrored={p2Mirrored}
               onClipEnd={(s) => handleClipEnd('p2', s)}
@@ -1318,8 +1418,10 @@ export function FightExperience(): JSX.Element {
               </svg>
             )}
             {/* Damage floater: a constant "-1" (steel/HP palette). The value is FIXED by design
-                (RG-C5) — identical for both sides, never scaled by hit / stake / streak. */}
-            {fx.impact && (
+                (RG-C5) — identical for both sides, never scaled by hit / stake / streak. §9: on a
+                combo STRING the ring/glow/echo fire at EVERY contact, but this "-1" shows ONLY on
+                the final contact (impact.final) — three "-1"s would lie about HP (damage is 1). */}
+            {fx.impact && fx.impact.final && (
               <div
                 key={`dmg-${fx.nonce}`}
                 className="fr-damage-floater"
@@ -1354,6 +1456,19 @@ export function FightExperience(): JSX.Element {
                 style={{ left: `${fx.dust.xPct}%`, top: `${fx.dust.yPct}%`, width: 'calc(var(--sw) * 14)', height: 'calc(var(--sh) * 6)' }}
               />
             )}
+          </div>
+        )}
+
+        {/* §9 COMBO-STRING hits tally — near the stage centre-top, above the fighters. Re-keyed by
+            the contact index so the eased pop re-fires per update ("2 HITS" -> "3 HITS"); fades after
+            the last contact. Text is the contact COUNT only, never a stake / win value (RG-C5). */}
+        {inFight && hitsCounter && (
+          <div
+            key={`hits-${hitsCounter.key}`}
+            className={`fr-hits-counter${hitsCounter.leaving ? ' fr-hits-leaving' : ''}`}
+            aria-hidden="true"
+          >
+            {hitsCounter.count} HITS
           </div>
         )}
 

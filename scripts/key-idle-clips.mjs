@@ -35,6 +35,12 @@ const LOOSE = 70; // border-flood candidate distance
 const BAND = 5; // despill band px
 const FEATHER = 2; // alpha ramp px
 const DESPILL = 0.12; // keep this fraction of the magenta excess in the band
+// GLOBAL magenta-family suppress (interior pockets): motion blur bakes screen-magenta ONTO the
+// body (head/shoulder smears) far beyond the edge band. Only fires when BOTH R and B exceed G by
+// a hard margin (true magenta family; warm rust fails b>g, cyan glow fails r>g), so costume
+// shading is untouched. SAFE ONLY while no character wears magenta - gate per character then.
+const SUPPRESS_MIN = 28; // minimum min(R-G, B-G) excess before a pixel counts as a pocket
+const SUPPRESS_KEEP = 0.25; // fraction of the excess kept (full removal reads flat/grey)
 const CLEAR = [88, 88, 96]; // non-black transparent plane (skill: never pure black)
 
 const dist2 = (r, g, b, c) => {
@@ -121,6 +127,13 @@ for (const f of files) {
       if (r > g && b > g) {
         d[i] = Math.round(g + (r - g) * DESPILL);
         d[i + 2] = Math.round(g + (b - g) * DESPILL);
+      }
+    } else {
+      // Interior: the global magenta-family suppress (see consts above).
+      const r = d[i], g = d[i + 1], b = d[i + 2];
+      if (Math.min(r - g, b - g) > SUPPRESS_MIN) {
+        d[i] = Math.round(g + (r - g) * SUPPRESS_KEEP);
+        d[i + 2] = Math.round(g + (b - g) * SUPPRESS_KEEP);
       }
     }
     const x = p % W, y = (p / W) | 0;

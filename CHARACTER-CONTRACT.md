@@ -125,6 +125,11 @@ be prompted in ART space (screen-left and screen-right swap after the mirror).
 
 ## 7. Impact effects (attacker-owned, overlay layer — Tim's effect reference)
 
+> DEPRECATED for NEW characters (after Tim's fire rejection): the generated emissive burst
+> (`fx_impact`) is no longer commissioned per character — contact fx are now CSS-authored (the
+> frost ring + echo + glow + "-1", §9). This §7 machinery stays LEGAL and wired but OPT-IN: a
+> character that ships an `fx_impact` still gets its burst; leaving it out is the new default.
+
 Reference: `input/effect.mp4` (MK1 Scorpion fire juggle) — a directional elemental burst
 at the exact contact point: appears AT contact, peaks in 2-3 frames, decays in ~10.
 
@@ -164,3 +169,31 @@ slot — so THE FACING RULE (§4) resolves the mirroring for both, for any combi
 - The provider stays IDENTITY-AGNOSTIC: it owns only the `charSelect` phase + `confirmFighter()`
   transition and never knows which character is chosen. The Experience owns `playerId` state
   (defaults to the previously picked fighter within the session).
+
+## 9. The combo-string law (attack clips are contact STRINGS)
+
+An `attack_*` clip is a 1-3 contact STRING: one clip, one to three blows landing inside it. This
+is PRESENTATION only — the engine stays byte-frozen, damage is exactly 1 per exchange. The string
+makes a win READ as a flurry without touching the math.
+
+- **Contacts live in the manifest, measured from the QA sheet — never guessed.** `FighterClip.contacts`
+  is the blow-landing times in CLIP time ms (pre-`CLIP_RATE`), ASCENDING, each read off the sheet
+  EXACTLY like `contactMs`. `contacts` SUPERSEDES `contactMs` when present; `contactMs` stays as the
+  single-contact form, so every existing manifest is unchanged (a clip with only `contactMs`, or
+  neither, is a one-contact string — byte-identical to the pre-combo beat).
+- **The defender plays ONE universal hit clip, re-triggered per contact.** There is no per-blow
+  reaction clip: the single `hit` clip is the reaction, restarted from frame 0 at every contact. So
+  the `hit` clip MUST read when restarted mid-flow — a whole-body react that resolves QUICKLY back
+  toward guard (not a slow one-way topple), or the re-trigger looks like a stutter. Round-ending
+  strings resolve the defender to `ko` at the first contact (as the single beat did); `ko` holds and
+  is NOT re-triggered.
+- **The "-1" shows ONCE, at the final contact.** The frost ring + echo + glow fire at EVERY contact
+  (the flurry reads), but the damage floater renders only on the last blow — three "-1"s would lie
+  about HP (damage is 1). RG-C5 honesty.
+- **The hits counter derives from the contact COUNT only.** On a 2+ contact string a "N HITS" tally
+  pops near the stage centre-top from the 2nd contact on, in the frost/steel palette (never gold),
+  and fades after the last blow. Its text is the choreography contact index, NEVER a stake / win /
+  streak value (RG-C5). Single-contact strings show no counter.
+- **Contact fx are CSS-authored (see §7).** The generated `fx_impact` burst is deprecated for new
+  characters; the ring/echo/glow/floater/counter above are the sanctioned contact presentation. The
+  §7 burst machinery stays legal but opt-in.

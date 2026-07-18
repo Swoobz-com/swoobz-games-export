@@ -510,6 +510,50 @@
   display: none;
 }
 
+/* §9 COMBO-STRING hits tally — the "N HITS" count on a multi-contact attack string. Near the stage
+   centre-top, frost/steel palette (NOT gold — gold is the money family, never the fight). Geist
+   Mono, on the fight's smooth curve. It is INFORMATION (the blow count), derived only from the
+   choreography contact index (RG-C5), so it earns a spot on stage. */
+.fr-hits-counter {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  transform: translate(-50%, -50%);
+  font-family: 'Geist Mono', monospace;
+  font-weight: 800;
+  font-size: calc(var(--sh) * 4.6);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--fr-steel-1);
+  text-shadow: 0 0 calc(var(--sw) * 0.5) rgba(159, 216, 255, 0.7),
+    0 calc(var(--sh) * 0.25) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  white-space: nowrap;
+  /* Eased pop-in on the fight's smoothness curve (cubic-bezier(0.22,1,0.36,1) family). Re-keyed by
+     the contact index in the JSX, so this re-runs on each "N HITS" update. */
+  animation: fr-hits-pop 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes fr-hits-pop {
+  0% { transform: translate(-50%, -50%) scale(0.62); opacity: 0; }
+  55% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+/* Swapping the animation (rather than transitioning opacity) avoids the forwards-fill overriding a
+   transition: the fade starts from the settled pop state and eases out over CHO.HITS_FADE_MS. */
+.fr-hits-counter.fr-hits-leaving {
+  animation: fr-hits-fade 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes fr-hits-fade {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.06); opacity: 0; }
+}
+/* Reduced motion: the tally MAY stay (it is information) but never animates — shown flat, no pop,
+   no fade. */
+.fr-reduced .fr-hits-counter,
+.fr-reduced .fr-hits-counter.fr-hits-leaving {
+  animation: none;
+}
+
 .fr-clash-flash {
   position: absolute;
   left: 50%;
