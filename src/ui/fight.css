@@ -89,17 +89,37 @@
   filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.55));
   transition: filter 300ms ease;
 }
+/* MK-style generated idle loop (alpha WebM). Sized/offset per fighter via IDLE_CAL in
+   FightExperience.tsx so the anchor frame lands exactly over the still underneath. */
+.fr-idle-video {
+  position: absolute;
+  width: auto;
+  transform: translateX(-50%);
+  pointer-events: none;
+  filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.55));
+  transition: filter 300ms ease;
+}
 @keyframes fr-breathe {
   0%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(1.012); }
 }
-.fr-fighter.fr-winner img {
+.fr-fighter.fr-winner img,
+.fr-fighter.fr-winner .fr-idle-video {
   filter: drop-shadow(0 0 calc(var(--sw) * 1.2) rgba(201, 165, 92, 0.85))
     drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.55));
 }
-.fr-fighter.fr-loser img {
+.fr-fighter.fr-loser img,
+.fr-fighter.fr-loser .fr-idle-video {
   filter: grayscale(0.75) brightness(0.6)
     drop-shadow(0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.5));
+}
+/* Reduced motion: no looping video, the still comes back (its breathe animation is
+   separately disabled by the existing .fr-reduced rule). */
+.fr-reduced .fr-idle-video {
+  display: none;
+}
+.fr-reduced .fr-fighter img {
+  opacity: 1 !important;
 }
 .fr-ground-shadow {
   position: absolute;
@@ -768,4 +788,179 @@
   left: calc(var(--sw) * 2);
   top: calc(var(--sh) * 2);
   z-index: 55;
+}
+
+/* ---------------- Stake screen ---------------- */
+/* Console seated at the bottom of the stage box; fighters stay visible above
+   a lighter scrim than the other overlays (the stage, not the menu, is the star). */
+.fr-stake-overlay {
+  justify-content: flex-end;
+}
+.fr-stake-scrim {
+  background: linear-gradient(180deg, rgba(6, 10, 18, 0.45) 0%, rgba(6, 10, 18, 0.35) 42%, rgba(6, 10, 18, 0.82) 100%);
+}
+.fr-stake-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: min(480px, 94%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 1);
+}
+.fr-stake-disclosure {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: clamp(9px, calc(var(--sh) * 1.15), 12px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fr-steel-2);
+  opacity: 0.85;
+  text-align: center;
+}
+/* OPTIONS drawer: RESET PRACTICE BANK */
+.fr-reset-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fr-reset-note {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--fr-steel-2);
+}
+.fr-reset-bank {
+  min-height: 44px;
+  box-sizing: border-box;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--fr-steel-1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(159, 216, 255, 0.28);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.fr-reset-bank:hover,
+.fr-reset-bank:focus-visible {
+  border-color: var(--fr-ice);
+  background: rgba(159, 216, 255, 0.1);
+  outline: none;
+}
+
+/* ---------------- Match receipt (victory/defeat Glass-Box strip) ---------------- */
+.fr-receipt {
+  width: 100%;
+  max-width: calc(var(--sw) * 34);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.6);
+  padding: calc(var(--sh) * 1) calc(var(--sw) * 1.2);
+  /* Engraved metal plate — recessed, tabular, quiet. */
+  background: linear-gradient(180deg, rgba(18, 26, 40, 0.94), rgba(8, 13, 22, 0.96));
+  border: 1px solid rgba(159, 216, 255, 0.22);
+  border-radius: calc(var(--sw) * 0.35);
+  box-shadow: inset 0 1px 0 rgba(159, 216, 255, 0.12), 0 calc(var(--sh) * 0.5) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5);
+}
+.fr-receipt-win {
+  border-color: rgba(201, 165, 92, 0.5);
+}
+.fr-receipt-loss {
+  border-color: rgba(143, 166, 189, 0.3);
+}
+.fr-receipt-title {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(9px, calc(var(--sh) * 1.2), 13px);
+  letter-spacing: 0.24em;
+  color: var(--fr-gold);
+  text-align: center;
+  padding-bottom: calc(var(--sh) * 0.4);
+  border-bottom: 1px solid rgba(159, 216, 255, 0.14);
+}
+.fr-receipt-rows {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.35);
+}
+.fr-receipt-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--sw) * 1);
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(10px, calc(var(--sh) * 1.5), 15px);
+}
+.fr-receipt-row span {
+  color: var(--fr-steel-2);
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+.fr-receipt-row b {
+  color: var(--fr-steel-1);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.fr-receipt-result span {
+  color: var(--fr-steel-1);
+}
+.fr-receipt-victory {
+  color: var(--fr-gold) !important;
+  letter-spacing: 0.14em;
+}
+.fr-receipt-defeat {
+  color: var(--fr-danger) !important;
+  letter-spacing: 0.14em;
+}
+
+/* ---------------- Chassis: SWOOBZ maker's-mark + PLAY SAFE ---------------- */
+.fr-wordmark {
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  z-index: 80;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  color: var(--fr-gold);
+  opacity: 0.4;
+  text-shadow: 0 0 8px rgba(201, 165, 92, 0.25);
+  pointer-events: none;
+  user-select: none;
+}
+.fr-playsafe {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 80;
+  min-height: 44px;
+  min-width: 44px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: rgba(16, 26, 36, 0.88);
+  border: 1px solid var(--fr-gold-deep);
+  border-radius: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--fr-steel-1);
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: border-color 120ms ease, color 120ms ease;
+}
+.fr-playsafe:hover,
+.fr-playsafe:focus-visible {
+  border-color: var(--fr-gold);
+  color: #fff;
+  outline: none;
 }

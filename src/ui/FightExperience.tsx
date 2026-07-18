@@ -10,12 +10,53 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, u
 import { useFightController } from '../provider/fightProvider';
 import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
+import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
+import { BetConsole, type BetConsoleTheme } from './shared/BetConsole';
 import './fight.css';
+
+// BetConsole skin — the shared betting surface, restyled to Frozen Requiem's
+// frost-cathedral palette (values mirror the tokens in fight.css). Gold is the
+// value family (money + the single CTA); ice-ish stays the game's interactive
+// accent elsewhere, so the CTA never has to fight another full-accent element.
+const FR_BET_THEME: BetConsoleTheme = {
+  fontMono: "'Geist Mono', monospace",
+  fontBody: "'Geist', sans-serif",
+  surfaceTop: '#1a2942',
+  surfaceBottom: '#0b1322',
+  trim: 'rgba(159, 216, 255, 0.35)',
+  trimGlow: 'rgba(159, 216, 255, 0.14)',
+  label: '#c9a55c',
+  textPrimary: '#dfe9f4',
+  textMuted: '#8fa6bd',
+  textDim: 'rgba(143, 166, 189, 0.6)',
+  hintColor: '#9fd8ff',
+  accentSolid: 'linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%)',
+  accentInk: '#0a1018',
+  accentSoftBg: 'rgba(201, 165, 92, 0.16)',
+  accentSoftBorder: 'rgba(201, 165, 92, 0.6)',
+  accentText: '#e7c877',
+  money: '#e7c877',
+  danger: '#cc2626',
+  radius: 14,
+};
 
 const ASSET_BASE = import.meta.env.BASE_URL;
 const BG_URL = `${ASSET_BASE}assets/background.png`;
 const F1_URL = `${ASSET_BASE}assets/fighter-1-keyed.png`;
 const F2_URL = `${ASSET_BASE}assets/fighter-2-keyed.png`;
+const F1_IDLE_URL = `${ASSET_BASE}assets/fighter-1-idle.webm`;
+const F2_IDLE_URL = `${ASSET_BASE}assets/fighter-2-idle.webm`;
+
+/** Placement of the idle-loop videos inside the square fighter box, in PERCENT of the box.
+ *  The clips are content-cropped (character fills the video canvas) while the still PNGs
+ *  carry canvas margins, so each video is sized/offset so its anchor-frame character lands
+ *  pixel-on-pixel over the still: same height, same feet line, same horizontal center.
+ *  Derived from the PNG alpha bboxes vs the clip crop boxes; nudge only if a fighter
+ *  visibly pops when the video takes over from the still. */
+const IDLE_CAL = {
+  p1: { h: 93.46, bottom: 2.23, left: 41.54 },
+  p2: { h: 84.31, bottom: 4.93, left: 51.31 },
+} as const;
 
 // ============================================================================================
 // CALIBRATION — every HUD/stage overlay position, in PERCENT of the 2816x1536 stage box.
@@ -370,15 +411,22 @@ function Portrait({
 
 function Fighter({
   url,
+  idleUrl,
+  idleCal,
   cfg,
   fx,
   poseClass,
 }: {
   url: string;
+  idleUrl: string;
+  idleCal: { h: number; bottom: number; left: number };
   cfg: { cx: number; feetY: number; h: number };
   fx: FxUnit;
   poseClass: string;
 }): JSX.Element {
+  // The still stays underneath until the idle loop is actually rendering frames, so a
+  // slow decode (or a browser without VP9 alpha) never shows an empty fighter slot.
+  const [live, setLive] = useState(false);
   return (
     <div
       className={`fr-fighter ${poseClass}`}
@@ -391,9 +439,24 @@ function Fighter({
         transition: fx.transition,
       }}
     >
-      <div className="fr-fighter-breathe">
-        <img src={url} alt="" draggable={false} />
+      <div className="fr-fighter-breathe" style={live ? { animation: 'none' } : undefined}>
+        <img src={url} alt="" draggable={false} style={{ opacity: live ? 0 : 1 }} />
       </div>
+      <video
+        className="fr-idle-video"
+        src={idleUrl}
+        muted
+        loop
+        autoPlay
+        playsInline
+        preload="auto"
+        onPlaying={() => setLive(true)}
+        style={{
+          height: `${idleCal.h}%`,
+          bottom: `${idleCal.bottom}%`,
+          left: `${idleCal.left}%`,
+        }}
+      />
     </div>
   );
 }
@@ -643,7 +706,7 @@ export function FightExperience(): JSX.Element {
     phase === 'reveal' ||
     phase === 'resolve' ||
     phase === 'roundEnd';
-  const showFighters = inFight || phase === 'vsIntro' || phase === 'matchEnd';
+  const showFighters = inFight || phase === 'vsIntro' || phase === 'matchEnd' || phase === 'stake';
 
   const roundWinner = matchState.roundOver; // set during resolve/roundEnd
   const matchWinner = matchState.matchOver;
@@ -704,8 +767,8 @@ export function FightExperience(): JSX.Element {
               className="fr-ground-shadow"
               style={{ left: `${CAL.fighterP2.cx}%`, top: `${CAL.shadow.y}%`, width: `${CAL.shadow.w}%`, height: `${CAL.shadow.h}%` }}
             />
-            <Fighter url={F1_URL} cfg={CAL.fighterP1} fx={fx.p1} poseClass={poseClass('p1')} />
-            <Fighter url={F2_URL} cfg={CAL.fighterP2} fx={fx.p2} poseClass={poseClass('p2')} />
+            <Fighter url={F1_URL} idleUrl={F1_IDLE_URL} idleCal={IDLE_CAL.p1} cfg={CAL.fighterP1} fx={fx.p1} poseClass={poseClass('p1')} />
+            <Fighter url={F2_URL} idleUrl={F2_IDLE_URL} idleCal={IDLE_CAL.p2} cfg={CAL.fighterP2} fx={fx.p2} poseClass={poseClass('p2')} />
           </>
         )}
 
@@ -818,6 +881,60 @@ export function FightExperience(): JSX.Element {
                   </button>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* ---------------- Stake screen ---------------- */}
+        {phase === 'stake' && (
+          <div className="fr-overlay fr-stake-overlay">
+            <div className="fr-scrim fr-stake-scrim" />
+            <button
+              type="button"
+              className="fr-btn fr-back"
+              onClick={ctl.enterModeSelect}
+              style={{ fontSize: 'calc(var(--sh) * 1.4)', padding: 'calc(var(--sh) * 0.6) calc(var(--sw) * 1)' }}
+            >
+              BACK
+            </button>
+            <div className="fr-stake-inner">
+              <div className="fr-stake-disclosure">skill match · even stakes · winner takes the pot</div>
+              <BetConsole
+                theme={FR_BET_THEME}
+                eyebrow="STAKE YOUR FIGHT"
+                hint={
+                  mode === 'friend'
+                    ? 'WINNER TAKES ALL. YOUR RIVAL MATCHES YOUR STAKE.'
+                    : 'WINNER TAKES ALL. VOLTA MATCHES YOUR STAKE.'
+                }
+                wagerLabel="YOUR STAKE"
+                wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
+                onStepDown={() => ctl.stepStake('down')}
+                onStepUp={() => ctl.stepStake('up')}
+                presets={STAKE_PRESETS}
+                activeWager={ctl.stakeLamports}
+                onPreset={(v) => ctl.setStake(v)}
+                toWin={{
+                  label: 'WINNER TAKES',
+                  value: formatUsd(potLamports(ctl.stakeLamports)),
+                  sub: 'even stakes, 2.00x pot',
+                }}
+                balanceLabel="BANK"
+                balanceValue={formatUsd(ctl.balanceLamports)}
+                commitLabel={`STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`}
+                onCommit={ctl.commitStake}
+                commitDisabled={!ctl.canStake}
+                disabledLabel="NOT ENOUGH IN BANK"
+                optionsLabel="OPTIONS"
+                options={
+                  <div className="fr-reset-wrap">
+                    <span className="fr-reset-note">Practice bank · not real funds. Restore it any time.</span>
+                    <button type="button" className="fr-reset-bank" onClick={ctl.resetBank}>
+                      RESET PRACTICE BANK
+                    </button>
+                  </div>
+                }
+              />
             </div>
           </div>
         )}
@@ -953,6 +1070,39 @@ export function FightExperience(): JSX.Element {
               <div className="fr-banner fr-banner-gold" style={{ fontSize: 'calc(var(--sh) * 11)' }}>
                 {(matchWinner === 'p1' ? GORVAK : VOLTA).name} WINS
               </div>
+              {ctl.receipt && (
+                <div className={`fr-receipt${ctl.receipt.playerWon ? ' fr-receipt-win' : ' fr-receipt-loss'}`}>
+                  <div className="fr-receipt-title">MATCH RECEIPT</div>
+                  <div className="fr-receipt-rows">
+                    <div className="fr-receipt-row">
+                      <span>YOUR STAKE</span>
+                      <b>{formatUsd(ctl.receipt.stakeLamports)}</b>
+                    </div>
+                    <div className="fr-receipt-row">
+                      <span>{mode === 'friend' ? 'RIVAL STAKE' : 'VOLTA STAKE'}</span>
+                      <b>{formatUsd(ctl.receipt.opponentStakeLamports)}</b>
+                    </div>
+                    <div className="fr-receipt-row">
+                      <span>POT</span>
+                      <b>{formatUsd(ctl.receipt.potLamports)}</b>
+                    </div>
+                    <div className="fr-receipt-row fr-receipt-result">
+                      <span>RESULT</span>
+                      <b className={ctl.receipt.playerWon ? 'fr-receipt-victory' : 'fr-receipt-defeat'}>
+                        {ctl.receipt.playerWon ? 'VICTORY' : 'DEFEAT'}
+                      </b>
+                    </div>
+                    <div className="fr-receipt-row">
+                      <span>PAYOUT</span>
+                      <b>{formatUsd(ctl.receipt.payoutLamports)}</b>
+                    </div>
+                    <div className="fr-receipt-row">
+                      <span>BANK</span>
+                      <b>{formatUsd(ctl.receipt.balanceAfterLamports)}</b>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="fr-victory-quote" style={{ fontSize: 'calc(var(--sh) * 2) ' }}>
                 {(matchWinner === 'p1' ? GORVAK : VOLTA).quotes[quoteIndex]}
               </div>
@@ -987,6 +1137,23 @@ export function FightExperience(): JSX.Element {
           </div>
         )}
       </div>
+
+      {/* Quiet SWOOBZ maker's-mark — DOM-level, corner, low-opacity (mirrors
+          assay's wordmark treatment). Decorative chrome, not interactive. */}
+      <div className="fr-wordmark" aria-hidden="true">
+        SWOOBZ
+      </div>
+
+      {/* Page-fixed PLAY SAFE pill (bottom-right, >=44px touch target). No-op
+          href for this mockup — it never navigates. */}
+      <a
+        className="fr-playsafe"
+        href="#"
+        onClick={(e) => e.preventDefault()}
+        aria-label="Play safe. Even stakes, winner takes the pot. This is a practice bank, not real funds."
+      >
+        PLAY SAFE
+      </a>
     </div>
   );
 }

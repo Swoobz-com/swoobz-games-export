@@ -27,13 +27,25 @@ import {
   playHitThrow,
   playKo,
   playLockIn,
+  playPayout,
   playRoundBanner,
+  playStakeCommit,
   playVictory,
 } from '../audio/fightAudio';
+import {
+  clampStake,
+  DEFAULT_STAKE,
+  INITIAL_BALANCE,
+  MIN_STAKE,
+  ONE_USDC,
+  potLamports,
+  settle,
+} from '../engine/fightStakes';
 
 export type Phase =
   | 'title'
   | 'mode'
+  | 'stake'
   | 'vsIntro'
   | 'roundIntro'
   | 'fightBanner'
@@ -44,6 +56,48 @@ export type Phase =
   | 'matchEnd';
 
 export type Mode = 'cpu' | 'friend';
+
+// What the stake phase will start once the wager is committed. Captured when the
+// player picks a CPU personality / enters the friend flow, replayed by commitStake.
+type PendingStart =
+  | { kind: 'cpu'; personality: AiPersonality }
+  | { kind: 'friendCreate' }
+  | { kind: 'friendJoin'; code: string };
+
+/** Frozen after settle — the numbers the victory/defeat receipt strip prints. */
+export interface StakeReceipt {
+  stakeLamports: bigint;
+  opponentStakeLamports: bigint;
+  potLamports: bigint;
+  playerWon: boolean;
+  payoutLamports: bigint;
+  balanceAfterLamports: bigint;
+}
+
+// Practice-bank balance persistence. Stored as a plain decimal lamport string
+// (BigInt has no JSON form), read once at init; any corrupt/absent value falls
+// back to the fresh practice bank.
+const BALANCE_STORAGE_KEY = 'frozen-requiem.balance.v1';
+
+function loadBalance(): bigint {
+  try {
+    if (typeof localStorage === 'undefined') return INITIAL_BALANCE;
+    const raw = localStorage.getItem(BALANCE_STORAGE_KEY);
+    if (raw == null || !/^\d+$/.test(raw)) return INITIAL_BALANCE;
+    return BigInt(raw);
+  } catch {
+    return INITIAL_BALANCE;
+  }
+}
+
+function saveBalance(value: bigint): void {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    localStorage.setItem(BALANCE_STORAGE_KEY, value.toString());
+  } catch {
+    /* storage unavailable (private mode / quota) — balance stays in-memory only */
+  }
+}
 
 export interface PlayerPickState {
   locked: boolean;
@@ -86,6 +140,18 @@ export interface FightController {
   lastOutcome: ExchangeOutcome | null;
   playerPick: PlayerPickState;
   friend: FriendState;
+  // --- Wager layer ---
+  balanceLamports: bigint;
+  stakeLamports: bigint;
+  /** False when the practice bank is below MIN_STAKE (commit disabled). */
+  canStake: boolean;
+  /** Settlement figures for the receipt strip; null until a match settles. */
+  receipt: StakeReceipt | null;
+  setStake: (lamports: bigint) => void;
+  stepStake: (dir: 'up' | 'down') => void;
+  commitStake: () => void;
+  /** Restore the practice bank to INITIAL_BALANCE (mockup convenience). */
+  resetBank: () => void;
   enterModeSelect: () => void;
   startCpu: (personality: AiPersonality) => void;
   startFriendCreate: () => void;
@@ -129,6 +195,28 @@ export function useFightController(
   const [lastOutcome, setLastOutcome] = useState<ExchangeOutcome | null>(null);
   const [playerPick, setPlayerPick] = useState<PlayerPickState>({ locked: false, move: null });
   const [friend, setFriend] = useState<FriendState>({ roomCode: null, connected: false, joinFailed: false });
+
+  // --- Wager layer state. Balance is read from localStorage ONCE at init; stake
+  // defaults to $5 clamped to that balance. ---
+  const [balanceLamports, setBalanceLamports] = useState<bigint>(loadBalance);
+  const [stakeLamports, setStakeLamports] = useState<bigint>(() => clampStake(DEFAULT_STAKE, balanceLamports));
+  const [receipt, setReceipt] = useState<StakeReceipt | null>(null);
+
+  // Refs mirror balance/stake for synchronous reads inside plain callbacks (the
+  // commit deduction + settle credit must never live in a setState updater).
+  const balanceRef = useRef<bigint>(balanceLamports);
+  const stakeRef = useRef<bigint>(stakeLamports);
+  const pendingStartRef = useRef<PendingStart | null>(null);
+  // One-shot settle guard: flipped true the first time a match settles so a
+  // StrictMode double-invoke / re-render can't credit the pot twice.
+  const settledRef = useRef<boolean>(false);
+
+  // Persist balance on every change (idempotent; safe under StrictMode). This is
+  // an effect, never a setState updater, so it does not violate the no-side-
+  // effects-in-reducers rule.
+  useEffect(() => {
+    saveBalance(balanceLamports);
+  }, [balanceLamports]);
 
   // Refs mirror the state above for synchronous reads inside callbacks/timer bodies --
   // updated directly alongside every setState call, never lagging behind a render.
@@ -211,6 +299,33 @@ export function useFightController(
     }, ROUND_BANNER_MS + ROUND_INTRO_SILENCE_MS);
   }, [schedule, beginPicking, setPhaseNow]);
 
+  // Settle the wager exactly once per match (the winner takes the pot). Runs from
+  // a plain scheduled callback in the SAME transition that flips to 'matchEnd' --
+  // never from a setState updater -- and is guarded by settledRef so a StrictMode
+  // double-invoke or a re-render cannot credit the pot twice. GORVAK is P1 (the
+  // player); a P1 match win pays the pot into the practice bank.
+  const settleMatch = useCallback((winner: 'p1' | 'p2') => {
+    if (settledRef.current) return;
+    settledRef.current = true;
+    const stake = stakeRef.current;
+    const playerWon = winner === 'p1';
+    const pot = potLamports(stake);
+    // The stake was already deducted at commit, so balanceRef is the post-commit
+    // balance; settle() credits the pot on a win and leaves it untouched on a loss.
+    const balanceAfter = settle(balanceRef.current, stake, playerWon);
+    balanceRef.current = balanceAfter;
+    setBalanceLamports(balanceAfter);
+    setReceipt({
+      stakeLamports: stake,
+      opponentStakeLamports: stake, // even match: the opponent matches the stake
+      potLamports: pot,
+      playerWon,
+      payoutLamports: playerWon ? pot : 0n,
+      balanceAfterLamports: balanceAfter,
+    });
+    if (playerWon) playPayout();
+  }, []);
+
   const resolveExchangeNow = useCallback(
     (p1Move: Move, p2Move: Move) => {
       setPhaseNow('resolve');
@@ -227,6 +342,7 @@ export function useFightController(
       schedule(() => {
         if (next.matchOver) {
           playVictory();
+          settleMatch(next.matchOver);
           setPhaseNow('matchEnd');
         } else if (next.roundOver) {
           if (next.flawless) {
@@ -242,7 +358,7 @@ export function useFightController(
         }
       }, resolveDelay);
     },
-    [schedule, beginPicking, startRoundIntro, setPhaseNow, setMatchStateNow],
+    [schedule, beginPicking, startRoundIntro, setPhaseNow, setMatchStateNow, settleMatch],
   );
 
   const tryReveal = useCallback(() => {
@@ -322,10 +438,19 @@ export function useFightController(
 
   const enterModeSelect = useCallback(() => {
     clearAllTimers();
+    // A clean mode screen: drop any half-selected mode so the CPU/friend cards
+    // (not a stale room-code view) always render. Balance/receipt persist.
+    modeRef.current = null;
+    setMode(null);
+    aiPersonalityRef.current = null;
+    setAiPersonality(null);
+    pendingStartRef.current = null;
+    setFriend({ roomCode: null, connected: false, joinFailed: false });
     setPhaseNow('mode');
   }, [clearAllTimers, setPhaseNow]);
 
-  const startCpu = useCallback(
+  // ── The real match starts (run by commitStake once the wager is locked) ──
+  const beginCpuMatch = useCallback(
     (personality: AiPersonality) => {
       clearAllTimers();
       modeRef.current = 'cpu';
@@ -342,7 +467,7 @@ export function useFightController(
     [clearAllTimers, schedule, startRoundIntro, setPhaseNow, setMatchStateNow],
   );
 
-  const startFriendCreate = useCallback(() => {
+  const beginFriendCreate = useCallback(() => {
     clearAllTimers();
     modeRef.current = 'friend';
     setMode('friend');
@@ -357,7 +482,7 @@ export function useFightController(
     });
   }, [clearAllTimers, subscribeFriendChannels, setPhaseNow]);
 
-  const startFriendJoin = useCallback(
+  const beginFriendJoin = useCallback(
     (code: string) => {
       clearAllTimers();
       modeRef.current = 'friend';
@@ -377,6 +502,105 @@ export function useFightController(
     [clearAllTimers, subscribeFriendChannels, setPhaseNow],
   );
 
+  // ── Stake phase ──────────────────────────────────────────────────────────
+  // Enter the wager screen: preselect the current stake clamped to the bank,
+  // clear the previous receipt, and re-arm the one-shot settle guard.
+  const enterStake = useCallback(() => {
+    clearAllTimers();
+    const clamped = clampStake(stakeRef.current, balanceRef.current);
+    stakeRef.current = clamped;
+    setStakeLamports(clamped);
+    settledRef.current = false;
+    setReceipt(null);
+    setPhaseNow('stake');
+  }, [clearAllTimers, setPhaseNow]);
+
+  const setStake = useCallback((lamports: bigint) => {
+    const clamped = clampStake(lamports, balanceRef.current);
+    stakeRef.current = clamped;
+    setStakeLamports(clamped);
+  }, []);
+
+  const stepStake = useCallback(
+    (dir: 'up' | 'down') => {
+      const next = stakeRef.current + (dir === 'up' ? ONE_USDC : -ONE_USDC);
+      setStake(next);
+    },
+    [setStake],
+  );
+
+  const resetBank = useCallback(() => {
+    balanceRef.current = INITIAL_BALANCE;
+    setBalanceLamports(INITIAL_BALANCE);
+    const clamped = clampStake(stakeRef.current, INITIAL_BALANCE);
+    stakeRef.current = clamped;
+    setStakeLamports(clamped);
+  }, []);
+
+  // Lock in the wager: deduct the stake (plain callback, never a setState
+  // updater) and hand off to whatever the stake phase was armed to start.
+  const commitStake = useCallback(() => {
+    if (phaseRef.current !== 'stake') return;
+    if (balanceRef.current < MIN_STAKE) return; // canStake === false
+    const stake = clampStake(stakeRef.current, balanceRef.current);
+    if (stake < MIN_STAKE) return;
+    const newBalance = balanceRef.current - stake;
+    balanceRef.current = newBalance;
+    stakeRef.current = stake;
+    setBalanceLamports(newBalance);
+    setStakeLamports(stake);
+    settledRef.current = false;
+    playStakeCommit();
+    const pending = pendingStartRef.current;
+    if (!pending) return;
+    if (pending.kind === 'cpu') {
+      beginCpuMatch(pending.personality);
+    } else if (pending.kind === 'friendCreate') {
+      beginFriendCreate();
+    } else {
+      beginFriendJoin(pending.code);
+    }
+  }, [beginCpuMatch, beginFriendCreate, beginFriendJoin]);
+
+  // ── Public entries (from mode select): remember the choice, go to stake ──
+  const startCpu = useCallback(
+    (personality: AiPersonality) => {
+      clearAllTimers();
+      modeRef.current = 'cpu';
+      setMode('cpu');
+      aiPersonalityRef.current = personality;
+      setAiPersonality(personality);
+      pendingStartRef.current = { kind: 'cpu', personality };
+      enterStake();
+    },
+    [clearAllTimers, enterStake],
+  );
+
+  const startFriendCreate = useCallback(() => {
+    clearAllTimers();
+    modeRef.current = 'friend';
+    setMode('friend');
+    aiPersonalityRef.current = null;
+    setAiPersonality(null);
+    setFriend({ roomCode: null, connected: false, joinFailed: false });
+    pendingStartRef.current = { kind: 'friendCreate' };
+    enterStake();
+  }, [clearAllTimers, enterStake]);
+
+  const startFriendJoin = useCallback(
+    (code: string) => {
+      clearAllTimers();
+      modeRef.current = 'friend';
+      setMode('friend');
+      aiPersonalityRef.current = null;
+      setAiPersonality(null);
+      setFriend({ roomCode: code, connected: false, joinFailed: false });
+      pendingStartRef.current = { kind: 'friendJoin', code };
+      enterStake();
+    },
+    [clearAllTimers, enterStake],
+  );
+
   const continueNext = useCallback(() => {
     if (phaseRef.current !== 'roundEnd') {
       return;
@@ -386,12 +610,20 @@ export function useFightController(
     startRoundIntro();
   }, [clearAllTimers, startRoundIntro, setMatchStateNow]);
 
+  // REMATCH → back to the stake screen with the same preset preselected; the
+  // re-commit deducts the stake again (winner-takes-all, fresh pot each match).
   const rematch = useCallback(() => {
     clearAllTimers();
+    if (modeRef.current === 'cpu' && aiPersonalityRef.current) {
+      pendingStartRef.current = { kind: 'cpu', personality: aiPersonalityRef.current };
+    } else if (modeRef.current === 'friend') {
+      // Simulated friend: re-create a room and let the sim rematch match the stake.
+      pendingStartRef.current = { kind: 'friendCreate' };
+    }
     setMatchStateNow(createMatch());
     setLastOutcome(null);
-    startRoundIntro();
-  }, [clearAllTimers, startRoundIntro, setMatchStateNow]);
+    enterStake();
+  }, [clearAllTimers, enterStake, setMatchStateNow]);
 
   const backToTitle = useCallback(() => {
     clearAllTimers();
@@ -403,6 +635,9 @@ export function useFightController(
     setMode(null);
     aiPersonalityRef.current = null;
     setAiPersonality(null);
+    pendingStartRef.current = null;
+    settledRef.current = false;
+    setReceipt(null);
     setMatchStateNow(createMatch());
     setLastOutcome(null);
     playerLockedRef.current = false;
@@ -412,6 +647,7 @@ export function useFightController(
   }, [clearAllTimers, setPhaseNow, setMatchStateNow]);
 
   const shotClockSeconds = Math.ceil(shotClockMs / 1000);
+  const canStake = balanceLamports >= MIN_STAKE;
 
   return {
     phase,
@@ -422,6 +658,14 @@ export function useFightController(
     lastOutcome,
     playerPick,
     friend,
+    balanceLamports,
+    stakeLamports,
+    canStake,
+    receipt,
+    setStake,
+    stepStake,
+    commitStake,
+    resetBank,
     enterModeSelect,
     startCpu,
     startFriendCreate,

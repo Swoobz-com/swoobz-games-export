@@ -141,6 +141,19 @@ const CLOCK_TICK_HZ = 1000;
 const CLOCK_TICK_MS = 30;
 const CLOCK_TICK_VOL = 0.35;
 
+// Stake commit — a short two-note "locked in the wager" chime. Module consts.
+const STAKE_COMMIT_NOTES_HZ = [440, 660];
+const STAKE_COMMIT_NOTE_MS = 90;
+const STAKE_COMMIT_NOTE_GAP_MS = 70;
+const STAKE_COMMIT_VOL = 0.5;
+
+// Payout — a single warm "bank credited" note. RG-C5: identical every time,
+// independent of stake size / pot size / streak (no parameters, module consts).
+const PAYOUT_HZ = 784;
+const PAYOUT_END_HZ = 1046;
+const PAYOUT_MS = 200;
+const PAYOUT_VOL = 0.55;
+
 export function playPickTick(): void {
   const ctx = getCtx();
   if (!ctx) return;
@@ -286,4 +299,31 @@ export function playClockTick(): void {
   const ctx = getCtx();
   if (!ctx) return;
   playStab(ctx, { type: 'square', freqHz: CLOCK_TICK_HZ, startAtMs: 0, durationMs: CLOCK_TICK_MS, peakVol: CLOCK_TICK_VOL });
+}
+
+export function playStakeCommit(): void {
+  const ctx = getCtx();
+  if (!ctx) return;
+  STAKE_COMMIT_NOTES_HZ.forEach((hz, i) => {
+    playStab(ctx, {
+      type: 'triangle',
+      freqHz: hz,
+      startAtMs: i * STAKE_COMMIT_NOTE_GAP_MS,
+      durationMs: STAKE_COMMIT_NOTE_MS,
+      peakVol: STAKE_COMMIT_VOL,
+    });
+  });
+}
+
+export function playPayout(): void {
+  const ctx = getCtx();
+  if (!ctx) return;
+  playStab(ctx, {
+    type: 'triangle',
+    freqHz: PAYOUT_HZ,
+    endFreqHz: PAYOUT_END_HZ,
+    startAtMs: 0,
+    durationMs: PAYOUT_MS,
+    peakVol: PAYOUT_VOL,
+  });
 }
