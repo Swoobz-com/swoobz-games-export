@@ -415,12 +415,15 @@
   position: absolute;
   transform: translate(-50%, -50%);
   color: #fffbe0;
-  animation: fr-hitspark 130ms ease-out forwards;
+  /* Smoothed onto the impact ring's cubic-bezier(0.22,1,0.36,1) with a softer keyframe: it fades in
+     from a larger 0.4 seed (was a hard 0.2->pop) and eases out with the rotation, so the star reads
+     as a clean glint, not a snap. Duration held at 130ms (CHO.SPARK_MS, presentation-only). */
+  animation: fr-hitspark 130ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes fr-hitspark {
-  0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
-  30% { opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(1.3) rotate(35deg); opacity: 0; }
+  0% { transform: translate(-50%, -50%) scale(0.4) rotate(-10deg); opacity: 0; }
+  35% { opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.25) rotate(28deg); opacity: 0; }
 }
 
 /* Impact ring + soft radial glow — expand out of the defender's contact point on every hit.
@@ -440,6 +443,24 @@
   0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.9; }
   100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
 }
+/* Echo ripple: a second, TIGHTER ring that trails the main one by 80ms at lower opacity, so the
+   impact reads LAYERED (reference feel) instead of a single flat ring. Same frost palette + smooth
+   curve as the main ring; fully deterministic (fixed delay + scale, RG-C5) — no particles, no
+   offsets. `both` fill holds the invisible 0% frame through the delay so it never pre-flashes. */
+.fr-impact-ring-echo {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: calc(var(--sw) * 0.1) solid rgba(207, 232, 255, 0.5);
+  box-shadow: 0 0 calc(var(--sw) * 0.45) rgba(159, 216, 255, 0.35);
+  pointer-events: none;
+  animation: fr-impact-ring-echo 420ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+@keyframes fr-impact-ring-echo {
+  0% { transform: translate(-50%, -50%) scale(0.18); opacity: 0; }
+  25% { opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
 .fr-impact-glow {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -456,6 +477,7 @@
   100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
 }
 .fr-reduced .fr-impact-ring,
+.fr-reduced .fr-impact-ring-echo,
 .fr-reduced .fr-impact-glow {
   display: none;
 }
@@ -495,32 +517,84 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(159, 216, 255, 0.5) 35%, rgba(159, 216, 255, 0) 70%);
-  animation: fr-clash-flash 320ms ease-out forwards;
+  /* Smoothed (was ease-out with a 0.1 opacity floor that snapped on): the flash now swells up from
+     zero on the same cubic-bezier(0.22,1,0.36,1) as the impact ring, so a clash reads as a bloom. */
+  animation: fr-clash-flash 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes fr-clash-flash {
-  0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0.1; }
+  0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
   30% { opacity: 1; }
   100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
 }
-.fr-shield-flare {
+/* BLOCK PARRY — the blocker's moment, in the fight's smooth-and-clean language. A curved
+   ice-glass arc materializes FACING the attacker (eased scale-in + brightness swell over ~180ms),
+   holds through the tink, then dissipates with an eased fade + slight expansion over ~300ms. Reads
+   distinct from the HIT beat at a glance: HIT lands ON the victim (ring + echo + glow + "-1"); this
+   deflection blooms AT the blocker. Built from a radial frost shell masked to the facing arc (NOT a
+   full ring) so it reads as a shield, not a shockwave. Frost/steel ONLY (gold is the money family,
+   never the fight). Its full lifetime is CHO.BLOCK_SHIELD_MS; the JS clears the state only after
+   that, so the arc always plays its whole dissipate (the old 90ms clear cut it off). */
+.fr-shield-parry {
   position: absolute;
   transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: calc(var(--sw) * 0.14) solid rgba(230, 245, 255, 0.95);
-  box-shadow: 0 0 calc(var(--sw) * 0.8) rgba(159, 216, 255, 0.9);
-  animation: fr-shield 220ms ease-out forwards;
+  pointer-events: none;
 }
-@keyframes fr-shield {
-  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
-  40% { opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(1.25); opacity: 0; }
+/* Right-slot blocker deflects LEFTWARD: flip the whole arc so it still faces the attacker. */
+.fr-shield-parry.fr-shield-left {
+  transform: translate(-50%, -50%) scaleX(-1);
+}
+/* The curved ice-glass arc: a bright frost rim (radial shell) masked by a conic wedge to the
+   ~130deg facing the attacker (3 o'clock in the un-flipped base). Brightness swells on materialize. */
+.fr-shield-parry::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    transparent 50%,
+    rgba(230, 245, 255, 0.92) 63%,
+    rgba(159, 216, 255, 0.45) 76%,
+    transparent 88%);
+  -webkit-mask-image: conic-gradient(from 0deg, transparent 12deg, #000 26deg, #000 154deg, transparent 168deg, transparent 360deg);
+  mask-image: conic-gradient(from 0deg, transparent 12deg, #000 26deg, #000 154deg, transparent 168deg, transparent 360deg);
+  filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75));
+  animation: fr-shield-arc 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes fr-shield-arc {
+  0% { transform: scale(0.55); opacity: 0; filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
+  30% { transform: scale(1); opacity: 1; filter: brightness(1.55) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
+  50% { transform: scale(1); opacity: 0.95; filter: brightness(1.2) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
+  100% { transform: scale(1.2); opacity: 0; filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
+}
+/* Deflection ripple: a thin frost ring emanating from the arc AT the tink beat (the 90ms delay
+   mirrors CHO.BLOCK_TINK_MS), tighter + faster (320ms) than the 450ms hit ring, so the parry
+   visibly throws the blow off. `both` fill holds it invisible through the delay (no pre-flash). */
+.fr-shield-parry::after {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: calc(var(--sw) * 0.1) solid rgba(230, 245, 255, 0.85);
+  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(159, 216, 255, 0.6);
+  opacity: 0;
+  animation: fr-shield-ripple 320ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+@keyframes fr-shield-ripple {
+  0% { transform: scale(0.45); opacity: 0; }
+  25% { opacity: 0.85; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.fr-reduced .fr-shield-parry {
+  display: none;
 }
 .fr-dust-flash {
   position: absolute;
   transform: translate(-50%, -100%);
   border-radius: 50%;
   background: radial-gradient(ellipse at center bottom, rgba(220, 230, 245, 0.7), rgba(220, 230, 245, 0) 70%);
-  animation: fr-dust 260ms ease-out forwards;
+  /* Smoothed onto the impact ring's cubic-bezier(0.22,1,0.36,1) so the floor puff swells out of
+     the slam instead of easing in flat. Duration unchanged (mirrors the JS dust-clear beat). */
+  animation: fr-dust 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes fr-dust {
   0% { transform: translate(-50%, -100%) scale(0.3); opacity: 0; }

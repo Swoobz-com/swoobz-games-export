@@ -129,6 +129,10 @@ const CHO = {
   SLAM_DIP_Y: 2,
   BLOCK_REBOUND_X: 4,
   BLOCK_TINK_MS: 90,
+  // Full on-screen lifetime of the block parry arc (CSS fr-shield-arc: ~180ms materialize + hold +
+  // ~300ms dissipate). The parry now fires at LUNGE_MS and clears at LUNGE_MS + BLOCK_SHIELD_MS, so
+  // it plays its whole dissipate instead of being cut at the counter beat (fits inside RESOLVE_HIT_MS).
+  BLOCK_SHIELD_MS: 600,
   RETURN_MS: 220,
   // Motion curves (module-const; RG-C5). WINDUP eases INTO an advance (slow anticipation ->
   // snappy arrival); SETTLE springs a return home with ~10% overshoot instead of a linear snap-back.
@@ -275,7 +279,9 @@ interface FxState {
   // §7 impact burst: which attacker's fx_impact fires, and where (defender contact point).
   impact: { side: 'p1' | 'p2'; xPct: number; yPct: number } | null;
   spark: { xPct: number; yPct: number } | null;
-  shield: { xPct: number; yPct: number } | null;
+  // BLOCK parry: placed at the BLOCKER's chest. `facing` (toward the attacker) picks the arc's
+  // direction so the ice-glass shield always curves into the incoming blow.
+  shield: { xPct: number; yPct: number; facing: 'left' | 'right' } | null;
   dust: { xPct: number; yPct: number } | null;
   clash: boolean;
   nonce: number; // bumps to restart flash animations
@@ -1093,18 +1099,25 @@ export function FightExperience(): JSX.Element {
       set(u0.p1, u0.p2);
       at(() => {
         const wx = w === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx;
-        dispatchFx({ shield: { xPct: wx, yPct: CAL.contactY }, nonce: fx.nonce + 5 });
+        // Parry arc at the blocker, facing the attacker on the opposite slot (p1 blocker faces
+        // right, p2 blocker faces left). It runs its own materialize->hold->dissipate lifetime.
+        dispatchFx({ shield: { xPct: wx, yPct: CAL.contactY, facing: w === 'p1' ? 'right' : 'left' }, nonce: fx.nonce + 5 });
       }, CHO.LUNGE_MS);
       const counterAt = CHO.LUNGE_MS + CHO.BLOCK_TINK_MS;
       at(() => {
         // tink pause, then counter-smack knockback of the attacker + impact burst on the attacker.
+        // The parry is deliberately NOT cleared here (it kept getting cut mid-materialize); it clears
+        // on its own full-lifetime timer below so the arc plays its whole eased dissipate.
         const rebound: FxUnit = { tx: sign(w) * CHO.BLOCK_REBOUND_X, ty: 0, rot: sign(w) * CHO.HURT_TILT, scale: 1, transition: snappy(140) };
         const u = bothUnits(IDLE_UNIT, rebound);
-        dispatchFx({ p1: u.p1, p2: u.p2, shield: null, impact: impactAt(w, l) });
+        dispatchFx({ p1: u.p1, p2: u.p2, impact: impactAt(w, l) });
         if (roundEnding) setKoZoom({ active: false, spotX: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx });
         else triggerShake();
       }, counterAt);
       scheduleImpactClear(w, counterAt);
+      // Clear the parry only after its full CSS lifetime (beat ORDER unchanged: this fires last, after
+      // the return beat, and is a no-op if the phase-change reset already cleared it).
+      at(() => dispatchFx({ shield: null }), CHO.LUNGE_MS + CHO.BLOCK_SHIELD_MS);
       at(() => {
         const end = roundEnding ? bothUnits(IDLE_UNIT, launchUnit(w)) : { p1: IDLE_UNIT, p2: IDLE_UNIT };
         dispatchFx({ p1: end.p1, p2: end.p2 });
@@ -1283,6 +1296,16 @@ export function FightExperience(): JSX.Element {
                 style={{ left: `${fx.impact.xPct}%`, top: `${fx.impact.yPct}%`, width: 'calc(var(--sw) * 7)', height: 'calc(var(--sw) * 7)' }}
               />
             )}
+            {/* Echo ripple — a tighter second ring trailing the main one by 80ms (CSS delay), so the
+                hit reads LAYERED. Same impact + nonce source as the main ring (deterministic, RG-C5). */}
+            {fx.impact && (
+              <div
+                key={`iring2-${fx.nonce}`}
+                className="fr-impact-ring-echo"
+                aria-hidden="true"
+                style={{ left: `${fx.impact.xPct}%`, top: `${fx.impact.yPct}%`, width: 'calc(var(--sw) * 5)', height: 'calc(var(--sw) * 5)' }}
+              />
+            )}
             {fx.spark && (
               <svg
                 key={`spark-${fx.nonce}`}
@@ -1313,11 +1336,15 @@ export function FightExperience(): JSX.Element {
                 style={{ width: 'calc(var(--sw) * 20)', height: 'calc(var(--sw) * 20)' }}
               />
             )}
+            {/* BLOCK parry — a frost ice-glass arc + deflection ripple AT the blocker, facing the
+                attacker. Distinct from the HIT beat (which lands ring + echo + glow + "-1" on the
+                victim). Keyed by nonce so it restarts per exchange. */}
             {fx.shield && (
               <div
                 key={`shield-${fx.nonce}`}
-                className="fr-shield-flare"
-                style={{ left: `${fx.shield.xPct}%`, top: `${fx.shield.yPct}%`, width: 'calc(var(--sw) * 10)', height: 'calc(var(--sw) * 10)' }}
+                className={`fr-shield-parry${fx.shield.facing === 'left' ? ' fr-shield-left' : ''}`}
+                aria-hidden="true"
+                style={{ left: `${fx.shield.xPct}%`, top: `${fx.shield.yPct}%`, width: 'calc(var(--sw) * 11)', height: 'calc(var(--sw) * 11)' }}
               />
             )}
             {fx.dust && (

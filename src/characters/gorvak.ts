@@ -2,9 +2,9 @@ import type { FighterDef } from './types';
 
 // GORVAK — orc, serrated cleaver + parry dagger. Slot is a RUNTIME assignment (whichever slot
 // the match puts him in), not baked here. Only the idle clip exists today; attack_strike /
-// attack_throw / attack_block / hit / ko / victory + fxImpact arrive per the production
-// pipeline (contract §6) and drop in here as pure data — no Experience edits. The cal below is
-// the value emitted by scripts/key-idle-clips.mjs for the idle clip.
+// attack_throw / attack_block / hit / ko / victory arrive per the production pipeline
+// (contract §6) and drop in here as pure data — no Experience edits. The cal below is the value
+// emitted by scripts/key-idle-clips.mjs for the idle clip.
 export const GORVAK: FighterDef = {
   id: 'gorvak',
   name: 'GORVAK',
@@ -24,11 +24,12 @@ export const GORVAK: FighterDef = {
       contactMs: 1750,
     },
   },
-  fxImpact: {
-    // Ember-and-bone iron burst (contract §7), trimmed to the detonation window.
-    url: 'assets/fighter-1-impact.mp4',
-    durationMs: 700,
-  },
+  // fxImpact intentionally omitted. The generated ember-and-bone burst was reviewed and REJECTED:
+  // it read as noise against the frost palette, so it is removed from presentation. Contract §7
+  // impact bursts stay legal for FUTURE characters (the FighterFxImpact type + ImpactLayer machinery
+  // remain wired, and scheduleImpactClear already guards with `?.`), but GORVAK's contact beat is now
+  // carried entirely by the CSS contact fx (frost impact ring + tighter echo ripple, swelling glow,
+  // "-1" floater) and the block parry — the smoothness-and-clean language Tim asked for.
   quotes: [
     'The cathedral keeps only the standing.',
     'Steel bends. Bone breaks. I do neither.',
