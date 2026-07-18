@@ -23,9 +23,19 @@ export const GORVAK: FighterDef = {
       // Cleaver arc lands just before halfway through the 4s clip (QA read: frame ~42-44 @24fps).
       contactMs: 1750,
     },
-    // attack_throw / attack_block: generated but REJECTED at QA (anchor-plate grey-remnant
-    // hallucinations); re-generation from the cleaned anchor plate is queued on Tim's credit OK.
-    // Until then those wins play the pre-clip CSS choreography (contract §4 ladder).
+    attack_throw: {
+      url: 'assets/fighter-1-attack-throw.webm',
+      cal: { h: 106.56, bottom: 1.23, left: 50 },
+      // Collar grab-yank -> knee-down ground slam (slam lands at the f45 motion peak; the
+      // knee-down frames after are the hold). Clean-plate regeneration, 2026-07-18.
+      contacts: [1208, 1875],
+    },
+    attack_block: {
+      url: 'assets/fighter-1-attack-block.webm',
+      cal: { h: 105.64, bottom: 2.15, left: 48.77 },
+      // Dagger deflect (no damage beat) -> low backhand strike -> overhead cleaver chop.
+      contacts: [2000, 2417],
+    },
     hit: {
       url: 'assets/fighter-1-hit.webm',
       cal: { h: 98.04, bottom: 1.99, left: 50.23 },
