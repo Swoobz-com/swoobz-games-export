@@ -34,6 +34,15 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
    rows of 11), CONFIRM bottom-right. Zero credits (reuses keyed idles). Live-verified
    both pick paths. NOTE: sibling previews keyed by def.id mean a pick-swap MOVES the
    React instances (loops continue seamlessly, no remount) - intended, do not "fix".
+6a. `5223276` phase 9: COMBO-STRING BATCH + multi-contact choreography. VOLTA full kit
+   (strike [1292,2167,3167] / throw [1000,2333] / block [2417,2875] / hit re-rolled,
+   direction FIXED) + GORVAK hit; contacts?: number[] + hitRetrigger + "N HITS"
+   counter + "-1" on final contact only; CONTRACT §9; keyer global magenta suppress
+   (phase-4 note claimed it existed - it never did). GORVAK throw/block REJECTED at
+   QA (dirty anchor plate: interior grey wedge in fighter-1-keyed.png + square anchor
+   vs 16:9 outpainting = grey-disc hallucinations; one re-roll grew a visible human
+   opponent). Clean plate rebuilt (scratchpad gorvak-anchor-clean3.png); regeneration
+   = +72cr awaiting Tim. 360cr spent this batch. All paths live-verified, 57/57.
 6. `581cd98` phase 7: RESOLVE-BEAT SMOOTHNESS (Tim: "too static"; `input/hiteffect.mp4`
    = a MOTION-LANGUAGE reference, not a hit effect - it's a vault-game recording). CHO
    raised + eased (LUNGE_X 14, SETTLE_EASE spring), frost ring + glow + fixed "-1"
