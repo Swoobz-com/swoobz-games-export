@@ -991,18 +991,25 @@
 /* ---------------- Character select ---------------- */
 /* Reference language (MK1 select plate): dark plate tiles, bronze frames, selected tile lit
    with a gold accent frame + a P1 chip, "?" mystery tiles. Frost-cathedral skin via the tokens. */
+/* Bottom roster strip: two rows of 11 (registry tiles first, then the "?" mystery tiles),
+   pinned to the bottom of the stage and centred. grid-template-columns fixes the 11-wide shape
+   so 22 tiles wrap into exactly two rows. */
 .fr-select-grid {
-  display: flex;
-  gap: calc(var(--sw) * 1.4);
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--sh) * 2);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(11, auto);
   justify-content: center;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: calc(var(--sh) * 2.4) 0 calc(var(--sh) * 1.6);
+  gap: calc(var(--sw) * 0.5);
+  max-width: calc(var(--sw) * 96);
 }
 .fr-select-tile {
   position: relative;
-  width: calc(var(--sw) * 11);
+  /* Shrunk from the old single-row size so 11 across x 2 rows fits the stage width with margins. */
+  width: calc(var(--sw) * 4.4);
   aspect-ratio: 3 / 4;
   min-width: 44px;
   min-height: 44px;
@@ -1066,28 +1073,38 @@
 .fr-select-qmark {
   font-family: 'Geist', sans-serif;
   font-weight: 900;
-  font-size: calc(var(--sw) * 3.4);
+  /* Sized for the smaller strip tile: one clear glyph, roughly a third of the tile height. */
+  font-size: calc(var(--sw) * 2.4);
   line-height: 1;
   color: var(--fr-steel-3);
 }
-.fr-select-soon {
-  font-family: 'Geist Mono', monospace;
-  font-weight: 600;
-  font-size: calc(var(--sw) * 0.72);
-  letter-spacing: 0.16em;
-  color: var(--fr-steel-3);
-  opacity: 0.85;
-}
+/* Highlighted fighter's name — big, at the lower-left near the left preview's feet (MK1). Its
+   left/top come inline from SELECT_CAL.p1 so it tracks the preview when that block is tuned;
+   translateY(-100%) plants its BOTTOM edge on that feet line. Outline via stacked drop-shadows
+   only — NO -webkit-text-stroke + background-clip:text gradient (Chrome miter-spike bug). */
 .fr-select-name {
+  position: absolute;
+  z-index: 2;
+  transform: translateY(-100%);
   font-family: 'Geist', sans-serif;
   font-weight: 900;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  line-height: 0.92;
   color: var(--fr-steel-1);
-  text-shadow: 0 2px 6px #000;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 calc(var(--sh) * 0.25) 0 rgba(4, 8, 14, 0.95),
+    0 0 calc(var(--sw) * 0.5) rgba(6, 10, 18, 0.9),
+    0 calc(var(--sh) * 0.45) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.75);
 }
-/* CONFIRM CTA — same gold accent family as the stake screen's commit button. */
+/* CONFIRM CTA — same gold accent family as the stake screen's commit button. Pinned to the
+   bottom-right corner, clear of the centred roster strip and the two previews. */
 .fr-select-confirm {
+  position: absolute;
+  right: calc(var(--sw) * 3);
+  bottom: calc(var(--sh) * 4.5);
+  z-index: 4;
   color: #0a1018;
   background: linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%);
   border-color: var(--fr-gold);
@@ -1097,4 +1114,51 @@
   border-color: #ffefc4;
   color: #0a1018;
   box-shadow: 0 0 calc(var(--sw) * 0.8) rgba(201, 165, 92, 0.6);
+}
+
+/* Title tucked to the top-centre so it never fights the two full-body previews below. */
+.fr-select-title {
+  position: absolute;
+  top: calc(var(--sh) * 2);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  white-space: nowrap;
+}
+
+/* Full-body select preview — same feet-anchored geometry as .fr-fighter (translate(-50%,-100%)
+   puts feetY on the floor line, height sets the size, aspect-ratio keeps the box square), but a
+   standalone select-screen element with no fx/pose classes. Sits above the scrim so both fighters
+   read bright against the dimmed stage. */
+.fr-select-preview {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.fr-select-preview-inner {
+  position: absolute;
+  inset: 0;
+}
+.fr-select-preview-still {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.55));
+}
+/* Idle loop placed by its own ClipCal exactly like .fr-state-video (translateX(-50%) centres it
+   on the cal.left column); the still underneath shows through until it fires onPlaying. */
+.fr-select-preview-video {
+  position: absolute;
+  width: auto;
+  transform: translateX(-50%);
+  pointer-events: none;
+  filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.55));
+}
+/* Reduced motion: the JS never mounts the preview video; this is the matching CSS safety net
+   (mirrors the .fr-reduced .fr-state-video rule for the stage fighter). */
+.fr-reduced .fr-select-preview-video {
+  display: none;
 }

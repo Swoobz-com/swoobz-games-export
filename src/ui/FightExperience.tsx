@@ -92,6 +92,18 @@ const CAL = {
   contactY: 52,
 } as const;
 
+// ============================================================================================
+// SELECT_CAL — character-select full-body preview geometry, in PERCENT of the stage box, using
+// the SAME convention as CAL.fighterP1/P2 (cx = centre of mass % width, feetY = floor line % h,
+// h = image height % of stage height). Kept SEPARATE from the CALIBRATION block because these are
+// select-screen preview positions, not in-fight stage positions. One obvious TUNABLE block —
+// nudged live after a visual drive.
+// ============================================================================================
+const SELECT_CAL = {
+  p1: { cx: 22, feetY: 74, h: 56 },
+  p2: { cx: 78, feetY: 74, h: 56 },
+} as const;
+
 // --- Choreography timings (module-const; RG-C5). All transform-based, single flashes. ---
 const CHO = {
   LUNGE_MS: 120,
@@ -701,12 +713,81 @@ function CharacterTile({
   );
 }
 
-// A locked "mystery" tile (reference's "?" plates): dark plate, big glyph, quiet SOON label.
+// A locked "mystery" tile (reference's "?" plates): dark plate, a single big "?" glyph. At 20
+// tiles the bare glyph IS the mystery — an extra "SOON" label would just be noise — matching the
+// MK1 reference where empty roster slots are unlabeled question marks.
 function LockedTile(): JSX.Element {
   return (
     <div className="fr-select-tile fr-select-locked" aria-hidden="true">
       <span className="fr-select-qmark">?</span>
-      <span className="fr-select-soon">SOON</span>
+    </div>
+  );
+}
+
+// The full-body select preview: on the character-select screen the highlighted fighter (left
+// slot) and the derived opponent (right slot) stand playing their LIVE idle loop, mirroring the
+// MK1 select plate. It reuses the Fighter media stack in miniature — still underneath, idle
+// <video> on top with the SAME ClipCal placement and the same still->video handoff — but is a
+// STANDALONE overlay element: it never joins the stage fighter layer (showFighters / Fighter stay
+// untouched). THE FACING RULE (contract §4) mirrors the WHOLE stack on ONE inner wrapper, exactly
+// like the stage fighter, so the anchor-over-still alignment survives the flip. The parent keys
+// this by def.id: a character NEW to the screen mounts fresh and its idle starts at frame 0 (the
+// anchor pose, contract §2, pixel-perfect on the still); when a pick just SWAPS the two on-screen
+// fighters, React matches the sibling keys and MOVES the instances instead of remounting (verified
+// live: currentTime carries over), so both loops continue seamlessly with no restart snap. Both
+// paths are safe because the loop is anchor-locked.
+function SelectPreview({
+  def,
+  slot,
+  assetBase,
+  reduced,
+  cfg,
+}: {
+  def: FighterDef;
+  slot: 'p1' | 'p2';
+  assetBase: string;
+  reduced: boolean;
+  cfg: { cx: number; feetY: number; h: number };
+}): JSX.Element {
+  // The still stays visible until the idle loop is actually rendering frames (same handoff as
+  // Fighter); it is also the ultimate fallback when a def ships no idle clip (contract §4 ladder).
+  const [live, setLive] = useState(false);
+  const mirrored = isMirrored(def, slot);
+  const idle = def.clips.idle;
+  return (
+    <div
+      className="fr-select-preview"
+      style={{ left: `${cfg.cx}%`, top: `${cfg.feetY}%`, height: `${cfg.h}%`, aspectRatio: '1 / 1' }}
+    >
+      {/* THE FACING RULE: one wrapper flips the whole stack (still + video) together. */}
+      <div className="fr-select-preview-inner" style={{ transform: mirrored ? 'scaleX(-1)' : undefined }}>
+        <img
+          className="fr-select-preview-still"
+          src={`${assetBase}${def.still}`}
+          alt=""
+          draggable={false}
+          style={{ opacity: !reduced && live ? 0 : 1 }}
+        />
+        {/* Reduced motion never mounts the video (still-only, contract §4). */}
+        {!reduced && idle && (
+          <video
+            className="fr-select-preview-video"
+            src={`${assetBase}${idle.url}`}
+            muted
+            loop
+            autoPlay
+            playsInline
+            preload="auto"
+            onPlaying={() => setLive(true)}
+            style={{
+              height: `${idle.cal.h}%`,
+              bottom: `${idle.cal.bottom}%`,
+              left: `${idle.cal.left}%`,
+              opacity: live ? 1 : 0,
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -1284,44 +1365,58 @@ export function FightExperience(): JSX.Element {
             >
               BACK
             </button>
-            <div className="fr-overlay-content">
-              <div className="fr-section-title" style={{ fontSize: 'calc(var(--sh) * 3.4)' }}>
-                CHOOSE YOUR FIGHTER
-              </div>
-              {/* Real tiles are rendered straight from the FIGHTERS registry in registry order, so
-                  dropping in a third manifest file makes a third tile appear here with ZERO UI
-                  edits. The 4 locked tiles are placeholders for characters still in production. */}
-              <div className="fr-select-grid">
-                {Object.values(FIGHTERS).map((def) => (
-                  <CharacterTile
-                    key={def.id}
-                    def={def}
-                    assetBase={ASSET_BASE}
-                    selected={def.id === playerId}
-                    onSelect={() => {
-                      if (def.id !== playerId) {
-                        playPickTick();
-                        setPlayerId(def.id);
-                      }
-                    }}
-                  />
-                ))}
-                {[0, 1, 2, 3].map((i) => (
-                  <LockedTile key={`locked-${i}`} />
-                ))}
-              </div>
-              <div className="fr-select-name" style={{ fontSize: 'calc(var(--sh) * 3.6)' }}>
-                {p1Def.name}
-              </div>
-              <button
-                type="button"
-                className="fr-btn fr-select-confirm"
-                onClick={ctl.confirmFighter}
-                style={{ fontSize: 'calc(var(--sh) * 2.2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 2.4)', marginTop: 'calc(var(--sh) * 1)' }}
-              >
-                CONFIRM
-              </button>
+            {/* Title tucked to the top-centre so it never fights the two full-body previews. */}
+            <div className="fr-select-title fr-section-title" style={{ fontSize: 'calc(var(--sh) * 2.6)' }}>
+              CHOOSE YOUR FIGHTER
             </div>
+            {/* Left = the player's pick (p1 slot), right = the derived opponent (p2 slot) — the SAME
+                p1Def/p2Def slots the whole file uses, not re-derived. Keyed by def.id: a newly
+                picked character mounts fresh at the frame-0 anchor; when the pick merely swaps the
+                two fighters on screen, React moves the keyed instances and both idle loops continue
+                seamlessly (see SelectPreview doctrine). */}
+            <SelectPreview key={p1Def.id} def={p1Def} slot="p1" assetBase={ASSET_BASE} reduced={reduced} cfg={SELECT_CAL.p1} />
+            <SelectPreview key={p2Def.id} def={p2Def} slot="p2" assetBase={ASSET_BASE} reduced={reduced} cfg={SELECT_CAL.p2} />
+            {/* Highlighted fighter's name, big, at the lower-left near the left preview's feet
+                (MK1). left/top come from SELECT_CAL.p1 so the plate tracks the preview when tuned. */}
+            <div
+              className="fr-select-name"
+              style={{
+                left: `${SELECT_CAL.p1.cx - 15}%`,
+                top: `${SELECT_CAL.p1.feetY - 2}%`,
+                fontSize: 'calc(var(--sh) * 5.2)',
+              }}
+            >
+              {p1Def.name}
+            </div>
+            {/* Bottom roster strip. Registry tiles FIRST (registry-driven — a new manifest appears
+                here with zero edits), then 20 mystery "?" tiles. Two rows of 11 (see .fr-select-grid). */}
+            <div className="fr-select-grid">
+              {Object.values(FIGHTERS).map((def) => (
+                <CharacterTile
+                  key={def.id}
+                  def={def}
+                  assetBase={ASSET_BASE}
+                  selected={def.id === playerId}
+                  onSelect={() => {
+                    if (def.id !== playerId) {
+                      playPickTick();
+                      setPlayerId(def.id);
+                    }
+                  }}
+                />
+              ))}
+              {Array.from({ length: 20 }, (_, i) => (
+                <LockedTile key={`locked-${i}`} />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="fr-btn fr-select-confirm"
+              onClick={ctl.confirmFighter}
+              style={{ fontSize: 'calc(var(--sh) * 2.2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 2.4)' }}
+            >
+              CONFIRM
+            </button>
           </div>
         )}
 
