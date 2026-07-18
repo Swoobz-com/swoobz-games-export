@@ -27,13 +27,27 @@ previews, 22-slot roster = 2 real + 20 mystery "?") -> stake (winner-takes-all, 
 -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-of-3, 5s shot clock,
 tie=CLASH) -> receipt -> rematch/character select/quit.
 
-BOTH characters (GORVAK orc / VOLTA cyber-brawler) ship the FULL kit — 12 clips each:
+BOTH characters (GORVAK orc / VOLTA cyber-brawler) ship the FULL kit (phase 12 added
+ko + victory, single takes, Tim-approved 216 cr total):
 - idle (1, the anchor hub) + TWO interchangeable takes of attack_strike / attack_throw
   / attack_block / hit (contract §10: uniform-random per exchange, distinct actions)
+  — EXCEPT two takes PULLED at the 2026-07-18 QA sweep, states run on one take pending
+  regen (Tim's approval outstanding, 36 cr each): VOLTA attack-throw-b (baked phantom
+  opponent, the SECOND phantom for that acting) and GORVAK attack-strike-a (frame-fixed
+  lavender disc + cleaver-to-staff morph). Webms stay in assets, just unwired.
 - a SPECIAL finisher (contract §11): GORVAK flaming cleaver circle, VOLTA lightning
   spin — plays automatically on any round-ending win, baked elemental trail (the
   sanctioned effect exception, "Scorpion quality" per Tim; fire is APPROVED for
-  specials — the earlier fire ban applied to the old ember impact-burst only)
+  specials — the earlier fire ban applied to the old ember impact-burst only). Both
+  re-encoded 2026-07-18 through scripts/magenta-neutralize.mjs (face blotches / pink
+  lightning bands neutralized; fire + cyan untouched by the family test).
+- ko (off-anchor: collapses, holds motionless on the ground) + victory (anchor-locked
+  round-win taunt), single takes each (§10 deviation on record, cost call). On a
+  round-ending win the winner's finisher CHAINS into victory (FxState-armed,
+  race-proof) and through the roundEnd/matchEnd dwell the ko body stays down and the
+  taunt keeps playing; every other phase fully resets to idle. fxReducer now takes
+  clipEnd/phaseReset actions; the clipEnd stale-gate (state+take identity) blocks
+  hidden deactivated clips' late onEnded from cutting live clips or eating the arm.
 
 Presentation systems, all clip-driven: combo strings (1-3 `contacts` per attack take,
 per-contact ring/glow/echo/spark/hitstop/shake, defender hit-clip re-trigger via
@@ -108,6 +122,16 @@ Generation (Seedance 2.0 via Higgsfield MCP):
    the slot mirrors.
 8. **Costume drift under strong effect light** (fire washed GORVAK's outfit warm):
    lock it in the prompt ("his outfit stays dark leather ... even when lit by fire").
+8b. **ko/defeat prompts: describe only the FALL, never the blow.** "A devastating
+   unseen blow arrives" baked an impact flash straight through the negatives on BOTH
+   v1 kos (VOLTA's head replaced by a spark burst; GORVAK grew a face spray). The
+   cause-free re-roll ("his strength leaves him ... collapses under his own weight")
+   came back clean first try. Corollary of the grab-verb law: any CAUSE mentioned
+   gets VISUALIZED.
+8c. **The phantom-opponent class survives one solo re-roll.** VOLTA's throw-b re-roll
+   (already the fix for a phantom limb) still carries a ghost opponent + disembodied
+   forearm. For grab/throw acting, treat solo-safety as unproven until the QA sweep
+   passes; budget for 2+ rolls or pick opponent-free acting.
 
 QA discipline:
 9. **Numeric all-frame scans, never 2-3 spot frames.** A washed backdrop plate hid
@@ -146,10 +170,13 @@ Environment:
 
 ## 4. Credits / generation facts (Higgsfield MCP)
 
-- Balance ~1,050 after this session (~950 spent total: phase-9 batch 432 + phase-11
-  wave 504). Seedance 2.0 4s 1080p std = 36 cr/clip. ALWAYS `get_cost` preflight +
-  Tim's per-batch OK. Upload path works agent-side: `media_upload` -> presigned PUT
-  (curl) -> `media_confirm`.
+- Balance ~838 after phase 12 (216 spent: 144 approved batch + 72 approved ko
+  re-roll; the v1 kos were burned credits — see learning 8b). Seedance 2.0 4s 1080p
+  std = 36 cr/clip; `get_cost:true` param on generate_video is the preflight. ALWAYS
+  preflight + Tim's per-batch OK. Upload path works agent-side: `media_upload` ->
+  presigned PUT (curl) -> `media_confirm`. Phase 12 job ids: gorvak-victory 5c3421c1,
+  volta-victory c90683b8, gorvak-ko-v2 d7dee08e, volta-ko-v2 8e2b4d91 (v1 rejects:
+  abdf2dda / e3807258). "auto" aspect_ratio DID resolve square-to-square this time.
 - Persistent media ids (start/end/image_references):
   **GORVAK CLEAN anchor `35867470-54cd-4e75-94a6-10b915c61b19`** (USE THIS — the old
   `23fb74be...` is RETIRED, it carries the grey wedge that caused hallucinations),
@@ -159,12 +186,12 @@ Environment:
   accepted clip is committed in public/assets and its job id is in the phase commit
   messages / project memory.
 
-## 5. What to do next (in Tim's priority order, none started)
+## 5. What to do next (in Tim's priority order)
 
-1. **`ko` / `victory` optional states** (~144 cr for both characters, or 288 with §10
-   variant pairs — ask Tim which). ko ends held on the ground OFF-anchor (contract §1);
-   victory returns to anchor. Wire = manifest data only; Fighter already treats unknown
-   states generically and `handleClipEnd` already holds `ko`.
+0. **Regen decision PENDING with Tim** (asked 2026-07-18, he was AFK): regenerate the
+   two pulled takes (VOLTA throw-b solo-hardened per learning 8c, GORVAK strike-A with
+   cleaver-silhouette lock) at 36 cr each. Until then those states run one take.
+1. ~~ko / victory~~ DONE phase 12 (single takes; variant pairs remain optional later).
 2. **Real multiplayer transport**: WebSocket behind MatchTransport; friend-mode staked
    flow live-verified end-to-end (only fake-connect was ever driven).
 3. **Announcer VO** (RG-C5: zero-param audio fns, value-independent).
