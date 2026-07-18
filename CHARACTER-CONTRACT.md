@@ -68,22 +68,32 @@ interface FighterClip {
 interface FighterDef {
   id: string; name: string;
   still: string;        // anchor pose PNG (the ultimate fallback, always shipped)
-  side: 'left' | 'right';  // which slot the character occupies
   faces: 'left' | 'right'; // which way the ART looks — judge the HEAD at full res
+  portrait: { headX: number; headY: number; zoom: number }; // per-char head-crop for HUD
+                        //   medallions + select tiles (fraction of the PNG + enlarge factor)
   clips: Partial<Record<FighterState, FighterClip>>;
   quotes: string[];     // win-screen lines, in character
   fxImpact?: { url: string; durationMs: number }; // section 7
 }
 ```
 
+NOTE — side/slot is RUNTIME, not a character property. The player's pick is always the LEFT
+slot; the opponent is always the RIGHT slot; every fighter mirrors per THE FACING RULE for
+whichever slot it lands in. So `FighterDef` carries NO `side`. The Experience computes
+`isMirrored(def, slot)` = `def.faces !== (slot === 'p1' ? 'right' : 'left')`. Per-slot stage
+geometry (fighter/ring positions) lives in the Experience CAL; per-character head crop travels
+in `portrait`, so a medallion frames the same head in either slot.
+
 THE FACING RULE (Tim, 2026-07-18 — replaces the old "art is never flipped" rule): the
-left slot must face right, the right slot must face left. When a character's `faces`
-disagrees with its slot, the game renders that fighter AND its HUD portrait mirrored
-(scaleX(-1)), classic fighting-game style — VOLTA is the first case (her head looks
-right, so the right slot mirrors her). Judge facing by the HEAD at FULL resolution: a
-body can stance one way while the head glances the other, and the head is what reads.
-Consequence for generation: a mirrored character's directional acting must be prompted
-in ART space (screen-left and screen-right swap after the mirror).
+left slot must face right, the right slot must face left. Slot is a RUNTIME assignment (the
+player's pick is always the left slot, the opponent the right), so this must hold for EVERY
+character in EITHER slot, forever. When a character's `faces` disagrees with the slot it landed
+in, the game renders that fighter AND its HUD portrait mirrored (scaleX(-1)), classic
+fighting-game style — e.g. VOLTA's head looks right, so she mirrors in the RIGHT slot (opponent
+of GORVAK) and does NOT mirror in the LEFT slot (when the player picks her). Judge facing by the
+HEAD at FULL resolution: a body can stance one way while the head glances the other, and the
+head is what reads. Consequence for generation: a mirrored character's directional acting must
+be prompted in ART space (screen-left and screen-right swap after the mirror).
 
 - Wiring is EXACT-MATCH with a DEFINED fallback ladder — never a silent no-op:
   missing `attack_*`/`hit` -> the pre-clip CSS choreography (lunge/flinch transforms on
@@ -135,3 +145,22 @@ at the exact contact point: appears AT contact, peaks in 2-3 frames, decays in ~
 - RG-C5: the burst is identical for every hit of that attacker - never bigger for
   match point, streaks, or stake size. KO weight comes from hitstop + launch + zoom
   (already value-independent), not a fatter effect.
+
+## 8. Character select (registry-driven, zero UI cost per character)
+
+The `charSelect` phase sits between mode select and stake. The player picks their fighter; that
+pick becomes the LEFT slot and the opponent (for now the first OTHER registry entry) the RIGHT
+slot — so THE FACING RULE (§4) resolves the mirroring for both, for any combination, forever.
+
+- The tile grid is built straight from the `FIGHTERS` registry in registry order, so a new
+  manifest file appears as a new tile with ZERO Experience edits. Alongside the real tiles are
+  exactly 4 locked "?" mystery tiles (dark plate, big glyph, quiet SOON label, no interaction).
+- Each tile is a bust crop of the character's `still` using its `portrait` params (the SAME
+  head-crop math as the HUD medallion, framed ~3:4). The selected tile lights with a gold accent
+  frame + a "P1" chip; the picked fighter's NAME shows in large type under the grid.
+- Interactions: click a tile or arrow-left/right to select (fires the existing UI tick from
+  `fightAudio` — no new audio), CONFIRM (gold CTA, same family as the stake commit) advances to
+  stake. BACK from charSelect returns to mode select; BACK from stake returns to charSelect.
+- The provider stays IDENTITY-AGNOSTIC: it owns only the `charSelect` phase + `confirmFighter()`
+  transition and never knows which character is chosen. The Experience owns `playerId` state
+  (defaults to the previously picked fighter within the session).

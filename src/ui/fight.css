@@ -987,3 +987,114 @@
   color: #fff;
   outline: none;
 }
+
+/* ---------------- Character select ---------------- */
+/* Reference language (MK1 select plate): dark plate tiles, bronze frames, selected tile lit
+   with a gold accent frame + a P1 chip, "?" mystery tiles. Frost-cathedral skin via the tokens. */
+.fr-select-grid {
+  display: flex;
+  gap: calc(var(--sw) * 1.4);
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: calc(var(--sh) * 2.4) 0 calc(var(--sh) * 1.6);
+}
+.fr-select-tile {
+  position: relative;
+  width: calc(var(--sw) * 11);
+  aspect-ratio: 3 / 4;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(20, 30, 46, 0.94), rgba(8, 13, 22, 0.96));
+  border: calc(var(--sw) * 0.12) solid var(--fr-gold-deep);
+  border-radius: calc(var(--sw) * 0.4);
+  cursor: pointer;
+  transition: transform 90ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+.fr-select-tile:hover:not(.fr-select-locked),
+.fr-select-tile:focus-visible:not(.fr-select-locked) {
+  transform: translateY(-4px);
+  border-color: var(--fr-gold);
+  box-shadow: 0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.9) rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.fr-select-tile.fr-select-selected {
+  border-color: var(--fr-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 0 calc(var(--sw) * 1.1) rgba(201, 165, 92, 0.85),
+    inset 0 0 0 calc(var(--sw) * 0.06) rgba(201, 165, 92, 0.55);
+}
+.fr-select-crop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.fr-select-crop img {
+  position: absolute;
+  pointer-events: none;
+}
+.fr-p1-chip {
+  position: absolute;
+  top: calc(var(--sh) * 0.5);
+  left: calc(var(--sw) * 0.5);
+  z-index: 2;
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  font-size: calc(var(--sw) * 1.1);
+  line-height: 1;
+  color: #0a1018;
+  background: linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%);
+  padding: calc(var(--sh) * 0.2) calc(var(--sw) * 0.5);
+  border-radius: calc(var(--sw) * 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+.fr-select-locked {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--sh) * 0.6);
+  border-style: dashed;
+  border-color: var(--fr-steel-3);
+  background: linear-gradient(180deg, rgba(14, 20, 30, 0.9), rgba(6, 10, 16, 0.94));
+}
+.fr-select-qmark {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  font-size: calc(var(--sw) * 3.4);
+  line-height: 1;
+  color: var(--fr-steel-3);
+}
+.fr-select-soon {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  font-size: calc(var(--sw) * 0.72);
+  letter-spacing: 0.16em;
+  color: var(--fr-steel-3);
+  opacity: 0.85;
+}
+.fr-select-name {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fr-steel-1);
+  text-shadow: 0 2px 6px #000;
+}
+/* CONFIRM CTA — same gold accent family as the stake screen's commit button. */
+.fr-select-confirm {
+  color: #0a1018;
+  background: linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%);
+  border-color: var(--fr-gold);
+}
+.fr-select-confirm:hover,
+.fr-select-confirm:focus-visible {
+  border-color: #ffefc4;
+  color: #0a1018;
+  box-shadow: 0 0 calc(var(--sw) * 0.8) rgba(201, 165, 92, 0.6);
+}

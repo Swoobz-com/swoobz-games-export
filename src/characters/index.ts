@@ -6,7 +6,7 @@ import type { FighterDef, FighterState } from './types';
 import { GORVAK } from './gorvak';
 import { VOLTA } from './volta';
 
-export type { ClipCal, FighterClip, FighterDef, FighterFxImpact, FighterState } from './types';
+export type { ClipCal, FighterClip, FighterDef, FighterFxImpact, FighterPortrait, FighterState } from './types';
 
 export const FIGHTERS: Record<string, FighterDef> = {
   gorvak: GORVAK,

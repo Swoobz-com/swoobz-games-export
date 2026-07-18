@@ -38,18 +38,32 @@ export interface FighterFxImpact {
   durationMs: number;
 }
 
+/** Per-character head-crop for the round-HUD medallions AND the character-select tiles.
+ *  headX/headY = the head centre as a fraction of the still PNG (0..1); zoom = how far to
+ *  enlarge the PNG inside the frame so the head fills it. The SAME numbers drive both the
+ *  circular medallion and the select-tile bust, so they travel with the character to whichever
+ *  slot it lands in. Slot-specific ring geometry (cx/cy/r) is NOT here — it lives per-slot in
+ *  the Experience CAL block, because it is a stage position, not a character property. */
+export interface FighterPortrait {
+  headX: number;
+  headY: number;
+  zoom: number;
+}
+
 export interface FighterDef {
   id: string;
   name: string;
   still: string; // anchor-pose PNG (the ultimate fallback, always shipped)
-  side: 'left' | 'right'; // which slot the character occupies
   /** Which way the ART looks (judge the HEAD at full res - a body can stance one way while
-   *  the head glances the other; the head is what reads). The left slot must face right and
-   *  the right slot must face left; when `faces` disagrees with the slot, the game mirrors
-   *  the fighter and its portrait (scaleX(-1)), classic fighting-game style. Clips inherit
-   *  the art's facing, so they mirror with it - but directional ACTING in a mirrored
-   *  character's clips must be prompted in ART space (opposite of screen space). */
+   *  the head glances the other; the head is what reads). SLOT/side is a RUNTIME assignment,
+   *  NOT a character property: the player's pick is always the left slot, the opponent the
+   *  right, for any character combination. Whichever slot a fighter lands in, the left slot
+   *  must face right and the right slot must face left; when `faces` disagrees with the slot,
+   *  the game mirrors the fighter and its portrait (scaleX(-1)), classic fighting-game style.
+   *  Clips inherit the art's facing, so they mirror with it - but directional ACTING in a
+   *  mirrored character's clips must be prompted in ART space (opposite of screen space). */
   faces: 'left' | 'right';
+  portrait: FighterPortrait; // head-crop params for HUD medallions + select tiles
   clips: Partial<Record<FighterState, FighterClip>>;
   quotes: string[]; // win-screen lines, in character
   fxImpact?: FighterFxImpact; // §7 impact burst; optional, filled when the clip is generated

@@ -1,15 +1,17 @@
 import type { FighterDef } from './types';
 
-// GORVAK — orc, serrated cleaver + parry dagger. P1 / left slot. Only the idle clip exists
-// today; attack_strike / attack_throw / attack_block / hit / ko / victory + fxImpact arrive
-// per the production pipeline (contract §6) and drop in here as pure data — no Experience
-// edits. The cal below is the value emitted by scripts/key-idle-clips.mjs for the idle clip.
+// GORVAK — orc, serrated cleaver + parry dagger. Slot is a RUNTIME assignment (whichever slot
+// the match puts him in), not baked here. Only the idle clip exists today; attack_strike /
+// attack_throw / attack_block / hit / ko / victory + fxImpact arrive per the production
+// pipeline (contract §6) and drop in here as pure data — no Experience edits. The cal below is
+// the value emitted by scripts/key-idle-clips.mjs for the idle clip.
 export const GORVAK: FighterDef = {
   id: 'gorvak',
   name: 'GORVAK',
   still: 'assets/fighter-1-keyed.png',
-  side: 'left',
-  faces: 'right', // head + stance point right: matches the left slot, no mirror
+  faces: 'right', // head + stance point right: no mirror in the left slot; mirrors in the right slot
+  // Head-crop for the HUD medallion + select tile (was CAL.portraitP1; now travels with him).
+  portrait: { headX: 0.45, headY: 0.12, zoom: 4.6 },
   clips: {
     idle: {
       url: 'assets/fighter-1-idle.webm',

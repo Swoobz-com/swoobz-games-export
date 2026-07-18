@@ -11,8 +11,12 @@ import { RESOLVE_HIT_MS, RESOLVE_KO_MS, useFightController } from '../provider/f
 import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
 import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
-import { ATTACK_STATE, getFighter } from '../characters';
+import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
 import type { FighterDef, FighterState } from '../characters';
+// The character-select screen is the ONE place the UI fires its own sound (a UI tick on tile
+// selection). This does NOT double-fire: the provider is silent during 'charSelect'. Every
+// in-fight sound still comes from the provider at its beat, so the UI never touches audio there.
+import { playPickTick } from '../audio/fightAudio';
 import { BetConsole, type BetConsoleTheme } from './shared/BetConsole';
 import './fight.css';
 
@@ -69,11 +73,11 @@ const CAL = {
   // Name plates covering the baked "PLAYER 1"/"PLAYER 2" text (fully mask it).
   nameP1: { x0: 13.4, x1: 31.0, y0: 4.7, y1: 8.8 },
   nameP2: { x0: 69.0, x1: 86.6, y0: 4.7, y1: 8.8 },
-  // Circular portraits inside the baked gold rings. cx/cy = ring centre (% stage), r = radius
-  // as % of stage WIDTH. headX/headY = the fighter head centre as a fraction of its PNG, zoom =
-  // how far to enlarge the PNG inside the circle so the head fills it.
-  portraitP1: { cx: 7.0, cy: 13.3, r: 4.75, headX: 0.45, headY: 0.12, zoom: 4.6 },
-  portraitP2: { cx: 93.0, cy: 13.3, r: 4.75, headX: 0.5, headY: 0.16, zoom: 4.2 },
+  // Circular portrait RINGS baked into the art. cx/cy = ring centre (% stage), r = radius as %
+  // of stage WIDTH. These are per-SLOT stage positions and stay here; the per-CHARACTER head
+  // crop (headX/headY/zoom) now lives in each FighterDef.portrait and travels with the fighter.
+  portraitP1: { cx: 7.0, cy: 13.3, r: 4.75 },
+  portraitP2: { cx: 93.0, cy: 13.3, r: 4.75 },
   // Fighters on the cathedral floor. cx = centre of mass (% width), feetY = floor line (% h),
   // h = image height (% of stage height).
   fighterP1: { cx: 24, feetY: 96, h: 58 },
@@ -386,10 +390,13 @@ function NamePlate({ name, side }: { name: string; side: 'p1' | 'p2' }): JSX.Ele
   );
 }
 
-/** The left slot must face right and the right slot must face left; when the art's own
- *  facing disagrees, that fighter (and its portrait) renders mirrored. */
-function isMirrored(def: FighterDef): boolean {
-  return def.faces !== (def.side === 'left' ? 'right' : 'left');
+/** THE FACING RULE (contract §4), now slot-DYNAMIC. The player's pick is always the p1/left
+ *  slot and the opponent the p2/right slot; the left slot must face right and the right slot
+ *  must face left. When the art's own `faces` disagrees with the slot it landed in, that
+ *  fighter (and its portrait) renders mirrored (scaleX(-1)). Holds for any character in any
+ *  slot, forever — the only input is the def's art facing plus its runtime slot. */
+function isMirrored(def: FighterDef, slot: 'p1' | 'p2'): boolean {
+  return def.faces !== (slot === 'p1' ? 'right' : 'left');
 }
 
 function Portrait({
@@ -438,6 +445,7 @@ function Fighter({
   activeState,
   paused,
   reduced,
+  mirrored,
   onClipEnd,
 }: {
   def: FighterDef;
@@ -448,6 +456,7 @@ function Fighter({
   activeState: FighterState;
   paused: boolean; // hitstop: freeze the current state video
   reduced: boolean;
+  mirrored: boolean; // THE FACING RULE result for this fighter's runtime slot (computed by the parent)
   onClipEnd: (state: FighterState) => void;
 }): JSX.Element {
   // The still stays underneath until the idle loop is actually rendering frames, so a
@@ -492,10 +501,10 @@ function Fighter({
   }, [paused, displayState, reduced]);
 
   // Mirror when the art's facing disagrees with the slot's required facing (left slot must
-  // face right, right slot must face left). The flip wraps the WHOLE box content (still +
-  // every state video) so the anchor-over-still alignment and cals survive unchanged; the
-  // fx lunge transforms stay on the outer box and keep their screen-space direction.
-  const mirrored = isMirrored(def);
+  // face right, right slot must face left) — decided by the parent from the runtime slot. The
+  // flip wraps the WHOLE box content (still + every state video) so the anchor-over-still
+  // alignment and cals survive unchanged; the fx lunge transforms stay on the outer box and
+  // keep their screen-space direction.
   return (
     <div
       className={`fr-fighter ${poseClass}`}
@@ -645,6 +654,64 @@ function RevealPlate({ move, cx, faceDown }: { move: Move | null; cx: number; fa
 }
 
 // ============================================================================================
+// Character select — reference language (MK1 select plate), our frost-cathedral skin.
+// ============================================================================================
+// A roster tile: a bust crop of the fighter's still, cropped with the SAME math as the Portrait
+// medallion but framed square-ish (3:4). The crop params come from the def, so a new manifest
+// needs zero edits here. Busts are mirrored as if in the p1/left slot so the whole roster
+// consistently faces the fight.
+function CharacterTile({
+  def,
+  assetBase,
+  selected,
+  onSelect,
+}: {
+  def: FighterDef;
+  assetBase: string;
+  selected: boolean;
+  onSelect: () => void;
+}): JSX.Element {
+  const p = def.portrait;
+  const mirrored = isMirrored(def, 'p1');
+  return (
+    <button
+      type="button"
+      className={`fr-select-tile${selected ? ' fr-select-selected' : ''}`}
+      onClick={onSelect}
+      aria-pressed={selected}
+      aria-label={def.name}
+    >
+      {/* Mirror the crop CONTAINER (not the img) so the head-centre math survives the flip,
+          exactly like the Portrait medallion. */}
+      <div className="fr-select-crop" style={{ transform: mirrored ? 'scaleX(-1)' : undefined }}>
+        <img
+          src={`${assetBase}${def.still}`}
+          alt=""
+          draggable={false}
+          style={{
+            width: `${p.zoom * 100}%`,
+            height: 'auto',
+            left: `${50 - p.headX * p.zoom * 100}%`,
+            top: `${50 - p.headY * p.zoom * 100}%`,
+          }}
+        />
+      </div>
+      {selected && <span className="fr-p1-chip">P1</span>}
+    </button>
+  );
+}
+
+// A locked "mystery" tile (reference's "?" plates): dark plate, big glyph, quiet SOON label.
+function LockedTile(): JSX.Element {
+  return (
+    <div className="fr-select-tile fr-select-locked" aria-hidden="true">
+      <span className="fr-select-qmark">?</span>
+      <span className="fr-select-soon">SOON</span>
+    </div>
+  );
+}
+
+// ============================================================================================
 // Main
 // ============================================================================================
 export function FightExperience(): JSX.Element {
@@ -653,14 +720,20 @@ export function FightExperience(): JSX.Element {
   const stageRef = useRef<HTMLDivElement>(null);
   useStageMetrics(stageRef);
 
-  // The two combatants, resolved from the registry. This is the ONE place the ids are named;
-  // a future character-select screen sets them. Everything character-specific below (stills,
-  // clips, cals, names, quotes, fx bursts) flows from these defs — no character asset or name
-  // is hardcoded in this file anymore.
-  const p1Def = getFighter('gorvak');
-  const p2Def = getFighter('volta');
+  // DYNAMIC SLOTS. The player's picked fighter is ALWAYS the p1/left slot; the opponent is
+  // ALWAYS the p2/right slot. `playerId` is the only named id in this file (the session default
+  // + the character-select state); the opponent is DERIVED from the registry — never a
+  // hardcoded pair. With N characters the CPU opponent is simply the first OTHER registry entry,
+  // so adding a third manifest needs zero edits here. Everything character-specific below
+  // (stills, clips, cals, names, quotes, fx bursts, mirroring) flows from these two defs + slot.
+  const [playerId, setPlayerId] = useState<string>('gorvak');
+  const p1Def = getFighter(playerId);
+  const opponentId = Object.keys(FIGHTERS).find((id) => id !== playerId) ?? playerId;
+  const p2Def = getFighter(opponentId);
   const p1Still = `${ASSET_BASE}${p1Def.still}`;
   const p2Still = `${ASSET_BASE}${p2Def.still}`;
+  const p1Mirrored = isMirrored(p1Def, 'p1');
+  const p2Mirrored = isMirrored(p2Def, 'p2');
 
   const [joinCode, setJoinCode] = useState('');
   const [quoteIndex] = useState(() => Math.floor(Math.random() * 3));
@@ -961,6 +1034,29 @@ export function FightExperience(): JSX.Element {
     return () => window.removeEventListener('keydown', onKey);
   }, [phase, playerPick.locked, ctl]);
 
+  // ------- keyboard: character select (arrows move, Enter confirms) -------
+  useEffect(() => {
+    if (phase !== 'charSelect') return undefined;
+    const ids = Object.keys(FIGHTERS); // registry order — only the real (unlocked) fighters
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const dir = e.key === 'ArrowRight' ? 1 : -1;
+        const cur = ids.indexOf(playerId);
+        const nextId = ids[(cur + dir + ids.length) % ids.length];
+        if (nextId !== playerId) {
+          playPickTick(); // side effect kept OUT of the setState updater (StrictMode-safe)
+          setPlayerId(nextId);
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        ctl.confirmFighter();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [phase, playerId, ctl]);
+
   // ------- derived flags -------
   const inFight =
     phase === 'roundIntro' ||
@@ -1039,6 +1135,7 @@ export function FightExperience(): JSX.Element {
               activeState={fx.p1State}
               paused={fx.hitstop}
               reduced={reduced}
+              mirrored={p1Mirrored}
               onClipEnd={(s) => handleClipEnd('p1', s)}
             />
             <Fighter
@@ -1050,6 +1147,7 @@ export function FightExperience(): JSX.Element {
               activeState={fx.p2State}
               paused={fx.hitstop}
               reduced={reduced}
+              mirrored={p2Mirrored}
               onClipEnd={(s) => handleClipEnd('p2', s)}
             />
           </>
@@ -1115,8 +1213,10 @@ export function FightExperience(): JSX.Element {
             <Pips won={matchState.p1.roundsWon} side="p1" />
             <Pips won={matchState.p2.roundsWon} side="p2" />
             <TimerPlate seconds={shotClockSeconds} danger={timerDanger} />
-            <Portrait url={p1Still} cfg={CAL.portraitP1} mirrored={isMirrored(p1Def)} />
-            <Portrait url={p2Still} cfg={CAL.portraitP2} mirrored={isMirrored(p2Def)} />
+            {/* Slot ring geometry (CAL) + per-character head crop (def.portrait) — merged so the
+                medallion frames each fighter's head wherever they land. */}
+            <Portrait url={p1Still} cfg={{ ...CAL.portraitP1, ...p1Def.portrait }} mirrored={p1Mirrored} />
+            <Portrait url={p2Still} cfg={{ ...CAL.portraitP2, ...p2Def.portrait }} mirrored={p2Mirrored} />
           </>
         )}
 
@@ -1172,6 +1272,59 @@ export function FightExperience(): JSX.Element {
           </div>
         )}
 
+        {/* ---------------- Character select ---------------- */}
+        {phase === 'charSelect' && (
+          <div className="fr-overlay">
+            <div className="fr-scrim" />
+            <button
+              type="button"
+              className="fr-btn fr-back"
+              onClick={ctl.enterModeSelect}
+              style={{ fontSize: 'calc(var(--sh) * 1.4)', padding: 'calc(var(--sh) * 0.6) calc(var(--sw) * 1)' }}
+            >
+              BACK
+            </button>
+            <div className="fr-overlay-content">
+              <div className="fr-section-title" style={{ fontSize: 'calc(var(--sh) * 3.4)' }}>
+                CHOOSE YOUR FIGHTER
+              </div>
+              {/* Real tiles are rendered straight from the FIGHTERS registry in registry order, so
+                  dropping in a third manifest file makes a third tile appear here with ZERO UI
+                  edits. The 4 locked tiles are placeholders for characters still in production. */}
+              <div className="fr-select-grid">
+                {Object.values(FIGHTERS).map((def) => (
+                  <CharacterTile
+                    key={def.id}
+                    def={def}
+                    assetBase={ASSET_BASE}
+                    selected={def.id === playerId}
+                    onSelect={() => {
+                      if (def.id !== playerId) {
+                        playPickTick();
+                        setPlayerId(def.id);
+                      }
+                    }}
+                  />
+                ))}
+                {[0, 1, 2, 3].map((i) => (
+                  <LockedTile key={`locked-${i}`} />
+                ))}
+              </div>
+              <div className="fr-select-name" style={{ fontSize: 'calc(var(--sh) * 3.6)' }}>
+                {p1Def.name}
+              </div>
+              <button
+                type="button"
+                className="fr-btn fr-select-confirm"
+                onClick={ctl.confirmFighter}
+                style={{ fontSize: 'calc(var(--sh) * 2.2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 2.4)', marginTop: 'calc(var(--sh) * 1)' }}
+              >
+                CONFIRM
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* ---------------- Stake screen ---------------- */}
         {phase === 'stake' && (
           <div className="fr-overlay fr-stake-overlay">
@@ -1179,7 +1332,7 @@ export function FightExperience(): JSX.Element {
             <button
               type="button"
               className="fr-btn fr-back"
-              onClick={ctl.enterModeSelect}
+              onClick={ctl.enterCharSelect}
               style={{ fontSize: 'calc(var(--sh) * 1.4)', padding: 'calc(var(--sh) * 0.6) calc(var(--sw) * 1)' }}
             >
               BACK
@@ -1406,10 +1559,10 @@ export function FightExperience(): JSX.Element {
                 <button
                   type="button"
                   className="fr-btn"
-                  disabled
+                  onClick={ctl.changeFighter}
                   style={{ fontSize: 'calc(var(--sh) * 2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 1.8)' }}
                 >
-                  CHARACTER SELECT<span className="fr-soon-tag">SOON</span>
+                  CHARACTER SELECT
                 </button>
                 <button
                   type="button"

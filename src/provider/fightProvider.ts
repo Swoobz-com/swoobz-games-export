@@ -45,6 +45,7 @@ import {
 export type Phase =
   | 'title'
   | 'mode'
+  | 'charSelect'
   | 'stake'
   | 'vsIntro'
   | 'roundIntro'
@@ -160,6 +161,12 @@ export interface FightController {
   startCpu: (personality: AiPersonality) => void;
   startFriendCreate: () => void;
   startFriendJoin: (code: string) => void;
+  /** charSelect -> stake. The picked identity lives in the Experience; the provider only advances. */
+  confirmFighter: () => void;
+  /** Re-enter the character-select screen (BACK from stake keeps the armed start). */
+  enterCharSelect: () => void;
+  /** From the victory screen: pick a new fighter for the next match (re-arms the same start). */
+  changeFighter: () => void;
   pick: (move: Move) => void;
   continueNext: () => void;
   rematch: () => void;
@@ -306,8 +313,9 @@ export function useFightController(
   // Settle the wager exactly once per match (the winner takes the pot). Runs from
   // a plain scheduled callback in the SAME transition that flips to 'matchEnd' --
   // never from a setState updater -- and is guarded by settledRef so a StrictMode
-  // double-invoke or a re-render cannot credit the pot twice. GORVAK is P1 (the
-  // player); a P1 match win pays the pot into the practice bank.
+  // double-invoke or a re-render cannot credit the pot twice. P1 is ALWAYS the
+  // player (whichever fighter they picked); a P1 match win pays the pot into the
+  // practice bank. The provider is identity-agnostic and never names a character.
   const settleMatch = useCallback((winner: 'p1' | 'p2') => {
     if (settledRef.current) return;
     settledRef.current = true;
@@ -526,6 +534,21 @@ export function useFightController(
     setPhaseNow('stake');
   }, [clearAllTimers, setPhaseNow]);
 
+  // ── Character select (sits between mode select and stake) ─────────────────
+  // Identity-AGNOSTIC: the provider NEVER knows which fighter is chosen — the Experience owns
+  // `playerId` state. This phase only gates the flow. Used both to enter from mode select and
+  // as the BACK target from the stake screen (the armed PendingStart persists across it).
+  const enterCharSelect = useCallback(() => {
+    clearAllTimers();
+    setPhaseNow('charSelect');
+  }, [clearAllTimers, setPhaseNow]);
+
+  // charSelect -> stake once the player confirms their fighter (identity stays in the Experience).
+  const confirmFighter = useCallback(() => {
+    if (phaseRef.current !== 'charSelect') return;
+    enterStake();
+  }, [enterStake]);
+
   const setStake = useCallback((lamports: bigint) => {
     const clamped = clampStake(lamports, balanceRef.current);
     stakeRef.current = clamped;
@@ -573,7 +596,7 @@ export function useFightController(
     }
   }, [beginCpuMatch, beginFriendCreate, beginFriendJoin]);
 
-  // ── Public entries (from mode select): remember the choice, go to stake ──
+  // ── Public entries (from mode select): remember the choice, go to char select ──
   const startCpu = useCallback(
     (personality: AiPersonality) => {
       clearAllTimers();
@@ -582,9 +605,9 @@ export function useFightController(
       aiPersonalityRef.current = personality;
       setAiPersonality(personality);
       pendingStartRef.current = { kind: 'cpu', personality };
-      enterStake();
+      enterCharSelect();
     },
-    [clearAllTimers, enterStake],
+    [clearAllTimers, enterCharSelect],
   );
 
   const startFriendCreate = useCallback(() => {
@@ -595,8 +618,8 @@ export function useFightController(
     setAiPersonality(null);
     setFriend({ roomCode: null, connected: false, joinFailed: false });
     pendingStartRef.current = { kind: 'friendCreate' };
-    enterStake();
-  }, [clearAllTimers, enterStake]);
+    enterCharSelect();
+  }, [clearAllTimers, enterCharSelect]);
 
   const startFriendJoin = useCallback(
     (code: string) => {
@@ -607,9 +630,9 @@ export function useFightController(
       setAiPersonality(null);
       setFriend({ roomCode: code, connected: false, joinFailed: false });
       pendingStartRef.current = { kind: 'friendJoin', code };
-      enterStake();
+      enterCharSelect();
     },
-    [clearAllTimers, enterStake],
+    [clearAllTimers, enterCharSelect],
   );
 
   const continueNext = useCallback(() => {
@@ -635,6 +658,20 @@ export function useFightController(
     setLastOutcome(null);
     enterStake();
   }, [clearAllTimers, enterStake, setMatchStateNow]);
+
+  // CHANGE FIGHTER (victory screen) → back to char select for the next match, same start armed.
+  // Like rematch but landing on charSelect; the later confirm/commit re-deducts a fresh stake.
+  const changeFighter = useCallback(() => {
+    clearAllTimers();
+    if (modeRef.current === 'cpu' && aiPersonalityRef.current) {
+      pendingStartRef.current = { kind: 'cpu', personality: aiPersonalityRef.current };
+    } else if (modeRef.current === 'friend') {
+      pendingStartRef.current = { kind: 'friendCreate' };
+    }
+    setMatchStateNow(createMatch());
+    setLastOutcome(null);
+    enterCharSelect();
+  }, [clearAllTimers, enterCharSelect, setMatchStateNow]);
 
   const backToTitle = useCallback(() => {
     clearAllTimers();
@@ -681,6 +718,9 @@ export function useFightController(
     startCpu,
     startFriendCreate,
     startFriendJoin,
+    confirmFighter,
+    enterCharSelect,
+    changeFighter,
     pick,
     continueNext,
     rematch,
