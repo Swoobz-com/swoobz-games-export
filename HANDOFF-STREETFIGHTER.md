@@ -28,6 +28,12 @@ yourself before committing. Tim approves every credit spend per batch (hard law)
 4. `bcdfebb` phase 5: CHARACTER SELECT (MK1 reference) + RUNTIME SLOTS: player pick =
    left slot, opponent = right; `isMirrored(def, slot)` mirrors fighter + ALL clips +
    portrait; opponent name dynamic everywhere. Both pick paths live-verified.
+5. `849e51c` phase 6: CHARACTER SELECT v2 per Tim's `input/characterselectionidle.mp4`
+   (MK1): full-body LIVE IDLE previews (`SelectPreview`, `SELECT_CAL` tunable block),
+   name plate at the pick's feet, 22-slot roster strip (2 real + 20 mystery "?", two
+   rows of 11), CONFIRM bottom-right. Zero credits (reuses keyed idles). Live-verified
+   both pick paths. NOTE: sibling previews keyed by def.id mean a pick-swap MOVES the
+   React instances (loops continue seamlessly, no remount) - intended, do not "fix".
 
 Game flow: title -> mode (CPU personality brute/warden/oracle or friend create/join) ->
 charSelect -> stake -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-of-3,
@@ -122,6 +128,7 @@ charSelect -> stake -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP, best-
    characters the blow/attack direction references their FACING side, which is RIGHT
    for both). Study `input/kick fight reference.mp4` (timing) + `input/hiteffect.mp4`
    (Tim added it - NOT yet studied; check what it shows before prompting the fx).
+   (`input/characterselectionidle.mp4` is already consumed - phase 6.)
    Pipeline per contract section 6; keying via scripts/key-idle-clips.mjs (use
    `--still` to emit cal JSON - never hand-derive); fill manifests; live-verify BOTH
    pick paths; commit.
