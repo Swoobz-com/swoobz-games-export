@@ -188,9 +188,13 @@ Environment:
 
 ## 5. What to do next (in Tim's priority order)
 
-0. **Regen decision PENDING with Tim** (asked 2026-07-18, he was AFK): regenerate the
-   two pulled takes (VOLTA throw-b solo-hardened per learning 8c, GORVAK strike-A with
-   cleaver-silhouette lock) at 36 cr each. Until then those states run one take.
+0. **Regen decision SETTLED by Tim (2026-07-18): NO regen.** The two pulled takes stay
+   pulled; VOLTA attack_throw and GORVAK attack_strike run one take each (accepted §10
+   deviation). Instead the LESSON is baked into the standing gates: contract §6 step 4
+   now carries the per-frame foreign-object/consistency sweep, and the global
+   character-clip-qa skill gained gate 5 + slot-known-regressions rows A15-A18
+   (stormforge f5bcb03). Every future batch gets swept for phantom opponents,
+   frame-fixed remnants, weapon morphs, and baked impact flashes BEFORE wiring.
 1. ~~ko / victory~~ DONE phase 12 (single takes; variant pairs remain optional later).
 2. **Real multiplayer transport**: WebSocket behind MatchTransport; friend-mode staked
    flow live-verified end-to-end (only fake-connect was ever driven).

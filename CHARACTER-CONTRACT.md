@@ -117,8 +117,16 @@ be prompted in ART space (screen-left and screen-right swap after the mirror).
 2. Acting table (section 3) -> per-state prompts (style-lock + consistency-lock +
    magenta bg + locked camera + feet planted + starts/ends at reference pose + NEGATIVE).
 3. Generate on Seedance 2.0, anchor-locked, 1080p, silent. HUMAN-GATED credits.
-4. QA each clip BEFORE keying: on-model, correct facing every frame (art faces its
-   slot's direction), no talking, no walking, contact beat readable.
+4. QA each clip BEFORE keying, per-frame on a contact sheet over DARK - never spot
+   frames (defects hide over the magenta plate and between samples): on-model, correct
+   facing every frame (art faces its slot's direction), no talking, no walking, contact
+   beat readable, AND the foreign-object/consistency sweep (global regressions A15-A18):
+   no phantom opponent / disembodied limbs (grab acting implies a partner and the
+   generator paints one - the class survives a "solo-safe" re-roll, budget 2+ rolls),
+   no frame-fixed backdrop remnants (body moves, blob does not = remnant), the signature
+   weapon holds its silhouette at every contact frame, no baked impact flashes (defeat
+   prompts describe only the FALL, never the blow - any narrated cause gets painted).
+   Re-run the sweep over ALL clips after any batch lands.
 5. `scripts/key-idle-clips.mjs <frames> <out>` -> keyed frames + cal JSON; encode VP9
    alpha WebM, non-black clear plane; matte check over black/white/grey, multi-frame.
 6. Fill the manifest (url/cal/contactMs), add to registry. Done — no Experience edits.
