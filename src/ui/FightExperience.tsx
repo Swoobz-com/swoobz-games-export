@@ -273,6 +273,20 @@ function CampaignMap({
       onMouseMove={onMapPointer}
       onMouseLeave={onMapPointerLeave}
     >
+      {/* THE LIVING MAP: generated ambient loop of the exact map art (trees sway, water flows,
+          citadel fire flickers; locked camera so MAP_CAL stays valid). The still bg-image stays
+          underneath as poster/fallback; reduced motion never mounts the video. */}
+      {!reduced && (
+        <video
+          className="fr-map-video"
+          src={`${assetBase}assets/campaign-map-loop.mp4`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+      )}
       {/* AMBIENT LIFE (swoobz-aliveness; all transform/opacity, module-const CSS timings,
           value-independent, killed by .fr-reduced): the citadel's red glow breathes, a single
           seismic ring ripples out from it (the season page's radar-ring identity), and one soft

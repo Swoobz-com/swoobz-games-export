@@ -2028,3 +2028,15 @@
 .fr-reduced .fr-map-frame {
   transition: none;
 }
+
+/* The living-map ambient loop video: fills the frame exactly (frame aspect == art aspect, so
+   fill introduces no distortion); sits under the route/node layer, over the still bg image. */
+.fr-map-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: inherit;
+  pointer-events: none;
+}
