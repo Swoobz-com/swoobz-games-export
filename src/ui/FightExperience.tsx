@@ -203,6 +203,10 @@ const MAP_ISLES: { key: string; x: number; y: number }[] = [
 // once; invisible to normal players.
 const DEV_MODE = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('dev');
 
+// Ambient-life consts (module-const; RG-C5). Parallax: how far the map frame may lean toward the
+// cursor, in percent of its own size. Small on purpose: depth, not motion sickness.
+const MAP_PARALLAX_MAX_PCT = 1.1;
+
 // A short, concise in-fight progress hint per tier (fresh-player-comprehension law). Uses the
 // middle dot separator (never an em-dash — RG-C5 copy law). p1w/p2w are the player/enemy round wins.
 function objectiveProgress(tier: CampaignTier, p1w: number, p2w: number): string {
@@ -244,8 +248,40 @@ function CampaignMap({
   assetBase: string;
   onSelectNode: (nodeId: number) => void;
 }): JSX.Element {
+  // Pointer parallax (swoobz-aliveness: reactive input + spatial depth). Direct DOM mutation via
+  // ref, never state (refs-not-state); the frame eases toward the cursor by at most
+  // MAP_PARALLAX_MAX_PCT of its own size. Disabled under reduced motion and on touch (no pointer).
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const reduced = useReducedMotion();
+  const onMapPointer = (e: { clientX: number; clientY: number }): void => {
+    const el = frameRef.current;
+    if (!el || reduced) return;
+    const r = el.getBoundingClientRect();
+    const nx = (e.clientX - r.left) / r.width - 0.5; // -0.5 .. 0.5
+    const ny = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `translate(${(-nx * MAP_PARALLAX_MAX_PCT).toFixed(3)}%, ${(-ny * MAP_PARALLAX_MAX_PCT).toFixed(3)}%)`;
+  };
+  const onMapPointerLeave = (): void => {
+    const el = frameRef.current;
+    if (el) el.style.transform = '';
+  };
   return (
-    <div className="fr-map-frame" style={{ backgroundImage: `url(${assetBase}assets/campaign-map.webp)` }}>
+    <div
+      ref={frameRef}
+      className="fr-map-frame"
+      style={{ backgroundImage: `url(${assetBase}assets/campaign-map.webp)` }}
+      onMouseMove={onMapPointer}
+      onMouseLeave={onMapPointerLeave}
+    >
+      {/* AMBIENT LIFE (swoobz-aliveness; all transform/opacity, module-const CSS timings,
+          value-independent, killed by .fr-reduced): the citadel's red glow breathes, a single
+          seismic ring ripples out from it (the season page's radar-ring identity), and one soft
+          cloud shadow sweeps the island on a long loop. Authored elements, not particles. */}
+      <div className="fr-map-ambient" aria-hidden="true">
+        <div className="fr-map-citadel-glow" />
+        <div className="fr-map-seismic-ring" />
+        <div className="fr-map-cloud" />
+      </div>
       {/* Faint route guide tying the numbered nodes in order. The art already draws the dotted
           warpath; this low-opacity polyline just reinforces the 1..10 sequence over it. */}
       <svg className="fr-map-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">

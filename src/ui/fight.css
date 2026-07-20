@@ -1951,3 +1951,80 @@
   padding: calc(var(--sh) * 0.15) calc(var(--sw) * 0.35);
   letter-spacing: 0.12em;
 }
+
+/* ============================================================================================
+   Conquest-map AMBIENT LIFE (swoobz-aliveness). Authored elements only - no particles. All
+   transform/opacity, long module-const loops, value-independent, killed by .fr-reduced.
+   The citadel sits at ~(76%, 17%) of the map frame (matches the art's red keep). */
+.fr-map-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+/* The keep's red glow BREATHES (the art's glow is baked; this overlay swells over it). */
+.fr-map-citadel-glow {
+  position: absolute;
+  left: 76%;
+  top: 17%;
+  width: 34%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 65, 53, 0.34) 0%, rgba(255, 65, 53, 0.10) 42%, rgba(255, 65, 53, 0) 68%);
+  animation: fr-citadel-breathe 4800ms ease-in-out infinite;
+}
+@keyframes fr-citadel-breathe {
+  0%, 100% { opacity: 0.45; transform: translate(-50%, -50%) scale(0.96); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+/* One seismic ring ripples out from the keep (the season page's radar-ring identity). */
+.fr-map-seismic-ring {
+  position: absolute;
+  left: 76%;
+  top: 17%;
+  width: 46%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.12);
+  border: 1.5px solid rgba(255, 65, 53, 0.55);
+  border-radius: 50%;
+  opacity: 0;
+  animation: fr-seismic-ring 7000ms cubic-bezier(0.16, 0.66, 0.45, 1) infinite;
+}
+@keyframes fr-seismic-ring {
+  0% { transform: translate(-50%, -50%) scale(0.12); opacity: 0; }
+  8% { opacity: 0.5; }
+  55% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+/* One soft cloud shadow sweeps the island on a long loop (single authored pass, barely there). */
+.fr-map-cloud {
+  position: absolute;
+  top: -20%;
+  left: -55%;
+  width: 55%;
+  height: 140%;
+  background: radial-gradient(ellipse 60% 45% at 50% 50%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.06) 55%, rgba(0, 0, 0, 0) 75%);
+  animation: fr-cloud-sweep 46000ms linear infinite;
+}
+@keyframes fr-cloud-sweep {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(380%); }
+}
+/* The frame itself eases toward the cursor (parallax handler sets transform inline). */
+.fr-map-frame {
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+/* Reduced motion: the map holds still. */
+.fr-reduced .fr-map-citadel-glow,
+.fr-reduced .fr-map-seismic-ring,
+.fr-reduced .fr-map-cloud {
+  animation: none;
+}
+.fr-reduced .fr-map-seismic-ring {
+  display: none;
+}
+.fr-reduced .fr-map-frame {
+  transition: none;
+}
