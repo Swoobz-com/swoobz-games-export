@@ -203,9 +203,11 @@ const MAP_ISLES: { key: string; x: number; y: number }[] = [
 // once; invisible to normal players.
 const DEV_MODE = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('dev');
 
-// Ambient-life consts (module-const; RG-C5). Parallax: how far the map frame may lean toward the
-// cursor, in percent of its own size. Small on purpose: depth, not motion sickness.
+// Ambient-life consts (module-const; RG-C5). Parallax: how far the SCENERY layer may lean toward
+// the cursor, in percent of its own size (the node pins never move - stable click targets). The
+// scenery base scale keeps its edges outside the frame while translating.
 const MAP_PARALLAX_MAX_PCT = 1.1;
+const MAP_SCENERY_SCALE = 1.035;
 
 // A short, concise in-fight progress hint per tier (fresh-player-comprehension law). Uses the
 // middle dot separator (never an em-dash — RG-C5 copy law). p1w/p2w are the player/enemy round wins.
@@ -249,52 +251,53 @@ function CampaignMap({
   onSelectNode: (nodeId: number) => void;
 }): JSX.Element {
   // Pointer parallax (swoobz-aliveness: reactive input + spatial depth). Direct DOM mutation via
-  // ref, never state (refs-not-state); the frame eases toward the cursor by at most
-  // MAP_PARALLAX_MAX_PCT of its own size. Disabled under reduced motion and on touch (no pointer).
+  // ref, never state (refs-not-state). CLICK-TARGET LAW (Tim, 2026-07-20: "really hard to click
+  // the dot"): the parallax moves the SCENERY LAYER ONLY (art + video + ambient) - the node pins
+  // NEVER move, so they are stable click targets. The scenery carries a slight base scale so its
+  // edges never pull inside the frame while translating.
+  const sceneryRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
   const onMapPointer = (e: { clientX: number; clientY: number }): void => {
-    const el = frameRef.current;
-    if (!el || reduced) return;
-    const r = el.getBoundingClientRect();
+    const el = sceneryRef.current;
+    const frame = frameRef.current;
+    if (!el || !frame || reduced) return;
+    const r = frame.getBoundingClientRect();
     const nx = (e.clientX - r.left) / r.width - 0.5; // -0.5 .. 0.5
     const ny = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `translate(${(-nx * MAP_PARALLAX_MAX_PCT).toFixed(3)}%, ${(-ny * MAP_PARALLAX_MAX_PCT).toFixed(3)}%)`;
+    el.style.transform = `scale(${MAP_SCENERY_SCALE}) translate(${(-nx * MAP_PARALLAX_MAX_PCT).toFixed(3)}%, ${(-ny * MAP_PARALLAX_MAX_PCT).toFixed(3)}%)`;
   };
   const onMapPointerLeave = (): void => {
-    const el = frameRef.current;
+    const el = sceneryRef.current;
     if (el) el.style.transform = '';
   };
   return (
-    <div
-      ref={frameRef}
-      className="fr-map-frame"
-      style={{ backgroundImage: `url(${assetBase}assets/campaign-map.webp)` }}
-      onMouseMove={onMapPointer}
-      onMouseLeave={onMapPointerLeave}
-    >
-      {/* THE LIVING MAP: generated ambient loop of the exact map art (trees sway, water flows,
-          citadel fire flickers; locked camera so MAP_CAL stays valid). The still bg-image stays
-          underneath as poster/fallback; reduced motion never mounts the video. */}
-      {!reduced && (
-        <video
-          className="fr-map-video"
-          src={`${assetBase}assets/campaign-map-loop.mp4`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-        />
-      )}
-      {/* AMBIENT LIFE (swoobz-aliveness; all transform/opacity, module-const CSS timings,
-          value-independent, killed by .fr-reduced): the citadel's red glow breathes, a single
-          seismic ring ripples out from it (the season page's radar-ring identity), and one soft
-          cloud shadow sweeps the island on a long loop. Authored elements, not particles. */}
-      <div className="fr-map-ambient" aria-hidden="true">
-        <div className="fr-map-citadel-glow" />
-        <div className="fr-map-seismic-ring" />
-        <div className="fr-map-cloud" />
+    <div ref={frameRef} className="fr-map-frame" onMouseMove={onMapPointer} onMouseLeave={onMapPointerLeave}>
+      {/* SCENERY LAYER - everything that parallax-drifts lives here; the node/route layer below
+          stays put (stable click targets). */}
+      <div ref={sceneryRef} className="fr-map-scenery" style={{ backgroundImage: `url(${assetBase}assets/campaign-map.webp)` }} aria-hidden="true">
+        {/* THE LIVING MAP: generated ambient loop of the exact map art (trees sway, water flows,
+            citadel fire flickers; locked camera so MAP_CAL stays valid). The still bg-image stays
+            underneath as poster/fallback; reduced motion never mounts the video. */}
+        {!reduced && (
+          <video
+            className="fr-map-video"
+            src={`${assetBase}assets/campaign-map-loop.mp4`}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        )}
+        {/* AMBIENT LIFE (swoobz-aliveness; all transform/opacity, module-const CSS timings,
+            value-independent, killed by .fr-reduced): the citadel's red glow breathes, a single
+            seismic ring ripples out from it (the season page's radar-ring identity), and one soft
+            cloud shadow sweeps the island on a long loop. Authored elements, not particles. */}
+        <div className="fr-map-ambient">
+          <div className="fr-map-citadel-glow" />
+          <div className="fr-map-seismic-ring" />
+          <div className="fr-map-cloud" />
+        </div>
       </div>
       {/* Faint route guide tying the numbered nodes in order. The art already draws the dotted
           warpath; this low-opacity polyline just reinforces the 1..10 sequence over it. */}

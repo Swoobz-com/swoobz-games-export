@@ -2179,3 +2179,38 @@
   animation: none;
   opacity: 0;
 }
+
+/* ============================================================================================
+   CLICK-TARGET LAW fixes (Tim: "really hard to click the dot"). The scenery layer carries the
+   art/video/ambient and is the ONLY thing parallax moves; node pins stay put. Clickable nodes
+   get a large invisible hit area; the frontier stacks above every neighbor; decorative isles
+   never intercept the pointer. */
+.fr-map-scenery {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  pointer-events: none;
+}
+/* The frame itself no longer moves or paints the art. */
+.fr-map-frame {
+  transition: none;
+  background-image: none !important;
+}
+/* Stacking: frontier above conquered above fogged; isles decorative-only. */
+.fr-map-node.fr-map-fogged { z-index: 1; }
+.fr-map-node.fr-map-conquered { z-index: 2; }
+.fr-map-node.fr-map-frontier { z-index: 4; }
+.fr-map-node.fr-map-isle { z-index: 0; pointer-events: none; }
+/* Big invisible hit area on every CLICKABLE node (frontier + conquered): roughly doubles the
+   effective target beyond the disc + label without any visual change. */
+.fr-map-frontier::after,
+.fr-map-conquered::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--sh) * -1.6) calc(var(--sw) * -1.2);
+}
