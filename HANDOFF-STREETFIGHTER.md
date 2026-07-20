@@ -2,9 +2,10 @@
 
 Working title Frozen Requiem. Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
-is canonical. HEAD at handoff: `71a459f` (phase 15). Everything below is VERIFIED, not
-self-reported: every phase was live-driven headless (screenshots VIEWED) before its
-commit. Rewritten clean 2026-07-20 after phase 15.
+is canonical. HEAD at handoff: `d0a491d` (phase 16, CONQUEST MAP campaign; test count
+now **132/132**). Everything below is VERIFIED, not self-reported: every phase was
+live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-20
+after phase 15; phase-16 addendum below (section 1b) + project memory phase-16 entry.
 
 FRESH-SESSION START HERE (in this order, before touching anything):
 1. Read this file fully, then `CHARACTER-CONTRACT.md` (THE LAW) if the task touches
@@ -58,6 +59,29 @@ best-of-3, 5s shot clock, tie=CLASH) -> receipt -> rematch/character select/quit
 - SWOOBZ SKIN (phase 15): full design-system restyle (tokens in section 2), drawn
   background-independent HUD, official wordmark, ARENA picker (1 real arena + 4 locked
   tiles, localStorage persist, NO popup — change it manually in character select).
+
+## 1b. Phase 16 — CONQUEST MAP campaign (commit d0a491d, 2026-07-20)
+
+Staked campaign, RONIN ZERO season theme (Swoobz Season 0 boss). Read `CAMPAIGN-SPEC.md`
+FIRST for any campaign work — it is the design of record. The compressed laws:
+- **Pricing law**: every node <=96% RTP off EXACT closed-form probabilities; difficulty
+  = win-condition tiers (takeRound 75% x1.28 ... bossRequiem 10.9375% x8.77), so bet
+  size can never game the ladder. NO stake-cap rules needed, none exist.
+- **Enemy law**: campaign enemies pick `randomMove` ONLY. All aiPick personalities are
+  MEASURED exploitable (anti-brute 88% win = 176% RTP at 2x) — a personality may never
+  sit behind a real multiplier. Personalities stay in quick duel only.
+- `src/engine/fightCampaign.ts` = pure tiers/nodes/evaluateObjective/campaignPayout;
+  the judge runs after every completed ROUND (never mid-round), early-exits the match
+  (provider stops calling startNextRound; engine untouched). One registry row per node
+  (fighterId/arenaId) — new enemy characters drop in by editing the row.
+- Map art `public/assets/campaign-map.webp` (generated, NO baked text; spare candidates
+  + job ids in the phase-16 memory entry). Nodes/fog/flags are code-drawn via MAP_CAL
+  (percent of the rendered image box). Map scrim is OPAQUE #07080c (cover-plate law —
+  0.97 alpha still ghosted the baked PLAYER plates).
+- Persistence `frozen-requiem.campaign.v1` {v:1, beaten[10]}; balance stays the shared
+  practice bank. `scripts/campaign-rtp-sim.mjs` = the RTP battery (2M/node, seed
+  0xc0ffee, bit-reproducible; run FOREGROUND, assert [95.0,96.1]) — rerun it after ANY
+  campaign-math change.
 
 ## 2. Architecture map (stable — learn before touching anything)
 
