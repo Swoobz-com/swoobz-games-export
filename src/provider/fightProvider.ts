@@ -282,6 +282,11 @@ export interface FightController {
   nextNode: () => void;
   /** Campaign receipt / node card -> back to the conquest map. */
   backToMap: () => void;
+  /** DEV-ONLY force hook (force-state-hooks law): conquer the frontier node without a fight so
+   *  map progression is inspectable. No money moves. UI gates this behind ?dev=1. */
+  devConquerNext: () => void;
+  /** DEV-ONLY force hook: wipe campaign progress back to a fresh map. No money moves. */
+  devResetCampaign: () => void;
   setStake: (lamports: bigint) => void;
   stepStake: (dir: 'up' | 'down') => void;
   commitStake: () => void;
@@ -1152,6 +1157,23 @@ export function useFightController(
     setPhaseNow('campaignMap');
   }, [clearAllTimers, setPhaseNow, setMatchStateNow]);
 
+  // DEV-ONLY force hooks (force-state-hooks law). Progress-only: they touch beaten[] (persisted by
+  // the effect) and NEVER money, stakes, or a live match. The UI gates them behind ?dev=1.
+  const devConquerNext = useCallback(() => {
+    const beaten = campaignBeatenRef.current;
+    const frontier = frontierOf(beaten);
+    if (frontier >= beaten.length) return;
+    const next = markBeaten(beaten, frontier + 1);
+    campaignBeatenRef.current = next;
+    setCampaignBeaten(next);
+  }, []);
+
+  const devResetCampaign = useCallback(() => {
+    const fresh = new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(false);
+    campaignBeatenRef.current = fresh;
+    setCampaignBeaten(fresh);
+  }, []);
+
   const continueNext = useCallback(() => {
     if (phaseRef.current !== 'roundEnd') {
       return;
@@ -1258,6 +1280,8 @@ export function useFightController(
     retryNode,
     nextNode,
     backToMap,
+    devConquerNext,
+    devResetCampaign,
     setStake,
     stepStake,
     commitStake,

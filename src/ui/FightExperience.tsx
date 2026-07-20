@@ -198,6 +198,11 @@ const MAP_ISLES: { key: string; x: number; y: number }[] = [
   { key: 'B2', x: 91, y: 83 },
 ];
 
+// DEV gate (force-state-hooks law): ?dev=1 exposes the campaign force hooks (conquer next node /
+// reset progress) so map progression is inspectable without grinding fights. Module-const, read
+// once; invisible to normal players.
+const DEV_MODE = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('dev');
+
 // A short, concise in-fight progress hint per tier (fresh-player-comprehension law). Uses the
 // middle dot separator (never an em-dash — RG-C5 copy law). p1w/p2w are the player/enemy round wins.
 function objectiveProgress(tier: CampaignTier, p1w: number, p2w: number): string {
@@ -2500,6 +2505,17 @@ export function FightExperience(): JSX.Element {
             <div className="fr-map-rtp" style={{ fontSize: 'calc(var(--sh) * 1.3)' }}>
               each trial returns 96% to players over time · practice bank, not real funds
             </div>
+            {DEV_MODE && (
+              <div className="fr-map-devbar">
+                <span className="fr-map-devtag">DEV</span>
+                <button type="button" className="fr-btn" onClick={ctl.devConquerNext}>
+                  CONQUER NEXT
+                </button>
+                <button type="button" className="fr-btn" onClick={ctl.devResetCampaign}>
+                  RESET PROGRESS
+                </button>
+              </div>
+            )}
           </div>
         )}
 

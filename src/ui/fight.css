@@ -1697,6 +1697,23 @@
   border-color: var(--fr-gold);
   color: var(--fr-gold);
   box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(255, 200, 61, 0.55), 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+  /* Flag-plant pop: runs once when a node's class flips to conquered (unlock moment). */
+  animation: fr-flag-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes fr-flag-pop {
+  0% {
+    transform: scale(0.55);
+    box-shadow: 0 0 calc(var(--sw) * 1.6) rgba(255, 200, 61, 0.95), 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+  }
+  60% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.fr-reduced .fr-map-conquered .fr-map-disc {
+  animation: none;
 }
 .fr-map-flag {
   color: var(--fr-gold);
@@ -1908,4 +1925,29 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--fr-steel-2);
+}
+
+/* DEV bar (force-state-hooks, ?dev=1 only): small, bottom-left, clearly not player UI. */
+.fr-map-devbar {
+  position: absolute;
+  left: calc(var(--sw) * 1);
+  bottom: calc(var(--sh) * 1);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.5);
+  z-index: 5;
+}
+.fr-map-devbar .fr-btn {
+  font-size: calc(var(--sh) * 1.2);
+  padding: calc(var(--sh) * 0.4) calc(var(--sw) * 0.7);
+  border-color: var(--fr-danger);
+}
+.fr-map-devtag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: calc(var(--sh) * 1.1);
+  color: var(--fr-danger);
+  border: 1px solid var(--fr-danger);
+  border-radius: calc(var(--sw) * 0.2);
+  padding: calc(var(--sh) * 0.15) calc(var(--sw) * 0.35);
+  letter-spacing: 0.12em;
 }
