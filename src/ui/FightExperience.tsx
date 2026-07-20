@@ -13,6 +13,7 @@ import type { Move } from '../engine/fightEngine';
 import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
 import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
 import type { FighterDef, FighterState } from '../characters';
+import { ARENAS, getArena } from '../arenas/arenas';
 // clipVariants is imported from the types module directly (the barrel re-exports only the types).
 import { clipVariants } from '../characters/types';
 // The character-select screen is the ONE place the UI fires its own sound (a UI tick on tile
@@ -27,29 +28,52 @@ import './fight.css';
 // value family (money + the single CTA); ice-ish stays the game's interactive
 // accent elsewhere, so the CTA never has to fight another full-accent element.
 const FR_BET_THEME: BetConsoleTheme = {
-  fontMono: "'Geist Mono', monospace",
-  fontBody: "'Geist', sans-serif",
-  surfaceTop: '#1a2942',
-  surfaceBottom: '#0b1322',
-  trim: 'rgba(159, 216, 255, 0.35)',
-  trimGlow: 'rgba(159, 216, 255, 0.14)',
-  label: '#c9a55c',
-  textPrimary: '#dfe9f4',
-  textMuted: '#8fa6bd',
-  textDim: 'rgba(143, 166, 189, 0.6)',
-  hintColor: '#9fd8ff',
-  accentSolid: 'linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%)',
-  accentInk: '#0a1018',
-  accentSoftBg: 'rgba(201, 165, 92, 0.16)',
-  accentSoftBorder: 'rgba(201, 165, 92, 0.6)',
-  accentText: '#e7c877',
-  money: '#e7c877',
-  danger: '#cc2626',
+  fontMono: "'JetBrains Mono', monospace",
+  fontBody: "'Space Grotesk', system-ui, sans-serif",
+  surfaceTop: '#0d0f15',
+  surfaceBottom: '#07080c',
+  trim: 'rgba(255, 255, 255, 0.08)',
+  trimGlow: 'rgba(41, 230, 255, 0.14)',
+  label: '#ffc83d',
+  textPrimary: '#f2f3ef',
+  textMuted: '#98a1b3',
+  textDim: 'rgba(152, 161, 179, 0.6)',
+  hintColor: '#00d0de',
+  accentSolid: 'linear-gradient(180deg, #ffe08a 0%, #ffc83d 55%, #b8860b 100%)',
+  accentInk: '#07080c',
+  accentSoftBg: 'rgba(255, 200, 61, 0.16)',
+  accentSoftBorder: 'rgba(255, 200, 61, 0.6)',
+  accentText: '#ffd873',
+  money: '#ffd873',
+  danger: '#ff4135',
   radius: 14,
 };
 
 const ASSET_BASE = import.meta.env.BASE_URL;
-const BG_URL = `${ASSET_BASE}assets/background.png`;
+
+// The selected arena lives in the EXPERIENCE (like playerId), NOT the provider — the provider
+// stays identity-agnostic. Persisted to localStorage with the same try/catch pattern as the
+// practice-bank balance in the provider; a corrupt/absent/unknown value falls back to the first
+// arena. The player only ever changes it on the character-select screen (never via a popup).
+const ARENA_STORAGE_KEY = 'frozen-requiem.arena.v1';
+function loadArenaId(): string {
+  try {
+    if (typeof localStorage === 'undefined') return ARENAS[0].id;
+    const raw = localStorage.getItem(ARENA_STORAGE_KEY);
+    if (raw != null && ARENAS.some((a) => a.id === raw)) return raw;
+  } catch {
+    /* storage unavailable (private mode / quota) — use the default arena */
+  }
+  return ARENAS[0].id;
+}
+function saveArenaId(id: string): void {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    localStorage.setItem(ARENA_STORAGE_KEY, id);
+  } catch {
+    /* storage unavailable — arena stays in-memory only */
+  }
+}
 
 // State clips play at 2x (a 4s clip -> a 2s beat; MK weight) — contract §5. This is GLOBAL
 // rhythm and so lives ONLY as a module const; per-character numbers (cal, contactMs) live
@@ -455,6 +479,23 @@ function pctRect(r: { x0: number; x1: number; y0: number; y1: number }): React.C
   };
 }
 
+/** COVER-PLATE expansion. The CAL boxes map the baked art's inner footprint; the drawn Swoobz
+ *  plates must cover the baked chrome COMPLETELY (CAL box + a small margin) so no baked pixels
+ *  ghost out around them on the current background. Expands a CAL rect symmetrically WITHOUT
+ *  touching the CAL values themselves — padX in % of stage width, padY in % of stage height. */
+function pctRectPad(
+  r: { x0: number; x1: number; y0: number; y1: number },
+  padX: number,
+  padY: number,
+): React.CSSProperties {
+  return {
+    left: `${r.x0 - padX}%`,
+    top: `${r.y0 - padY}%`,
+    width: `${r.x1 - r.x0 + padX * 2}%`,
+    height: `${r.y1 - r.y0 + padY * 2}%`,
+  };
+}
+
 function HealthBar({ hp, side, reduced }: { hp: number; side: 'p1' | 'p2'; reduced: boolean }): JSX.Element {
   const rect = side === 'p1' ? CAL.hpP1 : CAL.hpP2;
   const prevHp = useRef(hp);
@@ -516,10 +557,13 @@ function Pips({ won, side }: { won: number; side: 'p1' | 'p2' }): JSX.Element {
     return undefined;
   }, [won]);
   return (
+    // Cover strip: expanded past the CAL box and given a near-opaque glass background (CSS) so
+    // the baked icy pip strip is fully covered — the drawn pip dots render on top of our strip,
+    // never double-chromed against the baked one.
     <div
       className="fr-pips"
       style={{
-        ...pctRect(rect),
+        ...pctRectPad(rect, 0.6, 0.5),
         justifyContent: side === 'p1' ? 'flex-start' : 'flex-end',
         gap: 'calc(var(--sw) * 0.6)',
       }}
@@ -535,7 +579,9 @@ function Pips({ won, side }: { won: number; side: 'p1' | 'p2' }): JSX.Element {
 
 function TimerPlate({ seconds, danger }: { seconds: number; danger: boolean }): JSX.Element {
   return (
-    <div className={`fr-timer${danger ? ' fr-timer-danger' : ''}`} style={pctRect(CAL.timer)}>
+    // Cover plate: expanded past the CAL box so the baked '03' plate is fully covered
+    // (opaque coal bg in CSS) — the big baked digits never show behind the live digit.
+    <div className={`fr-timer${danger ? ' fr-timer-danger' : ''}`} style={pctRectPad(CAL.timer, 0.6, 1.0)}>
       <span className="fr-timer-digit" style={{ fontSize: 'calc(var(--sh) * 7.2)' }}>
         {Math.max(0, seconds)}
       </span>
@@ -545,11 +591,19 @@ function TimerPlate({ seconds, danger }: { seconds: number; danger: boolean }): 
 
 function NamePlate({ name, side }: { name: string; side: 'p1' | 'p2' }): JSX.Element {
   const rect = side === 'p1' ? CAL.nameP1 : CAL.nameP2;
+  // Cover plate: expanded past the CAL box so the baked 'PLAYER 1'/'PLAYER 2' plate is fully
+  // covered (opaque coal bg in CSS). The baked label runs PAST the CAL box toward the screen
+  // center, so the center-facing edge gets extra reach (asymmetric: the name itself, anchored
+  // at the outer edge by justifyContent, never shifts).
+  const CENTER_REACH = 2.4; // % stage width past the symmetric pad, toward screen center
+  const padded = pctRectPad(rect, 0.7, 0.6);
+  const width = `${rect.x1 - rect.x0 + 0.7 * 2 + CENTER_REACH}%`;
+  const style: React.CSSProperties =
+    side === 'p1'
+      ? { ...padded, width, justifyContent: 'flex-start' }
+      : { ...padded, left: `${rect.x0 - 0.7 - CENTER_REACH}%`, width, justifyContent: 'flex-end' };
   return (
-    <div
-      className="fr-nameplate"
-      style={{ ...pctRect(rect), justifyContent: side === 'p1' ? 'flex-start' : 'flex-end', fontSize: 'calc(var(--sh) * 1.9)' }}
-    >
+    <div className="fr-nameplate" style={{ ...style, fontSize: 'calc(var(--sh) * 1.9)' }}>
       {name}
     </div>
   );
@@ -920,6 +974,50 @@ function LockedTile(): JSX.Element {
   );
 }
 
+// ============================================================================================
+// Arena picker — SAME tile mechanics as fighter selection (real tiles + locked mystery tiles),
+// but the choice PERSISTS across matches/sessions (localStorage) and is only ever changed here on
+// the character-select screen (never a popup). Clicking a real tile sets the arena instantly, so
+// the select-screen stage backdrop switches live behind the scrim.
+// ============================================================================================
+// A real arena tile: a wide 16:9 thumb of its background art + a name label. Selected = cyan-soft
+// border + label in the small-accent cyan.
+function ArenaTile({
+  name,
+  thumbUrl,
+  selected,
+  onSelect,
+}: {
+  name: string;
+  thumbUrl: string;
+  selected: boolean;
+  onSelect: () => void;
+}): JSX.Element {
+  return (
+    <button
+      type="button"
+      className={`fr-arena-tile${selected ? ' fr-arena-selected' : ''}`}
+      onClick={onSelect}
+      aria-pressed={selected}
+      aria-label={`Arena: ${name}`}
+    >
+      <div className="fr-arena-thumb">
+        <img src={thumbUrl} alt="" draggable={false} />
+      </div>
+      <span className="fr-arena-name">{name}</span>
+    </button>
+  );
+}
+
+// A locked "mystery" arena tile — same visual language as the fighter LockedTile, not clickable.
+function ArenaLockedTile(): JSX.Element {
+  return (
+    <div className="fr-arena-tile fr-arena-locked" aria-hidden="true">
+      <span className="fr-arena-qmark">?</span>
+    </div>
+  );
+}
+
 // The full-body select preview: on the character-select screen the highlighted fighter (left
 // slot) and the derived opponent (right slot) stand playing their LIVE idle loop, mirroring the
 // MK1 select plate. It reuses the Fighter media stack in miniature — still underneath, idle
@@ -1006,6 +1104,14 @@ export function FightExperience(): JSX.Element {
   // so adding a third manifest needs zero edits here. Everything character-specific below
   // (stills, clips, cals, names, quotes, fx bursts, mirroring) flows from these two defs + slot.
   const [playerId, setPlayerId] = useState<string>('gorvak');
+  // Selected arena (background). Read from localStorage ONCE at init; persisted on change. Lives
+  // HERE in the Experience (never the provider — the provider stays identity-agnostic, like it
+  // never learns the picked fighter). The stage background everywhere resolves from this.
+  const [arenaId, setArenaId] = useState<string>(loadArenaId);
+  useEffect(() => {
+    saveArenaId(arenaId);
+  }, [arenaId]);
+  const stageBgUrl = `${ASSET_BASE}${getArena(arenaId).file}`;
   const p1Def = getFighter(playerId);
   // The opponent is DERIVED (first OTHER registry entry) for CPU and until a friend's profile
   // lands. In friend mode, once the peer relays its opaque fighter id (a known registry key), that
@@ -1578,7 +1684,10 @@ export function FightExperience(): JSX.Element {
     .join(' ');
 
   const stageStyle: React.CSSProperties = {
-    backgroundImage: inFight ? `url(${BG_URL})` : `url(${BG_URL})`,
+    // The stage backdrop is the SELECTED arena's art, everywhere the stage renders (fight +
+    // every screen: title, mode, char-select, stake, vsIntro, matchEnd). Changing arenaId on the
+    // char-select screen switches this live.
+    backgroundImage: `url(${stageBgUrl})`,
     transformOrigin: koZoom ? `${koZoom.spotX}% ${CAL.contactY}%` : 'center',
   };
 
@@ -1889,26 +1998,55 @@ export function FightExperience(): JSX.Element {
             >
               {p1Def.name}
             </div>
-            {/* Bottom roster strip. Registry tiles FIRST (registry-driven — a new manifest appears
-                here with zero edits), then 20 mystery "?" tiles. Two rows of 11 (see .fr-select-grid). */}
-            <div className="fr-select-grid">
-              {Object.values(FIGHTERS).map((def) => (
-                <CharacterTile
-                  key={def.id}
-                  def={def}
-                  assetBase={ASSET_BASE}
-                  selected={def.id === playerId}
-                  onSelect={() => {
-                    if (def.id !== playerId) {
-                      playPickTick();
-                      setPlayerId(def.id);
-                    }
-                  }}
-                />
-              ))}
-              {Array.from({ length: 20 }, (_, i) => (
-                <LockedTile key={`locked-${i}`} />
-              ))}
+            {/* Bottom stack: the ARENA row sits directly above the roster strip. */}
+            <div className="fr-select-bottom">
+              {/* ARENA picker — same tile mechanics as the roster, but the pick PERSISTS
+                  (localStorage) and switching it live-previews the stage backdrop behind the
+                  scrim. Real arenas render a cropped 16:9 thumb; the rest are locked "?" tiles.
+                  Five wide slots total. */}
+              <div className="fr-arena-section">
+                <span className="fr-arena-heading">ARENA</span>
+                <div className="fr-arena-row">
+                  {ARENAS.map((arena) => (
+                    <ArenaTile
+                      key={arena.id}
+                      name={arena.name}
+                      thumbUrl={`${ASSET_BASE}${arena.file}`}
+                      selected={arena.id === arenaId}
+                      onSelect={() => {
+                        if (arena.id !== arenaId) {
+                          playPickTick();
+                          setArenaId(arena.id);
+                        }
+                      }}
+                    />
+                  ))}
+                  {Array.from({ length: Math.max(0, 5 - ARENAS.length) }, (_, i) => (
+                    <ArenaLockedTile key={`arena-locked-${i}`} />
+                  ))}
+                </div>
+              </div>
+              {/* Roster strip. Registry tiles FIRST (registry-driven — a new manifest appears
+                  here with zero edits), then 20 mystery "?" tiles. Two rows of 11 (see .fr-select-grid). */}
+              <div className="fr-select-grid">
+                {Object.values(FIGHTERS).map((def) => (
+                  <CharacterTile
+                    key={def.id}
+                    def={def}
+                    assetBase={ASSET_BASE}
+                    selected={def.id === playerId}
+                    onSelect={() => {
+                      if (def.id !== playerId) {
+                        playPickTick();
+                        setPlayerId(def.id);
+                      }
+                    }}
+                  />
+                ))}
+                {Array.from({ length: 20 }, (_, i) => (
+                  <LockedTile key={`locked-${i}`} />
+                ))}
+              </div>
             </div>
             <button
               type="button"
@@ -1988,6 +2126,8 @@ export function FightExperience(): JSX.Element {
               <div className="fr-logo-sub" style={{ fontSize: 'calc(var(--sh) * 1.7)' }}>
                 STRIKE · THROW · BLOCK
               </div>
+              {/* "by SWOOBZ" maker's mark — the official wordmark, subtle (fog-level). */}
+              <img className="fr-title-wordmark" src={`${ASSET_BASE}assets/swoobz-logo.svg`} alt="by SWOOBZ" draggable={false} />
               <div className="fr-press" style={{ fontSize: 'calc(var(--sh) * 2.2)', marginTop: 'calc(var(--sh) * 5)' }}>
                 PRESS TO BEGIN
               </div>
@@ -2037,7 +2177,7 @@ export function FightExperience(): JSX.Element {
                       >
                         CREATE ROOM
                       </button>
-                      <div style={{ color: 'var(--fr-steel-2)', fontFamily: 'Geist Mono, monospace', fontSize: 'calc(var(--sh) * 1.3)' }}>
+                      <div style={{ color: 'var(--fr-steel-2)', fontFamily: 'JetBrains Mono, monospace', fontSize: 'calc(var(--sh) * 1.3)' }}>
                         or join with a code
                       </div>
                       <input
@@ -2179,11 +2319,10 @@ export function FightExperience(): JSX.Element {
         )}
       </div>
 
-      {/* Quiet SWOOBZ maker's-mark — DOM-level, corner, low-opacity (mirrors
-          assay's wordmark treatment). Decorative chrome, not interactive. */}
-      <div className="fr-wordmark" aria-hidden="true">
-        SWOOBZ
-      </div>
+      {/* Quiet SWOOBZ maker's-mark — the official wordmark SVG, DOM-level, corner,
+          low-opacity. Decorative chrome, not interactive. */}
+      <img className="fr-wordmark" src={`${ASSET_BASE}assets/swoobz-logo.svg`} alt="SWOOBZ" aria-hidden="true" draggable={false} />
+
 
       {/* Page-fixed PLAY SAFE pill (bottom-right, >=44px touch target). No-op
           href for this mockup — it never navigates. */}

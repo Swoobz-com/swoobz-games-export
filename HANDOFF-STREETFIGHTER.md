@@ -98,6 +98,27 @@ as the contract fallback ladder for future clip-less characters).
   + timing read the SAME index.
 - `src/ui/fight.css` — never combine -webkit-text-stroke with background-clip:text
   (Chrome miter-spike). Fight fx all on cubic-bezier(0.22,1,0.36,1).
+  **SWOOBZ SKIN since phase 15**: tokens extracted live from Tim's staging /ds page
+  (headless computed-style dump — the page itself is token-first, no hexes in HTML):
+  ink #07080c / coal #0d0f15 / glass rgba(13,15,21,.72) / line rgba(255,255,255,.08) /
+  bone #f2f3ef / fog #98a1b3; accents volt #00F0FF, cyan #29E6FF (accent TEXT <32px
+  must be #00D0DE per brand OLED rule; fills #0EA5E9), gold #FFC83D, blood #FF4135.
+  Fonts: Space Grotesk (UI), JetBrains Mono (numbers/micro, tabular-nums), Anton
+  (hero: logo, banners, section titles, select name). Wordmark public/assets/
+  swoobz-logo.svg (from input/). HUD chrome is DRAWN (background-independent) at the
+  CAL positions: nameplates/timer/pips are FULLY-OPAQUE `--fr-plate-cover` COVER
+  plates expanded past their CAL box (pctRectPad + NamePlate CENTER_REACH 2.4) to
+  mask the baked chrome completely — 0.94 alpha let bright baked text ghost through
+  (learning: covers over baked art must be alpha 1.0 and cover the FULL baked
+  footprint; verify over the cathedral AND a plain dark override). HP fill #0EA5E9->
+  #29E6FF, pips gold, danger blood; frost fight fx stay icy but in the cyan family.
+- `src/arenas/arenas.ts` — the ARENA registry (phase 15): one real entry (cathedral =
+  assets/background.png) + getArena fallback. The pick lives in FightExperience state
+  (`arenaId`, localStorage `frozen-requiem.arena.v1`), NEVER in the provider; the
+  charSelect screen has the ARENA tile row (1 real + 4 locked '?' tiles, selected =
+  cyan border, live backdrop preview). NO popup anywhere; changing arenas = go to
+  character select manually (Tim's rule). New backgrounds: drop the file in
+  public/assets, add ONE ArenaDef row.
 - `src/transport/matchTransport.ts` — PvP seam. **REAL since phase 13**: `WsTransport`
   (one lazy socket to `/fr-ws`, queue-before-open, 5s connect timeout that is CLEARED on
   settle and settled-guarded — learning 21) + `LocalSimTransport` (tests/sim injection

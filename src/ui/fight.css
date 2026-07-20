@@ -4,17 +4,22 @@
    CSS-only ambient loops (idle breathing, pulses) which have no gameplay coupling. */
 
 :root {
-  --fr-base: #060a12;
-  --fr-ice: #9fd8ff;
-  --fr-ice-deep: #3f6f9a;
-  --fr-steel-1: #dfe9f4;
-  --fr-steel-2: #8fa6bd;
-  --fr-steel-3: #47576b;
-  --fr-gold: #c9a55c;
-  --fr-gold-deep: #8a6d2f;
-  --fr-danger: #cc2626;
-  --fr-plate: rgba(10, 16, 26, 0.86);
-  --fr-plate-edge: rgba(159, 216, 255, 0.35);
+  /* SWOOBZ design-system tokens (extracted from Tim's /ds page). Names kept from the
+     frost-cathedral build; only the VALUES are the Swoobz palette. */
+  --fr-base: #07080c; /* ink - page/base bg */
+  --fr-coal: #0d0f15; /* panel */
+  --fr-ice: #00d0de; /* small accent TEXT (<32px) - OLED bloom rule */
+  --fr-ice-big: #29e6ff; /* cyan for LARGE text / glows only */
+  --fr-ice-deep: #0ea5e9; /* brand cyan slot - fills/bars */
+  --fr-steel-1: #f2f3ef; /* bone - primary text */
+  --fr-steel-2: #98a1b3; /* fog - secondary/neutral text */
+  --fr-steel-3: #4a5261; /* darker fog step */
+  --fr-gold: #ffc83d;
+  --fr-gold-deep: #b8860b;
+  --fr-danger: #ff4135; /* blood */
+  --fr-plate: rgba(13, 15, 21, 0.72); /* glass - translucent panel */
+  --fr-plate-cover: #0d0f15; /* FULLY opaque coal - HUD COVER plates must mask baked chrome completely (0.94 let bright baked text ghost through) */
+  --fr-plate-edge: rgba(255, 255, 255, 0.08); /* line - hairline border */
 }
 
 * {
@@ -29,7 +34,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  font-family: 'Geist', system-ui, sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   color: var(--fr-steel-1);
   user-select: none;
   -webkit-user-select: none;
@@ -41,7 +46,7 @@
   height: min(100vh, calc(100vw * 1536 / 2816));
   aspect-ratio: 2816 / 1536;
   overflow: hidden;
-  background-color: #0a1018;
+  background-color: #07080c;
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 120px rgba(0, 0, 0, 0.7) inset;
@@ -109,7 +114,7 @@
 }
 .fr-fighter.fr-winner img,
 .fr-fighter.fr-winner .fr-state-video {
-  filter: drop-shadow(0 0 calc(var(--sw) * 1.2) rgba(201, 165, 92, 0.85))
+  filter: drop-shadow(0 0 calc(var(--sw) * 1.2) rgba(255, 200, 61, 0.85))
     drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.55));
 }
 .fr-fighter.fr-loser img,
@@ -160,11 +165,14 @@
   position: absolute;
   display: flex;
   align-items: center;
-  padding: 0 calc(var(--sw) * 0.6);
-  background: linear-gradient(180deg, #1a2942 0%, #0b1322 100%);
+  /* Horizontal padding mirrors the cover-plate expansion (pctRectPad 0.7 in the JSX) plus the
+     original 0.6sw inset, so the name text stays ~on its pre-cover position. */
+  padding: 0 calc(var(--sw) * 1.3);
+  /* COVER plate: near-opaque so the baked 'PLAYER 1'/'PLAYER 2' plate never reads through. */
+  background: var(--fr-plate-cover);
   border: 1px solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.25);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--fr-steel-1);
   text-shadow: 0 1px 2px #000;
@@ -178,18 +186,24 @@
   position: absolute;
   display: flex;
   gap: calc(var(--sw) * 0.12);
+  padding: calc(var(--sw) * 0.1);
+  background: var(--fr-plate);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.18);
+  overflow: hidden;
 }
 .fr-hpseg {
   flex: 1 1 0;
   position: relative;
   border-radius: calc(var(--sw) * 0.1);
   overflow: hidden;
+  background: linear-gradient(180deg, #29e6ff 0%, #0ea5e9 100%);
 }
 /* "lost" = opaque dark plate covering the baked ice bar (art shows through remaining). */
 .fr-hpseg-cover {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(4, 8, 14, 0.9), rgba(2, 4, 8, 0.94));
+  background: linear-gradient(180deg, rgba(7, 8, 12, 0.9), rgba(4, 5, 8, 0.94));
   transform: scaleX(1);
   transform-origin: center;
   opacity: 1;
@@ -230,7 +244,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(ellipse at center, rgba(204, 38, 38, 0.7), rgba(204, 38, 38, 0.1));
+  background: radial-gradient(ellipse at center, rgba(255, 65, 53, 0.7), rgba(255, 65, 53, 0.1));
   mix-blend-mode: screen;
   animation: fr-hp-crit 500ms ease-in-out infinite;
   pointer-events: none;
@@ -245,17 +259,25 @@
   position: absolute;
   display: flex;
   align-items: center;
+  /* COVER strip: a near-opaque glass strip over the baked icy pip strip's footprint (the row is
+     expanded past the CAL box via pctRectPad in the JSX); the drawn pip dots render on top, so
+     the baked pips never double-chrome behind them. Horizontal padding mirrors the 0.6 expansion
+     so the dots stay ~on their pre-cover positions. */
+  padding: 0 calc(var(--sw) * 0.6);
+  background: var(--fr-plate-cover);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.25);
 }
 .fr-pip {
   border-radius: 50%;
-  border: calc(var(--sw) * 0.12) solid var(--fr-gold-deep);
-  background: rgba(8, 12, 20, 0.6);
+  border: calc(var(--sw) * 0.12) solid var(--fr-plate-edge);
+  background: var(--fr-plate);
   transition: transform 200ms ease;
 }
 .fr-pip.fr-pip-won {
-  background: radial-gradient(circle at 38% 34%, #ffe9b0, var(--fr-gold) 60%, var(--fr-gold-deep));
+  background: radial-gradient(circle at 38% 34%, #ffe08a, var(--fr-gold) 60%, var(--fr-gold-deep));
   border-color: var(--fr-gold);
-  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(201, 165, 92, 0.8);
+  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(255, 200, 61, 0.8);
 }
 .fr-pip.fr-pip-pop {
   animation: fr-pip-pop 200ms ease-out;
@@ -271,25 +293,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, #2b3646 0%, #10161f 46%, #1c2530 100%);
-  border: calc(var(--sw) * 0.1) solid #55708c;
+  /* COVER plate: near-opaque so the baked '03' digits never show behind the live digit. */
+  background: var(--fr-plate-cover);
+  border: calc(var(--sw) * 0.1) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.3);
   box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(0, 0, 0, 0.6) inset,
     0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.4) rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 .fr-timer-digit {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   line-height: 1;
-  background: linear-gradient(180deg, #eaf6ff 0%, #a9d8f5 40%, #4f83aa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 calc(var(--sw) * 0.3) rgba(159, 216, 255, 0.4);
+  color: var(--fr-steel-1);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 calc(var(--sw) * 0.3) rgba(41, 230, 255, 0.45);
 }
 .fr-timer.fr-timer-danger .fr-timer-digit {
-  background: linear-gradient(180deg, #ffd3d3 0%, #ff6a6a 45%, #b01a1a 100%);
+  color: transparent;
+  background: linear-gradient(180deg, #ffb3ae 0%, #ff4135 45%, #a3140c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   animation: fr-timer-pulse 500ms ease-in-out infinite;
@@ -305,8 +327,10 @@
   border-radius: 50%;
   overflow: hidden;
   transform: translate(-50%, -50%);
-  background: #0a1018;
-  box-shadow: 0 0 0 calc(var(--sw) * 0.05) rgba(0, 0, 0, 0.4) inset;
+  background: #07080c;
+  box-shadow: 0 0 0 calc(var(--sw) * 0.06) rgba(255, 255, 255, 0.08),
+    0 0 calc(var(--sw) * 0.5) rgba(41, 230, 255, 0.5),
+    inset 0 0 0 calc(var(--sw) * 0.05) rgba(0, 0, 0, 0.4);
 }
 .fr-portrait img {
   position: absolute;
@@ -323,7 +347,7 @@
   z-index: 40;
 }
 .fr-banner {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Anton', sans-serif;
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -334,19 +358,19 @@
   color: transparent;
   /* No -webkit-text-stroke here: stroked gradient-clipped text sprays miter-spike
      artifacts at sharp glyph corners in Chrome. Tight drop-shadows fake the outline. */
-  filter: drop-shadow(0 0 calc(var(--sw) * 0.05) rgba(4, 8, 14, 0.95))
-    drop-shadow(0 0 calc(var(--sw) * 0.05) rgba(4, 8, 14, 0.9))
+  filter: drop-shadow(0 0 calc(var(--sw) * 0.05) rgba(7, 8, 12, 0.95))
+    drop-shadow(0 0 calc(var(--sw) * 0.05) rgba(7, 8, 12, 0.9))
     drop-shadow(0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.7));
   text-align: center;
   white-space: pre-line;
 }
 .fr-banner.fr-banner-danger {
-  background: linear-gradient(180deg, #ffdede 0%, #ff5a5a 45%, #8f1414 100%);
+  background: linear-gradient(180deg, #ffb3ae 0%, #ff4135 45%, #a3140c 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
 .fr-banner.fr-banner-gold {
-  background: linear-gradient(180deg, #ffefc4 0%, var(--fr-gold) 45%, var(--fr-gold-deep) 100%);
+  background: linear-gradient(180deg, #ffe08a 0%, var(--fr-gold) 45%, var(--fr-gold-deep) 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -376,7 +400,7 @@
   align-items: center;
   gap: calc(var(--sh) * 0.3);
   padding: calc(var(--sh) * 0.5) calc(var(--sw) * 0.5);
-  background: linear-gradient(180deg, #2a3648 0%, #141c28 100%);
+  background: linear-gradient(180deg, #1a1d26 0%, #0d0f15 100%);
   border: calc(var(--sw) * 0.08) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.3);
   box-shadow: 0 calc(var(--sh) * 0.4) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.6);
@@ -394,7 +418,7 @@
   animation: none;
 }
 .fr-reveal-plate-label {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 900;
   letter-spacing: 0.08em;
   color: var(--fr-ice);
@@ -435,7 +459,7 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: calc(var(--sw) * 0.16) solid rgba(207, 232, 255, 0.9);
-  box-shadow: 0 0 calc(var(--sw) * 0.7) rgba(159, 216, 255, 0.55);
+  box-shadow: 0 0 calc(var(--sw) * 0.7) rgba(41, 230, 255, 0.55);
   pointer-events: none;
   animation: fr-impact-ring 450ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
@@ -452,7 +476,7 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: calc(var(--sw) * 0.1) solid rgba(207, 232, 255, 0.5);
-  box-shadow: 0 0 calc(var(--sw) * 0.45) rgba(159, 216, 255, 0.35);
+  box-shadow: 0 0 calc(var(--sw) * 0.45) rgba(41, 230, 255, 0.35);
   pointer-events: none;
   animation: fr-impact-ring-echo 420ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
 }
@@ -465,7 +489,7 @@
   position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(207, 232, 255, 0.6) 0%, rgba(159, 216, 255, 0.28) 42%, rgba(159, 216, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(207, 232, 255, 0.6) 0%, rgba(41, 230, 255, 0.28) 42%, rgba(41, 230, 255, 0) 70%);
   mix-blend-mode: screen;
   pointer-events: none;
   /* Opacity peaks mid-animation so the light SWELLS through the beat, not an instant pop. */
@@ -482,18 +506,18 @@
   display: none;
 }
 
-/* Damage floater: a constant "-1" (steel/HP palette, Geist Mono) drifting up from the defender's
+/* Damage floater: a constant "-1" (steel/HP palette, JetBrains Mono) drifting up from the defender's
    chest and fading over its last 40%. The value is FIXED by design (RG-C5): identical for both
    sides, never scaled by hit / stake / streak. cubic-bezier(0.16,1,0.3,1) = ease-out drift with
    follow-through. */
 .fr-damage-floater {
   position: absolute;
   transform: translate(-50%, -50%);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
   line-height: 1;
   color: var(--fr-steel-1);
-  text-shadow: 0 0 calc(var(--sw) * 0.35) rgba(159, 216, 255, 0.6),
+  text-shadow: 0 0 calc(var(--sw) * 0.35) rgba(41, 230, 255, 0.6),
     0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.35) rgba(0, 0, 0, 0.75);
   pointer-events: none;
   animation: fr-damage-floater 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -511,7 +535,7 @@
 }
 
 /* §9 COMBO-STRING hits tally — the "N HITS" count on a multi-contact attack string. Near the stage
-   centre-top, frost/steel palette (NOT gold — gold is the money family, never the fight). Geist
+   centre-top, frost/steel palette (NOT gold — gold is the money family, never the fight). JetBrains
    Mono, on the fight's smooth curve. It is INFORMATION (the blow count), derived only from the
    choreography contact index (RG-C5), so it earns a spot on stage. */
 .fr-hits-counter {
@@ -519,13 +543,13 @@
   left: 50%;
   top: 22%;
   transform: translate(-50%, -50%);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
   font-size: calc(var(--sh) * 4.6);
   letter-spacing: 0.06em;
   line-height: 1;
   color: var(--fr-steel-1);
-  text-shadow: 0 0 calc(var(--sw) * 0.5) rgba(159, 216, 255, 0.7),
+  text-shadow: 0 0 calc(var(--sw) * 0.5) rgba(41, 230, 255, 0.7),
     0 calc(var(--sh) * 0.25) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.8);
   pointer-events: none;
   white-space: nowrap;
@@ -560,7 +584,7 @@
   top: 62%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(159, 216, 255, 0.5) 35%, rgba(159, 216, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(41, 230, 255, 0.5) 35%, rgba(41, 230, 255, 0) 70%);
   /* Smoothed (was ease-out with a 0.1 opacity floor that snapped on): the flash now swells up from
      zero on the same cubic-bezier(0.22,1,0.36,1) as the impact ring, so a clash reads as a bloom. */
   animation: fr-clash-flash 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -581,7 +605,7 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: calc(var(--sw) * 0.22) solid rgba(230, 245, 255, 0.95);
-  box-shadow: 0 0 calc(var(--sw) * 1) rgba(159, 216, 255, 0.6), inset 0 0 calc(var(--sw) * 0.5) rgba(159, 216, 255, 0.4);
+  box-shadow: 0 0 calc(var(--sw) * 1) rgba(41, 230, 255, 0.6), inset 0 0 calc(var(--sw) * 0.5) rgba(41, 230, 255, 0.4);
   pointer-events: none;
   animation: fr-clash-ring 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
@@ -598,7 +622,7 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: calc(var(--sw) * 0.13) solid rgba(207, 232, 255, 0.6);
-  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.45);
+  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.45);
   pointer-events: none;
   animation: fr-clash-ring-echo 500ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
 }
@@ -658,18 +682,18 @@
   background: radial-gradient(circle,
     transparent 50%,
     rgba(230, 245, 255, 0.92) 63%,
-    rgba(159, 216, 255, 0.45) 76%,
+    rgba(41, 230, 255, 0.45) 76%,
     transparent 88%);
   -webkit-mask-image: conic-gradient(from 0deg, transparent 12deg, #000 26deg, #000 154deg, transparent 168deg, transparent 360deg);
   mask-image: conic-gradient(from 0deg, transparent 12deg, #000 26deg, #000 154deg, transparent 168deg, transparent 360deg);
-  filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75));
+  filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.75));
   animation: fr-shield-arc 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes fr-shield-arc {
-  0% { transform: scale(0.55); opacity: 0; filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
-  30% { transform: scale(1); opacity: 1; filter: brightness(1.55) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
-  50% { transform: scale(1); opacity: 0.95; filter: brightness(1.2) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
-  100% { transform: scale(1.2); opacity: 0; filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.75)); }
+  0% { transform: scale(0.55); opacity: 0; filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.75)); }
+  30% { transform: scale(1); opacity: 1; filter: brightness(1.55) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.75)); }
+  50% { transform: scale(1); opacity: 0.95; filter: brightness(1.2) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.75)); }
+  100% { transform: scale(1.2); opacity: 0; filter: brightness(1) drop-shadow(0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.75)); }
 }
 /* Deflection ripple: a thin frost ring emanating from the arc AT the tink beat (the 90ms delay
    mirrors CHO.BLOCK_TINK_MS), tighter + faster (320ms) than the 450ms hit ring, so the parry
@@ -680,7 +704,7 @@
   inset: 12%;
   border-radius: 50%;
   border: calc(var(--sw) * 0.1) solid rgba(230, 245, 255, 0.85);
-  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(159, 216, 255, 0.6);
+  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(41, 230, 255, 0.6);
   opacity: 0;
   animation: fr-shield-ripple 320ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
 }
@@ -721,7 +745,7 @@
 .fr-scrim {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(6, 10, 18, 0.55) 0%, rgba(6, 10, 18, 0.9) 100%);
+  background: radial-gradient(ellipse at center, rgba(7, 8, 12, 0.55) 0%, rgba(7, 8, 12, 0.9) 100%);
 }
 .fr-overlay-content {
   position: relative;
@@ -734,23 +758,23 @@
 }
 
 .fr-logo {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Anton', sans-serif;
   font-weight: 900;
   letter-spacing: 0.03em;
   line-height: 0.92;
   text-transform: uppercase;
   transform: skew(-5deg);
-  background: linear-gradient(180deg, #eaf6ff 0%, #a9d8f5 42%, #3f6f9a 78%, #24425c 100%);
+  background: linear-gradient(180deg, #bff7ff 0%, #29e6ff 42%, #0ea5e9 78%, #0b5f8f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   /* Same miter-spike avoidance as .fr-banner: outline via tight drop-shadows, no stroke. */
-  filter: drop-shadow(0 0 calc(var(--sw) * 0.04) rgba(4, 8, 14, 0.95))
-    drop-shadow(0 0 calc(var(--sw) * 0.04) rgba(4, 8, 14, 0.9))
+  filter: drop-shadow(0 0 calc(var(--sw) * 0.04) rgba(7, 8, 12, 0.95))
+    drop-shadow(0 0 calc(var(--sw) * 0.04) rgba(7, 8, 12, 0.9))
     drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.7));
 }
 .fr-logo-sub {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
   color: var(--fr-ice);
   letter-spacing: 0.42em;
@@ -758,7 +782,7 @@
   margin-top: calc(var(--sh) * 1);
 }
 .fr-press {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
   letter-spacing: 0.32em;
   color: var(--fr-steel-1);
@@ -778,7 +802,7 @@
 
 /* Section titles */
 .fr-section-title {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Anton', sans-serif;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -798,7 +822,7 @@
   flex: 1 1 0;
   min-width: calc(var(--sw) * 24);
   max-width: calc(var(--sw) * 34);
-  background: linear-gradient(180deg, rgba(20, 30, 46, 0.92), rgba(8, 13, 22, 0.94));
+  background: linear-gradient(180deg, rgba(13, 15, 21, 0.92), rgba(7, 8, 12, 0.94));
   border: calc(var(--sw) * 0.08) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.6);
   padding: calc(var(--sh) * 1.6) calc(var(--sw) * 1.4);
@@ -823,12 +847,12 @@
 
 /* Buttons */
 .fr-btn {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fr-steel-1);
-  background: linear-gradient(180deg, #263447 0%, #141d2a 100%);
+  background: linear-gradient(180deg, #1a1d26 0%, #0d0f15 100%);
   border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.35);
   cursor: pointer;
@@ -839,7 +863,7 @@
 .fr-btn:focus-visible {
   transform: translateY(-2px);
   border-color: var(--fr-ice);
-  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(159, 216, 255, 0.4);
+  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.4);
   outline: none;
 }
 .fr-btn:active {
@@ -850,7 +874,7 @@
   cursor: not-allowed;
 }
 .fr-btn-primary {
-  background: linear-gradient(180deg, #2f4d6b 0%, #16324a 100%);
+  background: linear-gradient(180deg, #0e3444 0%, #082430 100%);
   border-color: var(--fr-ice);
 }
 .fr-btn-gold {
@@ -870,7 +894,7 @@
 }
 .fr-plaque-diff {
   color: var(--fr-gold);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
 }
 .fr-plaque-hint {
@@ -881,28 +905,28 @@
 }
 
 .fr-roomcode {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   letter-spacing: 0.24em;
   color: var(--fr-ice);
-  background: rgba(6, 10, 18, 0.7);
+  background: rgba(7, 8, 12, 0.7);
   border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.35);
   padding: calc(var(--sh) * 0.7) calc(var(--sw) * 1.2);
 }
 .fr-waiting {
   color: var(--fr-steel-2);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   animation: fr-press-pulse 1400ms ease-in-out infinite;
 }
 .fr-input {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
   color: var(--fr-steel-1);
-  background: rgba(6, 10, 18, 0.8);
+  background: rgba(7, 8, 12, 0.8);
   border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.3);
   padding: calc(var(--sh) * 0.5) calc(var(--sw) * 0.8);
@@ -911,7 +935,7 @@
 }
 .fr-danger-text {
   color: var(--fr-danger);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
 }
 /* Mid-fight connection plate, one slot with two states. GRACE ("RIVAL CONNECTION LOST"): the
    rival's socket dropped and the server is holding the room open — pulsing danger text. Same
@@ -923,10 +947,10 @@
   top: 16%;
   transform: translateX(-50%);
   color: var(--fr-danger);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   letter-spacing: 0.18em;
   white-space: nowrap;
-  background: rgba(6, 10, 18, 0.7);
+  background: rgba(7, 8, 12, 0.7);
   border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.35);
   padding: calc(var(--sh) * 0.5) calc(var(--sw) * 0.9);
@@ -942,7 +966,7 @@
 /* matchEnd sub-line when the match was finished by auto-play after a disconnect. */
 .fr-autoplay-note {
   color: var(--fr-steel-2);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   letter-spacing: 0.14em;
 }
 
@@ -964,13 +988,13 @@
   display: flex;
   align-items: center;
   gap: calc(var(--sw) * 0.5);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
   font-size: calc(var(--sw) * 0.95);
   letter-spacing: 0.08em;
   color: var(--fr-steel-2);
-  background: rgba(6, 10, 18, 0.7);
-  border: 1px solid rgba(159, 216, 255, 0.18);
+  background: rgba(7, 8, 12, 0.7);
+  border: 1px solid rgba(41, 230, 255, 0.18);
   border-radius: calc(var(--sw) * 0.3);
   padding: calc(var(--sh) * 0.35) calc(var(--sw) * 0.9);
 }
@@ -998,9 +1022,9 @@
   gap: calc(var(--sh) * 0.5);
   padding: calc(var(--sh) * 1) calc(var(--sw) * 0.6);
   cursor: pointer;
-  background: linear-gradient(180deg, rgba(38, 54, 74, 0.95), rgba(14, 22, 34, 0.96));
+  background: linear-gradient(180deg, rgba(20, 24, 34, 0.95), rgba(13, 15, 21, 0.96));
   border: calc(var(--sw) * 0.1) solid;
-  border-image: linear-gradient(180deg, #9fd8ff, #3f6f9a) 1;
+  border-image: linear-gradient(180deg, #29e6ff, #0ea5e9) 1;
   border-radius: calc(var(--sw) * 0.45);
   color: var(--fr-steel-1);
   transition: transform 90ms ease, box-shadow 120ms ease, opacity 150ms ease, filter 150ms ease;
@@ -1010,20 +1034,20 @@
 .fr-pick:focus-visible:not(:disabled) {
   transform: translateY(-6px);
   box-shadow: 0 calc(var(--sh) * 0.6) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5),
-    0 0 calc(var(--sw) * 0.8) rgba(159, 216, 255, 0.45);
+    0 0 calc(var(--sw) * 0.8) rgba(41, 230, 255, 0.45);
   outline: none;
 }
 .fr-pick:active:not(:disabled) {
   transform: translateY(0) scale(0.96);
 }
 .fr-pick-label {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 900;
   letter-spacing: 0.08em;
   font-size: calc(var(--sw) * 1.35);
 }
 .fr-pick-tip {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
   font-size: calc(var(--sw) * 0.82);
   color: var(--fr-steel-2);
@@ -1037,8 +1061,8 @@
   color: var(--fr-ice);
 }
 .fr-pick.fr-pick-chosen {
-  border-image: linear-gradient(180deg, #d9f2ff, #6fb0dd) 1;
-  box-shadow: 0 0 calc(var(--sw) * 1.4) rgba(159, 216, 255, 0.8);
+  border-image: linear-gradient(180deg, #bff7ff, #0ea5e9) 1;
+  box-shadow: 0 0 calc(var(--sw) * 1.4) rgba(41, 230, 255, 0.8);
   transform: translateY(-3px) scale(1.04);
 }
 .fr-pick.fr-pick-dim {
@@ -1048,7 +1072,7 @@
 .fr-locked-tag {
   position: absolute;
   top: calc(var(--sh) * -1.4);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--fr-ice);
@@ -1062,15 +1086,15 @@
   inset: 0;
   z-index: 20;
   pointer-events: none;
-  background: radial-gradient(ellipse at var(--fr-spot-x, 50%) 60%, rgba(6, 10, 18, 0) 20%, rgba(6, 10, 18, 0.55) 75%);
+  background: radial-gradient(ellipse at var(--fr-spot-x, 50%) 60%, rgba(7, 8, 12, 0) 20%, rgba(7, 8, 12, 0.55) 75%);
 }
 
 /* Victory screen */
 .fr-victory-quote {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-style: italic;
   color: var(--fr-steel-1);
-  background: rgba(6, 10, 18, 0.7);
+  background: rgba(7, 8, 12, 0.7);
   border-left: calc(var(--sw) * 0.2) solid var(--fr-gold);
   border-radius: calc(var(--sw) * 0.2);
   padding: calc(var(--sh) * 0.8) calc(var(--sw) * 1.4);
@@ -1085,7 +1109,7 @@
   justify-content: center;
 }
 .fr-soon-tag {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.7em;
   color: var(--fr-gold);
   letter-spacing: 0.12em;
@@ -1106,7 +1130,7 @@
   justify-content: flex-end;
 }
 .fr-stake-scrim {
-  background: linear-gradient(180deg, rgba(6, 10, 18, 0.45) 0%, rgba(6, 10, 18, 0.35) 42%, rgba(6, 10, 18, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(7, 8, 12, 0.45) 0%, rgba(7, 8, 12, 0.35) 42%, rgba(7, 8, 12, 0.82) 100%);
 }
 .fr-stake-inner {
   position: relative;
@@ -1119,7 +1143,7 @@
   gap: calc(var(--sh) * 1);
 }
 .fr-stake-disclosure {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
   font-size: clamp(9px, calc(var(--sh) * 1.15), 12px);
   letter-spacing: 0.14em;
@@ -1135,7 +1159,7 @@
   gap: 8px;
 }
 .fr-reset-note {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.04em;
   color: var(--fr-steel-2);
@@ -1143,13 +1167,13 @@
 .fr-reset-bank {
   min-height: 44px;
   box-sizing: border-box;
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--fr-steel-1);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(159, 216, 255, 0.28);
+  border: 1px solid rgba(41, 230, 255, 0.28);
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;
@@ -1158,7 +1182,7 @@
 .fr-reset-bank:hover,
 .fr-reset-bank:focus-visible {
   border-color: var(--fr-ice);
-  background: rgba(159, 216, 255, 0.1);
+  background: rgba(41, 230, 255, 0.1);
   outline: none;
 }
 
@@ -1171,26 +1195,26 @@
   gap: calc(var(--sh) * 0.6);
   padding: calc(var(--sh) * 1) calc(var(--sw) * 1.2);
   /* Engraved metal plate — recessed, tabular, quiet. */
-  background: linear-gradient(180deg, rgba(18, 26, 40, 0.94), rgba(8, 13, 22, 0.96));
-  border: 1px solid rgba(159, 216, 255, 0.22);
+  background: linear-gradient(180deg, rgba(13, 15, 21, 0.94), rgba(7, 8, 12, 0.96));
+  border: 1px solid rgba(41, 230, 255, 0.22);
   border-radius: calc(var(--sw) * 0.35);
-  box-shadow: inset 0 1px 0 rgba(159, 216, 255, 0.12), 0 calc(var(--sh) * 0.5) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(41, 230, 255, 0.12), 0 calc(var(--sh) * 0.5) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5);
 }
 .fr-receipt-win {
-  border-color: rgba(201, 165, 92, 0.5);
+  border-color: rgba(255, 200, 61, 0.5);
 }
 .fr-receipt-loss {
-  border-color: rgba(143, 166, 189, 0.3);
+  border-color: rgba(152, 161, 179, 0.3);
 }
 .fr-receipt-title {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: clamp(9px, calc(var(--sh) * 1.2), 13px);
   letter-spacing: 0.24em;
   color: var(--fr-gold);
   text-align: center;
   padding-bottom: calc(var(--sh) * 0.4);
-  border-bottom: 1px solid rgba(159, 216, 255, 0.14);
+  border-bottom: 1px solid rgba(41, 230, 255, 0.14);
 }
 .fr-receipt-rows {
   display: flex;
@@ -1202,7 +1226,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: calc(var(--sw) * 1);
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: clamp(10px, calc(var(--sh) * 1.5), 15px);
 }
 .fr-receipt-row span {
@@ -1233,13 +1257,9 @@
   top: 10px;
   left: 12px;
   z-index: 80;
-  font-family: 'Geist Mono', monospace;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.42em;
-  color: var(--fr-gold);
-  opacity: 0.4;
-  text-shadow: 0 0 8px rgba(201, 165, 92, 0.25);
+  height: 15px;
+  width: auto;
+  opacity: 0.8;
   pointer-events: none;
   user-select: none;
 }
@@ -1255,10 +1275,10 @@
   align-items: center;
   justify-content: center;
   padding: 6px 12px;
-  background: rgba(16, 26, 36, 0.88);
+  background: rgba(13, 15, 21, 0.88);
   border: 1px solid var(--fr-gold-deep);
   border-radius: 8px;
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -1281,11 +1301,6 @@
    pinned to the bottom of the stage and centred. grid-template-columns fixes the 11-wide shape
    so 22 tiles wrap into exactly two rows. */
 .fr-select-grid {
-  position: absolute;
-  left: 50%;
-  bottom: calc(var(--sh) * 2);
-  transform: translateX(-50%);
-  z-index: 3;
   display: grid;
   grid-template-columns: repeat(11, auto);
   justify-content: center;
@@ -1301,7 +1316,7 @@
   min-height: 44px;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(20, 30, 46, 0.94), rgba(8, 13, 22, 0.96));
+  background: linear-gradient(180deg, rgba(13, 15, 21, 0.94), rgba(7, 8, 12, 0.96));
   border: calc(var(--sw) * 0.12) solid var(--fr-gold-deep);
   border-radius: calc(var(--sw) * 0.4);
   cursor: pointer;
@@ -1317,8 +1332,8 @@
 .fr-select-tile.fr-select-selected {
   border-color: var(--fr-gold);
   transform: translateY(-4px);
-  box-shadow: 0 0 calc(var(--sw) * 1.1) rgba(201, 165, 92, 0.85),
-    inset 0 0 0 calc(var(--sw) * 0.06) rgba(201, 165, 92, 0.55);
+  box-shadow: 0 0 calc(var(--sw) * 1.1) rgba(255, 200, 61, 0.85),
+    inset 0 0 0 calc(var(--sw) * 0.06) rgba(255, 200, 61, 0.55);
 }
 .fr-select-crop {
   position: absolute;
@@ -1334,13 +1349,13 @@
   top: calc(var(--sh) * 0.5);
   left: calc(var(--sw) * 0.5);
   z-index: 2;
-  font-family: 'Geist', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 900;
   letter-spacing: 0.06em;
   font-size: calc(var(--sw) * 1.1);
   line-height: 1;
-  color: #0a1018;
-  background: linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%);
+  color: #07080c;
+  background: linear-gradient(180deg, #ffd873 0%, #ffc83d 55%, #b8860b 100%);
   padding: calc(var(--sh) * 0.2) calc(var(--sw) * 0.5);
   border-radius: calc(var(--sw) * 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -1354,10 +1369,10 @@
   gap: calc(var(--sh) * 0.6);
   border-style: dashed;
   border-color: var(--fr-steel-3);
-  background: linear-gradient(180deg, rgba(14, 20, 30, 0.9), rgba(6, 10, 16, 0.94));
+  background: linear-gradient(180deg, rgba(13, 15, 21, 0.9), rgba(7, 8, 12, 0.94));
 }
 .fr-select-qmark {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 900;
   /* Sized for the smaller strip tile: one clear glyph, roughly a third of the tile height. */
   font-size: calc(var(--sw) * 2.4);
@@ -1372,7 +1387,7 @@
   position: absolute;
   z-index: 2;
   transform: translateY(-100%);
-  font-family: 'Geist', sans-serif;
+  font-family: 'Anton', sans-serif;
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1380,8 +1395,8 @@
   color: var(--fr-steel-1);
   white-space: nowrap;
   pointer-events: none;
-  text-shadow: 0 calc(var(--sh) * 0.25) 0 rgba(4, 8, 14, 0.95),
-    0 0 calc(var(--sw) * 0.5) rgba(6, 10, 18, 0.9),
+  text-shadow: 0 calc(var(--sh) * 0.25) 0 rgba(7, 8, 12, 0.95),
+    0 0 calc(var(--sw) * 0.5) rgba(7, 8, 12, 0.9),
     0 calc(var(--sh) * 0.45) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.75);
 }
 /* CONFIRM CTA — same gold accent family as the stake screen's commit button. Pinned to the
@@ -1391,15 +1406,15 @@
   right: calc(var(--sw) * 3);
   bottom: calc(var(--sh) * 4.5);
   z-index: 4;
-  color: #0a1018;
-  background: linear-gradient(180deg, #e7c877 0%, #c9a55c 55%, #8a6d2f 100%);
+  color: #07080c;
+  background: linear-gradient(180deg, #ffd873 0%, #ffc83d 55%, #b8860b 100%);
   border-color: var(--fr-gold);
 }
 .fr-select-confirm:hover,
 .fr-select-confirm:focus-visible {
-  border-color: #ffefc4;
-  color: #0a1018;
-  box-shadow: 0 0 calc(var(--sw) * 0.8) rgba(201, 165, 92, 0.6);
+  border-color: #ffe08a;
+  color: #07080c;
+  box-shadow: 0 0 calc(var(--sw) * 0.8) rgba(255, 200, 61, 0.6);
 }
 
 /* Title tucked to the top-centre so it never fights the two full-body previews below. */
@@ -1447,4 +1462,124 @@
    (mirrors the .fr-reduced .fr-state-video rule for the stage fighter). */
 .fr-reduced .fr-select-preview-video {
   display: none;
+}
+
+
+/* ---------------- Title 'by SWOOBZ' mark ---------------- */
+.fr-title-wordmark {
+  height: calc(var(--sh) * 2.2);
+  width: auto;
+  opacity: 0.5;
+  margin-top: calc(var(--sh) * 3);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---------------- Character-select bottom stack (arena row + roster) ---------------- */
+.fr-select-bottom {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--sh) * 2);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 1);
+}
+
+/* ---------------- Arena picker ---------------- */
+/* Same tile mechanics as fighter selection (real tiles + locked mystery tiles), Swoobz
+   glass/line language, wide 16:9 thumbs. Clicking a real tile sets the arena instantly
+   (live stage preview behind the scrim). The choice PERSISTS (localStorage) - never a popup. */
+.fr-arena-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.5);
+}
+.fr-arena-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: calc(var(--sh) * 1.5);
+  letter-spacing: 0.28em;
+  color: var(--fr-steel-2);
+}
+.fr-arena-row {
+  display: flex;
+  gap: calc(var(--sw) * 0.5);
+  justify-content: center;
+}
+.fr-arena-tile {
+  position: relative;
+  width: calc(var(--sw) * 8.5);
+  aspect-ratio: 16 / 9;
+  min-width: 44px;
+  padding: 0;
+  overflow: hidden;
+  background: var(--fr-plate);
+  border: calc(var(--sw) * 0.1) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.3);
+  cursor: pointer;
+  transition: transform 90ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+.fr-arena-tile:hover,
+.fr-arena-tile:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--fr-ice-big);
+  box-shadow: 0 0 calc(var(--sw) * 0.7) rgba(41, 230, 255, 0.4);
+  outline: none;
+}
+.fr-arena-tile.fr-arena-selected {
+  border-color: var(--fr-ice-big);
+  box-shadow: 0 0 calc(var(--sw) * 0.9) rgba(41, 230, 255, 0.55),
+    inset 0 0 0 calc(var(--sw) * 0.05) rgba(41, 230, 255, 0.4);
+}
+.fr-arena-thumb {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.fr-arena-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+.fr-arena-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: calc(var(--sh) * 0.25) calc(var(--sw) * 0.3);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: calc(var(--sw) * 0.72);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--fr-steel-1);
+  background: linear-gradient(0deg, rgba(7, 8, 12, 0.9), rgba(7, 8, 12, 0));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fr-arena-tile.fr-arena-selected .fr-arena-name {
+  color: var(--fr-ice);
+}
+.fr-arena-locked {
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+  border-color: var(--fr-steel-3);
+  background: linear-gradient(180deg, rgba(13, 15, 21, 0.9), rgba(7, 8, 12, 0.94));
+}
+.fr-arena-qmark {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: calc(var(--sw) * 1.6);
+  line-height: 1;
+  color: var(--fr-steel-3);
 }
