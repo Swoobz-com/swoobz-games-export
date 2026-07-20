@@ -1533,6 +1533,12 @@ export function FightExperience(): JSX.Element {
 
   const roundWinner = matchState.roundOver; // set during resolve/roundEnd
   const matchWinner = matchState.matchOver;
+  // Robustness fallback: matchEnd normally means a real engine KO (auto-play finishes a
+  // disconnected match to a natural matchOver), but if the overlay ever renders at matchEnd
+  // without one, the winner falls back to the settled receipt. Engine result wins when both
+  // exist (they can't disagree: settle and matchOver are set together on a KO).
+  const endWinner: 'p1' | 'p2' | null =
+    matchWinner ?? (phase === 'matchEnd' && ctl.receipt ? (ctl.receipt.playerWon ? 'p1' : 'p2') : null);
 
   // Winner/loser pose classes for roundEnd + matchEnd.
   const poseClass = (side: 'p1' | 'p2'): string => {
@@ -1777,6 +1783,18 @@ export function FightExperience(): JSX.Element {
             <Pips won={matchState.p1.roundsWon} side="p1" />
             <Pips won={matchState.p2.roundsWon} side="p2" />
             <TimerPlate seconds={shotClockSeconds} danger={timerDanger} />
+            {/* One banner slot, two states. GRACE (connectionLost): the rival's socket dropped
+                and the server holds the room open — pulsing danger text. AUTO PLAY (autoPlay):
+                the rival is gone for good; the match continues with the ghost's picks generated
+                locally — persistent steady text. */}
+            {mode === 'friend' && (friend.connectionLost || friend.autoPlay) && (
+              <div
+                className={`fr-connlost${friend.autoPlay ? ' fr-connlost-auto' : ''}`}
+                style={{ fontSize: 'calc(var(--sh) * 1.7)' }}
+              >
+                {friend.autoPlay ? 'RIVAL LEFT, AUTO PLAY' : 'RIVAL CONNECTION LOST'}
+              </div>
+            )}
             {/* Slot ring geometry (CAL) + per-character head crop (def.portrait) — merged so the
                 medallion frames each fighter's head wherever they land. */}
             <Portrait url={p1Still} cfg={{ ...CAL.portraitP1, ...p1Def.portrait }} mirrored={p1Mirrored} />
@@ -1984,14 +2002,6 @@ export function FightExperience(): JSX.Element {
               BACK
             </button>
             <div className="fr-overlay-content">
-              {ctl.friend.opponentLeft && (
-                <div
-                  className="fr-danger-text fr-disconnect-notice"
-                  style={{ fontSize: 'calc(var(--sh) * 1.7)', marginBottom: 'calc(var(--sh) * 2)' }}
-                >
-                  RIVAL DISCONNECTED · STAKE REFUNDED
-                </div>
-              )}
               {mode !== 'friend' ? (
                 <>
                   <div className="fr-section-title" style={{ fontSize: 'calc(var(--sh) * 3.4)', marginBottom: 'calc(var(--sh) * 2)' }}>
@@ -2063,7 +2073,7 @@ export function FightExperience(): JSX.Element {
                   )}
                   {friend.joinFailed && (
                     <div className="fr-danger-text" style={{ fontSize: 'calc(var(--sh) * 1.7)' }}>
-                      could not connect, try again
+                      could not connect, stake refunded, try again
                     </div>
                   )}
                 </div>
@@ -2089,13 +2099,18 @@ export function FightExperience(): JSX.Element {
           </div>
         )}
 
-        {phase === 'matchEnd' && matchWinner && (
+        {phase === 'matchEnd' && endWinner && (
           <div className="fr-overlay">
             <div className="fr-scrim" />
             <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 2)' }}>
               <div className="fr-banner fr-banner-gold" style={{ fontSize: 'calc(var(--sh) * 11)' }}>
-                {(matchWinner === 'p1' ? p1Def : p2Def).name} WINS
+                {(endWinner === 'p1' ? p1Def : p2Def).name} WINS
               </div>
+              {mode === 'friend' && friend.autoPlay && (
+                <div className="fr-autoplay-note" style={{ fontSize: 'calc(var(--sh) * 1.7)' }}>
+                  rival disconnected, auto play finished the match
+                </div>
+              )}
               {ctl.receipt && (
                 <div className={`fr-receipt${ctl.receipt.playerWon ? ' fr-receipt-win' : ' fr-receipt-loss'}`}>
                   <div className="fr-receipt-title">MATCH RECEIPT</div>

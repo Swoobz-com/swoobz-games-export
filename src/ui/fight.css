@@ -913,6 +913,38 @@
   color: var(--fr-danger);
   font-family: 'Geist Mono', monospace;
 }
+/* Mid-fight connection plate, one slot with two states. GRACE ("RIVAL CONNECTION LOST"): the
+   rival's socket dropped and the server is holding the room open — pulsing danger text. Same
+   steel/danger family as fr-waiting/fr-danger-text; under the shot-clock, above the stage
+   (banners are z 40, pickbar 45). */
+.fr-connlost {
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  transform: translateX(-50%);
+  color: var(--fr-danger);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  background: rgba(6, 10, 18, 0.7);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.35);
+  padding: calc(var(--sh) * 0.5) calc(var(--sw) * 0.9);
+  animation: fr-press-pulse 1400ms ease-in-out infinite;
+  z-index: 42;
+}
+/* AUTO PLAY state ("RIVAL LEFT, AUTO PLAY"): the rival is gone for good and the ghost's picks
+   are auto-generated — persistent, steady (no pulse), informational steel instead of danger. */
+.fr-connlost-auto {
+  color: var(--fr-steel-1);
+  animation: none;
+}
+/* matchEnd sub-line when the match was finished by auto-play after a disconnect. */
+.fr-autoplay-note {
+  color: var(--fr-steel-2);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.14em;
+}
 
 /* ---------------- Pick controls ---------------- */
 .fr-pickbar {

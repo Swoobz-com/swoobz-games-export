@@ -2,10 +2,22 @@
 //   - LocalSimTransport: the CPU-less mockup opponent (a fake remote with human-like delays).
 //     NOTE: friend mode no longer uses this at runtime; it survives for tests/sim injection.
 //   - WsTransport: the REAL relay client — one WebSocket to the dev/preview server's /fr-ws
-//     room relay (src/server/matchRelay.ts). Neither the engine nor the provider changes.
+//     room relay (src/server/matchRelay.ts), with auto-reconnect + resume inside the server's
+//     grace window. Neither the engine nor the provider changes shape for CPU mode.
 
 import type { Move } from '../engine/fightEngine';
 import { mulberry32, randomMove } from '../engine/fightEngine';
+
+/**
+ * Match lifecycle events beyond pairing (the reconnect-grace / auto-play layer):
+ * - 'peerLost': the opponent's socket dropped; the server holds the room open for grace.
+ * - 'peerBack': the opponent resumed within grace (or OUR own dropped socket resumed).
+ * - 'peerGone': the opponent is unreachable for good — either the server's grace expired on
+ *   them, or OUR own reconnect attempts were exhausted/rejected (symmetric: from this client's
+ *   view the opponent cannot be reached either way). The provider then finishes the match by
+ *   auto-playing the absent player's picks; it never settles early.
+ */
+export type MatchEvent = 'peerLost' | 'peerBack' | 'peerGone';
 
 export interface MatchTransport {
   createRoom(): Promise<string>;
@@ -15,6 +27,7 @@ export interface MatchTransport {
   sendProfile(fighterId: string): void;
   onOpponentProfile(cb: (fighterId: string) => void): () => void;
   onPresence(cb: (connected: boolean) => void): () => void;
+  onMatchEvent(cb: (ev: MatchEvent) => void): () => void;
   dispose(): void;
 }
 
@@ -113,6 +126,13 @@ export class LocalSimTransport implements MatchTransport {
     };
   }
 
+  // The simulated opponent never drops, resumes, or goes away.
+  onMatchEvent(_cb: (ev: MatchEvent) => void): () => void {
+    return () => {
+      /* never fires */
+    };
+  }
+
   onPresence(cb: (connected: boolean) => void): () => void {
     this.presenceListeners.push(cb);
     return () => {
@@ -136,6 +156,10 @@ export const MATCH_RELAY_PATH = '/fr-ws';
 // createRoom/join resolve within this budget no matter what: on socket error or timeout they
 // resolve to failure ('' / false) rather than hanging the UI forever.
 const CONNECT_TIMEOUT_MS = 5000;
+// Auto-reconnect (resume) after an unexpected socket drop while roomed: retry cadence and the
+// total budget before giving up ('peerGone': auto-play). Mirrors the server's RECONNECT_GRACE_MS.
+const RECONNECT_RETRY_MS = 1000;
+const RECONNECT_GRACE_MS = 10000;
 
 // Derived lazily (INSIDE the ctor, only when no url is injected) so importing this module in a
 // node test never touches `location`.
@@ -147,6 +171,7 @@ function defaultRelayUrl(): string {
 interface RelayMessage {
   t?: string;
   code?: string;
+  token?: string;
   exchange?: number;
   move?: Move;
   fighterId?: string;
@@ -156,28 +181,55 @@ interface RelayMessage {
 export class WsTransport implements MatchTransport {
   private url: string;
   private connectTimeoutMs: number;
+  private reconnectRetryMs: number;
+  private reconnectGraceMs: number;
+
   private ws: WebSocket | null = null;
   private open = false;
   private disposed = false;
   private sendQueue: string[] = [];
   private timers: ReturnType<typeof setTimeout>[] = [];
 
+  // Room identity for resume: issued by the server at create ({t:'room',code,token}) / join
+  // ({t:'joined',token}). Cleared on peerGone / failed resume / dispose.
+  private roomCode: string | null = null;
+  private token: string | null = null;
+  private pendingJoinCode: string | null = null;
+
+  // Reconnect state. Every reconnect timer lives in a NAMED field, is cleared on settle/dispose,
+  // and its callback is guarded (phase-13 timer law: a settled path can never fire later).
+  private reconnecting = false;
+  private retryTimer: ReturnType<typeof setTimeout> | null = null;
+  private graceTimer: ReturnType<typeof setTimeout> | null = null;
+
   private pickListeners: Array<(move: Move, exchange: number) => void> = [];
   private presenceListeners: Array<(connected: boolean) => void> = [];
   private profileListeners: Array<(fighterId: string) => void> = [];
+  private matchEventListeners: Array<(ev: MatchEvent) => void> = [];
 
   private pendingCreate: ((code: string) => void) | null = null;
   private pendingJoin: ((ok: boolean) => void) | null = null;
 
-  // Both params exist for node tests: `url` because node has no `location`, `connectTimeoutMs`
-  // so the timeout paths are testable without a 5s wait. Runtime callers use the defaults.
-  constructor(url?: string, connectTimeoutMs: number = CONNECT_TIMEOUT_MS) {
+  // All params exist for node tests: `url` because node has no `location`; the three timings so
+  // timeout/reconnect paths are testable without multi-second waits. Runtime uses the defaults.
+  constructor(
+    url?: string,
+    connectTimeoutMs: number = CONNECT_TIMEOUT_MS,
+    reconnectRetryMs: number = RECONNECT_RETRY_MS,
+    reconnectGraceMs: number = RECONNECT_GRACE_MS,
+  ) {
     this.url = url ?? defaultRelayUrl();
     this.connectTimeoutMs = connectTimeoutMs;
+    this.reconnectRetryMs = reconnectRetryMs;
+    this.reconnectGraceMs = reconnectGraceMs;
   }
 
   private emitPresence(connected: boolean): void {
     for (const cb of this.presenceListeners) cb(connected);
+  }
+
+  private emitMatchEvent(ev: MatchEvent): void {
+    for (const cb of this.matchEventListeners) cb(ev);
   }
 
   private ensureSocket(): WebSocket {
@@ -185,6 +237,7 @@ export class WsTransport implements MatchTransport {
     const ws = new WebSocket(this.url);
     this.ws = ws;
     ws.addEventListener('open', () => {
+      if (ws !== this.ws || this.disposed) return;
       this.open = true;
       const queued = this.sendQueue;
       this.sendQueue = [];
@@ -195,11 +248,17 @@ export class WsTransport implements MatchTransport {
       this.onMessage(raw);
     });
     ws.addEventListener('close', () => {
+      if (ws !== this.ws) return; // stale socket (already replaced)
       this.open = false;
+      // Unexpected drop while roomed: try to resume within the server's grace window. A close
+      // after dispose, or before we ever had a room, reconnects nothing.
+      if (!this.disposed && this.roomCode !== null && this.token !== null && !this.reconnecting) {
+        this.startReconnect();
+      }
     });
     ws.addEventListener('error', () => {
       // Connection-level failure. Any in-flight create/join resolves to failure; a live match
-      // learns of a dropped peer via a {t:'peer',connected:false} message, not this event.
+      // learns of a dropped peer via the grace events ('peerLost'/'peerGone'), never this event.
       this.pendingCreate?.('');
       this.pendingCreate = null;
       this.pendingJoin?.(false);
@@ -207,6 +266,95 @@ export class WsTransport implements MatchTransport {
       this.emitPresence(false);
     });
     return ws;
+  }
+
+  // ── Auto-reconnect (resume) ──────────────────────────────────────────────────────────
+  private startReconnect(): void {
+    this.reconnecting = true;
+    // Overall budget: when it expires we give up (peerGone). Cleared on success/dispose;
+    // callback guarded by the reconnecting flag inside failReconnect.
+    this.graceTimer = setTimeout(() => {
+      this.graceTimer = null;
+      this.failReconnect();
+    }, this.reconnectGraceMs);
+    this.attemptResume();
+  }
+
+  private attemptResume(): void {
+    if (this.disposed || !this.reconnecting || this.roomCode === null || this.token === null) return;
+    const ws = new WebSocket(this.url);
+    this.ws = ws;
+    this.open = false;
+    ws.addEventListener('open', () => {
+      if (ws !== this.ws || this.disposed || !this.reconnecting) return;
+      // Resume FIRST; queued gameplay frames flush only after {t:'resumed'} so the server has
+      // rebound this socket to the room before any of them arrive.
+      ws.send(JSON.stringify({ t: 'resume', code: this.roomCode, token: this.token }));
+    });
+    ws.addEventListener('message', (ev: MessageEvent) => {
+      const raw = typeof ev.data === 'string' ? ev.data : String(ev.data);
+      this.onMessage(raw);
+    });
+    ws.addEventListener('close', () => {
+      if (ws !== this.ws || this.disposed || !this.reconnecting) return;
+      this.open = false;
+      // Attempt failed: retry after the cadence delay (guarded; cleared on settle/dispose).
+      this.retryTimer = setTimeout(() => {
+        this.retryTimer = null;
+        if (this.disposed || !this.reconnecting) return;
+        this.attemptResume();
+      }, this.reconnectRetryMs);
+    });
+    ws.addEventListener('error', () => {
+      /* the 'close' that follows drives the retry */
+    });
+  }
+
+  private clearReconnectTimers(): void {
+    if (this.retryTimer !== null) {
+      clearTimeout(this.retryTimer);
+      this.retryTimer = null;
+    }
+    if (this.graceTimer !== null) {
+      clearTimeout(this.graceTimer);
+      this.graceTimer = null;
+    }
+  }
+
+  private finishResume(): void {
+    if (!this.reconnecting) return;
+    this.reconnecting = false;
+    this.clearReconnectTimers();
+    this.open = true;
+    const ws = this.ws;
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      const queued = this.sendQueue;
+      this.sendQueue = [];
+      for (const frame of queued) ws.send(frame);
+    }
+    // Our side of the link is whole again (mirrors the peer's 'peerBack').
+    this.emitMatchEvent('peerBack');
+  }
+
+  private failReconnect(): void {
+    if (!this.reconnecting) return;
+    this.reconnecting = false;
+    this.clearReconnectTimers();
+    const wasRoomed = this.roomCode !== null && this.token !== null;
+    this.roomCode = null;
+    this.token = null;
+    if (this.ws) {
+      try {
+        this.ws.close();
+      } catch {
+        /* already closing */
+      }
+    }
+    if (wasRoomed && !this.disposed) {
+      // Symmetric peerGone: we cannot reach the room anymore, so from this client's view the
+      // opponent is unreachable — auto-play takes over exactly as on the survivor's side.
+      this.emitMatchEvent('peerGone');
+    }
   }
 
   private onMessage(raw: string): void {
@@ -218,19 +366,43 @@ export class WsTransport implements MatchTransport {
     }
     switch (msg.t) {
       case 'room':
+        this.roomCode = msg.code ?? null;
+        this.token = msg.token ?? null;
         this.pendingCreate?.(msg.code ?? '');
         this.pendingCreate = null;
         break;
       case 'joined':
+        this.roomCode = this.pendingJoinCode;
+        this.token = msg.token ?? null;
+        this.pendingJoinCode = null;
         this.pendingJoin?.(true);
         this.pendingJoin = null;
         break;
       case 'joinFail':
+        this.pendingJoinCode = null;
         this.pendingJoin?.(false);
         this.pendingJoin = null;
         break;
       case 'peer':
         this.emitPresence(Boolean(msg.connected));
+        break;
+      case 'peerLost':
+        this.emitMatchEvent('peerLost');
+        break;
+      case 'peerBack':
+        this.emitMatchEvent('peerBack');
+        break;
+      case 'peerGone':
+        // The room is gone server-side: forget it so a later socket drop never tries to resume.
+        this.roomCode = null;
+        this.token = null;
+        this.emitMatchEvent('peerGone');
+        break;
+      case 'resumed':
+        this.finishResume();
+        break;
+      case 'resumeFail':
+        this.failReconnect();
         break;
       case 'pick':
         if (msg.move != null && typeof msg.exchange === 'number') {
@@ -301,6 +473,7 @@ export class WsTransport implements MatchTransport {
         resolve(ok);
       };
       this.pendingJoin = done;
+      this.pendingJoinCode = code;
       this.ensureSocket();
       timer = setTimeout(() => {
         if (settled) return;
@@ -333,6 +506,13 @@ export class WsTransport implements MatchTransport {
     };
   }
 
+  onMatchEvent(cb: (ev: MatchEvent) => void): () => void {
+    this.matchEventListeners.push(cb);
+    return () => {
+      this.matchEventListeners = this.matchEventListeners.filter((l) => l !== cb);
+    };
+  }
+
   onPresence(cb: (connected: boolean) => void): () => void {
     this.presenceListeners.push(cb);
     return () => {
@@ -342,13 +522,19 @@ export class WsTransport implements MatchTransport {
 
   dispose(): void {
     this.disposed = true;
+    this.reconnecting = false;
+    this.clearReconnectTimers();
     for (const handle of this.timers) clearTimeout(handle);
     this.timers = [];
     this.pendingCreate = null;
     this.pendingJoin = null;
+    this.pendingJoinCode = null;
+    this.roomCode = null;
+    this.token = null;
     this.pickListeners = [];
     this.presenceListeners = [];
     this.profileListeners = [];
+    this.matchEventListeners = [];
     if (this.ws) {
       try {
         this.ws.close();

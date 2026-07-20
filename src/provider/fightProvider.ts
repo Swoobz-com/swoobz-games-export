@@ -15,7 +15,7 @@ import type { ExchangeOutcome, ExchangeRecord, MatchState, Move } from '../engin
 import { applyExchange, createMatch, mulberry32, randomMove, startNextRound } from '../engine/fightEngine';
 import type { AiPersonality } from '../engine/fightAi';
 import { aiPick } from '../engine/fightAi';
-import type { MatchTransport } from '../transport/matchTransport';
+import type { MatchEvent, MatchTransport } from '../transport/matchTransport';
 import { WsTransport } from '../transport/matchTransport';
 import {
   playClash,
@@ -112,14 +112,21 @@ export interface FriendState {
   // Opaque fighter id the peer committed to (relayed verbatim; the provider never names or
   // branches on a character). Null until the peer's profile frame arrives.
   opponentFighterId: string | null;
-  // True once the peer socket dropped mid-match: the match was aborted and the stake refunded.
-  opponentLeft: boolean;
+  // True while the rival's socket is dropped and the server holds the room open for grace.
+  connectionLost: boolean;
+  // True once the rival is unreachable for good and the absent player's picks are auto-played
+  // (uniform random) so the match finishes to a natural KO end. Never settles early.
+  autoPlay: boolean;
 }
 
-// The match is live (a stake is committed and in play) in exactly these phases. A peer
-// disconnect in one of them aborts the match and refunds the stake; a disconnect at matchEnd
-// (already settled) or on any menu phase is a no-op.
-const DISCONNECT_ABORT_PHASES: readonly Phase[] = [
+// The match is live (a stake is committed and in play) in exactly these phases. A peerGone
+// event in one of them flips the match to AUTO-PLAY (the absent player's picks are generated
+// uniformly at random and the fight continues to its natural KO end — the survivor can win OR
+// lose honestly); at matchEnd (already settled) or on any menu phase the event is a no-op.
+// NO refunds and NO early settle mid-match. MONEY NOTE (Tim's accepted trade-off): if the
+// auto-played ghost wins, the survivor loses their stake and the pot goes uncollected (the
+// leaver's tab is gone) — money can evaporate, but a disconnector can never PROFIT.
+const MATCH_LIVE_PHASES: readonly Phase[] = [
   'vsIntro',
   'roundIntro',
   'fightBanner',
@@ -235,7 +242,8 @@ export function useFightController(
     connected: false,
     joinFailed: false,
     opponentFighterId: null,
-    opponentLeft: false,
+    connectionLost: false,
+    autoPlay: false,
   });
 
   // --- Wager layer state. Balance is read from localStorage ONCE at init; stake
@@ -252,6 +260,10 @@ export function useFightController(
   // One-shot settle guard: flipped true the first time a match settles so a
   // StrictMode double-invoke / re-render can't credit the pot twice.
   const settledRef = useRef<boolean>(false);
+  // One-shot stake tracker: true from commitStake (stake deducted) until the stake is CONSUMED —
+  // by settle (win/loss, auto-play included) or by a never-started refund. No path can
+  // path: no path can double-refund, refund-after-settle, or lose a committed stake silently.
+  const stakeCommittedRef = useRef<boolean>(false);
 
   // Persist balance on every change (idempotent; safe under StrictMode). This is
   // an effect, never a setState updater, so it does not violate the no-side-
@@ -276,6 +288,7 @@ export function useFightController(
   const unsubOpponentPickRef = useRef<(() => void) | null>(null);
   const unsubPresenceRef = useRef<(() => void) | null>(null);
   const unsubOpponentProfileRef = useRef<(() => void) | null>(null);
+  const unsubMatchEventRef = useRef<(() => void) | null>(null);
 
   // The friend transport is constructed ONCE per mounted controller from this factory (captured
   // on first render so a fresh default-factory identity each render doesn't re-acquire).
@@ -286,6 +299,10 @@ export function useFightController(
   // Keyed by exchange number so a pick can never be applied to the wrong round.
   const exchangeIdxRef = useRef<number>(0);
   const oppPickBufferRef = useRef<Map<number, Move>>(new Map());
+  // True once the rival is unreachable for good (peerGone): from then on the absent player's
+  // picks are auto-generated locally (uniform random — Nash-neutral, unexploitable, value-
+  // independent per RG-C5) and nothing is sent to the dead transport.
+  const opponentGoneRef = useRef<boolean>(false);
   // Latest-callback ref for applyBufferedOppPick so beginPicking / the pick listener can call it
   // without a useCallback dependency cycle (it transitively depends on beginPicking).
   const applyBufferedOppPickRef = useRef<() => void>(() => {});
@@ -309,9 +326,11 @@ export function useFightController(
     unsubOpponentPickRef.current?.();
     unsubPresenceRef.current?.();
     unsubOpponentProfileRef.current?.();
+    unsubMatchEventRef.current?.();
     unsubOpponentPickRef.current = null;
     unsubPresenceRef.current = null;
     unsubOpponentProfileRef.current = null;
+    unsubMatchEventRef.current = null;
     transportRef.current?.dispose();
     transportRef.current = null;
   }, []);
@@ -370,6 +389,8 @@ export function useFightController(
   const settleMatch = useCallback((winner: 'p1' | 'p2') => {
     if (settledRef.current) return;
     settledRef.current = true;
+    // The committed stake is consumed by this settle: no later path may refund it.
+    stakeCommittedRef.current = false;
     const stake = stakeRef.current;
     const playerWon = winner === 'p1';
     const pot = potLamports(stake);
@@ -387,6 +408,17 @@ export function useFightController(
       balanceAfterLamports: balanceAfter,
     });
     if (playerWon) playPayout();
+  }, []);
+
+  // Refund a committed stake for a match that NEVER started (creator backs out of the waiting
+  // room, join fails, connect fails). One-shot: the stakeCommittedRef guard means no path can
+  // double-refund or refund after a settle consumed the stake. Plain callback, never an updater.
+  const refundStakeIfCommitted = useCallback(() => {
+    if (!stakeCommittedRef.current) return;
+    stakeCommittedRef.current = false;
+    const refunded = balanceRef.current + stakeRef.current;
+    balanceRef.current = refunded;
+    setBalanceLamports(refunded);
   }, []);
 
   const resolveExchangeNow = useCallback(
@@ -481,7 +513,21 @@ export function useFightController(
           pendingRef.current = { ...pendingRef.current, p2: opponentMove };
         }
       } else if (modeRef.current === 'friend') {
-        transportRef.current?.sendPick(move, exchangeIdxRef.current);
+        if (opponentGoneRef.current) {
+          // AUTO-PLAY: the rival is gone for good — generate the ghost's move locally instead
+          // of sending to the dead transport. A REAL pick buffered before the drop (current
+          // exchange only) wins over generation. Uniform random is deliberate: Nash-neutral,
+          // unexploitable, value-independent (RG-C5) — never aiPick.
+          const buffered = oppPickBufferRef.current.get(exchangeIdxRef.current);
+          if (buffered != null) {
+            oppPickBufferRef.current.delete(exchangeIdxRef.current);
+            pendingRef.current = { ...pendingRef.current, p2: buffered };
+          } else {
+            pendingRef.current = { ...pendingRef.current, p2: randomMove(autoPickRngRef.current) };
+          }
+        } else {
+          transportRef.current?.sendPick(move, exchangeIdxRef.current);
+        }
       }
 
       tryReveal();
@@ -507,37 +553,47 @@ export function useFightController(
     return () => clearTimeout(handle);
   }, [phase, playerPick.locked, shotClockMs, pick]);
 
-  // A peer socket dropped while a staked match was live: abort the match once, refund the stake,
-  // reset the presentation, and land on the clean CHOOSE YOUR FIGHT screen with a notice. No-op
-  // outside a live match (matchEnd is already settled; menu phases have nothing to abort).
-  const handlePeerDisconnect = useCallback(() => {
-    if (!DISCONNECT_ABORT_PHASES.includes(phaseRef.current)) return;
-    clearAllTimers();
-    // One-shot guard so no late scheduled settle can run after the refund.
-    settledRef.current = true;
-    // Refund the stake deducted at commit (plain callback, never a setState updater).
-    const refunded = balanceRef.current + stakeRef.current;
-    balanceRef.current = refunded;
-    setBalanceLamports(refunded);
-    // Reset match presentation state.
-    setMatchStateNow(createMatch());
-    setLastOutcome(null);
-    playerLockedRef.current = false;
-    setPlayerPick({ locked: false, move: null });
-    oppPickBufferRef.current.clear();
-    exchangeIdxRef.current = 0;
-    // Clear the mode so the player lands on the clean CHOOSE YOUR FIGHT screen (not the friend
-    // room view) with the disconnect notice on top.
-    modeRef.current = null;
-    setMode(null);
-    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: true });
-    setPhaseNow('mode');
-  }, [clearAllTimers, setMatchStateNow, setPhaseNow]);
+  // Match lifecycle events from the transport's reconnect-grace / auto-play layer. NO refunds
+  // and NO early settle mid-match: when the rival is unreachable for good ('peerGone'), the
+  // match CONTINUES with the absent player's picks auto-generated (uniform random) until it
+  // ends by a real KO and settles normally — the survivor can honestly win OR lose against the
+  // ghost. Outside a live match every event is a no-op (matchEnd already settled; menu phases
+  // have no stake in play).
+  const handleMatchEvent = useCallback(
+    (ev: MatchEvent) => {
+      if (modeRef.current !== 'friend') return;
+      if (!MATCH_LIVE_PHASES.includes(phaseRef.current)) return;
+      if (ev === 'peerLost') {
+        // Phases/timers keep running — a shot-clock auto-pick just gets relayed into the
+        // server's buffer toward the absent peer. Only the banner flag flips.
+        setFriend((prev) => ({ ...prev, connectionLost: true }));
+      } else if (ev === 'peerBack') {
+        setFriend((prev) => ({ ...prev, connectionLost: false }));
+      } else {
+        // 'peerGone': flip to auto-play. Do NOT clear timers, do NOT settle, do NOT change
+        // phase — the match keeps flowing; pick() now generates the ghost's moves.
+        opponentGoneRef.current = true;
+        setFriend((prev) => ({ ...prev, connectionLost: false, autoPlay: true }));
+        // UNSTICK the current exchange: the player may already be locked and waiting on a rival
+        // pick that will never come. A REAL pick buffered before the drop always wins over
+        // generation (drain it first); only a truly missing pick is auto-generated.
+        if (phaseRef.current === 'picking' && pendingRef.current.p1 && !pendingRef.current.p2) {
+          applyBufferedOppPickRef.current();
+          if (phaseRef.current === 'picking' && pendingRef.current.p1 && !pendingRef.current.p2) {
+            pendingRef.current = { ...pendingRef.current, p2: randomMove(autoPickRngRef.current) };
+            tryReveal();
+          }
+        }
+      }
+    },
+    [tryReveal],
+  );
 
   const subscribeFriendChannels = useCallback(() => {
     unsubOpponentPickRef.current?.();
     unsubPresenceRef.current?.();
     unsubOpponentProfileRef.current?.();
+    unsubMatchEventRef.current?.();
     const transport = transportRef.current;
     if (!transport) {
       return;
@@ -551,6 +607,7 @@ export function useFightController(
     unsubOpponentProfileRef.current = transport.onOpponentProfile((fighterId) => {
       setFriend((prev) => ({ ...prev, opponentFighterId: fighterId }));
     });
+    unsubMatchEventRef.current = transport.onMatchEvent(handleMatchEvent);
     unsubPresenceRef.current = transport.onPresence((connected) => {
       setFriend((prev) => ({ ...prev, connected }));
       if (connected && phaseRef.current === 'mode') {
@@ -559,11 +616,9 @@ export function useFightController(
         schedule(() => {
           startRoundIntro();
         }, VS_INTRO_MS);
-      } else if (!connected && modeRef.current === 'friend') {
-        handlePeerDisconnect();
       }
     });
-  }, [schedule, startRoundIntro, setPhaseNow, setMatchStateNow, handlePeerDisconnect]);
+  }, [schedule, startRoundIntro, setPhaseNow, setMatchStateNow, handleMatchEvent]);
 
   // Acquire a FRESH friend transport for a new match: dispose any prior one, construct from the
   // captured factory, and (re)subscribe the channels on it.
@@ -575,6 +630,12 @@ export function useFightController(
 
   const enterModeSelect = useCallback(() => {
     clearAllTimers();
+    // Backing out of a friend match that NEVER started (still in the waiting room, 'mode'
+    // phase): the committed stake comes back. A live match reached vsIntro+, so this can never
+    // refund a fled fight.
+    if (modeRef.current === 'friend' && phaseRef.current === 'mode') {
+      refundStakeIfCommitted();
+    }
     disposeFriendTransport();
     // A clean mode screen: drop any half-selected mode so the CPU/friend cards
     // (not a stale room-code view) always render. Balance/receipt persist.
@@ -583,9 +644,10 @@ export function useFightController(
     aiPersonalityRef.current = null;
     setAiPersonality(null);
     pendingStartRef.current = null;
-    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
+    opponentGoneRef.current = false;
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
     setPhaseNow('mode');
-  }, [clearAllTimers, disposeFriendTransport, setPhaseNow]);
+  }, [clearAllTimers, refundStakeIfCommitted, disposeFriendTransport, setPhaseNow]);
 
   // ── The real match starts (run by commitStake once the wager is locked) ──
   const beginCpuMatch = useCallback(
@@ -614,18 +676,21 @@ export function useFightController(
     setLastOutcome(null);
     exchangeIdxRef.current = 0;
     oppPickBufferRef.current.clear();
-    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
+    opponentGoneRef.current = false;
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
     setPhaseNow('mode');
     acquireFriendTransport();
     transportRef.current?.createRoom().then((code) => {
-      // '' means the socket failed to open (error / connect timeout): surface it as a failure.
+      // '' means the socket failed to open (error / connect timeout): the match never started,
+      // so the committed stake comes back and the failure message shows.
       if (code === '') {
+        refundStakeIfCommitted();
         setFriend((prev) => ({ ...prev, joinFailed: true }));
       } else {
         setFriend((prev) => ({ ...prev, roomCode: code }));
       }
     });
-  }, [clearAllTimers, acquireFriendTransport, setPhaseNow]);
+  }, [clearAllTimers, acquireFriendTransport, refundStakeIfCommitted, setPhaseNow]);
 
   const beginFriendJoin = useCallback(
     (code: string) => {
@@ -637,16 +702,20 @@ export function useFightController(
       setLastOutcome(null);
       exchangeIdxRef.current = 0;
       oppPickBufferRef.current.clear();
-      setFriend({ roomCode: code, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
+      opponentGoneRef.current = false;
+      setFriend({ roomCode: code, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
       setPhaseNow('mode');
       acquireFriendTransport();
       transportRef.current?.join(code).then((ok) => {
         if (!ok) {
+          // The match never started (unknown/full room, connect failure, timeout): the
+          // committed stake comes back.
+          refundStakeIfCommitted();
           setFriend((prev) => ({ ...prev, joinFailed: true }));
         }
       });
     },
-    [clearAllTimers, acquireFriendTransport, setPhaseNow],
+    [clearAllTimers, acquireFriendTransport, refundStakeIfCommitted, setPhaseNow],
   );
 
   // ── Stake phase ──────────────────────────────────────────────────────────
@@ -712,6 +781,9 @@ export function useFightController(
     setBalanceLamports(newBalance);
     setStakeLamports(stake);
     settledRef.current = false;
+    // The stake is now in play: consumed by settle (win/loss, auto-play included) or
+    // by a never-started refund — exactly one of the two, enforced by this one-shot.
+    stakeCommittedRef.current = true;
     playStakeCommit();
     const pending = pendingStartRef.current;
     if (!pending) return;
@@ -744,7 +816,7 @@ export function useFightController(
     setMode('friend');
     aiPersonalityRef.current = null;
     setAiPersonality(null);
-    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
     pendingStartRef.current = { kind: 'friendCreate' };
     enterCharSelect();
   }, [clearAllTimers, enterCharSelect]);
@@ -756,7 +828,7 @@ export function useFightController(
       setMode('friend');
       aiPersonalityRef.current = null;
       setAiPersonality(null);
-      setFriend({ roomCode: code, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
+      setFriend({ roomCode: code, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
       pendingStartRef.current = { kind: 'friendJoin', code };
       enterCharSelect();
     },
@@ -803,6 +875,13 @@ export function useFightController(
 
   const backToTitle = useCallback(() => {
     clearAllTimers();
+    // BACK from the friend waiting room ('mode' phase, match never started): refund the
+    // committed stake. Any other exit (mid-match flee included) does NOT refund — the stake
+    // stays consumed-or-lost; the one-shot flag is dropped so it can never refund later.
+    if (modeRef.current === 'friend' && phaseRef.current === 'mode') {
+      refundStakeIfCommitted();
+    }
+    stakeCommittedRef.current = false;
     disposeFriendTransport();
     modeRef.current = null;
     setMode(null);
@@ -813,13 +892,14 @@ export function useFightController(
     setReceipt(null);
     exchangeIdxRef.current = 0;
     oppPickBufferRef.current.clear();
+    opponentGoneRef.current = false;
     setMatchStateNow(createMatch());
     setLastOutcome(null);
     playerLockedRef.current = false;
     setPlayerPick({ locked: false, move: null });
-    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
     setPhaseNow('title');
-  }, [clearAllTimers, disposeFriendTransport, setPhaseNow, setMatchStateNow]);
+  }, [clearAllTimers, refundStakeIfCommitted, disposeFriendTransport, setPhaseNow, setMatchStateNow]);
 
   // Relay our committed fighter id to the peer (queue-safe: WsTransport buffers if the socket is
   // not open yet). No-op in CPU mode (no transport).

@@ -108,14 +108,25 @@ as the contract fallback ladder for future clip-less characters).
   presence, pick/profile relay (profile buffered until pairing), room drops on either
   close. Zero game logic server-side; each client runs the engine (RPS resolution is
   symmetric, so both converge without an authority).
-- Provider friend-mode machinery (phase 13): transport acquired FRESH per friend match
-  (CPU mode constructs none); opponent picks buffered in a Map keyed by exchange index
-  and drained on beginPicking (a pick arriving while this client is still in
-  fightBanner survives); mid-match peer disconnect = one-shot stake REFUND + clean mode
-  screen with `RIVAL DISCONNECTED · STAKE REFUNDED`; disconnect at matchEnd is a no-op
-  (already settled). Friend rematch still creates a fresh room each match (v1
-  limitation, on record). Opponent identity relays as an OPAQUE fighter id (provider
-  never branches on it); mirror matches (both pick the same fighter) render correctly.
+- Provider friend-mode machinery (phase 13, revised phase 14 per Tim's "never forfeit,
+  auto pick"): transport acquired FRESH per friend match (CPU mode constructs none);
+  opponent picks buffered in a Map keyed by exchange index and drained on beginPicking.
+  DISCONNECT DOCTRINE (phase 14): mid-match peer drop -> server holds the room a
+  RECONNECT_GRACE_MS (10s) window (survivor sees pulsing `RIVAL CONNECTION LOST`,
+  `.fr-connlost`; picks toward the absent member are buffered + flushed on resume);
+  WsTransport auto-reconnects with a resume token (fresh socket + `{t:'resume'}`); grace
+  expiry -> `{t:'peerGone'}` -> AUTO-PLAY: the match CONTINUES, absent player's picks =
+  `randomMove` uniform (Nash-neutral, unexploitable, RG-C5 value-independent; NEVER
+  aiPick), banner `RIVAL LEFT, AUTO PLAY` (`.fr-connlost-auto`), matchEnd note
+  `.fr-autoplay-note`, settle by REAL KO only (survivor can honestly win or lose vs the
+  ghost; leaver always nets -stake; ghost-win = pot uncollected, Tim's accepted
+  trade-off, on record). NO mid-match refunds ever (the rage-quit exploit). Stake
+  one-shot `stakeCommittedRef`: refund ONLY for never-started matches (waiting-room
+  back-out, join fail, connect fail — two silent stake leaks fixed in phase 14).
+  matchEnd disconnect is a no-op. Friend rematch still creates a fresh room each match
+  (v1 limitation). Opponent identity relays as an OPAQUE fighter id; mirror matches
+  render correctly. matchEnd overlay derives its winner from engine matchOver with a
+  receipt fallback (`endWinner`).
 - `scripts/` — the durable pipeline tools:
   - `key-idle-clips.mjs` — THE keying recipe (border-ring median screen color, tight
     global key + border-seeded flood fill with magenta-family candidacy, edge-band
@@ -235,6 +246,18 @@ Environment:
     frames (send+recv) — that frame log is ground truth for "who knew what when" and
     convicted learning 21 in one read. Driver of record: `verify-multiplayer.mjs` in
     the 2026-07-20 session scratchpad (rewrite from this description if gone).
+23. **Edge-touch scans lie; ANY re-encode can crush a feather** (phase 14, Tim's
+    outthebox report): the shipped specials passed the outermost-pixel edge scan
+    (edge alpha 0) while alpha hit 255 just 10px in — the phase-12 magenta-neutralize
+    re-encode had collapsed the 11b feather to an ~8px ramp that reads as a razor cut
+    in-arena. LAW: after ANY re-encode of a feathered clip, re-run the INSET-RING
+    profile (max alpha at 2/10/25/49/80px insets — 255 inside ~15px = cut, a healthy
+    wide feather ramps ~1/30/128/236/255 across 10-130px); fix = re-feather WIDE
+    (120px sides, 40px bottom if feet plant) on the decoded shipped frames + re-encode,
+    zero credits, dims/cals untouched. Also: Tim's mechanism guesses stay ~50% ("wider
+    box" was neither a CSS box nor regen — but his symptom was exact); and my repro
+    burst missed the arc peak twice — trigger bursts on VIDEO VISIBILITY
+    (opacity>0 && currentTime>0.1), not on banner text.
 
 ## 4. Credits / generation facts (Higgsfield MCP)
 

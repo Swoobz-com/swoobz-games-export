@@ -31,5 +31,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
+    // Serial test files: the two live-WebSocket suites (matchRelay/wsTransport) intermittently
+    // trip a tinypool "Worker exited unexpectedly" crash on Windows when run in PARALLEL
+    // workers (~1 in 10 full runs; never reproduced solo in 8+ runs each). The whole suite is
+    // ~1.3s, so serial costs nothing and makes the gate deterministic.
+    fileParallelism: false,
   },
 });
