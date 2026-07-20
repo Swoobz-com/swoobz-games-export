@@ -1,4 +1,4 @@
-// Frozen Requiem — STAKES math (pure, deterministic, no DOM).
+// STANDOFF (formerly Frozen Requiem) — STAKES math (pure, deterministic, no DOM).
 //
 // Winner-takes-all economy (Tim's spec): the player stakes S, the opponent
 // matches S, the pot is 2S, and the MATCH winner takes the whole pot while the

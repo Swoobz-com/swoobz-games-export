@@ -1,4 +1,4 @@
-/* Frozen Requiem — arcade presentation styling.
+/* STANDOFF (formerly Frozen Requiem) — arcade presentation styling.
    Compositor-friendly only: transform + opacity + filter keyframes, no per-frame layout.
    All magic timings live as module consts in FightExperience.tsx; durations here mirror the
    CSS-only ambient loops (idle breathing, pulses) which have no gameplay coupling. */

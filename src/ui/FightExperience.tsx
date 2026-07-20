@@ -1,4 +1,4 @@
-// Frozen Requiem — arcade presentation for the STRIKE / THROW / BLOCK duel.
+// STANDOFF (formerly Frozen Requiem) — arcade presentation for the STRIKE / THROW / BLOCK duel.
 // Presentation-only: ALL game logic/timing lives in useFightController(). This file reads the
 // controller's phase + state and renders the stage, the baked-HUD overlays (positioned in
 // PERCENT of a fixed 2816x1536 stage box so they track the art at any size), the two keyed
@@ -2418,9 +2418,7 @@ export function FightExperience(): JSX.Element {
             <div className="fr-scrim" />
             <div className="fr-overlay-content">
               <div className="fr-logo" style={{ fontSize: 'calc(var(--sh) * 13)' }}>
-                FROZEN
-                <br />
-                REQUIEM
+                STANDOFF
               </div>
               <div className="fr-logo-sub" style={{ fontSize: 'calc(var(--sh) * 1.7)' }}>
                 STRIKE · THROW · BLOCK

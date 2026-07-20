@@ -1,4 +1,4 @@
-// Frozen Requiem — CONQUEST MAP campaign math (pure, deterministic, no DOM, no React).
+// STANDOFF (formerly Frozen Requiem) — CONQUEST MAP campaign math (pure, deterministic, no DOM, no React).
 //
 // This is the money + progression brain of the campaign mode (CAMPAIGN-SPEC.md, phase 16). It
 // owns three things and nothing else:

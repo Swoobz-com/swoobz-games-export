@@ -89,6 +89,9 @@ export interface StakeReceipt {
 // Practice-bank balance persistence. Stored as a plain decimal lamport string
 // (BigInt has no JSON form), read once at init; any corrupt/absent value falls
 // back to the fresh practice bank.
+// NOTE: the game is branded STANDOFF (renamed 2026-07-20); every storage key keeps the
+// historic 'frozen-requiem.' prefix ON PURPOSE - renaming keys would silently wipe every
+// player's balance and campaign progress. Never rebrand the keys.
 const BALANCE_STORAGE_KEY = 'frozen-requiem.balance.v1';
 
 function loadBalance(): bigint {

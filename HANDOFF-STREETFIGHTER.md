@@ -1,6 +1,6 @@
-# HANDOFF — Frozen Requiem (RPS-as-MK-fighter), for a fresh Fable 5 session
+# HANDOFF — STANDOFF (formerly Frozen Requiem; RPS-as-MK-fighter), for a fresh Fable 5 session
 
-Working title Frozen Requiem. Folder `streetfighter/` (own git repo inside the
+Branded STANDOFF (Tim, 2026-07-20; was working title Frozen Requiem - visible brand only, storage keys keep the frozen-requiem. prefix FOREVER or player state wipes). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
 is canonical. HEAD at handoff: `d0a491d` (phase 16, CONQUEST MAP campaign; test count
 now **132/132**). Everything below is VERIFIED, not self-reported: every phase was
