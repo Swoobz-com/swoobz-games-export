@@ -78,7 +78,7 @@ export const VOLTA: FighterDef = {
     // lightning arc is BAKED IN (sanctioned effect exception). Backfist -> knee -> full spinning
     // voltage circle; the spin blow is the final contact the KO beat lands on.
     special: {
-      url: 'assets/fighter-2-special.webm',
+      url: 'assets/fighter-2-special-r2.webm',
       cal: { h: 99.93, bottom: 0.33, left: 50.28 },
       // Backfist -> full spinning voltage circle (wide-framed regeneration; peaks f38 / f62).
       contacts: [1583, 2583],

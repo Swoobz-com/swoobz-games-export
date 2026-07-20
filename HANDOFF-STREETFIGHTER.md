@@ -133,9 +133,12 @@ as the contract fallback ladder for future clip-less characters).
     despill 0.12, GLOBAL interior magenta-family suppress SUPPRESS_MIN 28 / KEEP 0.25 —
     safe ONLY while no character wears magenta, 2px feather, union-bbox crop, cal JSON
     via `--still`; cals are NEVER hand-derived).
-  - `edge-feather.mjs` — post-key smoothstep alpha ramp per edge (`--top 48` etc.) for
-    content that crosses the source frame (phase 11b law: dissolve, never cut; used on
-    GORVAK victory's raised cleaver + VOLTA victory's 3 spin frames).
+  - `edge-feather.mjs` — post-key smoothstep alpha ramp per edge (`--top 48` etc.),
+    LEGAL ONLY for prop overflow (a raised cleaver tip); for EFFECT clips use
+    radial-feather.mjs (learning 23: a straight fade contour reads as a box).
+  - `radial-feather.mjs` — the effect-clip feather of record (phase 14): asymmetric-
+    ellipse falloff centered on the character + 12px straight safety ramp; run on
+    PRE-feather frames restored from git; verify inset-ring profile + viewed curve.
   - `magenta-neutralize.mjs` — second-pass interior magenta-family neutralizer for
     keyed frame dirs (`<dir> 14 0.15`); fixes purple/pink residue pockets without
     touching fire (fails B>G) or cyan (fails R>G). Also works decode->fix->re-encode
@@ -246,17 +249,24 @@ Environment:
     frames (send+recv) — that frame log is ground truth for "who knew what when" and
     convicted learning 21 in one read. Driver of record: `verify-multiplayer.mjs` in
     the 2026-07-20 session scratchpad (rewrite from this description if gone).
-23. **Edge-touch scans lie; ANY re-encode can crush a feather** (phase 14, Tim's
-    outthebox report): the shipped specials passed the outermost-pixel edge scan
-    (edge alpha 0) while alpha hit 255 just 10px in — the phase-12 magenta-neutralize
-    re-encode had collapsed the 11b feather to an ~8px ramp that reads as a razor cut
-    in-arena. LAW: after ANY re-encode of a feathered clip, re-run the INSET-RING
-    profile (max alpha at 2/10/25/49/80px insets — 255 inside ~15px = cut, a healthy
-    wide feather ramps ~1/30/128/236/255 across 10-130px); fix = re-feather WIDE
-    (120px sides, 40px bottom if feet plant) on the decoded shipped frames + re-encode,
-    zero credits, dims/cals untouched. Also: Tim's mechanism guesses stay ~50% ("wider
-    box" was neither a CSS box nor regen — but his symptom was exact); and my repro
-    burst missed the arc peak twice — trigger bursts on VIDEO VISIBILITY
+23. **Edge-touch scans lie; ANY re-encode can crush a feather; and a SOFT STRAIGHT
+    fade still reads as a box** (phase 14, Tim's outthebox report — TWICE): the shipped
+    specials passed the outermost-pixel edge scan (edge alpha 0) while alpha hit 255
+    just 10px in (the phase-12 magenta-neutralize re-encode collapsed the 11b feather
+    to ~8px = razor cut). First fix attempt (wide 120px STRAIGHT-band re-feather)
+    softened the edge but Tim re-reported correctly: the fade CONTOUR was still the
+    rectangle, and the eye reads the contour, not the hardness. THE RECIPE OF RECORD
+    for effect clips is now `scripts/radial-feather.mjs`: asymmetric-ellipse falloff
+    centered on the character (defaults cx .5 / cy .56 / rx .53 / ryUp .61 /
+    ryDown .68, band .78->1.02, 12px straight safety ramp) applied to the PRE-feather
+    frames from git (never stack contours), so rings/arcs thin along their own
+    curvature; planted feet at bottom-center stay protected by the larger ryDown.
+    Verify = inset-ring profile (ramps like 0/14/113/206/250) + VIEWED composite (the
+    fade must follow a curve) + in-arena capture. Cache-bust the filename on any asset
+    swap (-r2) so a stale browser can't show the old clip. Straight-band edge-feather
+    stays legal only for PROP overflow (a cleaver tip), never for effects. Also: Tim's
+    mechanism guesses stay ~50% but his symptom reports are exact — and my repro burst
+    missed the arc peak twice; trigger bursts on VIDEO VISIBILITY
     (opacity>0 && currentTime>0.1), not on banner text.
 
 ## 4. Credits / generation facts (Higgsfield MCP)

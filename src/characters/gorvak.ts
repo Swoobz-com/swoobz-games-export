@@ -76,7 +76,7 @@ export const GORVAK: FighterDef = {
     // ribbon is BAKED IN (the sanctioned effect exception, Scorpion bar). Charge -> igniting
     // full-circle cleaver sweep; the ring blow is the final contact the KO beat lands on.
     special: {
-      url: 'assets/fighter-1-special.webm',
+      url: 'assets/fighter-1-special-r2.webm',
       cal: { h: 107.2, bottom: 0.77, left: 50.09 },
       // Charge -> cleaver rip -> igniting full-circle sweep (wide-framed regeneration so the
       // whole flame ring lives inside the canvas; motion peaks f38 / f47 / f62).
