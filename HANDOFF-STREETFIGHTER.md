@@ -2,15 +2,15 @@
 
 Working title Frozen Requiem. Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
-is canonical. HEAD at handoff: `02c61da` (phase 12 complete + the QA law baked in).
+is canonical. Phase 13 (real multiplayer) committed 2026-07-20.
 Everything below is VERIFIED, not self-reported: every phase was live-driven headless
-before its commit. Rewritten clean 2026-07-18 late-session after phase 12.
+before its commit. Rewritten clean 2026-07-18 after phase 12; amended for phase 13.
 
 FRESH-SESSION START HERE (in this order, before touching anything):
 1. Read this file fully, then `CHARACTER-CONTRACT.md` (THE LAW) if the task touches
    characters, and `FIGHT-SPEC.md` §8 for game rules.
-2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-12).
-3. `git log --oneline -15` to confirm HEAD matches; `npx vitest run` should print 62/62.
+2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-13).
+3. `git log --oneline -15` to confirm HEAD matches; `npx vitest run` should print 74/74.
 4. Ask Tim which backlog item (section 5) to start, or continue his explicit ask.
 
 ## 0. Operating model (Tim's standing directive — read first)
@@ -98,7 +98,24 @@ as the contract fallback ladder for future clip-less characters).
   + timing read the SAME index.
 - `src/ui/fight.css` — never combine -webkit-text-stroke with background-clip:text
   (Chrome miter-spike). Fight fx all on cubic-bezier(0.22,1,0.36,1).
-- `src/transport/matchTransport.ts` — PvP seam; LocalSimTransport fakes the friend.
+- `src/transport/matchTransport.ts` — PvP seam. **REAL since phase 13**: `WsTransport`
+  (one lazy socket to `/fr-ws`, queue-before-open, 5s connect timeout that is CLEARED on
+  settle and settled-guarded — learning 21) + `LocalSimTransport` (tests/sim injection
+  only). Interface carries `sendPick(move, exchange)` + `sendProfile(fighterId)`.
+- `src/server/matchRelay.ts` — the ws room relay embedded in vite dev AND preview via a
+  plugin (`vite.config.ts`); `noServer:true` upgrade listener owns ONLY `/fr-ws`, never
+  touches Vite HMR upgrades. Dumb verbatim relay: rooms by FRZxxx code, 2 clients, peer
+  presence, pick/profile relay (profile buffered until pairing), room drops on either
+  close. Zero game logic server-side; each client runs the engine (RPS resolution is
+  symmetric, so both converge without an authority).
+- Provider friend-mode machinery (phase 13): transport acquired FRESH per friend match
+  (CPU mode constructs none); opponent picks buffered in a Map keyed by exchange index
+  and drained on beginPicking (a pick arriving while this client is still in
+  fightBanner survives); mid-match peer disconnect = one-shot stake REFUND + clean mode
+  screen with `RIVAL DISCONNECTED · STAKE REFUNDED`; disconnect at matchEnd is a no-op
+  (already settled). Friend rematch still creates a fresh room each match (v1
+  limitation, on record). Opponent identity relays as an OPAQUE fighter id (provider
+  never branches on it); mirror matches (both pick the same fighter) render correctly.
 - `scripts/` — the durable pipeline tools:
   - `key-idle-clips.mjs` — THE keying recipe (border-ring median screen color, tight
     global key + border-seeded flood fill with magenta-family candidacy, edge-band
@@ -205,6 +222,19 @@ Environment:
     builder owned FightExperience.tsx, orchestrator owned manifests; stated explicitly
     in both briefs) and sequence follow-up briefs with SendMessage to the SAME agent
     (it keeps its context; round 2 cost no re-onboarding).
+21. **Success paths must cancel their timeout timers** (phase 13, caught live only): a
+    connect-timeout whose callback emitted presence(false) OUTSIDE the settled guard
+    fired 5s after a SUCCESSFUL createRoom and phantom-disconnect-aborted the creator's
+    live match — while 11 unit tests passed (each finished inside the timeout). The
+    acceptance drive must OUTLAST the longest timeout in the system. Fix pattern: clear
+    the timer on settle AND bail `if (settled)` first in the callback.
+22. **Two-page multiplayer drives need ISOLATED incognito contexts**
+    (`browser.createBrowserContext()` per player) — same-context tabs share
+    localStorage, so both players would share one practice bank and corrupt the settle
+    assertions. Also wrap `window.WebSocket` in evaluateOnNewDocument to log /fr-ws
+    frames (send+recv) — that frame log is ground truth for "who knew what when" and
+    convicted learning 21 in one read. Driver of record: `verify-multiplayer.mjs` in
+    the 2026-07-20 session scratchpad (rewrite from this description if gone).
 
 ## 4. Credits / generation facts (Higgsfield MCP)
 
@@ -225,13 +255,18 @@ Environment:
 
 ## 5. What to do next (Tim's priority order — ask him which)
 
-1. **Real multiplayer transport** (0 cr): WebSocket behind MatchTransport; friend-mode
-   staked flow live-verified end-to-end (only fake-connect was ever driven). Biggest
-   remaining feature; pure code, good builder-subagent shape.
-2. **Announcer VO** (RG-C5: zero-param audio fns, value-independent fanfares).
-3. **VS splash diagonal split** per FIGHT-SPEC.
-4. **Loss-path receipt live check** (math is unit-tested; never watched live).
-5. **Character #3**: one art drop from Tim -> keyed still -> clean anchor plate
+DONE phase 13 (2026-07-20): real multiplayer transport (was #1) — two-browser staked
+match live-verified end-to-end incl cross-client consistency, exact settle math both
+sides, mirror + non-mirror identity relay, disconnect refund, CPU-mode regression
+smoke. Loss-path receipt (was #4) verified live in the same drive (DEFEAT / $0.00 /
+bank $995 screenshot viewed). Known v1 limitations, on record: friend rematch creates
+a FRESH room (no in-room rematch protocol); peer pick payloads are not schema-validated
+(localhost practice-bank mockup); after a peer disconnect our own socket stays open
+until the next menu action / friend match (then disposed).
+
+1. **Announcer VO** (RG-C5: zero-param audio fns, value-independent fanfares).
+2. **VS splash diagonal split** per FIGHT-SPEC.
+3. **Character #3**: one art drop from Tim -> keyed still -> clean anchor plate
    (INSPECT it at full res, learning 1) -> acting table (contract §3; prefer
    opponent-free acting, learning 3) -> kit generation (~36 cr/clip, batch-approved) ->
    per-frame sweep (learning 10) BEFORE keying -> key -> measure contacts -> ONE
@@ -247,7 +282,7 @@ Environment:
 
 ## 6. Gates before ANY commit (all of them, quote real output)
 
-`npx tsc --noEmit` clean; `npx vitest run` **62/62** (grows with new test files);
+`npx tsc --noEmit` clean; `npx vitest run` **74/74** (grows with new test files);
 `npm run build` ok; `git diff --stat` shows fightEngine.ts + fightAi.ts untouched;
 live headless drive of the changed surface (both pick paths for anything touching
 characters; randomized picks; play-hook ground truth; screenshots you have VIEWED);
@@ -261,7 +296,7 @@ user.email erstrijbis@gmail.com (set locally).
 ## 7. Memory locations (SAVE-GLOBAL check before ending any task)
 
 Project memory: `~/.claude/projects/...streetfighter/memory/frozen-requiem-state.md`
-(full phase log, phases 3-12 — current through phase 12). Global:
+(full phase log, phases 3-13 — current through phase 13). Global:
 `~/.claude/memory/MEMORY.md` index; `genvideo-character-clip-lessons.md` carries
 lessons 8-9 (cause-free defeat prompts; phantom persistence); `effect-clip-edge-cut.md`;
 anchor hygiene lives in the global `higgsfield-generation` skill. The QA sweep is

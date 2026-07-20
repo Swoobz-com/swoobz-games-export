@@ -1007,7 +1007,17 @@ export function FightExperience(): JSX.Element {
   // (stills, clips, cals, names, quotes, fx bursts, mirroring) flows from these two defs + slot.
   const [playerId, setPlayerId] = useState<string>('gorvak');
   const p1Def = getFighter(playerId);
-  const opponentId = Object.keys(FIGHTERS).find((id) => id !== playerId) ?? playerId;
+  // The opponent is DERIVED (first OTHER registry entry) for CPU and until a friend's profile
+  // lands. In friend mode, once the peer relays its opaque fighter id (a known registry key), that
+  // is the real opponent — INCLUDING a mirror match (same id both slots), which the two distinct
+  // Fighter slots render fine (right slot mirrored by isMirrored). The profile only arrives after
+  // both sides commit, so the charSelect previews still show the derived opponent (distinct keys).
+  const derivedOpponentId = Object.keys(FIGHTERS).find((id) => id !== playerId) ?? playerId;
+  const friendOpponentId = ctl.friend.opponentFighterId;
+  const opponentId =
+    ctl.mode === 'friend' && friendOpponentId != null && friendOpponentId in FIGHTERS
+      ? friendOpponentId
+      : derivedOpponentId;
   const p2Def = getFighter(opponentId);
   const p1Still = `${ASSET_BASE}${p1Def.still}`;
   const p2Still = `${ASSET_BASE}${p2Def.still}`;
@@ -1061,6 +1071,16 @@ export function FightExperience(): JSX.Element {
   );
 
   const { phase, matchState, lastOutcome, playerPick, mode, aiPersonality, friend, shotClockSeconds } = ctl;
+
+  // Relay OUR fighter id to the peer once we're in a room (creator has a roomCode; either side
+  // once connected). Re-sends if the player changes fighter; the transport queues before open and
+  // the server relays the latest, so duplicate sends are harmless.
+  useEffect(() => {
+    if (mode === 'friend' && (friend.roomCode !== null || friend.connected)) {
+      ctl.sendFighterProfile(playerId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, friend.roomCode, friend.connected, playerId]);
 
   // Reconstruct both picks for the reveal plates from the just-committed history record.
   const lastRecord = matchState.history[matchState.history.length - 1];
@@ -1964,6 +1984,14 @@ export function FightExperience(): JSX.Element {
               BACK
             </button>
             <div className="fr-overlay-content">
+              {ctl.friend.opponentLeft && (
+                <div
+                  className="fr-danger-text fr-disconnect-notice"
+                  style={{ fontSize: 'calc(var(--sh) * 1.7)', marginBottom: 'calc(var(--sh) * 2)' }}
+                >
+                  RIVAL DISCONNECTED · STAKE REFUNDED
+                </div>
+              )}
               {mode !== 'friend' ? (
                 <>
                   <div className="fr-section-title" style={{ fontSize: 'calc(var(--sh) * 3.4)', marginBottom: 'calc(var(--sh) * 2)' }}>
@@ -2035,7 +2063,7 @@ export function FightExperience(): JSX.Element {
                   )}
                   {friend.joinFailed && (
                     <div className="fr-danger-text" style={{ fontSize: 'calc(var(--sh) * 1.7)' }}>
-                      could not join that room, try again
+                      could not connect, try again
                     </div>
                   )}
                 </div>

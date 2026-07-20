@@ -16,7 +16,7 @@ import { applyExchange, createMatch, mulberry32, randomMove, startNextRound } fr
 import type { AiPersonality } from '../engine/fightAi';
 import { aiPick } from '../engine/fightAi';
 import type { MatchTransport } from '../transport/matchTransport';
-import { LocalSimTransport } from '../transport/matchTransport';
+import { WsTransport } from '../transport/matchTransport';
 import {
   playClash,
   playClockTick,
@@ -109,7 +109,25 @@ export interface FriendState {
   roomCode: string | null;
   connected: boolean;
   joinFailed: boolean;
+  // Opaque fighter id the peer committed to (relayed verbatim; the provider never names or
+  // branches on a character). Null until the peer's profile frame arrives.
+  opponentFighterId: string | null;
+  // True once the peer socket dropped mid-match: the match was aborted and the stake refunded.
+  opponentLeft: boolean;
 }
+
+// The match is live (a stake is committed and in play) in exactly these phases. A peer
+// disconnect in one of them aborts the match and refunds the stake; a disconnect at matchEnd
+// (already settled) or on any menu phase is a no-op.
+const DISCONNECT_ABORT_PHASES: readonly Phase[] = [
+  'vsIntro',
+  'roundIntro',
+  'fightBanner',
+  'picking',
+  'reveal',
+  'resolve',
+  'roundEnd',
+];
 
 // --- Module-const timings (RG-C5: all timing is a module const, never derived/dynamic) ---
 export const SHOT_CLOCK_MS = 5000;
@@ -174,6 +192,8 @@ export interface FightController {
   continueNext: () => void;
   rematch: () => void;
   backToTitle: () => void;
+  /** Relay our committed fighter id to the peer (friend mode). Opaque string; no-op in CPU mode. */
+  sendFighterProfile: (id: string) => void;
 }
 
 function flatMatchHistory(state: MatchState): ExchangeRecord[] {
@@ -199,7 +219,9 @@ function outcomeSound(outcome: ExchangeOutcome, roundEnding: boolean): void {
 }
 
 export function useFightController(
-  transportFactory: () => MatchTransport = () => new LocalSimTransport(),
+  // The FRIEND transport factory. Default is the real relay client; tests/sim inject a
+  // LocalSimTransport. Acquired lazily per friend match (CPU mode never constructs a transport).
+  transportFactory: () => MatchTransport = () => new WsTransport(),
 ): FightController {
   const [phase, setPhase] = useState<Phase>('title');
   const [matchState, setMatchState] = useState<MatchState>(() => createMatch());
@@ -208,7 +230,13 @@ export function useFightController(
   const [shotClockMs, setShotClockMs] = useState<number>(SHOT_CLOCK_MS);
   const [lastOutcome, setLastOutcome] = useState<ExchangeOutcome | null>(null);
   const [playerPick, setPlayerPick] = useState<PlayerPickState>({ locked: false, move: null });
-  const [friend, setFriend] = useState<FriendState>({ roomCode: null, connected: false, joinFailed: false });
+  const [friend, setFriend] = useState<FriendState>({
+    roomCode: null,
+    connected: false,
+    joinFailed: false,
+    opponentFighterId: null,
+    opponentLeft: false,
+  });
 
   // --- Wager layer state. Balance is read from localStorage ONCE at init; stake
   // defaults to $5 clamped to that balance. ---
@@ -247,6 +275,20 @@ export function useFightController(
   const pendingRef = useRef<PendingPicks>({ p1: null, p2: null });
   const unsubOpponentPickRef = useRef<(() => void) | null>(null);
   const unsubPresenceRef = useRef<(() => void) | null>(null);
+  const unsubOpponentProfileRef = useRef<(() => void) | null>(null);
+
+  // The friend transport is constructed ONCE per mounted controller from this factory (captured
+  // on first render so a fresh default-factory identity each render doesn't re-acquire).
+  const friendTransportFactoryRef = useRef(transportFactory);
+
+  // Exchange sequencing (friend mode): our current exchange index, and any opponent picks that
+  // arrived for a FUTURE (or the current) exchange while we were still in an intro/banner phase.
+  // Keyed by exchange number so a pick can never be applied to the wrong round.
+  const exchangeIdxRef = useRef<number>(0);
+  const oppPickBufferRef = useRef<Map<number, Move>>(new Map());
+  // Latest-callback ref for applyBufferedOppPick so beginPicking / the pick listener can call it
+  // without a useCallback dependency cycle (it transitively depends on beginPicking).
+  const applyBufferedOppPickRef = useRef<() => void>(() => {});
 
   const clearAllTimers = useCallback(() => {
     for (const handle of timersRef.current) {
@@ -261,27 +303,28 @@ export function useFightController(
     return handle;
   }, []);
 
-  // Own the transport's lifecycle in effect setup/cleanup (not lazy-ref-in-render) so a
-  // StrictMode dev mount -> cleanup -> mount cycle disposes the FIRST instance and hands us
-  // a fresh, non-disposed SECOND instance -- never a permanently-disposed transport.
+  // Tear down the current friend transport: drop channel subscriptions and dispose the socket.
+  // CPU mode never has a transport, so this is a no-op there.
+  const disposeFriendTransport = useCallback(() => {
+    unsubOpponentPickRef.current?.();
+    unsubPresenceRef.current?.();
+    unsubOpponentProfileRef.current?.();
+    unsubOpponentPickRef.current = null;
+    unsubPresenceRef.current = null;
+    unsubOpponentProfileRef.current = null;
+    transportRef.current?.dispose();
+    transportRef.current = null;
+  }, []);
+
+  // Friend mode acquires its transport lazily (per match); the controller only needs to make sure
+  // that whatever transport exists is disposed on unmount. A StrictMode dev mount -> cleanup ->
+  // mount cycle simply disposes the (possibly-absent) transport and starts clean.
   useEffect(() => {
-    const transport = transportFactory();
-    transportRef.current = transport;
     return () => {
       clearAllTimers();
-      unsubOpponentPickRef.current?.();
-      unsubPresenceRef.current?.();
-      unsubOpponentPickRef.current = null;
-      unsubPresenceRef.current = null;
-      transport.dispose();
-      if (transportRef.current === transport) {
-        transportRef.current = null;
-      }
+      disposeFriendTransport();
     };
-    // Intentionally empty: transportFactory is a constructor-injected default that should
-    // only be invoked once per mounted controller, not on every render.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clearAllTimers]);
+  }, [clearAllTimers, disposeFriendTransport]);
 
   const setPhaseNow = useCallback((next: Phase) => {
     phaseRef.current = next;
@@ -299,6 +342,11 @@ export function useFightController(
     setPlayerPick({ locked: false, move: null });
     setShotClockMs(SHOT_CLOCK_MS);
     setPhaseNow('picking');
+    // Real race: the opponent's pick for THIS exchange can arrive while we were still in
+    // fightBanner/roundIntro. Now that we are picking, drain any buffered pick for this index.
+    if (modeRef.current === 'friend') {
+      applyBufferedOppPickRef.current();
+    }
   }, [setPhaseNow]);
 
   const startRoundIntro = useCallback(() => {
@@ -346,6 +394,9 @@ export function useFightController(
       setPhaseNow('resolve');
       const prev = matchStateRef.current;
       const next = applyExchange(prev, p1Move, p2Move);
+      // Advance the exchange counter in lockstep with the engine (both clients resolve the same
+      // exchange exactly once, so their indices stay aligned). Harmless/unused in CPU mode.
+      exchangeIdxRef.current += 1;
       setMatchStateNow(next);
 
       const outcome = next.history[next.history.length - 1].outcome;
@@ -394,6 +445,26 @@ export function useFightController(
     }
   }, [schedule, resolveExchangeNow, setPhaseNow]);
 
+  // Drain the opponent pick buffered for the CURRENT exchange, if we are picking. Called both
+  // when a pick arrives (onOpponentPick) and when we (re)enter picking (beginPicking) so a pick
+  // that landed early is never lost.
+  const applyBufferedOppPick = useCallback(() => {
+    if (phaseRef.current !== 'picking') return;
+    const idx = exchangeIdxRef.current;
+    const buffered = oppPickBufferRef.current.get(idx);
+    if (buffered != null) {
+      oppPickBufferRef.current.delete(idx);
+      pendingRef.current = { ...pendingRef.current, p2: buffered };
+      tryReveal();
+    }
+  }, [tryReveal]);
+
+  // Keep the latest-callback ref current (avoids a useCallback dependency cycle through
+  // beginPicking); an effect so nothing is written during render.
+  useEffect(() => {
+    applyBufferedOppPickRef.current = applyBufferedOppPick;
+  }, [applyBufferedOppPick]);
+
   const pick = useCallback(
     (move: Move) => {
       if (phaseRef.current !== 'picking' || playerLockedRef.current) {
@@ -410,7 +481,7 @@ export function useFightController(
           pendingRef.current = { ...pendingRef.current, p2: opponentMove };
         }
       } else if (modeRef.current === 'friend') {
-        transportRef.current?.sendPick(move);
+        transportRef.current?.sendPick(move, exchangeIdxRef.current);
       }
 
       tryReveal();
@@ -436,16 +507,49 @@ export function useFightController(
     return () => clearTimeout(handle);
   }, [phase, playerPick.locked, shotClockMs, pick]);
 
+  // A peer socket dropped while a staked match was live: abort the match once, refund the stake,
+  // reset the presentation, and land on the clean CHOOSE YOUR FIGHT screen with a notice. No-op
+  // outside a live match (matchEnd is already settled; menu phases have nothing to abort).
+  const handlePeerDisconnect = useCallback(() => {
+    if (!DISCONNECT_ABORT_PHASES.includes(phaseRef.current)) return;
+    clearAllTimers();
+    // One-shot guard so no late scheduled settle can run after the refund.
+    settledRef.current = true;
+    // Refund the stake deducted at commit (plain callback, never a setState updater).
+    const refunded = balanceRef.current + stakeRef.current;
+    balanceRef.current = refunded;
+    setBalanceLamports(refunded);
+    // Reset match presentation state.
+    setMatchStateNow(createMatch());
+    setLastOutcome(null);
+    playerLockedRef.current = false;
+    setPlayerPick({ locked: false, move: null });
+    oppPickBufferRef.current.clear();
+    exchangeIdxRef.current = 0;
+    // Clear the mode so the player lands on the clean CHOOSE YOUR FIGHT screen (not the friend
+    // room view) with the disconnect notice on top.
+    modeRef.current = null;
+    setMode(null);
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: true });
+    setPhaseNow('mode');
+  }, [clearAllTimers, setMatchStateNow, setPhaseNow]);
+
   const subscribeFriendChannels = useCallback(() => {
     unsubOpponentPickRef.current?.();
     unsubPresenceRef.current?.();
+    unsubOpponentProfileRef.current?.();
     const transport = transportRef.current;
     if (!transport) {
       return;
     }
-    unsubOpponentPickRef.current = transport.onOpponentPick((move) => {
-      pendingRef.current = { ...pendingRef.current, p2: move };
-      tryReveal();
+    unsubOpponentPickRef.current = transport.onOpponentPick((move, exchange) => {
+      // Buffer by exchange index; apply now if it's the one we're waiting on (else beginPicking
+      // drains it when we reach that exchange).
+      oppPickBufferRef.current.set(exchange, move);
+      applyBufferedOppPickRef.current();
+    });
+    unsubOpponentProfileRef.current = transport.onOpponentProfile((fighterId) => {
+      setFriend((prev) => ({ ...prev, opponentFighterId: fighterId }));
     });
     unsubPresenceRef.current = transport.onPresence((connected) => {
       setFriend((prev) => ({ ...prev, connected }));
@@ -455,12 +559,23 @@ export function useFightController(
         schedule(() => {
           startRoundIntro();
         }, VS_INTRO_MS);
+      } else if (!connected && modeRef.current === 'friend') {
+        handlePeerDisconnect();
       }
     });
-  }, [schedule, startRoundIntro, tryReveal, setPhaseNow, setMatchStateNow]);
+  }, [schedule, startRoundIntro, setPhaseNow, setMatchStateNow, handlePeerDisconnect]);
+
+  // Acquire a FRESH friend transport for a new match: dispose any prior one, construct from the
+  // captured factory, and (re)subscribe the channels on it.
+  const acquireFriendTransport = useCallback(() => {
+    disposeFriendTransport();
+    transportRef.current = friendTransportFactoryRef.current();
+    subscribeFriendChannels();
+  }, [disposeFriendTransport, subscribeFriendChannels]);
 
   const enterModeSelect = useCallback(() => {
     clearAllTimers();
+    disposeFriendTransport();
     // A clean mode screen: drop any half-selected mode so the CPU/friend cards
     // (not a stale room-code view) always render. Balance/receipt persist.
     modeRef.current = null;
@@ -468,9 +583,9 @@ export function useFightController(
     aiPersonalityRef.current = null;
     setAiPersonality(null);
     pendingStartRef.current = null;
-    setFriend({ roomCode: null, connected: false, joinFailed: false });
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
     setPhaseNow('mode');
-  }, [clearAllTimers, setPhaseNow]);
+  }, [clearAllTimers, disposeFriendTransport, setPhaseNow]);
 
   // ── The real match starts (run by commitStake once the wager is locked) ──
   const beginCpuMatch = useCallback(
@@ -497,13 +612,20 @@ export function useFightController(
     aiPersonalityRef.current = null;
     setAiPersonality(null);
     setLastOutcome(null);
-    setFriend({ roomCode: null, connected: false, joinFailed: false });
+    exchangeIdxRef.current = 0;
+    oppPickBufferRef.current.clear();
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
     setPhaseNow('mode');
-    subscribeFriendChannels();
+    acquireFriendTransport();
     transportRef.current?.createRoom().then((code) => {
-      setFriend((prev) => ({ ...prev, roomCode: code }));
+      // '' means the socket failed to open (error / connect timeout): surface it as a failure.
+      if (code === '') {
+        setFriend((prev) => ({ ...prev, joinFailed: true }));
+      } else {
+        setFriend((prev) => ({ ...prev, roomCode: code }));
+      }
     });
-  }, [clearAllTimers, subscribeFriendChannels, setPhaseNow]);
+  }, [clearAllTimers, acquireFriendTransport, setPhaseNow]);
 
   const beginFriendJoin = useCallback(
     (code: string) => {
@@ -513,16 +635,18 @@ export function useFightController(
       aiPersonalityRef.current = null;
       setAiPersonality(null);
       setLastOutcome(null);
-      setFriend({ roomCode: code, connected: false, joinFailed: false });
+      exchangeIdxRef.current = 0;
+      oppPickBufferRef.current.clear();
+      setFriend({ roomCode: code, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
       setPhaseNow('mode');
-      subscribeFriendChannels();
+      acquireFriendTransport();
       transportRef.current?.join(code).then((ok) => {
         if (!ok) {
           setFriend((prev) => ({ ...prev, joinFailed: true }));
         }
       });
     },
-    [clearAllTimers, subscribeFriendChannels, setPhaseNow],
+    [clearAllTimers, acquireFriendTransport, setPhaseNow],
   );
 
   // ── Stake phase ──────────────────────────────────────────────────────────
@@ -620,7 +744,7 @@ export function useFightController(
     setMode('friend');
     aiPersonalityRef.current = null;
     setAiPersonality(null);
-    setFriend({ roomCode: null, connected: false, joinFailed: false });
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
     pendingStartRef.current = { kind: 'friendCreate' };
     enterCharSelect();
   }, [clearAllTimers, enterCharSelect]);
@@ -632,7 +756,7 @@ export function useFightController(
       setMode('friend');
       aiPersonalityRef.current = null;
       setAiPersonality(null);
-      setFriend({ roomCode: code, connected: false, joinFailed: false });
+      setFriend({ roomCode: code, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
       pendingStartRef.current = { kind: 'friendJoin', code };
       enterCharSelect();
     },
@@ -679,10 +803,7 @@ export function useFightController(
 
   const backToTitle = useCallback(() => {
     clearAllTimers();
-    unsubOpponentPickRef.current?.();
-    unsubPresenceRef.current?.();
-    unsubOpponentPickRef.current = null;
-    unsubPresenceRef.current = null;
+    disposeFriendTransport();
     modeRef.current = null;
     setMode(null);
     aiPersonalityRef.current = null;
@@ -690,13 +811,21 @@ export function useFightController(
     pendingStartRef.current = null;
     settledRef.current = false;
     setReceipt(null);
+    exchangeIdxRef.current = 0;
+    oppPickBufferRef.current.clear();
     setMatchStateNow(createMatch());
     setLastOutcome(null);
     playerLockedRef.current = false;
     setPlayerPick({ locked: false, move: null });
-    setFriend({ roomCode: null, connected: false, joinFailed: false });
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, opponentLeft: false });
     setPhaseNow('title');
-  }, [clearAllTimers, setPhaseNow, setMatchStateNow]);
+  }, [clearAllTimers, disposeFriendTransport, setPhaseNow, setMatchStateNow]);
+
+  // Relay our committed fighter id to the peer (queue-safe: WsTransport buffers if the socket is
+  // not open yet). No-op in CPU mode (no transport).
+  const sendFighterProfile = useCallback((id: string) => {
+    transportRef.current?.sendProfile(id);
+  }, []);
 
   const shotClockSeconds = Math.ceil(shotClockMs / 1000);
   const canStake = balanceLamports >= MIN_STAKE;
@@ -729,5 +858,6 @@ export function useFightController(
     continueNext,
     rematch,
     backToTitle,
+    sendFighterProfile,
   };
 }
