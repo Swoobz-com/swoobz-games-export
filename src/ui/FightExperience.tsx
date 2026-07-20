@@ -14,6 +14,16 @@ import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
 import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
 import type { FighterDef, FighterState } from '../characters';
 import { ARENAS, getArena } from '../arenas/arenas';
+import {
+  CAMPAIGN_NODE_COUNT,
+  CAMPAIGN_NODES,
+  campaignPayout,
+  formatMult,
+  formatWinChance,
+  getCampaignNode,
+  TIERS,
+} from '../engine/fightCampaign';
+import type { CampaignTier } from '../engine/fightCampaign';
 // clipVariants is imported from the types module directly (the barrel re-exports only the types).
 import { clipVariants } from '../characters/types';
 // The character-select screen is the ONE place the UI fires its own sound (a UI tick on tile
@@ -162,6 +172,138 @@ const SELECT_CAL = {
   p1: { cx: 22, feetY: 74, h: 56 },
   p2: { cx: 78, feetY: 74, h: 56 },
 } as const;
+
+// ============================================================================================
+// MAP_CAL — conquest-map node positions, in PERCENT of the RENDERED MAP-IMAGE BOX
+// (public/assets/campaign-map.webp, 2752x1536, drawn in a fixed-aspect frame so the percentages
+// track the art at any size — the SAME discipline as the fight CAL block). Every disc must sit ON
+// the art's drawn dotted warpath. Values are the CAMPAIGN-SPEC §2 estimates (fine-tune +-2% on a
+// live screenshot). The art carries NO baked text: all names/numbers/flags/fog are drawn here.
+// ============================================================================================
+const MAP_CAL: Record<number, { x: number; y: number }> = {
+  1: { x: 27.5, y: 71.5 },
+  2: { x: 32.5, y: 64.5 },
+  3: { x: 38.5, y: 62.5 },
+  4: { x: 44.0, y: 57.5 },
+  5: { x: 48.5, y: 48.5 },
+  6: { x: 52.5, y: 33.5 },
+  7: { x: 58.0, y: 33.0 },
+  8: { x: 64.0, y: 31.5 },
+  9: { x: 69.5, y: 36.5 },
+  10: { x: 74.5, y: 28.5 },
+};
+// The two locked bonus isles (NW / SE in the art).
+const MAP_ISLES: { key: string; x: number; y: number }[] = [
+  { key: 'B1', x: 11, y: 18 },
+  { key: 'B2', x: 91, y: 83 },
+];
+
+// A short, concise in-fight progress hint per tier (fresh-player-comprehension law). Uses the
+// middle dot separator (never an em-dash — RG-C5 copy law). p1w/p2w are the player/enemy round wins.
+function objectiveProgress(tier: CampaignTier, p1w: number, p2w: number): string {
+  switch (tier) {
+    case 'takeRound':
+      return 'WIN ANY ONE ROUND TO CLAIM IT';
+    case 'winMatch':
+      return `FIRST TO 2 ROUNDS · ${p1w}-${p2w}`;
+    case 'flawlessRound':
+      return 'WIN A ROUND WITHOUT TAKING A HIT';
+    case 'win20':
+      return `ROUNDS ${p1w}/2 · LOSE ONE AND IT IS OVER`;
+    case 'winWithFlawless':
+      return `WIN THE MATCH · ONE ROUND MUST BE FLAWLESS · ${p1w}-${p2w}`;
+    case 'bossRequiem':
+      return `ROUNDS ${p1w}/2 · WIN 2-0 WITH A FLAWLESS ROUND`;
+    default: {
+      const exhaustive: never = tier;
+      return exhaustive;
+    }
+  }
+}
+
+// ============================================================================================
+// Conquest map — the shipped sumi-e island art (public/assets/campaign-map.webp) as a fixed-aspect
+// frame, with a code-drawn node/flag/fog layer on top (the art has no baked text). Node discs are
+// placed by MAP_CAL (percent of the frame). States: conquered (gold ring + planted flag), frontier
+// (pulsing blood-red ring, the active target — this map's accent), fogged (dim bone "?" disc, name
+// hidden: the UNKNOWN is the enemy, not the terrain). B1/B2 isles are always-locked COMING SOON.
+// ============================================================================================
+function CampaignMap({
+  beaten,
+  frontier,
+  assetBase,
+  onSelectNode,
+}: {
+  beaten: boolean[];
+  frontier: number;
+  assetBase: string;
+  onSelectNode: (nodeId: number) => void;
+}): JSX.Element {
+  return (
+    <div className="fr-map-frame" style={{ backgroundImage: `url(${assetBase}assets/campaign-map.webp)` }}>
+      {/* Faint route guide tying the numbered nodes in order. The art already draws the dotted
+          warpath; this low-opacity polyline just reinforces the 1..10 sequence over it. */}
+      <svg className="fr-map-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polyline
+          points={CAMPAIGN_NODES.map((n) => `${MAP_CAL[n.id].x},${MAP_CAL[n.id].y}`).join(' ')}
+          fill="none"
+          stroke="rgba(242, 243, 239, 0.20)"
+          strokeWidth="0.35"
+          strokeDasharray="1.1 1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+      {CAMPAIGN_NODES.map((node) => {
+        const idx = node.id - 1;
+        const conquered = beaten[idx];
+        const isFrontier = !conquered && idx === frontier;
+        const fogged = !conquered && idx > frontier;
+        const clickable = conquered || isFrontier;
+        const stateClass = conquered ? 'fr-map-conquered' : isFrontier ? 'fr-map-frontier' : 'fr-map-fogged';
+        const pos = MAP_CAL[node.id];
+        const label = conquered
+          ? `${node.name}, conquered`
+          : isFrontier
+            ? `${node.name}, ${node.title}, ${formatWinChance(node.tier)} percent win chance, pays ${formatMult(TIERS[node.tier].multBps)}x`
+            : 'Locked node, unknown enemy';
+        return (
+          <button
+            key={node.id}
+            type="button"
+            className={`fr-map-node ${stateClass}`}
+            style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+            onClick={clickable ? () => onSelectNode(node.id) : undefined}
+            disabled={!clickable}
+            aria-label={label}
+          >
+            <span className="fr-map-disc">
+              {conquered ? (
+                <span className="fr-map-flag" aria-hidden="true">
+                  &#9873;
+                </span>
+              ) : fogged ? (
+                <span className="fr-map-q" aria-hidden="true">
+                  ?
+                </span>
+              ) : (
+                <span className="fr-map-num">{node.id}</span>
+              )}
+            </span>
+            {!fogged && <span className="fr-map-label">{node.name}</span>}
+          </button>
+        );
+      })}
+      {MAP_ISLES.map((isle) => (
+        <div key={isle.key} className="fr-map-node fr-map-isle" style={{ left: `${isle.x}%`, top: `${isle.y}%` }} aria-hidden="true">
+          <span className="fr-map-disc">
+            <span className="fr-map-lock">&#10022;</span>
+          </span>
+          <span className="fr-map-coming">COMING SOON</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 // --- Choreography timings (module-const; RG-C5). All transform-based, single flashes. ---
 const CHO = {
@@ -1120,10 +1262,16 @@ export function FightExperience(): JSX.Element {
   // both sides commit, so the charSelect previews still show the derived opponent (distinct keys).
   const derivedOpponentId = Object.keys(FIGHTERS).find((id) => id !== playerId) ?? playerId;
   const friendOpponentId = ctl.friend.opponentFighterId;
+  // The active campaign node (campaign mode only): drives the enemy identity, the objective, and
+  // the node-card copy. VOLTA fills every slot this phase, so the enemy is the node's fighterId.
+  const campaignNode = ctl.mode === 'campaign' ? getCampaignNode(ctl.campaign.nodeId) : undefined;
+  const campaignTier = campaignNode ? TIERS[campaignNode.tier] : undefined;
   const opponentId =
-    ctl.mode === 'friend' && friendOpponentId != null && friendOpponentId in FIGHTERS
-      ? friendOpponentId
-      : derivedOpponentId;
+    ctl.mode === 'campaign' && campaignNode
+      ? campaignNode.fighterId
+      : ctl.mode === 'friend' && friendOpponentId != null && friendOpponentId in FIGHTERS
+        ? friendOpponentId
+        : derivedOpponentId;
   const p2Def = getFighter(opponentId);
   const p1Still = `${ASSET_BASE}${p1Def.still}`;
   const p2Still = `${ASSET_BASE}${p2Def.still}`;
@@ -1892,6 +2040,19 @@ export function FightExperience(): JSX.Element {
             <Pips won={matchState.p1.roundsWon} side="p1" />
             <Pips won={matchState.p2.roundsWon} side="p2" />
             <TimerPlate seconds={shotClockSeconds} danger={timerDanger} />
+            {/* CAMPAIGN OBJECTIVE STRIP (spec §4): persistent under the timer so a fresh player always
+                knows what completes the node. Cover-plate law: an OPAQUE coal plate, own footprint,
+                over the baked background. Space Grotesk copy, JetBrains Mono numbers, no em-dashes. */}
+            {mode === 'campaign' && campaignNode && campaignTier && (
+              <div className="fr-objective-strip" style={{ fontSize: 'calc(var(--sh) * 1.5)' }}>
+                <span className="fr-objective-main">
+                  OBJECTIVE: {campaignTier.objective} · PAYS x{formatMult(campaignTier.multBps)}
+                </span>
+                <span className="fr-objective-hint">
+                  {objectiveProgress(campaignNode.tier, matchState.p1.roundsWon, matchState.p2.roundsWon)}
+                </span>
+              </div>
+            )}
             {/* One banner slot, two states. GRACE (connectionLost): the rival's socket dropped
                 and the server holds the room open — pulsing danger text. AUTO PLAY (autoPlay):
                 the rival is gone for good; the match continues with the ghost's picks generated
@@ -2059,8 +2220,8 @@ export function FightExperience(): JSX.Element {
           </div>
         )}
 
-        {/* ---------------- Stake screen ---------------- */}
-        {phase === 'stake' && (
+        {/* ---------------- Stake screen (quick duel / friend) ---------------- */}
+        {phase === 'stake' && mode !== 'campaign' && (
           <div className="fr-overlay fr-stake-overlay">
             <div className="fr-scrim fr-stake-scrim" />
             <button
@@ -2113,6 +2274,89 @@ export function FightExperience(): JSX.Element {
           </div>
         )}
 
+        {/* ---------------- Campaign node card (stake) ---------------- */}
+        {phase === 'stake' && mode === 'campaign' && campaignNode && campaignTier && (
+          <div className="fr-overlay fr-stake-overlay">
+            <div className="fr-scrim fr-stake-scrim" />
+            <button
+              type="button"
+              className="fr-btn fr-back"
+              onClick={ctl.backToMap}
+              style={{ fontSize: 'calc(var(--sh) * 1.4)', padding: 'calc(var(--sh) * 0.6) calc(var(--sw) * 1)' }}
+            >
+              BACK
+            </button>
+            <div className="fr-stake-inner">
+              {/* NODE CARD: enemy portrait (same crop as the select tile) + title, objective line,
+                  WIN CHANCE (the exact tier %, Glass Box), PAYS xN.NN. */}
+              <div className="fr-nodecard">
+                <div className="fr-nodecard-portrait" style={{ transform: p2Mirrored ? 'scaleX(-1)' : undefined }}>
+                  <img
+                    src={p2Still}
+                    alt=""
+                    draggable={false}
+                    style={{
+                      width: `${p2Def.portrait.zoom * 100}%`,
+                      height: 'auto',
+                      left: `${50 - p2Def.portrait.headX * p2Def.portrait.zoom * 100}%`,
+                      top: `${50 - p2Def.portrait.headY * p2Def.portrait.zoom * 100}%`,
+                    }}
+                  />
+                </div>
+                <div className="fr-nodecard-info">
+                  <div className="fr-nodecard-node">
+                    NODE {campaignNode.id} · {campaignNode.name}
+                  </div>
+                  <div className="fr-nodecard-title">{campaignNode.title}</div>
+                  <div className="fr-nodecard-objective">{campaignTier.objective}</div>
+                  <div className="fr-nodecard-stats">
+                    <div className="fr-nodecard-stat">
+                      <span className="fr-nodecard-stat-label">WIN CHANCE</span>
+                      <span className="fr-nodecard-stat-value">{formatWinChance(campaignNode.tier)}%</span>
+                    </div>
+                    <div className="fr-nodecard-stat">
+                      <span className="fr-nodecard-stat-label">PAYS</span>
+                      <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignTier.multBps)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <BetConsole
+                theme={FR_BET_THEME}
+                eyebrow="STAKE THIS NODE"
+                hint="COMPLETE THE OBJECTIVE TO WIN. THE STAKE IS LOST IF YOU FAIL."
+                wagerLabel="YOUR STAKE"
+                wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
+                onStepDown={() => ctl.stepStake('down')}
+                onStepUp={() => ctl.stepStake('up')}
+                presets={STAKE_PRESETS}
+                activeWager={ctl.stakeLamports}
+                onPreset={(v) => ctl.setStake(v)}
+                toWin={{
+                  label: 'PAYS ON WIN',
+                  value: formatUsd(campaignPayout(ctl.stakeLamports, campaignTier.multBps)),
+                  sub: `x${formatMult(campaignTier.multBps)} · objective payout`,
+                }}
+                balanceLabel="BANK"
+                balanceValue={formatUsd(ctl.balanceLamports)}
+                commitLabel={`STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`}
+                onCommit={ctl.commitStake}
+                commitDisabled={!ctl.canStake}
+                disabledLabel="NOT ENOUGH IN BANK"
+                optionsLabel="OPTIONS"
+                options={
+                  <div className="fr-reset-wrap">
+                    <span className="fr-reset-note">Practice bank · not real funds. Restore it any time.</span>
+                    <button type="button" className="fr-reset-bank" onClick={ctl.resetBank}>
+                      RESET PRACTICE BANK
+                    </button>
+                  </div>
+                }
+              />
+            </div>
+          </div>
+        )}
+
         {/* ---------------- Non-fight screens ---------------- */}
         {phase === 'title' && (
           <button type="button" className="fr-overlay" onClick={ctl.enterModeSelect} style={{ cursor: 'pointer', background: 'none', border: 'none', color: 'inherit' }}>
@@ -2144,9 +2388,19 @@ export function FightExperience(): JSX.Element {
             <div className="fr-overlay-content">
               {mode !== 'friend' ? (
                 <>
-                  <div className="fr-section-title" style={{ fontSize: 'calc(var(--sh) * 3.4)', marginBottom: 'calc(var(--sh) * 2)' }}>
+                  <div className="fr-section-title" style={{ fontSize: 'calc(var(--sh) * 3.4)', marginBottom: 'calc(var(--sh) * 1.4)' }}>
                     CHOOSE YOUR FIGHT
                   </div>
+                  {/* CONQUEST MAP entry (spec §4): the staked campaign against RONIN ZERO. */}
+                  <button
+                    type="button"
+                    className="fr-btn fr-btn-primary fr-campaign-enter"
+                    onClick={ctl.enterCampaign}
+                    style={{ fontSize: 'calc(var(--sh) * 2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 2.4)', marginBottom: 'calc(var(--sh) * 2)' }}
+                  >
+                    CONQUEST MAP
+                    <span className="fr-campaign-enter-sub">Ronin Zero season · unlock the island</span>
+                  </button>
                   <div className="fr-cards">
                     <div className="fr-card">
                       <h3 style={{ fontSize: 'calc(var(--sh) * 2.4)' }}>VERSUS CPU</h3>
@@ -2222,6 +2476,33 @@ export function FightExperience(): JSX.Element {
           </div>
         )}
 
+        {/* ---------------- Conquest map ---------------- */}
+        {phase === 'campaignMap' && (
+          <div className="fr-overlay fr-map-overlay">
+            <div className="fr-scrim" />
+            <button
+              type="button"
+              className="fr-btn fr-back"
+              onClick={ctl.enterModeSelect}
+              style={{ fontSize: 'calc(var(--sh) * 1.4)', padding: 'calc(var(--sh) * 0.6) calc(var(--sw) * 1)' }}
+            >
+              BACK
+            </button>
+            <div className="fr-map-title fr-section-title" style={{ fontSize: 'calc(var(--sh) * 2.4)' }}>
+              CONQUEST · RONIN ZERO
+            </div>
+            <CampaignMap
+              beaten={ctl.campaign.beaten}
+              frontier={ctl.campaign.frontier}
+              assetBase={ASSET_BASE}
+              onSelectNode={ctl.startCampaignNode}
+            />
+            <div className="fr-map-rtp" style={{ fontSize: 'calc(var(--sh) * 1.3)' }}>
+              each trial returns 96% to players over time · practice bank, not real funds
+            </div>
+          </div>
+        )}
+
         {phase === 'vsIntro' && (
           <div className="fr-overlay">
             <div className="fr-scrim" />
@@ -2232,14 +2513,18 @@ export function FightExperience(): JSX.Element {
                 </div>
                 <div className="fr-banner" style={{ fontSize: 'calc(var(--sh) * 12)' }}>VS</div>
                 <div className="fr-nameplate" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
-                  {mode === 'cpu' ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? p2Def.name : p2Def.name}
+                  {mode === 'campaign' && campaignNode
+                    ? campaignNode.title
+                    : mode === 'cpu'
+                      ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? p2Def.name
+                      : p2Def.name}
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {phase === 'matchEnd' && endWinner && (
+        {phase === 'matchEnd' && mode !== 'campaign' && endWinner && (
           <div className="fr-overlay">
             <div className="fr-scrim" />
             <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 2)' }}>
@@ -2312,6 +2597,86 @@ export function FightExperience(): JSX.Element {
                   style={{ fontSize: 'calc(var(--sh) * 2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 1.8)' }}
                 >
                   QUIT
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ---------------- Campaign receipt ---------------- */}
+        {phase === 'matchEnd' && mode === 'campaign' && ctl.campaignReceipt && (
+          <div className="fr-overlay">
+            <div className="fr-scrim" />
+            <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 1.8)' }}>
+              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.28 and x8.77. */}
+              <div
+                className={`fr-banner ${ctl.campaignReceipt.met ? 'fr-banner-gold' : 'fr-banner-danger'}`}
+                style={{ fontSize: 'calc(var(--sh) * 8.5)' }}
+              >
+                {ctl.campaignReceipt.met ? 'OBJECTIVE COMPLETE' : 'OBJECTIVE FAILED'}
+              </div>
+              <div className="fr-campaign-node-line" style={{ fontSize: 'calc(var(--sh) * 2)' }}>
+                NODE {ctl.campaignReceipt.nodeId} · {ctl.campaignReceipt.nodeName}
+              </div>
+              <div className={`fr-receipt${ctl.campaignReceipt.met ? ' fr-receipt-win' : ' fr-receipt-loss'}`}>
+                <div className="fr-receipt-title">{ctl.campaignReceipt.objective}</div>
+                <div className="fr-receipt-rows">
+                  <div className="fr-receipt-row">
+                    <span>YOUR STAKE</span>
+                    <b>{formatUsd(ctl.campaignReceipt.stakeLamports)}</b>
+                  </div>
+                  <div className="fr-receipt-row">
+                    <span>MULTIPLIER</span>
+                    <b>x{formatMult(ctl.campaignReceipt.multBps)}</b>
+                  </div>
+                  <div className="fr-receipt-row fr-receipt-result">
+                    <span>RESULT</span>
+                    <b className={ctl.campaignReceipt.met ? 'fr-receipt-victory' : 'fr-receipt-defeat'}>
+                      {ctl.campaignReceipt.met ? 'COMPLETE' : 'FAILED'}
+                    </b>
+                  </div>
+                  <div className="fr-receipt-row">
+                    <span>PAYOUT</span>
+                    <b>{formatUsd(ctl.campaignReceipt.payoutLamports)}</b>
+                  </div>
+                  <div className="fr-receipt-row">
+                    <span>NET</span>
+                    <b>{formatUsd(ctl.campaignReceipt.netLamports)}</b>
+                  </div>
+                  <div className="fr-receipt-row">
+                    <span>BANK</span>
+                    <b>{formatUsd(ctl.campaignReceipt.balanceAfterLamports)}</b>
+                  </div>
+                </div>
+              </div>
+              <div className="fr-menu" style={{ marginTop: 'calc(var(--sh) * 1)' }}>
+                {ctl.campaignReceipt.met && ctl.campaignReceipt.nodeId < CAMPAIGN_NODE_COUNT && (
+                  <button
+                    type="button"
+                    className="fr-btn fr-btn-primary"
+                    autoFocus
+                    onClick={ctl.nextNode}
+                    style={{ fontSize: 'calc(var(--sh) * 2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 1.8)' }}
+                  >
+                    NEXT NODE
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={`fr-btn${ctl.campaignReceipt.met ? '' : ' fr-btn-primary'}`}
+                  autoFocus={!ctl.campaignReceipt.met}
+                  onClick={ctl.retryNode}
+                  style={{ fontSize: 'calc(var(--sh) * 2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 1.8)' }}
+                >
+                  RETRY
+                </button>
+                <button
+                  type="button"
+                  className="fr-btn"
+                  onClick={ctl.backToMap}
+                  style={{ fontSize: 'calc(var(--sh) * 2)', padding: 'calc(var(--sh) * 0.9) calc(var(--sw) * 1.8)' }}
+                >
+                  MAP
                 </button>
               </div>
             </div>

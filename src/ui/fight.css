@@ -1583,3 +1583,329 @@
   line-height: 1;
   color: var(--fr-steel-3);
 }
+
+/* ============================================================================================
+   CONQUEST CAMPAIGN (phase 16) — Ronin Zero season. DS tokens only; blood-red is the MAP accent
+   (matches the art's red citadel glow); cyan stays for interactive chrome; gold for money moments.
+   ============================================================================================ */
+
+/* MODE-screen CAMPAIGN entry */
+.fr-campaign-enter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.3);
+}
+.fr-campaign-enter-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 0.5em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ---------------- Conquest map ---------------- */
+.fr-map-overlay {
+  justify-content: flex-start;
+  gap: calc(var(--sh) * 1.2);
+  padding: calc(var(--sh) * 3) 0 calc(var(--sh) * 2);
+}
+/* Cover-plate law on the map screen: the baked cathedral HUD (PLAYER 1/2 plates, portrait
+   rings) must NOT ghost through around the map panel. Near-opaque ink, not glass. */
+.fr-map-overlay .fr-scrim {
+  background: #07080c;
+}
+.fr-map-title {
+  position: relative;
+  z-index: 1;
+}
+/* Fixed-aspect frame carrying the shipped map art as its background — its aspect ratio matches the
+   image (2752x1536) so background-size:cover == contain and the MAP_CAL percentages track the art. */
+.fr-map-frame {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 2752 / 1536;
+  /* Cap the width so the fixed-aspect frame's height never exceeds ~78% of the stage (leaving room
+     for the title + RTP line); 78 * sh * (2752/1536) is that height cap expressed as a width. */
+  width: min(94%, calc(var(--sh) * 78 * 2752 / 1536));
+  max-height: calc(var(--sh) * 78);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.5);
+  box-shadow: 0 calc(var(--sh) * 1) calc(var(--sh) * 3) rgba(0, 0, 0, 0.6);
+}
+.fr-map-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* A node marker: an absolutely-placed disc + label, centred on its MAP_CAL point. */
+.fr-map-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.3);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: default;
+}
+.fr-map-node:disabled {
+  cursor: default;
+}
+.fr-map-disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--sh) * 4.6);
+  height: calc(var(--sh) * 4.6);
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  background: var(--fr-plate-cover);
+  border: calc(var(--sw) * 0.12) solid var(--fr-steel-3);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: calc(var(--sh) * 2);
+  color: var(--fr-steel-1);
+  box-shadow: 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+}
+.fr-map-label {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: calc(var(--sh) * 1.35);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fr-steel-1);
+  white-space: nowrap;
+  background: rgba(7, 8, 12, 0.82);
+  border-radius: calc(var(--sw) * 0.25);
+  padding: calc(var(--sh) * 0.15) calc(var(--sw) * 0.5);
+}
+/* CONQUERED: gold ring + planted flag glyph. */
+.fr-map-conquered {
+  cursor: pointer;
+}
+.fr-map-conquered .fr-map-disc {
+  border-color: var(--fr-gold);
+  color: var(--fr-gold);
+  box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(255, 200, 61, 0.55), 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+}
+.fr-map-flag {
+  color: var(--fr-gold);
+  font-size: calc(var(--sh) * 2.2);
+  line-height: 1;
+}
+.fr-map-conquered .fr-map-label {
+  color: var(--fr-gold);
+}
+/* FRONTIER: the active target, pulsing blood-red (this map's accent). */
+.fr-map-frontier {
+  cursor: pointer;
+}
+.fr-map-frontier .fr-map-disc {
+  border-color: var(--fr-danger);
+  color: var(--fr-danger);
+  animation: fr-frontier-pulse 1500ms ease-in-out infinite;
+}
+.fr-map-frontier .fr-map-label {
+  color: var(--fr-steel-1);
+  border: 1px solid rgba(255, 65, 53, 0.5);
+}
+@keyframes fr-frontier-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(255, 65, 53, 0), 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 calc(var(--sw) * 1.1) rgba(255, 65, 53, 0.85), 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+  }
+}
+.fr-map-frontier:hover .fr-map-disc,
+.fr-map-frontier:focus-visible .fr-map-disc {
+  outline: none;
+  transform: scale(1.08);
+}
+/* FOGGED: the unknown is the ENEMY, not the terrain — a dim "?" disc, no name, art stays visible. */
+.fr-map-fogged .fr-map-disc {
+  opacity: 0.5;
+  border-color: var(--fr-steel-3);
+  color: var(--fr-steel-2);
+}
+.fr-map-q {
+  font-weight: 900;
+}
+/* Locked bonus isles (B1 NW / B2 SE). */
+.fr-map-isle .fr-map-disc {
+  border-style: dashed;
+  border-color: var(--fr-steel-3);
+  color: var(--fr-steel-3);
+  opacity: 0.7;
+}
+.fr-map-lock {
+  font-size: calc(var(--sh) * 1.8);
+  line-height: 1;
+}
+.fr-map-coming {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: calc(var(--sh) * 1.1);
+  letter-spacing: 0.14em;
+  color: var(--fr-steel-2);
+  background: rgba(7, 8, 12, 0.82);
+  border-radius: calc(var(--sw) * 0.25);
+  padding: calc(var(--sh) * 0.12) calc(var(--sw) * 0.45);
+}
+.fr-map-rtp {
+  position: relative;
+  z-index: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fr-steel-2);
+  opacity: 0.85;
+}
+/* Reduced motion: the frontier ring stops pulsing (stays lit). */
+.fr-reduced .fr-map-frontier .fr-map-disc {
+  animation: none;
+  box-shadow: 0 0 calc(var(--sw) * 0.7) rgba(255, 65, 53, 0.7), 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7);
+}
+
+/* ---------------- In-fight objective strip ---------------- */
+/* Cover-plate law: an OPAQUE coal plate under the timer, its own footprint, over the baked bg. */
+.fr-objective-strip {
+  position: absolute;
+  left: 50%;
+  top: 19.5%;
+  transform: translateX(-50%);
+  z-index: 41;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sh) * 0.25);
+  padding: calc(var(--sh) * 0.5) calc(var(--sw) * 1.2);
+  background: var(--fr-plate-cover);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.35);
+  white-space: nowrap;
+  box-shadow: 0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.6);
+}
+.fr-objective-main {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fr-steel-1);
+}
+.fr-objective-main,
+.fr-objective-hint {
+  font-variant-numeric: tabular-nums;
+}
+.fr-objective-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fr-ice);
+}
+
+/* ---------------- Node card (campaign stake) ---------------- */
+.fr-nodecard {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 1.4);
+  width: 100%;
+  padding: calc(var(--sh) * 1) calc(var(--sw) * 1.4);
+  background: linear-gradient(180deg, rgba(13, 15, 21, 0.94), rgba(7, 8, 12, 0.96));
+  border: 1px solid rgba(255, 65, 53, 0.35);
+  border-radius: calc(var(--sw) * 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 65, 53, 0.12), 0 calc(var(--sh) * 0.5) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5);
+}
+.fr-nodecard-portrait {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--sh) * 8);
+  height: calc(var(--sh) * 8);
+  min-width: 56px;
+  min-height: 56px;
+  overflow: hidden;
+  border-radius: calc(var(--sw) * 0.4);
+  border: calc(var(--sw) * 0.1) solid var(--fr-gold-deep);
+  background: var(--fr-plate-cover);
+}
+.fr-nodecard-portrait img {
+  position: absolute;
+}
+.fr-nodecard-info {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.3);
+  min-width: 0;
+}
+.fr-nodecard-node {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: calc(var(--sh) * 1.4);
+  letter-spacing: 0.12em;
+  color: var(--fr-steel-2);
+}
+.fr-nodecard-title {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: calc(var(--sh) * 2.4);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fr-steel-1);
+}
+.fr-nodecard-objective {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: calc(var(--sh) * 1.6);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fr-ice);
+}
+.fr-nodecard-stats {
+  display: flex;
+  gap: calc(var(--sw) * 2);
+  margin-top: calc(var(--sh) * 0.3);
+}
+.fr-nodecard-stat {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.1);
+}
+.fr-nodecard-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: calc(var(--sh) * 1.1);
+  letter-spacing: 0.14em;
+  color: var(--fr-steel-2);
+}
+.fr-nodecard-stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: calc(var(--sh) * 2);
+  font-variant-numeric: tabular-nums;
+  color: var(--fr-steel-1);
+}
+.fr-nodecard-pays {
+  color: var(--fr-gold);
+}
+
+/* Campaign receipt node line */
+.fr-campaign-node-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fr-steel-2);
+}

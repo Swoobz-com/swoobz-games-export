@@ -41,10 +41,19 @@ import {
   potLamports,
   settle,
 } from '../engine/fightStakes';
+import {
+  campaignPayout,
+  CAMPAIGN_NODE_COUNT,
+  evaluateObjective,
+  getCampaignNode,
+  TIERS,
+} from '../engine/fightCampaign';
+import type { CampaignTier, ObjectiveResult } from '../engine/fightCampaign';
 
 export type Phase =
   | 'title'
   | 'mode'
+  | 'campaignMap'
   | 'charSelect'
   | 'stake'
   | 'vsIntro'
@@ -56,14 +65,16 @@ export type Phase =
   | 'roundEnd'
   | 'matchEnd';
 
-export type Mode = 'cpu' | 'friend';
+export type Mode = 'cpu' | 'friend' | 'campaign';
 
 // What the stake phase will start once the wager is committed. Captured when the
-// player picks a CPU personality / enters the friend flow, replayed by commitStake.
+// player picks a CPU personality / enters the friend flow / selects a campaign node, replayed by
+// commitStake.
 type PendingStart =
   | { kind: 'cpu'; personality: AiPersonality }
   | { kind: 'friendCreate' }
-  | { kind: 'friendJoin'; code: string };
+  | { kind: 'friendJoin'; code: string }
+  | { kind: 'campaign'; nodeId: number };
 
 /** Frozen after settle — the numbers the victory/defeat receipt strip prints. */
 export interface StakeReceipt {
@@ -97,6 +108,83 @@ function saveBalance(value: bigint): void {
     localStorage.setItem(BALANCE_STORAGE_KEY, value.toString());
   } catch {
     /* storage unavailable (private mode / quota) — balance stays in-memory only */
+  }
+}
+
+/** Frozen after a campaign settle — the numbers the campaign receipt prints. Kept SEPARATE from
+ *  StakeReceipt so the quick-duel/friend winner-takes-all path stays byte-identical. */
+export interface CampaignReceipt {
+  nodeId: number;
+  nodeName: string;
+  tier: CampaignTier;
+  objective: string;
+  met: boolean;
+  stakeLamports: bigint;
+  multBps: bigint;
+  /** TOTAL credited on met (0 on failed); net = met ? payout - stake : -stake (stake gone at commit). */
+  payoutLamports: bigint;
+  netLamports: bigint;
+  balanceAfterLamports: bigint;
+}
+
+/** Campaign progression exposed to the UI. `beaten[i]` = node i+1 conquered; frontier = the first
+ *  unbeaten index (=== count when all conquered). nodeId = the active/selected node. */
+export interface CampaignState {
+  nodeId: number | null;
+  beaten: boolean[];
+  frontier: number;
+}
+
+// Campaign progression persistence (spec §5). Shape { v:1, beaten: boolean[10] }; corrupt/missing =
+// fresh. Balance stays the shared practice bank (BALANCE_STORAGE_KEY) via the existing paths.
+const CAMPAIGN_STORAGE_KEY = 'frozen-requiem.campaign.v1';
+
+/** Corrupt-safe parse of the persisted campaign progress into a fixed-length beaten[] (pure —
+ *  exported for unit tests). Anything malformed (bad JSON, wrong version, non-array) => all-false. */
+export function parseCampaignBeaten(raw: string | null): boolean[] {
+  const fresh = (): boolean[] => new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(false);
+  if (raw == null) return fresh();
+  try {
+    const data = JSON.parse(raw) as unknown;
+    if (typeof data !== 'object' || data === null) return fresh();
+    const rec = data as { v?: unknown; beaten?: unknown };
+    if (rec.v !== 1 || !Array.isArray(rec.beaten)) return fresh();
+    const beaten = fresh();
+    for (let i = 0; i < CAMPAIGN_NODE_COUNT; i += 1) beaten[i] = rec.beaten[i] === true;
+    return beaten;
+  } catch {
+    return fresh();
+  }
+}
+
+/** The frontier index: the first unbeaten node (0-based), or the count when all are conquered. Pure. */
+export function frontierOf(beaten: boolean[]): number {
+  const idx = beaten.findIndex((b) => !b);
+  return idx === -1 ? beaten.length : idx;
+}
+
+/** Return a NEW beaten[] with node `nodeId` (1-based) marked conquered. Pure (no mutation). */
+export function markBeaten(beaten: boolean[], nodeId: number): boolean[] {
+  const next = beaten.slice();
+  if (nodeId >= 1 && nodeId <= next.length) next[nodeId - 1] = true;
+  return next;
+}
+
+function loadCampaignBeaten(): boolean[] {
+  try {
+    if (typeof localStorage === 'undefined') return parseCampaignBeaten(null);
+    return parseCampaignBeaten(localStorage.getItem(CAMPAIGN_STORAGE_KEY));
+  } catch {
+    return parseCampaignBeaten(null);
+  }
+}
+
+function saveCampaignBeaten(beaten: boolean[]): void {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    localStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify({ v: 1, beaten }));
+  } catch {
+    /* storage unavailable (private mode / quota) — progress stays in-memory only */
   }
 }
 
@@ -180,6 +268,20 @@ export interface FightController {
   canStake: boolean;
   /** Settlement figures for the receipt strip; null until a match settles. */
   receipt: StakeReceipt | null;
+  // --- Campaign layer (spec §16). Untouched by quick-duel / friend paths. ---
+  campaign: CampaignState;
+  /** Settlement figures for the campaign receipt; null until a campaign match settles. */
+  campaignReceipt: CampaignReceipt | null;
+  /** Mode select -> the conquest map screen. */
+  enterCampaign: () => void;
+  /** Map -> node card (reuses the stake flow); arms the campaign match for this node. */
+  startCampaignNode: (nodeId: number) => void;
+  /** Campaign receipt -> re-stake the SAME node. */
+  retryNode: () => void;
+  /** Campaign receipt (on met, next exists) -> stake the NEXT node. */
+  nextNode: () => void;
+  /** Campaign receipt / node card -> back to the conquest map. */
+  backToMap: () => void;
   setStake: (lamports: bigint) => void;
   stepStake: (dir: 'up' | 'down') => void;
   commitStake: () => void;
@@ -252,6 +354,11 @@ export function useFightController(
   const [stakeLamports, setStakeLamports] = useState<bigint>(() => clampStake(DEFAULT_STAKE, balanceLamports));
   const [receipt, setReceipt] = useState<StakeReceipt | null>(null);
 
+  // --- Campaign layer state. Progress is read from localStorage ONCE at init (corrupt-safe). ---
+  const [campaignNodeId, setCampaignNodeId] = useState<number | null>(null);
+  const [campaignBeaten, setCampaignBeaten] = useState<boolean[]>(loadCampaignBeaten);
+  const [campaignReceipt, setCampaignReceipt] = useState<CampaignReceipt | null>(null);
+
   // Refs mirror balance/stake for synchronous reads inside plain callbacks (the
   // commit deduction + settle credit must never live in a setState updater).
   const balanceRef = useRef<bigint>(balanceLamports);
@@ -265,12 +372,29 @@ export function useFightController(
   // path: no path can double-refund, refund-after-settle, or lose a committed stake silently.
   const stakeCommittedRef = useRef<boolean>(false);
 
+  // --- Campaign refs (synchronous reads inside plain callbacks / timer bodies). ---
+  const campaignNodeIdRef = useRef<number | null>(null);
+  const campaignBeatenRef = useRef<boolean[]>(campaignBeaten);
+  // Running count of the PLAYER's flawless round wins this campaign match (fed to evaluateObjective).
+  const campaignFlawlessP1Ref = useRef<number>(0);
+  // The seeded per-match RNG for the campaign enemy's UNIFORM-RANDOM picks (randomMove ONLY, never
+  // aiPick — spec §0.2 money law). Reseeded at each campaign match start.
+  const campaignRngRef = useRef<() => number>(mulberry32((Date.now() ^ 0x1b873593) >>> 0));
+  // One-shot campaign settle guard: flipped true the first time a campaign match settles so a
+  // StrictMode double-invoke / re-render can't credit the payout twice (same pattern as settledRef).
+  const campaignSettledRef = useRef<boolean>(false);
+
   // Persist balance on every change (idempotent; safe under StrictMode). This is
   // an effect, never a setState updater, so it does not violate the no-side-
   // effects-in-reducers rule.
   useEffect(() => {
     saveBalance(balanceLamports);
   }, [balanceLamports]);
+
+  // Persist campaign progress on every change (idempotent; StrictMode-safe; same pattern as balance).
+  useEffect(() => {
+    saveCampaignBeaten(campaignBeaten);
+  }, [campaignBeaten]);
 
   // Refs mirror the state above for synchronous reads inside callbacks/timer bodies --
   // updated directly alongside every setState call, never lagging behind a render.
@@ -410,6 +534,51 @@ export function useFightController(
     if (playerWon) playPayout();
   }, []);
 
+  // Settle a CAMPAIGN match exactly once (spec §16). The objective verdict decides the money:
+  //   met  -> balance += campaignPayout(stake, multBps)  (net = payout - stake; the stake was
+  //           deducted at commit, so we credit the TOTAL payout here)
+  //   failed -> nothing credited (the stake is already gone)
+  // Guarded by campaignSettledRef (same one-shot pattern as settleMatch's settledRef). On met the
+  // node is marked beaten and persisted. Plain callback, never a setState updater. The celebration
+  // (playVictory earlier + playPayout here) is value-INDEPENDENT: identical fanfare for x1.28 and
+  // x8.77 (RG-C5 / RG-C5). P1 is ALWAYS the player, so the objective always judges the player.
+  const settleCampaign = useCallback((result: ObjectiveResult) => {
+    if (result === 'open') return; // never settle on an open objective
+    if (campaignSettledRef.current) return;
+    campaignSettledRef.current = true;
+    // The committed stake is consumed by this settle: no later path may refund it.
+    stakeCommittedRef.current = false;
+    const stake = stakeRef.current;
+    const node = getCampaignNode(campaignNodeIdRef.current);
+    const tierDef = node ? TIERS[node.tier] : null;
+    const multBps = tierDef ? tierDef.multBps : 0n;
+    const met = result === 'met';
+    const payout = met ? campaignPayout(stake, multBps) : 0n;
+    const balanceAfter = balanceRef.current + payout;
+    balanceRef.current = balanceAfter;
+    setBalanceLamports(balanceAfter);
+    setCampaignReceipt({
+      nodeId: node ? node.id : campaignNodeIdRef.current ?? 0,
+      nodeName: node ? node.name : '',
+      tier: node ? node.tier : 'takeRound',
+      objective: tierDef ? tierDef.objective : '',
+      met,
+      stakeLamports: stake,
+      multBps,
+      payoutLamports: payout,
+      netLamports: met ? payout - stake : -stake,
+      balanceAfterLamports: balanceAfter,
+    });
+    if (met) {
+      playPayout();
+      if (node) {
+        const nextBeaten = markBeaten(campaignBeatenRef.current, node.id);
+        campaignBeatenRef.current = nextBeaten;
+        setCampaignBeaten(nextBeaten);
+      }
+    }
+  }, []);
+
   // Refund a committed stake for a match that NEVER started (creator backs out of the waiting
   // room, join fails, connect fails). One-shot: the stakeCommittedRef guard means no path can
   // double-refund or refund after a settle consumed the stake. Plain callback, never an updater.
@@ -446,6 +615,45 @@ export function useFightController(
           ? RESOLVE_HIT_MS
           : RESOLVE_MS;
       schedule(() => {
+        // CAMPAIGN (spec §16): the objective is judged after every completed ROUND (never
+        // mid-round). While 'open' the fight continues exactly like a normal match; on 'met' /
+        // 'failed' we STOP starting rounds and settle ONCE. The engine is untouched — we simply
+        // stop calling startNextRound. Every campaign fight ends on a round boundary (the evaluator
+        // is only consulted at round end), so the round-win/loss beat always plays before settle.
+        if (modeRef.current === 'campaign') {
+          if (!next.roundOver) {
+            beginPicking();
+            return;
+          }
+          if (next.roundOver === 'p1' && next.flawless) campaignFlawlessP1Ref.current += 1;
+          const node = getCampaignNode(campaignNodeIdRef.current);
+          const tier: CampaignTier = node ? node.tier : 'winMatch';
+          const result = evaluateObjective(
+            tier,
+            next.p1.roundsWon,
+            next.p2.roundsWon,
+            campaignFlawlessP1Ref.current,
+            Boolean(next.matchOver),
+          );
+          if (next.flawless) playFlawless();
+          // Let the round-win/loss beat play in the roundEnd dwell (the KO/special/victory chain
+          // for this round-ending exchange already fired in the UI choreography, which arms on ANY
+          // round-ending win — no engine matchOver required).
+          setPhaseNow('roundEnd');
+          if (result === 'open') {
+            schedule(() => {
+              setMatchStateNow(startNextRound(next));
+              startRoundIntro();
+            }, ROUND_END_MS);
+          } else {
+            if (result === 'met') playVictory();
+            schedule(() => {
+              settleCampaign(result);
+              setPhaseNow('matchEnd');
+            }, ROUND_END_MS);
+          }
+          return;
+        }
         if (next.matchOver) {
           playVictory();
           settleMatch(next.matchOver);
@@ -464,7 +672,7 @@ export function useFightController(
         }
       }, resolveDelay);
     },
-    [schedule, beginPicking, startRoundIntro, setPhaseNow, setMatchStateNow, settleMatch],
+    [schedule, beginPicking, startRoundIntro, setPhaseNow, setMatchStateNow, settleMatch, settleCampaign],
   );
 
   const tryReveal = useCallback(() => {
@@ -512,6 +720,10 @@ export function useFightController(
           const opponentMove = aiPick(aiPersonalityRef.current, flatMatchHistory(matchStateRef.current), aiRngRef.current);
           pendingRef.current = { ...pendingRef.current, p2: opponentMove };
         }
+      } else if (modeRef.current === 'campaign') {
+        // CAMPAIGN enemy: UNIFORM RANDOM from the seeded per-match rng — NEVER aiPick (spec §0.2
+        // money law: random is Nash-neutral, so the tier probability holds vs any player).
+        pendingRef.current = { ...pendingRef.current, p2: randomMove(campaignRngRef.current) };
       } else if (modeRef.current === 'friend') {
         if (opponentGoneRef.current) {
           // AUTO-PLAY: the rival is gone for good — generate the ghost's move locally instead
@@ -645,6 +857,11 @@ export function useFightController(
     setAiPersonality(null);
     pendingStartRef.current = null;
     opponentGoneRef.current = false;
+    campaignNodeIdRef.current = null;
+    setCampaignNodeId(null);
+    campaignSettledRef.current = false;
+    campaignFlawlessP1Ref.current = 0;
+    setCampaignReceipt(null);
     setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
     setPhaseNow('mode');
   }, [clearAllTimers, refundStakeIfCommitted, disposeFriendTransport, setPhaseNow]);
@@ -657,6 +874,30 @@ export function useFightController(
       setMode('cpu');
       aiPersonalityRef.current = personality;
       setAiPersonality(personality);
+      setMatchStateNow(createMatch());
+      setLastOutcome(null);
+      setPhaseNow('vsIntro');
+      schedule(() => {
+        startRoundIntro();
+      }, VS_INTRO_MS);
+    },
+    [clearAllTimers, schedule, startRoundIntro, setPhaseNow, setMatchStateNow],
+  );
+
+  // Campaign match start (run by commitStake once the wager is locked). Like beginCpuMatch but the
+  // opponent is UNIFORM RANDOM (never aiPick) and the settle is objective-based (settleCampaign).
+  const beginCampaignMatch = useCallback(
+    (nodeId: number) => {
+      clearAllTimers();
+      modeRef.current = 'campaign';
+      setMode('campaign');
+      aiPersonalityRef.current = null;
+      setAiPersonality(null);
+      campaignNodeIdRef.current = nodeId;
+      setCampaignNodeId(nodeId);
+      campaignFlawlessP1Ref.current = 0;
+      campaignSettledRef.current = false;
+      campaignRngRef.current = mulberry32((Date.now() ^ (nodeId * 0x9e3779b1) ^ 0x1b873593) >>> 0);
       setMatchStateNow(createMatch());
       setLastOutcome(null);
       setPhaseNow('vsIntro');
@@ -727,7 +968,9 @@ export function useFightController(
     stakeRef.current = clamped;
     setStakeLamports(clamped);
     settledRef.current = false;
+    campaignSettledRef.current = false;
     setReceipt(null);
+    setCampaignReceipt(null);
     setPhaseNow('stake');
   }, [clearAllTimers, setPhaseNow]);
 
@@ -781,7 +1024,8 @@ export function useFightController(
     setBalanceLamports(newBalance);
     setStakeLamports(stake);
     settledRef.current = false;
-    // The stake is now in play: consumed by settle (win/loss, auto-play included) or
+    campaignSettledRef.current = false;
+    // The stake is now in play: consumed by settle (win/loss, auto-play, campaign met/failed) or
     // by a never-started refund — exactly one of the two, enforced by this one-shot.
     stakeCommittedRef.current = true;
     playStakeCommit();
@@ -791,10 +1035,12 @@ export function useFightController(
       beginCpuMatch(pending.personality);
     } else if (pending.kind === 'friendCreate') {
       beginFriendCreate();
-    } else {
+    } else if (pending.kind === 'friendJoin') {
       beginFriendJoin(pending.code);
+    } else {
+      beginCampaignMatch(pending.nodeId);
     }
-  }, [beginCpuMatch, beginFriendCreate, beginFriendJoin]);
+  }, [beginCpuMatch, beginFriendCreate, beginFriendJoin, beginCampaignMatch]);
 
   // ── Public entries (from mode select): remember the choice, go to char select ──
   const startCpu = useCallback(
@@ -834,6 +1080,77 @@ export function useFightController(
     },
     [clearAllTimers, enterCharSelect],
   );
+
+  // ── Campaign entries ───────────────────────────────────────────────────────
+  // Mode select -> the conquest map. Campaign never touches the friend transport; drop any prior
+  // one and clear friend state so the map is clean.
+  const enterCampaign = useCallback(() => {
+    clearAllTimers();
+    disposeFriendTransport();
+    modeRef.current = 'campaign';
+    setMode('campaign');
+    aiPersonalityRef.current = null;
+    setAiPersonality(null);
+    pendingStartRef.current = null;
+    campaignSettledRef.current = false;
+    setCampaignReceipt(null);
+    setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
+    setPhaseNow('campaignMap');
+  }, [clearAllTimers, disposeFriendTransport, setPhaseNow]);
+
+  // Map -> node card: arm the campaign match for this node and enter the (reused) stake flow.
+  const startCampaignNode = useCallback(
+    (nodeId: number) => {
+      clearAllTimers();
+      modeRef.current = 'campaign';
+      setMode('campaign');
+      campaignNodeIdRef.current = nodeId;
+      setCampaignNodeId(nodeId);
+      pendingStartRef.current = { kind: 'campaign', nodeId };
+      enterStake();
+    },
+    [clearAllTimers, enterStake],
+  );
+
+  // Campaign receipt -> re-stake the SAME node (fresh stake deducted at commit).
+  const retryNode = useCallback(() => {
+    clearAllTimers();
+    const nodeId = campaignNodeIdRef.current;
+    if (nodeId == null) return;
+    setMatchStateNow(createMatch());
+    setLastOutcome(null);
+    campaignFlawlessP1Ref.current = 0;
+    pendingStartRef.current = { kind: 'campaign', nodeId };
+    enterStake();
+  }, [clearAllTimers, enterStake, setMatchStateNow]);
+
+  // Campaign receipt (on met, if a next node exists) -> stake the NEXT node.
+  const nextNode = useCallback(() => {
+    clearAllTimers();
+    const cur = campaignNodeIdRef.current;
+    if (cur == null) return;
+    const nextId = cur + 1;
+    if (nextId > CAMPAIGN_NODE_COUNT) {
+      setPhaseNow('campaignMap');
+      return;
+    }
+    campaignNodeIdRef.current = nextId;
+    setCampaignNodeId(nextId);
+    setMatchStateNow(createMatch());
+    setLastOutcome(null);
+    campaignFlawlessP1Ref.current = 0;
+    pendingStartRef.current = { kind: 'campaign', nodeId: nextId };
+    enterStake();
+  }, [clearAllTimers, enterStake, setPhaseNow, setMatchStateNow]);
+
+  // Node card / campaign receipt -> back to the conquest map.
+  const backToMap = useCallback(() => {
+    clearAllTimers();
+    setMatchStateNow(createMatch());
+    setLastOutcome(null);
+    campaignFlawlessP1Ref.current = 0;
+    setPhaseNow('campaignMap');
+  }, [clearAllTimers, setPhaseNow, setMatchStateNow]);
 
   const continueNext = useCallback(() => {
     if (phaseRef.current !== 'roundEnd') {
@@ -890,6 +1207,11 @@ export function useFightController(
     pendingStartRef.current = null;
     settledRef.current = false;
     setReceipt(null);
+    campaignNodeIdRef.current = null;
+    setCampaignNodeId(null);
+    campaignSettledRef.current = false;
+    campaignFlawlessP1Ref.current = 0;
+    setCampaignReceipt(null);
     exchangeIdxRef.current = 0;
     oppPickBufferRef.current.clear();
     opponentGoneRef.current = false;
@@ -910,6 +1232,12 @@ export function useFightController(
   const shotClockSeconds = Math.ceil(shotClockMs / 1000);
   const canStake = balanceLamports >= MIN_STAKE;
 
+  const campaign: CampaignState = {
+    nodeId: campaignNodeId,
+    beaten: campaignBeaten,
+    frontier: frontierOf(campaignBeaten),
+  };
+
   return {
     phase,
     matchState,
@@ -923,6 +1251,13 @@ export function useFightController(
     stakeLamports,
     canStake,
     receipt,
+    campaign,
+    campaignReceipt,
+    enterCampaign,
+    startCampaignNode,
+    retryNode,
+    nextNode,
+    backToMap,
     setStake,
     stepStake,
     commitStake,
