@@ -2040,3 +2040,142 @@
   border-radius: inherit;
   pointer-events: none;
 }
+
+/* ============================================================================================
+   Cosmetic campaign rewards (demo, EV-neutral). Standard chrome = cyan-tinged line; gold tier
+   = gold chrome. Identical card choreography for every tier/stake (RG-C5). */
+.fr-map-gift {
+  position: absolute;
+  top: -18%;
+  right: -22%;
+  width: calc(var(--sh) * 2.4);
+  height: calc(var(--sh) * 2.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--fr-plate-cover);
+  border: 1px solid var(--fr-ice);
+  color: var(--fr-ice);
+  font-size: calc(var(--sh) * 1.3);
+  line-height: 1;
+}
+.fr-map-gift-gold {
+  border-color: var(--fr-gold);
+  color: var(--fr-gold);
+  box-shadow: 0 0 calc(var(--sw) * 0.45) rgba(255, 200, 61, 0.5);
+}
+.fr-nodecard-reward {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.8);
+  margin-top: calc(var(--sh) * 1.1);
+  padding: calc(var(--sh) * 0.7) calc(var(--sw) * 0.8);
+  background: rgba(7, 8, 12, 0.6);
+  border: 1px solid rgba(41, 230, 255, 0.35);
+  border-radius: calc(var(--sw) * 0.4);
+}
+.fr-nodecard-reward img {
+  width: calc(var(--sh) * 7);
+  height: calc(var(--sh) * 7);
+  border-radius: calc(var(--sw) * 0.3);
+  object-fit: cover;
+  flex: none;
+}
+.fr-nodecard-reward-copy {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.25);
+  text-align: left;
+}
+.fr-nodecard-reward-eyebrow {
+  font-size: calc(var(--sh) * 1.1);
+  letter-spacing: 0.16em;
+  color: var(--fr-ice);
+}
+.fr-nodecard-reward-label {
+  font-family: 'Anton', sans-serif;
+  font-size: calc(var(--sh) * 1.9);
+  letter-spacing: 0.04em;
+  color: var(--fr-steel-1);
+}
+.fr-nodecard-reward-sub {
+  font-size: calc(var(--sh) * 1.2);
+  color: var(--fr-steel-2);
+}
+.fr-nodecard-reward.fr-reward-gold {
+  border-color: rgba(255, 200, 61, 0.55);
+}
+.fr-nodecard-reward.fr-reward-gold .fr-nodecard-reward-eyebrow {
+  color: var(--fr-gold);
+}
+/* Receipt unlock card. */
+.fr-reward-card {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 1);
+  padding: calc(var(--sh) * 0.9) calc(var(--sw) * 1);
+  background: var(--fr-plate-cover);
+  border: 1px solid rgba(41, 230, 255, 0.4);
+  border-radius: calc(var(--sw) * 0.5);
+  box-shadow: 0 calc(var(--sh) * 0.5) calc(var(--sh) * 1.4) rgba(0, 0, 0, 0.6);
+}
+.fr-reward-card.fr-reward-gold {
+  border-color: rgba(255, 200, 61, 0.6);
+  box-shadow: 0 0 calc(var(--sw) * 0.9) rgba(255, 200, 61, 0.28), 0 calc(var(--sh) * 0.5) calc(var(--sh) * 1.4) rgba(0, 0, 0, 0.6);
+}
+.fr-reward-card-art {
+  position: relative;
+  width: calc(var(--sh) * 11);
+  height: calc(var(--sh) * 11);
+  border-radius: calc(var(--sw) * 0.4);
+  overflow: hidden;
+  flex: none;
+}
+.fr-reward-card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* One shine sweep on mount (same for every tier - value-independent). */
+.fr-reward-shine {
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(115deg, transparent 42%, rgba(242, 243, 239, 0.28) 50%, transparent 58%);
+  transform: translateX(-120%);
+  animation: fr-reward-shine 1100ms ease-out 350ms 1 forwards;
+}
+@keyframes fr-reward-shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+.fr-reward-card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sh) * 0.3);
+  text-align: left;
+}
+.fr-reward-card-eyebrow {
+  font-size: calc(var(--sh) * 1.2);
+  letter-spacing: 0.18em;
+  color: var(--fr-ice);
+}
+.fr-reward-card.fr-reward-gold .fr-reward-card-eyebrow {
+  color: var(--fr-gold);
+}
+.fr-reward-card-label {
+  font-family: 'Anton', sans-serif;
+  font-size: calc(var(--sh) * 2.6);
+  letter-spacing: 0.04em;
+  color: var(--fr-steel-1);
+}
+.fr-reward-card-sub {
+  font-size: calc(var(--sh) * 1.3);
+  color: var(--fr-steel-2);
+}
+.fr-reduced .fr-reward-shine {
+  animation: none;
+  opacity: 0;
+}

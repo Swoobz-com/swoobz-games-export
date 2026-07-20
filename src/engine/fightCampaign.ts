@@ -55,6 +55,22 @@ export const TIERS: Record<CampaignTier, TierDef> = {
   bossRequiem: { id: 'bossRequiem', objective: 'WIN 2-0 WITH A FLAWLESS ROUND', pNum: 7, pDen: 64, multBps: 87700n },
 };
 
+/** A cosmetic cross-game unlock attached to a node (swoobz-engagement-layer: EV-NEUTRAL —
+ *  rewards NEVER change the money math; the node's multiplier/payout is untouched). DEMO ONLY
+ *  this phase: the unlock is presentational (no real cross-game delivery). */
+export interface CampaignReward {
+  id: string;
+  /** Card headline, e.g. 'AUTOMAT CHARACTER PACK'. No em-dashes (copy law). */
+  label: string;
+  /** One quiet line under the headline. */
+  sub: string;
+  /** Art path under the asset base, e.g. 'assets/reward-pack-automat.webp'. */
+  art: string;
+  /** Visual tier of the card chrome only (gold = rarer framing). Value-independent celebration
+   *  still applies: identical fanfare + card choreography for every tier (RG-C5). */
+  tier: 'standard' | 'gold';
+}
+
 /** A conquest-map node. ONE row per node — future characters/arenas drop in by editing the row
  *  only (spec §2), the same data-not-code shape as characters/registry.ts + arenas/arenas.ts. */
 export interface CampaignNodeDef {
@@ -64,6 +80,7 @@ export interface CampaignNodeDef {
   tier: CampaignTier;
   fighterId: string; // registry id of the enemy fighter (VOLTA fills every slot this phase)
   arenaId: string; // background arena id (cathedral default this phase)
+  reward?: CampaignReward; // optional cosmetic unlock (see CampaignReward)
 }
 
 // The 10 playable nodes (spec §2, RONIN ZERO season theme). Names are originals in a Japanese
@@ -71,13 +88,31 @@ export interface CampaignNodeDef {
 // copy only this phase); cathedral is the only arena until the roster/arenas grow.
 export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', tier: 'takeRound', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', tier: 'takeRound', fighterId: 'volta', arenaId: 'cathedral' },
+  {
+    id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', tier: 'takeRound', fighterId: 'volta', arenaId: 'cathedral',
+    reward: {
+      id: 'automat-pack',
+      label: 'AUTOMAT CHARACTER PACK',
+      sub: 'Unlocks a fighter capsule in the AUTOMAT vending Original',
+      art: 'assets/reward-pack-automat.webp',
+      tier: 'standard',
+    },
+  },
   { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', tier: 'winMatch', fighterId: 'volta', arenaId: 'cathedral' },
   { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', tier: 'winMatch', fighterId: 'volta', arenaId: 'cathedral' },
   { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', tier: 'winMatch', fighterId: 'volta', arenaId: 'cathedral' },
   { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', tier: 'flawlessRound', fighterId: 'volta', arenaId: 'cathedral' },
   { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', tier: 'win20', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', tier: 'win20', fighterId: 'volta', arenaId: 'cathedral' },
+  {
+    id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', tier: 'win20', fighterId: 'volta', arenaId: 'cathedral',
+    reward: {
+      id: 'automat-gold-pack',
+      label: 'AUTOMAT GOLD PACK',
+      sub: 'Rare gold fighter capsule for the AUTOMAT vending Original',
+      art: 'assets/reward-pack-gold.webp',
+      tier: 'gold',
+    },
+  },
   { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', tier: 'winWithFlawless', fighterId: 'volta', arenaId: 'cathedral' },
   { id: 10, name: 'ZERO CITADEL', title: 'RONIN ZERO', tier: 'bossRequiem', fighterId: 'volta', arenaId: 'cathedral' },
 ];

@@ -343,6 +343,13 @@ function CampaignMap({
               ) : (
                 <span className="fr-map-num">{node.id}</span>
               )}
+              {/* Cosmetic-reward badge, visible once the node is out of the fog (EV-neutral:
+                  the reward never touches the money math). Gold chrome on the gold tier. */}
+              {node.reward && !fogged && (
+                <span className={`fr-map-gift${node.reward.tier === 'gold' ? ' fr-map-gift-gold' : ''}`} aria-hidden="true">
+                  &#10026;
+                </span>
+              )}
             </span>
             {!fogged && <span className="fr-map-label">{node.name}</span>}
           </button>
@@ -2374,6 +2381,19 @@ export function FightExperience(): JSX.Element {
                       <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignTier.multBps)}</span>
                     </div>
                   </div>
+                  {/* Cosmetic bonus unlock riding on this node (never changes the payout). */}
+                  {campaignNode.reward && (
+                    <div className={`fr-nodecard-reward${campaignNode.reward.tier === 'gold' ? ' fr-reward-gold' : ''}`}>
+                      <img src={`${ASSET_BASE}${campaignNode.reward.art}`} alt="" draggable={false} />
+                      <div className="fr-nodecard-reward-copy">
+                        <span className="fr-nodecard-reward-eyebrow">
+                          {ctl.campaign.beaten[campaignNode.id - 1] ? 'BONUS REWARD · UNLOCKED' : 'BONUS REWARD'}
+                        </span>
+                        <span className="fr-nodecard-reward-label">{campaignNode.reward.label}</span>
+                        <span className="fr-nodecard-reward-sub">{campaignNode.reward.sub}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               <BetConsole
@@ -2682,6 +2702,24 @@ export function FightExperience(): JSX.Element {
               <div className="fr-campaign-node-line" style={{ fontSize: 'calc(var(--sh) * 2)' }}>
                 NODE {ctl.campaignReceipt.nodeId} · {ctl.campaignReceipt.nodeName}
               </div>
+              {/* Cosmetic unlock card on a MET objective (demo cross-game reward). Identical
+                  choreography for every tier and every stake (RG-C5 value-independence). */}
+              {ctl.campaignReceipt.met && getCampaignNode(ctl.campaignReceipt.nodeId)?.reward && (() => {
+                const reward = getCampaignNode(ctl.campaignReceipt.nodeId)!.reward!;
+                return (
+                  <div className={`fr-reward-card${reward.tier === 'gold' ? ' fr-reward-gold' : ''}`}>
+                    <div className="fr-reward-card-art">
+                      <img src={`${ASSET_BASE}${reward.art}`} alt="" draggable={false} />
+                      <div className="fr-reward-shine" aria-hidden="true" />
+                    </div>
+                    <div className="fr-reward-card-copy">
+                      <span className="fr-reward-card-eyebrow">REWARD UNLOCKED</span>
+                      <span className="fr-reward-card-label">{reward.label}</span>
+                      <span className="fr-reward-card-sub">{reward.sub}</span>
+                    </div>
+                  </div>
+                );
+              })()}
               <div className={`fr-receipt${ctl.campaignReceipt.met ? ' fr-receipt-win' : ' fr-receipt-loss'}`}>
                 <div className="fr-receipt-title">{ctl.campaignReceipt.objective}</div>
                 <div className="fr-receipt-rows">
