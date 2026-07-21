@@ -1,8 +1,14 @@
 // STANDOFF (formerly Frozen Requiem) — STAKES math (pure, deterministic, no DOM).
 //
-// Winner-takes-all economy (Tim's spec): the player stakes S, the opponent
-// matches S, the pot is 2S, and the MATCH winner takes the whole pot while the
-// loser gets nothing. Net over one match: winner +S, loser -S.
+// Two economies live here:
+//   - Quick duel vs the CPU is HOUSE-PRICED at 1.92x: the CPU opponent picks
+//     UNIFORM RANDOM only (Nash baseline, unexploitable — the brute/warden/oracle
+//     personalities are pure flavor, they never touch picks), so a fair 50/50 match
+//     that pays a 1.92x win lands at 96% RTP. See cpuWinPayout / CPU_WIN_BPS.
+//   - Friend PvP stays WINNER-TAKES-ALL: the player stakes S, the rival matches S,
+//     the pot is 2S, and the MATCH winner takes the whole pot while the loser gets
+//     nothing (two humans trading stakes, no house edge). Net: winner +S, loser -S.
+//     See potLamports / settle.
 //
 // All money is BigInt USDC lamports (1_000_000n == 1 USDC), mirroring
 // originals/assay/assayProvider.ts. NO floating point anywhere — display goes
@@ -29,6 +35,23 @@ export const STAKE_PRESETS: readonly { label: string; value: bigint }[] = [
 /** The whole pot for a given stake: player S + opponent S = 2S. */
 export function potLamports(stake: bigint): bigint {
   return stake * 2n;
+}
+
+/**
+ * Quick-duel-vs-CPU house price in basis points of the stake: a win pays 1.92x
+ * (19_200 bps). Against a uniform-random opponent (a fair 50/50 match) this is
+ * a 96% RTP — the campaign's Nash-baseline pricing doctrine applied to the quick
+ * duel. Friend PvP does NOT use this (it stays winner-takes-all 2S).
+ */
+export const CPU_WIN_BPS = 19_200n;
+
+/**
+ * Payout credited on a CPU-duel WIN: stake * 1.92, floor-truncated (house-favored,
+ * never rounds up — same bigint discipline as the rest of this file). A loss pays
+ * nothing (the stake was already deducted at commit).
+ */
+export function cpuWinPayout(stake: bigint): bigint {
+  return (stake * CPU_WIN_BPS) / 10_000n;
 }
 
 /**

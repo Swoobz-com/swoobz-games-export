@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   clampStake,
+  CPU_WIN_BPS,
+  cpuWinPayout,
   DEFAULT_STAKE,
   formatUsd,
   INITIAL_BALANCE,
@@ -81,6 +83,65 @@ describe('settle', () => {
     const afterCommit = start - stake;
     const afterLoss = settle(afterCommit, stake, false);
     expect(afterLoss).toBe(start - stake); // net -S
+  });
+});
+
+describe('cpuWinPayout (quick duel vs CPU: house-priced 1.92x)', () => {
+  it('the house price is 19_200 bps (1.92x)', () => {
+    expect(CPU_WIN_BPS).toBe(19_200n);
+  });
+
+  it('pays exactly 1.92x the stake at the round-dollar presets', () => {
+    expect(cpuWinPayout(1_000_000n)).toBe(1_920_000n); // $1 -> $1.92
+    expect(cpuWinPayout(5_000_000n)).toBe(9_600_000n); // $5 -> $9.60
+    expect(cpuWinPayout(25_000_000n)).toBe(48_000_000n); // $25 -> $48.00
+    expect(formatUsd(cpuWinPayout(1_000_000n))).toBe('$1.92');
+    expect(formatUsd(cpuWinPayout(5_000_000n))).toBe('$9.60');
+    expect(formatUsd(cpuWinPayout(25_000_000n))).toBe('$48.00');
+  });
+
+  it('floor-truncates a non-round lamport stake (house-favored, never rounds up)', () => {
+    // 3_333_333 * 19_200 / 10_000 = 6_399_999.36 -> floor 6_399_999 (the .36 lamport-fraction drops).
+    expect(cpuWinPayout(3_333_333n)).toBe(6_399_999n);
+    // 1_000_001 * 19_200 / 10_000 = 1_920_001.92 -> floor 1_920_001.
+    expect(cpuWinPayout(1_000_001n)).toBe(1_920_001n);
+  });
+
+  it('pays nothing on a zero stake', () => {
+    expect(cpuWinPayout(0n)).toBe(0n);
+  });
+});
+
+describe('settle mode split (quick duel economy — the settleMatch money law)', () => {
+  // Mirrors provider settleMatch: the stake is already deducted at commit, so `postCommit` is the
+  // balance settleMatch sees. CPU credits cpuWinPayout on a win; friend credits the 2S pot (settle).
+  const start = INITIAL_BALANCE;
+  const stake = DEFAULT_STAKE; // $5
+  const postCommit = start - stake;
+
+  it('CPU win credits exactly stake * 1.92 (to the cent)', () => {
+    const balanceAfter = postCommit + cpuWinPayout(stake);
+    expect(balanceAfter - postCommit).toBe(9_600_000n); // $9.60 credited on a $5 win
+    expect(balanceAfter).toBe(start - stake + 9_600_000n);
+    // Net over the match: +$4.60 (won $9.60, staked $5.00).
+    expect(balanceAfter - start).toBe(4_600_000n);
+  });
+
+  it('CPU loss credits nothing (stake already gone at commit)', () => {
+    const balanceAfter = postCommit; // no credit on a loss
+    expect(balanceAfter - postCommit).toBe(0n);
+    expect(balanceAfter).toBe(start - stake); // net -$5.00
+  });
+
+  it('friend win still credits exactly the 2S pot (byte-identical winner-takes-all)', () => {
+    const balanceAfter = settle(postCommit, stake, true);
+    expect(balanceAfter - postCommit).toBe(potLamports(stake)); // 2S == $10.00 credited
+    expect(balanceAfter).toBe(start + stake); // net +$5.00
+  });
+
+  it('friend loss keeps the post-commit balance (byte-identical)', () => {
+    const balanceAfter = settle(postCommit, stake, false);
+    expect(balanceAfter).toBe(postCommit); // net -$5.00
   });
 });
 

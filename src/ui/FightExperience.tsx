@@ -10,7 +10,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, u
 import { RESOLVE_HIT_MS, RESOLVE_KO_MS, RESOLVE_MS, useFightController } from '../provider/fightProvider';
 import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
-import { formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
+import { cpuWinPayout, formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
 import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
 import type { FighterDef, FighterState } from '../characters';
 import { ARENAS, getArena } from '../arenas/arenas';
@@ -2404,14 +2404,18 @@ export function FightExperience(): JSX.Element {
               BACK
             </button>
             <div className="fr-stake-inner">
-              <div className="fr-stake-disclosure">skill match · even stakes · winner takes the pot</div>
+              <div className="fr-stake-disclosure">
+                {mode === 'friend'
+                  ? 'skill match · even stakes · winner takes the pot'
+                  : 'skill match · win pays 1.92x · 96.0% RTP to player'}
+              </div>
               <BetConsole
                 theme={FR_BET_THEME}
                 eyebrow="STAKE YOUR FIGHT"
                 hint={
                   mode === 'friend'
                     ? 'WINNER TAKES ALL. YOUR RIVAL MATCHES YOUR STAKE.'
-                    : `WINNER TAKES ALL. ${p2Def.name} MATCHES YOUR STAKE.`
+                    : `BEAT ${p2Def.name}. WIN PAYS 1.92x YOUR STAKE.`
                 }
                 wagerLabel="YOUR STAKE"
                 wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
@@ -2420,11 +2424,19 @@ export function FightExperience(): JSX.Element {
                 presets={STAKE_PRESETS}
                 activeWager={ctl.stakeLamports}
                 onPreset={(v) => ctl.setStake(v)}
-                toWin={{
-                  label: 'WINNER TAKES',
-                  value: formatUsd(potLamports(ctl.stakeLamports)),
-                  sub: 'even stakes, 2.00x pot',
-                }}
+                toWin={
+                  mode === 'friend'
+                    ? {
+                        label: 'WINNER TAKES',
+                        value: formatUsd(potLamports(ctl.stakeLamports)),
+                        sub: 'even stakes, 2.00x pot',
+                      }
+                    : {
+                        label: 'WIN PAYS',
+                        value: formatUsd(cpuWinPayout(ctl.stakeLamports)),
+                        sub: '1.92x payout · 96.0% RTP',
+                      }
+                }
                 balanceLabel="BANK"
                 balanceValue={formatUsd(ctl.balanceLamports)}
                 commitLabel={`STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`}
@@ -2758,14 +2770,23 @@ export function FightExperience(): JSX.Element {
                       <span>YOUR STAKE</span>
                       <b>{formatUsd(ctl.receipt.stakeLamports)}</b>
                     </div>
-                    <div className="fr-receipt-row">
-                      <span>{mode === 'friend' ? 'RIVAL STAKE' : `${p2Def.name} STAKE`}</span>
-                      <b>{formatUsd(ctl.receipt.opponentStakeLamports)}</b>
-                    </div>
-                    <div className="fr-receipt-row">
-                      <span>POT</span>
-                      <b>{formatUsd(ctl.receipt.potLamports)}</b>
-                    </div>
+                    {ctl.receipt.duelMode === 'friend' ? (
+                      <>
+                        <div className="fr-receipt-row">
+                          <span>RIVAL STAKE</span>
+                          <b>{formatUsd(ctl.receipt.opponentStakeLamports)}</b>
+                        </div>
+                        <div className="fr-receipt-row">
+                          <span>POT</span>
+                          <b>{formatUsd(ctl.receipt.potLamports)}</b>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="fr-receipt-row">
+                        <span>WIN PAYS</span>
+                        <b>{formatUsd(cpuWinPayout(ctl.receipt.stakeLamports))}</b>
+                      </div>
+                    )}
                     <div className="fr-receipt-row fr-receipt-result">
                       <span>RESULT</span>
                       <b className={ctl.receipt.playerWon ? 'fr-receipt-victory' : 'fr-receipt-defeat'}>

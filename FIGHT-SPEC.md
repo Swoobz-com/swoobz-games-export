@@ -143,3 +143,12 @@ center timer plate "03" (cover digits with live countdown). Strategy:
   counter-punish smack. Announcer core four: FIGHT! / K.O.! / FLAWLESS / [NAME] WINS.
 - Victory: winner pose ~1.5-2s + "[NAME] WINS" + rotating win quote; rematch menu with
   default cursor on REMATCH (zero-friction replay, but manual confirm — no auto-loop).
+- **Quick-duel economy (2026-07-21 ruling, overrides §3's "exploitable personalities"
+  as a MONEY input):** the CPU opponent picks UNIFORM RANDOM only (`randomMove`), never
+  `aiPick`. The brute/warden/oracle personalities are pure FLAVOR now (they pick which
+  enemy character/arena you fight, never a move) — aiPick is MEASURED exploitable (up to
+  88% win / 176% RTP), so it can never sit behind a real payout. A win pays **1.92x** the
+  stake (`cpuWinPayout`, bigint floor); a loss pays nothing. Against a fair 50/50 opponent
+  that is **96% RTP** (the campaign's Nash-baseline doctrine, now unifying the quick duel).
+  Friend PvP is UNCHANGED: winner-takes-all, the rival matches the stake, pot 2S, no house
+  edge (two humans trading stakes).

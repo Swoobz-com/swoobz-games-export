@@ -43,8 +43,10 @@ boundary; route durable lessons to global homes (SAVE-GLOBAL law).
 
 A complete staked fighter with real multiplayer, a full Swoobz skin, and a SEASON
 CAMPAIGN. Modes from the title screen: CONQUEST MAP (campaign), VERSUS CPU
-(brute/warden/oracle quick duel, winner-takes-all 2.00x), VS FRIEND (real ws
-multiplayer, winner-takes-all).
+(brute/warden/oracle quick duel - since phase 18 the personalities are FLAVOR only,
+picks are uniform randomMove and a win pays 1.92x = 96% RTP, the campaign's pricing
+doctrine; `cpuWinPayout` in fightStakes.ts), VS FRIEND (real ws multiplayer,
+winner-takes-all 2S, unchanged - two humans trading stakes, no house edge).
 
 ### 1a. Core duel (phases 1-15, stable)
 title -> mode -> charSelect (22-slot roster = GORVAK orc + VOLTA cyber-brawler + 20
@@ -234,8 +236,10 @@ New (phases 16-17b):
    full conquest (Hollow Shrine behind Burned Pagoda); campaign uses last-confirmed
    fighter (no charSelect entry in the campaign flow — ask Tim if he wants one);
    real reward claim/delivery once cross-game plumbing exists.
-5. **Quick-duel economy**: still winner-takes-all 2.00x vs exploitable AIs (accepted
-   mockup player-edge; production needs rake or the campaign's random-pick doctrine).
+5. **Quick-duel economy**: RESOLVED phase 18 (2026-07-21, Tim's ruling "do 1"): CPU
+   picks randomMove only, win pays 1.92x = 96% RTP (`cpuWinPayout`); personalities are
+   flavor. Exploit-regression test (quickDuelExploit.test.ts) pins the frequency-counter
+   strategy at ~50% win / 96.0% RTP over 100k seeded matches. Friend PvP unchanged.
 6. **Older backlog still open**: announcer VO (RG-C5), VS splash diagonal split,
    in-room friend rematch protocol, waiting-room tab-close stake loss, HUD-language
    extension to timer/nameplates/pick buttons (Tim liked the 17b restyle).

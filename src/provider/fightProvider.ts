@@ -11,10 +11,9 @@
 // mount -> cleanup -> mount cycle simply recreates a fresh, non-disposed instance.
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { ExchangeOutcome, ExchangeRecord, MatchState, Move } from '../engine/fightEngine';
+import type { ExchangeOutcome, MatchState, Move } from '../engine/fightEngine';
 import { applyExchange, createMatch, mulberry32, randomMove, startNextRound } from '../engine/fightEngine';
 import type { AiPersonality } from '../engine/fightAi';
-import { aiPick } from '../engine/fightAi';
 import type { MatchEvent, MatchTransport } from '../transport/matchTransport';
 import { WsTransport } from '../transport/matchTransport';
 import {
@@ -34,6 +33,7 @@ import {
 } from '../audio/fightAudio';
 import {
   clampStake,
+  cpuWinPayout,
   DEFAULT_STAKE,
   INITIAL_BALANCE,
   MIN_STAKE,
@@ -77,8 +77,13 @@ type PendingStart =
   | { kind: 'friendJoin'; code: string }
   | { kind: 'campaign'; nodeId: number };
 
-/** Frozen after settle — the numbers the victory/defeat receipt strip prints. */
+/** Frozen after settle — the numbers the victory/defeat receipt strip prints. `duelMode`
+ *  lets the UI render honestly per mode: 'friend' is winner-takes-all (opponentStake/pot are
+ *  the 2S pot fiction, unchanged), 'cpu' is house-priced (a win pays cpuWinPayout(stake) = 1.92x;
+ *  opponentStake/pot are unused fiction for CPU and the UI drops them). */
 export interface StakeReceipt {
+  /** Which economy settled this match: 'friend' = winner-takes-all 2S, 'cpu' = 1.92x house price. */
+  duelMode: 'cpu' | 'friend';
   stakeLamports: bigint;
   opponentStakeLamports: bigint;
   potLamports: bigint;
@@ -321,10 +326,6 @@ export interface FightController {
   sendFighterProfile: (id: string) => void;
 }
 
-function flatMatchHistory(state: MatchState): ExchangeRecord[] {
-  return [...state.matchHistory.flat(), ...state.history];
-}
-
 function outcomeSound(outcome: ExchangeOutcome, roundEnding: boolean): void {
   if (outcome.kind === 'clash') {
     playClash();
@@ -525,31 +526,38 @@ export function useFightController(
     }, ROUND_BANNER_MS + ROUND_INTRO_SILENCE_MS);
   }, [schedule, beginPicking, setPhaseNow]);
 
-  // Settle the wager exactly once per match (the winner takes the pot). Runs from
-  // a plain scheduled callback in the SAME transition that flips to 'matchEnd' --
-  // never from a setState updater -- and is guarded by settledRef so a StrictMode
-  // double-invoke or a re-render cannot credit the pot twice. P1 is ALWAYS the
-  // player (whichever fighter they picked); a P1 match win pays the pot into the
-  // practice bank. The provider is identity-agnostic and never names a character.
+  // Settle the wager exactly once per match. Runs from a plain scheduled callback in the SAME
+  // transition that flips to 'matchEnd' -- never from a setState updater -- and is guarded by
+  // settledRef so a StrictMode double-invoke or a re-render cannot credit the payout twice. P1 is
+  // ALWAYS the player (whichever fighter they picked). The provider is identity-agnostic and never
+  // names a character. MODE-AWARE money:
+  //   - friend (winner-takes-all): a P1 win pays the whole 2S pot; a loss keeps the post-commit
+  //     balance. Byte-identical to the historic behavior.
+  //   - cpu (house-priced): a P1 win credits cpuWinPayout(stake) = 1.92x the stake (96% RTP vs the
+  //     uniform-random opponent); a loss credits nothing (the stake is already gone at commit).
   const settleMatch = useCallback((winner: 'p1' | 'p2') => {
     if (settledRef.current) return;
     settledRef.current = true;
     // The committed stake is consumed by this settle: no later path may refund it.
     stakeCommittedRef.current = false;
     const stake = stakeRef.current;
+    const isCpu = modeRef.current === 'cpu';
     const playerWon = winner === 'p1';
+    // The stake was already deducted at commit, so balanceRef is the post-commit balance. Friend
+    // credits the 2S pot on a win (settle(), byte-identical); CPU credits the 1.92x house payout on
+    // a win; both leave the balance untouched on a loss.
     const pot = potLamports(stake);
-    // The stake was already deducted at commit, so balanceRef is the post-commit
-    // balance; settle() credits the pot on a win and leaves it untouched on a loss.
-    const balanceAfter = settle(balanceRef.current, stake, playerWon);
+    const payout = playerWon ? (isCpu ? cpuWinPayout(stake) : pot) : 0n;
+    const balanceAfter = isCpu ? balanceRef.current + payout : settle(balanceRef.current, stake, playerWon);
     balanceRef.current = balanceAfter;
     setBalanceLamports(balanceAfter);
     setReceipt({
+      duelMode: isCpu ? 'cpu' : 'friend',
       stakeLamports: stake,
-      opponentStakeLamports: stake, // even match: the opponent matches the stake
-      potLamports: pot,
+      opponentStakeLamports: stake, // friend: the rival matches the stake (unused fiction for CPU)
+      potLamports: pot, // friend: the 2S pot (unused fiction for CPU)
       playerWon,
-      payoutLamports: playerWon ? pot : 0n,
+      payoutLamports: payout,
       balanceAfterLamports: balanceAfter,
     });
     if (playerWon) playPayout();
@@ -758,10 +766,12 @@ export function useFightController(
       playLockIn();
 
       if (modeRef.current === 'cpu') {
-        if (aiPersonalityRef.current) {
-          const opponentMove = aiPick(aiPersonalityRef.current, flatMatchHistory(matchStateRef.current), aiRngRef.current);
-          pendingRef.current = { ...pendingRef.current, p2: opponentMove };
-        }
+        // CPU enemy: UNIFORM RANDOM from the seeded rng — NEVER aiPick. The brute/warden/oracle
+        // personality still selects which enemy character/flavor you fight, but no longer influences
+        // picks: random is Nash-neutral / unexploitable, so the 1.92x house price (96% RTP) holds vs
+        // any counter-strategy (aiPick personalities are MEASURED exploitable — up to 88% win / 176%
+        // RTP). Same doctrine the campaign uses (fightCampaign.ts money law).
+        pendingRef.current = { ...pendingRef.current, p2: randomMove(aiRngRef.current) };
       } else if (modeRef.current === 'campaign') {
         // CAMPAIGN enemy: UNIFORM RANDOM from the seeded per-match rng — NEVER aiPick (spec §0.2
         // money law: random is Nash-neutral, so the tier probability holds vs any player).
