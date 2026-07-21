@@ -108,12 +108,8 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
     expect(CAMPAIGN_NODES[4].multBps).toBe(CAMPAIGN_NODES[5].multBps); // n5 bulk1 == n6 shield1
     expect(CAMPAIGN_NODES[6].multBps).toBe(CAMPAIGN_NODES[7].multBps); // n7 bulk1R3 == n8 shield1R3
   });
-  it('rewards stay on nodes 2 + 8 exactly as before', () => {
-    expect(CAMPAIGN_NODES[1].reward?.id).toBe('automat-pack');
-    expect(CAMPAIGN_NODES[1].reward?.tier).toBe('standard');
-    expect(CAMPAIGN_NODES[7].reward?.id).toBe('automat-gold-pack');
-    expect(CAMPAIGN_NODES[7].reward?.tier).toBe('gold');
-    expect(CAMPAIGN_NODES.filter((n) => n.reward).map((n) => n.id)).toEqual([2, 8]);
+  it('no node carries a bonus reward (removed for now, Tim 2026-07-21)', () => {
+    expect(CAMPAIGN_NODES.filter((n) => n.reward)).toEqual([]);
   });
   it('user-facing copy carries no em-dashes (RG-C5 copy law)', () => {
     for (const n of CAMPAIGN_NODES) {

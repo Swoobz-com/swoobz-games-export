@@ -80,32 +80,17 @@ export interface CampaignNodeDef {
 // n1-4 plain x1.92 | n5 bulk+1 x3.51 | n6 shield1 x3.51 | n7 bulk+1 first-to-3 x4.25 |
 // n8 shield1 first-to-3 x4.25 | n9 bulk+2 x7.34 | n10 RONIN ZERO shield2 first-to-3 x11.94.
 export const CAMPAIGN_NODES: CampaignNodeDef[] = [
+  // NOTE: the demo cosmetic rewards (AUTOMAT packs on nodes 2 + 8) were REMOVED for now
+  // (Tim, 2026-07-21). The CampaignReward type, `reward?` field, UI surfaces and the webp
+  // assets all remain wired — re-adding a reward is one registry-row edit.
   { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
-  {
-    id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral',
-    reward: {
-      id: 'automat-pack',
-      label: 'AUTOMAT CHARACTER PACK',
-      sub: 'Unlocks a fighter capsule in the AUTOMAT vending Original',
-      art: 'assets/reward-pack-automat.webp',
-      tier: 'standard',
-    },
-  },
+  { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral' },
-  {
-    id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral',
-    reward: {
-      id: 'automat-gold-pack',
-      label: 'AUTOMAT GOLD PACK',
-      sub: 'Rare gold fighter capsule for the AUTOMAT vending Original',
-      art: 'assets/reward-pack-gold.webp',
-      tier: 'gold',
-    },
-  },
+  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: 73430n, fighterId: 'volta', arenaId: 'cathedral' },
   { id: 10, name: 'ZERO CITADEL', title: 'RONIN ZERO', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'volta', arenaId: 'cathedral' },
 ];
