@@ -2214,3 +2214,106 @@
   position: absolute;
   inset: calc(var(--sh) * -1.6) calc(var(--sw) * -1.2);
 }
+
+/* ============================================================================================
+   PHASE 17 — enemy DEFENSE presentation (shield pips + bulk bar + absorb beat + node-card copy).
+   DS tokens only; the shield family is frost/ice (never gold — gold stays the money family).
+   ============================================================================================ */
+
+/* Enemy shield pips: small diamond outlines ABOVE his HP bar (distinct shape from the HP
+   segments), on an opaque coal chip (cover-plate law). Refill at round start (re-keyed). */
+.fr-shieldpips {
+  position: absolute;
+  left: 57.4%;
+  top: 8.9%;
+  transform: translateY(-100%);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.35);
+  padding: calc(var(--sh) * 0.3) calc(var(--sw) * 0.45);
+  background: var(--fr-plate-cover);
+  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  border-radius: calc(var(--sw) * 0.25);
+  z-index: 30;
+}
+.fr-shieldpip {
+  width: calc(var(--sh) * 1.5);
+  height: calc(var(--sh) * 1.5);
+  transform: rotate(45deg);
+  border: calc(var(--sw) * 0.08) solid var(--fr-steel-3);
+  border-radius: calc(var(--sw) * 0.08);
+  background: transparent;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+.fr-shieldpip-filled {
+  border-color: var(--fr-ice);
+  background: rgba(41, 230, 255, 0.35);
+  box-shadow: 0 0 calc(var(--sw) * 0.3) rgba(41, 230, 255, 0.55);
+  animation: fr-shieldpip-refill 320ms cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+}
+@keyframes fr-shieldpip-refill {
+  0% { transform: rotate(45deg) scale(0.4); }
+  100% { transform: rotate(45deg) scale(1); }
+}
+.fr-reduced .fr-shieldpip-filled {
+  animation: none;
+}
+
+/* SHIELDED absorb floater: the "-1" slot's frost sibling — same drift curve, ice text, fixed
+   copy (value-independent, RG-C5). */
+.fr-absorb-floater {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: var(--fr-ice-big);
+  text-shadow: 0 0 calc(var(--sw) * 0.4) rgba(41, 230, 255, 0.7),
+    0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.35) rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+  animation: fr-damage-floater 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.fr-reduced .fr-absorb-floater {
+  display: none;
+}
+
+/* Node-card format + defense preview */
+.fr-nodecard-format {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: calc(var(--sh) * 1.3);
+  letter-spacing: 0.14em;
+  color: var(--fr-steel-2);
+}
+.fr-nodecard-defense {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.7);
+  margin-top: calc(var(--sh) * 0.2);
+}
+.fr-nodecard-defense-line {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: calc(var(--sh) * 1.2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fr-ice);
+}
+.fr-nodecard-defense-pips {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.3);
+}
+.fr-nodecard-defense-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--sw) * 0.12);
+}
+.fr-nodecard-defense-seg {
+  width: calc(var(--sw) * 1.1);
+  height: calc(var(--sh) * 1);
+  border-radius: calc(var(--sw) * 0.08);
+  background: linear-gradient(180deg, #29e6ff 0%, #0ea5e9 100%);
+  box-shadow: 0 0 calc(var(--sw) * 0.15) rgba(41, 230, 255, 0.4);
+}

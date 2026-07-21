@@ -42,13 +42,14 @@ import {
   settle,
 } from '../engine/fightStakes';
 import {
+  applyCampaignExchange,
   campaignPayout,
   CAMPAIGN_NODE_COUNT,
-  evaluateObjective,
+  defenseAmount,
+  evaluateCampaignMatch,
   getCampaignNode,
-  TIERS,
 } from '../engine/fightCampaign';
-import type { CampaignTier, ObjectiveResult } from '../engine/fightCampaign';
+import type { CampaignMatchResult } from '../engine/fightCampaign';
 
 export type Phase =
   | 'title'
@@ -119,7 +120,9 @@ function saveBalance(value: bigint): void {
 export interface CampaignReceipt {
   nodeId: number;
   nodeName: string;
-  tier: CampaignTier;
+  /** Match format the node was fought under (first to 2 or first to 3 round wins). */
+  roundsToWin: 2 | 3;
+  /** Receipt headline line, e.g. 'FIRST TO 2 ROUNDS'. */
   objective: string;
   met: boolean;
   stakeLamports: bigint;
@@ -130,12 +133,17 @@ export interface CampaignReceipt {
   balanceAfterLamports: bigint;
 }
 
-/** Campaign progression exposed to the UI. `beaten[i]` = node i+1 conquered; frontier = the first
- *  unbeaten index (=== count when all conquered). nodeId = the active/selected node. */
+/** Campaign progression + live-fight campaign facts exposed to the UI. `beaten[i]` = node i+1
+ *  conquered; frontier = the first unbeaten index (=== count when all conquered). nodeId = the
+ *  active/selected node. defenseRemaining = the enemy's absorb buffer left THIS round (drives the
+ *  shield pips / the bulk bar's extra segments); absorbed = the exchange currently resolving was
+ *  soaked by the defense (drives the absorb beat). */
 export interface CampaignState {
   nodeId: number | null;
   beaten: boolean[];
   frontier: number;
+  defenseRemaining: number;
+  absorbed: boolean;
 }
 
 // Campaign progression persistence (spec §5). Shape { v:1, beaten: boolean[10] }; corrupt/missing =
@@ -366,6 +374,10 @@ export function useFightController(
   const [campaignNodeId, setCampaignNodeId] = useState<number | null>(null);
   const [campaignBeaten, setCampaignBeaten] = useState<boolean[]>(loadCampaignBeaten);
   const [campaignReceipt, setCampaignReceipt] = useState<CampaignReceipt | null>(null);
+  // Enemy absorb buffer left this round (shield pips / bulk extra segments) + whether the exchange
+  // currently resolving was absorbed (the UI's absorb-beat flag; reset per exchange).
+  const [campaignDefense, setCampaignDefense] = useState<number>(0);
+  const [campaignAbsorbed, setCampaignAbsorbed] = useState<boolean>(false);
 
   // Refs mirror balance/stake for synchronous reads inside plain callbacks (the
   // commit deduction + settle credit must never live in a setState updater).
@@ -383,8 +395,9 @@ export function useFightController(
   // --- Campaign refs (synchronous reads inside plain callbacks / timer bodies). ---
   const campaignNodeIdRef = useRef<number | null>(null);
   const campaignBeatenRef = useRef<boolean[]>(campaignBeaten);
-  // Running count of the PLAYER's flawless round wins this campaign match (fed to evaluateObjective).
-  const campaignFlawlessP1Ref = useRef<number>(0);
+  // The enemy's absorb buffer for the CURRENT round (refilled to the node's defense amount at
+  // every round start; drained by applyCampaignExchange — the shared shield/bulk math).
+  const campaignDefenseRef = useRef<number>(0);
   // The seeded per-match RNG for the campaign enemy's UNIFORM-RANDOM picks (randomMove ONLY, never
   // aiPick — spec §0.2 money law). Reseeded at each campaign match start.
   const campaignRngRef = useRef<() => number>(mulberry32((Date.now() ^ 0x1b873593) >>> 0));
@@ -542,24 +555,24 @@ export function useFightController(
     if (playerWon) playPayout();
   }, []);
 
-  // Settle a CAMPAIGN match exactly once (spec §16). The objective verdict decides the money:
-  //   met  -> balance += campaignPayout(stake, multBps)  (net = payout - stake; the stake was
-  //           deducted at commit, so we credit the TOTAL payout here)
-  //   failed -> nothing credited (the stake is already gone)
+  // Settle a CAMPAIGN match exactly once (phase 17). The match verdict decides the money:
+  //   met (match won)  -> balance += campaignPayout(stake, node.multBps)  (net = payout - stake;
+  //                       the stake was deducted at commit, so the TOTAL payout is credited here)
+  //   failed (lost)    -> nothing credited (the stake is already gone)
   // Guarded by campaignSettledRef (same one-shot pattern as settleMatch's settledRef). On met the
   // node is marked beaten and persisted. Plain callback, never a setState updater. The celebration
-  // (playVictory earlier + playPayout here) is value-INDEPENDENT: identical fanfare for x1.28 and
-  // x8.77 (RG-C5 / RG-C5). P1 is ALWAYS the player, so the objective always judges the player.
-  const settleCampaign = useCallback((result: ObjectiveResult) => {
-    if (result === 'open') return; // never settle on an open objective
+  // (playVictory earlier + playPayout here) is value-INDEPENDENT: identical fanfare for x1.92 and
+  // x11.94 (RG-C5). P1 is ALWAYS the player, so the judge always scores the player.
+  const settleCampaign = useCallback((result: CampaignMatchResult) => {
+    if (result === 'open') return; // never settle an open match
     if (campaignSettledRef.current) return;
     campaignSettledRef.current = true;
     // The committed stake is consumed by this settle: no later path may refund it.
     stakeCommittedRef.current = false;
     const stake = stakeRef.current;
     const node = getCampaignNode(campaignNodeIdRef.current);
-    const tierDef = node ? TIERS[node.tier] : null;
-    const multBps = tierDef ? tierDef.multBps : 0n;
+    const multBps = node ? node.multBps : 0n;
+    const roundsToWin: 2 | 3 = node ? node.roundsToWin : 2;
     const met = result === 'met';
     const payout = met ? campaignPayout(stake, multBps) : 0n;
     const balanceAfter = balanceRef.current + payout;
@@ -568,8 +581,8 @@ export function useFightController(
     setCampaignReceipt({
       nodeId: node ? node.id : campaignNodeIdRef.current ?? 0,
       nodeName: node ? node.name : '',
-      tier: node ? node.tier : 'takeRound',
-      objective: tierDef ? tierDef.objective : '',
+      roundsToWin,
+      objective: `FIRST TO ${roundsToWin} ROUNDS`,
       met,
       stakeLamports: stake,
       multBps,
@@ -602,7 +615,22 @@ export function useFightController(
     (p1Move: Move, p2Move: Move) => {
       setPhaseNow('resolve');
       const prev = matchStateRef.current;
-      const next = applyExchange(prev, p1Move, p2Move);
+      // CAMPAIGN DEFENSE INTERCEPTION (phase 17): campaign exchanges route through the SHARED
+      // applyCampaignExchange (the same function the Monte-Carlo sim and the tests use — the
+      // absorb rule cannot drift). An absorbed player hit drains the enemy's per-round buffer and
+      // the FROZEN ENGINE never processes the exchange; everything else is the plain engine call.
+      let next: MatchState;
+      let absorbed = false;
+      if (modeRef.current === 'campaign') {
+        const r = applyCampaignExchange(prev, p1Move, p2Move, campaignDefenseRef.current);
+        next = r.state;
+        absorbed = r.absorbed;
+        campaignDefenseRef.current = r.absorbRemaining;
+        setCampaignDefense(r.absorbRemaining);
+        setCampaignAbsorbed(absorbed);
+      } else {
+        next = applyExchange(prev, p1Move, p2Move);
+      }
       // Advance the exchange counter in lockstep with the engine (both clients resolve the same
       // exchange exactly once, so their indices stay aligned). Harmless/unused in CPU mode.
       exchangeIdxRef.current += 1;
@@ -611,7 +639,14 @@ export function useFightController(
       const outcome = next.history[next.history.length - 1].outcome;
       setLastOutcome(outcome);
       const roundEnding = Boolean(next.roundOver);
-      outcomeSound(outcome, roundEnding);
+      // Absorb sound: a SHIELD soak reads as a deflection (the block tink), not a landed hit; a
+      // BULK soak looks like a normal hit draining the longer bar, so it keeps the normal hit
+      // sound. Zero-param audio either way (RG-C5).
+      if (absorbed && getCampaignNode(campaignNodeIdRef.current)?.defense?.kind === 'shield') {
+        playHitBlock();
+      } else {
+        outcomeSound(outcome, roundEnding);
+      }
 
       // Hits get a clip-sized window (the attack clip beat is ~2s at CLIP_RATE with contact
       // at ~875ms; a 700ms window cut the swing before its contact frame). The clash window is
@@ -623,26 +658,21 @@ export function useFightController(
           ? RESOLVE_HIT_MS
           : RESOLVE_MS;
       schedule(() => {
-        // CAMPAIGN (spec §16): the objective is judged after every completed ROUND (never
-        // mid-round). While 'open' the fight continues exactly like a normal match; on 'met' /
-        // 'failed' we STOP starting rounds and settle ONCE. The engine is untouched — we simply
-        // stop calling startNextRound. Every campaign fight ends on a round boundary (the evaluator
-        // is only consulted at round end), so the round-win/loss beat always plays before settle.
+        // CAMPAIGN (phase 17): the match is judged after every completed ROUND (never mid-round)
+        // by evaluateCampaignMatch on ROUND-WIN COUNTS ONLY. Engine matchOver is deliberately
+        // IGNORED: the frozen engine hard-codes first-to-2, so first-to-3 nodes keep starting
+        // rounds past the engine's own "match over" (safe: applyExchange/startNextRound recompute
+        // per-round state from hp/roundsWon — proven in fightCampaign.test.ts). While 'open' the
+        // fight continues; on 'met'/'failed' we stop starting rounds and settle ONCE. Every
+        // campaign fight ends on a round boundary, so the round beat always plays before settle.
         if (modeRef.current === 'campaign') {
           if (!next.roundOver) {
             beginPicking();
             return;
           }
-          if (next.roundOver === 'p1' && next.flawless) campaignFlawlessP1Ref.current += 1;
           const node = getCampaignNode(campaignNodeIdRef.current);
-          const tier: CampaignTier = node ? node.tier : 'winMatch';
-          const result = evaluateObjective(
-            tier,
-            next.p1.roundsWon,
-            next.p2.roundsWon,
-            campaignFlawlessP1Ref.current,
-            Boolean(next.matchOver),
-          );
+          const roundsToWin: 2 | 3 = node ? node.roundsToWin : 2;
+          const result = evaluateCampaignMatch(next.p1.roundsWon, next.p2.roundsWon, roundsToWin);
           if (next.flawless) playFlawless();
           // Let the round-win/loss beat play in the roundEnd dwell (the KO/special/victory chain
           // for this round-ending exchange already fired in the UI choreography, which arms on ANY
@@ -650,6 +680,10 @@ export function useFightController(
           setPhaseNow('roundEnd');
           if (result === 'open') {
             schedule(() => {
+              // Round start: the enemy's absorb buffer refills to the node's defense amount.
+              const refill = defenseAmount(node);
+              campaignDefenseRef.current = refill;
+              setCampaignDefense(refill);
               setMatchStateNow(startNextRound(next));
               startRoundIntro();
             }, ROUND_END_MS);
@@ -868,7 +902,9 @@ export function useFightController(
     campaignNodeIdRef.current = null;
     setCampaignNodeId(null);
     campaignSettledRef.current = false;
-    campaignFlawlessP1Ref.current = 0;
+    campaignDefenseRef.current = 0;
+    setCampaignDefense(0);
+    setCampaignAbsorbed(false);
     setCampaignReceipt(null);
     setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
     setPhaseNow('mode');
@@ -903,8 +939,12 @@ export function useFightController(
       setAiPersonality(null);
       campaignNodeIdRef.current = nodeId;
       setCampaignNodeId(nodeId);
-      campaignFlawlessP1Ref.current = 0;
       campaignSettledRef.current = false;
+      // Round 1 starts with the enemy's absorb buffer at the node's defense amount.
+      const refill = defenseAmount(getCampaignNode(nodeId));
+      campaignDefenseRef.current = refill;
+      setCampaignDefense(refill);
+      setCampaignAbsorbed(false);
       campaignRngRef.current = mulberry32((Date.now() ^ (nodeId * 0x9e3779b1) ^ 0x1b873593) >>> 0);
       setMatchStateNow(createMatch());
       setLastOutcome(null);
@@ -1127,7 +1167,9 @@ export function useFightController(
     if (nodeId == null) return;
     setMatchStateNow(createMatch());
     setLastOutcome(null);
-    campaignFlawlessP1Ref.current = 0;
+    campaignDefenseRef.current = 0;
+    setCampaignDefense(0);
+    setCampaignAbsorbed(false);
     pendingStartRef.current = { kind: 'campaign', nodeId };
     enterStake();
   }, [clearAllTimers, enterStake, setMatchStateNow]);
@@ -1146,7 +1188,9 @@ export function useFightController(
     setCampaignNodeId(nextId);
     setMatchStateNow(createMatch());
     setLastOutcome(null);
-    campaignFlawlessP1Ref.current = 0;
+    campaignDefenseRef.current = 0;
+    setCampaignDefense(0);
+    setCampaignAbsorbed(false);
     pendingStartRef.current = { kind: 'campaign', nodeId: nextId };
     enterStake();
   }, [clearAllTimers, enterStake, setPhaseNow, setMatchStateNow]);
@@ -1156,7 +1200,9 @@ export function useFightController(
     clearAllTimers();
     setMatchStateNow(createMatch());
     setLastOutcome(null);
-    campaignFlawlessP1Ref.current = 0;
+    campaignDefenseRef.current = 0;
+    setCampaignDefense(0);
+    setCampaignAbsorbed(false);
     setPhaseNow('campaignMap');
   }, [clearAllTimers, setPhaseNow, setMatchStateNow]);
 
@@ -1235,7 +1281,9 @@ export function useFightController(
     campaignNodeIdRef.current = null;
     setCampaignNodeId(null);
     campaignSettledRef.current = false;
-    campaignFlawlessP1Ref.current = 0;
+    campaignDefenseRef.current = 0;
+    setCampaignDefense(0);
+    setCampaignAbsorbed(false);
     setCampaignReceipt(null);
     exchangeIdxRef.current = 0;
     oppPickBufferRef.current.clear();
@@ -1261,6 +1309,8 @@ export function useFightController(
     nodeId: campaignNodeId,
     beaten: campaignBeaten,
     frontier: frontierOf(campaignBeaten),
+    defenseRemaining: campaignDefense,
+    absorbed: campaignAbsorbed,
   };
 
   return {

@@ -1,4 +1,4 @@
-# CAMPAIGN-SPEC — Frozen Requiem CONQUEST MAP (phase 16, design of record)
+# CAMPAIGN-SPEC — STANDOFF CONQUEST MAP (phases 16-17, design of record)
 
 Tim's ask (2026-07-20): a campaign mode where each won fight unlocks the next stage on a
 progressive map (reference: `input/progressivemap.jpg` — ANOTHER GAME'S map, reference
@@ -7,43 +7,61 @@ final boss = highest multiplier. Many characters are coming; VOLTA fills every e
 slot for now. Higher stage = higher return AND harder fight, priced so the economy
 cannot be gamed.
 
+PHASE-17 RULING (Tim, 2026-07-21, replaces the phase-16 objective-tier ladder): the quest
+objectives (win 2-0, flawless) were too hard and confusing — players must "just play
+normal rock paper scissors" and WIN THE MATCH, nothing else. Difficulty came back via a
+follow-up ruling: escalation through match FORMAT (first to 2 vs first to 3 round wins)
+and per-node enemy DEFENSE ("more hp for a higher boss or a shield") — the enemy absorbs
+the player's first S decisive hits each round, presented either as a SHIELD (pips,
+deflection beat) or as BULK (a visibly longer 3+S segment health bar). Same math, two
+presentations, priced into RTP exactly as before.
+
 ## 0. Economic laws (non-negotiable, measured 2026-07-20)
 
 1. **Every node is independently priced at <=96% RTP.** Payout multiplier = 0.96 /
-   P(objective), floored to clean bps. Because NO node ever pays better than 96%, there
+   P(match win), floored to clean bps. Because NO node ever pays better than 96%, there
    is no state where cheap early bets buy better-value later bets: the grind/stake-cap
    exploit Tim worried about is structurally impossible. Bet size is free at every
-   unlocked node.
+   unlocked node. (Phase 17: pricing follows the format+defense ladder below; the law is
+   unchanged.)
 2. **Campaign enemies pick UNIFORM RANDOM (`randomMove`), never `aiPick`.** Measured on
    the frozen engine (200k matches/cell, seeded): an adaptive player beats BRUTE 88%
    (176% RTP at 2x) and WARDEN 73% (146% RTP). Personalities are exploitable and can
-   never sit behind a real multiplier. Random is Nash-neutral: exactly the tier
+   never sit behind a real multiplier. Random is Nash-neutral: exactly the ladder
    probabilities below vs ANY player, skilled or not. Personalities stay in quick duel
    (known mockup player-edge, accepted). Same doctrine as phase-14 auto-play.
 3. All money math is bigint bps with floor truncation (swoobz-casino-math).
-   `payout = stake * multBps / 10000n` on objective met; stake already deducted at
-   commit; objective failed = stake lost. Winner-takes-all quick duel is untouched.
+   `payout = stake * multBps / 10000n` on a match win; stake already deducted at
+   commit; match lost = stake lost. Winner-takes-all quick duel is untouched.
 
-## 1. The tier probabilities (EXACT, closed-form, MC-confirmed 200k)
+## 1. The ladder probabilities (EXACT, closed-form, MC-confirmed 2M/node)
 
-Round outcomes for the player vs a uniform-random enemy (frozen engine: 3 HP,
-1 damage/exchange, clash = no damage; decisive exchanges are 50/50):
-round win = 1/2; round win FLAWLESS (3-0 HP) = 1/8; round win non-flawless = 3/8.
-Rounds are independent; match = first to 2 round wins (max 3 rounds).
+Every node's objective is WIN THE MATCH. Two escalation knobs, both fully disclosed on
+the node card (Glass Box):
 
-| tier id          | objective (player-facing)              | P exact    | P       | multBps | pays  | RTP     |
-|------------------|----------------------------------------|------------|---------|---------|-------|---------|
-| takeRound        | take at least one round                | 3/4        | 75.00%  | 12800   | x1.28 | 96.00%  |
-| winMatch         | win the match                          | 1/2        | 50.00%  | 19200   | x1.92 | 96.00%  |
-| flawlessRound    | win any round flawless                 | 9/32       | 28.125% | 34100   | x3.41 | 95.91%  |
-| win20            | win the match 2-0                      | 1/4        | 25.00%  | 38400   | x3.84 | 96.00%  |
-| winWithFlawless  | win the match with a flawless round    | 7/32       | 21.875% | 43800   | x4.38 | 95.81%  |
-| bossRequiem      | win 2-0 with a flawless round          | 7/64       | 10.9375%| 87700   | x8.77 | 95.92%  |
+- FORMAT R: first to 2 round wins (max 3 rounds) or first to 3 (max 5 rounds). The
+  frozen engine hard-codes first-to-2, so first-to-3 nodes play PAST engine matchOver
+  (the provider simply keeps starting rounds; proven safe in fightCampaign.test.ts).
+- DEFENSE S: the enemy absorbs the player's first S decisive hits EACH ROUND (buffer
+  refills at round start; enemy hits on the player are never absorbed; clashes
+  unchanged). Presented as 'shield' (pips + deflection beat) or 'bulk' (a 3+S segment
+  health bar) — SAME math, presentation only.
 
-Derivations (regression-test these): winWithFlawless: P(2-0 with >=1 flawless) =
-1/4 - (3/8)^2 = 7/64; P(2-1 with flawless among the two wins) = 1/4 * (1 - (3/4)^2) =
-7/64; total 7/32. flawlessRound: 1 - E[(3/4)^wins over match paths] = 1 - 23/32 = 9/32.
-bossRequiem = 7/64.
+Round-win probability q = P(player lands 3+S decisive hits before taking 3), decisive
+exchanges 50/50: q(0) = 1/2, q(1) = 11/32, q(2) = 29/128.
+Match win: first-to-2 P = q^2(3-2q); first-to-3 P = q^3(1 + 3(1-q) + 6(1-q)^2).
+
+| rung        | S | R | q exact | P exact                  | P        | multBps | pays   | RTP     |
+|-------------|---|---|---------|--------------------------|----------|---------|--------|---------|
+| plain       | 0 | 2 | 1/2     | 1/2                      | 50.000%  | 19200   | x1.92  | 96.00%  |
+| defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35120   | x3.51  | 95.97%  |
+| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42530   | x4.25  | 95.92%  |
+| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73430   | x7.34  | 96.00%  |
+| boss        | 2 | 3 | 29/128  | 1380490567/17179869184   | 8.035%   | 119400  | x11.94 | 95.94%  |
+
+All exact fractions are regression-tested against a first-principles enumeration
+(fightCampaign.test.ts), and every rung satisfies multBps * P <= 0.96 in exact bigint
+arithmetic.
 
 ## 2. The map (10 nodes + 2 locked bonus isles) — RONIN ZERO season theme
 
@@ -57,26 +75,27 @@ labels/nodes/fog are code-drawn on top). Generation job ids:
 chosen c60a8ea0-4ccc-4f... (candidate B), spare 655e9040-b631-4e... (candidate A,
 scratchpad map-jp-a.png). Tim's input/progressivemap.jpg stays reference-only.
 
-| node | name              | title (enemy card)           | tier            | fighterId |
-|------|-------------------|------------------------------|-----------------|-----------|
-| 1    | KUROHAMA DOCKS    | Dockmaster of Kurohama       | takeRound       | volta     |
-| 2    | ASHEN TORII       | Keeper of the Ashen Torii    | takeRound       | volta     |
-| 3    | WHISPERING BAMBOO | Blade of the Bamboo Sea      | winMatch        | volta     |
-| 4    | SNOWFANG PASS     | Sentinel of Snowfang         | winMatch        | volta     |
-| 5    | KAWA CROSSING     | Duelist of the Crossing      | winMatch        | volta     |
-| 6    | HOLLOW SHRINE     | Phantom of the Hollow Shrine | flawlessRound   | volta     |
-| 7    | BURNED PAGODA     | Ash Warden of the Pagoda     | win20           | volta     |
-| 8    | RED MIST GORGE    | Tyrant of the Red Mist       | win20           | volta     |
-| 9    | CRIMSON GATES     | Warlord of the Crimson Gates | winWithFlawless | volta     |
-| 10   | ZERO CITADEL      | RONIN ZERO (season boss)     | bossRequiem     | volta     |
-| B1   | (locked NW isle)  | COMING SOON                  | -               | -         |
-| B2   | (locked SE isle)  | COMING SOON                  | -               | -         |
+| node | name              | title (enemy card)           | format | defense   | pays   | fighterId |
+|------|-------------------|------------------------------|--------|-----------|--------|-----------|
+| 1    | KUROHAMA DOCKS    | Dockmaster of Kurohama       | to 2   | none      | x1.92  | volta     |
+| 2    | ASHEN TORII       | Keeper of the Ashen Torii    | to 2   | none      | x1.92  | volta     |
+| 3    | WHISPERING BAMBOO | Blade of the Bamboo Sea      | to 2   | none      | x1.92  | volta     |
+| 4    | SNOWFANG PASS     | Sentinel of Snowfang         | to 2   | none      | x1.92  | volta     |
+| 5    | KAWA CROSSING     | Duelist of the Crossing      | to 2   | bulk +1   | x3.51  | volta     |
+| 6    | HOLLOW SHRINE     | Phantom of the Hollow Shrine | to 2   | shield 1  | x3.51  | volta     |
+| 7    | BURNED PAGODA     | Ash Warden of the Pagoda     | to 3   | bulk +1   | x4.25  | volta     |
+| 8    | RED MIST GORGE    | Tyrant of the Red Mist       | to 3   | shield 1  | x4.25  | volta     |
+| 9    | CRIMSON GATES     | Warlord of the Crimson Gates | to 2   | bulk +2   | x7.34  | volta     |
+| 10   | ZERO CITADEL      | RONIN ZERO (season boss)     | to 3   | shield 2  | x11.94 | volta     |
+| B1   | (locked NW isle)  | COMING SOON                  | -      | -         | -      | -         |
+| B2   | (locked SE isle)  | COMING SOON                  | -      | -         | -      | -         |
 
 Names are originals in a Japanese sengoku register, NOT the reference map's towns.
-A node def = { id, name, title, tier, fighterId, arenaId } in ONE registry row —
-future characters/arenas drop in by editing the row only. VOLTA fills every enemy
-slot until the roster grows; node 10's enemy is presented as RONIN ZERO (title/copy
-only this phase; his real character art is a later batch).
+A node def = { id, name, title, roundsToWin, defense?, multBps, fighterId, arenaId } in
+ONE registry row — future characters/arenas drop in by editing the row only. VOLTA fills
+every enemy slot until the roster grows; node 10's enemy is presented as RONIN ZERO
+(title/copy only this phase; his real character art is a later batch). Cosmetic rewards
+(EV-neutral, swoobz-engagement-layer) stay on nodes 2 (AUTOMAT pack) + 8 (gold pack).
 
 MAP_CAL: node positions are percentages of the map image, in a module-const table,
 and every node disc must sit ON the drawn dotted warpath (verified visually on a
@@ -93,45 +112,55 @@ not the terrain); frontier node pulses blood-red (this map's accent; cyan stays 
 interactive chrome elsewhere); conquered nodes show a planted flag glyph. B1/B2
 always visible, always locked this phase.
 
-## 3. Objective evaluator (pure, early-exit)
+## 3. Match judge + defense interception (pure; phase 17)
 
-New pure module evaluates after every completed round (NEVER mid-round; reads
-MatchState + per-round flawless flags for the PLAYER):
-`evaluateObjective(tier, roundsWonP1, roundsWonP2, flawlessWinsP1, matchOver) ->
-'met' | 'failed' | 'open'`.
+`evaluateCampaignMatch(p1Rounds, p2Rounds, roundsToWin) -> 'met' | 'failed' | 'open'`:
+met when the player reaches roundsToWin first, failed when the enemy does, judged after
+every completed round (never mid-round) on ROUND-WIN COUNTS ONLY. It deliberately
+IGNORES engine matchOver: the frozen engine hard-codes first-to-2, so first-to-3 nodes
+keep starting rounds past the engine's own "match over" (applyExchange/startNextRound
+recompute per-round state from hp/roundsWon and stay correct past it — unit-proven,
+including the trap where the engine's stale matchOver names the LOSER of the campaign
+match).
 
-- takeRound: met on first p1 round win; failed if p2 reaches 2 round wins first.
-- winMatch: met on matchOver p1; failed on matchOver p2.
-- flawlessRound: met on any p1 FLAWLESS round win (even mid-match, even if the match
-  would be lost later — the fight ends there); failed at matchOver without one.
-- win20: failed the moment p1 LOSES any round; met at 2-0.
-- winWithFlawless: failed on matchOver p2; at matchOver p1 met iff flawlessWinsP1 >= 1;
-  open otherwise (a future round can still be flawless).
-- bossRequiem: failed the moment p1 loses any round; at 2-0 met iff flawlessWinsP1 >= 1
-  else failed.
+`applyCampaignExchange(state, p1Move, p2Move, absorbRemaining)` is THE shared absorb
+decision — the ONE function the provider, the Monte-Carlo sim and the tests all route
+campaign exchanges through (no drift possible): when the PLAYER wins a decisive exchange
+while the enemy has absorb buffer left, the buffer decrements and the FROZEN ENGINE
+never processes the exchange (a synthetic history record carries the presentation);
+enemy hits and clashes pass straight through to the engine. The buffer refills to the
+node's defense amount at every round start (provider + sim both do this externally).
 
-The fight ENDS as soon as the evaluator leaves 'open' (early settle: snappy retry loop
-on the 2-0 tiers; takeRound fights average ~1.6 rounds). Presentation: 'met' plays the
-normal round-win beat (ko/special/victory chain if the final exchange was a KO) then
-the campaign receipt; 'failed' plays the loss beat then the receipt. Engine is NEVER
-edited: the provider simply stops starting new rounds and settles.
+Presentation of an absorbed hit (self-explanatory law, cause -> effect in one motion):
+- 'shield': the deflection family — frost parry arc at the enemy + "SHIELDED" floater
+  instead of "-1", shield pip empties, NO hit reaction, block-tink audio, no HP drain.
+- 'bulk': indistinguishable from a normal hit — the enemy's LONGER bar (3+S segments,
+  visibly wider than the player's) drains a segment with the standard hit beat; the
+  player never senses a seam between the extra and real segments.
+
+The fight ends the moment the judge leaves 'open'; 'met' plays the round-win beat
+(ko/special/victory chain) then the campaign receipt; 'failed' the loss beat then the
+receipt. Engine is NEVER edited: the provider stops starting new rounds and settles
+once.
 
 ## 4. Player-facing surfaces
 
 - MODE screen gains CAMPAIGN (alongside CPU / VS FRIEND).
-- MAP screen: DS-styled dark-parchment placeholder (SVG/code, ZERO credits, real map
-  art is a later approved Higgsfield batch): winding dotted path, numbered nodes,
-  flags on conquered, "?" fog beyond frontier, locked B-isles, SWOOBZ wordmark,
-  PLAY SAFE pill. Node click -> NODE CARD: enemy portrait + title, objective line,
-  WIN CHANCE % (Glass Box: the exact tier percentage), PAYS xN.NN, stake console
-  (existing BetConsole flow), FIGHT.
-- During the fight an OBJECTIVE STRIP is always visible (e.g. "OBJECTIVE: WIN 2-0 -
-  PAYS x3.84" under the timer, drawn per cover-plate law) and updates state
-  (e.g. rounds needed) so a fresh player always knows what completes the node
-  (fresh-player-comprehension law).
-- CAMPAIGN RECEIPT: OBJECTIVE COMPLETE / OBJECTIVE FAILED, node name, stake, mult,
-  payout, net; buttons: [NEXT NODE] (on met, if a next node exists) / [RETRY] /
-  [MAP]. Value-independent celebration (RG-C5): identical fanfare for x1.28 and x8.77.
+- MAP screen: the shipped living-map art + code-drawn node layer (flags on conquered,
+  "?" fog beyond frontier, locked B-isles, SWOOBZ wordmark, PLAY SAFE pill). Node
+  click -> NODE CARD: enemy portrait + title, "WIN THE MATCH" + "FIRST TO R ROUNDS"
+  format line, defense disclosure per kind (shield pips preview / longer-bar preview +
+  one-line copy), WIN CHANCE % (Glass Box: the exact ladder percentage), PAYS xN.NN,
+  stake console (existing BetConsole flow), FIGHT.
+- During the fight: round pips show the node's REAL format (3 slots per side on
+  first-to-3 nodes); shield nodes draw the enemy's shield pips above his HP bar (refill
+  each round); bulk nodes draw his longer 3+S segment bar. A minimal strip under the
+  timer reads "FIRST TO R ROUNDS - PAYS xM.MM" (+ the defense hint on defended nodes)
+  per cover-plate law (fresh-player-comprehension law).
+- CAMPAIGN RECEIPT: VICTORY (gold) / DEFEAT (blood), node name, stake, mult, payout,
+  net, bank; buttons: [NEXT NODE] (on win, if a next node exists) / [RETRY] / [MAP];
+  reward-unlocked card on winning a reward node. Value-independent celebration (RG-C5):
+  identical fanfare for x1.92 and x11.94.
 - Map + receipt disclose RTP ("each trial returns 96% to players over time" line or
   the existing PLAY SAFE surface).
 
@@ -150,12 +179,17 @@ fresh. Balance stays the existing shared practice bank `frozen-requiem.balance.v
   money moments, Anton hero type / Space Grotesk UI / JetBrains Mono numbers).
 - StrictMode-safe provider additions; one-shot settle guard on the campaign payout
   path (same pattern as stakeCommittedRef).
-- Tests: evaluator unit tests on scripted round sequences (every tier x met/failed/
-  early-exit), exact-probability regression tests (the section-1 fractions), payout
-  bps math incl floor, persistence corrupt-input recovery. Suite stays serial.
-- Monte-Carlo RTP battery: `scripts/campaign-rtp-sim.mjs` runs every node >=200k
-  matches vs the REAL evaluator + randomMove enemy and asserts measured RTP in
-  [95.0%, 96.1%]. Runs in FOREGROUND (foreground-sims law).
+- Tests: judge unit tests (met/failed/open orderings for BOTH formats, including
+  play-past-engine-matchOver for first-to-3, proven on the real engine), absorb-ordering
+  tests on the shared applyCampaignExchange (buffer before HP, enemy hits never
+  absorbed, clash passthrough, zero-buffer byte-equivalence), exact q/P regression
+  (the section-1 fractions vs first-principles enumeration), payout bps math incl
+  floor, persistence corrupt-input recovery. Suite stays serial.
+- Monte-Carlo RTP battery: `scripts/campaign-rtp-sim.mjs` runs every node 2M matches
+  through the REAL applyCampaignExchange + evaluateCampaignMatch + randomMove enemy,
+  asserts measured RTP in [95.0%, 96.1%], measured P within 0.3% of the closed form,
+  and that the bulk/shield pairs of the same defense measure equal P. Runs in
+  FOREGROUND (foreground-sims law).
 
 ## 7. Out of scope this phase (recorded, not forgotten)
 

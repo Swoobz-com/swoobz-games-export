@@ -1,261 +1,339 @@
 import { describe, expect, it } from 'vitest';
 import {
+  applyCampaignExchange,
   CAMPAIGN_NODES,
   CAMPAIGN_NODE_COUNT,
   campaignPayout,
-  evaluateObjective,
+  defenseAmount,
+  evaluateCampaignMatch,
   formatMult,
   formatWinChance,
   getCampaignNode,
-  TIERS,
-  type CampaignTier,
+  matchWinProbability,
 } from './fightCampaign';
+import { applyExchange, createMatch, startNextRound } from './fightEngine';
+import type { MatchState } from './fightEngine';
 
-const ALL_TIERS: CampaignTier[] = ['takeRound', 'winMatch', 'flawlessRound', 'win20', 'winWithFlawless', 'bossRequiem'];
+// ── Independent first-principles recomputation (never reuses the module's formulas) ──────────
+// q(S) = P(player lands 3+S decisive hits before taking 3) on a fair coin, by direct recursion
+// over (hitsStillNeeded, livesLeft) with exact bigint rationals.
+function qOf(shield: number): { num: bigint; den: bigint } {
+  const rec = (need: number, lives: number): { num: bigint; den: bigint } => {
+    if (need === 0) return { num: 1n, den: 1n };
+    if (lives === 0) return { num: 0n, den: 1n };
+    const a = rec(need - 1, lives);
+    const b = rec(need, lives - 1);
+    // (a + b) / 2
+    return { num: a.num * b.den + b.num * a.den, den: 2n * a.den * b.den };
+  };
+  return rec(3 + shield, 3);
+}
 
-describe('tier table — exact values (spec §1)', () => {
-  it('probabilities and multipliers are the agreed exact values', () => {
-    expect(TIERS.takeRound).toMatchObject({ pNum: 3, pDen: 4, multBps: 12800n });
-    expect(TIERS.winMatch).toMatchObject({ pNum: 1, pDen: 2, multBps: 19200n });
-    expect(TIERS.flawlessRound).toMatchObject({ pNum: 9, pDen: 32, multBps: 34100n });
-    expect(TIERS.win20).toMatchObject({ pNum: 1, pDen: 4, multBps: 38400n });
-    expect(TIERS.winWithFlawless).toMatchObject({ pNum: 7, pDen: 32, multBps: 43800n });
-    expect(TIERS.bossRequiem).toMatchObject({ pNum: 7, pDen: 64, multBps: 87700n });
-  });
+// P(match) = P(reach R round wins before the enemy does), rounds independent with win prob q.
+function matchPOf(q: { num: bigint; den: bigint }, roundsToWin: number): { num: bigint; den: bigint } {
+  const rec = (w1: number, w2: number): { num: bigint; den: bigint } => {
+    if (w1 >= roundsToWin) return { num: 1n, den: 1n };
+    if (w2 >= roundsToWin) return { num: 0n, den: 1n };
+    const win = rec(w1 + 1, w2);
+    const lose = rec(w1, w2 + 1);
+    // q*win + (1-q)*lose
+    const num = q.num * win.num * lose.den + (q.den - q.num) * lose.num * win.den;
+    return { num, den: q.den * win.den * lose.den };
+  };
+  return rec(0, 0);
+}
 
-  it('objective copy carries no em-dashes (RG-C5 copy law)', () => {
-    for (const tier of ALL_TIERS) {
-      expect(TIERS[tier].objective).not.toContain('—');
-    }
-  });
+function ratEq(a: { num: bigint; den: bigint }, b: { num: bigint; den: bigint }): boolean {
+  return a.num * b.den === b.num * a.den;
+}
 
-  it('every tier is priced at <= 96% RTP (spec §0: multBps * P <= 0.96)', () => {
-    // exact integer form of multBps/10000 * pNum/pDen <= 9600/10000  ⇔  multBps*pNum <= 9600*pDen
-    for (const tier of ALL_TIERS) {
-      const { pNum, pDen, multBps } = TIERS[tier];
-      expect(multBps * BigInt(pNum) <= 9600n * BigInt(pDen)).toBe(true);
-    }
+describe('exact round-win probabilities q (regression vs first-principles recursion)', () => {
+  it('q(0) = 1/2, q(1) = 11/32, q(2) = 29/128', () => {
+    expect(ratEq(qOf(0), { num: 1n, den: 2n })).toBe(true);
+    expect(ratEq(qOf(1), { num: 11n, den: 32n })).toBe(true);
+    expect(ratEq(qOf(2), { num: 29n, den: 128n })).toBe(true);
   });
 });
 
-// ── Closed-form probability regression ─────────────────────────────────────────────────────
-// Recompute each objective's P(met) FROM FIRST PRINCIPLES by enumerating every match path over the
-// fundamental round distribution (flawless win 1/8, non-flawless win 3/8, loss 1/2 — spec §1), then
-// running the REAL evaluateObjective on each terminal state. Because the evaluator's terminal facts
-// are monotonic in the accumulated round facts, evaluating at match-over reproduces the early-exit
-// verdict. The measured P(met) must equal the stored exact rational — this ties the tier table AND
-// the evaluator to the closed-form fractions in one check.
-interface MatchPath {
-  p1w: number;
-  p2w: number;
-  flaw: number; // p1 flawless round wins
-  weight: bigint; // product of per-round weights (out of 8 each)
-  rounds: number;
-}
-function enumerateMatches(): MatchPath[] {
-  const out: MatchPath[] = [];
-  const rec = (p1w: number, p2w: number, flaw: number, weight: bigint, rounds: number): void => {
-    if (p1w >= 2 || p2w >= 2) {
-      out.push({ p1w, p2w, flaw, weight, rounds });
-      return;
-    }
-    rec(p1w + 1, p2w, flaw + 1, weight * 1n, rounds + 1); // flawless win  (1/8)
-    rec(p1w + 1, p2w, flaw, weight * 3n, rounds + 1); // non-flawless win (3/8)
-    rec(p1w, p2w + 1, flaw, weight * 4n, rounds + 1); // loss            (4/8)
-  };
-  rec(0, 0, 0, 1n, 0);
-  return out;
-}
-
-describe('closed-form probability regression (spec §1 fractions)', () => {
-  const paths = enumerateMatches();
-
-  it('the enumerated distribution is complete (sums to 512 = 8^3)', () => {
-    let total = 0n;
-    for (const p of paths) total += p.weight * 8n ** BigInt(3 - p.rounds);
-    expect(total).toBe(512n);
-  });
-
-  for (const tier of ALL_TIERS) {
-    it(`P(met) for ${tier} equals ${TIERS[tier].pNum}/${TIERS[tier].pDen}`, () => {
-      // scale every path to the common denominator 8^3 = 512 and sum the 'met' contributions.
-      let met = 0n;
-      for (const p of paths) {
-        const contribution = p.weight * 8n ** BigInt(3 - p.rounds);
-        if (evaluateObjective(tier, p.p1w, p.p2w, p.flaw, true) === 'met') met += contribution;
-      }
-      const { pNum, pDen } = TIERS[tier];
-      // met/512 === pNum/pDen  ⇔  met * pDen === pNum * 512
-      expect(met * BigInt(pDen)).toBe(BigInt(pNum) * 512n);
+describe('matchWinProbability — closed forms match independent enumeration + the exact fractions', () => {
+  const CASES: { amount: number; r: 2 | 3; frac: { num: bigint; den: bigint } }[] = [
+    { amount: 0, r: 2, frac: { num: 1n, den: 2n } },
+    { amount: 0, r: 3, frac: { num: 1n, den: 2n } },
+    { amount: 1, r: 2, frac: { num: 4477n, den: 16384n } },
+    { amount: 1, r: 3, frac: { num: 3784033n, den: 16777216n } },
+    { amount: 2, r: 2, frac: { num: 137083n, den: 1048576n } },
+    { amount: 2, r: 3, frac: { num: 1380490567n, den: 17179869184n } },
+  ];
+  for (const c of CASES) {
+    it(`P(S=${c.amount}, first-to-${c.r}) = ${c.frac.num}/${c.frac.den}`, () => {
+      const p = matchWinProbability(c.amount, c.r);
+      expect(ratEq(p, c.frac)).toBe(true); // the module's closed form
+      expect(ratEq(matchPOf(qOf(c.amount), c.r), c.frac)).toBe(true); // independent enumeration
     });
   }
-});
-
-// ── evaluateObjective — scripted round sequences (met / failed / open + early-exit ordering) ──
-describe('evaluateObjective — takeRound', () => {
-  it('met the instant P1 takes a round', () => {
-    expect(evaluateObjective('takeRound', 1, 0, 0, false)).toBe('met');
-    expect(evaluateObjective('takeRound', 1, 1, 0, false)).toBe('met');
-  });
-  it('open while nobody has closed it out', () => {
-    expect(evaluateObjective('takeRound', 0, 0, 0, false)).toBe('open');
-    expect(evaluateObjective('takeRound', 0, 1, 0, false)).toBe('open');
-  });
-  it('failed only when P2 reaches 2 with P1 still at 0', () => {
-    expect(evaluateObjective('takeRound', 0, 2, 0, true)).toBe('failed');
+  it('both formats are exactly fair (1/2) with no defense — the symmetric coin race', () => {
+    expect(ratEq(matchWinProbability(0, 2), { num: 1n, den: 2n })).toBe(true);
+    expect(ratEq(matchWinProbability(0, 3), { num: 1n, den: 2n })).toBe(true);
   });
 });
 
-describe('evaluateObjective — winMatch', () => {
-  it('met on a P1 match win, failed on a P2 match win, open otherwise', () => {
-    expect(evaluateObjective('winMatch', 2, 0, 0, true)).toBe('met');
-    expect(evaluateObjective('winMatch', 2, 1, 1, true)).toBe('met');
-    expect(evaluateObjective('winMatch', 0, 2, 0, true)).toBe('failed');
-    expect(evaluateObjective('winMatch', 1, 1, 0, false)).toBe('open');
+describe('the node ladder (phase 17) — formats, defenses, multipliers', () => {
+  it('has exactly 10 nodes with sequential ids', () => {
+    expect(CAMPAIGN_NODE_COUNT).toBe(10);
+    expect(CAMPAIGN_NODES.map((n) => n.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  });
+  it('ladder rows are exactly the agreed table (format / defense kind+amount / multBps)', () => {
+    const rows = CAMPAIGN_NODES.map((n) => [n.id, n.roundsToWin, n.defense?.kind ?? 'none', defenseAmount(n), n.multBps] as const);
+    expect(rows).toEqual([
+      [1, 2, 'none', 0, 19200n],
+      [2, 2, 'none', 0, 19200n],
+      [3, 2, 'none', 0, 19200n],
+      [4, 2, 'none', 0, 19200n],
+      [5, 2, 'bulk', 1, 35120n],
+      [6, 2, 'shield', 1, 35120n],
+      [7, 3, 'bulk', 1, 42530n],
+      [8, 3, 'shield', 1, 42530n],
+      [9, 2, 'bulk', 2, 73430n],
+      [10, 3, 'shield', 2, 119400n],
+    ]);
+  });
+  it('every node is priced inside [95.00%, 96.00%] RTP exactly (multBps * P vs 9500/9600 bps)', () => {
+    for (const n of CAMPAIGN_NODES) {
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin);
+      expect(n.multBps * p.num <= 9600n * p.den).toBe(true); // never better than 96%
+      expect(n.multBps * p.num >= 9500n * p.den).toBe(true); // never worse than 95%
+    }
+  });
+  it('same-defense same-format nodes share one price (bulk vs shield is presentation only)', () => {
+    expect(CAMPAIGN_NODES[4].multBps).toBe(CAMPAIGN_NODES[5].multBps); // n5 bulk1 == n6 shield1
+    expect(CAMPAIGN_NODES[6].multBps).toBe(CAMPAIGN_NODES[7].multBps); // n7 bulk1R3 == n8 shield1R3
+  });
+  it('rewards stay on nodes 2 + 8 exactly as before', () => {
+    expect(CAMPAIGN_NODES[1].reward?.id).toBe('automat-pack');
+    expect(CAMPAIGN_NODES[1].reward?.tier).toBe('standard');
+    expect(CAMPAIGN_NODES[7].reward?.id).toBe('automat-gold-pack');
+    expect(CAMPAIGN_NODES[7].reward?.tier).toBe('gold');
+    expect(CAMPAIGN_NODES.filter((n) => n.reward).map((n) => n.id)).toEqual([2, 8]);
+  });
+  it('user-facing copy carries no em-dashes (RG-C5 copy law)', () => {
+    for (const n of CAMPAIGN_NODES) {
+      expect(n.name).not.toContain('—');
+      expect(n.title).not.toContain('—');
+      if (n.reward) {
+        expect(n.reward.label).not.toContain('—');
+        expect(n.reward.sub).not.toContain('—');
+      }
+    }
+  });
+  it('getCampaignNode resolves by id and is safe on bad ids', () => {
+    expect(getCampaignNode(1)?.name).toBe('KUROHAMA DOCKS');
+    expect(getCampaignNode(10)?.name).toBe('ZERO CITADEL');
+    expect(getCampaignNode(10)?.defense).toEqual({ kind: 'shield', amount: 2 });
+    expect(getCampaignNode(11)).toBeUndefined();
+    expect(getCampaignNode(0)).toBeUndefined();
+    expect(getCampaignNode(null)).toBeUndefined();
   });
 });
 
-describe('evaluateObjective — flawlessRound', () => {
-  it('met on any P1 flawless win, even mid-match', () => {
-    expect(evaluateObjective('flawlessRound', 1, 0, 1, false)).toBe('met');
-    expect(evaluateObjective('flawlessRound', 1, 1, 1, false)).toBe('met');
+describe('evaluateCampaignMatch — met/failed/open orderings', () => {
+  it('first-to-2: met at 2 wins, failed at 2 losses, open before', () => {
+    expect(evaluateCampaignMatch(0, 0, 2)).toBe('open');
+    expect(evaluateCampaignMatch(1, 1, 2)).toBe('open');
+    expect(evaluateCampaignMatch(2, 0, 2)).toBe('met');
+    expect(evaluateCampaignMatch(2, 1, 2)).toBe('met');
+    expect(evaluateCampaignMatch(0, 2, 2)).toBe('failed');
+    expect(evaluateCampaignMatch(1, 2, 2)).toBe('failed');
   });
-  it('failed at match over without a flawless win (even a 2-1 win)', () => {
-    expect(evaluateObjective('flawlessRound', 2, 1, 0, true)).toBe('failed');
-    expect(evaluateObjective('flawlessRound', 0, 2, 0, true)).toBe('failed');
+  it('first-to-3: OPEN at 2 wins (the engine would call the match over here — we do not)', () => {
+    expect(evaluateCampaignMatch(2, 0, 3)).toBe('open');
+    expect(evaluateCampaignMatch(0, 2, 3)).toBe('open');
+    expect(evaluateCampaignMatch(2, 2, 3)).toBe('open');
   });
-  it('open while the match runs and no flawless yet', () => {
-    expect(evaluateObjective('flawlessRound', 1, 1, 0, false)).toBe('open');
-  });
-});
-
-describe('evaluateObjective — win20', () => {
-  it('failed the moment P1 loses a round (early, before match over)', () => {
-    expect(evaluateObjective('win20', 0, 1, 0, false)).toBe('failed');
-    expect(evaluateObjective('win20', 1, 1, 0, false)).toBe('failed');
-  });
-  it('met at a clean 2-0', () => {
-    expect(evaluateObjective('win20', 2, 0, 0, true)).toBe('met');
-  });
-  it('open at 1-0', () => {
-    expect(evaluateObjective('win20', 1, 0, 0, false)).toBe('open');
+  it('first-to-3: met at 3 wins, failed at 3 losses', () => {
+    expect(evaluateCampaignMatch(3, 0, 3)).toBe('met');
+    expect(evaluateCampaignMatch(3, 2, 3)).toBe('met');
+    expect(evaluateCampaignMatch(0, 3, 3)).toBe('failed');
+    expect(evaluateCampaignMatch(2, 3, 3)).toBe('failed');
   });
 });
 
-describe('evaluateObjective — winWithFlawless', () => {
-  it('failed on a P2 match win', () => {
-    expect(evaluateObjective('winWithFlawless', 0, 2, 0, true)).toBe('failed');
-    expect(evaluateObjective('winWithFlawless', 1, 2, 1, true)).toBe('failed');
+// ── applyCampaignExchange — the shared absorb decision ──────────────────────────────────────
+describe('applyCampaignExchange — absorb ordering (shield/bulk share this exact rule)', () => {
+  it('the player s first hits are absorbed: buffer drains BEFORE any HP damage', () => {
+    let state = createMatch();
+    let buf = 2;
+    // Hit 1: absorbed. Engine untouched, buffer 2 -> 1, history grew by a synthetic record.
+    let r = applyCampaignExchange(state, 'strike', 'throw', buf); // p1 wins
+    expect(r.absorbed).toBe(true);
+    expect(r.absorbRemaining).toBe(1);
+    expect(r.state.p2.hp).toBe(3);
+    expect(r.state.p1.hp).toBe(3);
+    expect(r.state.history).toHaveLength(1);
+    expect(r.state.history[0]).toEqual({
+      p1: 'strike',
+      p2: 'throw',
+      outcome: { kind: 'hit', winner: 'p1', move: 'strike', loserMove: 'throw' },
+    });
+    state = r.state;
+    buf = r.absorbRemaining;
+    // Hit 2: absorbed, buffer 1 -> 0.
+    r = applyCampaignExchange(state, 'throw', 'block', buf);
+    expect(r.absorbed).toBe(true);
+    expect(r.absorbRemaining).toBe(0);
+    expect(r.state.p2.hp).toBe(3);
+    state = r.state;
+    buf = r.absorbRemaining;
+    // Hit 3: buffer empty -> REAL damage through the frozen engine.
+    r = applyCampaignExchange(state, 'strike', 'throw', buf);
+    expect(r.absorbed).toBe(false);
+    expect(r.absorbRemaining).toBe(0);
+    expect(r.state.p2.hp).toBe(2);
+    expect(r.state.history).toHaveLength(3);
   });
-  it('met on a P1 match win that included a flawless round', () => {
-    expect(evaluateObjective('winWithFlawless', 2, 1, 1, true)).toBe('met');
-    expect(evaluateObjective('winWithFlawless', 2, 0, 2, true)).toBe('met');
+
+  it('enemy hits on the player are NEVER absorbed (buffer untouched, player hp drains)', () => {
+    const state = createMatch();
+    const r = applyCampaignExchange(state, 'throw', 'strike', 2); // p2 wins
+    expect(r.absorbed).toBe(false);
+    expect(r.absorbRemaining).toBe(2);
+    expect(r.state.p1.hp).toBe(2);
+    expect(r.state.p2.hp).toBe(3);
   });
-  it('failed on a P1 match win with no flawless round (too late)', () => {
-    expect(evaluateObjective('winWithFlawless', 2, 0, 0, true)).toBe('failed');
-    expect(evaluateObjective('winWithFlawless', 2, 1, 0, true)).toBe('failed');
+
+  it('clashes pass through unchanged (no absorb, no damage, buffer untouched)', () => {
+    const state = createMatch();
+    const r = applyCampaignExchange(state, 'block', 'block', 1);
+    expect(r.absorbed).toBe(false);
+    expect(r.absorbRemaining).toBe(1);
+    expect(r.state.p1.hp).toBe(3);
+    expect(r.state.p2.hp).toBe(3);
+    expect(r.state.history[0].outcome.kind).toBe('clash');
   });
-  it('open while the match runs, even with a flawless already banked (must still win)', () => {
-    expect(evaluateObjective('winWithFlawless', 1, 0, 0, false)).toBe('open');
-    expect(evaluateObjective('winWithFlawless', 1, 1, 1, false)).toBe('open');
+
+  it('with zero buffer it is byte-equivalent to the plain engine exchange', () => {
+    const state = createMatch();
+    const viaCampaign = applyCampaignExchange(state, 'strike', 'throw', 0);
+    const viaEngine = applyExchange(state, 'strike', 'throw');
+    expect(viaCampaign.absorbed).toBe(false);
+    expect(viaCampaign.state).toEqual(viaEngine);
+  });
+
+  it('a defended round needs 3+S player hits to end: 2 absorbed + 3 real -> flawless round win', () => {
+    let state = createMatch();
+    let buf = 2;
+    for (let hit = 1; hit <= 5; hit += 1) {
+      expect(state.roundOver).toBeUndefined();
+      const r = applyCampaignExchange(state, 'strike', 'throw', buf);
+      state = r.state;
+      buf = r.absorbRemaining;
+      expect(r.absorbed).toBe(hit <= 2);
+    }
+    expect(state.roundOver).toBe('p1');
+    expect(state.flawless).toBe(true);
+    expect(state.p1.roundsWon).toBe(1);
   });
 });
 
-describe('evaluateObjective — bossRequiem', () => {
-  it('failed the moment P1 loses a round', () => {
-    expect(evaluateObjective('bossRequiem', 0, 1, 0, false)).toBe('failed');
-    expect(evaluateObjective('bossRequiem', 1, 1, 1, false)).toBe('failed');
+// ── Playing PAST the frozen engine's matchOver (first-to-3 formats) ─────────────────────────
+describe('first-to-3 plays past engine matchOver (the frozen engine stays sane beyond 2 wins)', () => {
+  function winRound(state: MatchState, winner: 'p1' | 'p2'): MatchState {
+    let s = state;
+    for (let i = 0; i < 3; i += 1) {
+      s = winner === 'p1' ? applyExchange(s, 'strike', 'throw') : applyExchange(s, 'throw', 'strike');
+    }
+    return s;
+  }
+
+  it('rounds 4-5 behave normally after the engine declared the match over', () => {
+    let s = createMatch();
+    s = winRound(s, 'p1'); // 1-0
+    s = startNextRound(s);
+    s = winRound(s, 'p1'); // 2-0: the ENGINE says match over...
+    expect(s.matchOver).toBe('p1');
+    // ...but the first-to-3 judge keeps it open, so the campaign starts round 3.
+    expect(evaluateCampaignMatch(s.p1.roundsWon, s.p2.roundsWon, 3)).toBe('open');
+    s = startNextRound(s);
+    expect(s.round).toBe(3);
+    expect(s.p1.hp).toBe(3);
+    expect(s.p2.hp).toBe(3);
+    expect(s.roundOver).toBeUndefined();
+    // Damage still applies normally past matchOver.
+    s = applyExchange(s, 'throw', 'strike');
+    expect(s.p1.hp).toBe(2);
+    s = applyExchange(s, 'throw', 'strike');
+    s = applyExchange(s, 'throw', 'strike');
+    expect(s.roundOver).toBe('p2'); // 2-1
+    expect(s.p2.roundsWon).toBe(1);
+    s = startNextRound(s);
+    s = winRound(s, 'p2'); // 2-2
+    expect(s.p2.roundsWon).toBe(2);
+    expect(evaluateCampaignMatch(2, 2, 3)).toBe('open');
+    s = startNextRound(s);
+    expect(s.round).toBe(5);
+    s = winRound(s, 'p2'); // 2-3: the campaign LOSS...
+    expect(s.p2.roundsWon).toBe(3);
+    expect(evaluateCampaignMatch(s.p1.roundsWon, s.p2.roundsWon, 3)).toBe('failed');
+    // ...while the frozen engine still claims 'p1' won (it checks p1's 2 wins first). THIS is why
+    // the campaign judge must never read engine matchOver.
+    expect(s.matchOver).toBe('p1');
   });
-  it('met at 2-0 with a flawless round', () => {
-    expect(evaluateObjective('bossRequiem', 2, 0, 1, true)).toBe('met');
-    expect(evaluateObjective('bossRequiem', 2, 0, 2, true)).toBe('met');
-  });
-  it('failed at 2-0 with no flawless round', () => {
-    expect(evaluateObjective('bossRequiem', 2, 0, 0, true)).toBe('failed');
-  });
-  it('open at 1-0 with no flawless yet', () => {
-    expect(evaluateObjective('bossRequiem', 1, 0, 0, false)).toBe('open');
+
+  it('comeback met: down 0-2, winning three straight rounds is met at 3-2', () => {
+    let s = createMatch();
+    s = winRound(s, 'p2');
+    s = startNextRound(s);
+    s = winRound(s, 'p2'); // 0-2, engine says over
+    expect(s.matchOver).toBe('p2');
+    expect(evaluateCampaignMatch(0, 2, 3)).toBe('open');
+    for (let i = 0; i < 3; i += 1) {
+      s = startNextRound(s);
+      s = winRound(s, 'p1');
+    }
+    expect(s.p1.roundsWon).toBe(3);
+    expect(evaluateCampaignMatch(s.p1.roundsWon, s.p2.roundsWon, 3)).toBe('met');
   });
 });
 
 // ── campaignPayout — bigint floor truncation ──────────────────────────────────────────────
 describe('campaignPayout — floor truncation (swoobz-casino-math)', () => {
-  it('clean cases', () => {
-    expect(campaignPayout(5_000_000n, 12800n)).toBe(6_400_000n); // 5.00 -> 6.40
+  it('clean cases across the ladder multipliers', () => {
     expect(campaignPayout(5_000_000n, 19200n)).toBe(9_600_000n);
-    expect(campaignPayout(1_000_000n, 87700n)).toBe(8_770_000n);
+    expect(campaignPayout(5_000_000n, 35120n)).toBe(17_560_000n);
+    expect(campaignPayout(1_000_000n, 119400n)).toBe(11_940_000n);
   });
   it('floors odd-lamport stakes DOWN (never rounds up)', () => {
-    // 1_000_001 * 12800 / 10000 = 1_280_001.28 -> 1_280_001
-    expect(campaignPayout(1_000_001n, 12800n)).toBe(1_280_001n);
-    // 3 * 87700 / 10000 = 26.31 -> 26
-    expect(campaignPayout(3n, 87700n)).toBe(26n);
-    // 7 * 34100 / 10000 = 23.87 -> 23
-    expect(campaignPayout(7n, 34100n)).toBe(23n);
-    // 1 * 12800 / 10000 = 1.28 -> 1
-    expect(campaignPayout(1n, 12800n)).toBe(1n);
+    // 1_000_001 * 19200 / 10000 = 1_920_001.92 -> 1_920_001
+    expect(campaignPayout(1_000_001n, 19200n)).toBe(1_920_001n);
+    // 3 * 119400 / 10000 = 35.82 -> 35
+    expect(campaignPayout(3n, 119400n)).toBe(35n);
+    // 7 * 42530 / 10000 = 29.771 -> 29
+    expect(campaignPayout(7n, 42530n)).toBe(29n);
+    // 9 * 73430 / 10000 = 66.087 -> 66
+    expect(campaignPayout(9n, 73430n)).toBe(66n);
   });
-  it('net on met is positive for every tier (mult > 1.00x)', () => {
+  it('net on a win is positive for every node (mult > 1.00x)', () => {
     const stake = 3_333_333n; // odd
-    for (const tier of ALL_TIERS) {
-      const payout = campaignPayout(stake, TIERS[tier].multBps);
-      expect(payout > stake).toBe(true);
+    for (const n of CAMPAIGN_NODES) {
+      expect(campaignPayout(stake, n.multBps) > stake).toBe(true);
     }
   });
 });
 
 // ── display helpers ────────────────────────────────────────────────────────────────────────
 describe('display helpers', () => {
-  it('formatWinChance is one decimal from the exact rational', () => {
-    expect(formatWinChance('takeRound')).toBe('75.0');
-    expect(formatWinChance('winMatch')).toBe('50.0');
-    expect(formatWinChance('flawlessRound')).toBe('28.1');
-    expect(formatWinChance('win20')).toBe('25.0');
-    expect(formatWinChance('winWithFlawless')).toBe('21.9');
-    expect(formatWinChance('bossRequiem')).toBe('10.9');
+  it('formatWinChance per ladder rung: 50.0 / 27.3 / 22.6 / 13.1 / 8.0', () => {
+    expect(formatWinChance(0, 2)).toBe('50.0');
+    expect(formatWinChance(0, 3)).toBe('50.0');
+    expect(formatWinChance(1, 2)).toBe('27.3');
+    expect(formatWinChance(1, 3)).toBe('22.6');
+    expect(formatWinChance(2, 2)).toBe('13.1');
+    expect(formatWinChance(2, 3)).toBe('8.0');
   });
   it('formatMult is two decimals from multBps', () => {
-    expect(formatMult(12800n)).toBe('1.28');
     expect(formatMult(19200n)).toBe('1.92');
-    expect(formatMult(34100n)).toBe('3.41');
-    expect(formatMult(38400n)).toBe('3.84');
-    expect(formatMult(43800n)).toBe('4.38');
-    expect(formatMult(87700n)).toBe('8.77');
-  });
-});
-
-// ── map registry ───────────────────────────────────────────────────────────────────────────
-describe('conquest map registry (spec §2)', () => {
-  it('has exactly 10 nodes with sequential ids', () => {
-    expect(CAMPAIGN_NODE_COUNT).toBe(10);
-    expect(CAMPAIGN_NODES.map((n) => n.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  });
-  it('every enemy is VOLTA and every arena is cathedral this phase', () => {
-    for (const n of CAMPAIGN_NODES) {
-      expect(n.fighterId).toBe('volta');
-      expect(n.arenaId).toBe('cathedral');
-    }
-  });
-  it('tiers ascend to the boss exactly per spec', () => {
-    expect(CAMPAIGN_NODES.map((n) => n.tier)).toEqual([
-      'takeRound',
-      'takeRound',
-      'winMatch',
-      'winMatch',
-      'winMatch',
-      'flawlessRound',
-      'win20',
-      'win20',
-      'winWithFlawless',
-      'bossRequiem',
-    ]);
-  });
-  it('getCampaignNode resolves by id and is safe on bad ids', () => {
-    expect(getCampaignNode(1)?.name).toBe('KUROHAMA DOCKS');
-    expect(getCampaignNode(10)?.name).toBe('ZERO CITADEL');
-    expect(getCampaignNode(10)?.tier).toBe('bossRequiem');
-    expect(getCampaignNode(11)).toBeUndefined();
-    expect(getCampaignNode(0)).toBeUndefined();
-    expect(getCampaignNode(null)).toBeUndefined();
+    expect(formatMult(35120n)).toBe('3.51');
+    expect(formatMult(42530n)).toBe('4.25');
+    expect(formatMult(73430n)).toBe('7.34');
+    expect(formatMult(119400n)).toBe('11.94');
   });
 });

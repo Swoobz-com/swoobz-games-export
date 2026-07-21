@@ -18,12 +18,12 @@ import {
   CAMPAIGN_NODE_COUNT,
   CAMPAIGN_NODES,
   campaignPayout,
+  defenseAmount,
   formatMult,
   formatWinChance,
   getCampaignNode,
-  TIERS,
 } from '../engine/fightCampaign';
-import type { CampaignTier } from '../engine/fightCampaign';
+import type { CampaignNodeDef } from '../engine/fightCampaign';
 // clipVariants is imported from the types module directly (the barrel re-exports only the types).
 import { clipVariants } from '../characters/types';
 // The character-select screen is the ONE place the UI fires its own sound (a UI tick on tile
@@ -209,27 +209,14 @@ const DEV_MODE = typeof window !== 'undefined' && new URLSearchParams(window.loc
 const MAP_PARALLAX_MAX_PCT = 1.1;
 const MAP_SCENERY_SCALE = 1.035;
 
-// A short, concise in-fight progress hint per tier (fresh-player-comprehension law). Uses the
-// middle dot separator (never an em-dash — RG-C5 copy law). p1w/p2w are the player/enemy round wins.
-function objectiveProgress(tier: CampaignTier, p1w: number, p2w: number): string {
-  switch (tier) {
-    case 'takeRound':
-      return 'WIN ANY ONE ROUND TO CLAIM IT';
-    case 'winMatch':
-      return `FIRST TO 2 ROUNDS · ${p1w}-${p2w}`;
-    case 'flawlessRound':
-      return 'WIN A ROUND WITHOUT TAKING A HIT';
-    case 'win20':
-      return `ROUNDS ${p1w}/2 · LOSE ONE AND IT IS OVER`;
-    case 'winWithFlawless':
-      return `WIN THE MATCH · ONE ROUND MUST BE FLAWLESS · ${p1w}-${p2w}`;
-    case 'bossRequiem':
-      return `ROUNDS ${p1w}/2 · WIN 2-0 WITH A FLAWLESS ROUND`;
-    default: {
-      const exhaustive: never = tier;
-      return exhaustive;
-    }
-  }
+// The defense one-liner per kind (fresh-player-comprehension law; middle dot separators, never an
+// em-dash — RG-C5 copy law). Shared by the node card and the in-fight strip hint.
+function defenseLine(node: CampaignNodeDef): string | null {
+  const d = node.defense;
+  if (!d) return null;
+  return d.kind === 'shield'
+    ? `HIS SHIELD ABSORBS THE FIRST ${d.amount} ${d.amount === 1 ? 'HIT' : 'HITS'} EACH ROUND`
+    : `TOUGHER FOE: HIS HEALTH BAR HAS ${3 + d.amount} SEGMENTS`;
 }
 
 // ============================================================================================
@@ -322,7 +309,7 @@ function CampaignMap({
         const label = conquered
           ? `${node.name}, conquered`
           : isFrontier
-            ? `${node.name}, ${node.title}, ${formatWinChance(node.tier)} percent win chance, pays ${formatMult(TIERS[node.tier].multBps)}x`
+            ? `${node.name}, ${node.title}, ${formatWinChance(defenseAmount(node), node.roundsToWin)} percent win chance, pays ${formatMult(node.multBps)}x`
             : 'Locked node, unknown enemy';
         return (
           <button
@@ -574,8 +561,12 @@ interface FxState {
   victoryChain: { side: 'p1' | 'p2'; varIdx: number } | null;
   spark: { xPct: number; yPct: number } | null;
   // BLOCK parry: placed at the BLOCKER's chest. `facing` (toward the attacker) picks the arc's
-  // direction so the ice-glass shield always curves into the incoming blow.
+  // direction so the ice-glass shield always curves into the incoming blow. The campaign SHIELD
+  // absorb beat reuses this exact arc at the defended enemy (deflection fx family, no new asset).
   shield: { xPct: number; yPct: number; facing: 'left' | 'right' } | null;
+  // Campaign SHIELD absorb floater: "SHIELDED" where the "-1" would have been (a soaked hit
+  // deals no damage, so the damage floater must never lie). Null everywhere outside the beat.
+  absorbFloat: { xPct: number; yPct: number } | null;
   dust: { xPct: number; yPct: number } | null;
   clash: boolean;
   nonce: number; // bumps to restart flash animations
@@ -593,6 +584,7 @@ const FX_INIT: FxState = {
   victoryChain: null,
   spark: null,
   shield: null,
+  absorbFloat: null,
   dust: null,
   clash: false,
   nonce: 0,
@@ -662,6 +654,7 @@ function fxReducer(state: FxState, action: FxAction): FxState {
       victoryChain: action.dwell ? state.victoryChain : null,
       spark: null,
       shield: null,
+      absorbFloat: null,
       dust: null,
       clash: false,
     };
@@ -703,15 +696,34 @@ function pctRectPad(
   };
 }
 
-function HealthBar({ hp, side, reduced }: { hp: number; side: 'p1' | 'p2'; reduced: boolean }): JSX.Element {
+// BULK-DEFENSE bar extension (campaign 'bulk' nodes): the enemy bar grows PAST its CAL box so a
+// 4/5-segment bar reads visibly LONGER than the player's 3. Bounded by the neighbours: center
+// reach stops short of the timer plate (padded to ~55.4%), outer reach short of the portrait ring
+// (~88.25%). CAL values themselves never change (cover-plate discipline).
+const BULK_REACH_CENTER = 1.7; // % stage width, toward screen center
+const BULK_REACH_OUTER = 1.4; // % stage width, toward the stage edge
+
+function HealthBar({
+  hp,
+  side,
+  reduced,
+  total = 3,
+}: {
+  hp: number;
+  side: 'p1' | 'p2';
+  reduced: boolean;
+  /** Segment count. 3 everywhere except the campaign bulk-defense enemy bar (3+amount): the
+   *  absorb buffer renders as extra leading segments of ONE seamless longer bar. */
+  total?: number;
+}): JSX.Element {
   const rect = side === 'p1' ? CAL.hpP1 : CAL.hpP2;
   const prevHp = useRef(hp);
   const [flashIndex, setFlashIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (hp < prevHp.current) {
-      // Newly-lost segment index for this side (see engine mapping in the CLAUDE notes above).
-      const lost = side === 'p1' ? hp : 2 - hp;
+      // Newly-lost segment index for this side (p1 fills left-to-right, p2 right-to-left).
+      const lost = side === 'p1' ? hp : total - 1 - hp;
       setFlashIndex(lost);
       const t = setTimeout(() => setFlashIndex(null), 520);
       prevHp.current = hp;
@@ -719,12 +731,20 @@ function HealthBar({ hp, side, reduced }: { hp: number; side: 'p1' | 'p2'; reduc
     }
     prevHp.current = hp;
     return undefined;
-  }, [hp, side]);
+  }, [hp, side, total]);
+
+  // Extended footprint for the longer bulk bar (p2 only ever gets total > 3).
+  const style: React.CSSProperties =
+    total > 3
+      ? side === 'p2'
+        ? { ...pctRect(rect), left: `${rect.x0 - BULK_REACH_CENTER}%`, width: `${rect.x1 - rect.x0 + BULK_REACH_CENTER + BULK_REACH_OUTER}%` }
+        : { ...pctRect(rect), left: `${rect.x0 - BULK_REACH_OUTER}%`, width: `${rect.x1 - rect.x0 + BULK_REACH_CENTER + BULK_REACH_OUTER}%` }
+      : pctRect(rect);
 
   return (
-    <div className="fr-hpbar" style={pctRect(rect)}>
-      {[0, 1, 2].map((i) => {
-        const present = side === 'p1' ? i < hp : i >= 3 - hp;
+    <div className="fr-hpbar" style={style}>
+      {Array.from({ length: total }, (_, i) => {
+        const present = side === 'p1' ? i < hp : i >= total - hp;
         const critical = hp === 1 && present;
         const flashing = flashIndex === i && !reduced;
         const collapsing = flashIndex === i && !reduced;
@@ -749,7 +769,7 @@ function HealthBar({ hp, side, reduced }: { hp: number; side: 'p1' | 'p2'; reduc
   );
 }
 
-function Pips({ won, side }: { won: number; side: 'p1' | 'p2' }): JSX.Element {
+function Pips({ won, side, slots = 2 }: { won: number; side: 'p1' | 'p2'; slots?: number }): JSX.Element {
   const rect = side === 'p1' ? CAL.pipP1 : CAL.pipP2;
   const prev = useRef(won);
   const [popIndex, setPopIndex] = useState<number | null>(null);
@@ -766,7 +786,8 @@ function Pips({ won, side }: { won: number; side: 'p1' | 'p2' }): JSX.Element {
   return (
     // Cover strip: expanded past the CAL box and given a near-opaque glass background (CSS) so
     // the baked icy pip strip is fully covered — the drawn pip dots render on top of our strip,
-    // never double-chromed against the baked one.
+    // never double-chromed against the baked one. `slots` = round wins needed to take the match
+    // (2 everywhere; 3 on the campaign's first-to-3 nodes so the format is readable at a glance).
     <div
       className="fr-pips"
       style={{
@@ -775,11 +796,29 @@ function Pips({ won, side }: { won: number; side: 'p1' | 'p2' }): JSX.Element {
         gap: 'calc(var(--sw) * 0.6)',
       }}
     >
-      {[0, 1].map((i) => {
+      {Array.from({ length: slots }, (_, i) => {
         const filled = i < won;
         const cls = ['fr-pip', filled ? 'fr-pip-won' : '', popIndex === i ? 'fr-pip-pop' : ''].filter(Boolean).join(' ');
         return <div key={i} className={cls} style={{ width: 'calc(var(--sh) * 1.8)', height: 'calc(var(--sh) * 1.8)' }} />;
       })}
+    </div>
+  );
+}
+
+// CAMPAIGN SHIELD PIPS ('shield' defense nodes): the enemy's absorb buffer as small diamond
+// outlines ABOVE his HP bar — a distinct shape from HP segments so "shield" reads as its own
+// resource. Refills at every round start (re-keyed by round for the refill pop); a soaked hit
+// empties one diamond at the absorb beat. Cover-plate law: the row sits on an opaque coal chip.
+function ShieldPips({ remaining, total, round }: { remaining: number; total: number; round: number }): JSX.Element {
+  return (
+    <div className="fr-shieldpips" aria-label={`Enemy shield: ${remaining} of ${total}`}>
+      {Array.from({ length: total }, (_, i) => (
+        <span
+          key={`${round}-${i}`}
+          className={`fr-shieldpip${i < remaining ? ' fr-shieldpip-filled' : ''}`}
+          aria-hidden="true"
+        />
+      ))}
     </div>
   );
 }
@@ -1327,10 +1366,18 @@ export function FightExperience(): JSX.Element {
   // both sides commit, so the charSelect previews still show the derived opponent (distinct keys).
   const derivedOpponentId = Object.keys(FIGHTERS).find((id) => id !== playerId) ?? playerId;
   const friendOpponentId = ctl.friend.opponentFighterId;
-  // The active campaign node (campaign mode only): drives the enemy identity, the objective, and
-  // the node-card copy. VOLTA fills every slot this phase, so the enemy is the node's fighterId.
+  // The active campaign node (campaign mode only): drives the enemy identity, the match format,
+  // the defense presentation and the node-card copy. VOLTA fills every slot this phase.
   const campaignNode = ctl.mode === 'campaign' ? getCampaignNode(ctl.campaign.nodeId) : undefined;
-  const campaignTier = campaignNode ? TIERS[campaignNode.tier] : undefined;
+  // Round wins needed to take the match on the current surface (2 outside campaign; the node's
+  // format inside). Drives the pip count, the FINAL ROUND banner and the FINISH THEM gate.
+  const roundsNeeded: 2 | 3 = campaignNode ? campaignNode.roundsToWin : 2;
+  // The enemy's DISPLAYED hp: for a 'bulk' defense the absorb buffer renders as extra health-bar
+  // segments (engine hp + buffer, over 3+amount segments — one seamless longer bar); shield nodes
+  // and every non-campaign fight show the engine's 3-segment bar untouched.
+  const bulkAmount = campaignNode?.defense?.kind === 'bulk' ? campaignNode.defense.amount : 0;
+  const p2BarTotal = 3 + bulkAmount;
+  const p2BarHp = ctl.matchState.p2.hp + (bulkAmount > 0 ? ctl.campaign.defenseRemaining : 0);
   const opponentId =
     ctl.mode === 'campaign' && campaignNode
       ? campaignNode.fighterId
@@ -1437,6 +1484,14 @@ export function FightExperience(): JSX.Element {
     const loserSide: 'p1' | 'p2' | null = winnerSide ? (winnerSide === 'p1' ? 'p2' : 'p1') : null;
     const contactX = loserSide === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx;
 
+    // CAMPAIGN SHIELD ABSORB BEAT: the exchange resolving now was soaked by a 'shield' defense
+    // (provider fact, set with this resolve). The attacker still plays the full attack; at contact
+    // the deflection family fires (the frost parry arc + "SHIELDED" floater) INSTEAD of the impact
+    // family (ring/glow/"-1") and the defender never plays a hit reaction — no damage happened.
+    // A 'bulk' absorb deliberately takes NO branch here: it looks like a normal hit draining the
+    // longer bar, which is the entire point of the bulk presentation.
+    const shieldAbsorb = mode === 'campaign' && ctl.campaign.absorbed && campaignNode?.defense?.kind === 'shield';
+
     const defForSide = (s: 'p1' | 'p2') => (s === 'p1' ? p1Def : p2Def);
     // §7 impact burst at the defender's contact point: chest height, nudged toward the attacker.
     // `final: true` by default so the single-contact / pre-clip beats show the "-1" exactly as
@@ -1444,6 +1499,16 @@ export function FightExperience(): JSX.Element {
     const impactAt = (winner: 'p1' | 'p2', loser: 'p1' | 'p2'): NonNullable<FxState['impact']> => {
       const d = loser === 'p1' ? CAL.fighterP1 : CAL.fighterP2;
       return { side: winner, xPct: d.cx - sign(winner) * CHO.IMPACT_NUDGE_X, yPct: d.feetY - CHO.IMPACT_CHEST_FRAC * d.h, final: true };
+    };
+    // The contact-moment fx patch: the impact family normally, the deflection family (frost arc at
+    // the defended enemy + SHIELDED floater on the final blow) when a shield soaked the exchange.
+    const contactFx = (winner: 'p1' | 'p2', loser: 'p1' | 'p2', final: boolean): Partial<FxState> => {
+      if (!shieldAbsorb) return { impact: { ...impactAt(winner, loser), final } };
+      const at = impactAt(winner, loser);
+      return {
+        shield: { xPct: at.xPct, yPct: at.yPct, facing: loser === 'p1' ? 'right' : 'left' },
+        absorbFloat: final ? { xPct: at.xPct, yPct: at.yPct } : null,
+      };
     };
     const scheduleImpactClear = (winner: 'p1' | 'p2', atMs: number) => {
       const dur = defForSide(winner).fxImpact?.durationMs;
@@ -1459,7 +1524,7 @@ export function FightExperience(): JSX.Element {
     });
 
     const set = (p1: FxUnit, p2: FxUnit, extra: Partial<FxState> = {}) =>
-      dispatchFx({ p1, p2, nonce: fx.nonce + 1, spark: null, shield: null, dust: null, clash: false, ...extra });
+      dispatchFx({ p1, p2, nonce: fx.nonce + 1, spark: null, shield: null, absorbFloat: null, dust: null, clash: false, ...extra });
 
     if (reduced) {
       // Reduced motion: no lunges/shake/zoom/launch/videos, keep information (banners via phase).
@@ -1475,6 +1540,7 @@ export function FightExperience(): JSX.Element {
         victoryChain: null,
         spark: null,
         shield: null,
+        absorbFloat: null,
         dust: null,
         clash: false,
       });
@@ -1633,10 +1699,12 @@ export function FightExperience(): JSX.Element {
       const contactList = deriveContactTimes(clip, resolveWindow, hitstopMs);
       const lastIdx = contactList.length - 1;
       // The defender's reaction state is decided ONCE, at the first contact (as the single beat did).
-      const loserState: FighterState = roundEnding && loserHasKo ? 'ko' : 'hit';
+      // SHIELD ABSORB: the defended enemy never plays a hit reaction — no damage happened; the
+      // deflection arc carries the beat while he holds his stance (idle).
+      const loserState: FighterState = shieldAbsorb ? 'idle' : roundEnding && loserHasKo ? 'ko' : 'hit';
       // §10: the defender's reaction take (of whichever state it resolves to — hit, or ko when
       // round-ending) is also picked uniform-random this exchange. Single-take states force index 0.
-      const pickedLoserVar = pickVariant(clipVariants(defForSide(l), loserState).length);
+      const pickedLoserVar = shieldAbsorb ? 0 : pickVariant(clipVariants(defForSide(l), loserState).length);
       const multi = contactList.length >= 2;
       // Attacker to its chosen take (attack or §11 special); defender stays idle (its var is 0)
       // until first contact. The victory arm rides the same dispatch (explicitly null when not
@@ -1645,16 +1713,17 @@ export function FightExperience(): JSX.Element {
       contactList.forEach((contactAt, i) => {
         const isFinal = i === lastIdx;
         at(() => {
-          // Fresh ring/glow/echo per contact (distinct, ascending nonce); the "-1" only on the final
-          // contact (final flag) — three "-1"s would lie about HP (RG-C5 honesty).
-          const impact = { ...impactAt(w, l), final: isFinal };
+          // Fresh fx per contact (distinct, ascending nonce). Normal hits: ring/glow/echo, with the
+          // "-1" only on the final contact — three "-1"s would lie about HP (RG-C5 honesty). Shield
+          // absorb: the deflection family instead (frost arc + SHIELDED on the final contact).
+          const fxPatch = contactFx(w, l, isFinal);
           if (i === 0) {
             // First contact: defender switches to its chosen hit/ko take — this state CHANGE restarts
             // its clip. Attacker keeps its chosen take (pickedAtkVar) through the whole string.
             setStates(attackerState, loserState, pickedAtkVar, pickedLoserVar, {
               spark: { xPct: contactX, yPct: CAL.contactY },
               hitstop: true,
-              impact,
+              ...fxPatch,
               nonce: fx.nonce + 3 + i,
             });
           } else {
@@ -1663,14 +1732,15 @@ export function FightExperience(): JSX.Element {
             dispatchFx({
               spark: { xPct: contactX, yPct: CAL.contactY },
               hitstop: true,
-              impact,
+              ...fxPatch,
               nonce: fx.nonce + 3 + i,
               hitRetrigger: fx.hitRetrigger + i,
             });
           }
           // HITS COUNTER: from the 2nd contact on, pop "N HITS" (N = blows landed). Text derives ONLY
-          // from the contact index — never a stake / win value (RG-C5). Multi-contact strings only.
-          if (multi && i >= 1) setHitsCounter({ count: i + 1, key: i, leaving: false });
+          // from the contact index — never a stake / win value (RG-C5). Multi-contact strings only;
+          // never on a shield absorb (no blows landed — the tally must not lie).
+          if (multi && i >= 1 && !shieldAbsorb) setHitsCounter({ count: i + 1, key: i, leaving: false });
           // Screenshake per contact (NOT on round-ending contacts — same rule as the single beat).
           // The KO zoom spot is armed ONLY on the FINAL contact when round-ending (it is the finisher).
           if (roundEnding) {
@@ -1710,7 +1780,7 @@ export function FightExperience(): JSX.Element {
           transition: freeze,
         };
         const u = bothUnits(frozenW, frozenL);
-        dispatchFx({ p1: u.p1, p2: u.p2, spark: { xPct: contactX, yPct: CAL.contactY }, impact: impactAt(w, l), nonce: fx.nonce + 3 });
+        dispatchFx({ p1: u.p1, p2: u.p2, spark: { xPct: contactX, yPct: CAL.contactY }, ...contactFx(w, l, true), nonce: fx.nonce + 3 });
         if (roundEnding) setKoZoom({ active: false, spotX: contactX });
         else triggerShake();
       }, CHO.LUNGE_MS);
@@ -1751,7 +1821,7 @@ export function FightExperience(): JSX.Element {
           p1: u.p1,
           p2: u.p2,
           dust: { xPct: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx, yPct: CAL.shadow.y },
-          impact: impactAt(w, l),
+          ...contactFx(w, l, true),
           nonce: fx.nonce + 4,
         });
         if (roundEnding) setKoZoom({ active: false, spotX: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx });
@@ -1780,7 +1850,7 @@ export function FightExperience(): JSX.Element {
         // on its own full-lifetime timer below so the arc plays its whole eased dissipate.
         const rebound: FxUnit = { tx: sign(w) * CHO.BLOCK_REBOUND_X, ty: 0, rot: sign(w) * CHO.HURT_TILT, scale: 1, transition: snappy(140) };
         const u = bothUnits(IDLE_UNIT, rebound);
-        dispatchFx({ p1: u.p1, p2: u.p2, impact: impactAt(w, l) });
+        dispatchFx({ p1: u.p1, p2: u.p2, ...contactFx(w, l, true) });
         if (roundEnding) setKoZoom({ active: false, spotX: l === 'p1' ? CAL.fighterP1.cx : CAL.fighterP2.cx });
         else triggerShake();
       }, counterAt);
@@ -1859,18 +1929,28 @@ export function FightExperience(): JSX.Element {
   const endWinner: 'p1' | 'p2' | null =
     matchWinner ?? (phase === 'matchEnd' && ctl.receipt ? (ctl.receipt.playerWon ? 'p1' : 'p2') : null);
 
-  // Winner/loser pose classes for roundEnd + matchEnd.
+  // Winner/loser pose classes for roundEnd + matchEnd. CAMPAIGN matchEnd derives the winner from
+  // the settled receipt, NEVER from engine matchOver: on first-to-3 nodes the engine's matchOver
+  // is a stale first-to-2 claim (it can even name the LOSER of the campaign match — see
+  // fightCampaign.test.ts), so only the campaign verdict may drive the poses.
   const poseClass = (side: 'p1' | 'p2'): string => {
     if (phase === 'roundEnd' && roundWinner) return side === roundWinner ? 'fr-winner' : 'fr-loser';
-    if (phase === 'matchEnd' && matchWinner) return side === matchWinner ? 'fr-winner' : 'fr-loser';
+    if (phase === 'matchEnd') {
+      const w: 'p1' | 'p2' | null =
+        mode === 'campaign' ? (ctl.campaignReceipt ? (ctl.campaignReceipt.met ? 'p1' : 'p2') : null) : matchWinner ?? null;
+      if (w) return side === w ? 'fr-winner' : 'fr-loser';
+    }
     return '';
   };
 
   // Match point / FINISH THEM (presentation-only, derived from matchState during picking).
+  // Format-aware: fires only when a fighter is ONE round from taking the MATCH (roundsNeeded - 1)
+  // and someone is one hit from losing the round. The enemy's "one hit" reads DISPLAY hp (bulk
+  // defense counts as health: a buffered enemy is not on the ropes yet).
   const matchPoint =
     phase === 'picking' &&
-    (matchState.p1.roundsWon === 1 || matchState.p2.roundsWon === 1) &&
-    (matchState.p1.hp === 1 || matchState.p2.hp === 1);
+    (matchState.p1.roundsWon === roundsNeeded - 1 || matchState.p2.roundsWon === roundsNeeded - 1) &&
+    (matchState.p1.hp === 1 || p2BarHp === 1);
   const finishSpotX = matchState.p1.hp === 1 ? CAL.fighterP1.cx : CAL.fighterP2.cx;
 
   const timerDanger = phase === 'picking' && shotClockSeconds <= 2;
@@ -1878,7 +1958,9 @@ export function FightExperience(): JSX.Element {
   // Banner text per phase.
   const bannerNode = useMemo(() => {
     if (phase === 'roundIntro') {
-      const text = matchState.round >= 3 ? 'FINAL ROUND' : `ROUND ${matchState.round}`;
+      // FINAL ROUND = the last possible round of the CURRENT format (2R-1: round 3 first-to-2,
+      // round 5 first-to-3) — never the engine's fixed 3 on the campaign's longer nodes.
+      const text = matchState.round >= 2 * roundsNeeded - 1 ? 'FINAL ROUND' : `ROUND ${matchState.round}`;
       return <Banner key={`round-${matchState.round}`} text={text} slamMs={150} />;
     }
     if (phase === 'fightBanner') return <Banner key="fight" text="FIGHT!" slamMs={100} />;
@@ -1890,7 +1972,7 @@ export function FightExperience(): JSX.Element {
       return <Banner key="roundwin" text={`${wn} WINS THE ROUND`} slamMs={150} />;
     }
     return null;
-  }, [phase, matchState.round, matchState.roundOver, matchState.flawless, lastOutcome, roundWinner, fx.nonce]);
+  }, [phase, matchState.round, matchState.roundOver, matchState.flawless, lastOutcome, roundWinner, fx.nonce, roundsNeeded]);
 
   const stageClasses = ['fr-stage', reduced ? 'fr-reduced' : '', koZoom ? 'fr-ko-zoom' : '', koZoom?.active ? 'fr-ko-zoom-active' : '', shake && !reduced ? 'fr-shake' : '']
     .filter(Boolean)
@@ -2014,6 +2096,19 @@ export function FightExperience(): JSX.Element {
                 -1
               </div>
             )}
+            {/* CAMPAIGN SHIELD absorb floater: "SHIELDED" where the "-1" would have been — a soaked
+                hit deals no damage, so the damage floater must never show. Frost family, same drift
+                animation, keyed by nonce (RG-C5: fixed text, value-independent). */}
+            {fx.absorbFloat && (
+              <div
+                key={`absorb-${fx.nonce}`}
+                className="fr-absorb-floater"
+                aria-hidden="true"
+                style={{ left: `${fx.absorbFloat.xPct}%`, top: `${fx.absorbFloat.yPct - 6}%`, fontSize: 'calc(var(--sh) * 2.2)' }}
+              >
+                SHIELDED
+              </div>
+            )}
             {fx.clash && (
               <div
                 key={`clashfx-${fx.nonce}`}
@@ -2101,21 +2196,32 @@ export function FightExperience(): JSX.Element {
             <NamePlate name={p1Def.name} side="p1" />
             <NamePlate name={p2Def.name} side="p2" />
             <HealthBar hp={matchState.p1.hp} side="p1" reduced={reduced} />
-            <HealthBar hp={matchState.p2.hp} side="p2" reduced={reduced} />
-            <Pips won={matchState.p1.roundsWon} side="p1" />
-            <Pips won={matchState.p2.roundsWon} side="p2" />
+            {/* Enemy bar: on campaign BULK nodes the absorb buffer renders as extra segments of one
+                seamless longer bar (display hp = engine hp + buffer); everywhere else this is the
+                exact 3-segment bar as before. */}
+            <HealthBar hp={p2BarHp} side="p2" reduced={reduced} total={p2BarTotal} />
+            {/* Enemy SHIELD pips (campaign 'shield' nodes): the absorb buffer as its own resource,
+                distinct in shape from HP; refills each round. */}
+            {mode === 'campaign' && campaignNode?.defense?.kind === 'shield' && (
+              <ShieldPips
+                remaining={ctl.campaign.defenseRemaining}
+                total={campaignNode.defense.amount}
+                round={matchState.round}
+              />
+            )}
+            <Pips won={matchState.p1.roundsWon} side="p1" slots={roundsNeeded} />
+            <Pips won={matchState.p2.roundsWon} side="p2" slots={roundsNeeded} />
             <TimerPlate seconds={shotClockSeconds} danger={timerDanger} />
-            {/* CAMPAIGN OBJECTIVE STRIP (spec §4): persistent under the timer so a fresh player always
-                knows what completes the node. Cover-plate law: an OPAQUE coal plate, own footprint,
-                over the baked background. Space Grotesk copy, JetBrains Mono numbers, no em-dashes. */}
-            {mode === 'campaign' && campaignNode && campaignTier && (
+            {/* CAMPAIGN STRIP: one minimal line under the timer — the format + the price — plus the
+                defense hint on defended nodes (fresh-player comprehension; the pips above carry the
+                live score). Cover-plate law: an OPAQUE coal plate, own footprint, over the baked
+                background. Space Grotesk copy, JetBrains Mono numbers, no em-dashes. */}
+            {mode === 'campaign' && campaignNode && (
               <div className="fr-objective-strip" style={{ fontSize: 'calc(var(--sh) * 1.5)' }}>
                 <span className="fr-objective-main">
-                  OBJECTIVE: {campaignTier.objective} · PAYS x{formatMult(campaignTier.multBps)}
+                  FIRST TO {campaignNode.roundsToWin} ROUNDS · PAYS x{formatMult(campaignNode.multBps)}
                 </span>
-                <span className="fr-objective-hint">
-                  {objectiveProgress(campaignNode.tier, matchState.p1.roundsWon, matchState.p2.roundsWon)}
-                </span>
+                {campaignNode.defense && <span className="fr-objective-hint">{defenseLine(campaignNode)}</span>}
               </div>
             )}
             {/* One banner slot, two states. GRACE (connectionLost): the rival's socket dropped
@@ -2340,7 +2446,7 @@ export function FightExperience(): JSX.Element {
         )}
 
         {/* ---------------- Campaign node card (stake) ---------------- */}
-        {phase === 'stake' && mode === 'campaign' && campaignNode && campaignTier && (
+        {phase === 'stake' && mode === 'campaign' && campaignNode && (
           <div className="fr-overlay fr-stake-overlay">
             <div className="fr-scrim fr-stake-scrim" />
             <button
@@ -2373,15 +2479,36 @@ export function FightExperience(): JSX.Element {
                     NODE {campaignNode.id} · {campaignNode.name}
                   </div>
                   <div className="fr-nodecard-title">{campaignNode.title}</div>
-                  <div className="fr-nodecard-objective">{campaignTier.objective}</div>
+                  <div className="fr-nodecard-objective">WIN THE MATCH</div>
+                  <div className="fr-nodecard-format">FIRST TO {campaignNode.roundsToWin} ROUNDS</div>
+                  {/* Defense preview (Glass Box: the handicap is fully disclosed before staking).
+                      Shield = diamond pips; bulk = a mini 3+N segment bar, visibly longer. */}
+                  {campaignNode.defense && (
+                    <div className="fr-nodecard-defense">
+                      <span className="fr-nodecard-defense-line">{defenseLine(campaignNode)}</span>
+                      {campaignNode.defense.kind === 'shield' ? (
+                        <span className="fr-nodecard-defense-pips" aria-hidden="true">
+                          {Array.from({ length: campaignNode.defense.amount }, (_, i) => (
+                            <span key={i} className="fr-shieldpip fr-shieldpip-filled" />
+                          ))}
+                        </span>
+                      ) : (
+                        <span className="fr-nodecard-defense-bar" aria-hidden="true">
+                          {Array.from({ length: 3 + campaignNode.defense.amount }, (_, i) => (
+                            <span key={i} className="fr-nodecard-defense-seg" />
+                          ))}
+                        </span>
+                      )}
+                    </div>
+                  )}
                   <div className="fr-nodecard-stats">
                     <div className="fr-nodecard-stat">
                       <span className="fr-nodecard-stat-label">WIN CHANCE</span>
-                      <span className="fr-nodecard-stat-value">{formatWinChance(campaignNode.tier)}%</span>
+                      <span className="fr-nodecard-stat-value">{formatWinChance(defenseAmount(campaignNode), campaignNode.roundsToWin)}%</span>
                     </div>
                     <div className="fr-nodecard-stat">
                       <span className="fr-nodecard-stat-label">PAYS</span>
-                      <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignTier.multBps)}</span>
+                      <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignNode.multBps)}</span>
                     </div>
                   </div>
                   {/* Cosmetic bonus unlock riding on this node (never changes the payout). */}
@@ -2402,7 +2529,7 @@ export function FightExperience(): JSX.Element {
               <BetConsole
                 theme={FR_BET_THEME}
                 eyebrow="STAKE THIS NODE"
-                hint="COMPLETE THE OBJECTIVE TO WIN. THE STAKE IS LOST IF YOU FAIL."
+                hint="WIN THE MATCH TO GET PAID. LOSE AND THE STAKE IS GONE."
                 wagerLabel="YOUR STAKE"
                 wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
                 onStepDown={() => ctl.stepStake('down')}
@@ -2412,8 +2539,8 @@ export function FightExperience(): JSX.Element {
                 onPreset={(v) => ctl.setStake(v)}
                 toWin={{
                   label: 'PAYS ON WIN',
-                  value: formatUsd(campaignPayout(ctl.stakeLamports, campaignTier.multBps)),
-                  sub: `x${formatMult(campaignTier.multBps)} · objective payout`,
+                  value: formatUsd(campaignPayout(ctl.stakeLamports, campaignNode.multBps)),
+                  sub: `x${formatMult(campaignNode.multBps)} · win payout`,
                 }}
                 balanceLabel="BANK"
                 balanceValue={formatUsd(ctl.balanceLamports)}
@@ -2695,12 +2822,12 @@ export function FightExperience(): JSX.Element {
           <div className="fr-overlay">
             <div className="fr-scrim" />
             <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 1.8)' }}>
-              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.28 and x8.77. */}
+              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.92 and x11.94. */}
               <div
                 className={`fr-banner ${ctl.campaignReceipt.met ? 'fr-banner-gold' : 'fr-banner-danger'}`}
                 style={{ fontSize: 'calc(var(--sh) * 8.5)' }}
               >
-                {ctl.campaignReceipt.met ? 'OBJECTIVE COMPLETE' : 'OBJECTIVE FAILED'}
+                {ctl.campaignReceipt.met ? 'VICTORY' : 'DEFEAT'}
               </div>
               <div className="fr-campaign-node-line" style={{ fontSize: 'calc(var(--sh) * 2)' }}>
                 NODE {ctl.campaignReceipt.nodeId} · {ctl.campaignReceipt.nodeName}
@@ -2737,7 +2864,7 @@ export function FightExperience(): JSX.Element {
                   <div className="fr-receipt-row fr-receipt-result">
                     <span>RESULT</span>
                     <b className={ctl.campaignReceipt.met ? 'fr-receipt-victory' : 'fr-receipt-defeat'}>
-                      {ctl.campaignReceipt.met ? 'COMPLETE' : 'FAILED'}
+                      {ctl.campaignReceipt.met ? 'VICTORY' : 'DEFEAT'}
                     </b>
                   </div>
                   <div className="fr-receipt-row">

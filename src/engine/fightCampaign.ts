@@ -1,59 +1,45 @@
-// STANDOFF (formerly Frozen Requiem) — CONQUEST MAP campaign math (pure, deterministic, no DOM, no React).
+// STANDOFF (formerly Frozen Requiem) — CONQUEST MAP campaign math (pure, deterministic, no DOM,
+// no React).
 //
-// This is the money + progression brain of the campaign mode (CAMPAIGN-SPEC.md, phase 16). It
-// owns three things and nothing else:
-//   1. The tier table — each objective's EXACT probability (stored as an integer rational so it
-//      is display- and test-exact) and its payout multiplier in bps.
-//   2. The 10-node conquest map registry (data, one row per node — a future character/arena drops
-//      in by editing the row, mirroring characters/registry.ts + arenas/arenas.ts).
-//   3. `evaluateObjective` — the pure early-exit judge run after every completed ROUND, and
-//      `campaignPayout` — the bigint floor-truncated payout.
+// PHASE 17 DESIGN OF RECORD (Tim's 2026-07-21 rulings, replacing the phase-16 objective tiers):
+// no quest objectives — every node is "just play normal rock paper scissors and WIN THE MATCH".
+// Difficulty and payout escalate through two per-node knobs instead:
+//   - FORMAT: first to 2 round wins (the normal duel) or first to 3 (the longer late-map "war").
+//   - DEFENSE: the enemy may absorb the player's first `amount` decisive hits EACH ROUND. Two
+//     presentations of the SAME math: 'shield' (shield pips, hits shatter on them, no HP drain)
+//     and 'bulk' (the enemy's health bar simply has 3+amount segments and drains normally). The
+//     player must land 3+amount blows before taking 3 — identical pricing either way.
 //
-// ECONOMIC LAW (spec §0): every node is priced at <=96% RTP. multBps = floor(0.96 / P) to clean
-// bps, so no node ever pays better than 96% and the grind/stake-cap exploit is structurally
-// impossible. Money math is all BigInt bps with floor truncation (swoobz-casino-math); the stake
-// is deducted at commit, so on `met` the TOTAL credited is `campaignPayout(stake, multBps)` and
-// the net is `payout - stake`; on `failed` nothing is credited (the stake is already gone).
+// This module owns:
+//   1. The node ladder (10 rows, each with roundsToWin / defense / multBps) + rewards.
+//   2. `applyCampaignExchange` — THE shared absorb-decision wrapper around the frozen engine that
+//      the provider, the Monte-Carlo sim and the tests ALL use (single source, no drift).
+//   3. `evaluateCampaignMatch` — the pure judge run after every completed round. It reads ONLY
+//      round-win counts, never the engine's matchOver: first-to-3 nodes play PAST the engine's
+//      2-win matchOver (the engine merely stops being asked to end the match; it is never edited).
+//   4. `campaignPayout` + exact win probabilities (bigint rationals) for the Glass Box display.
 //
-// Campaign enemies pick UNIFORM RANDOM (engine `randomMove`), NEVER `aiPick` — random is
-// Nash-neutral so the measured probabilities below hold vs ANY player (spec §0.2). This module is
-// engine-adjacent but imports NOTHING from the frozen engine: it speaks only round-level facts.
+// ECONOMIC LAWS (unchanged from phase 16, spec §0): every node priced at <=96% RTP with bigint bps
+// floor truncation; stake deducted at commit; the enemy picks UNIFORM RANDOM (`randomMove`), never
+// `aiPick` — Nash-neutral, so the closed-form probabilities below hold vs ANY player.
+//
+// EXACT MATH (regression-tested): with a fair-coin decisive exchange, the round-win probability is
+// q = P(player lands 3+S hits before taking 3), S = defense amount:
+//   S=0: q = 1/2      S=1: q = 11/32      S=2: q = 29/128
+// Match win: first-to-2 P = q^2(3-2q); first-to-3 P = q^3(1 + 3(1-q) + 6(1-q)^2).
 
-/** The six objective tiers, hardest last. Each maps to one payout multiplier. */
-export type CampaignTier =
-  | 'takeRound'
-  | 'winMatch'
-  | 'flawlessRound'
-  | 'win20'
-  | 'winWithFlawless'
-  | 'bossRequiem';
+import type { MatchState, Move } from './fightEngine';
+import { applyExchange, resolveExchange } from './fightEngine';
 
 /** The judge's verdict after a completed round. 'open' = keep fighting; 'met'/'failed' end it. */
-export type ObjectiveResult = 'met' | 'failed' | 'open';
+export type CampaignMatchResult = 'met' | 'failed' | 'open';
 
-export interface TierDef {
-  id: CampaignTier;
-  /** Player-facing objective line (spec §1 column 2). No em-dashes (RG-C5 copy law). */
-  objective: string;
-  /** EXACT probability of meeting the objective vs a uniform-random enemy, as an integer
-   *  rational (numerator/denominator) — stored exact so display and the regression tests never
-   *  touch a float. Derivations live in fightCampaign.test.ts (closed-form recomputation). */
-  pNum: number;
-  pDen: number;
-  /** Payout multiplier in basis points (10000 = 1.00x). floor(0.96 / P) to clean bps (spec §0). */
-  multBps: bigint;
+/** Per-node enemy defense: absorb the player's first `amount` decisive hits each round.
+ *  `kind` is PRESENTATION ONLY — the interception math is identical for both kinds. */
+export interface CampaignDefense {
+  kind: 'shield' | 'bulk';
+  amount: 1 | 2;
 }
-
-// The tier table, EXACT values from CAMPAIGN-SPEC §1. multBps * pNum <= 9600 * pDen for every row
-// (RTP <= 96%), asserted in the tests.
-export const TIERS: Record<CampaignTier, TierDef> = {
-  takeRound: { id: 'takeRound', objective: 'TAKE AT LEAST ONE ROUND', pNum: 3, pDen: 4, multBps: 12800n },
-  winMatch: { id: 'winMatch', objective: 'WIN THE MATCH', pNum: 1, pDen: 2, multBps: 19200n },
-  flawlessRound: { id: 'flawlessRound', objective: 'WIN ANY ROUND FLAWLESS', pNum: 9, pDen: 32, multBps: 34100n },
-  win20: { id: 'win20', objective: 'WIN THE MATCH 2-0', pNum: 1, pDen: 4, multBps: 38400n },
-  winWithFlawless: { id: 'winWithFlawless', objective: 'WIN THE MATCH WITH A FLAWLESS ROUND', pNum: 7, pDen: 32, multBps: 43800n },
-  bossRequiem: { id: 'bossRequiem', objective: 'WIN 2-0 WITH A FLAWLESS ROUND', pNum: 7, pDen: 64, multBps: 87700n },
-};
 
 /** A cosmetic cross-game unlock attached to a node (swoobz-engagement-layer: EV-NEUTRAL —
  *  rewards NEVER change the money math; the node's multiplier/payout is untouched). DEMO ONLY
@@ -72,24 +58,31 @@ export interface CampaignReward {
 }
 
 /** A conquest-map node. ONE row per node — future characters/arenas drop in by editing the row
- *  only (spec §2), the same data-not-code shape as characters/registry.ts + arenas/arenas.ts. */
+ *  only, the same data-not-code shape as characters/registry.ts + arenas/arenas.ts. */
 export interface CampaignNodeDef {
   id: number; // 1..10, the frontier index is id-1
   name: string;
   title: string; // enemy card title
-  tier: CampaignTier;
+  /** Match format: round wins needed to take the node. The engine's own matchOver fires at 2 and
+   *  is IGNORED by the campaign judge — first-to-3 nodes keep playing rounds past it. */
+  roundsToWin: 2 | 3;
+  /** Enemy defense (absent = none). See CampaignDefense. */
+  defense?: CampaignDefense;
+  /** Payout multiplier in basis points (10000 = 1.00x): floor(0.96 / P(match win)) to clean bps. */
+  multBps: bigint;
   fighterId: string; // registry id of the enemy fighter (VOLTA fills every slot this phase)
   arenaId: string; // background arena id (cathedral default this phase)
   reward?: CampaignReward; // optional cosmetic unlock (see CampaignReward)
 }
 
-// The 10 playable nodes (spec §2, RONIN ZERO season theme). Names are originals in a Japanese
-// sengoku register. VOLTA fills every enemy slot for now (node 10 is PRESENTED as RONIN ZERO in
-// copy only this phase); cathedral is the only arena until the roster/arenas grow.
+// The 10 playable nodes (RONIN ZERO season theme; names in a Japanese sengoku register). The
+// phase-17 ladder: escalation via format + defense, kinds mixed for variety (Tim's addendum) —
+// n1-4 plain x1.92 | n5 bulk+1 x3.51 | n6 shield1 x3.51 | n7 bulk+1 first-to-3 x4.25 |
+// n8 shield1 first-to-3 x4.25 | n9 bulk+2 x7.34 | n10 RONIN ZERO shield2 first-to-3 x11.94.
 export const CAMPAIGN_NODES: CampaignNodeDef[] = [
-  { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', tier: 'takeRound', fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
   {
-    id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', tier: 'takeRound', fighterId: 'volta', arenaId: 'cathedral',
+    id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral',
     reward: {
       id: 'automat-pack',
       label: 'AUTOMAT CHARACTER PACK',
@@ -98,13 +91,13 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
       tier: 'standard',
     },
   },
-  { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', tier: 'winMatch', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', tier: 'winMatch', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', tier: 'winMatch', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', tier: 'flawlessRound', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', tier: 'win20', fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral' },
   {
-    id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', tier: 'win20', fighterId: 'volta', arenaId: 'cathedral',
+    id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral',
     reward: {
       id: 'automat-gold-pack',
       label: 'AUTOMAT GOLD PACK',
@@ -113,14 +106,14 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
       tier: 'gold',
     },
   },
-  { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', tier: 'winWithFlawless', fighterId: 'volta', arenaId: 'cathedral' },
-  { id: 10, name: 'ZERO CITADEL', title: 'RONIN ZERO', tier: 'bossRequiem', fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: 73430n, fighterId: 'volta', arenaId: 'cathedral' },
+  { id: 10, name: 'ZERO CITADEL', title: 'RONIN ZERO', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'volta', arenaId: 'cathedral' },
 ];
 
 /** The number of nodes in the campaign (frontier bookkeeping + persistence array length). */
 export const CAMPAIGN_NODE_COUNT = CAMPAIGN_NODES.length;
 
-/** The two bonus isles are always visible, always locked this phase (spec §2). UI-only tiles. */
+/** The two bonus isles are always visible, always locked this phase. UI-only tiles. */
 export const LOCKED_ISLE_COUNT = 2;
 
 /** Resolve a node by id (1-based). Returns undefined for an out-of-range id (no throw — callers
@@ -130,96 +123,113 @@ export function getCampaignNode(id: number | null | undefined): CampaignNodeDef 
   return CAMPAIGN_NODES.find((n) => n.id === id);
 }
 
-// Match model (mirrors the frozen engine): best of 3 rounds, first to 2 round wins.
-const ROUNDS_TO_WIN = 2;
+/** The enemy's absorb buffer per round for a node (0 when it ships no defense). */
+export function defenseAmount(node: CampaignNodeDef | undefined): number {
+  return node?.defense?.amount ?? 0;
+}
 
-/**
- * THE OBJECTIVE JUDGE (spec §3). PURE. Called after EVERY completed round (never mid-round) with
- * round-level facts only:
- *   - roundsWonP1 / roundsWonP2: rounds each side has won so far
- *   - flawlessWinsP1: how many of P1's round wins were FLAWLESS (won at full HP)
- *   - matchOver: whether the match has ended (either side reached ROUNDS_TO_WIN)
- * Returns 'met' | 'failed' | 'open'. The fight ENDS as soon as this leaves 'open' (early exit).
- * Every branch checks its terminal conditions in the exact order the spec specifies so the
- * snappy fails on the 2-0 tiers and the mid-match flawless met fire at the earliest legal round.
- */
-export function evaluateObjective(
-  tier: CampaignTier,
-  roundsWonP1: number,
-  roundsWonP2: number,
-  flawlessWinsP1: number,
-  matchOver: boolean,
-): ObjectiveResult {
-  const p1WonMatch = roundsWonP1 >= ROUNDS_TO_WIN;
-  const p2WonMatch = roundsWonP2 >= ROUNDS_TO_WIN;
-
-  switch (tier) {
-    case 'takeRound':
-      // Met the instant P1 takes a round; failed if P2 reaches 2 wins with P1 still at 0.
-      if (roundsWonP1 >= 1) return 'met';
-      if (p2WonMatch) return 'failed';
-      return 'open';
-
-    case 'winMatch':
-      if (p1WonMatch) return 'met';
-      if (p2WonMatch) return 'failed';
-      return 'open';
-
-    case 'flawlessRound':
-      // Met on ANY P1 flawless round win (even mid-match, even if the match is later lost — the
-      // fight ends there); failed only once the match is over without one.
-      if (flawlessWinsP1 >= 1) return 'met';
-      if (matchOver) return 'failed';
-      return 'open';
-
-    case 'win20':
-      // Failed the moment P1 loses a round (P2 has any win); met at a clean 2-0.
-      if (roundsWonP2 >= 1) return 'failed';
-      if (p1WonMatch) return 'met';
-      return 'open';
-
-    case 'winWithFlawless':
-      // Failed if P2 wins the match; at a P1 match win, met iff a flawless win happened, else it
-      // is too late (match over) so failed. Open while a future round can still be flawless.
-      if (p2WonMatch) return 'failed';
-      if (p1WonMatch) return flawlessWinsP1 >= 1 ? 'met' : 'failed';
-      return 'open';
-
-    case 'bossRequiem':
-      // Failed the moment P1 loses a round; at 2-0, met iff a round was flawless, else failed.
-      if (roundsWonP2 >= 1) return 'failed';
-      if (p1WonMatch) return flawlessWinsP1 >= 1 ? 'met' : 'failed';
-      return 'open';
-
-    default: {
-      const exhaustive: never = tier;
-      return exhaustive;
-    }
-  }
+export interface CampaignExchangeResult {
+  state: MatchState;
+  /** Absorb buffer remaining AFTER this exchange (refilled externally at every round start). */
+  absorbRemaining: number;
+  /** True iff the player's decisive hit was absorbed by the enemy defense this exchange. */
+  absorbed: boolean;
 }
 
 /**
- * The TOTAL credited on a met objective, floor-truncated by bigint division (swoobz-casino-math):
+ * THE SHARED ABSORB DECISION (Tim's shield/bulk law) — the ONE function the provider, the
+ * Monte-Carlo sim and the tests all route campaign exchanges through, so the absorption rule can
+ * never drift between them. PURE; the frozen engine is imported, never modified.
+ *
+ * Rule: when the PLAYER (p1) wins a decisive exchange while the enemy has absorb buffer left, the
+ * hit is ABSORBED — the buffer decrements and the frozen engine NEVER processes the exchange (no
+ * applyExchange call: hp, roundsWon, round/match state all untouched). The exchange still appends
+ * a synthetic history record (same shape applyExchange would write) so the presentation layer
+ * (reveal plates, choreography) reads the picks exactly like any other exchange; the engine never
+ * reads history content, so the record is inert. Enemy hits on the player are NEVER absorbed
+ * (the player has no defense) and clashes pass through unchanged.
+ */
+export function applyCampaignExchange(
+  state: MatchState,
+  p1Move: Move,
+  p2Move: Move,
+  absorbRemaining: number,
+): CampaignExchangeResult {
+  const outcome = resolveExchange(p1Move, p2Move);
+  if (outcome.kind === 'hit' && outcome.winner === 'p1' && absorbRemaining > 0) {
+    return {
+      state: { ...state, history: [...state.history, { p1: p1Move, p2: p2Move, outcome }] },
+      absorbRemaining: absorbRemaining - 1,
+      absorbed: true,
+    };
+  }
+  return { state: applyExchange(state, p1Move, p2Move), absorbRemaining, absorbed: false };
+}
+
+/**
+ * THE MATCH JUDGE. PURE. Called after EVERY completed round (never mid-round) with the round-win
+ * counts only. 'met' when the player reaches `roundsToWin` first, 'failed' when the enemy does,
+ * 'open' otherwise. Deliberately IGNORES the engine's matchOver: the frozen engine hard-codes
+ * first-to-2, so on first-to-3 nodes the campaign keeps starting rounds past the engine's own
+ * "match over" (applyExchange/startNextRound recompute per-round state from hp/roundsWon and stay
+ * correct past it — proven in fightCampaign.test.ts).
+ */
+export function evaluateCampaignMatch(
+  roundsWonP1: number,
+  roundsWonP2: number,
+  roundsToWin: 2 | 3,
+): CampaignMatchResult {
+  if (roundsWonP1 >= roundsToWin) return 'met';
+  if (roundsWonP2 >= roundsToWin) return 'failed';
+  return 'open';
+}
+
+/**
+ * The TOTAL credited on a won node, floor-truncated by bigint division (swoobz-casino-math):
  *   payout = stake * multBps / 10000
- * The stake was already deducted at commit, so the NET on met is `payout - stake` and on failed
+ * The stake was already deducted at commit, so the NET on a win is `payout - stake` and on a loss
  * is `-stake` (nothing credited). All BigInt; never a float near lamports.
  */
 export function campaignPayout(stake: bigint, multBps: bigint): bigint {
   return (stake * multBps) / 10000n;
 }
 
-/** WIN CHANCE display string (one decimal, e.g. "75.0", "28.1") derived from the EXACT rational —
- *  integer math only, no float rounding drift. */
-export function formatWinChance(tier: CampaignTier): string {
-  const { pNum, pDen } = TIERS[tier];
-  // tenths of a percent, rounded half-up from exact integers: round(pNum * 1000 / pDen).
-  const tenths = Math.round((pNum * 1000) / pDen);
-  const whole = Math.floor(tenths / 10);
-  const frac = tenths % 10;
-  return `${whole}.${frac}`;
+// Round-win probability q per defense amount, as exact rationals: q = P(player lands 3+S decisive
+// hits before taking 3) on a fair coin. Derived by first-step enumeration (regression-tested by
+// independent recomputation in fightCampaign.test.ts).
+const ROUND_Q: Record<number, { num: bigint; den: bigint }> = {
+  0: { num: 1n, den: 2n },
+  1: { num: 11n, den: 32n },
+  2: { num: 29n, den: 128n },
+};
+
+/** Exact match-win probability for a defense amount + format, as a bigint rational.
+ *  first-to-2: P = q^2(3-2q); first-to-3: P = q^3(1 + 3(1-q) + 6(1-q)^2). */
+export function matchWinProbability(amount: number, roundsToWin: 2 | 3): { num: bigint; den: bigint } {
+  const q = ROUND_Q[amount];
+  if (!q) throw new Error(`No round-win probability for defense amount ${amount}`);
+  const { num: qn, den: qd } = q;
+  if (roundsToWin === 2) {
+    // q^2 * (3 - 2q) = qn^2 * (3qd - 2qn) / qd^3
+    return { num: qn * qn * (3n * qd - 2n * qn), den: qd * qd * qd };
+  }
+  // q^3 * (1 + 3(1-q) + 6(1-q)^2) = qn^3 * (qd^2 + 3(qd-qn)qd + 6(qd-qn)^2) / qd^5
+  const r = qd - qn; // (1-q) numerator over qd
+  return { num: qn * qn * qn * (qd * qd + 3n * r * qd + 6n * r * r), den: qd * qd * qd * qd * qd };
 }
 
-/** PAYS display string (two decimals, e.g. "1.28", "8.77") from multBps — bigint, floor to cents. */
+/** WIN CHANCE display string (one decimal, e.g. "50.0", "27.3", "8.0") from the EXACT rational —
+ *  integer math only (round half-up on tenths of a percent), no float drift. */
+export function formatWinChance(amount: number, roundsToWin: 2 | 3): string {
+  const { num, den } = matchWinProbability(amount, roundsToWin);
+  // tenths of a percent, rounded half-up: round(num * 1000 / den) in bigint.
+  const tenths = (num * 2000n + den) / (2n * den);
+  const whole = tenths / 10n;
+  const frac = tenths % 10n;
+  return `${whole.toString()}.${frac.toString()}`;
+}
+
+/** PAYS display string (two decimals, e.g. "1.92", "11.94") from multBps — bigint, floor to cents. */
 export function formatMult(multBps: bigint): string {
   const whole = multBps / 10000n;
   const frac = (multBps % 10000n) / 100n; // floor to two decimals

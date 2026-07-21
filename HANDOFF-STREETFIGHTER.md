@@ -60,20 +60,28 @@ best-of-3, 5s shot clock, tie=CLASH) -> receipt -> rematch/character select/quit
   background-independent HUD, official wordmark, ARENA picker (1 real arena + 4 locked
   tiles, localStorage persist, NO popup — change it manually in character select).
 
-## 1b. Phase 16 — CONQUEST MAP campaign (commit d0a491d, 2026-07-20)
+## 1b. Phases 16-17 — CONQUEST MAP campaign (16: d0a491d 2026-07-20; 17: 2026-07-21)
 
 Staked campaign, RONIN ZERO season theme (Swoobz Season 0 boss). Read `CAMPAIGN-SPEC.md`
 FIRST for any campaign work — it is the design of record. The compressed laws:
-- **Pricing law**: every node <=96% RTP off EXACT closed-form probabilities; difficulty
-  = win-condition tiers (takeRound 75% x1.28 ... bossRequiem 10.9375% x8.77), so bet
-  size can never game the ladder. NO stake-cap rules needed, none exist.
+- **PHASE-17 RULING (Tim): NO quest objectives.** Every node = play normal RPS and WIN
+  THE MATCH. Difficulty = two visible knobs: FORMAT (first to 2 or first to 3 round
+  wins; the frozen engine hard-codes 2, campaign judge IGNORES engine matchOver and
+  plays past it — engine can even name the LOSER as its stale matchOver, never read it)
+  and DEFENSE (enemy absorbs the player's first S decisive hits EACH ROUND; 'shield'
+  pips + SHIELDED deflection beat, or 'bulk' = a visibly longer 3+S segment bar with
+  normal hit beats — SAME math, presentation only). Ladder x1.92 -> x3.51 -> x4.25 ->
+  x7.34 -> boss x11.94 at exact q(S) = 1/2, 11/32, 29/128.
+- **Pricing law**: every node <=96% RTP off EXACT closed-form probabilities (bigint
+  rationals in fightCampaign.ts), so bet size can never game the ladder.
 - **Enemy law**: campaign enemies pick `randomMove` ONLY. All aiPick personalities are
   MEASURED exploitable (anti-brute 88% win = 176% RTP at 2x) — a personality may never
   sit behind a real multiplier. Personalities stay in quick duel only.
-- `src/engine/fightCampaign.ts` = pure tiers/nodes/evaluateObjective/campaignPayout;
-  the judge runs after every completed ROUND (never mid-round), early-exits the match
-  (provider stops calling startNextRound; engine untouched). One registry row per node
-  (fighterId/arenaId) — new enemy characters drop in by editing the row.
+- `src/engine/fightCampaign.ts` = nodes/`applyCampaignExchange` (THE shared absorb
+  decision: provider + sim + tests all import it, zero drift)/`evaluateCampaignMatch`/
+  payout + exact probabilities. Judge runs after every completed ROUND. One registry
+  row per node (roundsToWin/defense/multBps/fighterId/arenaId/reward) — new enemy
+  characters drop in by editing the row.
 - Map art `public/assets/campaign-map.webp` (generated, NO baked text; spare candidates
   + job ids in the phase-16 memory entry). Nodes/fog/flags are code-drawn via MAP_CAL
   (percent of the rendered image box). Map scrim is OPAQUE #07080c (cover-plate law —
