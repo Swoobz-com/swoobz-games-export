@@ -1,287 +1,270 @@
-# HANDOFF — STANDOFF (formerly Frozen Requiem; RPS-as-MK-fighter), for a fresh Fable 5 session
+# HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Fable 5 session
 
-Branded STANDOFF (Tim, 2026-07-20; was working title Frozen Requiem - visible brand only, storage keys keep the frozen-requiem. prefix FOREVER or player state wipes). Folder `streetfighter/` (own git repo inside the
+Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN; was
+working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
-is canonical. HEAD at handoff: `d0a491d` (phase 16, CONQUEST MAP campaign; test count
-now **132/132**). Everything below is VERIFIED, not self-reported: every phase was
-live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-20
-after phase 15; phase-16 addendum below (section 1b) + project memory phase-16 entry.
+is canonical (`input/progressivemap.jpg` = ANOTHER GAME'S map, reference-only, never
+ship or commit it). HEAD at handoff: `ee72424` (phase 17b). `npx vitest run` prints
+**125/125**. Everything below is VERIFIED, not self-reported: every phase was
+live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-21
+after phase 17b.
 
 FRESH-SESSION START HERE (in this order, before touching anything):
-1. Read this file fully, then `CHARACTER-CONTRACT.md` (THE LAW) if the task touches
-   characters, and `FIGHT-SPEC.md` §8 for game rules.
-2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-15).
-3. `git log --oneline -15` to confirm HEAD matches; `npx vitest run` should print 81/81.
+1. Read this file fully, then `CAMPAIGN-SPEC.md` (campaign design of record) if the
+   task touches the campaign, `CHARACTER-CONTRACT.md` (THE LAW) if it touches
+   characters, `FIGHT-SPEC.md` §8 for duel rules.
+2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-17b).
+3. `git log --oneline -20` to confirm HEAD; `npx vitest run` should print 125/125.
 4. Ask Tim which backlog item (section 5) to start, or continue his explicit ask.
 
 ## 0. Operating model (Tim's standing directive — read first)
 
 You are the ORCHESTRATOR: plan, brief, verify, review, commit. Specialized subagents
-(Opus 4.8 builders via the Agent tool) do the building from implementation-grade briefs
-(`subagent-briefing` skill: context/task/constraints/expected output/verification);
-run generation (Higgsfield MCP) yourself — media ids, cost preflights and Tim's
-approvals live in YOUR loop. NEVER trust a builder's or reviewer's self-report — re-run
-its gates yourself, review the diff with your own eyes, then live-drive the real game
-before committing. Keep ONE builder per feature and send follow-up briefs to the SAME
-agent via SendMessage (it keeps context; phases 13-14 ran 4 briefs through one agent
-with zero re-onboarding). Tim approves every credit spend per batch (hard law); when he
-is AFK on a spend question, do the free/reversible fixes, hold the spend. He answers
-fast and concretely — treat his defect reports as correct SYMPTOMS and measure the
-mechanism (right about the symptom EVERY time — including overruling my "fixed" verdict
-on the flame box, twice — ~half the time about the mechanism). When Tim overrules a
-design (e.g. forfeit -> auto-play), rework BEFORE committing, never commit then patch.
-Update project memory + this handoff at every phase boundary, and route durable lessons
-to their global homes (SAVE-GLOBAL law).
+(Opus builders via the Agent tool) do the building from implementation-grade briefs
+(`subagent-briefing` skill); run generation (Higgsfield MCP) yourself — media ids, cost
+preflights and Tim's approvals live in YOUR loop. NEVER trust a builder's self-report —
+re-run its gates yourself, review the diff with your own eyes, then live-drive the real
+game before committing. Keep ONE builder per feature; follow-ups via SendMessage to the
+SAME agent (phases 13-14 ran 4 briefs, phase 17 ran 3 briefs through one agent each,
+zero re-onboarding — a completed background agent RESUMES with full context). Tim
+approves every credit spend per batch (hard law; when he explicitly asks for a
+generated thing, preflight + state the cost and proceed on small spends). He answers
+fast and concretely; treat his defect reports as correct SYMPTOMS and MEASURE the
+mechanism (map-click complaint: my probe said center-clicks worked, the real causes
+were parallax-moving targets + small discs — fix everything the measurement implicates,
+not just the literal report). **Tim iterates design in rapid small rulings** (phase 17:
+five sequential messages reshaped the campaign) — send delta briefs to the live builder
+instead of restarting, and reconcile the design yourself before it lands. When he
+overrules a design, rework BEFORE committing. Do the cheap reversible work immediately;
+hold spends when he is AFK. Update project memory + this handoff at every phase
+boundary; route durable lessons to global homes (SAVE-GLOBAL law).
 
 ## 1. What the game is now (state at HEAD)
 
-A complete, playable, staked MK-style duel with REAL MULTIPLAYER and a full Swoobz
-skin. Flow: title -> mode (CPU brute/warden/oracle or friend create/join) -> character
-select (live idle previews, 22-slot roster = 2 real + 20 mystery; ARENA picker row) ->
-stake (winner-takes-all, pot 2S) -> vsIntro -> rounds (STRIKE>THROW>BLOCK>STRIKE, 3 HP,
-best-of-3, 5s shot clock, tie=CLASH) -> receipt -> rematch/character select/quit.
+A complete staked fighter with real multiplayer, a full Swoobz skin, and a SEASON
+CAMPAIGN. Modes from the title screen: CONQUEST MAP (campaign), VERSUS CPU
+(brute/warden/oracle quick duel, winner-takes-all 2.00x), VS FRIEND (real ws
+multiplayer, winner-takes-all).
 
-- BOTH characters (GORVAK orc / VOLTA cyber-brawler) ship the FULL contract kit:
-  idle anchor hub; interchangeable takes of attack_strike/throw/block/hit (two states
-  single-take by Tim's ruling, NO regen: VOLTA throw-b + GORVAK strike-a pulled);
-  SPECIAL finisher (flame circle / lightning spin, radial-feathered `-r2` assets);
-  ko (exhaustion collapse, holds on ground); victory (anchor-locked taunt, chains from
-  the finisher, persists through the round-end dwell). Combo strings (1-3 contacts,
-  per-contact fx + hit re-trigger + "N HITS"), clip-driven CLASH, frost parry arc.
-- REAL FRIEND MODE (phases 13-14): ws room relay embedded in vite dev+preview
-  (`/fr-ws`), room codes FRZxxx, exchange-indexed pick relay, opaque fighter-id
-  profile relay (mirror matches render), reconnect grace (10s, resume tokens, buffered
-  frames), AUTO-PLAY on true disconnect (Tim's law: NEVER forfeit — the match continues
-  with uniform-random picks for the absent player, settles by real KO; leaver always
-  nets -stake), stake refunds ONLY for never-started matches (waiting-room back-out,
-  join/connect fail). Two isolated browsers played full matches in lockstep with exact
-  opposite receipts; disconnect + reconnect + both refunds live-verified.
-- SWOOBZ SKIN (phase 15): full design-system restyle (tokens in section 2), drawn
-  background-independent HUD, official wordmark, ARENA picker (1 real arena + 4 locked
-  tiles, localStorage persist, NO popup — change it manually in character select).
+### 1a. Core duel (phases 1-15, stable)
+title -> mode -> charSelect (22-slot roster = GORVAK orc + VOLTA cyber-brawler + 20
+mystery; live idle previews; ARENA picker) -> stake -> vsIntro -> rounds
+(STRIKE>THROW>BLOCK>STRIKE, 3 HP, 5s shot clock, tie=CLASH) -> receipt. Both
+characters ship the full contract kit (idle hub, variant attack takes, hit, SPECIAL
+finisher w/ radial-feathered `-r2` fx, ko, victory chain); combo strings 1-3 contacts;
+clip-driven CLASH. FRIEND MODE: ws room relay in vite dev+preview (`/fr-ws`), FRZxxx
+codes, reconnect grace 10s + resume tokens, AUTO-PLAY on true disconnect (never
+forfeit; ghost picks = uniform randomMove; leaver nets -stake), refunds ONLY for
+never-started matches (stakeCommittedRef one-shot).
 
-## 1b. Phases 16-17 — CONQUEST MAP campaign (16: d0a491d 2026-07-20; 17: 2026-07-21)
+### 1b. CONQUEST MAP campaign (phases 16-17b, 2026-07-20/21) — RONIN ZERO season
+Read `CAMPAIGN-SPEC.md` FIRST for campaign work. The compressed state:
+- **10 nodes + 2 locked isles** on ORIGINAL generated sumi-e map art
+  (`public/assets/campaign-map.webp`, no baked text) that is ALIVE: a Seedance
+  image-to-video ambient loop (`campaign-map-loop.mp4`, trees sway/water flows/citadel
+  fire, locked camera, muted, still-image fallback + reduced-motion) + CSS ambient
+  (citadel glow breathe, seismic ring, cloud sweep) + pointer parallax that moves the
+  SCENERY LAYER ONLY (node pins are static click targets - click-target law).
+  Nodes/fog/flags/labels are code-drawn via MAP_CAL percent table.
+- **PHASE-17 RULES (Tim): no quest objectives.** Every node = play normal RPS, WIN THE
+  MATCH. Difficulty = two visible knobs: FORMAT (first-to-2 / first-to-3; the campaign
+  judge reads round counts ONLY and plays PAST the frozen engine's 2-win matchOver —
+  the engine's stale flag can even name the LOSER, never read it) and DEFENSE (enemy
+  absorbs the player's first S decisive hits EACH ROUND; presented per node as
+  'shield' = gold shard pips + SHIELDED deflection beat, or 'bulk' = visibly longer
+  3+S segment health bar with normal hit beats — SAME math, +1 HP == 1 shield).
+- **Ladder** (exact rationals, q(S)=1/2, 11/32, 29/128): n1-4 plain x1.92 | n5 bulk+1 /
+  n6 shield1 x3.51 | n7 bulk+1 / n8 shield1 first-to-3 x4.25 | n9 bulk+2 x7.34 |
+  n10 RONIN ZERO shield2 first-to-3 **x11.94** (8.0%). Every node <=96.00% RTP.
+- **Money laws**: enemies pick `randomMove` ONLY (aiPick personalities are MEASURED
+  exploitable: anti-brute 88% win = 176% RTP at 2x — never behind a real multiplier);
+  flat 96% pricing at every node = grind/bet-size exploits structurally impossible;
+  `applyCampaignExchange` in fightCampaign.ts is THE ONE shared absorb decision
+  (provider + Monte-Carlo sim + tests import it — zero drift).
+- Progression: beat node n -> n+1 unlocks forever (localStorage
+  `frozen-requiem.campaign.v1` {v:1,beaten[10]}); conquered nodes replayable any bet.
+  Demo cosmetic rewards (EV-neutral, presentational only): node 2 AUTOMAT CHARACTER
+  PACK, node 8 AUTOMAT GOLD PACK (gachapon capsule art, REWARD UNLOCKED card on win).
+- DEV force hooks (`?dev=1` on the map): CONQUER NEXT / RESET PROGRESS
+  (progress-only, never money).
+- HUD restyle (17b): lacquer-blade angled health plates + gold hairline, gold shard
+  shield pips w/ blood crack when spent, hinomaru round pips. Presentation only.
 
-Staked campaign, RONIN ZERO season theme (Swoobz Season 0 boss). Read `CAMPAIGN-SPEC.md`
-FIRST for any campaign work — it is the design of record. The compressed laws:
-- **PHASE-17 RULING (Tim): NO quest objectives.** Every node = play normal RPS and WIN
-  THE MATCH. Difficulty = two visible knobs: FORMAT (first to 2 or first to 3 round
-  wins; the frozen engine hard-codes 2, campaign judge IGNORES engine matchOver and
-  plays past it — engine can even name the LOSER as its stale matchOver, never read it)
-  and DEFENSE (enemy absorbs the player's first S decisive hits EACH ROUND; 'shield'
-  pips + SHIELDED deflection beat, or 'bulk' = a visibly longer 3+S segment bar with
-  normal hit beats — SAME math, presentation only). Ladder x1.92 -> x3.51 -> x4.25 ->
-  x7.34 -> boss x11.94 at exact q(S) = 1/2, 11/32, 29/128.
-- **Pricing law**: every node <=96% RTP off EXACT closed-form probabilities (bigint
-  rationals in fightCampaign.ts), so bet size can never game the ladder.
-- **Enemy law**: campaign enemies pick `randomMove` ONLY. All aiPick personalities are
-  MEASURED exploitable (anti-brute 88% win = 176% RTP at 2x) — a personality may never
-  sit behind a real multiplier. Personalities stay in quick duel only.
-- `src/engine/fightCampaign.ts` = nodes/`applyCampaignExchange` (THE shared absorb
-  decision: provider + sim + tests all import it, zero drift)/`evaluateCampaignMatch`/
-  payout + exact probabilities. Judge runs after every completed ROUND. One registry
-  row per node (roundsToWin/defense/multBps/fighterId/arenaId/reward) — new enemy
-  characters drop in by editing the row.
-- Map art `public/assets/campaign-map.webp` (generated, NO baked text; spare candidates
-  + job ids in the phase-16 memory entry). Nodes/fog/flags are code-drawn via MAP_CAL
-  (percent of the rendered image box). Map scrim is OPAQUE #07080c (cover-plate law —
-  0.97 alpha still ghosted the baked PLAYER plates).
-- Persistence `frozen-requiem.campaign.v1` {v:1, beaten[10]}; balance stays the shared
-  practice bank. `scripts/campaign-rtp-sim.mjs` = the RTP battery (2M/node, seed
-  0xc0ffee, bit-reproducible; run FOREGROUND, assert [95.0,96.1]) — rerun it after ANY
-  campaign-math change.
-
-## 2. Architecture map (stable — learn before touching anything)
+## 2. Architecture map (learn before touching anything)
 
 - `src/engine/fightEngine.ts` + `fightAi.ts` — **BYTE-FROZEN since phase 1**. Never
-  edit; every commit checks `git diff --stat` shows them untouched.
-- `src/engine/fightStakes.ts` — pure bigint stake math.
+  edit; every commit checks `git diff --stat` shows them untouched. The campaign plays
+  past their limits by COMPOSITION, never modification.
+- `src/engine/fightCampaign.ts` — campaign brain: node registry (ONE row per node:
+  roundsToWin/defense/multBps/fighterId/arenaId/reward — new enemy characters drop in
+  by editing the row), `applyCampaignExchange` (shared absorb), `evaluateCampaignMatch`
+  (round-count judge), `campaignPayout`, exact bigint-rational probabilities +
+  displays. `scripts/campaign-rtp-sim.mjs` = the RTP battery (2M matches/node, seed
+  0x7a11ce, bit-reproducible, FOREGROUND, band [95.0,96.1] — NOTE the ceiling is tight:
+  plain nodes price at ~96.0 and some seeds bust by noise; the P-vs-exact 0.3% check
+  pins the model seed-independently). RERUN IT after ANY campaign-math change.
+- `src/engine/fightStakes.ts` — pure bigint stake math (quick duel).
 - `src/provider/fightProvider.ts` — the state machine. Module-const timings (RG-C5),
-  StrictMode-safe, identity-agnostic (relays opaque fighter ids, never branches).
-  Resolve windows: RESOLVE_HIT_MS 2000 / RESOLVE_KO_MS 2400 / RESOLVE_MS 1800 (clash) /
-  ROUND_END_MS 2000 — windows must FIT the clip beat. Friend-mode machinery: transport
-  acquired FRESH per friend match (CPU constructs none); opponent picks buffered in a
-  Map keyed by exchange index, drained on beginPicking (a pick arriving during
-  fightBanner survives); `handleMatchEvent` peerLost/peerBack/peerGone (peerGone =
-  auto-play: `opponentGoneRef`, picks from `randomMove(autoPickRngRef)`, NEVER aiPick);
-  `stakeCommittedRef` one-shot guards every refund/settle path (zero-sum everywhere;
-  ghost-win pot evaporation is Tim's accepted trade-off, documented in headers).
-- `src/transport/matchTransport.ts` — the seam. `WsTransport` (lazy socket to
-  `/fr-ws`, queue-before-open, connect timeout CLEARED on settle + settled-guarded
-  callback — learning 21; auto-reconnect with resume token, all timers in named fields);
-  `LocalSimTransport` survives for tests/injection. Interface: sendPick(move, exchange),
-  sendProfile(fighterId), onMatchEvent('peerLost'|'peerBack'|'peerGone').
-- `src/server/matchRelay.ts` — dumb verbatim ws room relay, embedded via vite plugin
-  (`configureServer` + `configurePreviewServer`; own upgrade listener owns ONLY
-  `/fr-ws`, never touches HMR). Grace/resume/peerGone per section 1. Zero game logic —
-  both clients run the symmetric engine, no authority needed. NOTE: matchRelay.ts loads
-  at vite STARTUP — server-side edits need a dev-server restart, no HMR.
-- `src/characters/` — types + manifests + registry. `clipVariants(def, state)` is THE
-  resolver. A new character = ONE manifest file. Special assets are `-r2` filenames
-  (cache-bust convention: rename on any asset re-swap).
-- `src/arenas/arenas.ts` — ARENA registry (phase 15): cathedral = assets/background.png
-  + getArena fallback. Pick lives in FightExperience state (`arenaId`, localStorage
-  `frozen-requiem.arena.v1`), NEVER in the provider. New background = drop file in
-  public/assets + ONE ArenaDef row (the picker + persistence + stage wiring all follow).
+  StrictMode-safe. Quick-duel/friend paths as at phase 15 (resolve windows, pick
+  buffering, auto-play, stakeCommittedRef one-shot). Campaign layer: mode 'campaign' +
+  phase 'campaignMap'; interception via applyCampaignExchange BEFORE the engine;
+  defense buffer refills at match start + every startNextRound; judge after each round,
+  'open' -> next round (even past engine matchOver), else round beat plays in
+  ROUND_END_MS dwell -> settleCampaign (one-shot campaignSettledRef) -> matchEnd.
+  Refund path (enterModeSelect) is GATED to friend+mode phase — campaign can never
+  reach it (verified: no quit-mid-fight stake exploit).
+- `src/transport/matchTransport.ts` + `src/server/matchRelay.ts` — friend-mode seam +
+  dumb ws relay (vite plugin; server edits need a dev-server RESTART, no HMR).
+- `src/characters/` + `src/arenas/` — registries; `clipVariants` resolver; facing rule.
 - `src/ui/FightExperience.tsx` — zero-prop presentation. CAL block = baked-art
-  geometry, values NEVER changed; drawn HUD cover plates expand past the CAL box at
-  render time (`pctRectPad`, NamePlate CENTER_REACH 2.4). CLIP_RATE = 2.0. fxReducer
-  takes ACTIONS (clipEnd stale-gate: only an ended element whose state+takeIdx matches
-  what is shown may drive a transition — hidden opacity-0 videos are live actors).
-  Victory-chain arm rides IN FxState (race-proof).
-- `src/ui/fight.css` — SWOOBZ TOKENS (phase 15, extracted live from Tim's staging /ds
-  page; full set + extraction recipe in global memory `swoobz-ds-tokens.md`):
-  ink #07080c / coal #0d0f15 / glass rgba(13,15,21,.72) / line rgba(255,255,255,.08) /
-  bone #f2f3ef / fog #98a1b3; accents cyan #29E6FF (accent TEXT <32px = #00D0DE, fills
-  #0EA5E9), gold #FFC83D, blood #FF4135. Fonts: Space Grotesk (UI) / JetBrains Mono
-  (numbers, tabular-nums) / Anton (hero: logo, banners, section titles). Wordmark
-  public/assets/swoobz-logo.svg. `--fr-plate-cover` = FULLY OPAQUE coal (0.94 alpha
-  ghosted bright baked text). Never combine -webkit-text-stroke with
-  background-clip:text (Chrome miter-spike).
-- `scripts/` — durable pipeline tools: `key-idle-clips.mjs` (THE keying recipe),
-  `edge-feather.mjs` (straight band — legal ONLY for prop overflow),
-  **`radial-feather.mjs` (THE effect-clip feather: asymmetric-ellipse falloff centered
-  on the character, feet-protecting ryDown, 12px safety ramp; defaults cx .5 cy .56
-  rx .53 ryUp .61 ryDown .68 band .78-1.02)**, `magenta-neutralize.mjs` (interior
-  magenta fixer — WARNING: any re-encode can crush a feather, re-run the inset-ring
-  profile after it, learning 23). Encode: `ffmpeg -framerate 24 -i f%03d.png -c:v
-  libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 24 -row-mt 1 -auto-alt-ref 0 out.webm`.
-- `CHARACTER-CONTRACT.md` — THE LAW (§6 step 4 per-frame QA sweep, §9 combo strings,
-  §10 variants, §11 specials). FIGHT-SPEC.md §8 overrides earlier sections.
+  geometry (values never change; drawn plates EXPAND past the CAL box at render time).
+  MAP_CAL = campaign node positions (percent of the rendered map box). Campaign map =
+  scenery layer (art+video+ambient, parallax target) UNDER static node pins with
+  enlarged invisible hit areas (frontier z-top). Pips take `slots`, HealthBar takes
+  `total` (bulk bars), ShieldPips re-key per round. fxReducer clipEnd stale-gate;
+  victory-chain arm rides FxState; campaign end poses derive from campaignReceipt.met
+  (NEVER engine matchOver). FINAL ROUND = round 2R-1; FINISH THEM reads display hp
+  (engine hp + defense buffer).
+- `src/ui/fight.css` — Swoobz DS tokens (ink #07080c / coal / bone #f2f3ef / fog;
+  cyan #29E6FF, accent text <32px #00D0DE, fills #0EA5E9; gold #FFC83D; blood #FF4135
+  == the Ronin Zero season red; Space Grotesk / JetBrains Mono / Anton hero). Cover-
+  plate law: drawn HUD over baked art = alpha 1.0 + full footprint (0.94 ghosts, 0.97
+  STILL ghosts — map scrim is opaque #07080c). Never -webkit-text-stroke with
+  background-clip:text.
+- `scripts/` — key-idle-clips / edge-feather (prop overflow only) / radial-feather
+  (THE effect-clip feather) / magenta-neutralize (re-run inset-ring after ANY
+  re-encode) / measure-contacts / campaign-rtp-sim.
+- Storage keys ALL keep the historic `frozen-requiem.` prefix FOREVER (balance.v1,
+  campaign.v1, arena.v1) — rebranding keys wipes player state. Hard-noted in code.
 
-## 3. Hard-won learnings (each cost real credits, debugging, or a Tim re-report)
+## 3. Hard-won learnings (26-38 are new since phase 15; 1-25 in git history of this
+file @ 9372db9 + project memory — generation/keying/QA/timer laws all still bind)
 
-Generation (Seedance 2.0 via Higgsfield MCP) — unchanged from phase 12, still law:
-1. Anchor hygiene is everything (dirty plate = grey-disc hallucinations; inspect at
-   full res; "auto" aspect resolves square-to-square).
-2. The model PAINTS whatever the prompt narrates (grab verbs materialize opponents;
-   negatives do NOT stop baked impact flashes; defeat clips describe only the RESULT).
-3. The phantom-opponent class survives one solo re-roll — budget 2+ rolls or choose
-   opponent-free acting.
-4. Effect/prop content runs off the SOURCE frame — cut is in the pixels; wide-framing
-   prompts shrink but never eliminate it. See learning 23 for the CURRENT fix doctrine.
-5. Late-reading reaction clips are head-trimmable FREE (motion-energy trace).
-6. Preset interception: retry same params + `declined_preset_id`.
-7. Anchor lock works (start==end==references); directional acting prompts in ART space.
-8. Costume drift under effect light: lock the outfit in the prompt.
+The phase 1-15 canon in brief: anchor hygiene, prompts paint what they narrate,
+phantom-opponent class, effect clips run off the source frame -> radial-feather
+doctrine (learning 23), head-trim free fixes, per-frame QA sweeps over dark AND white,
+judge facing by the head, play-hook ground truth, click helpers must verify
+registration + randomize picks, measured contacts, hidden videos are live actors,
+curl is the dev-server truth, sequential downloads, absolute paths, one builder per
+file, success paths must cancel their timeout timers + drives outlast the longest
+timeout, isolated incognito contexts + frame-log for multiplayer, cover-plate law,
+never live-drive a moving tree.
 
-QA discipline:
-9. Numeric all-frame scans + per-frame sheets over DARK; adjudicate visually; judge
-   mattes over black AND white.
-10. The foreign-object/consistency sweep is a standing gate (contract §6 step 4,
-    global character-clip-qa gate 5, slot-known-regressions A15-A18).
-11. Judge facing by the HEAD at full resolution.
-12. Ground truth for "is the clip playing": hook HTMLMediaElement.play via
-    evaluateOnNewDocument; multiple play() entries = hitstop cycles, check currentTime.
-13. A headless click helper must VERIFY registration and retry; drives hunting a
-    specific outcome must RANDOMIZE picks (the AI reads patterns).
-14. contacts are MEASURED (motion-energy peaks), never guessed.
-15. Hidden video elements are live actors — the clipEnd stale-gate covers new one-shot
-    states; do not bypass it.
-
-Environment:
-16. Background dev-server notifications lie — `curl -s -o /dev/null -w "%{http_code}"
-    http://localhost:5340/` is the truth. DEV-SERVER HYGIENE LAW applies.
-17. Parallel `curl a & b & wait` in the Bash tool loses downloads — sequential.
-18. Headless recipe: puppeteer-core via createRequire on the export root package.json,
-    system Chrome, `--autoplay-policy=no-user-gesture-required`. Proven driver patterns
-    in the 2026-07-20 scratchpad (rewrite from descriptions if gone): verify-forfeit.mjs
-    (two-context multiplayer + money assertions), verify-swoobz.mjs (visual sweep +
-    persistence), verify-flamefix.mjs (special-clip burst). Selectors: `.fr-overlay`
-    `.fr-pick` `.fr-fighter` `.fr-state-video` `.fr-connlost(-auto)` `.fr-autoplay-note`
-    `.fr-arena-tile(-selected/-locked)` `.fr-nameplate` `.fr-wordmark`, buttons by text.
-19. The environment persists shell cwd — absolute paths; check `git status` before
-    `git add -A` (Tim drops new files into input/ mid-session; never sweep them
-    blindly — ask/flag what they are).
-20. Two agents editing one file collide — partition ownership up front; sequence
-    follow-ups with SendMessage to the SAME agent.
-21. **Success paths must cancel their timeout timers** (phase 13, caught live only):
-    a connect-timeout emitted presence(false) OUTSIDE the settled guard 5s after a
-    SUCCESSFUL createRoom — phantom-disconnect aborted a live match while 11 unit tests
-    passed (each finished inside the window). Clear the timer on settle AND bail
-    `if (settled)` first. THE ACCEPTANCE DRIVE MUST OUTLAST THE LONGEST TIMEOUT IN THE
-    SYSTEM. Regression pattern: injectable timeout, succeed, wait past it, assert no
-    event; verify the test fails pre-fix.
-22. Two-page multiplayer drives need ISOLATED incognito contexts (shared localStorage
-    corrupts money assertions) + a window.WebSocket frame-log hook as ground truth.
-    Multi-page headless also wants the --disable-background-timer-throttling family.
-23. **The effect-clip feather doctrine** (phases 11b -> 14 -> 14b, Tim re-reported
-    TWICE): (a) outermost-pixel edge scans LIE — use the INSET-RING profile (max alpha
-    at 2/10/25/49/80px; 255 inside ~15px = cut); (b) ANY re-encode can crush a feather
-    (magenta-neutralize collapsed 48px to 8px); (c) a soft STRAIGHT fade still reads
-    as "the box" — the eye reads the fade CONTOUR, not the hardness. Fix of record =
-    `scripts/radial-feather.mjs` on PRE-feather frames from git (never stack contours),
-    cache-bust rename, verify curve + live peak (burst on VIDEO VISIBILITY
-    opacity>0 && currentTime>0.1, not banner text). Straight bands only for prop tips.
-    Codified: global memory effect-clip-edge-cut.md, character-clip-qa gate, and
-    character-assets Rule 4 (generation-time: wide framing + radial as STANDARD stage).
-24. **Cover-plate law** (phase 15): drawn HUD over baked art must be alpha 1.0 (0.94
-    ghosts bright baked text) and cover the FULL baked footprint (wider than the CAL
-    box — expand at render time, asymmetric toward where the baked art extends; CAL
-    values themselves never change). Verify over the baked bg AND a plain dark
-    override. Global: swoobz-ds-tokens.md.
-25. Vite HMR reloads pages mid-drive while a builder edits — never live-drive a moving
-    tree; wait for the builder to land, and restart the server for matchRelay.ts edits.
+New (phases 16-17b):
+26. **Skill-game RTP pricing law** (global memory `skill-game-rtp-pricing.md`): AI
+    personalities are exploitable (MEASURED: anti-brute 88%/176% RTP, anti-warden
+    73%/146%); price staked PvE to the uniform-random Nash baseline only. Difficulty
+    that can back multipliers = structural handicaps with closed-form odds. Flat
+    <=96% per node kills grind exploits structurally — no stake-cap rules needed.
+27. **Difficulty knobs vs comprehension**: quest-style objectives (win 2-0, flawless)
+    priced beautifully but FAILED Tim's comprehension bar; visible handicaps (longer
+    HP bar, shield pips) price identically (+1 HP == 1 shield == P(3+S before 3)) and
+    read instantly. Prefer knobs the HUD can SHOW.
+28. **Playing past the frozen engine**: matchOver is advisory — the campaign judge
+    reads round counts only. TRAP: applyExchange checks p1 first, so its stale
+    matchOver can name the LOSER of a first-to-3 match. NEVER read engine matchOver
+    in campaign code; end-poses derive from campaignReceipt.met.
+29. **The shared-decision pattern**: any rule that must agree between provider, sim
+    and tests (the absorb decision) lives in ONE exported pure function all three
+    import. This is why the RTP battery is trustworthy.
+30. **Moderation false-positives** (global: higgsfield-generation skill): a map
+    animation died status:"nsfw" purely from "ember/fire/crimson" wording; sanitized
+    re-roll ("warm red lantern glow") clean first try. Rewrite fire/blood-adjacent
+    nouns, retry once.
+31. **Living-map recipe** (same skill): image-to-video of a full illustrated scene
+    with "camera absolutely locked + only ambient life moves + last frame matches
+    first" keeps landmarks pinned (~0.8% aspect adaptation only). Ship muted (strip
+    the audio track), still image stays as poster + reduced-motion fallback.
+32. **Click-target law**: parallax/ambient may move SCENERY ONLY — never interactive
+    pins (a 43px disc that drifts from the cursor is "really hard to click"). Give
+    small targets enlarged invisible hit areas (::after inset), stack the primary
+    target above neighbors, pointer-events:none on decorative siblings. Verify with
+    elementFromPoint jitter probes (9 points, +-28px) AND a human-style approach that
+    measures pin drift.
+33. **Generated-art-for-UI law**: never bake text/numbers/labels into generated art
+    (models render gibberish; content becomes uneditable). Nodes/fog/flags/labels are
+    code-drawn; MAP_CAL percentages target the rendered image box. Spec estimates
+    landed on-path first try; verify by VIEWING a live screenshot.
+34. **Rebrand law**: renaming a game = visible brand only; localStorage keys keep the
+    old prefix forever or every player's state silently wipes. Prove with seeded
+    legacy-key data loading through the renamed build.
+35. **Free-tier image gen is cheap** (nano_banana ~1cr/image, 2k) — map candidates and
+    reward-card art cost 2-4cr total. Video is the expensive tier (Seedance 1080p 5s
+    = 45cr). Preflight both (get_cost), state the number, spend small without
+    ceremony when Tim asked for the thing explicitly.
+36. **Tim's design-iteration pattern**: big features arrive as a stream of small
+    corrective rulings (phase 17: five messages). Keep ONE builder alive, send delta
+    briefs, reconcile the math/design yourself BEFORE the builder lands, and answer
+    each ruling with what it costs (e.g. "all-normal fights => flat x1.92 unless we
+    add a visible handicap").
+37. Value-independent celebrations extend to REWARDS: identical fanfare/choreography
+    for x1.28 and x8.77 payouts and for standard vs gold packs (RG-C5); reward cards
+    are data on the node registry, EV-neutral, and never touch payout math (verified
+    to the cent).
+38. Sim assert ceilings need headroom: nodes priced at exactly 96.00% + a 96.1% upper
+    assert = seed-dependent flakes. Pin the seed (bit-reproducible), keep an exact-P
+    cross-check, and don't tighten the band below noise.
 
 ## 4. Credits / generation facts (Higgsfield MCP)
 
-- Balance ~838 (phases 13-15 spent ZERO credits — pure code/engineering).
-  Seedance 2.0 4s 1080p std = 36 cr/clip; `get_cost:true` on generate_video is the
-  preflight. ALWAYS preflight + Tim's per-batch OK. Upload path: media_upload ->
+- Balance ~783 (phases 16-17b spent ~51cr: 4 map candidates, 45 living-map video,
+  2 reward capsules). Preflight `get_cost:true`; upload path media_upload ->
   presigned PUT (curl) -> media_confirm.
-- Persistent media ids: **GORVAK CLEAN anchor `35867470-54cd-4e75-94a6-10b915c61b19`**
-  (the old `23fb74be...` is RETIRED — grey wedge, hallucinations), VOLTA anchor
-  `19539771-3ddb-424d-a9af-a5bfc280957a`, black plate 1024
-  `b757c6e3-263a-4eb6-a800-d37fd3391c77`.
-- Job ids live in phase commit messages + project memory.
+- Persistent media ids: GORVAK CLEAN anchor `35867470-54cd-4e75-94a6-10b915c61b19`,
+  VOLTA anchor `19539771-3ddb-424d-a9af-a5bfc280957a`, black plate 1024
+  `b757c6e3-263a-4eb6-a800-d37fd3391c77`, **campaign map source
+  `fc814766-c746-479c-83f0-e7409e0d2357`** (2752x1536 sumi-e island — reuse for any
+  map re-animation/variant). Job ids live in phase commit messages + project memory
+  (map candidates 655e9040/c60a8ea0 + 2 frost spares, living-map b6e5ef74, capsules
+  9617803e/a6c81d68).
+- Seedance 2.0: 5s 1080p = 45cr, 720p = 22.5cr; nano_banana_2 image ~1cr @2k.
 
-## 5. What to do next (Tim's priority order — ask him which)
+## 5. What to do next (Tim's likely priorities — ask him which)
 
-1. **Custom arena background #2**: Tim drops an image -> public/assets + one ArenaDef
-   row -> live-drive the drawn HUD over it (the phase-15 dark-bg probe predicts it
-   works; a real image is the true test). Zero credits, minutes of work.
-2. **Character #3**: one art drop from Tim -> keyed still -> clean anchor plate
-   (inspect at full res) -> acting table (prefer opponent-free acting) -> kit
-   generation (~36cr/clip, batch-approved) -> per-frame sweep BEFORE keying -> key ->
-   RADIAL-FEATHER any effect clips (learning 23 / character-assets Rule 4) -> measure
-   contacts -> ONE manifest file -> live-drive both slots. Pipeline proven twice.
-3. **Announcer VO** (RG-C5: zero-param audio fns, value-independent fanfares).
-4. **VS splash diagonal split** per FIGHT-SPEC.
-5. **Optional multiplayer polish**: in-room rematch protocol (currently each rematch
-   creates a fresh room to share again); peer payload schema validation; waiting-room
-   tab-close still eats the stake (nothing alive to refund — needs storage-side
-   recovery if Tim cares).
-6. **Optional visual polish, only if Tim asks**: variant pairs for ko/victory/special
-   (single-take deviation on record); idle loop-seam nits; select-screen baked HUD
-   showing through the top scrim (pre-existing, now partially covered by phase-15
-   plates); Anton letter-spacing taste pass (tuning knobs per banner in fight.css).
-7. **If Tim reports feel issues**: CLIP_RATE (2.0) and provider windows are the levers.
+1. **RONIN ZERO real character art**: the boss is VOLTA + a title. One art drop or a
+   generation run -> keyed still -> clean anchor plate -> acting table (opponent-free
+   acting; samurai kit) -> clip batch (~36cr/clip, per-batch OK) -> per-frame sweep ->
+   key -> radial-feather fx -> contacts -> ONE manifest row + node 10 fighterId.
+   Pipeline proven twice (GORVAK/VOLTA); CHARACTER-CONTRACT.md is the law.
+2. **Per-node enemies as the roster grows**: each new character = manifest + one
+   registry-row edit per node. Node arenas likewise (arenaId per node; arena registry
+   takes one ArenaDef row per background).
+3. **B1/B2 bonus isles**: cosmetic challenges (EV-neutral, swoobz-engagement-layer).
+4. **Campaign polish candidates**: adjacent conquered node labels overlap slightly at
+   full conquest (Hollow Shrine behind Burned Pagoda); campaign uses last-confirmed
+   fighter (no charSelect entry in the campaign flow — ask Tim if he wants one);
+   real reward claim/delivery once cross-game plumbing exists.
+5. **Quick-duel economy**: still winner-takes-all 2.00x vs exploitable AIs (accepted
+   mockup player-edge; production needs rake or the campaign's random-pick doctrine).
+6. **Older backlog still open**: announcer VO (RG-C5), VS splash diagonal split,
+   in-room friend rematch protocol, waiting-room tab-close stake loss, HUD-language
+   extension to timer/nameplates/pick buttons (Tim liked the 17b restyle).
 
 ## 6. Gates before ANY commit (all of them, quote real output)
 
-`npx tsc --noEmit` clean; `npx vitest run` **81/81** (grows with new test files; suite
-runs serial — fileParallelism:false kills a Windows tinypool flake); `npm run build`
-ok; `git diff --stat` shows fightEngine.ts + fightAi.ts untouched (provider frozen too
-unless the task IS the provider); live headless drive of the changed surface
-(randomized picks; play-hook ground truth; screenshots you have VIEWED; two isolated
-contexts + frame-log for anything multiplayer; drives outlast the longest timeout);
-for any new/changed clip: §6-step-4 per-frame sweep + INSET-RING profile + composite
-over dark (+ radial feather for effects); no em-dashes in user-facing copy; RG-C5
-(zero-param audio, module-const timings, value-independent celebrations; auto-play
-picks from randomMove only). Commit with
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>. Repo git config: user.name Tim,
-user.email erstrijbis@gmail.com (set locally).
+`npx tsc --noEmit` clean; `npx vitest run` **125/125** (serial suite); `npm run build`
+ok; `git diff --stat` shows fightEngine.ts + fightAi.ts untouched; campaign-math
+changes ALSO rerun `npx vite-node scripts/campaign-rtp-sim.mjs` (foreground, all 10
+nodes in band); live headless drive of the changed surface (randomized picks;
+click-verify; screenshots you have VIEWED; money asserted to the cent; two isolated
+contexts + frame-log for multiplayer; drives outlast the longest timeout); for
+new/changed clips: contract §6-step-4 per-frame sweep + inset-ring profile + radial
+feather for effects; no em-dashes in user-facing copy; RG-C5 (zero-param audio,
+module-const timings, value-independent celebrations; campaign/auto-play picks from
+randomMove only). Commit with Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>.
+Repo git config: user.name Tim, user.email erstrijbis@gmail.com. DEV-SERVER HYGIENE:
+kill only THIS project's stale 5340 vite (check the PID's command line) before
+starting yours; kill your own when done.
 
 ## 7. Memory locations (SAVE-GLOBAL check before ending any task)
 
 Project memory: `~/.claude/projects/...streetfighter/memory/frozen-requiem-state.md`
-(full phase log, current through phase 15). Global (`~/.claude/memory/` + MEMORY.md
-index): `effect-clip-edge-cut.md` (radial-feather doctrine), `swoobz-ds-tokens.md`
-(exact DS tokens + extraction recipe + cover-plate law),
-`stale-timeout-timer-phantom-events.md` (timer law + drive-outlasts-timeout),
-`genvideo-character-clip-lessons.md`, anchor hygiene in the `higgsfield-generation`
-skill. Global skills: `character-clip-qa` (inset-ring + radial gates, stormforge
-`8db99c2`), `character-assets` Rule 4 (effect clips at generation),
+(full phase log through 17b; the file keeps its historic name). Global
+(`~/.claude/memory/` + MEMORY.md index): `skill-game-rtp-pricing.md` (the Nash
+baseline + win-condition/handicap pricing law), `effect-clip-edge-cut.md`,
+`swoobz-ds-tokens.md` (+ cover-plate law), `stale-timeout-timer-phantom-events.md`,
+`genvideo-character-clip-lessons.md`. Global skills (stormforge source of truth,
+junctioned): `higgsfield-generation` (anchor hygiene + nsfw wording law + living-map
+recipe, stormforge c6178e0), `character-clip-qa`, `character-assets` Rule 4,
 `slot-known-regressions` A15-A18. Artifacts for Tim: `specials-preview.mp4` at the
-repo root + the claude.ai artifact "Frozen Requiem: Special Attacks". Update project
-memory + this handoff at every phase boundary.
+repo root. Update project memory + this handoff at every phase boundary.
