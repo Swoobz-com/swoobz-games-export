@@ -12,7 +12,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ExchangeOutcome, MatchState, Move } from '../engine/fightEngine';
-import { applyExchange, createMatch, mulberry32, randomMove, startNextRound } from '../engine/fightEngine';
+import { applyExchange, createMatch, randomMove, startNextRound } from '../engine/fightEngine';
+import { secureRandom } from '../engine/secureRng';
 import type { AiPersonality } from '../engine/fightAi';
 import type { MatchEvent, MatchTransport } from '../transport/matchTransport';
 import { WsTransport } from '../transport/matchTransport';
@@ -399,9 +400,10 @@ export function useFightController(
   // The enemy's absorb buffer for the CURRENT round (refilled to the node's defense amount at
   // every round start; drained by applyCampaignExchange — the shared shield/bulk math).
   const campaignDefenseRef = useRef<number>(0);
-  // The seeded per-match RNG for the campaign enemy's UNIFORM-RANDOM picks (randomMove ONLY, never
-  // aiPick — spec §0.2 money law). Reseeded at each campaign match start.
-  const campaignRngRef = useRef<() => number>(mulberry32((Date.now() ^ 0x1b873593) >>> 0));
+  // The campaign enemy's UNIFORM-RANDOM pick source (randomMove ONLY, never aiPick — spec §0.2
+  // money law). CSPRNG per the unpredictability law (secureRng.ts): no seed, no recoverable
+  // state — the old Date.now-seeded mulberry32 let observed picks predict all future picks.
+  const campaignRngRef = useRef<() => number>(secureRandom);
   // One-shot campaign settle guard: flipped true the first time a campaign match settles so a
   // StrictMode double-invoke / re-render can't credit the payout twice (same pattern as settledRef).
   const campaignSettledRef = useRef<boolean>(false);
@@ -428,8 +430,10 @@ export function useFightController(
 
   const timersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
   const transportRef = useRef<MatchTransport | null>(null);
-  const aiRngRef = useRef<() => number>(mulberry32(Date.now() ^ 0x2545f491));
-  const autoPickRngRef = useRef<() => number>(mulberry32((Date.now() ^ 0x9e3779b9) >>> 0));
+  // Money-relevant pick sources: CSPRNG only (unpredictability law, secureRng.ts) — never a
+  // seeded PRNG at runtime. aiRng = quick-duel CPU; autoPickRng = shot-clock + friend ghost.
+  const aiRngRef = useRef<() => number>(secureRandom);
+  const autoPickRngRef = useRef<() => number>(secureRandom);
   const pendingRef = useRef<PendingPicks>({ p1: null, p2: null });
   const unsubOpponentPickRef = useRef<(() => void) | null>(null);
   const unsubPresenceRef = useRef<(() => void) | null>(null);
@@ -955,7 +959,7 @@ export function useFightController(
       campaignDefenseRef.current = refill;
       setCampaignDefense(refill);
       setCampaignAbsorbed(false);
-      campaignRngRef.current = mulberry32((Date.now() ^ (nodeId * 0x9e3779b1) ^ 0x1b873593) >>> 0);
+      // No per-match reseed: the pick source is the CSPRNG (secureRng.ts) — seedless by design.
       setMatchStateNow(createMatch());
       setLastOutcome(null);
       setPhaseNow('vsIntro');

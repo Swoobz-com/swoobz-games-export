@@ -152,3 +152,11 @@ center timer plate "03" (cover digits with live countdown). Strategy:
   that is **96% RTP** (the campaign's Nash-baseline doctrine, now unifying the quick duel).
   Friend PvP is UNCHANGED: winner-takes-all, the rival matches the stake, pot 2S, no house
   edge (two humans trading stakes).
+- **Unpredictability law (2026-07-21, Tim: "nobody can reverse engineer the picks"):**
+  every money-relevant runtime pick (quick-duel CPU, campaign enemy, shot-clock
+  auto-pick, friend ghost) draws from the platform CSPRNG (`secureRandom`,
+  src/engine/secureRng.ts) - seedless and unrecoverable; observing past picks reveals
+  nothing about future ones. Seeded `mulberry32` is for tests/sims ONLY
+  (bit-reproducibility); it must never sit behind money at runtime. The old
+  Date.now-seeded streams were reverse-engineerable from a handful of observed picks
+  (guessable seed + 32-bit brute-forceable state).
