@@ -182,28 +182,42 @@
 }
 
 /* ---------------- Health bars ---------------- */
+/* RONIN ZERO season restyle: the health bar is a row of LACQUERED ARMOR PLATES with an angled
+   blade cut (fighting-game parallelograms), on a near-black lacquer backing with a gold hairline.
+   The OUTER container stays rectangular + opaque (cover-plate law: it is what hides the baked
+   bar); only the inner segments are angled. */
 .fr-hpbar {
   position: absolute;
   display: flex;
-  gap: calc(var(--sw) * 0.12);
-  padding: calc(var(--sw) * 0.1);
-  background: var(--fr-plate);
-  border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
+  gap: calc(var(--sw) * 0.22);
+  padding: calc(var(--sw) * 0.14) calc(var(--sw) * 0.22);
+  background: linear-gradient(180deg, #12121a 0%, #07080c 100%);
+  border: calc(var(--sw) * 0.06) solid rgba(191, 138, 26, 0.5);
   border-radius: calc(var(--sw) * 0.18);
+  box-shadow: inset 0 calc(var(--sh) * 0.15) calc(var(--sh) * 0.3) rgba(0, 0, 0, 0.75), 0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 .fr-hpseg {
   flex: 1 1 0;
   position: relative;
-  border-radius: calc(var(--sw) * 0.1);
   overflow: hidden;
-  background: linear-gradient(180deg, #29e6ff 0%, #0ea5e9 100%);
+  /* Steel-to-glacial blade face + bone specular top edge + dark honed bottom edge. */
+  background: linear-gradient(178deg, #d9f6ff 0%, #29e6ff 22%, #0ea5e9 58%, #085e86 100%);
+  box-shadow: inset 0 calc(var(--sh) * 0.14) 0 rgba(242, 243, 239, 0.5), inset 0 calc(var(--sh) * -0.16) 0 rgba(4, 10, 16, 0.55);
 }
-/* "lost" = opaque dark plate covering the baked ice bar (art shows through remaining). */
+/* Angled plate cut, mirrored per side so both bars lean toward screen center. */
+.fr-hpbar-p1 .fr-hpseg {
+  clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
+}
+.fr-hpbar-p2 .fr-hpseg {
+  clip-path: polygon(0 0, 86% 0, 100% 100%, 14% 100%);
+}
+/* "lost" = opaque lacquer plate with a faint ember undertone covering the segment. */
 .fr-hpseg-cover {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(7, 8, 12, 0.9), rgba(4, 5, 8, 0.94));
+  background: linear-gradient(180deg, rgba(14, 9, 11, 0.97), rgba(6, 4, 6, 0.98));
+  box-shadow: inset 0 0 0 1px rgba(255, 65, 53, 0.14);
   transform: scaleX(1);
   transform-origin: center;
   opacity: 1;
@@ -268,16 +282,18 @@
   border: calc(var(--sw) * 0.06) solid var(--fr-plate-edge);
   border-radius: calc(var(--sw) * 0.25);
 }
+/* Round pips as HINOMARU discs (Ronin Zero season): empty = coal disc with a bone brush ring;
+   won = the rising-sun blood disc with a thin gold rim. */
 .fr-pip {
   border-radius: 50%;
-  border: calc(var(--sw) * 0.12) solid var(--fr-plate-edge);
-  background: var(--fr-plate);
+  border: calc(var(--sw) * 0.1) solid rgba(242, 243, 239, 0.35);
+  background: radial-gradient(circle at 42% 38%, #16181f, #0a0b10 70%);
   transition: transform 200ms ease;
 }
 .fr-pip.fr-pip-won {
-  background: radial-gradient(circle at 38% 34%, #ffe08a, var(--fr-gold) 60%, var(--fr-gold-deep));
-  border-color: var(--fr-gold);
-  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(255, 200, 61, 0.8);
+  background: radial-gradient(circle at 38% 34%, #ff8a7a 0%, #ff4135 52%, #8f1010 100%);
+  border-color: rgba(255, 200, 61, 0.85);
+  box-shadow: 0 0 calc(var(--sw) * 0.5) rgba(255, 65, 53, 0.7), inset 0 calc(var(--sh) * 0.1) 0 rgba(255, 255, 255, 0.25);
 }
 .fr-pip.fr-pip-pop {
   animation: fr-pip-pop 200ms ease-out;
@@ -2236,20 +2252,37 @@
   border-radius: calc(var(--sw) * 0.25);
   z-index: 30;
 }
+/* RONIN ZERO season restyle: shields are GOLD LACQUER SHARDS (rotated plates with a smoked-glass
+   center and a glint). Spent = dimmed shard with a blood crack slash. */
 .fr-shieldpip {
-  width: calc(var(--sh) * 1.5);
-  height: calc(var(--sh) * 1.5);
-  transform: rotate(45deg);
-  border: calc(var(--sw) * 0.08) solid var(--fr-steel-3);
-  border-radius: calc(var(--sw) * 0.08);
-  background: transparent;
-  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  position: relative;
+  width: calc(var(--sh) * 1.55);
+  height: calc(var(--sh) * 1.55);
+  transform: rotate(45deg) scale(0.92);
+  border: calc(var(--sw) * 0.1) solid var(--fr-steel-3);
+  border-radius: calc(var(--sw) * 0.12);
+  background: radial-gradient(circle at 35% 30%, rgba(40, 44, 54, 0.9), rgba(10, 11, 16, 0.95));
+  overflow: hidden;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+/* Spent shard: blood crack slash across the smoked glass. */
+.fr-shieldpip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 44%, rgba(255, 65, 53, 0.7) 48%, rgba(255, 65, 53, 0.7) 52%, transparent 56%);
+  opacity: 1;
+  transition: opacity 200ms ease;
 }
 .fr-shieldpip-filled {
-  border-color: var(--fr-ice);
-  background: rgba(41, 230, 255, 0.35);
-  box-shadow: 0 0 calc(var(--sw) * 0.3) rgba(41, 230, 255, 0.55);
+  transform: rotate(45deg) scale(1);
+  border-color: var(--fr-gold);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 224, 138, 0.55), rgba(191, 138, 26, 0.35) 55%, rgba(20, 14, 4, 0.9));
+  box-shadow: 0 0 calc(var(--sw) * 0.35) rgba(255, 200, 61, 0.65), inset 0 0 calc(var(--sw) * 0.25) rgba(255, 224, 138, 0.4);
   animation: fr-shieldpip-refill 320ms cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+}
+.fr-shieldpip-filled::after {
+  opacity: 0;
 }
 @keyframes fr-shieldpip-refill {
   0% { transform: rotate(45deg) scale(0.4); }

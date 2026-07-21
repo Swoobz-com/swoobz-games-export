@@ -742,7 +742,7 @@ function HealthBar({
       : pctRect(rect);
 
   return (
-    <div className="fr-hpbar" style={style}>
+    <div className={`fr-hpbar fr-hpbar-${side}`} style={style}>
       {Array.from({ length: total }, (_, i) => {
         const present = side === 'p1' ? i < hp : i >= total - hp;
         const critical = hp === 1 && present;
