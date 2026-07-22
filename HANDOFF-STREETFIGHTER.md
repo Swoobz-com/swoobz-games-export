@@ -4,8 +4,8 @@ Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN;
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
 is canonical (`input/progressivemap.jpg` = ANOTHER GAME'S map, reference-only, never
-ship or commit it). HEAD at handoff: `5436665` (phase 19). `npx vitest run` prints
-**137/137**. Everything below is VERIFIED, not self-reported: every phase was
+ship or commit it). HEAD at handoff: `6cf027c` (phase 20). `npx vitest run` prints
+**140/140**. Everything below is VERIFIED, not self-reported: every phase was
 live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-21
 after phase 17b; phases 18-19 appended 2026-07-22 (see project memory for full logs):
 phase 18 quick-duel economy (CPU picks randomMove, win pays 1.92x = 96% RTP,
@@ -14,7 +14,15 @@ registry row), 18c CSPRNG behind every money pick (`src/engine/secureRng.ts`; se
 mulberry32 = tests/sims only), 19 lacquer-blade HUD extension (timer/nameplates/pick
 buttons in the 17b language) + map label de-overlap (MAP_LABEL transform-only offsets)
 + node hit-area fix (button box pinned to disc width; every node center resolves to
-itself in all progress states).
+itself in all progress states). Phase 20 (2026-07-22, `6cf027c`): Tim's final
+per-node enemy art wired in (`input/characters/.../npc boss/` map 1-9 + finalboss;
+registry `CampaignNodeDef.enemy {id,name}`, money fields byte-identical, fighterId
+stays volta for fight visuals until clips exist), frontier-only ink-silhouette tease
+on the map (`.fr-map-sil`, pointer-events:none), node card = named-mystery silhouette
+until beaten then color-PFP reveal, `scripts/key-enemies.mjs` keyer with
+enclosed-pocket cut + bgLikeKept self-check. See project memory phase-20 entry for
+the keying lesson (verify "own-art color" claims against SOURCE pixels; a builder
+invented "fan gems" to justify background leaks) + known cosmetic residuals.
 **STANDING RULING (Tim 2026-07-22): skip EVERYTHING RONIN ZERO VENDING MACHINE for
 now** — the untracked `pack-machine/` demo stays untracked and unworked until Tim
 reopens it.
@@ -276,7 +284,13 @@ New (phases 18-19, 2026-07-21/22):
 
 ## 5. What to do next (Tim's likely priorities — ask him which)
 
-1. **RONIN ZERO real character art**: the boss is VOLTA + a title. One art drop or a
+0. **Enemy identity done (phase 20)**: all 10 nodes have named enemies + map/card
+   art (silhouette tease -> PFP reveal). NEXT LOGICAL STEP: animated clip kits per
+   enemy so the FIGHT shows the real character (fighterId per node) - pipeline in 1.
+   Also unused so far: the TCG card art (collection surface?), the empty
+   `input/characters/background/` + `playable characters/` dirs (future drops).
+1. **RONIN ZERO real character art**: the boss is VOLTA + a title (visual identity
+   now IR-48 HEX PAPER LORD on the node card; Tim has not re-ruled boss branding). One art drop or a
    generation run -> keyed still -> clean anchor plate -> acting table (opponent-free
    acting; samurai kit) -> clip batch (~36cr/clip, per-batch OK) -> per-frame sweep ->
    key -> radial-feather fx -> contacts -> ONE manifest row + node 10 fighterId.
