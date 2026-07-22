@@ -2022,26 +2022,14 @@
 .fr-nodecard-portrait img {
   position: absolute;
 }
-/* Beaten node (replay): full-colour PFP fills the coal frame, square cover-fit. */
+/* Node-card enemy portrait: ALWAYS the full-colour PFP, square cover-fit (Tim's darkhub.jpg
+   ruling: the stake screen is the confrontation itself - no silhouette here; the mystery tease
+   is map-only). */
 .fr-nodecard-pfp {
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-/* Frontier node (not yet beaten): the real cutout as an ink-black silhouette, contain-fit and
-   centred, base near the frame floor — mysterious but named by the hero line beside it. */
-.fr-nodecard-sil {
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 96%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  filter: brightness(0);
-  opacity: 0.9;
 }
 .fr-nodecard-info {
   display: flex;

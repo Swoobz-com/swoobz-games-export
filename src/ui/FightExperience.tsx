@@ -2528,25 +2528,17 @@ export function FightExperience(): JSX.Element {
               {/* NODE CARD: enemy portrait (same crop as the select tile) + title, objective line,
                   WIN CHANCE (the exact tier %, Glass Box), PAYS xN.NN. */}
               <div className="fr-nodecard">
-                {/* ENEMY REVEAL (phase 20): a not-yet-beaten (frontier) node keeps the enemy a
-                    NAMED MYSTERY — an ink-black silhouette of the real cutout on the coal frame;
-                    a beaten node (replay) reveals the full-colour PFP portrait, cover-fit. */}
+                {/* ENEMY PORTRAIT (Tim's ruling 2026-07-22, input/darkhub.jpg): the stake screen
+                    IS the confrontation - you are standing across from the enemy - so the card
+                    always shows the full-colour PFP, beaten or not. The mystery silhouette tease
+                    lives on the MAP only (frontier node). */}
                 <div className="fr-nodecard-portrait">
-                  {ctl.campaign.beaten[campaignNode.id - 1] ? (
-                    <img
-                      className="fr-nodecard-pfp"
-                      src={`${ASSET_BASE}assets/enemies/${campaignNode.enemy.id}-pfp.webp`}
-                      alt=""
-                      draggable={false}
-                    />
-                  ) : (
-                    <img
-                      className="fr-nodecard-sil"
-                      src={`${ASSET_BASE}assets/enemies/${campaignNode.enemy.id}.webp`}
-                      alt=""
-                      draggable={false}
-                    />
-                  )}
+                  <img
+                    className="fr-nodecard-pfp"
+                    src={`${ASSET_BASE}assets/enemies/${campaignNode.enemy.id}-pfp.webp`}
+                    alt=""
+                    draggable={false}
+                  />
                 </div>
                 <div className="fr-nodecard-info">
                   <div className="fr-nodecard-node">
