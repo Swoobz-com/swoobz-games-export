@@ -4,8 +4,8 @@ Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN;
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
 is canonical (`input/progressivemap.jpg` = ANOTHER GAME'S map, reference-only, never
-ship or commit it). HEAD at handoff: `ee64f83` (phase 21). `npx vitest run` prints
-**145/145**. Everything below is VERIFIED, not self-reported: every phase was
+ship or commit it). HEAD at handoff: `512c6c0` (phase 22). `npx vitest run` prints
+**148/148**. Everything below is VERIFIED, not self-reported: every phase was
 live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-21
 after phase 17b; phases 18-19 appended 2026-07-22 (see project memory for full logs):
 phase 18 quick-duel economy (CPU picks randomMove, win pays 1.92x = 96% RTP,
@@ -270,7 +270,7 @@ New (phases 18-19, 2026-07-21/22):
 
 ## 4. Credits / generation facts (Higgsfield MCP)
 
-- Balance ~783 (phases 16-17b spent ~51cr: 4 map candidates, 45 living-map video,
+- Balance ~103 (phase 22 spent 247.5cr on 10 arena ambient loops incl 1 nsfw re-roll; maze-runner night session spent ~440; was ~783 (phases 16-17b spent ~51cr: 4 map candidates, 45 living-map video,
   2 reward capsules; phases 18-19 spent ZERO — all engineering). Preflight
   `get_cost:true`; upload path media_upload -> presigned PUT (curl) -> media_confirm.
 - Persistent media ids: GORVAK CLEAN anchor `35867470-54cd-4e75-94a6-10b915c61b19`,
