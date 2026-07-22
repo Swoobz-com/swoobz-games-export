@@ -23,8 +23,8 @@ FRESH-SESSION START HERE (in this order, before touching anything):
 1. Read this file fully, then `CAMPAIGN-SPEC.md` (campaign design of record) if the
    task touches the campaign, `CHARACTER-CONTRACT.md` (THE LAW) if it touches
    characters, `FIGHT-SPEC.md` §8 for duel rules.
-2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-17b).
-3. `git log --oneline -20` to confirm HEAD; `npx vitest run` should print 125/125.
+2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-19).
+3. `git log --oneline -20` to confirm HEAD; `npx vitest run` should print 137/137.
 4. Ask Tim which backlog item (section 5) to start, or continue his explicit ask.
 
 ## 0. Operating model (Tim's standing directive — read first)
@@ -95,8 +95,10 @@ Read `CAMPAIGN-SPEC.md` FIRST for campaign work. The compressed state:
   (provider + Monte-Carlo sim + tests import it — zero drift).
 - Progression: beat node n -> n+1 unlocks forever (localStorage
   `frozen-requiem.campaign.v1` {v:1,beaten[10]}); conquered nodes replayable any bet.
-  Demo cosmetic rewards (EV-neutral, presentational only): node 2 AUTOMAT CHARACTER
-  PACK, node 8 AUTOMAT GOLD PACK (gachapon capsule art, REWARD UNLOCKED card on win).
+  Demo cosmetic rewards REMOVED "for now" (Tim, phase 18b): the CampaignReward type,
+  `reward?` registry field, all UI surfaces (map badge / node-card strip / receipt
+  shine card), CSS and the two capsule webp assets stay WIRED - re-adding a reward is
+  one registry-row edit on fightCampaign.ts.
 - DEV force hooks (`?dev=1` on the map): CONQUER NEXT / RESET PROGRESS
   (progress-only, never money).
 - HUD restyle (17b): lacquer-blade angled health plates + gold hairline, gold shard
@@ -115,7 +117,13 @@ Read `CAMPAIGN-SPEC.md` FIRST for campaign work. The compressed state:
   0x7a11ce, bit-reproducible, FOREGROUND, band [95.0,96.1] — NOTE the ceiling is tight:
   plain nodes price at ~96.0 and some seeds bust by noise; the P-vs-exact 0.3% check
   pins the model seed-independently). RERUN IT after ANY campaign-math change.
-- `src/engine/fightStakes.ts` — pure bigint stake math (quick duel).
+- `src/engine/fightStakes.ts` — pure bigint stake math, TWO economies since phase 18:
+  CPU duel house-priced via `CPU_WIN_BPS`/`cpuWinPayout` (1.92x = 96% RTP vs uniform-
+  random); friend PvP winner-takes-all `potLamports`/`settle` (2S, no house edge).
+- `src/engine/secureRng.ts` — `secureRandom()` = crypto.getRandomValues drop-in
+  `() => number` (phase 18c UNPREDICTABILITY LAW): EVERY money-relevant runtime pick
+  (CPU, campaign enemy, shot-clock/ghost auto-pick) draws from it. Seeded mulberry32
+  is for tests/sims ONLY — never behind money at runtime.
 - `src/provider/fightProvider.ts` — the state machine. Module-const timings (RG-C5),
   StrictMode-safe. Quick-duel/friend paths as at phase 15 (resolve windows, pick
   buffering, auto-play, stakeCommittedRef one-shot). Campaign layer: mode 'campaign' +
@@ -130,9 +138,12 @@ Read `CAMPAIGN-SPEC.md` FIRST for campaign work. The compressed state:
 - `src/characters/` + `src/arenas/` — registries; `clipVariants` resolver; facing rule.
 - `src/ui/FightExperience.tsx` — zero-prop presentation. CAL block = baked-art
   geometry (values never change; drawn plates EXPAND past the CAL box at render time).
-  MAP_CAL = campaign node positions (percent of the rendered map box). Campaign map =
-  scenery layer (art+video+ambient, parallax target) UNDER static node pins with
-  enlarged invisible hit areas (frontier z-top). Pips take `slots`, HealthBar takes
+  MAP_CAL = campaign node positions (percent of the rendered map box; NEVER moves).
+  MAP_LABEL = per-node {dx,dy} TRANSFORM-ONLY label offsets (phase 19 de-overlap;
+  pointer-events:none). Campaign map = scenery layer (art+video+ambient, parallax
+  target) UNDER static node pins; node hit boxes pinned to the DISC width (labels
+  overflow without inflating the clickable box — no node's hit area may reach a
+  neighbour's center; frontier z-top). Pips take `slots`, HealthBar takes
   `total` (bulk bars), ShieldPips re-key per round. fxReducer clipEnd stale-gate;
   victory-chain arm rides FxState; campaign end poses derive from campaignReceipt.met
   (NEVER engine matchOver). FINAL ROUND = round 2R-1; FINISH THEM reads display hp
@@ -149,8 +160,9 @@ Read `CAMPAIGN-SPEC.md` FIRST for campaign work. The compressed state:
 - Storage keys ALL keep the historic `frozen-requiem.` prefix FOREVER (balance.v1,
   campaign.v1, arena.v1) — rebranding keys wipes player state. Hard-noted in code.
 
-## 3. Hard-won learnings (26-38 are new since phase 15; 1-25 in git history of this
-file @ 9372db9 + project memory — generation/keying/QA/timer laws all still bind)
+## 3. Hard-won learnings (26-38 new since phase 15; 39-44 new phases 18-19; 1-25 in
+git history of this file @ 9372db9 + project memory — generation/keying/QA/timer laws
+all still bind)
 
 The phase 1-15 canon in brief: anchor hygiene, prompts paint what they narrate,
 phantom-opponent class, effect clips run off the source frame -> radial-feather
@@ -217,11 +229,42 @@ New (phases 16-17b):
     assert = seed-dependent flakes. Pin the seed (bit-reproducible), keep an exact-P
     cross-check, and don't tighten the band below noise.
 
+New (phases 18-19, 2026-07-21/22):
+39. **Runtime-RNG unpredictability law** (global memory
+    `runtime-rng-unpredictability.md`): a seeded non-crypto PRNG behind money voids
+    the RTP pricing even when perfectly uniform — Date.now seeds are bracketed by the
+    attacker's own clock (2-3 observed picks disambiguate the stream = all future
+    picks known) and mulberry32's 32-bit state brute-forces from ~40 observed picks.
+    CSPRNG (`secureRandom`) behind every money pick; engines taking injected
+    `rng: () => number` swap sources with ZERO frozen-code changes. Audit grep:
+    `mulberry32|Date\.now|Math\.random` over money paths.
+40. **Bake the strongest exploit as a permanent test**: when a pricing claim rests on
+    "no strategy beats X%", implement the best known counter-strategy (the
+    frequency-counter that beat brute 88%) and pin it in the suite at a pinned seed
+    (`quickDuelExploit.test.ts`: 100k matches, winRate in [0.49,0.51]). The claim
+    stays enforced forever, not asserted once.
+41. **CPU-mode pick reveal is SYNCHRONOUS**: pick() locks + reveals in one React
+    commit, so the LOCKED/chosen pickbar state never paints a frame vs CPU (it shows
+    only in friend mode where the reveal waits on the wire). Drive click-verify
+    observable = the pickbar UNMOUNTS immediately after the click (an ignored click
+    leaves it up for the full 5s shot clock) — NOT `.fr-pick-chosen`.
+42. **REMATCH returns to the STAKE screen** (manual re-commit, spec: no auto-loop,
+    RG-C5) — drivers must re-click "STAKE $x + FIGHT" per match; the stake deducts at
+    the COMMIT, not at the rematch click.
+43. **Mode-split settles keep the old path byte-provable**: the friend branch still
+    calls the original `settle()` (never a hand-rolled equivalent) so "friend
+    unchanged" is provable by construction + the mode-split test, not by review.
+44. **Small map targets (phase 19)**: label text must never inflate the clickable
+    box — pin the button box to the DISC width and let labels overflow
+    (pointer-events:none); de-overlap labels via a per-node transform-only offset
+    table (MAP_LABEL), never by moving MAP_CAL pins. Prove with an elementFromPoint
+    all-nodes self-hit probe across progress states (fresh / mid / full-conquest).
+
 ## 4. Credits / generation facts (Higgsfield MCP)
 
 - Balance ~783 (phases 16-17b spent ~51cr: 4 map candidates, 45 living-map video,
-  2 reward capsules). Preflight `get_cost:true`; upload path media_upload ->
-  presigned PUT (curl) -> media_confirm.
+  2 reward capsules; phases 18-19 spent ZERO — all engineering). Preflight
+  `get_cost:true`; upload path media_upload -> presigned PUT (curl) -> media_confirm.
 - Persistent media ids: GORVAK CLEAN anchor `35867470-54cd-4e75-94a6-10b915c61b19`,
   VOLTA anchor `19539771-3ddb-424d-a9af-a5bfc280957a`, black plate 1024
   `b757c6e3-263a-4eb6-a800-d37fd3391c77`, **campaign map source
@@ -256,7 +299,7 @@ New (phases 16-17b):
 
 ## 6. Gates before ANY commit (all of them, quote real output)
 
-`npx tsc --noEmit` clean; `npx vitest run` **125/125** (serial suite); `npm run build`
+`npx tsc --noEmit` clean; `npx vitest run` **137/137** (serial suite); `npm run build`
 ok; `git diff --stat` shows fightEngine.ts + fightAi.ts untouched; campaign-math
 changes ALSO rerun `npx vite-node scripts/campaign-rtp-sim.mjs` (foreground, all 10
 nodes in band); live headless drive of the changed surface (randomized picks;
@@ -264,8 +307,9 @@ click-verify; screenshots you have VIEWED; money asserted to the cent; two isola
 contexts + frame-log for multiplayer; drives outlast the longest timeout); for
 new/changed clips: contract §6-step-4 per-frame sweep + inset-ring profile + radial
 feather for effects; no em-dashes in user-facing copy; RG-C5 (zero-param audio,
-module-const timings, value-independent celebrations; campaign/auto-play picks from
-randomMove only). Commit with Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>.
+module-const timings, value-independent celebrations; ALL money picks — CPU, campaign,
+auto-play — from randomMove(secureRandom) only: never aiPick, never a seeded PRNG at
+runtime). Commit with Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>.
 Repo git config: user.name Tim, user.email erstrijbis@gmail.com. DEV-SERVER HYGIENE:
 kill only THIS project's stale 5340 vite (check the PID's command line) before
 starting yours; kill your own when done.
@@ -273,12 +317,17 @@ starting yours; kill your own when done.
 ## 7. Memory locations (SAVE-GLOBAL check before ending any task)
 
 Project memory: `~/.claude/projects/...streetfighter/memory/frozen-requiem-state.md`
-(full phase log through 17b; the file keeps its historic name). Global
+(full phase log through 19; the file keeps its historic name). Global
 (`~/.claude/memory/` + MEMORY.md index): `skill-game-rtp-pricing.md` (the Nash
-baseline + win-condition/handicap pricing law), `effect-clip-edge-cut.md`,
+baseline + win-condition/handicap pricing law), `runtime-rng-unpredictability.md`
+(CSPRNG-behind-money law, phase 18c), `effect-clip-edge-cut.md`,
 `swoobz-ds-tokens.md` (+ cover-plate law), `stale-timeout-timer-phantom-events.md`,
 `genvideo-character-clip-lessons.md`. Global skills (stormforge source of truth,
 junctioned): `higgsfield-generation` (anchor hygiene + nsfw wording law + living-map
 recipe, stormforge c6178e0), `character-clip-qa`, `character-assets` Rule 4,
 `slot-known-regressions` A15-A18. Artifacts for Tim: `specials-preview.mp4` at the
-repo root. Update project memory + this handoff at every phase boundary.
+repo root; CEO ship-readiness one-pager (85% to demo launch, area breakdown, honest
+production caveats) at
+https://claude.ai/code/artifact/4a85217d-f615-482f-8ba0-1d28179fc0ba — redeploy to the
+SAME url (pass it as `url`) when the numbers move. Update project memory + this
+handoff at every phase boundary.
