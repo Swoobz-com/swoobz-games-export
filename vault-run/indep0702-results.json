@@ -1,0 +1,155 @@
+{
+  "simStaggered": {
+    "pace": "staggered",
+    "attempt": 1,
+    "size": 6,
+    "goLabel": "Run your trail of 6 tiles for 1.97 USDC",
+    "paceAriaPressed": "true",
+    "samples": [
+      {
+        "t": 27,
+        "count": 0
+      },
+      {
+        "t": 467,
+        "count": 1
+      },
+      {
+        "t": 884,
+        "count": 2
+      },
+      {
+        "t": 1334,
+        "count": 3
+      },
+      {
+        "t": 1739,
+        "count": 4
+      },
+      {
+        "t": 2172,
+        "count": 5
+      },
+      {
+        "t": 2605,
+        "count": null
+      }
+    ],
+    "sawStopButton": true,
+    "cleanRun": false,
+    "mixedRun": true,
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "beforeRug": 5,
+    "elapsedTotalMs": 2605,
+    "pageErrorCount": 0,
+    "pageErrors": []
+  },
+  "simInstant": {
+    "pace": "instant",
+    "attempt": 1,
+    "size": 6,
+    "goLabel": "Run your trail of 6 tiles for 1.97 USDC",
+    "paceAriaPressed": "true",
+    "samples": [
+      {
+        "t": 753,
+        "count": 6
+      }
+    ],
+    "sawStopButton": false,
+    "cleanRun": true,
+    "mixedRun": false,
+    "settledLabel": null,
+    "beforeRug": null,
+    "elapsedTotalMs": 753,
+    "pageErrorCount": 0,
+    "pageErrors": []
+  },
+  "msPerTileStaggered": 426.25,
+  "long18instant": {
+    "size": 18,
+    "pace": "instant",
+    "attempt": 1,
+    "landed": 18,
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "settleMs": 799,
+    "blankScreen": false,
+    "bodyLen": 6438,
+    "beforeRug": 10,
+    "pageErrorCount": 0,
+    "pageErrors": []
+  },
+  "long20instant": {
+    "size": 20,
+    "pace": "instant",
+    "attempt": 1,
+    "landed": 20,
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "settleMs": 806,
+    "blankScreen": false,
+    "bodyLen": 6438,
+    "beforeRug": 10,
+    "pageErrorCount": 0,
+    "pageErrors": []
+  },
+  "long18staggered": {
+    "size": 18,
+    "pace": "staggered",
+    "attempt": 1,
+    "landed": 18,
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "settleMs": 3794,
+    "blankScreen": false,
+    "bodyLen": 6437,
+    "beforeRug": 6,
+    "pageErrorCount": 0,
+    "pageErrors": []
+  },
+  "long20staggered": {
+    "size": 20,
+    "pace": "staggered",
+    "attempt": 1,
+    "landed": 20,
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "settleMs": 1660,
+    "blankScreen": false,
+    "bodyLen": 6427,
+    "beforeRug": 1,
+    "pageErrorCount": 0,
+    "pageErrors": []
+  },
+  "reuseFlow": {
+    "balancePreRound": "999.00 USDC",
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "balanceAfterRound1": "999.00 USDC",
+    "reuseBtn": {
+      "text": "bet again · same trail →",
+      "ariaLabel": "Bet again with the same trail pattern, 1.00 USDC",
+      "disabled": false
+    },
+    "balanceAfterReuseClick": "998.00 USDC",
+    "goLabelAfterReuse": "Run your trail of 3 tiles for 1.36 USDC",
+    "stopPresentAfterReuse": false,
+    "revealedCountAfterReuse": 0,
+    "goAfterReusePresses": true,
+    "settledAfterReuseGo": "Took profit at 1.36x, won 0.36 USDC",
+    "pageErrorCount": 0
+  },
+  "reuseModeInv": {
+    "reuseBtnBefore": {
+      "text": "bet again · same trail →",
+      "ariaLabel": "Bet again with the same trail pattern, 1.00 USDC",
+      "disabled": false
+    },
+    "settled2": "Rugged at 1.00x, lost 1.00 USDC",
+    "reuseBtnAfter": null,
+    "pageErrorCount": 0
+  },
+  "manualSmoke": {
+    "onboardingPresent": true,
+    "revealedAfterManualTaps": 2,
+    "settledLabel": "Took profit at 1.22x, won 0.22 USDC",
+    "insideRound": true,
+    "pageErrorCount": 0
+  }
+}

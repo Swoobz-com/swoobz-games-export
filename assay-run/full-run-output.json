@@ -1,0 +1,367 @@
+{
+  "d1440": {
+    "lobby": {
+      "board": {
+        "x": 474,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "bodyScrollWidth": 1440,
+      "hasToAssayText": false,
+      "nonBlank": null
+    },
+    "planning": {
+      "board": {
+        "x": 474,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [
+        {
+          "x": 232,
+          "y": 76,
+          "w": 212,
+          "h": 248
+        },
+        {
+          "x": 996,
+          "y": 76,
+          "w": 212,
+          "h": 123
+        }
+      ],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "bodyScrollWidth": 1440,
+      "hasToAssayText": true,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1684,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      }
+    },
+    "assaying": {
+      "board": {
+        "x": 474,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [
+        {
+          "x": 232,
+          "y": 76,
+          "w": 212,
+          "h": 170
+        },
+        {
+          "x": 996,
+          "y": 76,
+          "w": 212,
+          "h": 123
+        }
+      ],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "bodyScrollWidth": 1440,
+      "hasToAssayText": true,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1682,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      },
+      "bodyTextSnippet": "THE ASSAY LINE | walnut ore-board · pre-dawn assay · RTP 96.50% | BALANCE | 999.00 | − | + | +0.04x → tally | Current running… 5/10 nubs proven | TO ASSAY | 1.0"
+    },
+    "settledWin": {
+      "board": {
+        "x": 474,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "bodyScrollWidth": 1440,
+      "hasToAssayText": false,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1678,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      },
+      "attempt": 0
+    },
+    "settledBust": {
+      "board": {
+        "x": 474,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "bodyScrollWidth": 1440,
+      "hasToAssayText": false,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1688,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      },
+      "attempt": 0
+    }
+  },
+  "d1920": {
+    "lobby": {
+      "board": {
+        "x": 714,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "innerHeight": 1080,
+      "bodyScrollWidth": 1920,
+      "hasToAssayText": false,
+      "nonBlank": null
+    },
+    "planning": {
+      "board": {
+        "x": 714,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [
+        {
+          "x": 472,
+          "y": 76,
+          "w": 212,
+          "h": 248
+        },
+        {
+          "x": 1236,
+          "y": 76,
+          "w": 212,
+          "h": 123
+        }
+      ],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "innerHeight": 1080,
+      "bodyScrollWidth": 1920,
+      "hasToAssayText": true,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1684,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      }
+    },
+    "assaying": {
+      "board": {
+        "x": 714,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [
+        {
+          "x": 472,
+          "y": 76,
+          "w": 212,
+          "h": 170
+        },
+        {
+          "x": 1236,
+          "y": 76,
+          "w": 212,
+          "h": 123
+        }
+      ],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "innerHeight": 1080,
+      "bodyScrollWidth": 1920,
+      "hasToAssayText": true,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1682,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      },
+      "bodyTextSnippet": "THE ASSAY LINE | walnut ore-board · pre-dawn assay · RTP 96.50% | BALANCE | 999.00 | − | + | +0.04x → tally | Current running… 5/10 nubs proven | TO ASSAY | 1.0"
+    },
+    "settledWin": {
+      "board": {
+        "x": 714,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "innerHeight": 1080,
+      "bodyScrollWidth": 1920,
+      "hasToAssayText": false,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1676,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      },
+      "attempt": 0
+    },
+    "settledBust": {
+      "board": {
+        "x": 714,
+        "y": 88,
+        "w": 492,
+        "h": 492
+      },
+      "gutters": [],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "innerHeight": 1080,
+      "bodyScrollWidth": 1920,
+      "hasToAssayText": false,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1696,
+        "sampled": 2496,
+        "width": 492,
+        "height": 492
+      },
+      "attempt": 0
+    }
+  },
+  "mobile412": {
+    "lobby": {
+      "board": {
+        "x": 25,
+        "y": 88,
+        "w": 364,
+        "h": 364
+      },
+      "gutters": [],
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "innerHeight": 915,
+      "bodyScrollWidth": 412,
+      "hasToAssayText": false,
+      "nonBlank": null
+    },
+    "planning": {
+      "board": {
+        "x": 25,
+        "y": 88,
+        "w": 364,
+        "h": 364
+      },
+      "gutters": [],
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "innerHeight": 915,
+      "bodyScrollWidth": 412,
+      "hasToAssayText": true,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 3055,
+        "sampled": 5464,
+        "width": 728,
+        "height": 728
+      }
+    },
+    "assaying": {
+      "board": {
+        "x": 25,
+        "y": 88,
+        "w": 364,
+        "h": 364
+      },
+      "gutters": [],
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "innerHeight": 915,
+      "bodyScrollWidth": 412,
+      "hasToAssayText": true,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 1686,
+        "sampled": 5464,
+        "width": 728,
+        "height": 728
+      },
+      "bodyTextSnippet": "THE ASSAY LINE | walnut ore-board · pre-dawn assay · RTP 96.50% | BALANCE | 999.00 | − | + | TO ASSAY | − | 1.00 | + | ASSAY TALLY | 1.00 | 1.00x | 10 | / 8 min"
+    },
+    "settledWin": {
+      "board": {
+        "x": 25,
+        "y": 88,
+        "w": 364,
+        "h": 364
+      },
+      "gutters": [],
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "innerHeight": 915,
+      "bodyScrollWidth": 412,
+      "hasToAssayText": false,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 3047,
+        "sampled": 5464,
+        "width": 728,
+        "height": 728
+      },
+      "attempt": 1
+    },
+    "settledBust": {
+      "board": {
+        "x": 25,
+        "y": 88,
+        "w": 364,
+        "h": 364
+      },
+      "gutters": [],
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "innerHeight": 915,
+      "bodyScrollWidth": 412,
+      "hasToAssayText": false,
+      "nonBlank": {
+        "ok": true,
+        "nonBg": 3104,
+        "sampled": 5464,
+        "width": 728,
+        "height": 728
+      },
+      "attempt": 0
+    }
+  },
+  "errors": []
+}

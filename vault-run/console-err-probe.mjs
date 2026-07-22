@@ -1,0 +1,14 @@
+import puppeteer from 'puppeteer-core';
+const EXE = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const PORT = process.argv[2] || '5181';
+const browser = await puppeteer.launch({ executablePath: EXE, headless: false, defaultViewport: { width: 1440, height: 900 }, args: ['--window-size=1460,1040'] });
+const page = await browser.newPage();
+const errs = [];
+page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+page.on('pageerror', e => errs.push('pageerror: ' + e.message));
+await page.evaluateOnNewDocument(() => { try { localStorage.clear(); } catch {} });
+await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'networkidle2', timeout: 60000 });
+await wait(1500);
+console.log('errors after load:', JSON.stringify(errs, null, 2));
+await browser.close();

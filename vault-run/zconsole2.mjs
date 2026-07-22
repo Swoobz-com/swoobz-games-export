@@ -1,0 +1,12 @@
+import puppeteer from 'puppeteer-core';
+const EXE='C:/Program Files/Google/Chrome/Application/chrome.exe';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const browser=await puppeteer.launch({executablePath:EXE,headless:false,defaultViewport:{width:1920,height:1080,deviceScaleFactor:1},args:['--window-size=1940,1220']});
+const page=(await browser.pages())[0];
+const fails=[];
+page.on('requestfailed', r => fails.push(r.url()+' :: '+r.failure()?.errorText));
+page.on('response', r => { if (r.status()===404) fails.push('404: '+r.url()); });
+await page.goto('http://localhost:5181/',{waitUntil:'networkidle2',timeout:60000});
+await wait(2000);
+console.log(JSON.stringify(fails,null,1));
+await browser.close();

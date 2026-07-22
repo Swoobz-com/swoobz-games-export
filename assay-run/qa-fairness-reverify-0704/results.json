@@ -1,0 +1,34 @@
+{
+  "probe7": {
+    "certificateText": "◆ GLASS BOX CERTIFICATE · Heavy Floor · 8 cracked boxes in 10×10",
+    "regexMatch": {
+      "tierLabel": "Heavy Floor",
+      "bombCount": 8,
+      "gridA": 10,
+      "gridB": 10
+    },
+    "verdict": "CLOSED"
+  },
+  "probe8": {
+    "certAtSettle": "◆ GLASS BOX CERTIFICATE · Heavy Floor · 8 cracked boxes in 10×10",
+    "activeTierAtSettle": [
+      "Heavy Floorup to 2335.03x8 cracked boxes · RTP 96.50%"
+    ],
+    "switchClickReturnedTrue": true,
+    "certAfterSwitch": "◆ GLASS BOX CERTIFICATE · Heavy Floor · 8 cracked boxes in 10×10",
+    "activeTierAfterSwitch": [
+      "Lean Floorup to 15.79x3 cracked boxes · RTP 96.50%"
+    ],
+    "certificateUnchanged": true,
+    "railVisiblyDidChange": true,
+    "verdict": "CLOSED",
+    "certMentionsLeanAfterSwitch": false
+  },
+  "sanity": {
+    "expectedHeavyBombCount": 8,
+    "actualBombCount": 8,
+    "bombCountMatches": true,
+    "gridMatches": true
+  },
+  "consoleErrors": []
+}

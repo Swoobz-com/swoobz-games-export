@@ -1,0 +1,735 @@
+[
+  {
+    "vp": "1440x900",
+    "isWide": true,
+    "lobby": {
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 800,
+          "bottom": 929,
+          "height": 129,
+          "width": 563,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 800,
+          "bottom": 929,
+          "height": 129,
+          "width": 358,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 800,
+          "bottom": 929,
+          "height": 129,
+          "width": 240,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "surface": {
+        "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+        "borderTopColor": "rgba(255, 197, 61, 0.32)",
+        "borderTopWidth": "1px",
+        "borderRadius": "12px 12px 0px 0px",
+        "backdropFilter": "none"
+      }
+    },
+    "betentry": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "sendItFold": {
+        "bottom": 1128,
+        "viewportHeight": 900,
+        "aboveFold": false,
+        "overBy": 228
+      },
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 816,
+          "bottom": 1071,
+          "height": 255,
+          "width": 372,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 816,
+          "bottom": 1071,
+          "height": 255,
+          "width": 853,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "toWin": {
+        "pillLeft": 496,
+        "pillRight": 791,
+        "pillWidth": 295,
+        "colLeft": 496,
+        "colRight": 1348,
+        "colWidth": 853,
+        "stretched": false,
+        "contentSized": true,
+        "alignSelf": "flex-start"
+      }
+    },
+    "playing": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 800,
+          "bottom": 929,
+          "height": 129,
+          "width": 436,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 800,
+          "bottom": 929,
+          "height": 129,
+          "width": 340,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 800,
+          "bottom": 929,
+          "height": 129,
+          "width": 387,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ]
+    },
+    "settled_attempt1": {
+      "outcome": "LOSS",
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 800,
+          "bottom": 944,
+          "height": 144,
+          "width": 461,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 800,
+          "bottom": 944,
+          "height": 144,
+          "width": 334,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 800,
+          "bottom": 944,
+          "height": 144,
+          "width": 365,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "surface": {
+        "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+        "borderTopColor": "rgba(255, 197, 61, 0.32)",
+        "borderTopWidth": "1px",
+        "borderRadius": "12px 12px 0px 0px",
+        "backdropFilter": "none"
+      },
+      "glassBoxOpened": true,
+      "glassBoxOverflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasScrollbar": false,
+        "offenders": []
+      }
+    },
+    "settled_attempt2": {
+      "outcome": "LOSS",
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": []
+    },
+    "pageErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "vp": "1920x1080",
+    "isWide": true,
+    "lobby": {
+      "overflow": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 940,
+          "bottom": 1054,
+          "height": 113,
+          "width": 781,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 940,
+          "bottom": 1054,
+          "height": 113,
+          "width": 495,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 940,
+          "bottom": 1054,
+          "height": 113,
+          "width": 240,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "surface": {
+        "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+        "borderTopColor": "rgba(255, 197, 61, 0.32)",
+        "borderTopWidth": "1px",
+        "borderRadius": "12px 12px 0px 0px",
+        "backdropFilter": "none"
+      }
+    },
+    "betentry": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "sendItFold": {
+        "bottom": 1268,
+        "viewportHeight": 1080,
+        "aboveFold": false,
+        "overBy": 188
+      },
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 956,
+          "bottom": 1211,
+          "height": 255,
+          "width": 477,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 956,
+          "bottom": 1211,
+          "height": 255,
+          "width": 1103,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "toWin": {
+        "pillLeft": 663,
+        "pillRight": 957,
+        "pillWidth": 295,
+        "colLeft": 663,
+        "colRight": 1766,
+        "colWidth": 1103,
+        "stretched": false,
+        "contentSized": true,
+        "alignSelf": "flex-start"
+      }
+    },
+    "playing": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 940,
+          "bottom": 1061,
+          "height": 121,
+          "width": 568,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 940,
+          "bottom": 1061,
+          "height": 121,
+          "width": 441,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 940,
+          "bottom": 1061,
+          "height": 121,
+          "width": 509,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ]
+    },
+    "settled_attempt1": {
+      "outcome": "WIN",
+      "overflow": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 940,
+          "bottom": 1066,
+          "height": 126,
+          "width": 601,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 940,
+          "bottom": 1066,
+          "height": 126,
+          "width": 434,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 940,
+          "bottom": 1066,
+          "height": 126,
+          "width": 480,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "surface": {
+        "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+        "borderTopColor": "rgba(255, 197, 61, 0.32)",
+        "borderTopWidth": "1px",
+        "borderRadius": "12px 12px 0px 0px",
+        "backdropFilter": "none"
+      },
+      "glassBoxOpened": true,
+      "glassBoxOverflow": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "hasScrollbar": false,
+        "offenders": []
+      }
+    },
+    "settled_attempt2": {
+      "outcome": "LOSS",
+      "overflow": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": []
+    },
+    "pageErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "vp": "390x844",
+    "isWide": false,
+    "lobby": {
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": []
+    },
+    "betentry": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "sendItFold": {
+        "bottom": 1197,
+        "viewportHeight": 844,
+        "aboveFold": false,
+        "overBy": 353
+      },
+      "mobileSingleStack": {
+        "childCount": 2,
+        "hasYourBet": true
+      }
+    },
+    "playing": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": []
+    },
+    "settled_attempt1": {
+      "outcome": "WIN",
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "glassBoxOpened": true,
+      "glassBoxOverflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "hasScrollbar": false,
+        "offenders": []
+      }
+    },
+    "pageErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "vp": "1608x872-ref",
+    "isWide": true,
+    "lobby": {
+      "overflow": {
+        "scrollWidth": 1608,
+        "clientWidth": 1608,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 778,
+          "bottom": 892,
+          "height": 113,
+          "width": 658,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 778,
+          "bottom": 892,
+          "height": 113,
+          "width": 418,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 778,
+          "bottom": 892,
+          "height": 113,
+          "width": 240,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "surface": {
+        "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+        "borderTopColor": "rgba(255, 197, 61, 0.32)",
+        "borderTopWidth": "1px",
+        "borderRadius": "12px 12px 0px 0px",
+        "backdropFilter": "none"
+      }
+    },
+    "betentry": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 1608,
+        "clientWidth": 1608,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "sendItFold": {
+        "bottom": 1136,
+        "viewportHeight": 872,
+        "aboveFold": false,
+        "overBy": 264
+      },
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 794,
+          "bottom": 1079,
+          "height": 285,
+          "width": 418,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 794,
+          "bottom": 1079,
+          "height": 285,
+          "width": 962,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "toWin": {
+        "pillLeft": 548,
+        "pillRight": 843,
+        "pillWidth": 295,
+        "colLeft": 548,
+        "colRight": 1510,
+        "colWidth": 962,
+        "stretched": false,
+        "contentSized": true,
+        "alignSelf": "flex-start"
+      }
+    },
+    "playing": {
+      "navClicked": true,
+      "overflow": {
+        "scrollWidth": 1608,
+        "clientWidth": 1608,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 778,
+          "bottom": 907,
+          "height": 129,
+          "width": 494,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 778,
+          "bottom": 907,
+          "height": 129,
+          "width": 384,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 778,
+          "bottom": 907,
+          "height": 129,
+          "width": 440,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ]
+    },
+    "settled_attempt1": {
+      "outcome": "WIN",
+      "overflow": {
+        "scrollWidth": 1608,
+        "clientWidth": 1608,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": [],
+      "dividers": [
+        {
+          "idx": 0,
+          "top": 778,
+          "bottom": 922,
+          "height": 144,
+          "width": 522,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 1,
+          "top": 778,
+          "bottom": 922,
+          "height": 144,
+          "width": 378,
+          "borderRightWidth": "1px",
+          "borderRightColor": "rgba(255, 255, 255, 0.07)",
+          "paddingRight": "16px",
+          "justifyContent": "normal"
+        },
+        {
+          "idx": 2,
+          "top": 778,
+          "bottom": 922,
+          "height": 144,
+          "width": 415,
+          "borderRightWidth": "0px",
+          "borderRightColor": "rgb(244, 246, 250)",
+          "paddingRight": "0px",
+          "justifyContent": "normal"
+        }
+      ],
+      "surface": {
+        "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+        "borderTopColor": "rgba(255, 197, 61, 0.32)",
+        "borderTopWidth": "1px",
+        "borderRadius": "12px 12px 0px 0px",
+        "backdropFilter": "none"
+      },
+      "glassBoxOpened": true,
+      "glassBoxOverflow": {
+        "scrollWidth": 1608,
+        "clientWidth": 1608,
+        "hasScrollbar": false,
+        "offenders": []
+      }
+    },
+    "settled_attempt2": {
+      "outcome": "LOSS",
+      "overflow": {
+        "scrollWidth": 1608,
+        "clientWidth": 1608,
+        "hasScrollbar": false,
+        "offenders": []
+      },
+      "cyan": []
+    },
+    "pageErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  }
+]

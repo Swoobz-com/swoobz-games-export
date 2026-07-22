@@ -1,0 +1,108 @@
+[
+  {
+    "device": "iphone14pro",
+    "viewport": "393x852",
+    "results": {
+      "lobby": {
+        "viewportH": 852,
+        "scrollY": 0,
+        "docScrollHeight": 852,
+        "runFound": false,
+        "runRect": null,
+        "runVCenterPct": null,
+        "currentKeyFound": true,
+        "currentKeyLabel": "ENTER THE DIVE →",
+        "currentKeyRect": {
+          "top": 678,
+          "bottom": 722,
+          "width": 341,
+          "height": 44
+        }
+      },
+      "lobbyTapFired": true,
+      "planningFirstPaint": {
+        "viewportH": 852,
+        "scrollY": 0,
+        "docScrollHeight": 898,
+        "runFound": true,
+        "runRect": {
+          "top": 793,
+          "bottom": 851,
+          "left": 25,
+          "right": 370,
+          "width": 345,
+          "height": 58
+        },
+        "runVCenterPct": 96.5,
+        "currentKeyFound": false,
+        "currentKeyLabel": null,
+        "currentKeyRect": null
+      },
+      "overflow": {
+        "scrollWidth": 393,
+        "clientWidth": 393,
+        "hasHorizontalOverflow": false
+      },
+      "canvasGeo": {
+        "left": -54.5,
+        "top": 11,
+        "width": 644,
+        "height": 644
+      }
+    },
+    "consoleErrors": []
+  },
+  {
+    "device": "pixel7",
+    "viewport": "412x915",
+    "results": {
+      "lobby": {
+        "viewportH": 915,
+        "scrollY": 0,
+        "docScrollHeight": 915,
+        "runFound": false,
+        "runRect": null,
+        "runVCenterPct": null,
+        "currentKeyFound": true,
+        "currentKeyLabel": "ENTER THE DIVE →",
+        "currentKeyRect": {
+          "top": 678,
+          "bottom": 722,
+          "width": 360,
+          "height": 44
+        }
+      },
+      "lobbyTapFired": true,
+      "planningFirstPaint": {
+        "viewportH": 915,
+        "scrollY": 0,
+        "docScrollHeight": 915,
+        "runFound": true,
+        "runRect": {
+          "top": 793,
+          "bottom": 851,
+          "left": 25,
+          "right": 389,
+          "width": 364,
+          "height": 58
+        },
+        "runVCenterPct": 89.8,
+        "currentKeyFound": false,
+        "currentKeyLabel": null,
+        "currentKeyRect": null
+      },
+      "overflow": {
+        "scrollWidth": 412,
+        "clientWidth": 412,
+        "hasHorizontalOverflow": false
+      },
+      "canvasGeo": {
+        "left": -45,
+        "top": 11,
+        "width": 644,
+        "height": 644
+      }
+    },
+    "consoleErrors": []
+  }
+]

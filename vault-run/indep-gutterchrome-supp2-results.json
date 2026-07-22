@@ -1,0 +1,22 @@
+{
+  "tall1920_gutterB": {
+    "top": 429.5,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 529.5,
+    "width": 200,
+    "height": 100
+  },
+  "wide1920_gutterC": {
+    "top": 137,
+    "left": 1567.375,
+    "right": 1763,
+    "bottom": 203,
+    "width": 195.625,
+    "height": 66
+  },
+  "wide1920_edges_settled": {
+    "gridLeft": 660.78285,
+    "gridRight": 1259.21715
+  }
+}

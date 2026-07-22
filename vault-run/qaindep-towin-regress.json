@@ -1,0 +1,11 @@
+{
+  "lobby_1440_hasConsole": false,
+  "betentry_1440_hasConsole": true,
+  "playing_1440_hasConsole": false,
+  "settled_1440_hasConsole": false,
+  "mobile390": {
+    "hasColumnsRow": false,
+    "panelWidth": 356,
+    "toWinPillWidth": 322
+  }
+}

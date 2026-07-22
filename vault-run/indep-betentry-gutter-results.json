@@ -1,0 +1,224 @@
+{
+  "lobby_sessionPulse_1440": {
+    "cardA": 1,
+    "cardAright": 1,
+    "gutterLeft": 1,
+    "gutterRight": 1
+  },
+  "lobby_cyan_1440": [],
+  "1440x900": {
+    "panel": {
+      "shellFound": true,
+      "sameNodeCrossCheck": true,
+      "panelFound": true,
+      "childElementCount": 0,
+      "innerHTMLLength": 0,
+      "textContentLength": 0,
+      "hasSetYourPlay": false,
+      "betConsoleNodes": 0
+    },
+    "yourbet": {
+      "top": 169.5,
+      "left": 94.59375,
+      "right": 318.59375,
+      "bottom": 310.5,
+      "width": 224,
+      "height": 141,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+    },
+    "confirm": {
+      "top": 326.5,
+      "left": 94.59375,
+      "right": 318.59375,
+      "bottom": 430.5,
+      "width": 224,
+      "height": 104,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)"
+    },
+    "world": {
+      "top": 169.5,
+      "left": 1085.390625,
+      "right": 1345.390625,
+      "bottom": 710.421875,
+      "width": 260,
+      "height": 540.921875,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+    },
+    "edges": {
+      "shellLeft": 74.59375,
+      "shellWidth": 1290.796875,
+      "shellHeight": 702,
+      "boardLeftPage": 470.64178749999996,
+      "boardRightPage": 969.3425875,
+      "full": 498.7008
+    },
+    "overflow": {
+      "docScrollWidth": 1440,
+      "docClientWidth": 1440,
+      "bodyScrollWidth": 1440,
+      "bodyClientWidth": 1440
+    },
+    "cyanHits": [],
+    "pulseDuringBetEntry": {
+      "cardA": 0,
+      "cardAright": 0,
+      "gutterLeft": 0,
+      "gutterRight": 0
+    }
+  },
+  "1440x1920": {
+    "panel": {
+      "shellFound": true,
+      "sameNodeCrossCheck": true,
+      "panelFound": true,
+      "childElementCount": 0,
+      "innerHTMLLength": 0,
+      "textContentLength": 0,
+      "hasSetYourPlay": false,
+      "betConsoleNodes": 0
+    },
+    "yourbet": {
+      "top": 530.5,
+      "left": 94.59375,
+      "right": 318.59375,
+      "bottom": 671.5,
+      "width": 224,
+      "height": 141,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+    },
+    "confirm": {
+      "top": 687.5,
+      "left": 94.59375,
+      "right": 318.59375,
+      "bottom": 791.5,
+      "width": 224,
+      "height": 104,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)"
+    },
+    "world": {
+      "top": 530.5,
+      "left": 1085.390625,
+      "right": 1345.390625,
+      "bottom": 1071.421875,
+      "width": 260,
+      "height": 540.921875,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+    },
+    "edges": {
+      "shellLeft": 74.59375,
+      "shellWidth": 1290.796875,
+      "shellHeight": 1000,
+      "boardLeftPage": 364.7921875,
+      "boardRightPage": 1075.1921875,
+      "full": 710.4
+    },
+    "overflow": {
+      "docScrollWidth": 1440,
+      "docClientWidth": 1440,
+      "bodyScrollWidth": 1440,
+      "bodyClientWidth": 1440
+    },
+    "cyanHits": [],
+    "pulseDuringBetEntry": {
+      "cardA": 0,
+      "cardAright": 0,
+      "gutterLeft": 0,
+      "gutterRight": 0
+    }
+  },
+  "1920x1080": {
+    "panel": {
+      "shellFound": true,
+      "sameNodeCrossCheck": true,
+      "panelFound": true,
+      "childElementCount": 0,
+      "innerHTMLLength": 0,
+      "textContentLength": 0,
+      "hasSetYourPlay": false,
+      "betConsoleNodes": 0
+    },
+    "yourbet": {
+      "top": 189.296875,
+      "left": 157,
+      "right": 381,
+      "bottom": 330.296875,
+      "width": 224,
+      "height": 141,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+    },
+    "confirm": {
+      "top": 346.296875,
+      "left": 157,
+      "right": 381,
+      "bottom": 450.296875,
+      "width": 224,
+      "height": 104,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)"
+    },
+    "world": {
+      "top": 189.296875,
+      "left": 1503,
+      "right": 1763,
+      "bottom": 730.21875,
+      "width": 260,
+      "height": 540.921875,
+      "backdropFilter": "blur(14px) saturate(1.15)",
+      "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+    },
+    "edges": {
+      "shellLeft": 137,
+      "shellWidth": 1646,
+      "shellHeight": 842.390625,
+      "boardLeftPage": 660.78285,
+      "boardRightPage": 1259.21715,
+      "full": 598.4343
+    },
+    "overflow": {
+      "docScrollWidth": 1920,
+      "docClientWidth": 1920,
+      "bodyScrollWidth": 1920,
+      "bodyClientWidth": 1920
+    },
+    "cyanHits": [],
+    "pulseDuringBetEntry": {
+      "cardA": 0,
+      "cardAright": 0,
+      "gutterLeft": 0,
+      "gutterRight": 0
+    }
+  },
+  "390x844": {
+    "mobile": {
+      "hasSetYourPlay": true,
+      "betConsoleNodes": 1,
+      "yourbetGutter": 0,
+      "confirmGutter": 0,
+      "worldGutter": 0
+    },
+    "overflow": {
+      "docScrollWidth": 390,
+      "docClientWidth": 390,
+      "bodyScrollWidth": 390,
+      "bodyClientWidth": 390
+    }
+  },
+  "grep_topOffset_400_codeLines": [
+    226
+  ],
+  "grep_topOffset_400_commentLines": [
+    2773
+  ],
+  "grep_GUTTER_maxWidth_200_count": 1,
+  "grep_gutterCard_reuse_count": 5,
+  "grep_betentryGutterLeftStack_count": 2,
+  "grep_betentryGutterRightStack_count": 2,
+  "grep_BETENTRY_GUTTER_topOffset_72_count": 5
+}

@@ -1,0 +1,68 @@
+{
+  "panel_1440": {
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "hasSetYourPlay_1440": false,
+  "testids_1440": {
+    "yourbet": true,
+    "confirm": true,
+    "world": true
+  },
+  "sendIt_enabled_1440": {
+    "text": "SEND IT →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "cursor": "pointer",
+    "cardBackdropFilter": "blur(14px) saturate(1.15)",
+    "cardBackgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)"
+  },
+  "wagerVsBalance_afterMaxClicks": {
+    "yourBetText": "YOUR BET−1000.00 USDC+15102550",
+    "confirmText": "BALANCE1000.00 USDCSEND IT →"
+  },
+  "sendIt_click_fired": true,
+  "afterSendIt_worldCardGone": true,
+  "afterSendIt_phaseText": true,
+  "settleOutcomeGuess": "rug",
+  "roundSettledWithinTries": true,
+  "balance_afterRound": "0.00",
+  "sendIt_disabled_state": null,
+  "cyan_1440": 0,
+  "testids_1920": {
+    "yourbet": true,
+    "confirm": true,
+    "world": true
+  },
+  "sendIt_enabled_1920": {
+    "text": "SEND IT →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "cursor": "pointer",
+    "cardBackdropFilter": "blur(14px) saturate(1.15)",
+    "cardBackgroundImage": "linear-gradient(rgba(9, 15, 24, 0.62) 0%, rgba(5, 9, 15, 0.78) 100%)"
+  },
+  "mobile_hasSetYourPlay": true,
+  "mobile_gutterDom": {
+    "yourbet": 0,
+    "confirm": 0,
+    "world": 0
+  },
+  "mobile_sendIt_present": {
+    "text": "SEND IT →",
+    "disabled": false
+  },
+  "sessionMeta_visible_lobby": true,
+  "sessionMeta_visible_betentry": true,
+  "contrast_ratios_perStop": [
+    11.404068708849923,
+    6.117688559496941
+  ],
+  "contrast_worst_stop": 6.117688559496941
+}

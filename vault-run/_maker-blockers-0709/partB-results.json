@@ -1,0 +1,178 @@
+{
+  "Pixel7-WIN": {
+    "captionRect": {
+      "x": 73.2265625,
+      "y": 435,
+      "width": 265.546875,
+      "height": 23,
+      "top": 435,
+      "right": 338.7734375,
+      "bottom": 458,
+      "left": 73.2265625
+    },
+    "panelRect": {
+      "x": 17,
+      "y": 474,
+      "width": 378,
+      "height": 344,
+      "top": 474,
+      "right": 395,
+      "bottom": 818,
+      "left": 17
+    },
+    "boardRect": {
+      "x": 17,
+      "y": 238,
+      "width": 378,
+      "height": 236,
+      "top": 238,
+      "right": 395,
+      "bottom": 474,
+      "left": 17
+    },
+    "canvasRect": {
+      "x": 17,
+      "y": 238,
+      "width": 378,
+      "height": 236,
+      "top": 238,
+      "right": 395,
+      "bottom": 474,
+      "left": 17
+    },
+    "verticalGap": 16,
+    "capVisible": true
+  },
+  "Pixel7-LOSS": {
+    "captionRect": {
+      "x": 114.7890625,
+      "y": 434,
+      "width": 182.421875,
+      "height": 23,
+      "top": 434,
+      "right": 297.2109375,
+      "bottom": 457,
+      "left": 114.7890625
+    },
+    "panelRect": {
+      "x": 17,
+      "y": 473,
+      "width": 378,
+      "height": 344,
+      "top": 473,
+      "right": 395,
+      "bottom": 817,
+      "left": 17
+    },
+    "boardRect": {
+      "x": 17,
+      "y": 237,
+      "width": 378,
+      "height": 236,
+      "top": 237,
+      "right": 395,
+      "bottom": 473,
+      "left": 17
+    },
+    "canvasRect": {
+      "x": 17,
+      "y": 237,
+      "width": 378,
+      "height": 236,
+      "top": 237,
+      "right": 395,
+      "bottom": 473,
+      "left": 17
+    },
+    "verticalGap": 16,
+    "capVisible": true
+  },
+  "iPhone14Pro-WIN": {
+    "captionRect": {
+      "x": 63.7265625,
+      "y": 395,
+      "width": 265.546875,
+      "height": 23,
+      "top": 395,
+      "right": 329.2734375,
+      "bottom": 418,
+      "left": 63.7265625
+    },
+    "panelRect": {
+      "x": 17,
+      "y": 434,
+      "width": 359,
+      "height": 344,
+      "top": 434,
+      "right": 376,
+      "bottom": 778,
+      "left": 17
+    },
+    "boardRect": {
+      "x": 17,
+      "y": 198,
+      "width": 359,
+      "height": 236,
+      "top": 198,
+      "right": 376,
+      "bottom": 434,
+      "left": 17
+    },
+    "canvasRect": {
+      "x": 17,
+      "y": 198,
+      "width": 359,
+      "height": 236,
+      "top": 198,
+      "right": 376,
+      "bottom": 434,
+      "left": 17
+    },
+    "verticalGap": 16,
+    "capVisible": true
+  },
+  "iPhone14Pro-LOSS": {
+    "captionRect": {
+      "x": 101.828125,
+      "y": 412,
+      "width": 189.34375,
+      "height": 23,
+      "top": 412,
+      "right": 291.171875,
+      "bottom": 435,
+      "left": 101.828125
+    },
+    "panelRect": {
+      "x": 17,
+      "y": 451,
+      "width": 359,
+      "height": 344,
+      "top": 451,
+      "right": 376,
+      "bottom": 795,
+      "left": 17
+    },
+    "boardRect": {
+      "x": 17,
+      "y": 215,
+      "width": 359,
+      "height": 236,
+      "top": 215,
+      "right": 376,
+      "bottom": 451,
+      "left": 17
+    },
+    "canvasRect": {
+      "x": 17,
+      "y": 215,
+      "width": 359,
+      "height": 236,
+      "top": 215,
+      "right": 376,
+      "bottom": 451,
+      "left": 17
+    },
+    "verticalGap": 16,
+    "capVisible": true
+  }
+}

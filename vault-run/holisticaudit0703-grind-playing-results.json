@@ -1,0 +1,76 @@
+{
+  "badgeSeen": false,
+  "samples": [
+    {
+      "i": 0,
+      "running": true,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 1,
+      "running": true,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 2,
+      "running": true,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 3,
+      "running": true,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 4,
+      "running": false,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 5,
+      "running": false,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 6,
+      "running": false,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 7,
+      "running": false,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 8,
+      "running": false,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": false
+    },
+    {
+      "i": 9,
+      "running": false,
+      "hasBadge": false,
+      "hasAutopick": false,
+      "isSettled": true
+    }
+  ],
+  "playingLeft": null
+}

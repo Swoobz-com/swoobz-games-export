@@ -1,0 +1,1667 @@
+{
+  "viewport1440": [
+    {
+      "world": "bluechips",
+      "httpStatus": 200,
+      "errors": [
+        {
+          "kind": "console.error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "kind": "console.error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "overlaps": {
+        "lobby": {
+          "phase": "lobby",
+          "canvas": {
+            "x": 74.59375,
+            "y": 59,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 59,
+            "right": 1365.390625,
+            "bottom": 860,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 189.8834,
+            "right": 977.5937875,
+            "bottom": 705.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-lobby-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 131,
+                "width": 260,
+                "height": 188.5,
+                "top": 131,
+                "right": 354.59375,
+                "bottom": 319.5,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-lobby-right": {
+              "present": true,
+              "rect": {
+                "x": 1191.484375,
+                "y": 131,
+                "width": 153.90625,
+                "height": 75,
+                "top": 131,
+                "right": 1345.390625,
+                "bottom": 206,
+                "left": 1191.484375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 459,
+                "width": 200,
+                "height": 144.171875,
+                "top": 459,
+                "right": 294.59375,
+                "bottom": 603.171875,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 459,
+                "width": 200,
+                "height": 144.171875,
+                "top": 459,
+                "right": 1345.390625,
+                "bottom": 603.171875,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "betentry": {
+          "phase": "bet-entry",
+          "canvas": {
+            "x": 74.59375,
+            "y": 59,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 59,
+            "right": 1365.390625,
+            "bottom": 860,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 189.8834,
+            "right": 977.5937875,
+            "bottom": 705.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-betentry-left": {
+              "present": false
+            },
+            "vault-betentry-right": {
+              "present": true,
+              "rect": {
+                "x": 1062.109375,
+                "y": 131,
+                "width": 260,
+                "height": 716,
+                "top": 131,
+                "right": 1322.109375,
+                "bottom": 847,
+                "left": 1062.109375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-left": {
+              "present": false
+            },
+            "vault-gutter-right": {
+              "present": false
+            }
+          }
+        },
+        "playing": {
+          "phase": "playing",
+          "canvas": {
+            "x": 74.59375,
+            "y": 64,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 64,
+            "right": 1365.390625,
+            "bottom": 865,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 194.8834,
+            "right": 977.5937875,
+            "bottom": 710.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-playing-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 136,
+                "width": 260,
+                "height": 184.375,
+                "top": 136,
+                "right": 354.59375,
+                "bottom": 320.375,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-playing-right": {
+              "present": true,
+              "rect": {
+                "x": 1135.421875,
+                "y": 136,
+                "width": 209.96875,
+                "height": 157,
+                "top": 136,
+                "right": 1345.390625,
+                "bottom": 293,
+                "left": 1135.421875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 464,
+                "width": 200,
+                "height": 144.171875,
+                "top": 464,
+                "right": 1345.390625,
+                "bottom": 608.171875,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settledWin": {
+          "phase": "settled-win",
+          "canvas": {
+            "x": 74.59375,
+            "y": 57,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 57,
+            "right": 1365.390625,
+            "bottom": 858,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 187.8834,
+            "right": 977.5937875,
+            "bottom": 703.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 129,
+                "width": 205.5,
+                "height": 279,
+                "top": 129,
+                "right": 300.09375,
+                "bottom": 408,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 1085.390625,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1345.390625,
+                "bottom": 394,
+                "left": 1085.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 457,
+                "width": 200,
+                "height": 182,
+                "top": 457,
+                "right": 1345.390625,
+                "bottom": 639,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settledRug": {
+          "phase": "settled-rug",
+          "canvas": {
+            "x": 74.59375,
+            "y": 57,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 57,
+            "right": 1365.390625,
+            "bottom": 858,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 187.8834,
+            "right": 977.5937875,
+            "bottom": 703.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 129,
+                "width": 138.3125,
+                "height": 279,
+                "top": 129,
+                "right": 232.90625,
+                "bottom": 408,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 1085.390625,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1345.390625,
+                "bottom": 394,
+                "left": 1085.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 457,
+                "width": 200,
+                "height": 182,
+                "top": 457,
+                "right": 1345.390625,
+                "bottom": 639,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        }
+      },
+      "latency": {
+        "apeIn": {
+          "clicked": true,
+          "ms": 57
+        },
+        "sendIt": {
+          "clicked": true,
+          "ms": 175
+        },
+        "firstTileTap": {
+          "clicked": true,
+          "ms": 21
+        }
+      },
+      "cashOutState": {
+        "beforeReveal": {
+          "present": true,
+          "disabled": true,
+          "text": "take profitcrack one open first"
+        },
+        "afterOneReveal": {
+          "present": true,
+          "disabled": false,
+          "text": "TAKE PROFIT1.10 USDC · 1.10x"
+        }
+      },
+      "phasesReached": [
+        "lobby",
+        "bet-entry",
+        "playing"
+      ],
+      "loop": {
+        "win": {
+          "ok": true,
+          "attempt": 0,
+          "label": "Took profit at 1.36x: small bag, still a bag",
+          "clicks": 3
+        },
+        "restartMs": null,
+        "restartPhase": "playing",
+        "rug": {
+          "ok": true,
+          "attempt": 0,
+          "label": "Rugged, lost 1.00 USDC: got SBF’d",
+          "clicks": 5
+        }
+      }
+    },
+    {
+      "world": "altseason",
+      "httpStatus": 304,
+      "errors": [
+        {
+          "kind": "console.error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "overlaps": {
+        "lobby": {
+          "phase": "lobby",
+          "canvas": {
+            "x": 74.59375,
+            "y": 59,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 59,
+            "right": 1365.390625,
+            "bottom": 860,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 189.8834,
+            "right": 977.5937875,
+            "bottom": 705.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-lobby-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 131,
+                "width": 260,
+                "height": 188.5,
+                "top": 131,
+                "right": 354.59375,
+                "bottom": 319.5,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-lobby-right": {
+              "present": true,
+              "rect": {
+                "x": 1191.484375,
+                "y": 131,
+                "width": 153.90625,
+                "height": 75,
+                "top": 131,
+                "right": 1345.390625,
+                "bottom": 206,
+                "left": 1191.484375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 459,
+                "width": 200,
+                "height": 144.171875,
+                "top": 459,
+                "right": 294.59375,
+                "bottom": 603.171875,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 459,
+                "width": 200,
+                "height": 144.171875,
+                "top": 459,
+                "right": 1345.390625,
+                "bottom": 603.171875,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "betentry": {
+          "phase": "bet-entry",
+          "canvas": {
+            "x": 74.59375,
+            "y": 59,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 59,
+            "right": 1365.390625,
+            "bottom": 860,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 189.8834,
+            "right": 977.5937875,
+            "bottom": 705.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-betentry-left": {
+              "present": false
+            },
+            "vault-betentry-right": {
+              "present": true,
+              "rect": {
+                "x": 1062.109375,
+                "y": 131,
+                "width": 260,
+                "height": 727.640625,
+                "top": 131,
+                "right": 1322.109375,
+                "bottom": 858.640625,
+                "left": 1062.109375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-left": {
+              "present": false
+            },
+            "vault-gutter-right": {
+              "present": false
+            }
+          }
+        },
+        "playing": {
+          "phase": "playing",
+          "canvas": {
+            "x": 74.59375,
+            "y": 64,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 64,
+            "right": 1365.390625,
+            "bottom": 865,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 194.8834,
+            "right": 977.5937875,
+            "bottom": 710.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-playing-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 136,
+                "width": 260,
+                "height": 184.375,
+                "top": 136,
+                "right": 354.59375,
+                "bottom": 320.375,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-playing-right": {
+              "present": true,
+              "rect": {
+                "x": 1135.421875,
+                "y": 136,
+                "width": 209.96875,
+                "height": 157,
+                "top": 136,
+                "right": 1345.390625,
+                "bottom": 293,
+                "left": 1135.421875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 464,
+                "width": 200,
+                "height": 144.171875,
+                "top": 464,
+                "right": 1345.390625,
+                "bottom": 608.171875,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settledWin": {
+          "phase": "settled-win",
+          "canvas": {
+            "x": 74.59375,
+            "y": 57,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 57,
+            "right": 1365.390625,
+            "bottom": 858,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 187.8834,
+            "right": 977.5937875,
+            "bottom": 703.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 129,
+                "width": 173.59375,
+                "height": 279,
+                "top": 129,
+                "right": 268.1875,
+                "bottom": 408,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 1085.390625,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1345.390625,
+                "bottom": 394,
+                "left": 1085.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 457,
+                "width": 200,
+                "height": 182,
+                "top": 457,
+                "right": 1345.390625,
+                "bottom": 639,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settledRug": {
+          "phase": "settled-rug",
+          "canvas": {
+            "x": 74.59375,
+            "y": 57,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 57,
+            "right": 1365.390625,
+            "bottom": 858,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 187.8834,
+            "right": 977.5937875,
+            "bottom": 703.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 129,
+                "width": 149.671875,
+                "height": 279,
+                "top": 129,
+                "right": 244.265625,
+                "bottom": 408,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 1085.390625,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1345.390625,
+                "bottom": 394,
+                "left": 1085.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 457,
+                "width": 200,
+                "height": 182,
+                "top": 457,
+                "right": 1345.390625,
+                "bottom": 639,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        }
+      },
+      "latency": {
+        "apeIn": {
+          "clicked": true,
+          "ms": 38
+        },
+        "sendIt": {
+          "clicked": true,
+          "ms": 52
+        },
+        "firstTileTap": {
+          "clicked": true,
+          "ms": 29
+        }
+      },
+      "cashOutState": {
+        "beforeReveal": {
+          "present": true,
+          "disabled": true,
+          "text": "take profitcrack one open first"
+        },
+        "afterOneReveal": {
+          "present": true,
+          "disabled": false,
+          "text": "TAKE PROFIT1.21 USDC · 1.21x"
+        }
+      },
+      "phasesReached": [
+        "lobby",
+        "bet-entry",
+        "playing"
+      ],
+      "loop": {
+        "win": {
+          "ok": true,
+          "attempt": 4,
+          "label": "Took profit at 1.48x: scraped some green",
+          "clicks": 2
+        },
+        "restartMs": null,
+        "restartPhase": "playing",
+        "rug": {
+          "ok": true,
+          "attempt": 0,
+          "label": "Rugged, lost 1.00 USDC: down horrendous",
+          "clicks": 6
+        }
+      }
+    },
+    {
+      "world": "shitcoin",
+      "httpStatus": 304,
+      "errors": [
+        {
+          "kind": "console.error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "overlaps": {
+        "lobby": {
+          "phase": "lobby",
+          "canvas": {
+            "x": 74.59375,
+            "y": 59,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 59,
+            "right": 1365.390625,
+            "bottom": 860,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 189.8834,
+            "right": 977.5937875,
+            "bottom": 705.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-lobby-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 131,
+                "width": 260,
+                "height": 188.5,
+                "top": 131,
+                "right": 354.59375,
+                "bottom": 319.5,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-lobby-right": {
+              "present": true,
+              "rect": {
+                "x": 1191.484375,
+                "y": 131,
+                "width": 153.90625,
+                "height": 75,
+                "top": 131,
+                "right": 1345.390625,
+                "bottom": 206,
+                "left": 1191.484375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 459,
+                "width": 200,
+                "height": 144.171875,
+                "top": 459,
+                "right": 294.59375,
+                "bottom": 603.171875,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 459,
+                "width": 200,
+                "height": 144.171875,
+                "top": 459,
+                "right": 1345.390625,
+                "bottom": 603.171875,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "betentry": {
+          "phase": "bet-entry",
+          "canvas": {
+            "x": 74.59375,
+            "y": 59,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 59,
+            "right": 1365.390625,
+            "bottom": 860,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 189.8834,
+            "right": 977.5937875,
+            "bottom": 705.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-betentry-left": {
+              "present": false
+            },
+            "vault-betentry-right": {
+              "present": true,
+              "rect": {
+                "x": 1062.109375,
+                "y": 131,
+                "width": 260,
+                "height": 739.28125,
+                "top": 131,
+                "right": 1322.109375,
+                "bottom": 870.28125,
+                "left": 1062.109375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-left": {
+              "present": false
+            },
+            "vault-gutter-right": {
+              "present": false
+            }
+          }
+        },
+        "playing": {
+          "phase": "playing",
+          "canvas": {
+            "x": 74.59375,
+            "y": 64,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 64,
+            "right": 1365.390625,
+            "bottom": 865,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 194.8834,
+            "right": 977.5937875,
+            "bottom": 710.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-playing-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 136,
+                "width": 260,
+                "height": 184.375,
+                "top": 136,
+                "right": 354.59375,
+                "bottom": 320.375,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-playing-right": {
+              "present": true,
+              "rect": {
+                "x": 1135.421875,
+                "y": 136,
+                "width": 209.96875,
+                "height": 157,
+                "top": 136,
+                "right": 1345.390625,
+                "bottom": 293,
+                "left": 1135.421875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 464,
+                "width": 200,
+                "height": 144.171875,
+                "top": 464,
+                "right": 1345.390625,
+                "bottom": 608.171875,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settledWin": {
+          "phase": "settled-win",
+          "canvas": {
+            "x": 74.59375,
+            "y": 57,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 57,
+            "right": 1365.390625,
+            "bottom": 858,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 187.8834,
+            "right": 977.5937875,
+            "bottom": 703.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 129,
+                "width": 149.671875,
+                "height": 279,
+                "top": 129,
+                "right": 244.265625,
+                "bottom": 408,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 1085.390625,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1345.390625,
+                "bottom": 394,
+                "left": 1085.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 457,
+                "width": 200,
+                "height": 182,
+                "top": 457,
+                "right": 1345.390625,
+                "bottom": 639,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settledRug": {
+          "phase": "settled-rug",
+          "canvas": {
+            "x": 74.59375,
+            "y": 57,
+            "width": 1290.796875,
+            "height": 801,
+            "top": 57,
+            "right": 1365.390625,
+            "bottom": 858,
+            "left": 74.59375
+          },
+          "grid": {
+            "left": 462.3905875,
+            "top": 187.8834,
+            "right": 977.5937875,
+            "bottom": 703.0866000000001,
+            "width": 515.2032,
+            "height": 515.2032
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 94.59375,
+                "y": 129,
+                "width": 138.3125,
+                "height": 279,
+                "top": 129,
+                "right": 232.90625,
+                "bottom": 408,
+                "left": 94.59375
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 1085.390625,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1345.390625,
+                "bottom": 394,
+                "left": 1085.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-gutter-right": {
+              "present": true,
+              "rect": {
+                "x": 1145.390625,
+                "y": 457,
+                "width": 200,
+                "height": 182,
+                "top": 457,
+                "right": 1345.390625,
+                "bottom": 639,
+                "left": 1145.390625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        }
+      },
+      "latency": {
+        "apeIn": {
+          "clicked": true,
+          "ms": 78
+        },
+        "sendIt": {
+          "clicked": true,
+          "ms": 147
+        },
+        "firstTileTap": {
+          "clicked": true,
+          "ms": 12
+        }
+      },
+      "cashOutState": {
+        "beforeReveal": {
+          "present": true,
+          "disabled": true,
+          "text": "take profitcrack one open first"
+        },
+        "afterOneReveal": {
+          "present": false
+        }
+      },
+      "phasesReached": [
+        "lobby",
+        "bet-entry",
+        "playing"
+      ],
+      "loop": {
+        "win": {
+          "ok": true,
+          "attempt": 3,
+          "label": "Took profit at 1.83x: secured the bag",
+          "clicks": 1
+        },
+        "restartMs": null,
+        "restartPhase": "playing",
+        "rug": {
+          "ok": true,
+          "attempt": 0,
+          "label": "Rugged, lost 1.00 USDC: got SBF’d",
+          "clicks": 5
+        }
+      }
+    }
+  ],
+  "narrowZone": [
+    {
+      "W": 1024,
+      "H": 768,
+      "httpStatus": 304,
+      "isWideExpected": true,
+      "errors": [
+        {
+          "kind": "console.error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "overlaps": {
+        "lobby": {
+          "phase": "lobby",
+          "canvas": {
+            "x": 57.953125,
+            "y": 57,
+            "width": 908.078125,
+            "height": 683.515625,
+            "top": 57,
+            "right": 966.03125,
+            "bottom": 740.515625,
+            "left": 57.953125
+          },
+          "grid": {
+            "left": 292.1735625,
+            "top": 168.686453125,
+            "right": 731.8108125,
+            "bottom": 608.3237031250001,
+            "width": 439.63725,
+            "height": 439.63725
+          },
+          "cards": {
+            "vault-lobby-left": {
+              "present": true,
+              "rect": {
+                "x": 77.953125,
+                "y": 129,
+                "width": 260,
+                "height": 188.5,
+                "top": 129,
+                "right": 337.953125,
+                "bottom": 317.5,
+                "left": 77.953125
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": true
+            },
+            "vault-lobby-right": {
+              "present": true,
+              "rect": {
+                "x": 792.125,
+                "y": 129,
+                "width": 153.90625,
+                "height": 75,
+                "top": 129,
+                "right": 946.03125,
+                "bottom": 204,
+                "left": 792.125
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-controlcard": {
+              "present": false
+            }
+          }
+        },
+        "betentry": {
+          "phase": "bet-entry",
+          "canvas": {
+            "x": 57.953125,
+            "y": 57,
+            "width": 908.078125,
+            "height": 683.515625,
+            "top": 57,
+            "right": 966.03125,
+            "bottom": 740.515625,
+            "left": 57.953125
+          },
+          "grid": {
+            "left": 292.1735625,
+            "top": 168.686453125,
+            "right": 731.8108125,
+            "bottom": 608.3237031250001,
+            "width": 439.63725,
+            "height": 439.63725
+          },
+          "cards": {
+            "vault-betentry-left": {
+              "present": false
+            },
+            "vault-betentry-right": {
+              "present": true,
+              "rect": {
+                "x": 808.625,
+                "y": 129,
+                "width": 181.71875,
+                "height": 865.84375,
+                "top": 129,
+                "right": 990.34375,
+                "bottom": 994.84375,
+                "left": 808.625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "playing": {
+          "phase": "playing",
+          "canvas": {
+            "x": 57.953125,
+            "y": 64,
+            "width": 908.078125,
+            "height": 683.515625,
+            "top": 64,
+            "right": 966.03125,
+            "bottom": 747.515625,
+            "left": 57.953125
+          },
+          "grid": {
+            "left": 292.1735625,
+            "top": 175.686453125,
+            "right": 731.8108125,
+            "bottom": 615.3237031250001,
+            "width": 439.63725,
+            "height": 439.63725
+          },
+          "cards": {
+            "vault-playing-left": {
+              "present": true,
+              "rect": {
+                "x": 77.953125,
+                "y": 136,
+                "width": 260,
+                "height": 184.375,
+                "top": 136,
+                "right": 337.953125,
+                "bottom": 320.375,
+                "left": 77.953125
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": true
+            },
+            "vault-playing-right": {
+              "present": true,
+              "rect": {
+                "x": 736.0625,
+                "y": 136,
+                "width": 209.96875,
+                "height": 157,
+                "top": 136,
+                "right": 946.03125,
+                "bottom": 293,
+                "left": 736.0625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settled": {
+          "phase": "settled",
+          "canvas": {
+            "x": 57.953125,
+            "y": 84,
+            "width": 908.078125,
+            "height": 683.515625,
+            "top": 84,
+            "right": 966.03125,
+            "bottom": 767.515625,
+            "left": 57.953125
+          },
+          "grid": {
+            "left": 292.1735625,
+            "top": 195.686453125,
+            "right": 731.8108125,
+            "bottom": 635.3237031250001,
+            "width": 439.63725,
+            "height": 439.63725
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 77.953125,
+                "y": 156,
+                "width": 205.5,
+                "height": 279,
+                "top": 156,
+                "right": 283.453125,
+                "bottom": 435,
+                "left": 77.953125
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 686.03125,
+                "y": 156,
+                "width": 260,
+                "height": 265,
+                "top": 156,
+                "right": 946.03125,
+                "bottom": 421,
+                "left": 686.03125
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": true
+            }
+          }
+        }
+      },
+      "phasesReached": [
+        "lobby",
+        "bet-entry",
+        "playing",
+        "settled"
+      ],
+      "loop": {
+        "restartPhase": "playing"
+      },
+      "isWideActual": true,
+      "apeInClicked": true,
+      "sendItClicked": true,
+      "takeProfitClicked": true,
+      "settleLabel": "Took profit at 1.36x: small bag, still a bag",
+      "betAgainClicked": true
+    },
+    {
+      "W": 1120,
+      "H": 800,
+      "httpStatus": 304,
+      "isWideExpected": true,
+      "errors": [
+        {
+          "kind": "console.error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "overlaps": {
+        "lobby": {
+          "phase": "lobby",
+          "canvas": {
+            "x": 61.796875,
+            "y": 57,
+            "width": 996.390625,
+            "height": 712,
+            "top": 57,
+            "right": 1058.1875,
+            "bottom": 769,
+            "left": 61.796875
+          },
+          "grid": {
+            "left": 331.0129875,
+            "top": 173.34080000000003,
+            "right": 788.9713875,
+            "bottom": 631.2992,
+            "width": 457.95840000000004,
+            "height": 457.95840000000004
+          },
+          "cards": {
+            "vault-lobby-left": {
+              "present": true,
+              "rect": {
+                "x": 81.796875,
+                "y": 129,
+                "width": 260,
+                "height": 188.5,
+                "top": 129,
+                "right": 341.796875,
+                "bottom": 317.5,
+                "left": 81.796875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": true
+            },
+            "vault-lobby-right": {
+              "present": true,
+              "rect": {
+                "x": 884.28125,
+                "y": 129,
+                "width": 153.90625,
+                "height": 75,
+                "top": 129,
+                "right": 1038.1875,
+                "bottom": 204,
+                "left": 884.28125
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-controlcard": {
+              "present": false
+            }
+          }
+        },
+        "betentry": {
+          "phase": "bet-entry",
+          "canvas": {
+            "x": 61.796875,
+            "y": 57,
+            "width": 996.390625,
+            "height": 712,
+            "top": 57,
+            "right": 1058.1875,
+            "bottom": 769,
+            "left": 61.796875
+          },
+          "grid": {
+            "left": 331.0129875,
+            "top": 173.34080000000003,
+            "right": 788.9713875,
+            "bottom": 631.2992,
+            "width": 457.95840000000004,
+            "height": 457.95840000000004
+          },
+          "cards": {
+            "vault-betentry-left": {
+              "present": false
+            },
+            "vault-betentry-right": {
+              "present": true,
+              "rect": {
+                "x": 867.640625,
+                "y": 129,
+                "width": 190.546875,
+                "height": 848.84375,
+                "top": 129,
+                "right": 1058.1875,
+                "bottom": 977.84375,
+                "left": 867.640625
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "playing": {
+          "phase": "playing",
+          "canvas": {
+            "x": 61.796875,
+            "y": 64,
+            "width": 996.390625,
+            "height": 712,
+            "top": 64,
+            "right": 1058.1875,
+            "bottom": 776,
+            "left": 61.796875
+          },
+          "grid": {
+            "left": 331.0129875,
+            "top": 180.34080000000003,
+            "right": 788.9713875,
+            "bottom": 638.2992,
+            "width": 457.95840000000004,
+            "height": 457.95840000000004
+          },
+          "cards": {
+            "vault-playing-left": {
+              "present": true,
+              "rect": {
+                "x": 81.796875,
+                "y": 136,
+                "width": 260,
+                "height": 184.375,
+                "top": 136,
+                "right": 341.796875,
+                "bottom": 320.375,
+                "left": 81.796875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": true
+            },
+            "vault-playing-right": {
+              "present": true,
+              "rect": {
+                "x": 828.21875,
+                "y": 136,
+                "width": 209.96875,
+                "height": 157,
+                "top": 136,
+                "right": 1038.1875,
+                "bottom": 293,
+                "left": 828.21875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            }
+          }
+        },
+        "settled": {
+          "phase": "settled",
+          "canvas": {
+            "x": 61.796875,
+            "y": 57,
+            "width": 996.390625,
+            "height": 712,
+            "top": 57,
+            "right": 1058.1875,
+            "bottom": 769,
+            "left": 61.796875
+          },
+          "grid": {
+            "left": 331.0129875,
+            "top": 173.34080000000003,
+            "right": 788.9713875,
+            "bottom": 631.2992,
+            "width": 457.95840000000004,
+            "height": 457.95840000000004
+          },
+          "cards": {
+            "vault-settled-left": {
+              "present": true,
+              "rect": {
+                "x": 81.796875,
+                "y": 129,
+                "width": 149.671875,
+                "height": 279,
+                "top": 129,
+                "right": 231.46875,
+                "bottom": 408,
+                "left": 81.796875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": false
+            },
+            "vault-settled-right-new": {
+              "present": true,
+              "rect": {
+                "x": 778.1875,
+                "y": 129,
+                "width": 260,
+                "height": 265,
+                "top": 129,
+                "right": 1038.1875,
+                "bottom": 394,
+                "left": 778.1875
+              },
+              "overlapsCanvasElement": true,
+              "overlapsTilePlayfield": true
+            }
+          }
+        }
+      },
+      "phasesReached": [
+        "lobby",
+        "bet-entry",
+        "playing",
+        "settled"
+      ],
+      "loop": {
+        "restartPhase": "playing"
+      },
+      "isWideActual": true,
+      "apeInClicked": true,
+      "sendItClicked": true,
+      "settleLabel": "Rugged, lost 1.00 USDC: down horrendous",
+      "betAgainClicked": true
+    }
+  ],
+  "receiptProbe": {
+    "before": {
+      "chipPresent": true,
+      "togglePresent": true,
+      "toggleText": "view receipt ↓",
+      "ariaExpanded": "false",
+      "targetElementExists": false
+    },
+    "after": {
+      "toggleText": "hide receipt ↑",
+      "ariaExpanded": "true",
+      "targetElementExists": false,
+      "bodyTextLen": 404
+    },
+    "clicked": true
+  },
+  "staleClassCheck": null
+}

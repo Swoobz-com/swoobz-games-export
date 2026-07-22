@@ -1,0 +1,104 @@
+[
+  {
+    "vp": "1440",
+    "clicked": "ape in →",
+    "col2ComputedBorder": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "paddingLeft": "28px"
+    },
+    "col3ComputedBorder": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "paddingLeft": "28px",
+      "alignItems": "normal",
+      "justifyContent": "center"
+    },
+    "column": {
+      "top": 548,
+      "bottom": 766.28125,
+      "left": 1019.6875,
+      "right": 1348.390625,
+      "width": 328.703125,
+      "height": 218.28125
+    },
+    "pill": {
+      "top": 638.140625,
+      "bottom": 676.140625,
+      "left": 1048.6875,
+      "right": 1348.390625,
+      "width": 299.703125,
+      "height": 38
+    },
+    "value": {
+      "top": 648.140625,
+      "bottom": 666.140625,
+      "left": 1110.1875,
+      "right": 1225.65625,
+      "width": 115.46875,
+      "height": 18
+    },
+    "sub": {
+      "top": 652.140625,
+      "bottom": 665.140625,
+      "left": 1238.625,
+      "right": 1335.390625,
+      "width": 96.765625,
+      "height": 13
+    },
+    "gapValueToSub": 12.96875,
+    "pillFillsColumn": false,
+    "cyanHit": []
+  },
+  {
+    "vp": "1920",
+    "clicked": "ape in →",
+    "col2ComputedBorder": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "paddingLeft": "28px"
+    },
+    "col3ComputedBorder": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "paddingLeft": "28px",
+      "alignItems": "normal",
+      "justifyContent": "center"
+    },
+    "column": {
+      "top": 741.390625,
+      "bottom": 946.03125,
+      "left": 1348.5,
+      "right": 1766,
+      "width": 417.5,
+      "height": 204.640625
+    },
+    "pill": {
+      "top": 824.703125,
+      "bottom": 862.703125,
+      "left": 1377.5,
+      "right": 1766,
+      "width": 388.5,
+      "height": 38
+    },
+    "value": {
+      "top": 834.703125,
+      "bottom": 852.703125,
+      "left": 1439,
+      "right": 1554.46875,
+      "width": 115.46875,
+      "height": 18
+    },
+    "sub": {
+      "top": 838.703125,
+      "bottom": 851.703125,
+      "left": 1656.234375,
+      "right": 1753,
+      "width": 96.765625,
+      "height": 13
+    },
+    "gapValueToSub": 101.765625,
+    "pillFillsColumn": false,
+    "cyanHit": []
+  }
+]

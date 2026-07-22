@@ -1,0 +1,565 @@
+{
+  "results": [
+    {
+      "vp": "Pixel7-390x844",
+      "forceOutcome": "win",
+      "lobby": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "apeInBtn": {
+          "width": 318,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 89.1,
+          "text": "ape in →"
+        }
+      },
+      "betentry": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "columnsStructure": {
+          "found": true,
+          "panelChildCount": 2,
+          "childTags": [
+            "DIV",
+            "DIV"
+          ],
+          "panelRect": {
+            "x": 17,
+            "y": 590.515625,
+            "width": 356,
+            "height": 586.921875,
+            "top": 590.515625,
+            "right": 373,
+            "bottom": 1177.4375,
+            "left": 17
+          }
+        },
+        "sendItBtn": {
+          "width": 157.3,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 134.8,
+          "text": "SEND IT →"
+        },
+        "wagerSteppers": [
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 81.3
+          },
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 81.3
+          }
+        ],
+        "rugsSteppers": [],
+        "modeCards": [
+          {
+            "width": 102,
+            "height": 142.9,
+            "touchAction": "auto",
+            "vCenterPct": 101.7
+          },
+          {
+            "width": 102,
+            "height": 142.9,
+            "touchAction": "auto",
+            "vCenterPct": 101.7
+          },
+          {
+            "width": 102,
+            "height": 142.9,
+            "touchAction": "auto",
+            "vCenterPct": 101.7
+          }
+        ]
+      },
+      "playing": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [
+          {
+            "tag": "BUTTON",
+            "prop": "backgroundColor",
+            "val": "rgba(94, 234, 212, 0.08)",
+            "text": "take profitcrack one open firs"
+          }
+        ],
+        "takeProfitBtnDisabled": {
+          "width": 324,
+          "height": 61,
+          "touchAction": "auto",
+          "vCenterPct": 84.4,
+          "text": "take profitcrack one open first"
+        },
+        "takeProfitBtnEnabled": {
+          "width": 324,
+          "height": 59,
+          "touchAction": "auto",
+          "vCenterPct": 93.2,
+          "text": "TAKE PROFIT1.10 USDC · 1.10x"
+        },
+        "reachedSettled": true,
+        "actualOutcome": "win"
+      },
+      "settled": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "betAgainBtn": {
+          "width": 152.4,
+          "height": 44,
+          "touchAction": "manipulation",
+          "vCenterPct": 72.1,
+          "text": "bet again →"
+        }
+      }
+    },
+    {
+      "vp": "Pixel7-390x844",
+      "forceOutcome": "rug",
+      "lobby": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "apeInBtn": {
+          "width": 318,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 89.1,
+          "text": "ape in →"
+        }
+      },
+      "betentry": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "columnsStructure": {
+          "found": true,
+          "panelChildCount": 2,
+          "childTags": [
+            "DIV",
+            "DIV"
+          ],
+          "panelRect": {
+            "x": 17,
+            "y": 590.515625,
+            "width": 356,
+            "height": 624.921875,
+            "top": 590.515625,
+            "right": 373,
+            "bottom": 1215.4375,
+            "left": 17
+          }
+        },
+        "sendItBtn": {
+          "width": 157.3,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 139.3,
+          "text": "SEND IT →"
+        },
+        "wagerSteppers": [
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 81.3
+          },
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 81.3
+          }
+        ],
+        "rugsSteppers": [],
+        "modeCards": [
+          {
+            "width": 102,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 103.9
+          },
+          {
+            "width": 102,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 103.9
+          },
+          {
+            "width": 102,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 103.9
+          }
+        ]
+      },
+      "playing": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [
+          {
+            "tag": "BUTTON",
+            "prop": "backgroundColor",
+            "val": "rgba(94, 234, 212, 0.08)",
+            "text": "take profitcrack one open firs"
+          }
+        ],
+        "takeProfitBtnDisabled": {
+          "width": 324,
+          "height": 61,
+          "touchAction": "auto",
+          "vCenterPct": 84.4,
+          "text": "take profitcrack one open first"
+        },
+        "reachedSettled": true,
+        "actualOutcome": "rug"
+      },
+      "settled": {
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "betAgainBtn": {
+          "width": 152.4,
+          "height": 44,
+          "touchAction": "manipulation",
+          "vCenterPct": 72.1,
+          "text": "bet again →"
+        }
+      }
+    },
+    {
+      "vp": "iPhone14Pro-393x852",
+      "forceOutcome": "win",
+      "lobby": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "apeInBtn": {
+          "width": 321,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 88.8,
+          "text": "ape in →"
+        }
+      },
+      "betentry": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "columnsStructure": {
+          "found": true,
+          "panelChildCount": 2,
+          "childTags": [
+            "DIV",
+            "DIV"
+          ],
+          "panelRect": {
+            "x": 17,
+            "y": 595.15625,
+            "width": 359,
+            "height": 612.921875,
+            "top": 595.15625,
+            "right": 376,
+            "bottom": 1208.078125,
+            "left": 17
+          }
+        },
+        "sendItBtn": {
+          "width": 160.3,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 137.2,
+          "text": "SEND IT →"
+        },
+        "wagerSteppers": [
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 79.7
+          },
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 79.7
+          }
+        ],
+        "rugsSteppers": [],
+        "modeCards": [
+          {
+            "width": 103,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 102.1
+          },
+          {
+            "width": 103,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 102.1
+          },
+          {
+            "width": 103,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 102.1
+          }
+        ]
+      },
+      "playing": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [
+          {
+            "tag": "BUTTON",
+            "prop": "backgroundColor",
+            "val": "rgba(94, 234, 212, 0.08)",
+            "text": "take profitcrack one open firs"
+          }
+        ],
+        "takeProfitBtnDisabled": {
+          "width": 327,
+          "height": 61,
+          "touchAction": "auto",
+          "vCenterPct": 84.6,
+          "text": "take profitcrack one open first"
+        },
+        "takeProfitBtnEnabled": {
+          "width": 327,
+          "height": 59,
+          "touchAction": "auto",
+          "vCenterPct": 92.8,
+          "text": "TAKE PROFIT1.10 USDC · 1.10x"
+        },
+        "reachedSettled": true,
+        "actualOutcome": "win"
+      },
+      "settled": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "betAgainBtn": {
+          "width": 152.4,
+          "height": 44,
+          "touchAction": "manipulation",
+          "vCenterPct": 72,
+          "text": "bet again →"
+        }
+      }
+    },
+    {
+      "vp": "iPhone14Pro-393x852",
+      "forceOutcome": "rug",
+      "lobby": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "apeInBtn": {
+          "width": 321,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 88.8,
+          "text": "ape in →"
+        }
+      },
+      "betentry": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "columnsStructure": {
+          "found": true,
+          "panelChildCount": 2,
+          "childTags": [
+            "DIV",
+            "DIV"
+          ],
+          "panelRect": {
+            "x": 17,
+            "y": 595.15625,
+            "width": 359,
+            "height": 612.921875,
+            "top": 595.15625,
+            "right": 376,
+            "bottom": 1208.078125,
+            "left": 17
+          }
+        },
+        "sendItBtn": {
+          "width": 160.3,
+          "height": 43,
+          "touchAction": "auto",
+          "vCenterPct": 137.2,
+          "text": "SEND IT →"
+        },
+        "wagerSteppers": [
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 79.7
+          },
+          {
+            "width": 34,
+            "height": 34,
+            "touchAction": "auto",
+            "vCenterPct": 79.7
+          }
+        ],
+        "rugsSteppers": [],
+        "modeCards": [
+          {
+            "width": 103,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 102.1
+          },
+          {
+            "width": 103,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 102.1
+          },
+          {
+            "width": 103,
+            "height": 180.9,
+            "touchAction": "auto",
+            "vCenterPct": 102.1
+          }
+        ]
+      },
+      "playing": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [
+          {
+            "tag": "BUTTON",
+            "prop": "backgroundColor",
+            "val": "rgba(94, 234, 212, 0.08)",
+            "text": "take profitcrack one open firs"
+          }
+        ],
+        "takeProfitBtnDisabled": {
+          "width": 327,
+          "height": 61,
+          "touchAction": "auto",
+          "vCenterPct": 84.6,
+          "text": "take profitcrack one open first"
+        },
+        "reachedSettled": true,
+        "actualOutcome": "rug"
+      },
+      "settled": {
+        "overflow": {
+          "scrollWidth": 393,
+          "clientWidth": 393,
+          "hasOverflow": false,
+          "topOffenders": []
+        },
+        "cyan": [],
+        "betAgainBtn": {
+          "width": 152.4,
+          "height": 44,
+          "touchAction": "manipulation",
+          "vCenterPct": 72,
+          "text": "bet again →"
+        }
+      }
+    }
+  ],
+  "consoleErrors": [
+    {
+      "vp": "Pixel7-390x844",
+      "phase": "console.error",
+      "msg": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "vp": "Pixel7-390x844",
+      "phase": "console.error",
+      "msg": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "vp": "Pixel7-390x844",
+      "phase": "console.error",
+      "msg": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "vp": "iPhone14Pro-393x852",
+      "phase": "console.error",
+      "msg": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "vp": "iPhone14Pro-393x852",
+      "phase": "console.error",
+      "msg": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ]
+}

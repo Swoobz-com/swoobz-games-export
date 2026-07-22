@@ -1,0 +1,92 @@
+{
+  "enabled_attempt_0_result": "safe",
+  "enabled_reveal_achieved": true,
+  "takeprofit_enabled_style": {
+    "text": "TAKE PROFIT1.10 USDC · 1.10x",
+    "disabled": false,
+    "isDramatic": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "fontSize": "13.3333px",
+    "width": 159.4375,
+    "parentWidth": 189.4375,
+    "minWidth": "0px"
+  },
+  "playing_actions_rect_enabled": {
+    "top": 166.5,
+    "left": 1155.953125,
+    "right": 1345.390625,
+    "bottom": 321.5,
+    "width": 189.4375,
+    "height": 155
+  },
+  "playing_status_rect_enabled": {
+    "top": 166.5,
+    "left": 94.59375,
+    "right": 354.59375,
+    "bottom": 350.875,
+    "width": 260,
+    "height": 184.375
+  },
+  "pump_stat_text_enabled": "PUMPINGcrack a compartment open · or take profitPump1.10xBag now1.10 USDCRugs3",
+  "dramatic_roundAttempt_0": {
+    "safeCount": 4,
+    "busted": false,
+    "dramaticAchieved": true
+  },
+  "dramatic_reveal_achieved": true,
+  "takeprofit_dramatic_style": {
+    "text": "TAKE PROFIT1.53 USDC · 1.53x",
+    "disabled": false,
+    "isDramatic": true,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "fontSize": "13.3333px",
+    "width": 183.03125,
+    "parentWidth": 213.03125,
+    "minWidth": "0px"
+  },
+  "playing_actions_rect_dramatic": {
+    "top": 166.5,
+    "left": 1132.359375,
+    "right": 1345.390625,
+    "bottom": 332.5,
+    "width": 213.03125,
+    "height": 166
+  },
+  "pump_stat_text_dramatic": "PUMPINGcrack a compartment open · or take profitPump1.53xBag now1.53 USDCRugs3",
+  "contrast_enabled": {
+    "label": "TAKE PROFIT (enabled, non-dramatic)",
+    "text": "TAKE PROFIT1.10 USDC · 1.10x",
+    "isDramatic": false,
+    "disabled": false,
+    "opacity": "1",
+    "color": "rgb(4, 19, 11)",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "fontSize": "13.3333px",
+    "contrastVsTopStop": "11.40",
+    "contrastVsBottomStop": "6.12",
+    "worstCaseAA_normalText": true,
+    "widthVsParent": "159.4 / 189.4",
+    "minWidthComputed": "0px"
+  },
+  "contrast_dramatic": {
+    "label": "TAKE PROFIT (dramatic, >1.5x)",
+    "text": "TAKE PROFIT1.53 USDC · 1.53x",
+    "isDramatic": true,
+    "disabled": false,
+    "opacity": "1",
+    "color": "rgb(4, 19, 11)",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "fontSize": "13.3333px",
+    "contrastVsTopStop": "11.40",
+    "contrastVsBottomStop": "6.12",
+    "worstCaseAA_normalText": true,
+    "widthVsParent": "183.0 / 213.0",
+    "minWidthComputed": "0px"
+  }
+}

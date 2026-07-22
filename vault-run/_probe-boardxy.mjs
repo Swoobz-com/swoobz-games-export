@@ -1,0 +1,22 @@
+import puppeteer from 'puppeteer-core';
+const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+(async () => {
+  const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new' });
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
+  await page.evaluateOnNewDocument(() => { try { localStorage.clear(); sessionStorage.clear(); } catch(e){} });
+  await page.goto('http://localhost:5390/', { waitUntil: 'networkidle2', timeout: 60000 });
+  await wait(1200);
+  const blueBtn = await page.$('[data-testid="vault-world-card-bluechips"]');
+  await blueBtn.click();
+  await wait(300);
+  const sendIt = await page.evaluateHandle(() => [...document.querySelectorAll('button')].find(b => b.textContent.includes('SEND IT')));
+  await sendIt.asElement().click();
+  await wait(600);
+  await page.screenshot({ path: 'probe-boardxy.png' });
+  const canvas = await page.$('canvas');
+  const box = await canvas.boundingBox();
+  console.log('CANVAS BOX', JSON.stringify(box));
+  await browser.close();
+})();

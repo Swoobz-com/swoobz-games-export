@@ -1,0 +1,58 @@
+{
+  "settled": true,
+  "bodyTextSnippet": "",
+  "balanceAfter": "0.00",
+  "visibleButtons": [
+    {
+      "text": "bet again →",
+      "disabled": true
+    },
+    {
+      "text": "view receipt ↓",
+      "disabled": false
+    },
+    {
+      "text": "",
+      "disabled": false
+    },
+    {
+      "text": "?",
+      "disabled": false
+    },
+    {
+      "text": "−",
+      "disabled": false
+    },
+    {
+      "text": "+",
+      "disabled": false
+    },
+    {
+      "text": "bet again →",
+      "disabled": true
+    },
+    {
+      "text": "change mode ↗",
+      "disabled": false
+    },
+    {
+      "text": "share ↗",
+      "disabled": false
+    }
+  ],
+  "clickedBackToBetEntry": true,
+  "phaseAfterBack_hasWorldCard": true,
+  "sendIt_disabled_state": {
+    "cardFound": true,
+    "btnFound": true,
+    "text": "not enough bag",
+    "disabled": true,
+    "opacity": "1",
+    "backgroundImage": "none",
+    "backgroundColor": "rgba(94, 234, 212, 0.08)",
+    "color": "rgba(255, 255, 255, 0.62)",
+    "cursor": "not-allowed",
+    "border": "1px solid rgba(255, 255, 255, 0.06)"
+  },
+  "balanceAtBetEntry": "0.00"
+}

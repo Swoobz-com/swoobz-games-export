@@ -1,0 +1,48 @@
+[
+  {
+    "vp": "1440",
+    "clicked": true,
+    "rects": {
+      "board": {
+        "top": 74,
+        "bottom": 776,
+        "left": 74.59375,
+        "right": 1365.390625,
+        "width": 1290.796875,
+        "height": 702
+      },
+      "console": {
+        "top": 777,
+        "bottom": 1267.640625,
+        "left": 74.59375,
+        "right": 1365.390625,
+        "width": 1290.796875,
+        "height": 490.640625
+      },
+      "clicked_ok": true
+    }
+  },
+  {
+    "vp": "1920",
+    "clicked": true,
+    "rects": {
+      "board": {
+        "top": 74,
+        "bottom": 916.390625,
+        "left": 137,
+        "right": 1783,
+        "width": 1646,
+        "height": 842.390625
+      },
+      "console": {
+        "top": 917.390625,
+        "bottom": 1408.03125,
+        "left": 137,
+        "right": 1783,
+        "width": 1646,
+        "height": 490.640625
+      },
+      "clicked_ok": true
+    }
+  }
+]

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Abyss Line — entry screen example</title>
+<style>
+body{margin:0;background:#03090f;display:flex;justify-content:center;align-items:flex-start;padding:24px;font-family:ui-monospace,Consolas,Menlo,monospace}
+.stage{width:680px;zoom:1.6}
+.p{background:rgba(16,26,36,.93);border:1px solid #2c4356;border-radius:10px;padding:9px 11px}
+</style></head><body>
+<div class="stage">
+<div style="position:relative;border-radius:12px;overflow:hidden;">
+  <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true">
+    <defs>
+      <radialGradient id="wt" cx="50%" cy="28%" r="90%"><stop offset="0%" stop-color="#103042"/><stop offset="50%" stop-color="#081b28"/><stop offset="100%" stop-color="#03090f"/></radialGradient>
+      <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#35e0d2" stop-opacity="0.13"/><stop offset="100%" stop-color="#35e0d2" stop-opacity="0"/></linearGradient>
+      <radialGradient id="gg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0b542" stop-opacity="0.4"/><stop offset="100%" stop-color="#f0b542" stop-opacity="0"/></radialGradient>
+      <g id="ing">
+        <polygon points="0,6 6,0 42,0 36,6" fill="#f5d98a" stroke="#2a1c06" stroke-width="2.5"/>
+        <polygon points="0,6 36,6 36,20 0,20" fill="#d9a94f" stroke="#2a1c06" stroke-width="2.5"/>
+        <polygon points="36,6 42,0 42,14 36,20" fill="#a87f2e" stroke="#2a1c06" stroke-width="2.5"/>
+      </g>
+      <g id="cp">
+        <ellipse cx="0" cy="0" rx="15" ry="6" fill="#d9a94f" stroke="#2a1c06" stroke-width="2"/>
+        <ellipse cx="14" cy="3" rx="13" ry="5.5" fill="#f0b542" stroke="#2a1c06" stroke-width="2"/>
+        <ellipse cx="4" cy="-6" rx="11" ry="5" fill="#f5d98a" stroke="#2a1c06" stroke-width="2"/>
+      </g>
+      <g id="coin">
+        <circle r="13.5" fill="#8a6a26" stroke="#2a1c06" stroke-width="2"/>
+        <circle r="11.5" fill="#d9a94f"/>
+        <circle r="9.5" fill="none" stroke="#b98f3a" stroke-width="1.4" stroke-dasharray="2.2 2"/>
+        <circle r="7" fill="#c99b45" stroke="#a87f2e" stroke-width="1"/>
+        <path d="M 0 -5 L 1.4 -1.4 L 5 0 L 1.4 1.4 L 0 5 L -1.4 1.4 L -5 0 L -1.4 -1.4 Z" fill="#8a6a26"/>
+        <path d="M -8 -7 A 10.5 10.5 0 0 1 -1 -11" fill="none" stroke="#f5d98a" stroke-width="2.2" stroke-linecap="round"/>
+      </g>
+    </defs>
+    <rect width="1600" height="900" fill="url(#wt)"/>
+    <polygon points="240,0 340,0 470,880 120,880" fill="url(#ray)"/>
+    <polygon points="1260,0 1360,0 1490,880 1140,880" fill="url(#ray)"/>
+    <g opacity="0.55"><circle cx="180" cy="200" r="3" fill="#2bd9c9"/><circle cx="120" cy="420" r="3.5" fill="#2bd9c9"/><circle cx="1460" cy="240" r="3" fill="#2bd9c9"/><circle cx="1510" cy="450" r="3.5" fill="#2bd9c9"/></g>
+    <g stroke="#03090f" stroke-width="6" stroke-linejoin="round">
+      <path d="M 1130 640 Q 1250 560 1430 580 Q 1560 596 1620 660 L 1620 900 L 1100 900 Q 1090 740 1130 640 Z" fill="#1c1208"/>
+      <rect x="1298" y="330" width="16" height="310" fill="#241809" transform="rotate(8 1306 485)"/>
+      <path d="M 1315 350 L 1440 380 L 1330 460 Z" fill="#101c26" opacity="0.9"/>
+      <circle cx="1230" cy="720" r="11" fill="#f0b542"/><circle cx="1330" cy="740" r="11" fill="#f0b542"/>
+    </g>
+    <g stroke="#03090f" stroke-width="5" stroke-linejoin="round">
+      <path d="M -20 900 L -20 260 L 80 290 L 110 400 L 190 430 L 220 570 L 310 610 L 340 760 L 420 800 L 440 900 Z" fill="#0c1c29"/>
+      <path d="M -20 900 L -20 500 L 60 530 L 90 650 L 180 690 L 210 820 L 290 860 L 300 900 Z" fill="#081420"/>
+    </g>
+    <path d="M 370 900 C 358 810 392 760 376 670 C 365 600 392 560 386 500" fill="none" stroke="#0f3a30" stroke-width="11" stroke-linecap="round"/>
+    <path d="M 0 850 Q 400 818 800 844 Q 1200 870 1600 838 L 1600 900 L 0 900 Z" fill="#15303f" stroke="#03090f" stroke-width="5"/>
+    <circle cx="520" cy="840" r="60" fill="url(#gg)"/>
+    <g stroke="#2a1c06" stroke-width="3" stroke-linejoin="round">
+      <rect x="468" y="806" width="100" height="58" rx="9" fill="#6e4526"/>
+      <path d="M 468 806 q 50 -34 100 0 l 0 12 q -50 -30 -100 0 Z" fill="#57351c"/>
+      <rect x="508" y="812" width="20" height="16" rx="3" fill="#f0b542"/>
+    </g>
+    <use href="#cp" x="545" y="800"/><use href="#cp" x="480" y="795"/>
+    <use href="#ing" x="960" y="820"/><use href="#ing" x="1006" y="826"/><use href="#ing" x="982" y="800"/>
+    <use href="#ing" x="120" y="840"/><use href="#cp" x="230" y="856"/>
+    <polygon points="690,140 910,140 1070,870 530,870" fill="url(#ray)"/>
+    <g stroke="#03090f" stroke-width="5" stroke-linejoin="round">
+      <ellipse cx="800" cy="100" rx="115" ry="44" fill="#16374a"/>
+      <ellipse cx="800" cy="88" rx="115" ry="38" fill="#1d4459"/>
+      <path d="M 692 88 q -42 -10 -60 14 q 24 18 64 10 Z" fill="#12303f"/>
+      <rect x="756" y="38" width="14" height="28" rx="6" fill="#12303f"/>
+      <circle cx="828" cy="94" r="19" fill="#0a1a24"/><circle cx="828" cy="94" r="11" fill="#35e0d2"/>
+      <circle cx="900" cy="112" r="11" fill="#f0b542"/>
+    </g>
+  </svg>
+
+  <div style="position:relative;padding:14px;">
+    <div style="height:38px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,26,36,.93);border:1px solid #2c4356;border-radius:8px;padding:0 14px;margin-bottom:10px;">
+      <span style="color:#e6f1f5;font-size:12px;font-weight:500;letter-spacing:3px;">SWOOBZ <span style="color:#87a6b5;letter-spacing:1px;font-weight:400;">· ABYSS LINE</span></span>
+      <span style="color:#87a6b5;font-size:11px;letter-spacing:1px;">RTP 96.50%</span>
+      <span style="color:#f0b542;font-size:12px;font-weight:500;">BALANCE 1000.00</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 198px;gap:10px;margin-bottom:10px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:352px;display:flex;align-items:flex-end;justify-content:space-between;">
+          <span style="color:#e6f1f5;font-size:19px;font-weight:500;letter-spacing:3px;">ABYSS LINE</span>
+          <span style="color:#35e0d2;font-size:11px;letter-spacing:1px;">SONAR ACTIVE</span>
+        </div>
+        <div style="background:rgba(10,20,30,.9);border:1px solid #2c4356;border-radius:14px;padding:10px;">
+          <svg viewBox="0 0 330 210" style="width:330px;height:210px;display:block;" aria-hidden="true">
+            <g id="rows"></g>
+          </svg>
+        </div>
+        <div style="color:#a9c6d2;font-size:11px;letter-spacing:1px;background:rgba(5,12,18,.75);border-radius:6px;padding:2px 10px;">TRACE 8–60 DUCATS · ONE <span style="color:#ff5d5d;">CRACKED DUCAT</span> BUSTS THE DIVE</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div class="p">
+          <div style="color:#87a6b5;font-size:11px;letter-spacing:2px;margin-bottom:5px;">THE DIVE</div>
+          <div style="color:#e6f1f5;font-size:11px;line-height:1.7;">1 · Plot your claim line<br>2 · Run the line, ducat by ducat<br>3 · Every ducat loads the haul<br>4 · Cracked ducat = bust</div>
+        </div>
+        <div class="p">
+          <div style="color:#87a6b5;font-size:11px;letter-spacing:2px;margin-bottom:5px;">DIVE DEPTH</div>
+          <div style="display:flex;justify-content:space-between;color:#e6f1f5;font-size:11px;padding:2px 0;"><span>REEF SHELF</span><span style="color:#f0b542;">8.95x</span></div>
+          <div style="display:flex;justify-content:space-between;color:#e6f1f5;font-size:11px;padding:2px 0;"><span>MIDNIGHT ZONE</span><span style="color:#f0b542;">19.16x</span></div>
+          <div style="display:flex;justify-content:space-between;color:#e6f1f5;font-size:11px;padding:2px 0;"><span>HADAL TRENCH</span><span style="color:#f0b542;">446.12x</span></div>
+        </div>
+        <div style="height:42px;background:#35e0d2;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#042220;font-size:12px;font-weight:500;letter-spacing:2px;margin-top:auto;">ENTER THE DIVE →</div>
+      </div>
+    </div>
+
+    <div style="height:28px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,26,36,.93);border:1px solid #2c4356;border-radius:8px;padding:0 12px;">
+      <span style="color:#87a6b5;font-size:11px;letter-spacing:1px;">THE WRECK OF THE GOLDEN SLEDGE · DEPTH 3,800M</span>
+      <span style="color:#87a6b5;font-size:11px;letter-spacing:1px;">PLAY SAFE ↗</span>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+const g=document.getElementById('rows');
+for(let r=0;r<7;r++){for(let c=0;c<11;c++){
+  const u=document.createElementNS('http://www.w3.org/2000/svg','use');
+  u.setAttribute('href','#coin');u.setAttribute('x',15+c*30);u.setAttribute('y',15+r*30);
+  g.appendChild(u);
+}}
+</script>
+</body></html>

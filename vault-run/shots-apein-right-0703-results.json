@@ -1,0 +1,201 @@
+{
+  "d1440": {
+    "width": 1440,
+    "height": 900,
+    "gutterTestids": {
+      "left": true,
+      "hero": true,
+      "right": true,
+      "apein": true
+    },
+    "rects": {
+      "hero": {
+        "left": 94.59375,
+        "right": 354.59375,
+        "top": 169.5,
+        "bottom": 358,
+        "width": 260,
+        "height": 188.5,
+        "centerX": 224.59375,
+        "centerY": 263.75
+      },
+      "leftStack": {
+        "left": 94.59375,
+        "right": 354.59375,
+        "top": 169.5,
+        "bottom": 358,
+        "width": 260,
+        "height": 188.5,
+        "centerX": 224.59375,
+        "centerY": 263.75
+      },
+      "rightStack": {
+        "left": 1191.484375,
+        "right": 1345.390625,
+        "top": 169.5,
+        "bottom": 244.5,
+        "width": 153.90625,
+        "height": 75,
+        "centerX": 1268.4375,
+        "centerY": 207
+      },
+      "apeinCard": {
+        "left": 1191.484375,
+        "right": 1345.390625,
+        "top": 169.5,
+        "bottom": 244.5,
+        "width": 153.90625,
+        "height": 75,
+        "centerX": 1268.4375,
+        "centerY": 207
+      },
+      "apeinButton": {
+        "left": 1206.484375,
+        "right": 1330.390625,
+        "top": 184.5,
+        "bottom": 227.5,
+        "width": 123.90625,
+        "height": 43,
+        "centerX": 1268.4375,
+        "centerY": 206,
+        "text": "ape in →"
+      }
+    },
+    "viewportCenterX": 720,
+    "apein_side": "RIGHT",
+    "apein_deltaFromCenter": 548.4375,
+    "hero_side": "LEFT",
+    "hero_deltaFromCenter": -495.40625,
+    "buttonStyle": {
+      "text": "ape in →",
+      "disabled": false,
+      "opacity": "1",
+      "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(4, 19, 11)",
+      "cardBackdropFilter": "blur(14px) saturate(1.15)",
+      "cardOpacity": "1"
+    },
+    "contrast": {
+      "ratios": [
+        11.404068708849923,
+        6.117688559496941
+      ],
+      "worst": 6.117688559496941,
+      "stopAlphas": [
+        1,
+        1
+      ]
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "d1920": {
+    "width": 1920,
+    "height": 1080,
+    "gutterTestids": {
+      "left": true,
+      "hero": true,
+      "right": true,
+      "apein": true
+    },
+    "rects": {
+      "hero": {
+        "left": 157,
+        "right": 417,
+        "top": 189.296875,
+        "bottom": 377.796875,
+        "width": 260,
+        "height": 188.5,
+        "centerX": 287,
+        "centerY": 283.546875
+      },
+      "leftStack": {
+        "left": 157,
+        "right": 417,
+        "top": 189.296875,
+        "bottom": 377.796875,
+        "width": 260,
+        "height": 188.5,
+        "centerX": 287,
+        "centerY": 283.546875
+      },
+      "rightStack": {
+        "left": 1609.09375,
+        "right": 1763,
+        "top": 189.296875,
+        "bottom": 264.296875,
+        "width": 153.90625,
+        "height": 75,
+        "centerX": 1686.046875,
+        "centerY": 226.796875
+      },
+      "apeinCard": {
+        "left": 1609.09375,
+        "right": 1763,
+        "top": 189.296875,
+        "bottom": 264.296875,
+        "width": 153.90625,
+        "height": 75,
+        "centerX": 1686.046875,
+        "centerY": 226.796875
+      },
+      "apeinButton": {
+        "left": 1624.09375,
+        "right": 1748,
+        "top": 204.296875,
+        "bottom": 247.296875,
+        "width": 123.90625,
+        "height": 43,
+        "centerX": 1686.046875,
+        "centerY": 225.796875,
+        "text": "ape in →"
+      }
+    },
+    "viewportCenterX": 960,
+    "apein_side": "RIGHT",
+    "apein_deltaFromCenter": 726.046875,
+    "hero_side": "LEFT",
+    "hero_deltaFromCenter": -673,
+    "buttonStyle": {
+      "text": "ape in →",
+      "disabled": false,
+      "opacity": "1",
+      "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(4, 19, 11)",
+      "cardBackdropFilter": "blur(14px) saturate(1.15)",
+      "cardOpacity": "1"
+    },
+    "contrast": {
+      "ratios": [
+        11.404068708849923,
+        6.117688559496941
+      ],
+      "worst": 6.117688559496941,
+      "stopAlphas": [
+        1,
+        1
+      ]
+    },
+    "consoleErrors": []
+  },
+  "mobile": {
+    "gutterDom": {
+      "lobbyLeft": 0,
+      "lobbyRight": 0,
+      "lobbyApein": 0
+    },
+    "hasApeInText": true,
+    "panel": {
+      "found": true,
+      "childElementCount": 1,
+      "rect": {
+        "top": 590.515625,
+        "bottom": 791.515625,
+        "height": 201
+      }
+    }
+  }
+}

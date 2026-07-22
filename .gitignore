@@ -1,0 +1,26 @@
+# Dependencies & build output
+node_modules/
+dist/
+*.log
+
+# QA evidence (screenshots/frames from probe runs — regenerated per run)
+shots*/
+**/shots*/
+**/_autisk-shots*/
+maze-runner/qa/
+maze-runner/inputvideo/
+
+# Regenerable AI-generation output (job ids live in the MANIFESTs)
+generated/
+
+# QA probe scripts (per HANDOFF: not part of any build)
+**/_qa-*.mjs
+**/_qa-*.cjs
+**/_autisk-*.mjs
+**/_jesse-*.mjs
+**/_gen-*.cjs
+**/driver*.cjs
+
+# OS noise
+Thumbs.db
+desktop.ini

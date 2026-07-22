@@ -1,0 +1,168 @@
+{
+  "D1440_footer_robust": {
+    "panelWidth": {
+      "top": 734,
+      "bottom": 1066.28125,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 332.28125
+    },
+    "balanceRect": {
+      "top": 1014.28125,
+      "bottom": 1039.28125,
+      "left": 91.59375,
+      "right": 177.375,
+      "width": 85.78125,
+      "height": 25
+    },
+    "footerRect": {
+      "top": 1005.28125,
+      "bottom": 1048.28125,
+      "left": 91.59375,
+      "right": 1348.390625,
+      "width": 1256.796875,
+      "height": 43
+    },
+    "footerJustifyContent": "space-between",
+    "footerDisplay": "flex",
+    "sendItRect": {
+      "top": 1005.28125,
+      "bottom": 1048.28125,
+      "left": 352.078125,
+      "right": 1348.390625,
+      "width": 996.3125,
+      "height": 43
+    }
+  },
+  "D1440_win_attempt": {
+    "attempt": 1,
+    "label": "Took profit at 1.73x, won 0.73 USDC",
+    "isSettled": true
+  },
+  "D1440_win_phase": {
+    "board": {
+      "top": -69,
+      "bottom": 633,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 633,
+      "bottom": 827,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 194
+    }
+  },
+  "D1920_footer_robust": {
+    "panelWidth": {
+      "top": 917.390625,
+      "bottom": 1266.03125,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 348.640625
+    },
+    "balanceRect": {
+      "top": 1214.03125,
+      "bottom": 1239.03125,
+      "left": 154,
+      "right": 239.78125,
+      "width": 85.78125,
+      "height": 25
+    },
+    "footerRect": {
+      "top": 1205.03125,
+      "bottom": 1248.03125,
+      "left": 154,
+      "right": 1766,
+      "width": 1612,
+      "height": 43
+    },
+    "footerJustifyContent": "space-between",
+    "footerDisplay": "flex",
+    "sendItRect": {
+      "top": 1205.03125,
+      "bottom": 1248.03125,
+      "left": 414.484375,
+      "right": 1766,
+      "width": 1351.515625,
+      "height": 43
+    }
+  },
+  "M390_footer_robust": {
+    "panelWidth": {
+      "top": 590.515625,
+      "bottom": 1215.4375,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 624.921875
+    },
+    "balanceRect": {
+      "top": 1119.4375,
+      "bottom": 1144.4375,
+      "left": 34,
+      "right": 119.78125,
+      "width": 85.78125,
+      "height": 25
+    },
+    "footerRect": {
+      "top": 1119.4375,
+      "bottom": 1197.4375,
+      "left": 34,
+      "right": 356,
+      "width": 322,
+      "height": 78
+    },
+    "footerJustifyContent": "space-between",
+    "footerDisplay": "flex",
+    "sendItRect": {
+      "top": 1154.4375,
+      "bottom": 1197.4375,
+      "left": 198.703125,
+      "right": 356,
+      "width": 157.296875,
+      "height": 43
+    }
+  },
+  "M390_touchTargets": {
+    "stepBtns": [
+      {
+        "width": 34,
+        "height": 34
+      },
+      {
+        "width": 34,
+        "height": 34
+      },
+      {
+        "width": 40,
+        "height": 40
+      },
+      {
+        "width": 40,
+        "height": 40
+      }
+    ],
+    "sendIt": {
+      "width": 157.296875,
+      "height": 43
+    }
+  },
+  "M390_isColumnsMode": {
+    "childCount": 2,
+    "childTags": [
+      "DIV",
+      "DIV"
+    ],
+    "childDisplay": [
+      "flex",
+      "flex"
+    ]
+  }
+}

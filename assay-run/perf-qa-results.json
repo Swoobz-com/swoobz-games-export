@@ -1,0 +1,181 @@
+{
+  "results": {
+    "1440x900-dpr2": {
+      "label": "1440x900-dpr2",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 2
+      },
+      "canvasBox": {
+        "x": 390,
+        "y": 137,
+        "w": 660,
+        "h": 660
+      },
+      "boardMeta": {
+        "cssW": "660px",
+        "attrW": 1320,
+        "attrH": 1320
+      },
+      "idle": {
+        "trailPainted": 24,
+        "visDrawImage": 0,
+        "offDrawImage": 0,
+        "clearRectVis": 0,
+        "clearRectOff": 0,
+        "rafCallbacks": 0,
+        "rafTotalMs": 0,
+        "rafMaxMs": 0,
+        "note": "zero rafCallbacks expected — canvas draw() has no rAF loop outside assaying/bad-vein"
+      },
+      "idleDragCost": {
+        "avgMs": 0.02666666656732559,
+        "p95Ms": 0.10000000894069672,
+        "n": 60
+      },
+      "cascade": {
+        "visDrawImage": 556,
+        "offDrawImage": 25576,
+        "clearRectVis": 556,
+        "clearRectOff": 25,
+        "rafCallbacks": 531,
+        "rafTotalMs": 32.09999966621399,
+        "rafMaxMs": 0.29999999701976776,
+        "frameTime": {
+          "n": 531,
+          "avg": 0.06045197677253105,
+          "p50": 0.09999999403953552,
+          "p95": 0.19999998807907104,
+          "max": 0.29999999701976776
+        }
+      },
+      "postCascadeBusted": true
+    },
+    "1920x1080-dpr1": {
+      "label": "1920x1080-dpr1",
+      "viewport": {
+        "width": 1920,
+        "height": 1080,
+        "dpr": 1
+      },
+      "canvasBox": {
+        "x": 570,
+        "y": 137,
+        "w": 780,
+        "h": 780
+      },
+      "boardMeta": {
+        "cssW": "780px",
+        "attrW": 780,
+        "attrH": 780
+      },
+      "idle": {
+        "trailPainted": 24,
+        "visDrawImage": 0,
+        "offDrawImage": 0,
+        "clearRectVis": 0,
+        "clearRectOff": 0,
+        "rafCallbacks": 0,
+        "rafTotalMs": 0,
+        "rafMaxMs": 0,
+        "note": "zero rafCallbacks expected — canvas draw() has no rAF loop outside assaying/bad-vein"
+      },
+      "idleDragCost": {
+        "avgMs": 0.02666666656732559,
+        "p95Ms": 0.10000000894069672,
+        "n": 60
+      },
+      "cascade": {
+        "visDrawImage": 218,
+        "offDrawImage": 5116,
+        "clearRectVis": 218,
+        "clearRectOff": 5,
+        "rafCallbacks": 213,
+        "rafTotalMs": 10.500000298023224,
+        "rafMaxMs": 0.29999999701976776,
+        "frameTime": {
+          "n": 213,
+          "avg": 0.04929577604705739,
+          "p50": 0,
+          "p95": 0.10000000894069672,
+          "max": 0.29999999701976776
+        }
+      },
+      "postCascadeBusted": true
+    },
+    "2560x1440-dpr1": {
+      "label": "2560x1440-dpr1",
+      "viewport": {
+        "width": 2560,
+        "height": 1440,
+        "dpr": 1
+      },
+      "canvasBox": {
+        "x": 800,
+        "y": 137,
+        "w": 960,
+        "h": 960
+      },
+      "boardMeta": {
+        "cssW": "960px",
+        "attrW": 960,
+        "attrH": 960
+      },
+      "idle": {
+        "trailPainted": 24,
+        "visDrawImage": 0,
+        "offDrawImage": 0,
+        "clearRectVis": 0,
+        "clearRectOff": 0,
+        "rafCallbacks": 0,
+        "rafTotalMs": 0,
+        "rafMaxMs": 0,
+        "note": "zero rafCallbacks expected — canvas draw() has no rAF loop outside assaying/bad-vein"
+      },
+      "idleDragCost": {
+        "avgMs": 0.04333333348234494,
+        "p95Ms": 0.10000000894069672,
+        "n": 60
+      },
+      "cascade": {
+        "visDrawImage": 219,
+        "offDrawImage": 4093,
+        "clearRectVis": 219,
+        "clearRectOff": 4,
+        "rafCallbacks": 215,
+        "rafTotalMs": 10.400000110268593,
+        "rafMaxMs": 0.20000000298023224,
+        "frameTime": {
+          "n": 215,
+          "avg": 0.04837209353613299,
+          "p50": 0,
+          "p95": 0.10000000894069672,
+          "max": 0.20000000298023224
+        }
+      },
+      "postCascadeBusted": true
+    }
+  },
+  "bustResult": {
+    "attempt": 0,
+    "busted": true,
+    "label": "1440x900-dpr2",
+    "frameTime": {
+      "n": 883,
+      "avg": 0.04665911646553506,
+      "p50": 0,
+      "p95": 0.10000000894069672,
+      "max": 0.20000000298023224
+    },
+    "counters": {
+      "visDrawImage": 919,
+      "offDrawImage": 36829,
+      "clearRectVis": 919,
+      "clearRectOff": 36,
+      "rafCallbacks": 883,
+      "rafTotalMs": 41.19999983906746,
+      "rafMaxMs": 0.20000000298023224
+    }
+  }
+}

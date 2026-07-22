@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Pulse — live round (candle crash)</title>
+<style>
+body{margin:0;background:#03070d;display:flex;justify-content:center;padding:24px;font-family:ui-monospace,Consolas,Menlo,monospace}
+.stage{width:680px;zoom:1.6}
+.p{background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:10px;padding:9px 11px}
+</style></head><body>
+<div class="stage">
+<div style="position:relative;border-radius:12px;overflow:hidden;background:#060b12;padding:14px;">
+  <div style="height:38px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:8px;padding:0 14px;margin-bottom:10px;">
+    <span style="color:#dcecf2;font-size:12px;font-weight:500;letter-spacing:3px;">SWOOBZ <span style="color:#7b93a6;letter-spacing:1px;font-weight:400;">· PULSE · R0001 · SLOT 046</span> <span style="color:#35e0d2;">● LIVE</span></span>
+    <span style="color:#7b93a6;font-size:11px;letter-spacing:1px;">COHERENCE-1 · 38 RDS</span>
+    <span style="color:#f0b542;font-size:12px;font-weight:500;">BALANCE 990.00</span>
+  </div>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:10px;margin-bottom:10px;">
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 4px;">
+        <div style="display:flex;align-items:baseline;gap:10px;">
+          <span style="color:#35e0d2;font-size:34px;font-weight:500;line-height:1;">1.65x</span>
+          <span style="color:#ff5d5d;font-size:11px;letter-spacing:1px;">▼ −0.06 LAST CANDLE</span>
+        </div>
+        <div style="text-align:right;">
+          <div style="color:#dcecf2;font-size:11px;letter-spacing:1px;">ATH <span style="color:#f0b542;">1.71x</span></div>
+          <div style="color:#7b93a6;font-size:11px;letter-spacing:1px;">HOLDS TO 2.00x · <span style="color:#35e0d2;">81%</span></div>
+        </div>
+      </div>
+      <div style="background:rgba(10,16,25,.92);border:1px solid #1e3346;border-radius:12px;padding:10px;">
+        <svg id="chart" viewBox="0 0 430 240" style="width:100%;display:block;"></svg>
+      </div>
+      <div style="color:#8fb0c4;font-size:11px;letter-spacing:1px;text-align:center;background:rgba(6,11,18,.8);border-radius:6px;padding:2px 10px;">DIP −0.06 · <span style="color:#35e0d2;">RECOVERY POSSIBLE</span> · OR THE REAL RUG — CASH OR HODL</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="p"><div style="color:#7b93a6;font-size:11px;letter-spacing:2px;margin-bottom:3px;">YOUR WAGER</div><div style="color:#dcecf2;font-size:16px;font-weight:500;">10.00 <span style="color:#7b93a6;font-size:11px;">USDC</span></div></div>
+      <div class="p" style="border-color:#35e0d2;"><div style="color:#7b93a6;font-size:11px;letter-spacing:2px;margin-bottom:3px;">CASH OUT AT</div><div style="color:#35e0d2;font-size:18px;font-weight:500;">16.26 <span style="font-size:11px;">USDC</span></div><div style="color:#ff5d5d;font-size:11px;margin-top:2px;">PEAK WAS 17.10 · YOU CASH THE CANDLE, NOT THE TOP</div></div>
+      <div class="p"><div style="color:#7b93a6;font-size:11px;letter-spacing:2px;margin-bottom:3px;">HOLDS TO 2.00x</div><div style="color:#dcecf2;font-size:16px;font-weight:500;">81%</div></div>
+      <div class="p"><div style="color:#7b93a6;font-size:11px;letter-spacing:2px;margin-bottom:4px;">AUTO CASH-OUT</div>
+        <div style="display:flex;gap:3px;">
+          <span style="flex:1;height:20px;border-radius:5px;border:1px solid #1e3346;color:#7b93a6;font-size:11px;display:flex;align-items:center;justify-content:center;">OFF</span>
+          <span style="flex:1;height:20px;border-radius:5px;background:#0d3c38;border:1px solid #35e0d2;color:#8ff2e8;font-size:11px;display:flex;align-items:center;justify-content:center;">2.0x</span>
+          <span style="flex:1;height:20px;border-radius:5px;border:1px solid #1e3346;color:#7b93a6;font-size:11px;display:flex;align-items:center;justify-content:center;">3.0x</span>
+        </div>
+      </div>
+      <div style="color:#4d6478;font-size:11px;letter-spacing:1px;text-align:center;">HASH f8b2b2_407e9a · VERIFIED</div>
+      <div style="height:44px;background:#35e0d2;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#042220;font-weight:500;letter-spacing:2px;margin-top:auto;">
+        <span style="font-size:12px;">CASH OUT</span><span style="font-size:11px;">16.26 USDC AT 1.62x</span>
+      </div>
+    </div>
+  </div>
+  <div style="height:28px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,20,30,.93);border:1px solid #1e3346;border-radius:8px;padding:0 12px;">
+    <span style="color:#7b93a6;font-size:11px;letter-spacing:1px;">CLIMBING · 46 SLOTS · CRASH POINT REVEALED AT SETTLEMENT</span>
+    <span style="display:flex;gap:5px;">
+      <span style="height:20px;display:inline-flex;align-items:center;padding:0 8px;border-radius:999px;background:#0d3c38;border:1px solid #1e5a4f;color:#35e0d2;font-size:11px;">2.41x</span>
+      <span style="height:20px;display:inline-flex;align-items:center;padding:0 8px;border-radius:999px;background:#2a1414;border:1px solid #5a2222;color:#ff5d5d;font-size:11px;">1.08x</span>
+      <span style="height:20px;display:inline-flex;align-items:center;padding:0 8px;border-radius:999px;background:#0d3c38;border:1px solid #1e5a4f;color:#35e0d2;font-size:11px;">5.63x</span>
+    </span>
+  </div>
+</div>
+</div>
+<script>
+// Candle renderer — same math the game should use: y = 220 - (value - 1.0) * 160
+const closes=[1.02,1.05,1.04,1.09,1.13,1.18,1.16,1.22,1.28,1.35,1.31,1.38,1.45,1.53,1.62,1.71,1.58,1.65];
+const svg=document.getElementById('chart'),NS='http://www.w3.org/2000/svg';
+const y=v=>220-(v-1)*160, el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e};
+[[60,'2.00x'],[140,'1.50x'],[220,'1.00x']].forEach(([gy,l])=>{el('line',{x1:0,y1:gy,x2:430,y2:gy,stroke:'#12202e'});el('text',{x:398,y:gy-4,fill:'#4d6478','font-size':10,'font-family':'monospace'}).textContent=l;});
+el('line',{x1:0,y1:y(1.71),x2:430,y2:y(1.71),stroke:'#f0b542','stroke-dasharray':'3 4',opacity:.5});
+el('text',{x:6,y:y(1.71)-4,fill:'#f0b542','font-size':10,'font-family':'monospace',opacity:.8}).textContent='ATH 1.71x';
+let open=1.0;
+closes.forEach((c,i)=>{
+  const x=23+i*20,up=c>=open,col=up?'#35e0d2':'#ff5d5d';
+  const hi=Math.min(y(open),y(c))-3,lo=Math.max(y(open),y(c))+3;
+  el('line',{x1:x,y1:hi,x2:x,y2:lo,stroke:col,'stroke-width':1.5});
+  el('rect',{x:x-3,y:Math.min(y(open),y(c)),width:6,height:Math.max(1.6,Math.abs(y(open)-y(c))),fill:col});
+  open=c;
+});
+const last=closes[closes.length-1],lx=23+(closes.length-1)*20;
+el('line',{x1:0,y1:y(last),x2:430,y2:y(last),stroke:'#35e0d2','stroke-dasharray':'2 4',opacity:.6});
+el('circle',{cx:lx,cy:y(last),r:5,fill:'none',stroke:'#35e0d2','stroke-width':2});
+el('circle',{cx:lx,cy:y(last),r:2,fill:'#35e0d2'});
+</script>
+</body></html>

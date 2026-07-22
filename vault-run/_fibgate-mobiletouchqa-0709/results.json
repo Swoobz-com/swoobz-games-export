@@ -1,0 +1,546 @@
+{
+  "Pixel7-WIN": {
+    "devName": "Pixel7",
+    "outcome": "WIN",
+    "steps": [
+      {
+        "step": "wager-plus-touch",
+        "firedAt": {
+          "x": 327,
+          "y": 715.390625,
+          "width": 40,
+          "height": 40,
+          "top": 715.390625,
+          "bottom": 755.390625
+        }
+      },
+      {
+        "step": "send-it-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": true
+      }
+    ],
+    "betEntryCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 829.390625,
+        "width": 239.546875,
+        "height": 44,
+        "top": 829.390625,
+        "bottom": 873.390625
+      },
+      "touchAction": "manipulation"
+    },
+    "wagerPlusBtn": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 327,
+        "y": 715.390625,
+        "width": 40,
+        "height": 40,
+        "top": 715.390625,
+        "bottom": 755.390625
+      },
+      "touchAction": "manipulation"
+    },
+    "sendItTapTarget": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 829.390625,
+        "width": 239.546875,
+        "height": 44,
+        "top": 829.390625,
+        "bottom": 873.390625
+      },
+      "touchAction": "manipulation"
+    },
+    "enteredPlaying": true,
+    "hudBandPresentAtPlaying": true,
+    "reachedSettled": true,
+    "measured": {
+      "captionRect": {
+        "x": 73.2265625,
+        "y": 435,
+        "width": 265.546875,
+        "height": 23,
+        "top": 435,
+        "right": 338.7734375,
+        "bottom": 458,
+        "left": 73.2265625
+      },
+      "panelRect": {
+        "x": 17,
+        "y": 474,
+        "width": 378,
+        "height": 344,
+        "top": 474,
+        "right": 395,
+        "bottom": 818,
+        "left": 17
+      },
+      "hudRect": {
+        "x": 100.640625,
+        "y": 178,
+        "width": 210.6875,
+        "height": 52,
+        "top": 178,
+        "right": 311.328125,
+        "bottom": 230,
+        "left": 100.640625
+      },
+      "canvasRect": {
+        "x": 17,
+        "y": 238,
+        "width": 378,
+        "height": 236,
+        "top": 238,
+        "right": 395,
+        "bottom": 474,
+        "left": 17
+      },
+      "verticalGap": 16,
+      "bodyHasMixerWord": false,
+      "docScrollHeight": 915,
+      "viewportH": 915
+    },
+    "settledCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 225.625,
+        "y": 701,
+        "width": 152.375,
+        "height": 44,
+        "top": 701,
+        "bottom": 745
+      },
+      "touchAction": "manipulation"
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "Pixel7-LOSS": {
+    "devName": "Pixel7",
+    "outcome": "LOSS",
+    "steps": [
+      {
+        "step": "select-shitcoin-touch",
+        "ok": true
+      },
+      {
+        "step": "wager-plus-touch",
+        "firedAt": {
+          "x": 327,
+          "y": 715.390625,
+          "width": 40,
+          "height": 40,
+          "top": 715.390625,
+          "bottom": 755.390625
+        }
+      },
+      {
+        "step": "send-it-touch",
+        "ok": true
+      }
+    ],
+    "betEntryCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 829.390625,
+        "width": 239.546875,
+        "height": 44,
+        "top": 829.390625,
+        "bottom": 873.390625
+      },
+      "touchAction": "manipulation"
+    },
+    "wagerPlusBtn": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 327,
+        "y": 715.390625,
+        "width": 40,
+        "height": 40,
+        "top": 715.390625,
+        "bottom": 755.390625
+      },
+      "touchAction": "manipulation"
+    },
+    "sendItTapTarget": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 829.390625,
+        "width": 239.546875,
+        "height": 44,
+        "top": 829.390625,
+        "bottom": 873.390625
+      },
+      "touchAction": "manipulation"
+    },
+    "enteredPlaying": true,
+    "hudBandPresentAtPlaying": true,
+    "reachedSettled": true,
+    "measured": {
+      "captionRect": {
+        "x": 114.7890625,
+        "y": 434,
+        "width": 182.421875,
+        "height": 23,
+        "top": 434,
+        "right": 297.2109375,
+        "bottom": 457,
+        "left": 114.7890625
+      },
+      "panelRect": {
+        "x": 17,
+        "y": 473,
+        "width": 378,
+        "height": 344,
+        "top": 473,
+        "right": 395,
+        "bottom": 817,
+        "left": 17
+      },
+      "hudRect": {
+        "x": 100.640625,
+        "y": 177,
+        "width": 210.6875,
+        "height": 52,
+        "top": 177,
+        "right": 311.328125,
+        "bottom": 229,
+        "left": 100.640625
+      },
+      "canvasRect": {
+        "x": 17,
+        "y": 237,
+        "width": 378,
+        "height": 236,
+        "top": 237,
+        "right": 395,
+        "bottom": 473,
+        "left": 17
+      },
+      "verticalGap": 16,
+      "bodyHasMixerWord": false,
+      "docScrollHeight": 915,
+      "viewportH": 915
+    },
+    "settledCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 225.625,
+        "y": 700,
+        "width": 152.375,
+        "height": 44,
+        "top": 700,
+        "bottom": 744
+      },
+      "touchAction": "manipulation"
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "iPhone14Pro-WIN": {
+    "devName": "iPhone14Pro",
+    "outcome": "WIN",
+    "steps": [
+      {
+        "step": "wager-plus-touch",
+        "firedAt": {
+          "x": 308,
+          "y": 705.3125,
+          "width": 40,
+          "height": 40,
+          "top": 705.3125,
+          "bottom": 745.3125
+        }
+      },
+      {
+        "step": "send-it-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": true
+      },
+      {
+        "step": "take-profit-touch",
+        "ok": false
+      },
+      {
+        "step": "board-touch-8",
+        "settledAfter": true
+      }
+    ],
+    "betEntryCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 819.3125,
+        "width": 220.546875,
+        "height": 44,
+        "top": 819.3125,
+        "bottom": 863.3125
+      },
+      "touchAction": "manipulation"
+    },
+    "wagerPlusBtn": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 308,
+        "y": 705.3125,
+        "width": 40,
+        "height": 40,
+        "top": 705.3125,
+        "bottom": 745.3125
+      },
+      "touchAction": "manipulation"
+    },
+    "sendItTapTarget": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 819.3125,
+        "width": 220.546875,
+        "height": 44,
+        "top": 819.3125,
+        "bottom": 863.3125
+      },
+      "touchAction": "manipulation"
+    },
+    "enteredPlaying": true,
+    "hudBandPresentAtPlaying": true,
+    "reachedSettled": true,
+    "measured": {
+      "captionRect": {
+        "x": 101.828125,
+        "y": 412,
+        "width": 189.34375,
+        "height": 23,
+        "top": 412,
+        "right": 291.171875,
+        "bottom": 435,
+        "left": 101.828125
+      },
+      "panelRect": {
+        "x": 17,
+        "y": 451,
+        "width": 359,
+        "height": 344,
+        "top": 451,
+        "right": 376,
+        "bottom": 795,
+        "left": 17
+      },
+      "hudRect": {
+        "x": 91.140625,
+        "y": 155,
+        "width": 210.6875,
+        "height": 52,
+        "top": 155,
+        "right": 301.828125,
+        "bottom": 207,
+        "left": 91.140625
+      },
+      "canvasRect": {
+        "x": 17,
+        "y": 215,
+        "width": 359,
+        "height": 236,
+        "top": 215,
+        "right": 376,
+        "bottom": 451,
+        "left": 17
+      },
+      "verticalGap": 16,
+      "bodyHasMixerWord": false,
+      "docScrollHeight": 871,
+      "viewportH": 852
+    },
+    "settledCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 206.625,
+        "y": 678,
+        "width": 152.375,
+        "height": 44,
+        "top": 678,
+        "bottom": 722
+      },
+      "touchAction": "manipulation"
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "iPhone14Pro-LOSS": {
+    "devName": "iPhone14Pro",
+    "outcome": "LOSS",
+    "steps": [
+      {
+        "step": "select-shitcoin-touch",
+        "ok": true
+      },
+      {
+        "step": "wager-plus-touch",
+        "firedAt": {
+          "x": 308,
+          "y": 705.3125,
+          "width": 40,
+          "height": 40,
+          "top": 705.3125,
+          "bottom": 745.3125
+        }
+      },
+      {
+        "step": "send-it-touch",
+        "ok": true
+      }
+    ],
+    "betEntryCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 819.3125,
+        "width": 220.546875,
+        "height": 44,
+        "top": 819.3125,
+        "bottom": 863.3125
+      },
+      "touchAction": "manipulation"
+    },
+    "wagerPlusBtn": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 308,
+        "y": 705.3125,
+        "width": 40,
+        "height": 40,
+        "top": 705.3125,
+        "bottom": 745.3125
+      },
+      "touchAction": "manipulation"
+    },
+    "sendItTapTarget": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 138.453125,
+        "y": 819.3125,
+        "width": 220.546875,
+        "height": 44,
+        "top": 819.3125,
+        "bottom": 863.3125
+      },
+      "touchAction": "manipulation"
+    },
+    "enteredPlaying": true,
+    "hudBandPresentAtPlaying": true,
+    "reachedSettled": true,
+    "measured": {
+      "captionRect": {
+        "x": 105.2890625,
+        "y": 412,
+        "width": 182.421875,
+        "height": 23,
+        "top": 412,
+        "right": 287.7109375,
+        "bottom": 435,
+        "left": 105.2890625
+      },
+      "panelRect": {
+        "x": 17,
+        "y": 451,
+        "width": 359,
+        "height": 344,
+        "top": 451,
+        "right": 376,
+        "bottom": 795,
+        "left": 17
+      },
+      "hudRect": {
+        "x": 91.140625,
+        "y": 155,
+        "width": 210.6875,
+        "height": 52,
+        "top": 155,
+        "right": 301.828125,
+        "bottom": 207,
+        "left": 91.140625
+      },
+      "canvasRect": {
+        "x": 17,
+        "y": 215,
+        "width": 359,
+        "height": 236,
+        "top": 215,
+        "right": 376,
+        "bottom": 451,
+        "left": 17
+      },
+      "verticalGap": 16,
+      "bodyHasMixerWord": false,
+      "docScrollHeight": 871,
+      "viewportH": 852
+    },
+    "settledCta": {
+      "tag": "BUTTON",
+      "testid": null,
+      "rect": {
+        "x": 206.625,
+        "y": 678,
+        "width": 152.375,
+        "height": 44,
+        "top": 678,
+        "bottom": 722
+      },
+      "touchAction": "manipulation"
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  }
+}

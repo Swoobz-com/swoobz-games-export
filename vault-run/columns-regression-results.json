@@ -1,0 +1,28 @@
+[
+  {
+    "vp": "1440",
+    "win": {
+      "ok": true,
+      "label": "Took profit at 1.22x, won 0.22 USDC",
+      "round": 0
+    },
+    "rug": {
+      "ok": true,
+      "label": "Rugged at 1.00x, lost 1.00 USDC",
+      "round": 1
+    }
+  },
+  {
+    "vp": "390",
+    "win": {
+      "ok": true,
+      "label": "Took profit at 1.36x, won 0.36 USDC",
+      "round": 0
+    },
+    "rug": {
+      "ok": true,
+      "label": "Rugged at 1.00x, lost 1.00 USDC",
+      "round": 1
+    }
+  }
+]

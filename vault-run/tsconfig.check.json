@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "react": ["./node_modules/react"],
+      "react/jsx-runtime": ["./node_modules/react/jsx-runtime"],
+      "react-dom": ["./node_modules/react-dom"],
+      "react-dom/client": ["./node_modules/react-dom/client"]
+    }
+  },
+  "include": ["src/main.tsx", "../originals/vault/VaultExperience.tsx", "../originals/vault/VaultGridCanvas.tsx", "../originals/vault/vaultProvider.ts", "../originals/vault/vaultMath.ts", "../originals/vault/vaultCopy.ts", "../originals/vault/vaultAudio.ts", "../originals/vault/vaultLedger.ts", "../originals/vault/vaultSignatures.ts", "../originals/_shared/BetConsole/BetConsole.tsx", "../originals/_shared/onboarding/index.tsx", "../originals/_shared/onboarding/games/vault-onboarding.ts", "../originals/_shared/audio/index.ts"]
+}

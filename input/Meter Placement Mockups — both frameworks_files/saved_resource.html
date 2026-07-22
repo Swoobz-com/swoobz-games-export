@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!-- saved from url=(0253)https://121bfdb9-b7b4-428a-8f06-80f1971a5358.frame.claudeusercontent.com/_f/1783784619-f29a/?__frame_t=do1qRYPCvrC2yIHynISdrKco.3c0af68a-df00-450d-97a6-9ccdc22e1863.aa74b808-6476-4e04-8c7a-7398bc4e075e.1783802369&__frame_v=manifest.21ba44c2bfde1499.json -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- frame-runtime --><!--<base href="/_f/1783784619-f29a/">--><base href="."><script>window.__FRAME_PREAMBLE={"capabilities":{"downloads":"downloads.DUzXFHNF.js","mcp":"mcp.Djj5DQjZ.js","self":"self.DqF_PxOe.js"},"transforms":"_transforms.DYk1Ltlh.js"}</script><script>(function(){"use strict";const X="modulepreload",Y=function(e){return"/"+e},Z={},U=function(t,n,u){let o=Promise.resolve();function i(f){const a=new Event("vite:preloadError",{cancelable:!0});if(a.payload=f,window.dispatchEvent(a),!a.defaultPrevented)throw f}return o.then(f=>{for(const a of f||[])a.status==="rejected"&&i(a.reason);return t().catch(i)})},D=["light","dark","system"];function $(e){if(e==null||typeof e!="object")return!1;const t=e.__frame_init;return t!=null&&typeof t=="object"}function q(e){if(e==null||typeof e!="object")return!1;const t=e.__frame_theme;if(t==null||typeof t!="object")return!1;const n=t.theme;return typeof n=="string"&&D.includes(n)}function M(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const t=e.composedPath?e.composedPath():[e.target];let n=null;for(let f=0;f<t.length;f++){const a=t[f];if(a&&a.matches&&a.matches("a[href],area[href]")){n=a;break}}if(!n&&e.target&&e.target.closest&&(n=e.target.closest("a[href],area[href]")),!n)return;const u=n.getAttribute("href");if(!u)return;let o,i;try{o=new URL(u,document.baseURI),i=new URL(document.baseURI).origin}catch{return}(o.protocol==="http:"||o.protocol==="https:")&&o.origin!==i&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:o.href},"*"))}const L={};function y(e){if(window===top)return;const t=Date.now();t-(L[e]||0)<500||(L[e]=t,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}const F=2e3,T=["wheel","touchstart","touchmove","keydown","pointerdown"];let k=0;function B(e){e.isTrusted&&(k=Date.now())}function z(){addEventListener("click",M,!0),addEventListener("auxclick",M,!0)}function W(){for(let e=0;e<T.length;e++)addEventListener(T[e],B,{capture:!0,passive:!0});addEventListener("scroll",e=>{e.isTrusted&&Date.now()-k<F&&y("scroll")},{capture:!0,passive:!0}),addEventListener("pointermove",e=>{e.isTrusted&&y("pointer")},{capture:!0,passive:!0}),addEventListener("click",e=>{e.isTrusted&&y("click")},{capture:!0,passive:!0})}function x(e,t,n){const u=[...t.values()].filter(o=>o.targets.some(i=>i.startsWith(e+".")));return{wrap(o,i){const f=`${e}.${o}`,a=u.filter(s=>s.targets.includes(f));return a.length===0?(...s)=>{try{return i(...s)}catch(d){return Promise.reject(d)}}:(...s)=>{let d=s;for(const c of a){const l=c.module.parameters;if(l)try{d=l(d)}catch{return Promise.reject({code:"transform_error",id:c.id,scope:e,message:"parameters transform failed"})}}let m;try{m=i(...d)}catch(c){m=Promise.reject(c)}return m.then(c=>{for(let l=a.length-1;l>=0;l--){const h=a[l],p=h.module.returns;if(p)try{c=p(c)}catch{return n({id:h.id,scope:e,leg:"returns"}),c}}return c},c=>{for(let l=a.length-1;l>=0;l--){const h=a[l],p=h.module.throws;if(p)try{c=p(c)}catch{return n({id:h.id,scope:e,leg:"throws"}),Promise.reject(c)}}return Promise.reject(c)})}}}}function H(e,t,n,u=()=>{}){const o=new Set(e.changes??[]),i=new Map;for(const f of o){const a=t[f];a&&i.set(f,a)}return{contract:e.contract,changes:o,flags:new Set(e.flags??[]),capabilities:e.capabilities??{},transforms:i,shellOrigin:n.shellOrigin,mount:n.mount,pipe:f=>x(f,i,u)}}(function(){const e=Object.defineProperty,t=globalThis,n=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let u=0;for(let o=0;o<n.length;o++){const i=n[o];try{e(t,i,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[i]}catch{}try{e(t,i,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[i]=="function"&&u++}if(u&&window!==top)try{parent.postMessage({__frame_rtc_lockdown_failed:u},"*")}catch{}})();const K=1e4,G=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function J(e){for(const t of G)if(t.endsWith(":*"))try{const n=new URL(e);if(`${n.protocol}//${n.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}const w=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities??{}}),E=window.__FRAME_PREAMBLE?.transforms,C=/^[\w.-]+\.js$/,V=/^[a-z][a-z0-9_-]{0,63}$/;let A=null,g=null;function P(e,t,n){try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!0,enumerable:!0})}catch{}}}let R=!1;function N(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,R=!0):R&&(delete t.dataset.theme,t.style.colorScheme="",R=!1)}const _=new Map;function Q(e,t){const n=_.get(e);if(!n)return;Object.assign(n.impl,t),n.impl.__settled=()=>Promise.reject({code:"capability_removed",message:`${e}: method not in this runtime`});const u=n.queue;n.queue=[];for(const o of u){const i=t[o.method];i?i(...o.args).then(o.resolve,o.reject):o.reject({code:"capability_removed",message:`${e}.${o.method} is not in this runtime`})}}function O(e,t){const n=_.get(e);if(!n)return;n.impl.__settled=()=>Promise.reject(t);const u=n.queue;n.queue=[];for(const o of u)o.reject(t)}const j=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(j&&j.writable===!1)){z(),W();const e=j?.value??{};P(window,"claude",e);const t=s=>{const d={impl:Object.create(null),queue:[]};_.set(s,d);const m=new Proxy(d.impl,{get:(c,l)=>{if(typeof l=="string"&&!(l==="then"||l==="toJSON"||l==="valueOf"))return l==="toString"?Object.prototype.toString:(...h)=>{const p=c[l]??c.__settled;return p?p(...h):new Promise((b,S)=>{d.queue.push({method:l,args:h,resolve:b,reject:S})})}},set:()=>!1});P(e,s,m)};for(const s of Object.keys(w)){if(e[s]!==void 0){P(e,s,e[s]);continue}t(s)}let n=null,u=null,o=0;const i=s=>{s.source!==parent||!J(s.origin)||$(s.data)&&(n=s.data.__frame_init,g=s.origin,removeEventListener("message",i),clearTimeout(o),u?.())};addEventListener("message",i),parent.postMessage({__frame_connect:!0},"*");const f=new Promise(s=>{u=s,o=setTimeout(()=>{removeEventListener("message",i),s()},K)}),a=document.readyState==="loading"?new Promise(s=>document.addEventListener("DOMContentLoaded",()=>s(),{once:!0})):Promise.resolve();f.then(async()=>{if(!n||!g){for(const r of _.keys())O(r,{code:"not_granted",message:"frame initialization did not arrive - capability unavailable"});return}N(n.theme);const s=g;addEventListener("message",r=>{r.source!==parent||r.origin!==s||q(r.data)&&N(r.data.__frame_theme.theme)});const d=r=>U(()=>import("/_runtime/"+r),void 0),m=Object.keys(n.capabilities??{});for(const r of m)Object.hasOwn(w,r)||V.test(r)&&e[r]===void 0&&(t(r),O(r,{code:"capability_disabled",message:"capability not in this runtime generation"}));const c=m.filter(r=>Object.hasOwn(w,r)).map(r=>[r,w[r]]).filter(r=>typeof r[1]=="string"&&C.test(r[1])),[l,...h]=await Promise.allSettled([E&&C.test(E)?d(E):Promise.resolve({}),...c.map(([,r])=>d(r))]),p=g;A=H(n,l.status==="fulfilled"&&l.value?.TRANSFORMS||{},{shellOrigin:p,mount:Q},r=>parent.postMessage({__frame_cap_telemetry:r},p));const b=r=>parent.postMessage({__frame_cap_telemetry:{kind:"cap-load-error",cap:r}},p),S=A;h.forEach((r,v)=>{const I=c[v][0];if(r.status!=="fulfilled"){b(I);return}try{r.value?.install?.(S)}catch{b(I)}});for(const[r,v]of _)v.queue.length===0&&Object.keys(v.impl).length>0||O(r,{code:m.includes(r)?"capability_disabled":"not_granted",message:"capability not available in this session"});await a,parent.postMessage({__frame_ready:!0},g)})}})();</script><!-- /frame-runtime --><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Meter Placement Mockups — both frameworks</title>
+<style>
+  :root{
+    --bg:#10142b; --panel:#1a2040; --ink:#e8e2d0; --dim:#9aa0bd;
+    --gold:#f0b43c; --gold-dk:#a9740f; --teal:#3fd8c7; --mag:#ff4fa3;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,sans-serif;margin:0;padding:32px 20px 60px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1,h2,h3,.chip,.tag,.fwtag{font-family:'Impact','Haettenschweiler','Arial Narrow',sans-serif;letter-spacing:.04em;font-weight:400}
+  h1{font-size:clamp(28px,4vw,44px);margin:0 0 6px;text-wrap:balance}
+  h1 em,h2 em{color:var(--gold);font-style:normal}
+  h2{font-size:clamp(22px,3vw,32px);margin:46px 0 4px;padding-top:26px;border-top:1px solid #2a3158}
+  .fwnote{color:var(--dim);max-width:78ch;margin:0 0 20px;line-height:1.5;font-size:14px}
+  .sub{color:var(--dim);max-width:72ch;margin:0 0 10px;line-height:1.5}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 8px;font-size:13px;color:var(--dim)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid #2a3158;border-radius:10px;overflow:hidden}
+  .card.baseline{grid-column:1/-1}
+  .card header{padding:14px 16px 10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .card h3{margin:0;font-size:20px;letter-spacing:.05em}
+  .chip{font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:#262d52;color:var(--teal)}
+  .chip.now{background:#3b2340;color:var(--mag)}
+  .card p{margin:0;padding:10px 16px 15px;font-size:13.5px;line-height:1.55;color:var(--dim)}
+  .card p b{color:var(--ink);font-weight:600}
+
+  /* ================= STAGES (16:9, % coords) ================= */
+  .stage{position:relative;aspect-ratio:16/9;overflow:hidden;border-top:1px solid #2a3158;border-bottom:1px solid #2a3158}
+  /* --- cascade-cluster: cool space scene --- */
+  .stage.cc{background:radial-gradient(120% 90% at 50% -10%, #2b3a6e 0%, #1b2350 42%, #101430 75%, #0a0d20 100%)}
+  .stage.cc .stars{position:absolute;inset:0;opacity:.6;background-image:
+    radial-gradient(1.5px 1.5px at 12% 20%, #cfd8ff 60%, transparent),
+    radial-gradient(1px 1px at 82% 12%, #cfd8ff 60%, transparent),
+    radial-gradient(1.5px 1.5px at 68% 30%, #8fa0e0 60%, transparent),
+    radial-gradient(1px 1px at 30% 60%, #8fa0e0 60%, transparent),
+    radial-gradient(1.5px 1.5px at 90% 55%, #cfd8ff 60%, transparent)}
+  /* --- swoobz-video-slots: warm dusk scene --- */
+  .stage.sv{background:linear-gradient(180deg,#3a2148 0%,#5c2e4d 38%,#8a4a3a 68%,#c07a3a 92%)}
+  .stage.sv .glow{position:absolute;left:20%;right:20%;top:58%;height:30%;
+    background:radial-gradient(60% 100% at 50% 100%, rgba(255,190,90,.35), transparent 70%)}
+
+  /* character / mascot (shared shapes) */
+  .char{position:absolute;filter:drop-shadow(0 0 14px rgba(63,216,199,.35))}
+  .char .head{position:absolute;left:32%;top:0;width:36%;aspect-ratio:1;border-radius:50%;background:linear-gradient(145deg,#4dd9c4,#1f7f8f)}
+  .char .eye{position:absolute;left:44%;top:9%;width:7%;aspect-ratio:1;border-radius:50%;background:#0b1024}
+  .char .body{position:absolute;left:12%;top:26%;width:76%;height:74%;border-radius:46% 46% 14% 14%/34% 34% 8% 8%;background:linear-gradient(150deg,#37b9ab,#164a63)}
+  .char.warm{filter:drop-shadow(0 0 14px rgba(240,180,60,.35))}
+  .char.warm .head{background:linear-gradient(145deg,#ffce7a,#c07a2a)}
+  .char.warm .body{background:linear-gradient(150deg,#e8a04a,#7a3d1a)}
+  .char.rival{filter:drop-shadow(0 0 14px rgba(224,69,90,.45))}
+  .char.rival .head{background:linear-gradient(145deg,#ff8f9e,#a12038)}
+  .char.rival .body{background:linear-gradient(150deg,#e0455a,#5c1020)}
+  /* cc positions: char left strip, feet above the bar */
+  .cc .char{left:2.5%;top:26%;width:20%;height:60%}
+  /* sv mascot */
+  .sv .char{left:3%;top:30%;width:19%;height:54%}
+
+  /* companion prop (sv right slot): hanging lantern */
+  .prop{position:absolute;left:80%;top:28%;width:9%;height:36%}
+  .prop .line{position:absolute;left:49%;top:0;width:2%;height:26%;background:#caa06a}
+  .prop .lamp{position:absolute;left:8%;top:24%;width:84%;aspect-ratio:.8;border-radius:30% 30% 40% 40%;
+    background:radial-gradient(circle at 50% 40%,#ffd98a,#b9601a);border:2px solid #7a3d1a;box-shadow:0 0 18px rgba(255,190,90,.7)}
+
+  /* board frames */
+  .frame{position:absolute;border-radius:6px;padding:2.2%}
+  .cc .frame{left:27.8%;top:7.8%;width:44.4%;height:77.5%;background:linear-gradient(180deg,#4a3c6e,#241c42);
+    border:2px solid #6b579c;box-shadow:0 0 0 3px #171130, 0 8px 22px rgba(0,0,0,.55), inset 0 0 12px rgba(0,0,0,.6)}
+  .sv .frame{left:30%;top:15%;width:40%;height:67%;background:linear-gradient(180deg,#6e4a2a,#33200f);
+    border:2px solid #b98a4a;box-shadow:0 0 0 3px #241408, 0 8px 22px rgba(0,0,0,.55), inset 0 0 12px rgba(0,0,0,.6)}
+  .board{display:grid;gap:3%;height:100%}
+  .board.n36{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr)}
+  .board.n25{grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr)}
+  .cell{border-radius:18%;background:radial-gradient(circle at 32% 28%, var(--c1) 0%, var(--c2) 70%);
+    box-shadow:inset 0 -2px 4px rgba(0,0,0,.45), inset 0 2px 3px rgba(255,255,255,.25)}
+  .cell:nth-child(5n+1){--c1:#ff8f6b;--c2:#a1301f}
+  .cell:nth-child(5n+2){--c1:#7fd4ff;--c2:#1f4fa1}
+  .cell:nth-child(5n+3){--c1:#c99bff;--c2:#5a2b9e}
+  .cell:nth-child(5n+4){--c1:#ffe08a;--c2:#a1701f}
+  .cell:nth-child(5n){--c1:#8dee9b;--c2:#1f7d3c}
+  .cell:nth-child(7n){--c1:#ff9ecb;--c2:#96256b}
+  .sv .cell{border-radius:12%}
+
+  /* titles / logos */
+  .title{position:absolute;border-radius:6px;display:flex;align-items:center;justify-content:center;
+    font-family:'Impact','Arial Narrow',sans-serif;font-size:clamp(9px,1.3vw,14px);letter-spacing:.2em;color:#ffd98a;
+    text-shadow:0 0 8px rgba(240,180,60,.7)}
+  .cc .title{left:34.4%;top:.8%;width:31.2%;height:6.3%;background:linear-gradient(180deg,#3d3160,#231a40);border:1px solid #6b579c}
+  .sv .title{left:40%;top:10.5%;width:20%;height:8%;background:linear-gradient(180deg,#6e4a2a,#3a2412);border:1px solid #b98a4a;z-index:3}
+
+  /* control bars */
+  .bar{position:absolute;left:0;bottom:0;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 2.5%;gap:2%;z-index:4}
+  .cc .bar{height:13.9%;background:linear-gradient(180deg,#232a52,#141936);border-top:1px solid #3a4478}
+  .sv .bar{height:13%;background:linear-gradient(180deg,#4a2c1a,#241408);border-top:1px solid #8a5a2f}
+  .bar .pill{height:44%;border-radius:99px;background:#0d1128;border:1px solid #3a4478;color:#aeb6da;
+    font-size:clamp(7px,.9vw,11px);display:flex;align-items:center;padding:0 1.4%;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .sv .bar .pill{background:#180d05;border-color:#8a5a2f;color:#e0c08a}
+  .bar .buy{background:linear-gradient(180deg,#f0b43c,#a9740f);color:#3a2405;border:none;font-weight:700}
+  .bar .spin{width:5.4%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd98a,#b97710);
+    border:2px solid #ffe9b8;box-shadow:0 0 12px rgba(240,180,60,.6);flex-shrink:0}
+
+  /* NEW-zone callout */
+  .new{position:absolute;outline:2px dashed var(--mag);outline-offset:4px;border-radius:8px;z-index:5}
+  .tag{position:absolute;z-index:6;background:var(--mag);color:#24081a;font-size:clamp(7px,.9vw,10.5px);
+    letter-spacing:.1em;padding:2px 7px;border-radius:3px;text-transform:uppercase;white-space:nowrap}
+
+  /* meter pieces */
+  .vtube{position:absolute;inset:0;border-radius:12px;background:#0d1128;border:2px solid var(--gold-dk);
+    box-shadow:0 0 14px rgba(240,180,60,.35);overflow:hidden}
+  .vtube .fill{position:absolute;left:0;bottom:0;width:100%;height:55%;background:linear-gradient(180deg,#ffe08a,#e08a1f);box-shadow:0 0 12px rgba(240,180,60,.8)}
+  .vtube .ticks{position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 18%,rgba(255,255,255,.28) 18% 19.5%)}
+  .mlabel{position:absolute;left:50%;transform:translateX(-50%);top:-16%;color:var(--gold);
+    font-family:'Impact','Arial Narrow',sans-serif;font-size:clamp(9px,1.2vw,14px);letter-spacing:.08em;text-shadow:0 0 8px rgba(240,180,60,.8);white-space:nowrap}
+  .hseg{position:absolute;display:flex;gap:2.5%;align-items:stretch}
+  .hseg i{flex:1;border-radius:3px;background:#0d1128;border:1px solid var(--gold-dk)}
+  .hseg i.on{background:linear-gradient(180deg,#ffe08a,#e08a1f);box-shadow:0 0 8px rgba(240,180,60,.8)}
+  .xchip{border-radius:6px;background:radial-gradient(circle at 35% 30%,#ffe08a,#b97710);color:#3a2405;
+    font-family:'Impact','Arial Narrow',sans-serif;display:flex;align-items:center;justify-content:center;
+    font-size:clamp(9px,1.2vw,14px);border:1px solid #ffe9b8;box-shadow:0 0 10px rgba(240,180,60,.7)}
+  .hfill{position:absolute;inset:0;border-radius:99px;background:#0d1128;border:2px solid var(--gold-dk);overflow:hidden}
+  .hfill i{position:absolute;left:0;top:0;height:100%;width:62%;background:linear-gradient(90deg,#e0455a,#ff8f3c,#ffe08a);box-shadow:0 0 12px rgba(255,140,60,.9)}
+  .stepper{position:absolute;display:flex;flex-direction:column-reverse;gap:6%}
+  .stepper .st{flex:1;border-radius:5px;background:#0d1128;border:1px solid #3a4478;color:#8d93b5;
+    display:flex;align-items:center;justify-content:center;font-family:'Impact','Arial Narrow',sans-serif;font-size:clamp(8px,1vw,12px);letter-spacing:.06em}
+  .stepper .st.hit{background:linear-gradient(180deg,#ffe08a,#e08a1f);color:#3a2405;border-color:#ffe9b8;box-shadow:0 0 10px rgba(240,180,60,.75)}
+  .pots{position:absolute;inset:0;display:flex;gap:6%;padding:2%}
+  .pot{flex:1;border-radius:14% 14% 40% 40%/14% 14% 55% 55%;border:2px solid;display:flex;align-items:center;justify-content:center;
+    font-family:'Impact','Arial Narrow',sans-serif;font-size:clamp(9px,1.1vw,13px);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+  .pot.r{background:linear-gradient(180deg,#e0455a,#7d1626);border-color:#ff9eae}
+  .pot.g{background:linear-gradient(180deg,#5fd06a,#1f6e34);border-color:#b6f0bd}
+  .pot.b{background:linear-gradient(180deg,#4f9bff,#1c3f8f);border-color:#aecdff}
+  .sockets{position:absolute;inset:0;display:flex;gap:5%;justify-content:center;padding:1.5%}
+  .socket{width:9.5%;border-radius:50%;background:#0d1128;border:2px solid #3a4478}
+  .socket.on{background:radial-gradient(circle at 35% 30%,#ffe08a,#b97710);border-color:#ffe9b8;
+    box-shadow:0 0 10px rgba(240,180,60,.8);display:flex;align-items:center;justify-content:center;
+    color:#3a2405;font-family:'Impact','Arial Narrow',sans-serif;font-size:clamp(8px,1vw,11px)}
+  .colbars{position:absolute;inset:6% 2%;display:flex;gap:3.5%}
+  .colbars b{flex:1;border-radius:4px;background:#0d1128;border:1px solid var(--gold-dk);overflow:hidden;position:relative}
+  .colbars b i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#e08a1f,#ffe08a)}
+  .colbars b i.max{box-shadow:0 0 8px rgba(240,180,60,.9)}
+  .gauge{position:absolute;border-radius:50%;aspect-ratio:1;left:50%;transform:translateX(-50%);height:100%;
+    background:conic-gradient(from 220deg,#5fd06a 0 60deg,#ffe08a 60deg 120deg,#e0455a 120deg 200deg,#0d1128 200deg 360deg);
+    border:3px solid var(--gold-dk);box-shadow:0 0 14px rgba(240,180,60,.4)}
+  .gauge::after{content:"";position:absolute;left:50%;top:50%;width:42%;height:3px;background:#fff;transform-origin:0 50%;transform:rotate(-45deg);border-radius:2px;box-shadow:0 0 5px #fff}
+  .gauge::before{content:"";position:absolute;left:50%;top:50%;width:16%;aspect-ratio:1;border-radius:50%;background:#e8e2d0;transform:translate(-50%,-50%)}
+  .hbarv{position:absolute;inset:0;border-radius:8px;background:#0d1128;border:2px solid #3a4478;overflow:hidden}
+  .hbarv .f{position:absolute;bottom:0;left:0;width:100%}
+  .f.grn{background:linear-gradient(180deg,#8ff0a0,#1f7d3c);box-shadow:0 0 10px rgba(95,208,106,.8)}
+  .f.red{background:linear-gradient(180deg,#ff9eae,#a1202f);box-shadow:0 0 10px rgba(224,69,90,.8)}
+
+  /* overview table */
+  .ovwrap{overflow-x:auto;margin-top:14px;border:1px solid #2a3158;border-radius:10px}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid #262d52;line-height:1.45}
+  th{font-family:'Impact','Arial Narrow',sans-serif;font-weight:400;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--gold);background:#141a36}
+  td:first-child,th:first-child{white-space:nowrap}
+  td{color:var(--dim)} td b{color:var(--ink);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .foot{margin-top:34px;border-top:1px solid #2a3158;padding-top:18px;color:var(--dim);font-size:13.5px;line-height:1.6;max-width:80ch}
+  .foot b{color:var(--gold)}
+</style>
+
+<div class="wrap">
+  <h1>SAME CHASSIS, <em>TEN METER HOMES</em> — BOTH FRAMEWORKS</h1>
+  <p class="sub">Fake pictures of our two build bases with only the meter changing per panel — its archetype and where it lives. Pink dashes mark the meter zone; everything else is untouched chassis. No meter overlaps the control bar, the board frame, the character, or the logo — where a home replaces the title/logo plate, the caption says where the logo moves.</p>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--gold)"></span>the meter</span>
+    <span><span class="sw" style="background:var(--mag)"></span>meter zone callout</span>
+    <span><span class="sw" style="background:#6b579c"></span>cascade-cluster chassis</span>
+    <span><span class="sw" style="background:#b98a4a"></span>swoobz-video-slots chassis</span>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>FRAMEWORK 1 · <em>CASCADE-CLUSTER</em> (Phaser code engine, 6×6)</h2>
+  <p class="fwnote">Chassis per <code>anchors.json</code>: character left strip · 6×6 board centred · feature object right strip · full-width bottom control bar.</p>
+
+  <div class="grid">
+
+    <div class="card baseline">
+      <header><h3>CC-0 · TODAY'S DEFAULT — RIGHT-STRIP TUBE</h3><span class="chip now">current — always this</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title">GAME TITLE</div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div style="position:absolute;left:76.6%;top:27.8%;width:12.5%;height:50%"><div class="mlabel">×5</div><div class="vtube"><div class="fill"></div><div class="ticks"></div></div></div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p>Every game so far parks a vertical meter in the right strip (the <code>feature_object</code> anchor). Ten games in, it is a template tell. Below: the same stage, meter moved.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-1 · HEADER CHARGE BAR</h3><span class="chip">accumulator</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:27.8%;top:1%;width:44.4%;height:6%">
+          <span class="tag" style="left:102%;top:10%">meter zone</span>
+          <div class="hseg" style="inset:12% 14% 12% 2%"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="xchip" style="position:absolute;right:1%;top:8%;width:10%;height:84%">×2</div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Nitro Nights / Beach Princess pattern.</b> Segmented bar in the title plate's slot (logo moves onto the cabinet crown). Wins feed segments; a full bar bumps the ×-chip. Goal + reward sit in the player's first eye-line.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-2 · BOARD-FOOT FILL (LAVA LINE)</h3><span class="chip">accumulator</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title">GAME TITLE</div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="top:6.5%;height:72.5%"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:27.8%;top:80.3%;width:44.4%;height:4.3%">
+          <span class="tag" style="left:102%;top:8%">meter zone</span>
+          <div class="hfill"><i></i></div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Grug Make Fire pattern.</b> The board rises slightly and the fill line sits in the clear strip between frame foot and control bar — fully visible, nothing occluded. Frees BOTH side strips for pure scene.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-3 · FRAME-PILLAR LADDER</h3><span class="chip">ladder</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title">GAME TITLE</div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="left:31%;width:41.2%"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:25.2%;top:9%;width:5%;height:74%">
+          <span class="tag" style="left:-30%;top:-7%">meter zone</span>
+          <div class="stepper" style="inset:2% 8%">
+            <div class="st hit">×5</div><div class="st">×10</div><div class="st">×25</div><div class="st">×50</div><div class="st">×100</div>
+          </div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Suck / Hades pattern, built INTO the cabinet.</b> The ladder is a carved pillar of the board frame (dashboard-ui-as-world), not a floating panel. Board shifts right a step to make room; right strip stays free.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-4 · COLLECTOR POTS ON THE CROWN</h3><span class="chip">collector ×3</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="top:12%;height:72.5%"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:31%;top:1.2%;width:38%;height:9%">
+          <span class="tag" style="left:102%;top:20%">meter zone</span>
+          <div class="pots"><div class="pot r">3</div><div class="pot g">7</div><div class="pot b">1</div></div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Big Bounty Bandits pattern.</b> Three colour-keyed pots on the frame's crown; matching gems fly up into their pot. Three parallel banked rewards. Title plate is replaced — logo moves onto the cabinet.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-5 · CHARACTER-CARRIED METER</h3><span class="chip">accumulator</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title">GAME TITLE</div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="new" style="left:16.5%;top:38%;width:6.5%;height:34%">
+          <span class="tag" style="left:60%;top:-15%">meter zone</span>
+          <div class="vtube" style="border-radius:30% 30% 22% 22%"><div class="fill" style="height:70%;background:linear-gradient(180deg,#8ff0e2,#1f9f8f);box-shadow:0 0 12px rgba(63,216,199,.9)"></div><div class="ticks"></div></div>
+        </div>
+        <div class="frame"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>The meter IS the character's prop</b> — a tank on their back, filling as wins land (it sits ON the character by design, the one intentional overlap). Deepest theming; the character finally has a job. Needs one acting beat per fill tier.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-6 · DUAL VERSUS METERS</h3><span class="chip">depletion ×2</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title" style="left:38%;width:24%">VS</div>
+        <div class="char" style="width:16%;left:4%"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="char rival" style="width:16%;left:80%"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="left:29.5%;width:41%"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:23%;top:14%;width:4.5%;height:64%">
+          <span class="tag" style="left:-40%;top:-9%">zone A</span>
+          <div class="hbarv"><div class="f grn" style="height:72%"></div></div>
+        </div>
+        <div class="new" style="left:72.6%;top:14%;width:4.5%;height:64%">
+          <span class="tag" style="left:60%;top:-9%">zone B</span>
+          <div class="hbarv"><div class="f red" style="height:38%"></div></div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Fighter Pit pattern.</b> Mirrored HP bars hug the board; hero symbols heal green, rival symbols drain red. The second character slot doubles as the antagonist — a versus structure the chassis has never used.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-7 · SOCKET ROW UNDER THE BOARD</h3><span class="chip">collector · slots</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title">GAME TITLE</div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="height:66%"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:33%;top:76.5%;width:34%;height:6.5%">
+          <span class="tag" style="left:102%;top:20%">meter zone</span>
+          <div class="sockets"><div class="socket on">3×</div><div class="socket on">2×</div><div class="socket"></div><div class="socket"></div><div class="socket"></div></div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Kill Em All pattern.</b> Five sockets in the cabinet's foot rail, in the clear strip above the control bar. Special symbols drop an orb into the next socket; filled sockets all fire together on the bonus trigger.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-8 · PER-COLUMN CHARGE BARS</h3><span class="chip">accumulator ×6</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="top:12%;height:72.5%"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:29.5%;top:4.5%;width:41%;height:5.5%">
+          <span class="tag" style="left:102%;top:12%">meter zone ×6</span>
+          <div class="colbars"><b><i style="width:80%"></i></b><b><i style="width:30%"></i></b><b><i class="max" style="width:100%"></i></b><b><i style="width:55%"></i></b><b><i style="width:15%"></i></b><b><i style="width:65%"></i></b></div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>The Count pattern.</b> Each column has its own small bar above it; cluster pops in that column charge it, a full bar turns the whole column WILD next cascade. Six little races instead of one big one.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>CC-9 · COCKPIT GAUGE DIAL</h3><span class="chip">accumulator · dial</span></header>
+      <div class="stage cc"><div class="stars"></div>
+        <div class="title">GAME TITLE</div>
+        <div class="char"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame"><div class="board n36"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:76%;top:56%;width:13%;height:23%;border-radius:50%">
+          <span class="tag" style="left:6%;top:-17%">meter zone</span>
+          <div class="gauge"></div>
+        </div>
+        <div class="bar"><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="pill">WIN 0.75</span><span class="spin"></span></div>
+      </div>
+      <p><b>Suck's pump gauge pattern.</b> An analog dial in the right strip's lower half, above the spin cluster — needle climbs with wins, the green arc fires the feature. Needle wobble is a free tension animation every spin.</p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>FRAMEWORK 2 · <em>SWOOBZ VIDEO SLOTS</em> (spec chassis, 5×5 shown)</h2>
+  <p class="fwnote">Chassis per its README: full-art scene · mascot LEFT of the cabinet · companion prop RIGHT · ornate cabinet centred slightly below stage centre · logo top-centre overlapping the cabinet's top edge (that overlap is the framework contract, not a defect) · fixed control bar (Buy Bonus · Balance · Bet · Spin cluster).</p>
+
+  <div class="grid">
+
+    <div class="card baseline">
+      <header><h3>SV-0 · TODAY'S DEFAULT — METER AS COMPANION PROP (RIGHT)</h3><span class="chip now">current default</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title">LOGO</div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div style="position:absolute;left:80.5%;top:30%;width:8.5%;height:40%"><div class="mlabel">×5</div><div class="vtube"><div class="fill"></div><div class="ticks"></div></div></div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>The companion-prop slot (L1 right) is the natural default meter home here — the same "always on the right" habit as cascade-cluster. Below: the same nine alternatives on this chassis.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-1 · HEADER CHARGE BAR</h3><span class="chip">accumulator</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="new" style="left:30%;top:8%;width:40%;height:6%">
+          <span class="tag" style="left:102%;top:10%">meter zone</span>
+          <div class="hseg" style="inset:12% 14% 12% 2%"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="xchip" style="position:absolute;right:1%;top:8%;width:11%;height:84%">×3</div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>The bar takes the logo's slot above the cabinet (logo moves onto the cabinet crown). Companion prop stays ambient scene. Clear of the cabinet top — no overlap with the frame edge.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-2 · CABINET-FOOT FILL LINE</h3><span class="chip">accumulator</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title" style="top:8.5%">LOGO</div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="top:13%;height:64%"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="new" style="left:30%;top:79%;width:40%;height:4.2%">
+          <span class="tag" style="left:102%;top:8%">meter zone</span>
+          <div class="hfill"><i></i></div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>Cabinet rises a step; the fill line sits fully visible in the clear strip between cabinet foot and control bar. Reads as the machine's heat pipe — part of the cabinet material family.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-3 · CABINET-PILLAR LADDER</h3><span class="chip">ladder</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title" style="left:42%">LOGO</div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="left:33%;width:37%"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="new" style="left:27.5%;top:16%;width:4.5%;height:62%">
+          <span class="tag" style="left:-35%;top:-9%">meter zone</span>
+          <div class="stepper" style="inset:2% 8%">
+            <div class="st hit">×5</div><div class="st">×10</div><div class="st">×25</div><div class="st">×50</div>
+          </div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>The ladder is carved into the cabinet's left pillar — brass steps in the same 9-slice frame material. Cabinet shifts right a step; mascot keeps its full slot.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-4 · COLLECTOR POTS ON THE CROWN</h3><span class="chip">collector ×3</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="top:17%;height:63%"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="new" style="left:33%;top:6.5%;width:34%;height:8.5%">
+          <span class="tag" style="left:102%;top:20%">meter zone</span>
+          <div class="pots"><div class="pot r">3</div><div class="pot g">7</div><div class="pot b">1</div></div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>Three pots ride the cabinet's crown where the logo sat (logo moves onto the cabinet face). Colour-keyed symbols fly up into their pot — three parallel banked rewards.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-5 · MASCOT-CARRIED METER</h3><span class="chip">accumulator</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title">LOGO</div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="new" style="left:15.5%;top:42%;width:6%;height:30%">
+          <span class="tag" style="left:60%;top:-16%">meter zone</span>
+          <div class="vtube" style="border-radius:30% 30% 22% 22%"><div class="fill" style="height:70%"></div><div class="ticks"></div></div>
+        </div>
+        <div class="frame"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>The mascot carries the meter as its prop (the one intentional overlap — it's ON the mascot). L1 stage direction gains a fill-tier reaction per step; companion prop stays ambient.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-6 · DUAL VERSUS METERS</h3><span class="chip">depletion ×2</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title" style="left:44%;width:12%">VS</div>
+        <div class="char warm" style="width:15%;left:4%"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="char rival" style="width:15%;left:81%"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="left:31.5%;width:37%"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:26%;top:20%;width:4%;height:56%">
+          <span class="tag" style="left:-45%;top:-10%">zone A</span>
+          <div class="hbarv"><div class="f grn" style="height:72%"></div></div>
+        </div>
+        <div class="new" style="left:70%;top:20%;width:4%;height:56%">
+          <span class="tag" style="left:60%;top:-10%">zone B</span>
+          <div class="hbarv"><div class="f red" style="height:38%"></div></div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>The companion-prop slot becomes the RIVAL mascot; mirrored HP bars flank the cabinet. First versus structure on this chassis — both bars clear of cabinet and control bar.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-7 · SOCKET ROW IN THE FOOT RAIL</h3><span class="chip">collector · slots</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title" style="top:6.5%">LOGO</div>
+        <div class="frame" style="top:11%;height:62%"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="new" style="left:34%;top:75.5%;width:32%;height:6.2%">
+          <span class="tag" style="left:102%;top:20%">meter zone</span>
+          <div class="sockets"><div class="socket on">3×</div><div class="socket on">2×</div><div class="socket"></div><div class="socket"></div><div class="socket"></div></div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>Five brass sockets in the cabinet's foot rail, in the clear strip above the control bar. Orbs bank modifiers that all fire on the bonus trigger.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-8 · PER-REEL CHARGE BARS</h3><span class="chip">accumulator ×5</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame" style="top:17%;height:65%"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="prop"><div class="line"></div><div class="lamp"></div></div>
+        <div class="new" style="left:31.5%;top:10%;width:37%;height:5.5%">
+          <span class="tag" style="left:102%;top:12%">meter zone ×5</span>
+          <div class="colbars"><b><i style="width:80%"></i></b><b><i style="width:30%"></i></b><b><i class="max" style="width:100%"></i></b><b><i style="width:55%"></i></b><b><i style="width:15%"></i></b></div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>One small bar per reel above the cabinet (logo moves onto the cabinet face). Wins on a reel charge its bar; a full bar locks that reel WILD for the next spin — five races.</p>
+    </div>
+
+    <div class="card">
+      <header><h3>SV-9 · GAUGE DIAL BY THE SPIN CLUSTER</h3><span class="chip">accumulator · dial</span></header>
+      <div class="stage sv"><div class="glow"></div>
+        <div class="title">LOGO</div>
+        <div class="char warm"><div class="head"></div><div class="eye"></div><div class="body"></div></div>
+        <div class="frame"><div class="board n25"><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i></div></div>
+        <div class="new" style="left:74%;top:60%;width:12%;height:22%;border-radius:50%">
+          <span class="tag" style="left:4%;top:-18%">meter zone</span>
+          <div class="gauge"></div>
+        </div>
+        <div class="bar"><span class="pill buy">BUY BONUS</span><span class="pill">BALANCE 24,991.90</span><span class="pill">BET 1.50</span><span class="spin"></span></div>
+      </div>
+      <p>An analog dial where the companion prop hung, docked just above the spin cluster — the machine's pressure gauge. Needle into the green arc fires the feature.</p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>OVERVIEW · <em>ONE MENU, TWO CHASSIS</em></h2>
+  <div class="ovwrap"><table>
+    <tbody><tr><th>#</th><th>Home</th><th>Archetype</th><th>cascade-cluster (6×6)</th><th>swoobz-video-slots (5×5/6×6)</th><th>Precedent</th></tr>
+    <tr><td><b>0</b></td><td><b>Right-strip object</b> (default)</td><td>any</td><td>feature_object anchor, right strip</td><td>companion-prop slot (L1 right)</td><td>Gargantoonz</td></tr>
+    <tr><td><b>1</b></td><td><b>Header charge bar</b></td><td>accumulator</td><td>title plate slot, board-width</td><td>logo slot above cabinet</td><td>Nitro Nights, Beach Princess</td></tr>
+    <tr><td><b>2</b></td><td><b>Board-foot fill line</b></td><td>accumulator</td><td>clear strip under raised board</td><td>clear strip under raised cabinet</td><td>Grug Make Fire</td></tr>
+    <tr><td><b>3</b></td><td><b>Frame-pillar ladder</b></td><td>ladder</td><td>left pillar of board frame</td><td>left pillar of cabinet</td><td>Suck, Hades Hellfire</td></tr>
+    <tr><td><b>4</b></td><td><b>Collector pots on crown</b></td><td>collector ×3</td><td>frame crown (replaces title)</td><td>cabinet crown (replaces logo)</td><td>Big Bounty Bandits</td></tr>
+    <tr><td><b>5</b></td><td><b>Character-carried</b></td><td>accumulator</td><td>on the character, left strip</td><td>on the mascot (L1 left)</td><td>original</td></tr>
+    <tr><td><b>6</b></td><td><b>Dual versus bars</b></td><td>depletion ×2</td><td>flanking board; 2nd char = rival</td><td>flanking cabinet; prop slot = rival</td><td>Fighter Pit</td></tr>
+    <tr><td><b>7</b></td><td><b>Socket row, foot rail</b></td><td>collector · slots</td><td>strip between frame foot + bar</td><td>strip between cabinet foot + bar</td><td>Kill Em All</td></tr>
+    <tr><td><b>8</b></td><td><b>Per-column bars</b></td><td>accumulator ×N</td><td>6 bars above columns</td><td>5 bars above reels</td><td>The Count</td></tr>
+    <tr><td><b>9</b></td><td><b>Gauge dial by spin</b></td><td>accumulator · dial</td><td>right strip lower half</td><td>above spin cluster (prop slot)</td><td>Suck pump gauge</td></tr>
+  </tbody></table></div>
+
+  <div class="foot">
+    <b>Layout law baked into every panel:</b> the meter never overlaps the control bar, the board/cabinet frame, the character, or the logo — when a home takes the title/logo slot, the logo moves onto the cabinet. The only sanctioned overlap is #5 (the meter IS carried by the character). Selection rules live in the <b>meter-placement</b> skill: hotty derives the (archetype, home) pair from the theme, and it must differ from the previous two shipped games on at least one axis.
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.board').forEach(function(b){
+    var n = b.classList.contains('n25') ? 25 : 36;
+    for (var i = 0; i < n; i++){ var c = document.createElement('i'); c.className = 'cell'; b.appendChild(c); }
+  });
+</script>
+
+</body></html>

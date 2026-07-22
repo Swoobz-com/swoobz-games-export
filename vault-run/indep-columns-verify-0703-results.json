@@ -1,0 +1,500 @@
+{
+  "D1440_betentry": {
+    "panel": {
+      "top": 734,
+      "bottom": 1066.28125,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 332.28125
+    },
+    "isColumnsRowFlex": true,
+    "columnsRow": {
+      "top": 773,
+      "bottom": 991.28125,
+      "left": 91.59375,
+      "right": 1348.390625,
+      "width": 1256.796875,
+      "height": 218.28125
+    },
+    "col1": {
+      "top": 773,
+      "bottom": 991.28125,
+      "left": 91.59375,
+      "right": 391.296875,
+      "width": 299.703125,
+      "height": 218.28125
+    },
+    "col2": {
+      "top": 773,
+      "bottom": 991.28125,
+      "left": 391.296875,
+      "right": 1019.6875,
+      "width": 628.390625,
+      "height": 218.28125
+    },
+    "col3": {
+      "top": 773,
+      "bottom": 991.28125,
+      "left": 1019.6875,
+      "right": 1348.390625,
+      "width": 328.703125,
+      "height": 218.28125
+    },
+    "col2Style": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "borderLeftStyle": "solid",
+      "paddingLeft": "28px"
+    },
+    "col3Style": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "borderLeftStyle": "solid",
+      "paddingLeft": "28px"
+    },
+    "modeCardCount": 3,
+    "modeCardRects": [
+      {
+        "top": 796,
+        "bottom": 903.28125,
+        "left": 420.296875,
+        "right": 614.75,
+        "width": 194.453125,
+        "height": 107.28125
+      },
+      {
+        "top": 796,
+        "bottom": 903.28125,
+        "left": 622.75,
+        "right": 817.21875,
+        "width": 194.46875,
+        "height": 107.28125
+      },
+      {
+        "top": 796,
+        "bottom": 903.28125,
+        "left": 825.21875,
+        "right": 1019.6875,
+        "width": 194.46875,
+        "height": 107.28125
+      }
+    ],
+    "footer": {
+      "top": 1005.28125,
+      "bottom": 1048.28125,
+      "left": 91.59375,
+      "right": 1348.390625,
+      "width": 1256.796875,
+      "height": 43
+    },
+    "balanceRect": {
+      "top": 1014.28125,
+      "bottom": 1039.28125,
+      "left": 91.59375,
+      "right": 177.375,
+      "width": 85.78125,
+      "height": 25
+    },
+    "actionsRect": {
+      "top": 1005.28125,
+      "bottom": 1048.28125,
+      "left": 187.375,
+      "right": 1348.390625,
+      "width": 1161.015625,
+      "height": 43
+    },
+    "sendItRect": {
+      "top": 1005.28125,
+      "bottom": 1048.28125,
+      "left": 352.078125,
+      "right": 1348.390625,
+      "width": 996.3125,
+      "height": 43
+    },
+    "cyanCount": 0,
+    "cyanSample": [],
+    "panelChildCount": 3
+  },
+  "D1440_settled_outcome_attempt1": {
+    "isSettled": true,
+    "label": "Rugged at 1.00x, lost 1.00 USDC"
+  },
+  "D1440_settled_1": {
+    "board": {
+      "top": -95,
+      "bottom": 607,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 607,
+      "bottom": 801,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 194
+    }
+  },
+  "D1440_playing": {
+    "board": {
+      "top": -75,
+      "bottom": 627,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 627,
+      "bottom": 801,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 174
+    }
+  },
+  "D1440_settled_outcome_attempt2": {
+    "isSettled": true,
+    "label": "Rugged at 1.00x, lost 1.00 USDC"
+  },
+  "D1440_settled_2": {
+    "board": {
+      "top": -95,
+      "bottom": 607,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 702
+    },
+    "panel": {
+      "top": 607,
+      "bottom": 828,
+      "left": 74.59375,
+      "right": 1365.390625,
+      "width": 1290.796875,
+      "height": 221
+    }
+  },
+  "D1920_betentry": {
+    "panel": {
+      "top": 917.390625,
+      "bottom": 1236.03125,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 318.640625
+    },
+    "isColumnsRowFlex": true,
+    "columnsRow": {
+      "top": 956.390625,
+      "bottom": 1161.03125,
+      "left": 154,
+      "right": 1766,
+      "width": 1612,
+      "height": 204.640625
+    },
+    "col1": {
+      "top": 956.390625,
+      "bottom": 1161.03125,
+      "left": 154,
+      "right": 542.5,
+      "width": 388.5,
+      "height": 204.640625
+    },
+    "col2": {
+      "top": 956.390625,
+      "bottom": 1161.03125,
+      "left": 542.5,
+      "right": 1348.5,
+      "width": 806,
+      "height": 204.640625
+    },
+    "col3": {
+      "top": 956.390625,
+      "bottom": 1161.03125,
+      "left": 1348.5,
+      "right": 1766,
+      "width": 417.5,
+      "height": 204.640625
+    },
+    "col2Style": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "borderLeftStyle": "solid",
+      "paddingLeft": "28px"
+    },
+    "col3Style": {
+      "borderLeftWidth": "1px",
+      "borderLeftColor": "rgba(255, 255, 255, 0.07)",
+      "borderLeftStyle": "solid",
+      "paddingLeft": "28px"
+    },
+    "modeCardCount": 3,
+    "modeCardRects": [
+      {
+        "top": 979.390625,
+        "bottom": 1073.03125,
+        "left": 571.5,
+        "right": 825.15625,
+        "width": 253.65625,
+        "height": 93.640625
+      },
+      {
+        "top": 979.390625,
+        "bottom": 1073.03125,
+        "left": 833.15625,
+        "right": 1086.828125,
+        "width": 253.671875,
+        "height": 93.640625
+      },
+      {
+        "top": 979.390625,
+        "bottom": 1073.03125,
+        "left": 1094.828125,
+        "right": 1348.5,
+        "width": 253.671875,
+        "height": 93.640625
+      }
+    ],
+    "footer": {
+      "top": 1175.03125,
+      "bottom": 1218.03125,
+      "left": 154,
+      "right": 1766,
+      "width": 1612,
+      "height": 43
+    },
+    "balanceRect": {
+      "top": 1184.03125,
+      "bottom": 1209.03125,
+      "left": 154,
+      "right": 239.78125,
+      "width": 85.78125,
+      "height": 25
+    },
+    "actionsRect": {
+      "top": 1175.03125,
+      "bottom": 1218.03125,
+      "left": 249.78125,
+      "right": 1766,
+      "width": 1516.21875,
+      "height": 43
+    },
+    "sendItRect": {
+      "top": 1175.03125,
+      "bottom": 1218.03125,
+      "left": 414.484375,
+      "right": 1766,
+      "width": 1351.515625,
+      "height": 43
+    },
+    "cyanCount": 0,
+    "cyanSample": [],
+    "panelChildCount": 3
+  },
+  "D1920_settled_outcome_attempt1": {
+    "isSettled": true,
+    "label": "Took profit at 1.36x, won 0.36 USDC"
+  },
+  "D1920_settled_1": {
+    "board": {
+      "top": -18,
+      "bottom": 824.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 842.390625
+    },
+    "panel": {
+      "top": 824.390625,
+      "bottom": 1000.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 176
+    }
+  },
+  "D1920_playing": {
+    "board": {
+      "top": -18,
+      "bottom": 824.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 842.390625
+    },
+    "panel": {
+      "top": 824.390625,
+      "bottom": 996.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 172
+    }
+  },
+  "D1920_settled_outcome_attempt2": {
+    "isSettled": true,
+    "label": "Rugged at 1.00x, lost 1.00 USDC"
+  },
+  "D1920_settled_2": {
+    "board": {
+      "top": -18,
+      "bottom": 824.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 842.390625
+    },
+    "panel": {
+      "top": 824.390625,
+      "bottom": 1025.390625,
+      "left": 137,
+      "right": 1783,
+      "width": 1646,
+      "height": 201
+    }
+  },
+  "M390_betentry": {
+    "panel": {
+      "top": 590.515625,
+      "bottom": 1215.4375,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 624.921875
+    },
+    "isColumnsRowFlex": false,
+    "columnsRow": {
+      "top": 641.515625,
+      "bottom": 1197.4375,
+      "left": 34,
+      "right": 356,
+      "width": 322,
+      "height": 555.921875
+    },
+    "col1": null,
+    "col2": null,
+    "col3": null,
+    "col2Style": null,
+    "col3Style": null,
+    "modeCardCount": 3,
+    "modeCardRects": [
+      {
+        "top": 786.515625,
+        "bottom": 967.4375,
+        "left": 34,
+        "right": 136,
+        "width": 102,
+        "height": 180.921875
+      },
+      {
+        "top": 786.515625,
+        "bottom": 967.4375,
+        "left": 144,
+        "right": 246,
+        "width": 102,
+        "height": 180.921875
+      },
+      {
+        "top": 786.515625,
+        "bottom": 967.4375,
+        "left": 254,
+        "right": 356,
+        "width": 102,
+        "height": 180.921875
+      }
+    ],
+    "footer": {
+      "top": 641.515625,
+      "bottom": 1197.4375,
+      "left": 34,
+      "right": 356,
+      "width": 322,
+      "height": 555.921875
+    },
+    "balanceRect": {
+      "top": 641.515625,
+      "bottom": 751.515625,
+      "left": 34,
+      "right": 356,
+      "width": 322,
+      "height": 110
+    },
+    "actionsRect": {
+      "top": 763.515625,
+      "bottom": 1055.4375,
+      "left": 34,
+      "right": 356,
+      "width": 322,
+      "height": 291.921875
+    },
+    "sendItRect": null,
+    "cyanCount": 0,
+    "cyanSample": [],
+    "panelChildCount": 2
+  },
+  "M390_touchTargets": {
+    "stepBtns": [
+      {
+        "width": 34,
+        "height": 34
+      },
+      {
+        "width": 34,
+        "height": 34
+      },
+      {
+        "width": 40,
+        "height": 40
+      },
+      {
+        "width": 40,
+        "height": 40
+      }
+    ],
+    "sendIt": {
+      "width": 157.296875,
+      "height": 43
+    }
+  },
+  "M390_playing": {
+    "board": {
+      "top": 20,
+      "bottom": 509.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 489.515625
+    },
+    "panel": {
+      "top": 509.515625,
+      "bottom": 743.703125,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 234.1875
+    }
+  },
+  "M390_settled_outcome": "Rugged at 1.00x, lost 1.00 USDC",
+  "M390_settled": {
+    "board": {
+      "top": 155,
+      "bottom": 644.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 489.515625
+    },
+    "panel": {
+      "top": 644.515625,
+      "bottom": 971.515625,
+      "left": 17,
+      "right": 373,
+      "width": 356,
+      "height": 327
+    }
+  }
+}

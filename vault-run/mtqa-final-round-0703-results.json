@@ -1,0 +1,658 @@
+{
+  "port": "5193",
+  "timestamp": "2026-07-03T14:09:39.885Z",
+  "devices": {
+    "pixel7": {
+      "device": {
+        "name": "pixel7",
+        "width": 412,
+        "height": 915,
+        "dpr": 2.625
+      },
+      "phases": {
+        "lobby": {
+          "gutterLeaks": [],
+          "hasApeInText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 412,
+            "clientWidth": 412,
+            "bodyScrollWidth": 412,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 915,
+            "clientHeight": 915,
+            "hasVerticalScroll": false
+          },
+          "apeInHitTarget": {
+            "found": true,
+            "width": 340,
+            "height": 43,
+            "touchAction": "auto",
+            "top": 768,
+            "bottom": 811
+          },
+          "apeInThumbZone": {
+            "verdict": "PASS",
+            "pct": "86.3"
+          },
+          "apeInHitTargetPass": false,
+          "apeInTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 36,
+              "y": 768,
+              "height": 43,
+              "width": 340
+            }
+          }
+        },
+        "betEntry": {
+          "gutterLeaks": [],
+          "hasSetYourPlayText": true,
+          "hasBetConsoleRoot": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 412,
+            "clientWidth": 412,
+            "bodyScrollWidth": 412,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 1235,
+            "clientHeight": 915,
+            "hasVerticalScroll": true
+          },
+          "sendItHitTarget": {
+            "found": true,
+            "width": 179.296875,
+            "height": 43,
+            "touchAction": "auto",
+            "top": 794.921875,
+            "bottom": 837.921875
+          },
+          "sendItThumbZone": {
+            "verdict": "PASS",
+            "pct": "89.2"
+          },
+          "sendItPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "89.2",
+            "requiredScroll": false,
+            "scrollYBefore": 320,
+            "scrollYAfter": 320
+          },
+          "sendItHitTargetPass": false,
+          "stepperTap": {
+            "found": true,
+            "box": {
+              "x": 331,
+              "y": 348,
+              "height": 34,
+              "width": 34
+            },
+            "tapOk": true
+          },
+          "sendItTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 198.703125,
+              "y": 794.921875,
+              "height": 43,
+              "width": 179.296875
+            }
+          }
+        },
+        "playing": {
+          "gutterLeaks": [],
+          "hasTakeProfitText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 412,
+            "clientWidth": 412,
+            "bodyScrollWidth": 412,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 929,
+            "clientHeight": 915,
+            "hasVerticalScroll": true
+          },
+          "tileTapGesture": {
+            "ok": true,
+            "mode": "canvas-touchscreen-tap",
+            "spotUsed": [
+              0.5,
+              0.5
+            ]
+          },
+          "takeProfitHitTarget": {
+            "found": true,
+            "width": 344,
+            "height": 59,
+            "touchAction": "auto",
+            "top": 755.1875,
+            "bottom": 814.1875
+          },
+          "takeProfitThumbZone": {
+            "verdict": "PASS",
+            "pct": "85.8"
+          },
+          "takeProfitPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "85.8",
+            "requiredScroll": false,
+            "scrollYBefore": 12,
+            "scrollYAfter": 12
+          },
+          "takeProfitHitTargetPass": true,
+          "takeProfitTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 34,
+              "y": 755.1875,
+              "height": 59,
+              "width": 344
+            }
+          }
+        },
+        "settled": {
+          "gutterLeaks": [],
+          "hasBetAgainText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 412,
+            "clientWidth": 412,
+            "bodyScrollWidth": 412,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 1064,
+            "clientHeight": 915,
+            "hasVerticalScroll": true
+          },
+          "betAgainHitTarget": {
+            "found": true,
+            "width": 152.375,
+            "height": 44,
+            "touchAction": "manipulation",
+            "top": 585,
+            "bottom": 629
+          },
+          "betAgainThumbZone": {
+            "verdict": "PASS",
+            "pct": "66.3"
+          },
+          "betAgainPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "51.4",
+            "requiredScroll": true,
+            "scrollYBefore": 12,
+            "scrollYAfter": 149
+          },
+          "betAgainHitTargetPass": true,
+          "bottomPanelSafeAreaCandidates": [
+            {
+              "paddingBottom": "0px"
+            },
+            {
+              "paddingBottom": "0px"
+            },
+            {
+              "paddingBottom": "28px"
+            }
+          ],
+          "receiptTap": {
+            "found": true,
+            "expandedAfterTap": true
+          }
+        }
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "isolatedTrailGestureCheck": {
+        "attempted": true,
+        "lastRevealResult": {
+          "ok": true,
+          "mode": "canvas-touchscreen-tap",
+          "spotUsed": [
+            0.5,
+            0.5
+          ]
+        },
+        "attemptsUsed": 1,
+        "modeSwitchedToTrail": true,
+        "dragOk": true
+      }
+    },
+    "iphone14pro": {
+      "device": {
+        "name": "iphone14pro",
+        "width": 393,
+        "height": 852,
+        "dpr": 3
+      },
+      "phases": {
+        "lobby": {
+          "gutterLeaks": [],
+          "hasApeInText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 393,
+            "clientWidth": 393,
+            "bodyScrollWidth": 393,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 855,
+            "clientHeight": 852,
+            "hasVerticalScroll": true
+          },
+          "apeInHitTarget": {
+            "found": true,
+            "width": 321,
+            "height": 43,
+            "touchAction": "auto",
+            "top": 735.15625,
+            "bottom": 778.15625
+          },
+          "apeInThumbZone": {
+            "verdict": "PASS",
+            "pct": "88.8"
+          },
+          "apeInHitTargetPass": false,
+          "apeInTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 36,
+              "y": 732.15625,
+              "height": 43,
+              "width": 321
+            }
+          }
+        },
+        "betEntry": {
+          "gutterLeaks": [],
+          "hasSetYourPlayText": true,
+          "hasBetConsoleRoot": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 393,
+            "clientWidth": 393,
+            "bodyScrollWidth": 393,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 1267,
+            "clientHeight": 852,
+            "hasVerticalScroll": true
+          },
+          "sendItHitTarget": {
+            "found": true,
+            "width": 160.296875,
+            "height": 43,
+            "touchAction": "auto",
+            "top": 732.078125,
+            "bottom": 775.078125
+          },
+          "sendItThumbZone": {
+            "verdict": "PASS",
+            "pct": "88.4"
+          },
+          "sendItPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "88.4",
+            "requiredScroll": false,
+            "scrollYBefore": 415,
+            "scrollYAfter": 415
+          },
+          "sendItHitTargetPass": false,
+          "stepperTap": {
+            "found": true,
+            "box": {
+              "x": 312,
+              "y": 247.15625,
+              "height": 34,
+              "width": 34
+            },
+            "tapOk": true
+          },
+          "sendItTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 198.703125,
+              "y": 732.078125,
+              "height": 43,
+              "width": 160.296875
+            }
+          }
+        },
+        "playing": {
+          "gutterLeaks": [],
+          "hasTakeProfitText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 393,
+            "clientWidth": 393,
+            "bodyScrollWidth": 393,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 923,
+            "clientHeight": 852,
+            "hasVerticalScroll": true
+          },
+          "tileTapGesture": {
+            "ok": true,
+            "mode": "canvas-touchscreen-tap",
+            "spotUsed": [
+              0.5,
+              0.5
+            ]
+          },
+          "takeProfitHitTarget": {
+            "found": true,
+            "width": 325,
+            "height": 59,
+            "touchAction": "auto",
+            "top": 692.34375,
+            "bottom": 751.34375
+          },
+          "takeProfitThumbZone": {
+            "verdict": "PASS",
+            "pct": "84.7"
+          },
+          "takeProfitPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "84.7",
+            "requiredScroll": false,
+            "scrollYBefore": 69,
+            "scrollYAfter": 69
+          },
+          "takeProfitHitTargetPass": true,
+          "takeProfitTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 34,
+              "y": 692.34375,
+              "height": 59,
+              "width": 325
+            }
+          }
+        },
+        "settled": {
+          "gutterLeaks": [],
+          "hasBetAgainText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 393,
+            "clientWidth": 393,
+            "bodyScrollWidth": 393,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 1058,
+            "clientHeight": 852,
+            "hasVerticalScroll": true
+          },
+          "betAgainHitTarget": {
+            "found": true,
+            "width": 152.375,
+            "height": 44,
+            "touchAction": "manipulation",
+            "top": 526.15625,
+            "bottom": 570.15625
+          },
+          "betAgainThumbZone": {
+            "verdict": "PASS",
+            "pct": "64.3"
+          },
+          "betAgainPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "50.0",
+            "requiredScroll": true,
+            "scrollYBefore": 65,
+            "scrollYAfter": 187
+          },
+          "betAgainHitTargetPass": true,
+          "bottomPanelSafeAreaCandidates": [
+            {
+              "paddingBottom": "0px"
+            },
+            {
+              "paddingBottom": "0px"
+            },
+            {
+              "paddingBottom": "28px"
+            }
+          ],
+          "receiptTap": {
+            "found": true,
+            "expandedAfterTap": true
+          }
+        }
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "isolatedTrailGestureCheck": {
+        "attempted": true,
+        "lastRevealResult": {
+          "ok": true,
+          "mode": "canvas-touchscreen-tap",
+          "spotUsed": [
+            0.5,
+            0.5
+          ]
+        },
+        "attemptsUsed": 1,
+        "modeSwitchedToTrail": true,
+        "dragOk": true
+      }
+    },
+    "baseline390": {
+      "device": {
+        "name": "baseline390",
+        "width": 390,
+        "height": 844,
+        "dpr": 2
+      },
+      "phases": {
+        "lobby": {
+          "gutterLeaks": [],
+          "hasApeInText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 390,
+            "clientWidth": 390,
+            "bodyScrollWidth": 390,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 851,
+            "clientHeight": 844,
+            "hasVerticalScroll": true
+          },
+          "apeInHitTarget": {
+            "found": true,
+            "width": 318,
+            "height": 43,
+            "touchAction": "auto",
+            "top": 730.515625,
+            "bottom": 773.515625
+          },
+          "apeInThumbZone": {
+            "verdict": "PASS",
+            "pct": "89.1"
+          },
+          "apeInHitTargetPass": false,
+          "apeInTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 36,
+              "y": 723.515625,
+              "height": 43,
+              "width": 318
+            }
+          }
+        },
+        "betEntry": {
+          "gutterLeaks": [],
+          "hasSetYourPlayText": true,
+          "hasBetConsoleRoot": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 390,
+            "clientWidth": 390,
+            "bodyScrollWidth": 390,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 1274,
+            "clientHeight": 844,
+            "hasVerticalScroll": true
+          },
+          "sendItHitTarget": {
+            "found": true,
+            "width": 157.296875,
+            "height": 43,
+            "touchAction": "auto",
+            "top": 724.4375,
+            "bottom": 767.4375
+          },
+          "sendItThumbZone": {
+            "verdict": "PASS",
+            "pct": "88.4"
+          },
+          "sendItPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "88.4",
+            "requiredScroll": false,
+            "scrollYBefore": 430,
+            "scrollYAfter": 430
+          },
+          "sendItHitTargetPass": false,
+          "stepperTap": {
+            "found": true,
+            "box": {
+              "x": 309,
+              "y": 239.515625,
+              "height": 34,
+              "width": 34
+            },
+            "tapOk": true
+          },
+          "sendItTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 198.703125,
+              "y": 724.4375,
+              "height": 43,
+              "width": 157.296875
+            }
+          }
+        },
+        "playing": {
+          "gutterLeaks": [],
+          "hasTakeProfitText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 390,
+            "clientWidth": 390,
+            "bodyScrollWidth": 390,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 919,
+            "clientHeight": 844,
+            "hasVerticalScroll": true
+          },
+          "tileTapGesture": {
+            "ok": true,
+            "mode": "canvas-touchscreen-tap",
+            "spotUsed": [
+              0.5,
+              0.5
+            ]
+          },
+          "takeProfitHitTarget": {
+            "found": true,
+            "width": 322,
+            "height": 59,
+            "touchAction": "auto",
+            "top": 683.703125,
+            "bottom": 742.703125
+          },
+          "takeProfitThumbZone": {
+            "verdict": "PASS",
+            "pct": "84.5"
+          },
+          "takeProfitPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "84.5",
+            "requiredScroll": false,
+            "scrollYBefore": 73,
+            "scrollYAfter": 73
+          },
+          "takeProfitHitTargetPass": true,
+          "takeProfitTapDrivesTransition": {
+            "ok": true,
+            "box": {
+              "x": 34,
+              "y": 683.703125,
+              "height": 59,
+              "width": 322
+            }
+          }
+        },
+        "settled": {
+          "gutterLeaks": [],
+          "hasBetAgainText": true,
+          "hasHorizontalScroll": false,
+          "overflow": {
+            "scrollWidth": 390,
+            "clientWidth": 390,
+            "bodyScrollWidth": 390,
+            "hasHorizontalScroll": false,
+            "scrollHeight": 1054,
+            "clientHeight": 844,
+            "hasVerticalScroll": true
+          },
+          "betAgainHitTarget": {
+            "found": true,
+            "width": 152.375,
+            "height": 44,
+            "touchAction": "manipulation",
+            "top": 513.515625,
+            "bottom": 557.515625
+          },
+          "betAgainThumbZone": {
+            "verdict": "PASS",
+            "pct": "63.4"
+          },
+          "betAgainPostScrollThumbZone": {
+            "verdict": "PASS",
+            "pct": "49.9",
+            "requiredScroll": true,
+            "scrollYBefore": 73,
+            "scrollYAfter": 187
+          },
+          "betAgainHitTargetPass": true,
+          "bottomPanelSafeAreaCandidates": [
+            {
+              "paddingBottom": "0px"
+            },
+            {
+              "paddingBottom": "0px"
+            },
+            {
+              "paddingBottom": "28px"
+            }
+          ],
+          "receiptTap": {
+            "found": true,
+            "expandedAfterTap": true
+          }
+        }
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "isolatedTrailGestureCheck": {
+        "attempted": true,
+        "lastRevealResult": {
+          "ok": true,
+          "mode": "canvas-touchscreen-tap",
+          "spotUsed": [
+            0.5,
+            0.5
+          ]
+        },
+        "attemptsUsed": 1,
+        "modeSwitchedToTrail": true,
+        "dragOk": true
+      }
+    }
+  }
+}

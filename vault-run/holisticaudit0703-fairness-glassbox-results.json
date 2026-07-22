@@ -1,0 +1,48 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "win": {
+      "settled": true,
+      "isRug": false,
+      "toggled": true,
+      "receipt": {
+        "found": false,
+        "hasAutoVerifyChip": true
+      }
+    },
+    "rug": {
+      "settled": true,
+      "toggled": true,
+      "receipt": {
+        "found": false,
+        "hasAutoVerifyChip": true,
+        "hasNoModal": true,
+        "toggleFound": true
+      }
+    }
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "win": {
+      "settled": true,
+      "isRug": false,
+      "toggled": true,
+      "receipt": {
+        "found": false,
+        "hasAutoVerifyChip": true
+      }
+    },
+    "rug": {
+      "settled": true,
+      "toggled": true,
+      "receipt": {
+        "found": false,
+        "hasAutoVerifyChip": true,
+        "hasNoModal": true,
+        "toggleFound": true
+      }
+    }
+  }
+]

@@ -1,0 +1,209 @@
+{
+  "lobby_ctaOpaque": [
+    {
+      "text": "ape in →",
+      "testid": "vault-controlcard",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+      "backdropFilter": "none",
+      "opaque": true
+    }
+  ],
+  "lobby_pulseColumnGone": true,
+  "lobby_gutterA": {
+    "top": 457,
+    "left": 95,
+    "right": 295,
+    "bottom": 601,
+    "width": 200,
+    "height": 144.17,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "background": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+  },
+  "lobby_edges1440": {
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625,
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875
+  },
+  "lobby_gutterA_containment": {
+    "cardRight": 295,
+    "gridLeft": 470.64178749999996,
+    "ok": true
+  },
+  "lobby_worldIcon": {
+    "top": 73,
+    "left": 1313,
+    "right": 1349,
+    "bottom": 109,
+    "width": 36,
+    "height": 36,
+    "backdropFilter": "none",
+    "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)"
+  },
+  "lobby_helpIcon": {
+    "top": 707,
+    "left": 91,
+    "right": 127,
+    "bottom": 743,
+    "width": 36,
+    "height": 36,
+    "backdropFilter": "none",
+    "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)"
+  },
+  "lobby_gearIcon_shouldBeAbsent": false,
+  "betentry_gearIcon": {
+    "top": 73,
+    "left": 91,
+    "right": 127,
+    "bottom": 109,
+    "width": 36,
+    "height": 36,
+    "backdropFilter": "none",
+    "background": "none"
+  },
+  "betentry_gearClicked": true,
+  "betentry_gearPopover": {
+    "top": 117,
+    "left": 91,
+    "right": 341,
+    "bottom": 211,
+    "width": 250,
+    "height": 94,
+    "backdropFilter": "none",
+    "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)"
+  },
+  "betentry_oldAutoExitPillGone": 0,
+  "playing_ctaOpaque": [
+    {
+      "text": "take profitcrack one open first",
+      "testid": null,
+      "backgroundColor": "rgba(94, 234, 212, 0.08)",
+      "backgroundImage": "none",
+      "backdropFilter": "none",
+      "opaque": true
+    }
+  ],
+  "playing_gutterA": {
+    "top": 355,
+    "left": 95,
+    "right": 295,
+    "bottom": 499,
+    "width": 200,
+    "height": 144.17,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "background": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+  },
+  "playing_worldIconClickIsNoop": true,
+  "settledReached": true,
+  "settled_ctaOpaque": [
+    {
+      "text": "bet again →",
+      "testid": "vault-board-rebet",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+      "backdropFilter": "none",
+      "opaque": true
+    },
+    {
+      "text": "bet again →",
+      "testid": "vault-settledpanel",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+      "backdropFilter": "none",
+      "opaque": true
+    }
+  ],
+  "settled_gutterLeftAbsent": true,
+  "settled_gutterB": null,
+  "settled_gutterC": {
+    "top": 320,
+    "left": 1150,
+    "right": 1345,
+    "bottom": 386,
+    "width": 195.63,
+    "height": 66,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "background": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+  },
+  "settled_edges1440": {
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625,
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875
+  },
+  "settled_receiptExpandedViaCardC": true,
+  "cyan_1440": [],
+  "tall_lobby_gutterA": {
+    "top": 795,
+    "left": 95,
+    "right": 295,
+    "bottom": 939,
+    "width": 200,
+    "height": 144.17,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "background": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+  },
+  "tall_edges": {
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625,
+    "gridLeft": 364.7921875,
+    "gridRight": 1075.1921875
+  },
+  "tall_gutterA_containment": {
+    "cardRight": 295,
+    "gridLeft": 364.7921875,
+    "ok": true
+  },
+  "tall_settled_gutterB": null,
+  "tall_settled_gutterC": {
+    "top": 750,
+    "left": 1150,
+    "right": 1345,
+    "bottom": 816,
+    "width": 195.63,
+    "height": 66,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "background": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+  },
+  "wide1920_gutterA": {
+    "top": 457,
+    "left": 157,
+    "right": 357,
+    "bottom": 601,
+    "width": 200,
+    "height": 144.17,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "background": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)"
+  },
+  "wide1920_edges": {
+    "shellLeft": 137,
+    "shellRight": 1783,
+    "gridLeft": 660.78285,
+    "gridRight": 1259.21715
+  },
+  "mobile_lobby_domCounts": {
+    "gutterLeft": 0,
+    "gutterRight": 0,
+    "cornerGear": 0,
+    "cornerWorld": 0,
+    "cornerHelp": 0
+  },
+  "mobile_betentry_domCounts": {
+    "gutterLeft": 0,
+    "gutterRight": 0,
+    "cornerGear": 0
+  },
+  "mobile_autoExitPillPresent": true,
+  "mobile_settledReached": true,
+  "mobile_receiptTogglePresent": true,
+  "mobile_settled_domCounts": {
+    "gutterRight": 0,
+    "cornerHelp": 0
+  },
+  "rgC5_grep": {
+    "setTimeoutCount": 3,
+    "setIntervalCount": 0,
+    "placeBetCount": 3
+  }
+}

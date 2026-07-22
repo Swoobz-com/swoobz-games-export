@@ -1,0 +1,301 @@
+[
+  {
+    "vp": "D1440",
+    "lobbyOverflow": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "lobbyCyan": [],
+    "lobbyDividers": [
+      {
+        "top": 800,
+        "bottom": 929,
+        "height": 129,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 800,
+        "bottom": 929,
+        "height": 129,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 800,
+        "bottom": 929,
+        "height": 129,
+        "borderRightWidth": "0px",
+        "borderRightColor": "rgb(244, 246, 250)"
+      }
+    ],
+    "lobbySurface": {
+      "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+      "borderTopColor": "rgba(255, 197, 61, 0.32)",
+      "borderRadius": "12px 12px 0px 0px",
+      "backdropFilter": "none"
+    },
+    "betentryOverflow": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "betentryFold": {
+      "panelBottom": 1117,
+      "viewportHeight": 900,
+      "sendItBottom": 1099,
+      "sendItAboveFold": false,
+      "toWinBottom": 1042,
+      "toWinAboveFold": false
+    },
+    "betentryColumns": [
+      {
+        "top": 787,
+        "bottom": 1042,
+        "height": 255,
+        "width": 372,
+        "borderRightWidth": "1px"
+      },
+      {
+        "top": 787,
+        "bottom": 1042,
+        "height": 255,
+        "width": 853,
+        "borderRightWidth": "0px"
+      }
+    ],
+    "toWinPill": {
+      "pillWidth": 295,
+      "columnWidth": 853,
+      "stretched": false
+    },
+    "playingOverflow": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "playingDividers": [
+      {
+        "top": 673,
+        "bottom": 802,
+        "height": 129,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 673,
+        "bottom": 802,
+        "height": 129,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 673,
+        "bottom": 802,
+        "height": 129,
+        "borderRightWidth": "0px",
+        "borderRightColor": "rgb(244, 246, 250)"
+      }
+    ],
+    "settledOverflow": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "settledOutcome": "LOSS",
+    "settledDividers": [
+      {
+        "top": 646,
+        "bottom": 790,
+        "height": 144,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 646,
+        "bottom": 790,
+        "height": 144,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 646,
+        "bottom": 790,
+        "height": 144,
+        "borderRightWidth": "0px",
+        "borderRightColor": "rgb(244, 246, 250)"
+      }
+    ],
+    "settledSurface": {
+      "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+      "borderTopColor": "rgba(255, 197, 61, 0.32)",
+      "borderRadius": "12px 12px 0px 0px"
+    }
+  },
+  {
+    "vp": "D1920",
+    "lobbyOverflow": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920
+    },
+    "lobbyCyan": [],
+    "lobbyDividers": [
+      {
+        "top": 940,
+        "bottom": 1054,
+        "height": 113,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 940,
+        "bottom": 1054,
+        "height": 113,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 940,
+        "bottom": 1054,
+        "height": 113,
+        "borderRightWidth": "0px",
+        "borderRightColor": "rgb(244, 246, 250)"
+      }
+    ],
+    "lobbySurface": {
+      "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+      "borderTopColor": "rgba(255, 197, 61, 0.32)",
+      "borderRadius": "12px 12px 0px 0px",
+      "backdropFilter": "none"
+    },
+    "betentryOverflow": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920
+    },
+    "betentryFold": {
+      "panelBottom": 1286,
+      "viewportHeight": 1080,
+      "sendItBottom": 1268,
+      "sendItAboveFold": false,
+      "toWinBottom": 1211,
+      "toWinAboveFold": false
+    },
+    "betentryColumns": [
+      {
+        "top": 956,
+        "bottom": 1211,
+        "height": 255,
+        "width": 477,
+        "borderRightWidth": "1px"
+      },
+      {
+        "top": 956,
+        "bottom": 1211,
+        "height": 255,
+        "width": 1103,
+        "borderRightWidth": "0px"
+      }
+    ],
+    "toWinPill": {
+      "pillWidth": 295,
+      "columnWidth": 1103,
+      "stretched": false
+    },
+    "playingOverflow": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920
+    },
+    "playingDividers": [
+      {
+        "top": 861,
+        "bottom": 982,
+        "height": 121,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 861,
+        "bottom": 982,
+        "height": 121,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 861,
+        "bottom": 982,
+        "height": 121,
+        "borderRightWidth": "0px",
+        "borderRightColor": "rgb(244, 246, 250)"
+      }
+    ],
+    "settledOverflow": {
+      "scrollWidth": 1920,
+      "clientWidth": 1920
+    },
+    "settledOutcome": "LOSS",
+    "settledDividers": [
+      {
+        "top": 844,
+        "bottom": 970,
+        "height": 126,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 844,
+        "bottom": 970,
+        "height": 126,
+        "borderRightWidth": "1px",
+        "borderRightColor": "rgba(255, 255, 255, 0.07)"
+      },
+      {
+        "top": 844,
+        "bottom": 970,
+        "height": 126,
+        "borderRightWidth": "0px",
+        "borderRightColor": "rgb(244, 246, 250)"
+      }
+    ],
+    "settledSurface": {
+      "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+      "borderTopColor": "rgba(255, 197, 61, 0.32)",
+      "borderRadius": "12px 12px 0px 0px"
+    }
+  },
+  {
+    "vp": "M390",
+    "lobbyOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    "lobbyCyan": [],
+    "lobbySurface": {
+      "background": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+      "borderTopColor": "rgba(255, 197, 61, 0.32)",
+      "borderRadius": "12px 12px 0px 0px",
+      "backdropFilter": "none"
+    },
+    "betentryOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    "betentryFold": {
+      "panelBottom": 1177,
+      "viewportHeight": 844,
+      "sendItBottom": 1159,
+      "sendItAboveFold": false,
+      "toWinBottom": 1067,
+      "toWinAboveFold": false
+    },
+    "mobileBetConsoleSingleStack": {
+      "hasWagerLabel": true,
+      "childCount": 2
+    },
+    "playingOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    "settledOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    "settledOutcome": "LOSS"
+  }
+]

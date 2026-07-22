@@ -1,0 +1,112 @@
+{
+  "cleanStaggered6": {
+    "pace": "staggered",
+    "size": 6,
+    "attempt": 2,
+    "goLabel": "Run your trail of 6 tiles for 1.97 USDC",
+    "samples": [
+      {
+        "t": 27,
+        "count": 0
+      },
+      {
+        "t": 458,
+        "count": 1
+      },
+      {
+        "t": 891,
+        "count": 2
+      },
+      {
+        "t": 1318,
+        "count": 3
+      },
+      {
+        "t": 1750,
+        "count": 4
+      },
+      {
+        "t": 2179,
+        "count": 5
+      },
+      {
+        "t": 2611,
+        "count": 6
+      }
+    ],
+    "cleanRun": true,
+    "settledDuringPoll": null,
+    "pageErrorCount": 0
+  },
+  "cleanInstant6": {
+    "pace": "instant",
+    "size": 6,
+    "attempt": 3,
+    "goLabel": "Run your trail of 6 tiles for 1.97 USDC",
+    "samples": [
+      {
+        "t": 22,
+        "count": 6
+      }
+    ],
+    "cleanRun": true,
+    "settledDuringPoll": null,
+    "pageErrorCount": 0
+  },
+  "cleanStaggered5": {
+    "pace": "staggered",
+    "size": 5,
+    "attempt": 1,
+    "goLabel": "Run your trail of 5 tiles for 1.73 USDC",
+    "samples": [
+      {
+        "t": 63,
+        "count": 0
+      },
+      {
+        "t": 495,
+        "count": 1
+      },
+      {
+        "t": 904,
+        "count": 2
+      },
+      {
+        "t": 1366,
+        "count": 3
+      },
+      {
+        "t": 1766,
+        "count": 4
+      },
+      {
+        "t": 2201,
+        "count": 5
+      }
+    ],
+    "cleanRun": true,
+    "settledDuringPoll": null,
+    "pageErrorCount": 0
+  },
+  "cleanInstant5": {
+    "pace": "instant",
+    "size": 5,
+    "attempt": 1,
+    "goLabel": "Run your trail of 5 tiles for 1.73 USDC",
+    "samples": [
+      {
+        "t": 21,
+        "count": 5
+      }
+    ],
+    "cleanRun": true,
+    "settledDuringPoll": null,
+    "pageErrorCount": 0
+  },
+  "visual": {
+    "attempt": 1,
+    "finalCount": null,
+    "settledLabel": "Rugged at 1.00x, lost 1.00 USDC",
+    "pageErrorCount": 0
+  }
+}

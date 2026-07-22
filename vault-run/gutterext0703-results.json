@@ -1,0 +1,485 @@
+{
+  "consoleerrors_1440": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "panel_lobby_1440": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "lobby_hero_1440": {
+    "top": 169.5,
+    "left": 94.59375,
+    "right": 354.59375,
+    "bottom": 358,
+    "width": 260,
+    "height": 188.5
+  },
+  "lobby_apein_1440": {
+    "top": 169.5,
+    "left": 1191.484375,
+    "right": 1345.390625,
+    "bottom": 244.5,
+    "width": 153.90625,
+    "height": 75
+  },
+  "lobby_cardA_1440": {
+    "top": 497.5,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 641.671875,
+    "width": 200,
+    "height": 144.171875
+  },
+  "lobby_cardA_mirror_1440": {
+    "top": 497.5,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 641.671875,
+    "width": 200,
+    "height": 144.171875
+  },
+  "lobby_apein_style_1440": {
+    "text": "ape in →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "width": 123.90625,
+    "parentWidth": 153.90625,
+    "minWidth": "auto"
+  },
+  "overflow_lobby_1440": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "cyan_lobby_1440": 0,
+  "apein_click_ok": true,
+  "after_apein_isBetEntry": true,
+  "panel_playing_1440": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "playing_status_1440": {
+    "top": 166.5,
+    "left": 94.59375,
+    "right": 354.59375,
+    "bottom": 350.875,
+    "width": 260,
+    "height": 184.375
+  },
+  "playing_actions_1440": {
+    "top": 166.5,
+    "left": 1135.421875,
+    "right": 1345.390625,
+    "bottom": 323.5,
+    "width": 209.96875,
+    "height": 157
+  },
+  "playing_cardA_1440": {
+    "top": 494.5,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 638.671875,
+    "width": 200,
+    "height": 144.171875
+  },
+  "playing_cardA_mirror_1440": {
+    "top": 494.5,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 638.671875,
+    "width": 200,
+    "height": 144.171875
+  },
+  "overflow_playing_1440": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "cyan_playing_1440": 0,
+  "takeprofit_style_disabled_1440": {
+    "text": "take profitcrack one open first",
+    "disabled": true,
+    "opacity": "1",
+    "backgroundImage": "none",
+    "backgroundColor": "rgba(94, 234, 212, 0.08)",
+    "color": "rgba(255, 255, 255, 0.62)",
+    "width": 179.96875,
+    "parentWidth": 209.96875,
+    "minWidth": "0px"
+  },
+  "reveal_ok_1440": true,
+  "takeprofit_style_enabled_1440": {
+    "text": "TAKE PROFIT1.10 USDC · 1.10x",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "width": 159.4375,
+    "parentWidth": 189.4375,
+    "minWidth": "0px"
+  },
+  "takeprofit_click_ok": true,
+  "panel_settled_win_1440": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "settled_result_win_1440": {
+    "top": 158,
+    "left": 94.59375,
+    "right": 236.28125,
+    "bottom": 318,
+    "width": 141.6875,
+    "height": 160
+  },
+  "settled_meta_win_1440": {
+    "top": 334,
+    "left": 94.59375,
+    "right": 236.28125,
+    "bottom": 437,
+    "width": 141.6875,
+    "height": 103
+  },
+  "settled_nextbet_win_1440": {
+    "top": 158,
+    "left": 1085.390625,
+    "right": 1345.390625,
+    "bottom": 290,
+    "width": 260,
+    "height": 132
+  },
+  "settled_betagain_win_1440": {
+    "top": 306,
+    "left": 1085.390625,
+    "right": 1345.390625,
+    "bottom": 423,
+    "width": 260,
+    "height": 117
+  },
+  "settled_cardB_1440": null,
+  "settled_cardC_1440": {
+    "top": 486,
+    "left": 1149.765625,
+    "right": 1345.390625,
+    "bottom": 552,
+    "width": 195.625,
+    "height": 66
+  },
+  "settled_betagain_style_1440": {
+    "text": "bet again →",
+    "disabled": false,
+    "opacity": "1",
+    "backgroundImage": "linear-gradient(rgb(0, 230, 118), rgb(0, 168, 90))",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(4, 19, 11)",
+    "width": 230,
+    "parentWidth": 260,
+    "minWidth": "auto"
+  },
+  "overflow_settled_win_1440": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "cyan_settled_win_1440": 0,
+  "betagain_click_ok": true,
+  "after_betagain_isPlaying": true,
+  "reveal_ok_round2_1440": true,
+  "settled_cardB_round2_1440": {
+    "top": 486,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 586,
+    "width": 200,
+    "height": 100
+  },
+  "trailtoggle_click_ok": true,
+  "after_trailtoggle_isTrailMode": true,
+  "trailtoggle_back_click_ok": true,
+  "after_trailtoggle_back_isManual": true,
+  "after_paint_isTrailReady": true,
+  "clear_click_ok": true,
+  "after_clear_isTrailReady": false,
+  "go_click_ok": true,
+  "after_go_isRunningOrSettled": true,
+  "bust_achieved": true,
+  "panel_settled_bust_1440": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "settled_result_bust_1440": {
+    "top": 157,
+    "left": 94.59375,
+    "right": 244.265625,
+    "bottom": 317,
+    "width": 149.671875,
+    "height": 160
+  },
+  "settled_result_bust_text_1440": "RUGGEDdown horrendousBUST-1.00 USDC1 before the rug",
+  "overflow_settled_bust_1440": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "panel_lobby_1440h1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "lobby_hero_1440h1920": {
+    "top": 530.5,
+    "left": 94.59375,
+    "right": 354.59375,
+    "bottom": 719,
+    "width": 260,
+    "height": 188.5
+  },
+  "lobby_apein_1440h1920": {
+    "top": 530.5,
+    "left": 1191.484375,
+    "right": 1345.390625,
+    "bottom": 605.5,
+    "width": 153.90625,
+    "height": 75
+  },
+  "overflow_lobby_1440h1920": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "panel_playing_1440h1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "playing_status_1440h1920": {
+    "top": 527.5,
+    "left": 94.59375,
+    "right": 354.59375,
+    "bottom": 711.875,
+    "width": 260,
+    "height": 184.375
+  },
+  "playing_actions_1440h1920": {
+    "top": 527.5,
+    "left": 1135.421875,
+    "right": 1345.390625,
+    "bottom": 684.5,
+    "width": 209.96875,
+    "height": 157
+  },
+  "overflow_playing_1440h1920": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "reveal_ok_1440h1920": true,
+  "settled_result_win_1440h1920": {
+    "top": 519,
+    "left": 94.59375,
+    "right": 236.28125,
+    "bottom": 679,
+    "width": 141.6875,
+    "height": 160
+  },
+  "settled_meta_win_1440h1920": {
+    "top": 695,
+    "left": 94.59375,
+    "right": 236.28125,
+    "bottom": 798,
+    "width": 141.6875,
+    "height": 103
+  },
+  "settled_nextbet_win_1440h1920": {
+    "top": 519,
+    "left": 1085.390625,
+    "right": 1345.390625,
+    "bottom": 651,
+    "width": 260,
+    "height": 132
+  },
+  "settled_betagain_win_1440h1920": {
+    "top": 667,
+    "left": 1085.390625,
+    "right": 1345.390625,
+    "bottom": 784,
+    "width": 260,
+    "height": 117
+  },
+  "panel_settled_1440h1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "overflow_settled_1440h1920": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": 0
+  },
+  "panel_lobby_1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "lobby_hero_1920": {
+    "top": 189.296875,
+    "left": 157,
+    "right": 417,
+    "bottom": 377.796875,
+    "width": 260,
+    "height": 188.5
+  },
+  "lobby_apein_1920": {
+    "top": 189.296875,
+    "left": 1609.09375,
+    "right": 1763,
+    "bottom": 264.296875,
+    "width": 153.90625,
+    "height": 75
+  },
+  "overflow_lobby_1920": {
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": 0
+  },
+  "panel_playing_1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "playing_status_1920": {
+    "top": 186.296875,
+    "left": 157,
+    "right": 417,
+    "bottom": 370.671875,
+    "width": 260,
+    "height": 184.375
+  },
+  "playing_actions_1920": {
+    "top": 186.296875,
+    "left": 1553.03125,
+    "right": 1763,
+    "bottom": 343.296875,
+    "width": 209.96875,
+    "height": 157
+  },
+  "overflow_playing_1920": {
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": 0
+  },
+  "cyan_playing_1920": 0,
+  "reveal_ok_1920": true,
+  "settled_result_win_1920": {
+    "top": 177.796875,
+    "left": 157,
+    "right": 298.6875,
+    "bottom": 337.796875,
+    "width": 141.6875,
+    "height": 160
+  },
+  "settled_meta_win_1920": {
+    "top": 353.796875,
+    "left": 157,
+    "right": 298.6875,
+    "bottom": 456.796875,
+    "width": 141.6875,
+    "height": 103
+  },
+  "settled_nextbet_win_1920": {
+    "top": 177.796875,
+    "left": 1503,
+    "right": 1763,
+    "bottom": 309.796875,
+    "width": 260,
+    "height": 132
+  },
+  "settled_betagain_win_1920": {
+    "top": 325.796875,
+    "left": 1503,
+    "right": 1763,
+    "bottom": 442.796875,
+    "width": 260,
+    "height": 117
+  },
+  "overflow_settled_1920": {
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": 0
+  },
+  "cyan_settled_1920": 0,
+  "panel_settled_1920": {
+    "panelFound": true,
+    "childElementCount": 0,
+    "innerHTMLLength": 0
+  },
+  "mobile_lobby_hasApeInText": true,
+  "mobile_lobby_gutterDom": {
+    "hero": 0,
+    "apein": 0
+  },
+  "mobile_hasSetYourPlay": true,
+  "mobile_hasBetConsoleRoot": true,
+  "mobile_playing_hasTakeProfitText": true,
+  "mobile_playing_gutterDom": {
+    "status": 0,
+    "actions": 0
+  },
+  "reveal_ok_mobile": true,
+  "mobile_settled_gutterDom": {
+    "result": 0,
+    "betagain": 0
+  },
+  "mobile_settled_hasBetAgainText": true,
+  "grep_topOffset_400_all": 4,
+  "grep_topOffset_400_codeOnly": 1,
+  "grep_BETENTRY_GUTTER_topOffset_72": 5,
+  "grep_new_components": {
+    "LobbyGutterCards": 1,
+    "PlayingGutterCards": 1,
+    "SettledGutterCards": 1
+  },
+  "grep_gutterCardCta_reused": 4,
+  "grep_PhaseSurface_isWide_null_count": 3,
+  "contrast_apein": {
+    "label": "APE IN",
+    "text": "ape in →",
+    "opacity": "1",
+    "color": "rgb(4, 19, 11)",
+    "contrastVsTopStop": "11.40",
+    "contrastVsBottomStop": "6.12",
+    "worstCaseAA_normalText": true,
+    "widthVsParent": "123.9 / 153.9",
+    "minWidthComputed": "auto"
+  },
+  "contrast_takeprofit_enabled": {
+    "label": "TAKE PROFIT (enabled)",
+    "text": "TAKE PROFIT1.10 USDC · 1.10x",
+    "opacity": "1",
+    "color": "rgb(4, 19, 11)",
+    "contrastVsTopStop": "11.40",
+    "contrastVsBottomStop": "6.12",
+    "worstCaseAA_normalText": true,
+    "widthVsParent": "159.4 / 189.4",
+    "minWidthComputed": "0px"
+  },
+  "contrast_betagain": {
+    "label": "BET AGAIN",
+    "text": "bet again →",
+    "opacity": "1",
+    "color": "rgb(4, 19, 11)",
+    "contrastVsTopStop": "11.40",
+    "contrastVsBottomStop": "6.12",
+    "worstCaseAA_normalText": true,
+    "widthVsParent": "230.0 / 260.0",
+    "minWidthComputed": "auto"
+  }
+}

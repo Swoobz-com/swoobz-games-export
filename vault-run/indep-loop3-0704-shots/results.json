@@ -1,0 +1,1530 @@
+{
+  "win_960x800": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 84,
+        "bottom": 796
+      },
+      "bodyRect": {
+        "top": 695.59375,
+        "bottom": 791.59375,
+        "width": 143,
+        "height": 96
+      },
+      "bodyMaxHeightCss": "96px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "113px",
+      "hasZeroPxTrack": false,
+      "rowCount": 9,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 113,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 113,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 113,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0200000000000000",
+      "server seed hash": "e90eeeeaa33d20ead9854dac107c522cdb101db8c1e7841c53d68f93a2dc29e3",
+      "server seed": "3995596efc1ef3570ae6a060f4a1f64b19591b3533e50eee559e9aff08ebca9a",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "1",
+      "reveal trace": "0",
+      "rugs that stayed sealed": "3 of 3"
+    },
+    "rederive": {
+      "serverSeedHex": "3995596efc1ef3570ae6a060f4a1f64b19591b3533e50eee559e9aff08ebca9a",
+      "claimedHash": "e90eeeeaa33d20ead9854dac107c522cdb101db8c1e7841c53d68f93a2dc29e3",
+      "recomputedHash": "e90eeeeaa33d20ead9854dac107c522cdb101db8c1e7841c53d68f93a2dc29e3",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        7,
+        9,
+        10
+      ],
+      "revealed": [
+        0
+      ],
+      "noRevealedIsMine": true,
+      "struckMatchesMine": null,
+      "sealedStr": "3 of 3",
+      "sealedMatch": {
+        "sealed": 3,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "rug_960x800": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 84,
+        "bottom": 796
+      },
+      "bodyRect": {
+        "top": 578,
+        "bottom": 776,
+        "width": 143,
+        "height": 198
+      },
+      "bodyMaxHeightCss": "198px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "113px",
+      "hasZeroPxTrack": false,
+      "rowCount": 10,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 113,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 113,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 113,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 10,
+          "titleLen": 10
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        },
+        {
+          "label": "rug struck",
+          "widthPx": 113,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 7,
+          "titleLen": 7
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0100000000000000",
+      "server seed hash": "609d3aa3490dd08dcf8a4906f7bdeff222e2978c27dea9ca9a9419efa54dac16",
+      "server seed": "841680c3e50e8e1bb7748692af908ddcab2b534697f34ec2928a02353ca157cf",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "3",
+      "reveal trace": "0 → 5 → 10",
+      "rugs that stayed sealed": "2 of 3",
+      "rug struck": "tile 16"
+    },
+    "rederive": {
+      "serverSeedHex": "841680c3e50e8e1bb7748692af908ddcab2b534697f34ec2928a02353ca157cf",
+      "claimedHash": "609d3aa3490dd08dcf8a4906f7bdeff222e2978c27dea9ca9a9419efa54dac16",
+      "recomputedHash": "609d3aa3490dd08dcf8a4906f7bdeff222e2978c27dea9ca9a9419efa54dac16",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        4,
+        15,
+        22
+      ],
+      "revealed": [
+        0,
+        5,
+        10
+      ],
+      "noRevealedIsMine": true,
+      "rugStruckStr": "tile 16",
+      "struckMatchesMine": true,
+      "sealedStr": "2 of 3",
+      "sealedMatch": {
+        "sealed": 2,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "win_1024x800": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 84,
+        "bottom": 796
+      },
+      "bodyRect": {
+        "top": 578,
+        "bottom": 776,
+        "width": 146.375,
+        "height": 198
+      },
+      "bodyMaxHeightCss": "198px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "116.375px",
+      "hasZeroPxTrack": false,
+      "rowCount": 9,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 116.38,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 116.38,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 116.38,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0100000000000000",
+      "server seed hash": "8a763c6132afbadf3d5fe7fa116bec0769c54965e51df748fc211522e0e78680",
+      "server seed": "d7eebc5a56b985d852503525082ad63f6307800b0ffb291b933692ff591807cd",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "1",
+      "reveal trace": "0",
+      "rugs that stayed sealed": "3 of 3"
+    },
+    "rederive": {
+      "serverSeedHex": "d7eebc5a56b985d852503525082ad63f6307800b0ffb291b933692ff591807cd",
+      "claimedHash": "8a763c6132afbadf3d5fe7fa116bec0769c54965e51df748fc211522e0e78680",
+      "recomputedHash": "8a763c6132afbadf3d5fe7fa116bec0769c54965e51df748fc211522e0e78680",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        4,
+        8,
+        23
+      ],
+      "revealed": [
+        0
+      ],
+      "noRevealedIsMine": true,
+      "struckMatchesMine": null,
+      "sealedStr": "3 of 3",
+      "sealedMatch": {
+        "sealed": 3,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "rug_1024x800": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 84,
+        "bottom": 796
+      },
+      "bodyRect": {
+        "top": 578,
+        "bottom": 776,
+        "width": 146.375,
+        "height": 198
+      },
+      "bodyMaxHeightCss": "198px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "116.375px",
+      "hasZeroPxTrack": false,
+      "rowCount": 10,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 116.38,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 116.38,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 116.38,
+          "heightPx": 52,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 15,
+          "titleLen": 15
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        },
+        {
+          "label": "rug struck",
+          "widthPx": 116.38,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 7,
+          "titleLen": 7
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0100000000000000",
+      "server seed hash": "dc30fe188d41adf2ad4fee9b06db2b69c26207d9be0bcae63f6e49753b7cb0a0",
+      "server seed": "dacb072d354424b5fdf77488a274f70bc52c66158f42f4306952325568e82e81",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "4",
+      "reveal trace": "0 → 5 → 10 → 15",
+      "rugs that stayed sealed": "2 of 3",
+      "rug struck": "tile 21"
+    },
+    "rederive": {
+      "serverSeedHex": "dacb072d354424b5fdf77488a274f70bc52c66158f42f4306952325568e82e81",
+      "claimedHash": "dc30fe188d41adf2ad4fee9b06db2b69c26207d9be0bcae63f6e49753b7cb0a0",
+      "recomputedHash": "dc30fe188d41adf2ad4fee9b06db2b69c26207d9be0bcae63f6e49753b7cb0a0",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        6,
+        20,
+        23
+      ],
+      "revealed": [
+        0,
+        5,
+        10,
+        15
+      ],
+      "noRevealedIsMine": true,
+      "rugStruckStr": "tile 21",
+      "struckMatchesMine": true,
+      "sealedStr": "2 of 3",
+      "sealedMatch": {
+        "sealed": 2,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "win_1440x900": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 57,
+        "bottom": 858
+      },
+      "bodyRect": {
+        "top": 655,
+        "bottom": 838,
+        "width": 200,
+        "height": 183
+      },
+      "bodyMaxHeightCss": "183px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "170px",
+      "hasZeroPxTrack": false,
+      "rowCount": 9,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0200000000000000",
+      "server seed hash": "d591e042b481113f23dabde078ac236e7f4e86e57668a374479e952ae2281f58",
+      "server seed": "612c07d835c29755c6f5617f3b7d3e94730b7112a367a6a25919315c1505de42",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "1",
+      "reveal trace": "0",
+      "rugs that stayed sealed": "3 of 3"
+    },
+    "rederive": {
+      "serverSeedHex": "612c07d835c29755c6f5617f3b7d3e94730b7112a367a6a25919315c1505de42",
+      "claimedHash": "d591e042b481113f23dabde078ac236e7f4e86e57668a374479e952ae2281f58",
+      "recomputedHash": "d591e042b481113f23dabde078ac236e7f4e86e57668a374479e952ae2281f58",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        3,
+        11,
+        21
+      ],
+      "revealed": [
+        0
+      ],
+      "noRevealedIsMine": true,
+      "struckMatchesMine": null,
+      "sealedStr": "3 of 3",
+      "sealedMatch": {
+        "sealed": 3,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "rug_1440x900": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 57,
+        "bottom": 858
+      },
+      "bodyRect": {
+        "top": 539,
+        "bottom": 838,
+        "width": 200,
+        "height": 299
+      },
+      "bodyMaxHeightCss": "299px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "170px",
+      "hasZeroPxTrack": false,
+      "rowCount": 10,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 20,
+          "titleLen": 20
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        },
+        {
+          "label": "rug struck",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0100000000000000",
+      "server seed hash": "16103971f9b7a30b1b337a7791b56f0d26fbef88d59bbd4f1419a1cf5dba51fc",
+      "server seed": "be03b6f661aad505a6abd92cd5bd33a2a44bad6a0e7053b569806eed8f2c4151",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "5",
+      "reveal trace": "0 → 5 → 10 → 15 → 20",
+      "rugs that stayed sealed": "2 of 3",
+      "rug struck": "tile 2"
+    },
+    "rederive": {
+      "serverSeedHex": "be03b6f661aad505a6abd92cd5bd33a2a44bad6a0e7053b569806eed8f2c4151",
+      "claimedHash": "16103971f9b7a30b1b337a7791b56f0d26fbef88d59bbd4f1419a1cf5dba51fc",
+      "recomputedHash": "16103971f9b7a30b1b337a7791b56f0d26fbef88d59bbd4f1419a1cf5dba51fc",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        1,
+        3,
+        23
+      ],
+      "revealed": [
+        0,
+        5,
+        10,
+        15,
+        20
+      ],
+      "noRevealedIsMine": true,
+      "rugStruckStr": "tile 2",
+      "struckMatchesMine": true,
+      "sealedStr": "2 of 3",
+      "sealedMatch": {
+        "sealed": 2,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "win_1920x1080": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 57.40625,
+        "bottom": 1018.59375
+      },
+      "bodyRect": {
+        "top": 539.40625,
+        "bottom": 998.59375,
+        "width": 200,
+        "height": 459.1875
+      },
+      "bodyMaxHeightCss": "459.188px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "170px",
+      "hasZeroPxTrack": false,
+      "rowCount": 9,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0100000000000000",
+      "server seed hash": "16da2592b058698570dae31acc60b01846be10e97d26f380020d57a498bd48b1",
+      "server seed": "89124a7d96ace014021b98d09178d91d6e06a0fa6c5f23902a6148a7e2540960",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "1",
+      "reveal trace": "0",
+      "rugs that stayed sealed": "3 of 3"
+    },
+    "rederive": {
+      "serverSeedHex": "89124a7d96ace014021b98d09178d91d6e06a0fa6c5f23902a6148a7e2540960",
+      "claimedHash": "16da2592b058698570dae31acc60b01846be10e97d26f380020d57a498bd48b1",
+      "recomputedHash": "16da2592b058698570dae31acc60b01846be10e97d26f380020d57a498bd48b1",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        5,
+        17,
+        23
+      ],
+      "revealed": [
+        0
+      ],
+      "noRevealedIsMine": true,
+      "struckMatchesMine": null,
+      "sealedStr": "3 of 3",
+      "sealedMatch": {
+        "sealed": 3,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "rug_1920x1080": {
+    "chipInfo": {
+      "hasVerifiedChip": true,
+      "hasToggle": true
+    },
+    "hitAfterOpen": {
+      "hitIsToggleOrChild": true,
+      "hitTag": "BUTTON"
+    },
+    "legibility": {
+      "shellRect": {
+        "top": 57,
+        "bottom": 1018.1875
+      },
+      "bodyRect": {
+        "top": 539,
+        "bottom": 998.1875,
+        "width": 200,
+        "height": 459.1875
+      },
+      "bodyMaxHeightCss": "459.188px",
+      "bodyOverflowY": "auto",
+      "dlGridTemplateColumns": "170px",
+      "hasZeroPxTrack": false,
+      "rowCount": 10,
+      "allWidthsGT0": true,
+      "allFullValueVisible": true,
+      "bodyExceedsShellBottom": false,
+      "scrollable": true,
+      "lastRowScrollReachable": true,
+      "rows": [
+        {
+          "label": "round id",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 16,
+          "titleLen": 16
+        },
+        {
+          "label": "server seed hash",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "server seed",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "mixer",
+          "widthPx": 170,
+          "heightPx": 39,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 64,
+          "titleLen": 64
+        },
+        {
+          "label": "grid",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 3,
+          "titleLen": 3
+        },
+        {
+          "label": "rugs",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "safe tiles revealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 1,
+          "titleLen": 1
+        },
+        {
+          "label": "reveal trace",
+          "widthPx": 170,
+          "heightPx": 26,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 33,
+          "titleLen": 33
+        },
+        {
+          "label": "rugs that stayed sealed",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 6,
+          "titleLen": 6
+        },
+        {
+          "label": "rug struck",
+          "widthPx": 170,
+          "heightPx": 13,
+          "widthGT0": true,
+          "visibility": "visible",
+          "display": "block",
+          "opacity": "1",
+          "fullValueMatchesTitle": true,
+          "textLen": 7,
+          "titleLen": 7
+        }
+      ]
+    },
+    "rawValues": {
+      "round id": "0100000000000000",
+      "server seed hash": "6d917d5264865c021a0b2a3797e5d25fcd936203675f58e3da3cf38ee9dc11c4",
+      "server seed": "043bb77f4681aa5ef5f42c88c67290dfe60244f653035b2f3a900c20303eb901",
+      "mixer": "1782f14405eba2836c48e522f0cc0c38b8becac0e7190a09c5a28c999c53f5cb",
+      "grid": "5×5",
+      "rugs": "3",
+      "safe tiles revealed": "8",
+      "reveal trace": "0 → 5 → 10 → 15 → 20 → 1 → 6 → 11",
+      "rugs that stayed sealed": "2 of 3",
+      "rug struck": "tile 17"
+    },
+    "rederive": {
+      "serverSeedHex": "043bb77f4681aa5ef5f42c88c67290dfe60244f653035b2f3a900c20303eb901",
+      "claimedHash": "6d917d5264865c021a0b2a3797e5d25fcd936203675f58e3da3cf38ee9dc11c4",
+      "recomputedHash": "6d917d5264865c021a0b2a3797e5d25fcd936203675f58e3da3cf38ee9dc11c4",
+      "hashMatches": true,
+      "totalTiles": 25,
+      "mineCount": 3,
+      "mineIndicesCount": 3,
+      "mineIndices": [
+        8,
+        12,
+        16
+      ],
+      "revealed": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        1,
+        6,
+        11
+      ],
+      "noRevealedIsMine": true,
+      "rugStruckStr": "tile 17",
+      "struckMatchesMine": true,
+      "sealedStr": "2 of 3",
+      "sealedMatch": {
+        "sealed": 2,
+        "total": 3
+      }
+    },
+    "afterClose": {
+      "ariaExpanded": "false",
+      "bodyStillMounted": false
+    }
+  },
+  "mobileUnchanged": {
+    "gridTemplateColumns": "163.266px 146.734px",
+    "trackCount": 2,
+    "isTwoColumn": true,
+    "ddOverflow": "hidden",
+    "ddTextOverflow": "ellipsis",
+    "ddWidthGT0": true
+  }
+}

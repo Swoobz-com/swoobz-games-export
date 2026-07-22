@@ -1,0 +1,209 @@
+{
+  "lobby_1440_barHeight": 126.5,
+  "lobby_1440_gutterA": {
+    "top": 137,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 281.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "lobby_1440_edges": {
+    "shellW": 1290.796875,
+    "shellH": 702,
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875,
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625
+  },
+  "lobby_1440_ancestorStretch": [],
+  "mobile_marker_gearAbsentOnLobby": true,
+  "lobby_1440_worldIcon": {
+    "top": 73,
+    "left": 1313.390625,
+    "right": 1349.390625,
+    "bottom": 109,
+    "width": 36,
+    "height": 36,
+    "backdropFilter": "none",
+    "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "lobby_1440_helpIcon": {
+    "top": 707,
+    "left": 90.59375,
+    "right": 126.59375,
+    "bottom": 743,
+    "width": 36,
+    "height": 36,
+    "backdropFilter": "none",
+    "backgroundImage": "linear-gradient(rgb(27, 35, 48) 0%, rgb(9, 15, 24) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "betentry_1440_gearIcon": {
+    "top": 73,
+    "left": 90.59375,
+    "right": 126.59375,
+    "bottom": 109,
+    "width": 36,
+    "height": 36,
+    "backdropFilter": "none",
+    "backgroundImage": "none",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "playing_1440_barHeight": null,
+  "playing_1440_gutterA": {
+    "top": 35,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 179.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "playing_1440_ancestorStretch": [],
+  "settled_1440_reached": true,
+  "settled_1440_barHeight": 193,
+  "settled_1440_gutterLeftAbsent": true,
+  "settled_1440_gutterB": null,
+  "settled_1440_gutterC": {
+    "top": 0,
+    "left": 1149.765625,
+    "right": 1345.390625,
+    "bottom": 66,
+    "width": 195.625,
+    "height": 66,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "settled_1440_edges": {
+    "shellW": 1290.796875,
+    "shellH": 702,
+    "gridLeft": 470.64178749999996,
+    "gridRight": 969.3425875,
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625
+  },
+  "settled_1440_gutterC_ancestorStretch": [],
+  "settled_1440_receiptExpanded": true,
+  "betAgainClicked": true,
+  "settled2_1440_reached": true,
+  "settled2_1440_gutterB": {
+    "top": 0,
+    "left": 1145.390625,
+    "right": 1345.390625,
+    "bottom": 100,
+    "width": 200,
+    "height": 100,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "lobby_1920h_barHeight": 126.5,
+  "lobby_1920h_gutterA": {
+    "top": 475.25,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 619.421875,
+    "width": 200,
+    "height": 144.171875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "lobby_1920h_edges": {
+    "shellW": 1290.796875,
+    "shellH": 1000,
+    "gridLeft": 364.7921875,
+    "gridRight": 1075.1921875,
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625
+  },
+  "playing_1920h_barHeight": null,
+  "playing_1920h_gutterA": {
+    "top": 450.5,
+    "left": 94.59375,
+    "right": 294.59375,
+    "bottom": 594.671875,
+    "width": 200,
+    "height": 144.171875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "settled_1920h_reached": true,
+  "settled_1920h_barHeight": 193,
+  "settled_1920h_gutterB": null,
+  "settled_1920h_gutterC": {
+    "top": 429.5,
+    "left": 1149.765625,
+    "right": 1345.390625,
+    "bottom": 495.5,
+    "width": 195.625,
+    "height": 66,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "settled_1920h_edges": {
+    "shellW": 1290.796875,
+    "shellH": 1000,
+    "gridLeft": 364.7921875,
+    "gridRight": 1075.1921875,
+    "shellLeft": 74.59375,
+    "shellRight": 1365.390625
+  },
+  "lobby_1920_gutterA": {
+    "top": 137,
+    "left": 157,
+    "right": 357,
+    "bottom": 281.171875,
+    "width": 200,
+    "height": 144.171875,
+    "backdropFilter": "blur(14px) saturate(1.15)",
+    "backgroundImage": "linear-gradient(rgba(9, 15, 24, 0.42) 0%, rgba(5, 9, 15, 0.58) 100%)",
+    "backgroundColor": "rgba(0, 0, 0, 0)"
+  },
+  "lobby_1920_edges": {
+    "shellW": 1646,
+    "shellH": 842.390625,
+    "gridLeft": 660.78285,
+    "gridRight": 1259.21715,
+    "shellLeft": 137,
+    "shellRight": 1783
+  },
+  "mobile_lobby_domCounts": {
+    "gutterLeft": 0,
+    "gutterRight": 0,
+    "cornerGear": 0,
+    "cornerWorld": 0,
+    "cornerHelp": 0
+  },
+  "mobile_betentry_domCounts": {
+    "gutterLeft": 0,
+    "cornerGear": 0
+  },
+  "mobile_playing_domCounts": {
+    "gutterLeft": 0,
+    "gutterRight": 0
+  },
+  "mobile_settled_reached": true,
+  "mobile_settled_domCounts": {
+    "gutterRight": 0,
+    "cornerHelp": 0
+  },
+  "grep_setTimeout": 3,
+  "grep_setInterval": 0,
+  "grep_placeBet": 3,
+  "grep_flex1_in_gutter_block": {
+    "flexGrow1": 3,
+    "height100pct": 0,
+    "alignItemsStretch": 4
+  }
+}

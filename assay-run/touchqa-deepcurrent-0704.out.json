@@ -1,0 +1,705 @@
+{
+  "pixel7-412x915": {
+    "checks": [
+      {
+        "extraRound": 1,
+        "trailLen": 40,
+        "outcome": "BUST"
+      }
+    ],
+    "httpStatus": 200,
+    "lobbyControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "ENTER THE ASSAY LINE",
+        "w": 360,
+        "h": 43,
+        "top": 670,
+        "left": 27,
+        "touchAction": "auto"
+      }
+    ],
+    "lobbyCtaThumbZonePct": 75.6,
+    "lobbyOverflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "scrollHeight": 915,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412
+    },
+    "headerOneLine": {
+      "found": true,
+      "playSafeRect": {
+        "w": 66.84375,
+        "h": 40,
+        "top": 83
+      },
+      "rowHeight": 40,
+      "rowChildrenTops": [
+        83
+      ]
+    },
+    "scrollBoxInitial": {
+      "scrollerX": 25,
+      "scrollerY": 144,
+      "scrollerW": 364,
+      "scrollerH": 364,
+      "canvasW": 1472,
+      "canvasH": 1472,
+      "touchAction": "pan-x pan-y",
+      "scrollWidth": 1472,
+      "scrollHeight": 1472,
+      "scrollLeft": 556,
+      "scrollTop": 556
+    },
+    "tilePx": 46,
+    "round1PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 545,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 545,
+        "left": 165,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 669,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: BEAD",
+        "w": 98.64,
+        "h": 40,
+        "top": 669,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "THROW BREAKER",
+        "w": 364,
+        "h": 58,
+        "top": 717,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "breakerLeverR1": {
+      "text": "THROW BREAKER",
+      "w": 364,
+      "h": 58,
+      "top": 717,
+      "left": 25,
+      "touchAction": "auto"
+    },
+    "planningOverflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "scrollHeight": 915,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412
+    },
+    "odometerAfter7Taps": "07",
+    "breakerStateAt7": {
+      "disabled": true,
+      "opacity": "1",
+      "text": "THROW BREAKER"
+    },
+    "odometerAfter8Taps": "08",
+    "breakerStateAt8": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "THROW BREAKER"
+    },
+    "breakerBoxAt8": {
+      "x": 207,
+      "y": 746,
+      "w": 364,
+      "h": 58,
+      "top": 717,
+      "vh": 915
+    },
+    "breakerThumbZonePct": 81.5,
+    "panDelta": {
+      "dLeft": 205,
+      "dTop": 0
+    },
+    "panMoved": true,
+    "odometerAfterPan": "08",
+    "trailLenAfterTapTo100": "100",
+    "perPageVisible": 49,
+    "trailLenAfterCapAttempt": "100",
+    "breakerStateAt100": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "THROW BREAKER"
+    },
+    "odometerAfterClear": "00",
+    "odometerRound1Final": "08",
+    "breakerBoxRound1": {
+      "x": 207,
+      "y": 746,
+      "w": 364,
+      "h": 58,
+      "top": 717,
+      "vh": 915
+    },
+    "breakerThumbZonePctRound1": 81.5,
+    "round1Outcome": "WIN",
+    "sessionChipAfterR1": "SESSION · 1 LINE · 8 CLAIMED · +0.32",
+    "assayAgainBoxR1": {
+      "x": 169.796875,
+      "y": 677.5625,
+      "w": 289.59375,
+      "h": 43,
+      "top": 656.0625,
+      "vh": 915
+    },
+    "closeBoxR1": {
+      "x": 355.796875,
+      "y": 677.5625,
+      "w": 66.40625,
+      "h": 43,
+      "top": 656.0625,
+      "vh": 915
+    },
+    "claimBoxR1": null,
+    "settledOverflow": {
+      "scrollWidth": 412,
+      "clientWidth": 412,
+      "scrollHeight": 915,
+      "bodyScrollWidth": 412,
+      "bodyClientWidth": 412
+    },
+    "settledControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 244,
+        "touchAction": "auto"
+      },
+      {
+        "text": "copy",
+        "w": 34.7,
+        "h": 16,
+        "top": 582,
+        "left": 345,
+        "touchAction": "auto"
+      },
+      {
+        "text": "copy",
+        "w": 34.7,
+        "h": 16,
+        "top": 607,
+        "left": 345,
+        "touchAction": "auto"
+      },
+      {
+        "text": "ASSAY AGAIN",
+        "w": 289.59,
+        "h": 43,
+        "top": 656,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLOSE",
+        "w": 66.41,
+        "h": 43,
+        "top": 656,
+        "left": 323,
+        "touchAction": "auto"
+      }
+    ],
+    "round2PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 244,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 545,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 545,
+        "left": 165,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 669,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: INSTANT",
+        "w": 115.81,
+        "h": 40,
+        "top": 669,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "SAME LINE",
+        "w": 90.41,
+        "h": 40,
+        "top": 669,
+        "left": 223,
+        "touchAction": "auto"
+      },
+      {
+        "text": "THROW BREAKER",
+        "w": 364,
+        "h": 58,
+        "top": 717,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "sameLineBoxR2": {
+      "x": 268.40625,
+      "y": 689,
+      "w": 90.40625,
+      "h": 40,
+      "top": 669,
+      "vh": 915
+    },
+    "clearBoxR2": {
+      "x": 58.1953125,
+      "y": 689,
+      "w": 66.390625,
+      "h": 40,
+      "top": 669,
+      "vh": 915
+    },
+    "paceBoxR2": {
+      "x": 157.296875,
+      "y": 689,
+      "w": 115.8125,
+      "h": 40,
+      "top": 669,
+      "vh": 915
+    },
+    "breakerBoxR2Predisable": {
+      "x": 207,
+      "y": 746,
+      "w": 364,
+      "h": 58,
+      "top": 717,
+      "vh": 915
+    },
+    "odometerAfterSameLine": "08",
+    "breakerBoxRound2": {
+      "x": 207,
+      "y": 746,
+      "w": 364,
+      "h": 58,
+      "top": 717,
+      "vh": 915
+    },
+    "breakerThumbZonePctRound2": 81.5,
+    "round2Outcome": "WIN",
+    "sessionChipAfterR2": "SESSION · 2 LINES · 16 CLAIMED · +0.65",
+    "outcomesSeen": [
+      "WIN",
+      "BUST"
+    ],
+    "sessionChipFinal": "SESSION · 3 LINES · 55 CLAIMED · -0.34",
+    "postAllRoundsPhaseIsPlanning": true,
+    "finalOutcomeForClaimCheck": "WIN",
+    "claimButtonBoxFinal": null
+  },
+  "iphone14pro-390x844": {
+    "checks": [
+      {
+        "extraRound": 1,
+        "trailLen": 40,
+        "outcome": "BUST"
+      }
+    ],
+    "httpStatus": 304,
+    "lobbyControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "ENTER THE ASSAY LINE",
+        "w": 338,
+        "h": 43,
+        "top": 648,
+        "left": 27,
+        "touchAction": "auto"
+      }
+    ],
+    "lobbyCtaThumbZonePct": 79.3,
+    "lobbyOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollHeight": 844,
+      "bodyScrollWidth": 390,
+      "bodyClientWidth": 390
+    },
+    "headerOneLine": {
+      "found": true,
+      "playSafeRect": {
+        "w": 66.84375,
+        "h": 40,
+        "top": 83
+      },
+      "rowHeight": 40,
+      "rowChildrenTops": [
+        83
+      ]
+    },
+    "scrollBoxInitial": {
+      "scrollerX": 25,
+      "scrollerY": 144,
+      "scrollerW": 342,
+      "scrollerH": 342,
+      "canvasW": 1472,
+      "canvasH": 1472,
+      "touchAction": "pan-x pan-y",
+      "scrollWidth": 1472,
+      "scrollHeight": 1472,
+      "scrollLeft": 556,
+      "scrollTop": 556
+    },
+    "tilePx": 46,
+    "round1PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 27,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 523,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 523,
+        "left": 153,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 647,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: BEAD",
+        "w": 98.64,
+        "h": 40,
+        "top": 647,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "THROW BREAKER",
+        "w": 342,
+        "h": 58,
+        "top": 695,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "breakerLeverR1": {
+      "text": "THROW BREAKER",
+      "w": 342,
+      "h": 58,
+      "top": 695,
+      "left": 25,
+      "touchAction": "auto"
+    },
+    "planningOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollHeight": 844,
+      "bodyScrollWidth": 390,
+      "bodyClientWidth": 390
+    },
+    "odometerAfter7Taps": "07",
+    "breakerStateAt7": {
+      "disabled": true,
+      "opacity": "1",
+      "text": "THROW BREAKER"
+    },
+    "odometerAfter8Taps": "08",
+    "breakerStateAt8": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "THROW BREAKER"
+    },
+    "breakerBoxAt8": {
+      "x": 196,
+      "y": 724,
+      "w": 342,
+      "h": 58,
+      "top": 695,
+      "vh": 844
+    },
+    "breakerThumbZonePct": 85.8,
+    "panDelta": {
+      "dLeft": 147,
+      "dTop": 0
+    },
+    "panMoved": true,
+    "odometerAfterPan": "08",
+    "trailLenAfterTapTo100": "100",
+    "perPageVisible": 49,
+    "trailLenAfterCapAttempt": "100",
+    "breakerStateAt100": {
+      "disabled": false,
+      "opacity": "1",
+      "text": "THROW BREAKER"
+    },
+    "odometerAfterClear": "00",
+    "odometerRound1Final": "08",
+    "breakerBoxRound1": {
+      "x": 196,
+      "y": 724,
+      "w": 342,
+      "h": 58,
+      "top": 695,
+      "vh": 844
+    },
+    "breakerThumbZonePctRound1": 85.8,
+    "round1Outcome": "WIN",
+    "sessionChipAfterR1": "SESSION · 1 LINE · 8 CLAIMED · +0.32",
+    "assayAgainBoxR1": {
+      "x": 158.796875,
+      "y": 667.90625,
+      "w": 267.59375,
+      "h": 43,
+      "top": 646.40625,
+      "vh": 844
+    },
+    "closeBoxR1": {
+      "x": 333.796875,
+      "y": 667.90625,
+      "w": 66.40625,
+      "h": 43,
+      "top": 646.40625,
+      "vh": 844
+    },
+    "claimBoxR1": null,
+    "settledOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollHeight": 844,
+      "bodyScrollWidth": 390,
+      "bodyClientWidth": 390
+    },
+    "settledControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 222,
+        "touchAction": "auto"
+      },
+      {
+        "text": "copy",
+        "w": 34.7,
+        "h": 16,
+        "top": 560,
+        "left": 323,
+        "touchAction": "auto"
+      },
+      {
+        "text": "copy",
+        "w": 34.7,
+        "h": 16,
+        "top": 585,
+        "left": 323,
+        "touchAction": "auto"
+      },
+      {
+        "text": "ASSAY AGAIN",
+        "w": 267.59,
+        "h": 43,
+        "top": 646,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLOSE",
+        "w": 66.41,
+        "h": 43,
+        "top": 646,
+        "left": 301,
+        "touchAction": "auto"
+      }
+    ],
+    "round2PlanningControls": [
+      {
+        "text": "PLAY SAFE",
+        "w": 66.84,
+        "h": 40,
+        "top": 83,
+        "left": 222,
+        "touchAction": "auto"
+      },
+      {
+        "text": "−",
+        "w": 40,
+        "h": 40,
+        "top": 523,
+        "left": 36,
+        "touchAction": "auto"
+      },
+      {
+        "text": "+",
+        "w": 40,
+        "h": 40,
+        "top": 523,
+        "left": 153,
+        "touchAction": "auto"
+      },
+      {
+        "text": "CLEAR",
+        "w": 66.39,
+        "h": 40,
+        "top": 647,
+        "left": 25,
+        "touchAction": "auto"
+      },
+      {
+        "text": "PACE: INSTANT",
+        "w": 115.81,
+        "h": 40,
+        "top": 647,
+        "left": 99,
+        "touchAction": "auto"
+      },
+      {
+        "text": "SAME LINE",
+        "w": 90.41,
+        "h": 40,
+        "top": 647,
+        "left": 223,
+        "touchAction": "auto"
+      },
+      {
+        "text": "THROW BREAKER",
+        "w": 342,
+        "h": 58,
+        "top": 695,
+        "left": 25,
+        "touchAction": "auto"
+      }
+    ],
+    "sameLineBoxR2": {
+      "x": 268.40625,
+      "y": 667,
+      "w": 90.40625,
+      "h": 40,
+      "top": 647,
+      "vh": 844
+    },
+    "clearBoxR2": {
+      "x": 58.1953125,
+      "y": 667,
+      "w": 66.390625,
+      "h": 40,
+      "top": 647,
+      "vh": 844
+    },
+    "paceBoxR2": {
+      "x": 157.296875,
+      "y": 667,
+      "w": 115.8125,
+      "h": 40,
+      "top": 647,
+      "vh": 844
+    },
+    "breakerBoxR2Predisable": {
+      "x": 196,
+      "y": 724,
+      "w": 342,
+      "h": 58,
+      "top": 695,
+      "vh": 844
+    },
+    "odometerAfterSameLine": "08",
+    "breakerBoxRound2": {
+      "x": 196,
+      "y": 724,
+      "w": 342,
+      "h": 58,
+      "top": 695,
+      "vh": 844
+    },
+    "breakerThumbZonePctRound2": 85.8,
+    "round2Outcome": "WIN",
+    "sessionChipAfterR2": "SESSION · 2 LINES · 16 CLAIMED · +0.65",
+    "outcomesSeen": [
+      "WIN",
+      "BUST"
+    ],
+    "sessionChipFinal": "SESSION · 3 LINES · 16 CLAIMED · -0.34",
+    "postAllRoundsPhaseIsPlanning": true,
+    "finalOutcomeForClaimCheck": "WIN",
+    "claimButtonBoxFinal": null
+  },
+  "errors": []
+}
