@@ -4,8 +4,8 @@ Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN;
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
 is canonical (`input/progressivemap.jpg` = ANOTHER GAME'S map, reference-only, never
-ship or commit it). HEAD at handoff: `6cf027c` (phase 20). `npx vitest run` prints
-**140/140**. Everything below is VERIFIED, not self-reported: every phase was
+ship or commit it). HEAD at handoff: `ee64f83` (phase 21). `npx vitest run` prints
+**145/145**. Everything below is VERIFIED, not self-reported: every phase was
 live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-21
 after phase 17b; phases 18-19 appended 2026-07-22 (see project memory for full logs):
 phase 18 quick-duel economy (CPU picks randomMove, win pays 1.92x = 96% RTP,
@@ -297,7 +297,7 @@ New (phases 18-19, 2026-07-21/22):
    acting; samurai kit) -> clip batch (~36cr/clip, per-batch OK) -> per-frame sweep ->
    key -> radial-feather fx -> contacts -> ONE manifest row + node 10 fighterId.
    Pipeline proven twice (GORVAK/VOLTA); CHARACTER-CONTRACT.md is the law.
-2. **Per-node enemies as the roster grows**: each new character = manifest + one
+2. **Per-node ARENAS: DONE phase 21** (10 clean arenas wired per node, code-drawn lacquer portrait frames replace the baked rings, campaign fights show enemy name+PFP; cathedral keeps a small baked-knob residual under the portraits). Per-node enemy CLIP KITS as the roster grows: each new character = manifest + one
    registry-row edit per node. Node arenas likewise (arenaId per node; arena registry
    takes one ArenaDef row per background).
 3. **B1/B2 bonus isles**: cosmetic challenges (EV-neutral, swoobz-engagement-layer).
