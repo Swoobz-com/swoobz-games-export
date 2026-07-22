@@ -160,7 +160,10 @@
   transform: translateX(-50%);
 }
 
-/* ---------------- HUD name plates ---------------- */
+/* ---------------- HUD name plates (RONIN ZERO lacquer-blade language, phase 19) ---------------- */
+/* Cover-plate law: the OUTER rect stays a FULLY-OPAQUE lacquer backing (alpha 1.0) masking the baked
+   'PLAYER 1'/'PLAYER 2' plate across its full footprint; the angled steel face leans toward screen
+   center (mirrored p1/p2, like the 17b health plates) and rides on top of that opaque backing. */
 .fr-nameplate {
   position: absolute;
   display: flex;
@@ -168,9 +171,8 @@
   /* Horizontal padding mirrors the cover-plate expansion (pctRectPad 0.7 in the JSX) plus the
      original 0.6sw inset, so the name text stays ~on its pre-cover position. */
   padding: 0 calc(var(--sw) * 1.3);
-  /* COVER plate: near-opaque so the baked 'PLAYER 1'/'PLAYER 2' plate never reads through. */
-  background: var(--fr-plate-cover);
-  border: 1px solid var(--fr-plate-edge);
+  background: linear-gradient(180deg, #12121a 0%, #07080c 100%);
+  border: 1px solid rgba(191, 138, 26, 0.5);
   border-radius: calc(var(--sw) * 0.25);
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -179,6 +181,32 @@
   line-height: 1;
   white-space: nowrap;
   overflow: hidden;
+}
+/* Leaning steel face — gold hairline (face bg) + dark steel plate (::after inset). Dark so the name
+   reads at full contrast. The lean is mirrored so both plates angle toward the screen center. */
+.fr-nameplate-face {
+  position: absolute;
+  inset: calc(var(--sh) * 0.5) calc(var(--sw) * 0.28);
+  background: linear-gradient(180deg, #c79a2a 0%, #6b5410 100%);
+}
+.fr-nameplate-p1 .fr-nameplate-face {
+  clip-path: polygon(7% 0, 100% 0, 93% 100%, 0 100%);
+}
+.fr-nameplate-p2 .fr-nameplate-face {
+  clip-path: polygon(0 0, 93% 0, 100% 100%, 7% 100%);
+}
+.fr-nameplate-face::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--sw) * 0.1);
+  clip-path: inherit;
+  background: linear-gradient(178deg, #232d3a 0%, #131c28 48%, #0a0e16 100%);
+  box-shadow: inset 0 calc(var(--sh) * 0.12) 0 rgba(217, 246, 255, 0.22),
+    inset 0 calc(var(--sh) * -0.14) 0 rgba(4, 10, 16, 0.55);
+}
+.fr-nameplate-name {
+  position: relative;
+  z-index: 1;
 }
 
 /* ---------------- Health bars ---------------- */
@@ -303,27 +331,60 @@
   100% { transform: scale(1); }
 }
 
-/* ---------------- Timer plate ---------------- */
+/* ---------------- Timer plate (RONIN ZERO lacquer-blade language, phase 19) ---------------- */
+/* Cover-plate law: the OUTER rect is a FULLY-OPAQUE lacquer backing (alpha 1.0) that masks the baked
+   '03' completely; the angled steel blade + gold hairline are inner faces, so the chamfer corners
+   reveal lacquer, never the baked art. Same pattern as the 17b health plates. */
 .fr-timer {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* COVER plate: near-opaque so the baked '03' digits never show behind the live digit. */
-  background: var(--fr-plate-cover);
-  border: calc(var(--sw) * 0.1) solid var(--fr-plate-edge);
+  background: linear-gradient(180deg, #12121a 0%, #07080c 100%);
+  border: calc(var(--sw) * 0.08) solid rgba(191, 138, 26, 0.55);
   border-radius: calc(var(--sw) * 0.3);
   box-shadow: 0 0 calc(var(--sw) * 0.6) rgba(0, 0, 0, 0.6) inset,
     0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.4) rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
+/* Bladed steel plate clipped inside the opaque rect. The face carries the gold hairline (its bg),
+   the ::after is the dark steel plate inset by the hairline width so the gold reads as a thin frame.
+   Dark steel (not the bright health-bar cyan) so the bone digit stays high-contrast. */
+.fr-timer-face {
+  position: absolute;
+  inset: calc(var(--sh) * 0.7) calc(var(--sw) * 0.5);
+  clip-path: polygon(16% 0, 84% 0, 100% 50%, 84% 100%, 16% 100%, 0 50%);
+  background: linear-gradient(180deg, #c79a2a 0%, #6b5410 100%);
+}
+.fr-timer-face::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--sw) * 0.12);
+  clip-path: inherit;
+  background: linear-gradient(178deg, #2b3644 0%, #172230 46%, #0a0f18 100%);
+  box-shadow: inset 0 calc(var(--sh) * 0.14) 0 rgba(217, 246, 255, 0.35),
+    inset 0 calc(var(--sh) * -0.16) 0 rgba(4, 10, 16, 0.6);
+}
 .fr-timer-digit {
+  position: relative;
+  z-index: 1;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   line-height: 1;
   color: var(--fr-steel-1);
   font-variant-numeric: tabular-nums;
   text-shadow: 0 0 calc(var(--sw) * 0.3) rgba(41, 230, 255, 0.45);
+}
+/* Danger (<=2s): the blade goes blood, framing the pulsing red digit. The digit pulse + its
+   reduced-motion gate below are UNCHANGED (functionally identical to pre-phase-19). */
+.fr-timer.fr-timer-danger {
+  border-color: rgba(255, 65, 53, 0.6);
+}
+.fr-timer.fr-timer-danger .fr-timer-face {
+  background: linear-gradient(180deg, #9a1414 0%, #4a0808 100%);
+}
+.fr-timer.fr-timer-danger .fr-timer-face::after {
+  background: linear-gradient(178deg, #3a1416 0%, #240a0c 46%, #120406 100%);
 }
 .fr-timer.fr-timer-danger .fr-timer-digit {
   color: transparent;
@@ -1027,6 +1088,12 @@
   align-items: flex-end;
   width: 100%;
 }
+/* Pick buttons (RONIN ZERO lacquer-blade language, phase 19). NOT over baked HUD art, so the plate
+   itself may be clipped — but the LOCKED tag sits ABOVE the button, so the blade lives on the ::before
+   (gold hairline) + ::after (dark steel plate) pseudos and the button box stays unclipped. Behavior
+   classes (fr-pick-chosen / fr-pick-dim), the >=44px hit target and the icon/label/tip structure are
+   all unchanged; only the skin moves to the 17b family. Hover/chosen glows use filter drop-shadow so
+   they follow the bladed silhouette (a clipped box-shadow would be cut off). */
 .fr-pick {
   position: relative;
   flex: 1 1 0;
@@ -1036,22 +1103,47 @@
   flex-direction: column;
   align-items: center;
   gap: calc(var(--sh) * 0.5);
-  padding: calc(var(--sh) * 1) calc(var(--sw) * 0.6);
+  padding: calc(var(--sh) * 1) calc(var(--sw) * 0.9) calc(var(--sh) * 1.4);
   cursor: pointer;
-  background: linear-gradient(180deg, rgba(20, 24, 34, 0.95), rgba(13, 15, 21, 0.96));
-  border: calc(var(--sw) * 0.1) solid;
-  border-image: linear-gradient(180deg, #29e6ff, #0ea5e9) 1;
-  border-radius: calc(var(--sw) * 0.45);
+  background: transparent;
+  border: none;
   color: var(--fr-steel-1);
-  transition: transform 90ms ease, box-shadow 120ms ease, opacity 150ms ease, filter 150ms ease;
+  transition: transform 90ms ease, opacity 150ms ease, filter 150ms ease;
   min-height: 44px;
+  filter: drop-shadow(0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.5));
+}
+.fr-pick::before,
+.fr-pick::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
+  z-index: 0;
+}
+/* gold hairline frame */
+.fr-pick::before {
+  background: linear-gradient(180deg, rgba(199, 154, 42, 0.85) 0%, rgba(107, 84, 16, 0.8) 100%);
+}
+/* dark steel plate, inset by the hairline width + a bone specular top edge */
+.fr-pick::after {
+  inset: calc(var(--sw) * 0.12);
+  background: linear-gradient(180deg, #1a1d26 0%, #0d0f15 100%);
+  box-shadow: inset 0 calc(var(--sh) * 0.16) 0 rgba(217, 246, 255, 0.14);
+}
+.fr-pick > * {
+  position: relative;
+  z-index: 1;
 }
 .fr-pick:hover:not(:disabled),
 .fr-pick:focus-visible:not(:disabled) {
   transform: translateY(-6px);
-  box-shadow: 0 calc(var(--sh) * 0.6) calc(var(--sh) * 1) rgba(0, 0, 0, 0.5),
-    0 0 calc(var(--sw) * 0.8) rgba(41, 230, 255, 0.45);
+  filter: drop-shadow(0 calc(var(--sh) * 0.6) calc(var(--sh) * 0.8) rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 calc(var(--sw) * 0.7) rgba(255, 200, 61, 0.5));
   outline: none;
+}
+.fr-pick:hover:not(:disabled)::before,
+.fr-pick:focus-visible:not(:disabled)::before {
+  background: linear-gradient(180deg, #ffd873 0%, #b8860b 100%);
 }
 .fr-pick:active:not(:disabled) {
   transform: translateY(0) scale(0.96);
@@ -1076,11 +1168,20 @@
   height: calc(var(--sw) * 3.4);
   color: var(--fr-ice);
 }
+/* Chosen = decisive blood lock (the season red): blood hairline + darkened blood plate + red glow. */
 .fr-pick.fr-pick-chosen {
-  border-image: linear-gradient(180deg, #bff7ff, #0ea5e9) 1;
-  box-shadow: 0 0 calc(var(--sw) * 1.4) rgba(41, 230, 255, 0.8);
   transform: translateY(-3px) scale(1.04);
+  filter: drop-shadow(0 calc(var(--sh) * 0.5) calc(var(--sh) * 0.7) rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 calc(var(--sw) * 1.2) rgba(255, 65, 53, 0.75));
 }
+.fr-pick.fr-pick-chosen::before {
+  background: linear-gradient(180deg, #ff8a7a 0%, #8f1010 100%);
+}
+.fr-pick.fr-pick-chosen::after {
+  background: linear-gradient(180deg, #201017 0%, #120a0c 100%);
+  box-shadow: inset 0 calc(var(--sh) * 0.16) 0 rgba(255, 138, 122, 0.18);
+}
+/* Dim = the un-chosen picks after a lock. grayscale still reads through the pseudo skin. */
 .fr-pick.fr-pick-dim {
   opacity: 0.4;
   filter: grayscale(0.6);
@@ -1660,7 +1761,12 @@
   height: 100%;
   pointer-events: none;
 }
-/* A node marker: an absolutely-placed disc + label, centred on its MAP_CAL point. */
+/* A node marker: an absolutely-placed disc + label, centred on its MAP_CAL point. B2 fix (phase 19):
+   the button box is pinned to the DISC WIDTH so the (wider) label overflows WITHOUT inflating the
+   clickable box — a conquered node's hit area / ::after can no longer reach a neighbour's centre.
+   The label is pointer-events:none, so its overflow is never hit-tested (elementFromPoint skips it).
+   The disc does not move: only the box WIDTH changed (align-items:center keeps the disc on MAP_CAL x;
+   the column height is unchanged, so the disc keeps its exact Y). */
 .fr-map-node {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -1668,6 +1774,8 @@
   flex-direction: column;
   align-items: center;
   gap: calc(var(--sh) * 0.3);
+  width: calc(var(--sh) * 4.6);
+  min-width: 30px;
   background: none;
   border: none;
   padding: 0;
@@ -1704,6 +1812,9 @@
   background: rgba(7, 8, 12, 0.82);
   border-radius: calc(var(--sw) * 0.25);
   padding: calc(var(--sh) * 0.15) calc(var(--sw) * 0.5);
+  /* B2: the name overflows the disc-width node box and is repositioned per-node (MAP_LABEL transform);
+     it must never be hit-tested, so a conquered label can't cover a neighbour node's centre. */
+  pointer-events: none;
 }
 /* CONQUERED: gold ring + planted flag glyph. */
 .fr-map-conquered {

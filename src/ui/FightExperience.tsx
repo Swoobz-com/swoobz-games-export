@@ -198,6 +198,24 @@ const MAP_ISLES: { key: string; x: number; y: number }[] = [
   { key: 'B2', x: 91, y: 83 },
 ];
 
+// Per-node LABEL placement (B1: conquered-label de-overlap). The disc/pin NEVER moves (MAP_CAL is
+// untouched and the label is pointer-events:none, so this only slides the printed name). `dx`/`dy`
+// are offsets in sw/sh units applied to the label via transform (layout-neutral); the label's
+// baseline sits BELOW the disc, so a large negative `dy` lifts it ABOVE. Tuned on a full-conquest
+// live screenshot so no two conquered labels collide along the dense mid/top warpath.
+const MAP_LABEL: Record<number, { dx: number; dy: number }> = {
+  1: { dx: -1.5, dy: 0 }, // KUROHAMA DOCKS — nudge left, clear of node 2
+  2: { dx: 0, dy: -9.2 }, // ASHEN TORII — lift above (clears node 1/3 below-labels)
+  3: { dx: 0, dy: 0 }, // WHISPERING BAMBOO (widest) — stays below, flanked by lifted 2 & 4
+  4: { dx: -3.2, dy: -9.2 }, // SNOWFANG PASS — lift above, shift left off node 5's disc
+  5: { dx: 1.5, dy: 0 }, // KAWA CROSSING — below, nudge right off node 3
+  6: { dx: -1.0, dy: 0 }, // HOLLOW SHRINE — below, nudge left (was overlapping BURNED PAGODA)
+  7: { dx: 0, dy: -8.6 }, // BURNED PAGODA — lift above, clears HOLLOW SHRINE & RED MIST GORGE
+  8: { dx: 0.5, dy: 3.0 }, // RED MIST GORGE — drop below node 9's disc (they sit at a similar y)
+  9: { dx: -2.6, dy: -8.9 }, // CRIMSON GATES — lift above, shift left off node 10's disc
+  10: { dx: 1.0, dy: 0 }, // ZERO CITADEL — below, nudge right
+};
+
 // DEV gate (force-state-hooks law): ?dev=1 exposes the campaign force hooks (conquer next node /
 // reset progress) so map progression is inspectable without grinding fights. Module-const, read
 // once; invisible to normal players.
@@ -341,7 +359,14 @@ function CampaignMap({
                 </span>
               )}
             </span>
-            {!fogged && <span className="fr-map-label">{node.name}</span>}
+            {!fogged && (
+              <span
+                className="fr-map-label"
+                style={{ transform: `translate(calc(var(--sw) * ${MAP_LABEL[node.id].dx}), calc(var(--sh) * ${MAP_LABEL[node.id].dy}))` }}
+              >
+                {node.name}
+              </span>
+            )}
           </button>
         );
       })}
@@ -828,6 +853,10 @@ function TimerPlate({ seconds, danger }: { seconds: number; danger: boolean }): 
     // Cover plate: expanded past the CAL box so the baked '03' plate is fully covered
     // (opaque coal bg in CSS) — the big baked digits never show behind the live digit.
     <div className={`fr-timer${danger ? ' fr-timer-danger' : ''}`} style={pctRectPad(CAL.timer, 0.6, 1.0)}>
+      {/* Lacquer-blade inner face (17b HUD language). The face is CLIPPED to an angled plate
+          silhouette; the OUTER .fr-timer stays a fully-opaque rectangle (cover-plate law) so the
+          chamfer corners reveal lacquer backing, never the baked '03'. */}
+      <span className="fr-timer-face" aria-hidden="true" />
       <span className="fr-timer-digit" style={{ fontSize: 'calc(var(--sh) * 7.2)' }}>
         {Math.max(0, seconds)}
       </span>
@@ -849,8 +878,12 @@ function NamePlate({ name, side }: { name: string; side: 'p1' | 'p2' }): JSX.Ele
       ? { ...padded, width, justifyContent: 'flex-start' }
       : { ...padded, left: `${rect.x0 - 0.7 - CENTER_REACH}%`, width, justifyContent: 'flex-end' };
   return (
-    <div className="fr-nameplate" style={{ ...style, fontSize: 'calc(var(--sh) * 1.9)' }}>
-      {name}
+    <div className={`fr-nameplate fr-nameplate-${side}`} style={{ ...style, fontSize: 'calc(var(--sh) * 1.9)' }}>
+      {/* Lacquer-blade face, mirrored lean toward screen center (17b HUD language). The OUTER
+          .fr-nameplate stays a fully-opaque rectangle (cover-plate law) covering the baked label;
+          the angled face + name ride on top of that opaque backing. */}
+      <span className="fr-nameplate-face" aria-hidden="true" />
+      <span className="fr-nameplate-name">{name}</span>
     </div>
   );
 }
@@ -2734,16 +2767,20 @@ export function FightExperience(): JSX.Element {
             <div className="fr-scrim" />
             <div className="fr-overlay-content">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'calc(var(--sw) * 2)' }}>
-                <div className="fr-nameplate" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
-                  {p1Def.name}
+                <div className="fr-nameplate fr-nameplate-p1" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
+                  <span className="fr-nameplate-face" aria-hidden="true" />
+                  <span className="fr-nameplate-name">{p1Def.name}</span>
                 </div>
                 <div className="fr-banner" style={{ fontSize: 'calc(var(--sh) * 12)' }}>VS</div>
-                <div className="fr-nameplate" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
-                  {mode === 'campaign' && campaignNode
-                    ? campaignNode.title
-                    : mode === 'cpu'
-                      ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? p2Def.name
-                      : p2Def.name}
+                <div className="fr-nameplate fr-nameplate-p2" style={{ position: 'relative', fontSize: 'calc(var(--sh) * 3.4)', padding: '0 calc(var(--sw) * 1.4)', height: 'calc(var(--sh) * 6)' }}>
+                  <span className="fr-nameplate-face" aria-hidden="true" />
+                  <span className="fr-nameplate-name">
+                    {mode === 'campaign' && campaignNode
+                      ? campaignNode.title
+                      : mode === 'cpu'
+                        ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? p2Def.name
+                        : p2Def.name}
+                  </span>
                 </div>
               </div>
             </div>
