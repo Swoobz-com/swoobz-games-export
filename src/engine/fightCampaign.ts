@@ -97,7 +97,10 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
   { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'cathedral', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
   { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: 73430n, fighterId: 'volta', arenaId: 'cathedral', enemy: { id: 'lady-kurotachi', name: 'LADY KUROTACHI' } },
-  { id: 10, name: 'ZERO CITADEL', title: 'RONIN ZERO', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'volta', arenaId: 'cathedral', enemy: { id: 'ir48-hex-paper-lord', name: 'IR-48 HEX PAPER LORD' } },
+  // Tim's ruling (2026-07-22): the finalboss art IS the final boss - IR-48 HEX PAPER LORD is the
+  // name; the lore line follows the other nodes' register. RONIN ZERO stays as the SEASON brand
+  // (map header), not the boss identity.
+  { id: 10, name: 'ZERO CITADEL', title: 'Lord of the Zero Citadel', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'volta', arenaId: 'cathedral', enemy: { id: 'ir48-hex-paper-lord', name: 'IR-48 HEX PAPER LORD' } },
 ];
 
 /** The number of nodes in the campaign (frontier bookkeeping + persistence array length). */
