@@ -1,3 +1,10 @@
+# Nested git repositories — each is its own source of truth
+/originals/
+/maze-runner/
+/pulse-run/
+/streetfighter/
+/swoobz-vending/
+
 # Dependencies & build output
 node_modules/
 dist/
@@ -20,6 +27,10 @@ generated/
 **/_jesse-*.mjs
 **/_gen-*.cjs
 **/driver*.cjs
+**/_a11y*.mjs
+**/_flowqa*.mjs
+**/_last-*.txt
+**/findings.txt
 
 # OS noise
 Thumbs.db
