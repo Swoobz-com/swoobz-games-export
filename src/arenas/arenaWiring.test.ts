@@ -48,3 +48,31 @@ describe('phase-21 arena wiring', () => {
     }
   });
 });
+
+// Phase 22: the 10 non-cathedral arenas gained ambient video loops (assets/arenas/<id>-loop.mp4),
+// layered under the fight as living backgrounds. The cathedral (baked-HUD default) stays loop-less.
+describe('phase-22 arena loops', () => {
+  const LOOPED = ['docks', 'torii', 'bamboo', 'snowfang', 'kawa', 'shrine', 'pagoda', 'gorge', 'moat', 'sanctum'];
+
+  it('every arena with a loop field points at an mp4 that exists on disk', () => {
+    for (const a of ARENAS) {
+      if (a.loop === undefined) continue;
+      expect(a.loop, a.id).toMatch(/^assets\/arenas\/.+-loop\.mp4$/);
+      const f = join(PUBLIC, a.loop);
+      expect(existsSync(f), f).toBe(true);
+    }
+  });
+
+  it('the 10 non-cathedral arenas each have a loop; cathedral has none', () => {
+    for (const id of LOOPED) {
+      const loop = getArena(id).loop;
+      expect(loop, `${id} loop`).toBe(`assets/arenas/${id}-loop.mp4`);
+    }
+    expect(getArena('cathedral').loop).toBeUndefined();
+  });
+
+  it('exactly the 10 expected ids carry a loop (no more, no fewer)', () => {
+    const withLoop = ARENAS.filter((a) => a.loop !== undefined).map((a) => a.id).sort();
+    expect(withLoop).toEqual([...LOOPED].sort());
+  });
+});

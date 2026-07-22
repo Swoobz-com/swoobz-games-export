@@ -1401,6 +1401,33 @@ function SelectPreview({
 }
 
 // ============================================================================================
+// Stage living layer (phase 22) — the arena's ambient loop, layered UNDER the fight. Mirrors the
+// campaign-map living-layer contract: the still stays visible as poster/fallback (the stage's own
+// bg-image), this <video> opacity-fades in only after onPlaying fires so there is never a flash or
+// blank; muted/loop/autoPlay, decorative (aria-hidden, pointer-events:none). object-fit:cover +
+// center matches the still's background-size:cover/center, so the framing does not jump at fade-in.
+// KEYED by arena id at the call site: an arena change remounts this, resetting `live` to false so a
+// stale frame from the previous arena can never show through. Only mounts when the arena HAS a loop
+// and motion is allowed; .fr-reduced also hard-hides it in CSS (belt + braces).
+function StageVideo({ src }: { src: string }): JSX.Element {
+  const [live, setLive] = useState(false);
+  return (
+    <video
+      className={`fr-stage-video${live ? ' fr-stage-video-live' : ''}`}
+      src={src}
+      muted
+      loop
+      autoPlay
+      playsInline
+      preload="auto"
+      aria-hidden="true"
+      draggable={false}
+      onPlaying={() => setLive(true)}
+    />
+  );
+}
+
+// ============================================================================================
 // Main
 // ============================================================================================
 export function FightExperience(): JSX.Element {
@@ -1439,7 +1466,11 @@ export function FightExperience(): JSX.Element {
   // effective-only — it NEVER writes `arenaId` (frozen-requiem.arena.v1 stays the player's quick-
   // duel choice untouched), so returning to quick duel restores their arena.
   const effectiveArenaId = campaignNode ? campaignNode.arenaId : arenaId;
-  const stageBgUrl = `${ASSET_BASE}${getArena(effectiveArenaId).file}`;
+  const effectiveArena = getArena(effectiveArenaId);
+  const stageBgUrl = `${ASSET_BASE}${effectiveArena.file}`;
+  // The arena's ambient loop (phase 22), if it has one. The still (stageBgUrl) always renders as
+  // the CSS bg; this url only drives the optional living <video> layer over it.
+  const stageLoopUrl = effectiveArena.loop ? `${ASSET_BASE}${effectiveArena.loop}` : null;
   // Round wins needed to take the match on the current surface (2 outside campaign; the node's
   // format inside). Drives the pip count, the FINAL ROUND banner and the FINISH THEM gate.
   const roundsNeeded: 2 | 3 = campaignNode ? campaignNode.roundsToWin : 2;
@@ -2060,6 +2091,14 @@ export function FightExperience(): JSX.Element {
   return (
     <div className="fr-viewport">
       <div ref={stageRef} className={stageClasses} style={stageStyle}>
+        {/* STAGE LIVING LAYER (phase 22): the arena's ambient loop, over the still bg and under
+            everything else (fighters, fx, HUD, overlays — all later in DOM). Gated OFF on the
+            campaign MAP (its overlay has its OWN fr-map-video; never decode two stage videos at
+            once) and under reduced motion. Keyed by arena id so a picker/node change hard-remounts
+            it (no stale previous-arena frame; the fade resets). */}
+        {!reduced && stageLoopUrl && phase !== 'campaignMap' && (
+          <StageVideo key={effectiveArenaId} src={stageLoopUrl} />
+        )}
         {/* Fighters */}
         {showFighters && (
           <>

@@ -8,6 +8,11 @@ export interface ArenaDef {
   id: string;
   name: string;
   file: string;
+  // Optional ambient video loop (phase 22): `assets/arenas/<id>-loop.mp4`, a 4.5s seamless h264
+  // loop of the SAME framing as `file`, layered UNDER the fight as a living background (the still
+  // stays as poster/fallback). Data, not code: an arena without a loop simply renders its still.
+  // The cathedral (baked-HUD default) stays loop-less.
+  loop?: string;
 }
 
 // The cathedral stays FIRST (the default fallback arena, with its baked HUD chrome). Phase 21
@@ -18,16 +23,16 @@ export interface ArenaDef {
 // by the UI (locked '?' tiles), not listed here.
 export const ARENAS: ArenaDef[] = [
   { id: 'cathedral', name: 'FROZEN CATHEDRAL', file: 'assets/background.png' },
-  { id: 'docks', name: 'LANTERN JETTY', file: 'assets/arenas/docks.webp' },
-  { id: 'torii', name: 'ASH GARDEN COURT', file: 'assets/arenas/torii.webp' },
-  { id: 'bamboo', name: 'BAMBOO STREAM', file: 'assets/arenas/bamboo.webp' },
-  { id: 'snowfang', name: 'TORCHLIT PASS', file: 'assets/arenas/snowfang.webp' },
-  { id: 'kawa', name: 'RIVERBANK FORD', file: 'assets/arenas/kawa.webp' },
-  { id: 'shrine', name: 'HOLLOW BELL COURT', file: 'assets/arenas/shrine.webp' },
-  { id: 'pagoda', name: 'EMBER PAGODA', file: 'assets/arenas/pagoda.webp' },
-  { id: 'gorge', name: 'RED MIST BASIN', file: 'assets/arenas/gorge.webp' },
-  { id: 'moat', name: 'MOAT BRIDGE', file: 'assets/arenas/moat.webp' },
-  { id: 'sanctum', name: 'SCARLET SANCTUM', file: 'assets/arenas/sanctum.webp' },
+  { id: 'docks', name: 'LANTERN JETTY', file: 'assets/arenas/docks.webp', loop: 'assets/arenas/docks-loop.mp4' },
+  { id: 'torii', name: 'ASH GARDEN COURT', file: 'assets/arenas/torii.webp', loop: 'assets/arenas/torii-loop.mp4' },
+  { id: 'bamboo', name: 'BAMBOO STREAM', file: 'assets/arenas/bamboo.webp', loop: 'assets/arenas/bamboo-loop.mp4' },
+  { id: 'snowfang', name: 'TORCHLIT PASS', file: 'assets/arenas/snowfang.webp', loop: 'assets/arenas/snowfang-loop.mp4' },
+  { id: 'kawa', name: 'RIVERBANK FORD', file: 'assets/arenas/kawa.webp', loop: 'assets/arenas/kawa-loop.mp4' },
+  { id: 'shrine', name: 'HOLLOW BELL COURT', file: 'assets/arenas/shrine.webp', loop: 'assets/arenas/shrine-loop.mp4' },
+  { id: 'pagoda', name: 'EMBER PAGODA', file: 'assets/arenas/pagoda.webp', loop: 'assets/arenas/pagoda-loop.mp4' },
+  { id: 'gorge', name: 'RED MIST BASIN', file: 'assets/arenas/gorge.webp', loop: 'assets/arenas/gorge-loop.mp4' },
+  { id: 'moat', name: 'MOAT BRIDGE', file: 'assets/arenas/moat.webp', loop: 'assets/arenas/moat-loop.mp4' },
+  { id: 'sanctum', name: 'SCARLET SANCTUM', file: 'assets/arenas/sanctum.webp', loop: 'assets/arenas/sanctum-loop.mp4' },
 ];
 
 /** Resolve an arena by id, falling back to the first entry (never throws — an unknown/absent

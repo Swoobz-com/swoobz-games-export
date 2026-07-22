@@ -76,6 +76,30 @@
   100% { transform: translate(0, 0); }
 }
 
+/* Stage living layer (phase 22): the arena's ambient loop, filling the stage box over the still
+   bg and under the fighters/fx/HUD/overlays (DOM order handles the z-stack). object-fit:cover +
+   object-position:center mirrors .fr-stage's background-size:cover / background-position:center, so
+   the video's crop matches the still's and nothing jumps when it fades in. Fades in on onPlaying
+   (the -live class); value-independent 600ms (RG-C5). */
+.fr-stage-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.fr-stage-video-live {
+  opacity: 1;
+}
+/* Reduced motion: still only (the JS gate already skips mounting; this hard-hides as belt+braces). */
+.fr-reduced .fr-stage-video {
+  display: none;
+}
+
 /* ---------------- Fighters ---------------- */
 .fr-fighter {
   position: absolute;
