@@ -919,39 +919,50 @@ function isMirrored(def: FighterDef, slot: 'p1' | 'p2'): boolean {
   return def.faces !== (slot === 'p1' ? 'right' : 'left');
 }
 
+// Phase 21: the drawn portrait FRAME extends this factor past the CAL portrait radius so its
+// opaque lacquer ring fully COVERS the baked gold portrait ring on the cathedral (a few px larger
+// than CAL.r) — cover-plate law. The clean phase-21 arenas have no baked ring; the same drawn frame
+// renders on every arena (HUD completeness: the ring is code, not art, everywhere).
+const PORTRAIT_FRAME_RATIO = 1.36;
+
 function Portrait({
   url,
   cfg,
   mirrored,
+  fit = 'crop',
 }: {
   url: string;
-  cfg: { cx: number; cy: number; r: number; headX: number; headY: number; zoom: number };
+  // crop mode consumes headX/headY/zoom (per-character head window); cover mode ignores them.
+  cfg: { cx: number; cy: number; r: number; headX?: number; headY?: number; zoom?: number };
   mirrored: boolean;
+  fit?: 'crop' | 'cover';
 }): JSX.Element {
-  const size = `calc(var(--sw) * ${cfg.r * 2})`;
+  const inner = `calc(var(--sw) * ${cfg.r * 2})`;
+  const frame = `calc(var(--sw) * ${cfg.r * 2 * PORTRAIT_FRAME_RATIO})`;
+  // crop = per-character head window (fighter stills); cover = fill the circle (enemy PFPs).
+  const imgStyle: React.CSSProperties =
+    fit === 'cover'
+      ? { width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', left: 0, top: 0 }
+      : {
+          width: `${(cfg.zoom ?? 1) * 100}%`,
+          height: 'auto',
+          left: `${50 - (cfg.headX ?? 0.5) * (cfg.zoom ?? 1) * 100}%`,
+          top: `${50 - (cfg.headY ?? 0.5) * (cfg.zoom ?? 1) * 100}%`,
+        };
   return (
     <div
-      className="fr-portrait"
-      style={{
-        left: `${cfg.cx}%`,
-        top: `${cfg.cy}%`,
-        width: size,
-        height: size,
-        // Same mirror rule as the fighter: the medallion must look INTO the fight. Flipping
-        // the container flips window + crop math together, so headX/headY keep working.
-        transform: `translate(-50%, -50%)${mirrored ? ' scaleX(-1)' : ''}`,
-      }}
+      className="fr-portrait-frame"
+      // The frame is the positioned element (CAL cx/cy); its opaque lacquer disc + gold hairline
+      // ring + blood accent mask the baked ring. Symmetric, so it is NOT mirrored — only the head
+      // window inside flips (same rule as the fighter: the medallion looks INTO the fight).
+      style={{ left: `${cfg.cx}%`, top: `${cfg.cy}%`, width: frame, height: frame }}
     >
-      <img
-        src={url}
-        alt=""
-        style={{
-          width: `${cfg.zoom * 100}%`,
-          height: 'auto',
-          left: `${50 - cfg.headX * cfg.zoom * 100}%`,
-          top: `${50 - cfg.headY * cfg.zoom * 100}%`,
-        }}
-      />
+      <div
+        className="fr-portrait"
+        style={{ width: inner, height: inner, transform: `translate(-50%, -50%)${mirrored ? ' scaleX(-1)' : ''}` }}
+      >
+        <img src={url} alt="" style={imgStyle} />
+      </div>
     </div>
   );
 }
@@ -1412,7 +1423,6 @@ export function FightExperience(): JSX.Element {
   useEffect(() => {
     saveArenaId(arenaId);
   }, [arenaId]);
-  const stageBgUrl = `${ASSET_BASE}${getArena(arenaId).file}`;
   const p1Def = getFighter(playerId);
   // The opponent is DERIVED (first OTHER registry entry) for CPU and until a friend's profile
   // lands. In friend mode, once the peer relays its opaque fighter id (a known registry key), that
@@ -1424,6 +1434,12 @@ export function FightExperience(): JSX.Element {
   // The active campaign node (campaign mode only): drives the enemy identity, the match format,
   // the defense presentation and the node-card copy. VOLTA fills every slot this phase.
   const campaignNode = ctl.mode === 'campaign' ? getCampaignNode(ctl.campaign.nodeId) : undefined;
+  // Stage background. A CAMPAIGN fight (from its node card / stake screen on) renders the NODE's
+  // arena; quick duel + friend render the player's PERSISTED pick. The campaign override is
+  // effective-only — it NEVER writes `arenaId` (frozen-requiem.arena.v1 stays the player's quick-
+  // duel choice untouched), so returning to quick duel restores their arena.
+  const effectiveArenaId = campaignNode ? campaignNode.arenaId : arenaId;
+  const stageBgUrl = `${ASSET_BASE}${getArena(effectiveArenaId).file}`;
   // Round wins needed to take the match on the current surface (2 outside campaign; the node's
   // format inside). Drives the pip count, the FINAL ROUND banner and the FINISH THEM gate.
   const roundsNeeded: 2 | 3 = campaignNode ? campaignNode.roundsToWin : 2;
@@ -2249,7 +2265,10 @@ export function FightExperience(): JSX.Element {
         {inFight && (
           <>
             <NamePlate name={p1Def.name} side="p1" />
-            <NamePlate name={p2Def.name} side="p2" />
+            {/* Campaign: the P2 side is the NODE ENEMY (name + PFP), not the fighter clip's own
+                identity (the animated body stays the fighterId clip set, VOLTA — identity layer
+                only). Quick duel + friend keep the FighterDef name (unchanged). */}
+            <NamePlate name={mode === 'campaign' && campaignNode ? campaignNode.enemy.name : p2Def.name} side="p2" />
             <HealthBar hp={matchState.p1.hp} side="p1" reduced={reduced} />
             {/* Enemy bar: on campaign BULK nodes the absorb buffer renders as extra segments of one
                 seamless longer bar (display hp = engine hp + buffer); everywhere else this is the
@@ -2294,7 +2313,18 @@ export function FightExperience(): JSX.Element {
             {/* Slot ring geometry (CAL) + per-character head crop (def.portrait) — merged so the
                 medallion frames each fighter's head wherever they land. */}
             <Portrait url={p1Still} cfg={{ ...CAL.portraitP1, ...p1Def.portrait }} mirrored={p1Mirrored} />
-            <Portrait url={p2Still} cfg={{ ...CAL.portraitP2, ...p2Def.portrait }} mirrored={p2Mirrored} />
+            {mode === 'campaign' && campaignNode ? (
+              // Enemy PFP, cover-fit in the circular frame (the head crop belongs to the fighter
+              // still, not the enemy portrait art). Not mirrored: the PFP is authored facing in.
+              <Portrait
+                url={`${ASSET_BASE}assets/enemies/${campaignNode.enemy.id}-pfp.webp`}
+                cfg={CAL.portraitP2}
+                mirrored={false}
+                fit="cover"
+              />
+            ) : (
+              <Portrait url={p2Still} cfg={{ ...CAL.portraitP2, ...p2Def.portrait }} mirrored={p2Mirrored} />
+            )}
           </>
         )}
 
@@ -2798,7 +2828,7 @@ export function FightExperience(): JSX.Element {
                   <span className="fr-nameplate-face" aria-hidden="true" />
                   <span className="fr-nameplate-name">
                     {mode === 'campaign' && campaignNode
-                      ? campaignNode.title
+                      ? campaignNode.enemy.name
                       : mode === 'cpu'
                         ? PERSONALITIES.find((p) => p.key === aiPersonality)?.name ?? p2Def.name
                         : p2Def.name}
