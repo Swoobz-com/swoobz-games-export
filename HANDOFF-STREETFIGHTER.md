@@ -289,8 +289,10 @@ New (phases 18-19, 2026-07-21/22):
    enemy so the FIGHT shows the real character (fighterId per node) - pipeline in 1.
    Also unused so far: the TCG card art (collection surface?), the empty
    `input/characters/background/` + `playable characters/` dirs (future drops).
-1. **RONIN ZERO real character art**: the boss is VOLTA + a title (visual identity
-   now IR-48 HEX PAPER LORD on the node card; Tim has not re-ruled boss branding). One art drop or a
+1. **Final-boss real character art**: RULED (Tim, 2026-07-22, `d171988`): the boss
+   IS IR-48 HEX PAPER LORD (lore 'Lord of the Zero Citadel'; RONIN ZERO = season
+   brand in the map header only). Fight visuals still VOLTA until his clip kit
+   ships. One art drop or a
    generation run -> keyed still -> clean anchor plate -> acting table (opponent-free
    acting; samurai kit) -> clip batch (~36cr/clip, per-batch OK) -> per-frame sweep ->
    key -> radial-feather fx -> contacts -> ONE manifest row + node 10 fighterId.
