@@ -1876,38 +1876,39 @@
   outline: none;
   transform: scale(1.08);
 }
-/* NEXT-CHALLENGER silhouette (phase 20): the frontier enemy as an ink-black cutout rising from
-   BEHIND its disc. Decorative: pointer-events:none + button-local z-index -1 (behind the disc's
-   opaque cover plate and the label — the name stays readable) keep the CLICK-TARGET LAW intact.
-   Anchored via `top` to the disc region (independent of label height): a 13sh-tall image whose
-   base sits ~2.3sh below the button top (the disc centre) => top = 2.3 - 13 = -10.7sh. Slight
-   transform-only breathe/sway idle, in the fr-map-ambient taste; killed by reduced-motion. */
+/* NEXT-CHALLENGER silhouette (phase 20, re-layered + rim 20c): the frontier enemy as an
+   ink-black cutout rising from BEHIND its disc. A STANDALONE map layer at z 0 - genuinely UNDER
+   every node (fogged 1 / conquered 2 / frontier 4), so no neighbour label can ever be blacked
+   out (autisk catch: at z -1 inside the z-4 frontier button it still painted over neighbours).
+   Positioned at the frontier's MAP_CAL disc center (inline left/top %); translate(-50%,-100%)
+   puts the figure's base exactly on the disc center - the same anchor the phase-20 probe
+   verified (silBaseVsDiscCY == 0). The faint bone drop-shadow is an INK-MIST RIM: invisible
+   over the light Fuji terrain, keeps the shape readable over the dark north-east ridges
+   (autisk: lady-kurotachi black-on-dark). Transform-only sway; killed by reduced-motion. */
 .fr-map-sil {
   position: absolute;
-  left: 50%;
-  top: calc(var(--sh) * -10.7);
   height: calc(var(--sh) * 13);
   width: auto;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
-  filter: brightness(0);
+  filter: brightness(0) drop-shadow(0 0 calc(var(--sh) * 0.45) rgba(242, 243, 239, 0.3));
   opacity: 0.92;
-  transform: translateX(-50%);
+  transform: translate(-50%, -100%);
   transform-origin: 50% 100%;
   animation: fr-map-sil-sway 7000ms ease-in-out infinite;
   will-change: transform;
 }
 @keyframes fr-map-sil-sway {
   0%, 100% {
-    transform: translateX(-50%) translateY(0) rotate(-0.6deg);
+    transform: translate(-50%, -100%) rotate(-0.6deg);
   }
   50% {
-    transform: translateX(-50%) translateY(calc(var(--sh) * -0.28)) rotate(0.6deg);
+    transform: translate(-50%, calc(-100% - var(--sh) * 0.28)) rotate(0.6deg);
   }
 }
 .fr-reduced .fr-map-sil {
   animation: none;
-  transform: translateX(-50%);
+  transform: translate(-50%, -100%);
 }
 /* FOGGED: the unknown is the ENEMY, not the terrain — a dim "?" disc, no name, art stays visible. */
 .fr-map-fogged .fr-map-disc {

@@ -316,6 +316,28 @@ function CampaignMap({
           strokeLinecap="round"
         />
       </svg>
+      {/* NEXT-CHALLENGER TEASE (phase 20, re-layered 20c): the FRONTIER enemy rises as an
+          ink-black silhouette from behind its disc. Rendered as a STANDALONE layer UNDER every
+          node (z 0 vs fogged 1 / conquered 2 / frontier 4) so its opaque body can never black
+          out a neighbour's label - an autisk catch: inside the frontier button (z 4) the lion
+          silhouette swallowed the BURNED PAGODA label tail at 1280px. Decorative only:
+          pointer-events:none, aria-hidden; base anchored to the frontier disc CENTER via
+          translate(-50%,-100%) (MAP_CAL untouched; CLICK-TARGET LAW intact). */}
+      {frontier >= 0 && frontier < CAMPAIGN_NODES.length && (
+        <img
+          className="fr-map-sil"
+          src={`${assetBase}assets/enemies/${CAMPAIGN_NODES[frontier].enemy.id}.webp`}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={{
+            left: `${MAP_CAL[CAMPAIGN_NODES[frontier].id].x}%`,
+            // The MAP_CAL point is the BUTTON center (disc + one-line label flex column), so the
+            // disc center sits (labelH + gap)/2 = 1.3sh ABOVE it. Anchor the figure's base there.
+            top: `calc(${MAP_CAL[CAMPAIGN_NODES[frontier].id].y}% - var(--sh) * 1.3)`,
+          }}
+        />
+      )}
       {CAMPAIGN_NODES.map((node) => {
         const idx = node.id - 1;
         const conquered = beaten[idx];
@@ -339,21 +361,6 @@ function CampaignMap({
             disabled={!clickable}
             aria-label={label}
           >
-            {/* NEXT-CHALLENGER TEASE (phase 20): the FRONTIER enemy rises as an ink-black
-                silhouette from behind its disc. Decorative only — pointer-events:none and a
-                button-local z-index BELOW the disc/label, so the CLICK-TARGET LAW holds (the
-                node's clickable box stays pinned to the disc width; MAP_CAL/MAP_LABEL untouched).
-                Anchored to the DISC region via `top` (not `bottom`) so label height never shifts
-                it. Only the frontier renders one. */}
-            {isFrontier && (
-              <img
-                className="fr-map-sil"
-                src={`${assetBase}assets/enemies/${node.enemy.id}.webp`}
-                alt=""
-                aria-hidden="true"
-                draggable={false}
-              />
-            )}
             <span className="fr-map-disc">
               {conquered ? (
                 <span className="fr-map-flag" aria-hidden="true">
