@@ -42,9 +42,14 @@
 
 .fr-stage {
   position: relative;
-  width: min(100vw, calc(100vh * 2816 / 1536));
-  height: min(100vh, calc(100vw * 1536 / 2816));
-  aspect-ratio: 2816 / 1536;
+  /* Phase 22b: the box aspect follows the ARENA ART (--stage-ar set inline by the Experience;
+     2816/1536 cathedral, 2752/1536 the clean arenas) so cover == contain = the art never crops.
+     Tim's report: "backgrounds are getting cropped when entering the map [node]". */
+  --stage-ar: 1.83333; /* plain NUMBER (2816/1536): var() substitutes literal tokens, so a "w / h"
+     expression inside calc(100vw / var()) would double-divide. */
+  width: min(100vw, calc(100vh * var(--stage-ar)));
+  height: min(100vh, calc(100vw / var(--stage-ar)));
+  aspect-ratio: var(--stage-ar);
   overflow: hidden;
   background-color: #07080c;
   background-size: cover;
@@ -76,17 +81,18 @@
   100% { transform: translate(0, 0); }
 }
 
-/* Stage living layer (phase 22): the arena's ambient loop, filling the stage box over the still
-   bg and under the fighters/fx/HUD/overlays (DOM order handles the z-stack). object-fit:cover +
-   object-position:center mirrors .fr-stage's background-size:cover / background-position:center, so
-   the video's crop matches the still's and nothing jumps when it fades in. Fades in on onPlaying
-   (the -live class); value-independent 600ms (RG-C5). */
+/* Stage living layer (phase 22, fill since 22b): the arena's ambient loop, filling the stage box
+   over the still bg and under the fighters/fx/HUD/overlays (DOM order handles the z-stack). The
+   box now takes the STILL's aspect (--stage-ar), so the still is uncropped; the 16:9 video is
+   0.8% narrower and object-fit:fill stretches it that hair to the exact same framing (the same
+   documented trade as the map's fr-map-video) - no crop, no zoom-pop at fade-in. Fades in on
+   onPlaying (the -live class); value-independent 600ms (RG-C5). */
 .fr-stage-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   object-position: center;
   pointer-events: none;
   opacity: 0;

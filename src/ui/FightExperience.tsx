@@ -2086,6 +2086,12 @@ export function FightExperience(): JSX.Element {
     // char-select screen switches this live.
     backgroundImage: `url(${stageBgUrl})`,
     transformOrigin: koZoom ? `${koZoom.spotX}% ${CAL.contactY}%` : 'center',
+    // Phase 22b: the STAGE BOX takes the arena art's native aspect, so cover == contain and the
+    // art renders UNCROPPED (Tim: "backgrounds are getting cropped when entering the map [node]").
+    // The cathedral keeps its historic 2816/1536 (baked-art CAL registration unchanged); the ten
+    // 2752-wide arenas stop losing ~2.3% of their sky/floor. fight.css derives width/height/
+    // aspect-ratio from this var.
+    ['--stage-ar' as never]: `${(effectiveArena.width / effectiveArena.height).toFixed(5)}`,
   };
 
   return (
