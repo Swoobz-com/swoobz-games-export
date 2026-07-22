@@ -29,6 +29,9 @@ generated/
 **/driver*.cjs
 **/_a11y*.mjs
 **/_flowqa*.mjs
+**/_orch-*.mjs
+**/_reverify*.mjs
+**/_codotty-*.mjs
 **/_last-*.txt
 **/findings.txt
 
