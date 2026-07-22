@@ -4,10 +4,20 @@ Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN;
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
 is canonical (`input/progressivemap.jpg` = ANOTHER GAME'S map, reference-only, never
-ship or commit it). HEAD at handoff: `ee72424` (phase 17b). `npx vitest run` prints
-**125/125**. Everything below is VERIFIED, not self-reported: every phase was
+ship or commit it). HEAD at handoff: `5436665` (phase 19). `npx vitest run` prints
+**137/137**. Everything below is VERIFIED, not self-reported: every phase was
 live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-21
-after phase 17b.
+after phase 17b; phases 18-19 appended 2026-07-22 (see project memory for full logs):
+phase 18 quick-duel economy (CPU picks randomMove, win pays 1.92x = 96% RTP,
+exploit-regression test), 18b demo rewards removed from map ("for now", re-add = one
+registry row), 18c CSPRNG behind every money pick (`src/engine/secureRng.ts`; seeded
+mulberry32 = tests/sims only), 19 lacquer-blade HUD extension (timer/nameplates/pick
+buttons in the 17b language) + map label de-overlap (MAP_LABEL transform-only offsets)
++ node hit-area fix (button box pinned to disc width; every node center resolves to
+itself in all progress states).
+**STANDING RULING (Tim 2026-07-22): skip EVERYTHING RONIN ZERO VENDING MACHINE for
+now** — the untracked `pack-machine/` demo stays untracked and unworked until Tim
+reopens it.
 
 FRESH-SESSION START HERE (in this order, before touching anything):
 1. Read this file fully, then `CAMPAIGN-SPEC.md` (campaign design of record) if the
@@ -232,17 +242,17 @@ New (phases 16-17b):
    registry-row edit per node. Node arenas likewise (arenaId per node; arena registry
    takes one ArenaDef row per background).
 3. **B1/B2 bonus isles**: cosmetic challenges (EV-neutral, swoobz-engagement-layer).
-4. **Campaign polish candidates**: adjacent conquered node labels overlap slightly at
-   full conquest (Hollow Shrine behind Burned Pagoda); campaign uses last-confirmed
-   fighter (no charSelect entry in the campaign flow — ask Tim if he wants one);
-   real reward claim/delivery once cross-game plumbing exists.
+4. **Campaign polish candidates**: label overlap + node hit-area RESOLVED phase 19;
+   still open: campaign uses last-confirmed fighter (no charSelect entry in the
+   campaign flow — ask Tim if he wants one); real reward claim/delivery once
+   cross-game plumbing exists.
 5. **Quick-duel economy**: RESOLVED phase 18 (2026-07-21, Tim's ruling "do 1"): CPU
    picks randomMove only, win pays 1.92x = 96% RTP (`cpuWinPayout`); personalities are
    flavor. Exploit-regression test (quickDuelExploit.test.ts) pins the frequency-counter
    strategy at ~50% win / 96.0% RTP over 100k seeded matches. Friend PvP unchanged.
 6. **Older backlog still open**: announcer VO (RG-C5), VS splash diagonal split,
-   in-room friend rematch protocol, waiting-room tab-close stake loss, HUD-language
-   extension to timer/nameplates/pick buttons (Tim liked the 17b restyle).
+   in-room friend rematch protocol, waiting-room tab-close stake loss. (HUD-language
+   extension to timer/nameplates/pick buttons: DONE phase 19.)
 
 ## 6. Gates before ANY commit (all of them, quote real output)
 
