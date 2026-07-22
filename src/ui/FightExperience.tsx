@@ -339,6 +339,21 @@ function CampaignMap({
             disabled={!clickable}
             aria-label={label}
           >
+            {/* NEXT-CHALLENGER TEASE (phase 20): the FRONTIER enemy rises as an ink-black
+                silhouette from behind its disc. Decorative only — pointer-events:none and a
+                button-local z-index BELOW the disc/label, so the CLICK-TARGET LAW holds (the
+                node's clickable box stays pinned to the disc width; MAP_CAL/MAP_LABEL untouched).
+                Anchored to the DISC region via `top` (not `bottom`) so label height never shifts
+                it. Only the frontier renders one. */}
+            {isFrontier && (
+              <img
+                className="fr-map-sil"
+                src={`${assetBase}assets/enemies/${node.enemy.id}.webp`}
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+              />
+            )}
             <span className="fr-map-disc">
               {conquered ? (
                 <span className="fr-map-flag" aria-hidden="true">
@@ -2506,24 +2521,32 @@ export function FightExperience(): JSX.Element {
               {/* NODE CARD: enemy portrait (same crop as the select tile) + title, objective line,
                   WIN CHANCE (the exact tier %, Glass Box), PAYS xN.NN. */}
               <div className="fr-nodecard">
-                <div className="fr-nodecard-portrait" style={{ transform: p2Mirrored ? 'scaleX(-1)' : undefined }}>
-                  <img
-                    src={p2Still}
-                    alt=""
-                    draggable={false}
-                    style={{
-                      width: `${p2Def.portrait.zoom * 100}%`,
-                      height: 'auto',
-                      left: `${50 - p2Def.portrait.headX * p2Def.portrait.zoom * 100}%`,
-                      top: `${50 - p2Def.portrait.headY * p2Def.portrait.zoom * 100}%`,
-                    }}
-                  />
+                {/* ENEMY REVEAL (phase 20): a not-yet-beaten (frontier) node keeps the enemy a
+                    NAMED MYSTERY — an ink-black silhouette of the real cutout on the coal frame;
+                    a beaten node (replay) reveals the full-colour PFP portrait, cover-fit. */}
+                <div className="fr-nodecard-portrait">
+                  {ctl.campaign.beaten[campaignNode.id - 1] ? (
+                    <img
+                      className="fr-nodecard-pfp"
+                      src={`${ASSET_BASE}assets/enemies/${campaignNode.enemy.id}-pfp.webp`}
+                      alt=""
+                      draggable={false}
+                    />
+                  ) : (
+                    <img
+                      className="fr-nodecard-sil"
+                      src={`${ASSET_BASE}assets/enemies/${campaignNode.enemy.id}.webp`}
+                      alt=""
+                      draggable={false}
+                    />
+                  )}
                 </div>
                 <div className="fr-nodecard-info">
                   <div className="fr-nodecard-node">
                     NODE {campaignNode.id} · {campaignNode.name}
                   </div>
-                  <div className="fr-nodecard-title">{campaignNode.title}</div>
+                  <div className="fr-nodecard-title">{campaignNode.enemy.name}</div>
+                  <div className="fr-nodecard-lore">{campaignNode.title}</div>
                   <div className="fr-nodecard-objective">WIN THE MATCH</div>
                   <div className="fr-nodecard-format">FIRST TO {campaignNode.roundsToWin} ROUNDS</div>
                   {/* Defense preview (Glass Box: the handicap is fully disclosed before staking).

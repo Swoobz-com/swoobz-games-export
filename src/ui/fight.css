@@ -1876,6 +1876,39 @@
   outline: none;
   transform: scale(1.08);
 }
+/* NEXT-CHALLENGER silhouette (phase 20): the frontier enemy as an ink-black cutout rising from
+   BEHIND its disc. Decorative: pointer-events:none + button-local z-index -1 (behind the disc's
+   opaque cover plate and the label — the name stays readable) keep the CLICK-TARGET LAW intact.
+   Anchored via `top` to the disc region (independent of label height): a 13sh-tall image whose
+   base sits ~2.3sh below the button top (the disc centre) => top = 2.3 - 13 = -10.7sh. Slight
+   transform-only breathe/sway idle, in the fr-map-ambient taste; killed by reduced-motion. */
+.fr-map-sil {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--sh) * -10.7);
+  height: calc(var(--sh) * 13);
+  width: auto;
+  z-index: -1;
+  pointer-events: none;
+  filter: brightness(0);
+  opacity: 0.92;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  animation: fr-map-sil-sway 7000ms ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes fr-map-sil-sway {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) rotate(-0.6deg);
+  }
+  50% {
+    transform: translateX(-50%) translateY(calc(var(--sh) * -0.28)) rotate(0.6deg);
+  }
+}
+.fr-reduced .fr-map-sil {
+  animation: none;
+  transform: translateX(-50%);
+}
 /* FOGGED: the unknown is the ENEMY, not the terrain — a dim "?" disc, no name, art stays visible. */
 .fr-map-fogged .fr-map-disc {
   opacity: 0.5;
@@ -1988,6 +2021,27 @@
 .fr-nodecard-portrait img {
   position: absolute;
 }
+/* Beaten node (replay): full-colour PFP fills the coal frame, square cover-fit. */
+.fr-nodecard-pfp {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Frontier node (not yet beaten): the real cutout as an ink-black silhouette, contain-fit and
+   centred, base near the frame floor — mysterious but named by the hero line beside it. */
+.fr-nodecard-sil {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  height: 96%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: brightness(0);
+  opacity: 0.9;
+}
 .fr-nodecard-info {
   display: flex;
   flex-direction: column;
@@ -2008,6 +2062,14 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--fr-steel-1);
+}
+/* Demoted lore title, one quiet line under the enemy hero name (phase 20). */
+.fr-nodecard-lore {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: calc(var(--sh) * 1.35);
+  letter-spacing: 0.04em;
+  color: var(--fr-steel-2);
 }
 .fr-nodecard-objective {
   font-family: 'Space Grotesk', system-ui, sans-serif;
