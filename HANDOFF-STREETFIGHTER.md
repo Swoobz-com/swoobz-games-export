@@ -4,8 +4,13 @@ Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN;
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
 swoobz-games-export export). Dev server port **5340 strictPort**. Tim's art in `input/`
 is canonical (`input/progressivemap.jpg` = ANOTHER GAME'S map, reference-only, never
-ship or commit it). HEAD at handoff: `512c6c0` (phase 22). `npx vitest run` prints
-**148/148**. Everything below is VERIFIED, not self-reported: every phase was
+ship or commit it). HEAD at handoff: `bb4f0e7` (phase 22b — arena stage-aspect
+crop fix). `npx vitest run` prints **148/148**. **PHASE 23 (boss character clip
+generation) is IN PROGRESS and UNCOMMITTED — it is generation-only (Tim's ruling:
+do NOT wire into the game yet, keep generating first), so there are NO game/src
+changes; all work lives in the untracked `qa-boss/` dir + `scripts/prep-boss-anchors.mjs`.
+Read the "## PHASE 23" section below FIRST if continuing the clip work.** Everything
+else below is VERIFIED, not self-reported: every phase was
 live-driven headless (screenshots VIEWED) before its commit. Rewritten clean 2026-07-21
 after phase 17b; phases 18-19 appended 2026-07-22 (see project memory for full logs):
 phase 18 quick-duel economy (CPU picks randomMove, win pays 1.92x = 96% RTP,
@@ -27,13 +32,116 @@ invented "fan gems" to justify background leaks) + known cosmetic residuals.
 now** — the untracked `pack-machine/` demo stays untracked and unworked until Tim
 reopens it.
 
+## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS 2026-07-23, RESUME HERE)
+
+**The job (Tim, 2026-07-23):** generate full animated fighter clip kits for all 10
+CONQUEST bosses so each node fights with its OWN character (today node fights still
+show VOLTA's clips + the enemy's face/name from phase 20-21). Also queued after:
+`input/MK FINAL/` roster (mythic 63 / legendary 39 / XGundam 156 / rare 114) + its
+`backgrounds/` (134, animate like the phase-22 arena loops). READ `CHARACTER-CONTRACT.md`
+FIRST (THE LAW: anchor-lock, per-char acting §3, ≥2 takes/state §10, special §11,
+cause-free ko, solo-safe throws, QA sweep §6). Also global memory
+`genvideo-character-clip-lessons.md` + `higgsfield-generation.md` (skill).
+
+**TIM'S PHASE-23 RULINGS (all binding):**
+1. **ZERO CREDITS. Generate ONLY via browser Higgsfield Unlimited** (free). NEVER the
+   Higgsfield MCP for generation (it bills credits). MCP is allowed ONLY for free
+   storage/reads (media_upload, show_generations, job_status, curl downloads).
+2. **Do NOT wire clips into the game yet** — "keep generating first, we add it later."
+   So NO src/ or manifest changes this phase; all output stays in `qa-boss/`.
+3. **Background color is PER-CHARACTER so the key never eats body colors:** pink/red/
+   warm-bodied bosses (IR-37 Pink Tessen, IR-48 Hex Paper Lord, Kitsune) generate on
+   GREEN; green-bodied (IR-56 Lion-Serpent) on MAGENTA; neutral/steel (Sora Yari) either.
+4. **Maps 5-10 bosses get 3 SPECIAL ATTACKS each** (signature finishers, contract §11).
+5. **When waiting on a generation, CHECK ~EVERY 1 MINUTE** if it's done.
+6. **Use the Chrome extension** (mcp__claude-in-chrome__*) — the generation runs in the
+   automation tab titled "Create AI Videos ... | Higgsfield"; Tim watches that tab.
+
+**THE PROVEN FREE PIPELINE (works end-to-end, all steps zero-credit):**
+- ANCHOR PLATES: `node scripts/prep-boss-anchors.mjs` → 1536² GREEN plates (default) for
+  all 10 bosses at `qa-boss/anchors/<id>-anchor-green.png`; `node scripts/prep-boss-anchors.mjs
+  magenta` → magenta plates. (Keys each boss's green original, composites feet-planted on
+  the chroma plate.) Lion-serpent uses magenta; everyone else green.
+- BROWSER SETUP: higgsfield.ai → Video → model **Seedance 2.0** (has [UNLIMITED] badge) →
+  turn **"Unlimited mode" toggle ON** (Generate then reads "Generate Unlimited", no credit
+  cost). Set aspect **1:1** (plates are square). A page refresh RESETS the Unlimited toggle
+  OFF and Generate shows "24 18" credits — ALWAYS re-check the toggle is ON before firing.
+- UPLOAD (no OS dialog): MCP `media_upload` the plate (free) → curl PUT to presigned →
+  the CloudFront url is browser-fetchable → in the automation tab: empty the image slot
+  (hover its thumb, click the ×), click the image icon to mount the dropzone, then JS:
+  `const i=document.querySelector('input[type=file]'); const b=await(await fetch(CDNURL)).blob();
+  const f=new File([b],'x.png',{type:'image/png'}); const dt=new DataTransfer(); dt.items.add(f);
+  i.files=dt.files; i.dispatchEvent(new Event('change',{bubbles:true}));` (assignment sometimes
+  needs a 2nd run) → one-time "Media upload agreement" modal (2 checkboxes = truthful for Tim's
+  own art, tick both + "I agree, continue") → ~6s content-verify → it appears in the Uploads
+  picker → click the tile to load it as the start image.
+- PROMPT: the field is a **contenteditable (Lexical), NOT a textarea**. RELIABLE method =
+  click it, `key ctrl+a`, `key Delete` (clears to 0), then computer `type` the prompt ONCE.
+  (execCommand/value-setter double-insert or fail. VERIFY single copy via a textContent regex
+  count.) Prompt scaffold (per §3): "The EXACT SAME <identity> ... on a solid saturated
+  GREEN/MAGENTA chroma screen (<#00b140 green / #a3005f magenta>, nothing <opposite> anywhere)
+  . <STATE acting> . <locks: armor/weapon EXACTLY same, camera locked no zoom/pan, full body in
+  frame, ONLY figure in frame, begins+ends on EXACT reference stance, 24fps>". Sora Yari's full
+  set is authored at `qa-boss/prompts/sora-yari.md` — clone its structure per boss.
+- FIRE: click **Generate** (≈131,663). Takes ~4-5 min/clip (Unlimited is free but slow).
+- **★ CRITICAL FIRING CADENCE (the big 2026-07-23 learning): fire ONE clip, then WAIT until
+  the browser shows "Generating"/"Processing" (confirming it took) BEFORE firing the next.
+  Rapid-firing Generate back-to-back DROPS the later clicks — they never submit.** This is
+  exactly why Tim said "check every 1 min". Sequential only. (First attempt rapid-fired 10
+  states/boss; only the 3-4 fired with a pause between them actually generated.)
+- HARVEST: MCP `show_generations({type:'video',size:30})` lists completed clips + rawUrl
+  (same account, free) — but it LAGS ~10min+ indexing browser jobs, so also read the result
+  url off the played `<video>` in the tab (filter out the demo `seedance_2.mov`), and curl
+  the `d8j0ntlcm91z4.cloudfront...hf_*.mp4`.
+- KEY + ENCODE (all local, free, proven): extract frames (`ffmpeg -i clip.mp4 f_%03d.png`)
+  → `node scripts/key-idle-clips.mjs <framesDir> <outDir> --still <keyedAnchorStill.png>`
+  (magenta OR green — it border-samples the screen color automatically; emits cropped keyed
+  frames + `<outDir>.cal.json`) → `ffmpeg -framerate 24 -i keyed/f_%03d.png -c:v libvpx-vp9
+  -pix_fmt yuva420p -b:v 0 -crf 28 -an out.webm`. VERIFY the matte: composite a mid keyed frame
+  over BLACK and WHITE (contract §6 sweep) — no chroma halo, body/weapon intact, no phantom
+  opponent (throws are the risk — budget a re-roll). Measure attack `contacts` from motion-energy
+  peak over the keyed frames (never guess).
+
+**WHAT'S DONE (all in `qa-boss/`, nothing committed):**
+- 10 GREEN + 10 MAGENTA anchor plates (`qa-boss/anchors/`), all viewed clean incl. the
+  green-armored lion-serpent (magenta) and the fox Kitsune (green).
+- **SORA YARI (node 1, magenta — steel/red body, keys clean):** idle + strike-a (thrust) +
+  strike-b (chop) FULLY DONE = generated, QA-passed (contact sheets viewed on-model), keyed,
+  encoded to `qa-boss/webm/sora-yari-{idle,strike-a,strike-b}.webm`, cals+contacts saved to
+  `qa-boss/sora-yari-clipdata.json`, still at `qa-boss/sora-yari-still.png`.
+- **KITSUNE TANTO (node 2, green — orange fox, gold blade):** idle DONE + QA-passed (raw at
+  `qa-boss/raw/kitsune-tanto-idle.mp4`), confirms the GREEN pipeline works for warm bodies.
+
+**WHAT'S NEXT (resume the grind, sequential-fire cadence):**
+1. RE-FIRE the states that got dropped by rapid-firing: Sora Yari {throw a/b, block a/b, hit,
+   ko, victory} (magenta) and Kitsune {strike a/b, throw a/b, block a/b, hit, ko, victory}
+   (green) — ONE at a time, wait-for-Generating between each. Prompts: sora-yari.md is written;
+   author kitsune similarly (fox + gold tanto).
+2. Then bosses 3-10 (thorn-warden, onryo-katana, satoshi-odachi, eclipse-ofuda, ir37-pink-tessen,
+   ir56-lion-serpent[MAGENTA], lady-kurotachi, ir48-hex-paper-lord). VIEW each original first to
+   pick green vs magenta. Maps 5-10 (satoshi..hex-lord) each get +3 specials (§11 finishers).
+3. Key + encode every clip into `qa-boss/webm/<id>-<state>.webm` + save clipdata json per boss.
+4. Then `input/MK FINAL/` roster + backgrounds.
+5. WIRING INTO THE GAME IS A SEPARATE LATER PHASE (Tim's ruling) — when he greenlights it:
+   per boss write `src/characters/<id>.ts` FighterDef (still/faces/portrait/clips with cal+
+   contacts, contract §4), add to `src/characters/index.ts`, set that node's `fighterId` in
+   `src/engine/fightCampaign.ts` (additive; money fields byte-identical), gates + live-drive.
+   The cal system + VOLTA/GORVAK manifests are the template.
+
+**GENERATION FACTS:** browser Unlimited = FREE (Tim's account, promo "top models unlimited");
+MCP account token currently resolves to `user_3FzP62OkeSn8OYHW3kjt3xDrWKK` (browser account);
+earlier arena uploads used a different token `user_3FLbEdg...`. Balance untouched by Unlimited
+generation. ~4-5 min/clip; a full 10-13-clip boss kit ≈ 45-60 min sequential. This is a genuine
+multi-session marathon; checkpoint progress to project memory each boss.
+
 FRESH-SESSION START HERE (in this order, before touching anything):
 1. Read this file fully, then `CAMPAIGN-SPEC.md` (campaign design of record) if the
    task touches the campaign, `CHARACTER-CONTRACT.md` (THE LAW) if it touches
    characters, `FIGHT-SPEC.md` §8 for duel rules.
-2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-19).
-3. `git log --oneline -20` to confirm HEAD; `npx vitest run` should print 137/137.
-4. Ask Tim which backlog item (section 5) to start, or continue his explicit ask.
+2. Read project memory `frozen-requiem-state.md` (full phase log, phases 3-23).
+3. `git log --oneline -20` to confirm HEAD (`bb4f0e7`); `npx vitest run` should print 148/148.
+4. **If continuing the boss-clip work (the current active task), read the "## PHASE 23"
+   section above — it is the resume point.** Otherwise ask Tim which backlog item to start.
 
 ## 0. Operating model (Tim's standing directive — read first)
 
@@ -284,11 +392,17 @@ New (phases 18-19, 2026-07-21/22):
 
 ## 5. What to do next (Tim's likely priorities — ask him which)
 
+**ACTIVE (2026-07-23): boss character CLIP GENERATION — see the "## PHASE 23" section
+above for the full resume instructions. That is the live task.** Items 0-1 below are the
+older framing of it; the phase-23 section supersedes them with the FREE browser-Unlimited
+method, Tim's per-character green/magenta rule, the sequential-fire cadence, and the
+"don't wire yet" ruling.
+
 0. **Enemy identity done (phase 20)**: all 10 nodes have named enemies + map/card
-   art (silhouette tease -> PFP reveal). NEXT LOGICAL STEP: animated clip kits per
-   enemy so the FIGHT shows the real character (fighterId per node) - pipeline in 1.
+   art (silhouette tease -> PFP reveal). Animated clip kits per enemy = the PHASE 23 job
+   (generating now, browser Unlimited, FREE — no longer the credit-spend framing below).
    Also unused so far: the TCG card art (collection surface?), the empty
-   `input/characters/background/` + `playable characters/` dirs (future drops).
+   `input/characters/background/` (now used for arenas) + `playable characters/` dirs.
 1. **Final-boss real character art**: RULED (Tim, 2026-07-22, `d171988`): the boss
    IS IR-48 HEX PAPER LORD (lore 'Lord of the Zero Citadel'; RONIN ZERO = season
    brand in the map header only). Fight visuals still VOLTA until his clip kit
