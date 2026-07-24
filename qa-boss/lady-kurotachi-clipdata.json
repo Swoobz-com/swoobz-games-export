@@ -12,5 +12,40 @@
   "keyed": false,
   "encoded": false,
   "qa": "in progress",
-  "clips": {}
+  "clips": {
+    "idle": {
+      "media": "d980cd09-0f9b-4782-9533-a1865f3b83fb",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_093105_d980cd09-0f9b-4782-9533-a1865f3b83fb.mp4",
+      "note": "v2 near-static lock. QA PASS frames 0/48/95 viewed full-size: stance identical across all three (katana point-down, hand on pommel), no torso rotation, on-model, clean green, no phantom. v1 sway roll f9cf3309 DISCARDED (loop hitch class).",
+      "qa": "pass"
+    },
+    "strike_a": {
+      "media": "92e17d79-2ef6-46a2-b618-4a4be42e4df2",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_095321_92e17d79-2ef6-46a2-b618-4a4be42e4df2.mp4",
+      "note": "Compact vertical cut. QA PASS (sheet every-6th viewed): raise->cut->return to anchor, facing locked, no spin, no phantom, contained. NOTE: seedance added a crimson blade trail frames ~54-66 (hot-pink/crimson = keys clean off green, fully dissipated by recovery) - ACCEPTED, on-brand for her neon identity. Raise peaks slightly above head but well inside top edge.",
+      "qa": "pass"
+    },
+    "strike_b_v1_FAILED": {
+      "media": "5d8bd22f-51aa-4702-bc4b-42edf78460b2",
+      "note": "REJECTED: horizontal 'slash across the front' invited the torso-rotation defect - fully frontal to camera at swing peak (~f48-54) AND ends in an open 3/4 stance off the reference profile (anchor-lock broken). Re-roll v2 with the torso-lock INSIDE the acting line + slash along facing direction, not across.",
+      "qa": "fail:torso-rotation+off-anchor-end"
+    },
+    "strike_b_v2_FAILED": {
+      "media": "dff2204a-2580-40fc-b1c1-4588281ca193",
+      "note": "REJECTED opposite failure: over-constrained torso-lock prompt SUPPRESSED the acting - katana barely moves off the anchor, no readable slash, only 2 tiny white glint artifacts. LESSON: bake the lock ONCE (shared suffix); the acting line needs a STRONG action verb. v3 = straight thrust (profile-friendly by nature).",
+      "qa": "fail:no-action"
+    },
+    "throw_a": {
+      "media": "0ee69fbd-562f-45c1-901f-45e79452d19c",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_103224_0ee69fbd-562f-45c1-901f-45e79452d19c.mp4",
+      "note": "Solo-safe grab+pull through empty air, katana kept in left hand. QA PASS: no phantom, side profile locked, single figure, final frame == exact anchor. Acting on the gentle side (pull reads softly) - fine at CLIP_RATE 2.0.",
+      "qa": "pass"
+    },
+    "throw_b": {
+      "media": "32cb6aa7-f1f7-43bd-a93a-f3be5552aa61",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_110206_32cb6aa7-f1f7-43bd-a93a-f3be5552aa61.mp4",
+      "note": "Shoulder barge: body-committed lean+stride forward, no phantom, returns near anchor. CONDITIONAL: scabbard crimson wraps drift to glowing AMBER during action (weapon-identity drift) + medium energy. Usable fallback take (throw_a is the clean take); v2 re-roll queued end-of-kit with a wrap-color lock + stronger barge verbs.",
+      "qa": "conditional:wrap-glow-drift"
+    }
+  }
 }

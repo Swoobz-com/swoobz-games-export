@@ -1,0 +1,81 @@
+{
+  "character": "thorn-warden",
+  "name": "THORN WARDEN",
+  "node": 3,
+  "boss": true,
+  "faces": "right",
+  "chroma": "green",
+  "chroma_hex": "#00b140",
+  "anchor_media": "e3b4b549-a888-42b5-afa5-6b380c5340ed",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "raw_dims": "960x960",
+  "duration": 4,
+  "clips": {
+    "idle": {
+      "media": "87e222e5-accb-41c6-bc8b-f11add1c7e99",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_123515_87e222e5-accb-41c6-bc8b-f11add1c7e99.mp4",
+      "raw": "qa-boss/raw/thorn-warden-idle.mp4",
+      "qa": "pending"
+    },
+    "strike_a": {
+      "media": "43c2a9af-4a68-47e8-927f-74a6ab1b5b05",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_125232_43c2a9af-4a68-47e8-927f-74a6ab1b5b05.mp4",
+      "raw": "qa-boss/raw/thorn-warden-strike-a.mp4",
+      "qa": "pending"
+    },
+    "strike_b": {
+      "media": "fd2afaff-a4c4-4305-889b-7ac76ed6f386",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_133222_fd2afaff-a4c4-4305-889b-7ac76ed6f386.mp4",
+      "raw": "qa-boss/raw/thorn-warden-strike-b.mp4",
+      "qa": "pending"
+    },
+    "throw_a": {
+      "media": "ba75de05-8953-4716-900d-50754bde91d7",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_134011_ba75de05-8953-4716-900d-50754bde91d7.mp4",
+      "raw": "qa-boss/raw/thorn-warden-throw-a.mp4",
+      "qa": "pending"
+    },
+    "throw_b": {
+      "media": "bb705a3d-32e1-4777-8069-904ae5ac0cb6",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_134620_bb705a3d-32e1-4777-8069-904ae5ac0cb6.mp4",
+      "raw": "qa-boss/raw/thorn-warden-throw-b.mp4",
+      "qa": "pending"
+    },
+    "block_a": {
+      "media": "e527d7d3-dc0b-4683-aef9-917d14c9fa16",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_135226_e527d7d3-dc0b-4683-aef9-917d14c9fa16.mp4",
+      "raw": "qa-boss/raw/thorn-warden-block-a.mp4",
+      "qa": "pending"
+    },
+    "block_b": {
+      "media": "cb9d4bcf-2410-47a6-9ca7-9b5376a887b7",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_140120_cb9d4bcf-2410-47a6-9ca7-9b5376a887b7.mp4",
+      "raw": "qa-boss/raw/thorn-warden-block-b.mp4",
+      "qa": "pending"
+    },
+    "hit": {
+      "media": "1c8d9ac6-a77c-4e97-93c7-693699726bc2",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_141020_1c8d9ac6-a77c-4e97-93c7-693699726bc2.mp4",
+      "raw": "qa-boss/raw/thorn-warden-hit.mp4",
+      "qa": "pending"
+    },
+    "ko": {
+      "media": "b4ad3a27-2100-4b9f-b73f-579802885593",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_141628_b4ad3a27-2100-4b9f-b73f-579802885593.mp4",
+      "raw": "qa-boss/raw/thorn-warden-ko.mp4",
+      "qa": "pending"
+    },
+    "victory": {
+      "media": "4866f83a-728e-4a1d-a345-a956e4d0098d",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_142453_4866f83a-728e-4a1d-a345-a956e4d0098d.mp4",
+      "raw": "qa-boss/raw/thorn-warden-victory.mp4",
+      "qa": "pending"
+    }
+  },
+  "superseded": {
+    "idle_v1_rotating_dropped": "dd597c66-a259-4c42-81c4-9b419a9322d9 (earlier idle, rotated toward frontal / broke loop) - was local thorn-warden-idle.mp4, OVERWRITTEN with facing-locked 87e222e5 (= old local idle-v2)"
+  },
+  "note": "Complete 10/10 FACING-LOCKED kit harvested from account (2026-07-23 afternoon). Chosen idle=87e222e5 (newest, facing-lock added after v1 rotated frontal). Local thorn-warden-idle.mp4 was the older rotating dd597c66 - OVERWRITTEN. Old idle-v2 local = 87e222e5. NB: prep note referenced anchor 1ea9910c but the afternoon kit was generated off anchor e3b4b549-a888-42b5-afa5-6b380c5340ed. Keying/encode PENDING."
+}

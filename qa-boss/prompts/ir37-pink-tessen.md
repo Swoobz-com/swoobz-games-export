@@ -11,6 +11,31 @@ on the character; magenta is OUT per Tim's rule — never magenta on a pink char
 EFFECT COLOUR RULE (see seedance-special-effect-containment memory): all special VFX are HOT-PINK and
 WHITE, NEVER green (green glow dies on the green screen). Effects small/compact, centered, wide margins.
 
+★ ENERGY DOCTRINE (Tim, 2026-07-24: "ir37 looks very boring compared to gorvak"): the v1 kit's acting
+lines were all restraint ("quick compact", "short compact", "subtle") — containment language belongs in
+the SUFFIX ONLY, the acting line needs VIOLENCE: anticipation/coil -> explosive commitment with the whole
+body driving the blow -> follow-through -> eased recovery (the GORVAK motion doctrine). Her signature
+beat = the war-fan SNAPPING open/shut. v2 re-rolls below supersede v1 idle/strike_a/strike_b.
+
+## idle v2 (ENERGY re-roll — supersedes v1)
+IDLE COMBAT-READY LOOP: a coiled predatory kunoichi stance, her weight flowing side to side on the balls
+of her feet like a dancer ready to strike, the closed war-fan slowly twirling between her fingers; midway
+through she SNAPS the war-fan open with a sharp flick, holds it open a beat like a threat, then snaps it
+shut again; the pink-glowing dagger stays ready at her side. Dangerous, elegant, alive. She returns to the
+EXACT start pose (fan closed) so it loops seamlessly.
+
+## strike_a v2 (dagger lunge — ENERGY re-roll, supersedes v1)
+STRIKE (dagger lunge): she COILS down onto her back leg, her whole body loading like a spring, then
+EXPLODES forward with a deep lunging step and drives the pink dagger in one vicious committed stab at
+chest height, hips and shoulders driving the blow through with real follow-through, then she flows back
+with an eased recovery to the starting stance. Fast, violent, total commitment.
+
+## strike_b v2 (fan cleave — ENERGY re-roll, supersedes v1)
+STRIKE (fan cleave): she whips the war-fan upward and SNAPS it open mid-swing, then carves one fierce
+arcing cleave down through the air in front of her, her whole body weight committing into the cut and the
+open fan slicing like a blade with follow-through, then she snaps the fan shut and flows back to the
+starting stance. Big, fast, theatrical violence.
+
 Shared prefix:
 > The EXACT SAME black-armored pink-neon kunoichi from the reference image (identical glossy black armored
 > bodysuit with glowing hot-pink neon trim and edge-lighting, a black visored helmet with a pink

@@ -46,10 +46,13 @@ STRIKE (compact cut): from her ready stance she lifts the katana only to about h
 it above her head, and brings it down in one clean vertical cut kept close and central, then recovers to
 the starting stance. The blade stays well below the top edge the whole time and is never lifted out of frame.
 
-## strike_b  (horizontal katana slash)
-STRIKE (katana slash): she swings the katana in one short compact horizontal slash across the front kept
-close and central, then recovers to the starting stance. One clean compact slash, the blade staying fully
-in frame and never reaching any edge.
+## strike_b  (straight thrust)  [v1 REJECTED torso-rotation ("slash across the front" opened her to camera);
+v2 REJECTED no-action (double-baked torso lock suppressed the whole swing - bake the lock ONCE, in the
+suffix; the acting line needs a STRONG action verb). v3 = straight thrust, profile-friendly by nature.]
+STRIKE (piercing thrust): from her ready stance she raises the katana to waist height and DRIVES one strong
+straight thrust forward at chest height toward the direction she faces, the blade extending horizontally in
+front of her with a step into it, then pulls it back and returns to the starting stance. A fast, committed
+stab, kept central, the blade staying fully in frame and never reaching any edge.
 
 ## throw_a  (grab and pull, solo-safe)
 THROW (grab and pull): keeping the katana in one hand, she reaches forward with her free hand through EMPTY
@@ -61,17 +64,19 @@ THROW (shoulder barge): she drives forward shoulder-first in a two-step barging 
 katana kept low at her side, then shoves away and recovers to the starting stance. Alone, no opponent, empty
 air only, single figure.
 
-## block_a  (katana guard into counter, arm-only)
-BLOCK-COUNTER: keeping her torso LOCKED in strict side profile, ONLY her arms move — she brings the katana
-up into a compact guard in front of her chest, then flicks one short compact counter cut kept close and
-central, then lowers back to the starting stance. Her chest, hips and shoulders stay square in side profile
-facing screen-right and do NOT rotate, twist or open toward the camera at any point.
+## block_a  (katana guard into counter, arm-only)  [energy pass 2026-07-24: strong verbs, lock stays]
+BLOCK-COUNTER: keeping her torso LOCKED in strict side profile, ONLY her arms move — she WHIPS the katana
+up into a hard ringing guard in front of her chest as if catching a heavy blow, holds the tension a beat,
+then SNAPS one vicious counter cut kept close and central, then lowers back to the starting stance. Her
+chest, hips and shoulders stay square in side profile facing screen-right and do NOT rotate, twist or open
+toward the camera at any point.
 
-## block_b  (forearm brace into low counter, arm-only)
-BLOCK-COUNTER: keeping her torso LOCKED in strict side profile, ONLY her arms move — she braces her armored
-forearm across her chest in a compact deflecting guard, then flicks one short compact counter cut kept LOW
-and central, the katana never lifting above her shoulder and never nearing the top edge, then lowers back to
-the starting stance. Her chest, hips and shoulders stay square in side profile and do NOT rotate toward the camera.
+## block_b  (forearm brace into low counter, arm-only)  [energy pass 2026-07-24]
+BLOCK-COUNTER: keeping her torso LOCKED in strict side profile, ONLY her arms move — she SLAMS her armored
+forearm across her chest in a hard deflecting brace that visibly absorbs impact, then RIPS one vicious low
+counter cut kept LOW and central, the katana never lifting above her shoulder and never nearing the top
+edge, then lowers back to the starting stance. Her chest, hips and shoulders stay square in side profile
+and do NOT rotate toward the camera.
 
 ## hit  (stagger, quick recover)
 HIT REACTION: her head and torso jolt sharply back as she takes a blow, a hard stagger that quickly resolves

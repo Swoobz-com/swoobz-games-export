@@ -1,10 +1,100 @@
 {
-  "id": "sora-yari", "name": "SORA YARI", "node": 1, "faces": "right", "bg": "magenta",
+  "character": "sora-yari",
+  "name": "SORA YARI",
+  "node": 1,
+  "boss": true,
+  "faces": "right",
+  "chroma": "magenta",
+  "chroma_hex": "#a3005f",
   "still": "qa-boss/sora-yari-still.png",
+  "anchor_media": "a4d05afc-89bd-4f3b-94c9-01f02152678b",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "raw_dims": "960x960",
+  "duration": 4,
   "clips": {
-    "idle": { "webm": "qa-boss/webm/sora-yari-idle.webm", "cal": {"h":74.75,"bottom":-0.23,"left":49.91} },
-    "attack_strike_a": { "webm": "qa-boss/webm/sora-yari-strike-a.webm", "cal": {"h":74.97,"bottom":-0.23,"left":51.29}, "contactMs_peak": 2667 },
-    "attack_strike_b": { "webm": "qa-boss/webm/sora-yari-strike-b.webm", "cal": {"h":96.58,"bottom":-0.23,"left":48.86}, "contactMs_peak": 1917 }
+    "idle": {
+      "media": "5e2b2e03-1989-45ef-9da5-7883aaa2e152",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260722_232922_5e2b2e03-1989-45ef-9da5-7883aaa2e152.mp4",
+      "raw": "qa-boss/raw/sora-yari-idle.mp4",
+      "qa": "keyed",
+      "webm": "qa-boss/webm/sora-yari-idle.webm",
+      "cal": {
+        "h": 74.75,
+        "bottom": -0.23,
+        "left": 49.91
+      }
+    },
+    "strike_a": {
+      "media": "159cc156-084f-41f3-9ab2-26e447b9ccd7",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260722_233704_159cc156-084f-41f3-9ab2-26e447b9ccd7.mp4",
+      "raw": "qa-boss/raw/sora-yari-strike-a.mp4",
+      "qa": "keyed",
+      "webm": "qa-boss/webm/sora-yari-strike-a.webm",
+      "cal": {
+        "h": 74.97,
+        "bottom": -0.23,
+        "left": 51.29,
+        "contactMs_peak": 2667
+      }
+    },
+    "strike_b": {
+      "media": "9e461def-2705-4edf-85bd-090be8565aba",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_002038_9e461def-2705-4edf-85bd-090be8565aba.mp4",
+      "raw": "qa-boss/raw/sora-yari-strike-b.mp4",
+      "qa": "keyed",
+      "webm": "qa-boss/webm/sora-yari-strike-b.webm",
+      "cal": {
+        "h": 96.58,
+        "bottom": -0.23,
+        "left": 48.86,
+        "contactMs_peak": 1917
+      }
+    },
+    "throw_a": {
+      "media": "131bf14b-fb8d-4453-926d-42d25a66eaec",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_095602_131bf14b-fb8d-4453-926d-42d25a66eaec.mp4",
+      "raw": "qa-boss/raw/sora-yari-throw-a.mp4",
+      "qa": "keyed",
+      "webm": "qa-boss/webm/sora-yari-throw-a.webm"
+    },
+    "throw_b": {
+      "media": "9d3ab927-b6e9-456e-b355-7899869bf8a3",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_100041_9d3ab927-b6e9-456e-b355-7899869bf8a3.mp4",
+      "raw": "qa-boss/raw/sora-yari-throw-b.mp4",
+      "qa": "pending"
+    },
+    "block_a": {
+      "media": "ace0be82-ede2-4944-9176-da35b1a57608",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_100432_ace0be82-ede2-4944-9176-da35b1a57608.mp4",
+      "raw": "qa-boss/raw/sora-yari-block-a.mp4",
+      "qa": "pending"
+    },
+    "block_b": {
+      "media": "74860929-da38-4425-a264-31d552db4597",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_101023_74860929-da38-4425-a264-31d552db4597.mp4",
+      "raw": "qa-boss/raw/sora-yari-block-b.mp4",
+      "qa": "pending"
+    },
+    "hit": {
+      "media": "27e02ff9-4d32-4950-873d-dd626f14f62a",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_101618_27e02ff9-4d32-4950-873d-dd626f14f62a.mp4",
+      "raw": "qa-boss/raw/sora-yari-hit.mp4",
+      "qa": "pending"
+    },
+    "ko": {
+      "media": "b2ddda26-ec63-4e37-9a3a-4b9f43cce27b",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_102349_b2ddda26-ec63-4e37-9a3a-4b9f43cce27b.mp4",
+      "raw": "qa-boss/raw/sora-yari-ko.mp4",
+      "qa": "pending"
+    },
+    "victory": {
+      "media": "51e1ccc5-58c0-4202-950c-dfbd5da63318",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_102850_51e1ccc5-58c0-4202-950c-dfbd5da63318.mp4",
+      "raw": "qa-boss/raw/sora-yari-victory.mp4",
+      "qa": "pending"
+    }
   },
-  "note": "3/10 keyed+encoded (idle+2 strikes). Other 7 (throw a/b, block a/b, hit, ko, victory) generated on account, pending harvest. Wiring DEFERRED per Tim 2026-07-23 (keep generating first)."
+  "note": "Complete 10/10 kit harvested from account (2026-07-23). 4 states already keyed+encoded to alpha WebM in qa-boss/webm/ (idle, strike_a, strike_b, throw_a) with cal data preserved; the other 6 raws downloaded, keying/encode PENDING. block_a='shaft-up guard->butt jab', block_b='parry sweep->thrust'. Wiring DEFERRED per Tim 2026-07-23."
 }

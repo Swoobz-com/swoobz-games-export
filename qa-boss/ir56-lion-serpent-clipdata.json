@@ -9,23 +9,197 @@
   "aspect": "1:1",
   "resolution": "720p",
   "duration": 4,
-  "keyed": false,
-  "encoded": false,
-  "qa": "COMPLETE 13/13, all containment+profile verified (frame-strip + top-band edge sweeps). Input method: dead-keyboard bypass via execCommand('selectAll')+execCommand('insertText',text) (setEditorState alone is cosmetic-only, submits stale prompt). Re-rolls: strike_a (v1 gross overhead clip), block_a (v1 torso rotated to cam -> arm-only lock), block_b (v1 rotated + rising chop hit top -> arm-only+low), special_1 (v1 roar beam off right edge -> compact puff), special_2 (v1 tail crossed top + flash at bottom -> tail strike). Edge-feather at keying per edge_feather_notes (mostly TOP-edge blade/tail tip grazes on raises). ko is OFF-ANCHOR.",
+  "source_res": "960x960@24fps, 97 frames",
+  "keyed": true,
+  "encoded": true,
+  "key_recipe": "scripts/key-idle-clips.mjs (border-ring magenta sample, tight global key + border-flood, 3px despill band, magenta-family interior suppress, 2px feather, union-bbox crop) --still ir56-lion-serpent-anchor.png. GREEN ARMOR VERIFIED SURVIVED on all clips (despill/suppress fire only when both R and B exceed G = magenta family; green armor has G>R,G>B so untouched). No magenta fringe on gold mane. Per-edge post-feather via scripts/edge-feather.mjs. VP9 yuva420p crf30 -auto-alt-ref 0 (alpha_mode=1 confirmed).",
+  "qa_pass2": "QA+key+encode pass (session 2026-07-24). 13 clips harvested (idle was local, 12 pulled via job_status rawUrl). Per-frame dense-sheet QA (every 6th frame + native-res targeted checks). VERDICT 11 PASS + 1 PASS(off-anchor, ko) + 1 FAIL (throw_a). throw_a FAIL = sustained full-front torso rotation ~frames 16-32 (torso-spin to camera, exactly the defect that re-rolled block/special v1s) AND off-spec acting (overhead cleaver raise, not the prompted grab-slam) -> NOT keyed/encoded, needs re-roll (solo-safe, torso-locked, arm-only). special_3 SOFT-FAIL/CONCERN but keyed as usable fallback: brief front torso rotation at apex ~f46-50 + flash starburst carries PINK/MAGENTA outer rays (f55-58) that the magenta key largely eats, leaving a degraded green+white spark -> recommend re-roll for clean green/gold/white flash + locked torso. 12 webms shipped (throw_a excluded).",
   "edge_feather_notes": "strike_a v2: blade TIP grazes TOP edge ~frames 24-30 (marginal, thin point) - apply 48px top edge-feather at keying (v1 was gross overhead clip, re-rolled). throw_a: blade tip grazes TOP edge ~frame 20 during wind-up (marginal) - 48px top edge-feather. throw_b: serpent-tail tip may graze LEFT edge ~frame 55 during the barge lunge (marginal) - 48px left edge-feather; barge shows a forward lean but returns to clean side profile (not a spin). block_a v2 (arm-only torso-lock re-roll; v1 rotated torso to camera): blade tip may graze TOP-RIGHT in guard frames (marginal) - light edge-feather. block_b re-rolled arm-only + low counter (v1 rotated + rising chop hit top edge). ko: OFF-ANCHOR (ends collapsed on ground, not returning to stance) - needs head-trim/lead-frame handling at keying like volta/gorvak ko; dropped cleaver tip may graze BOTTOM edge in collapse frames - light bottom edge-feather. victory: blade tip approaches TOP edge in flourish frames ~20-50 (marginal) - top edge-feather; chest-puff roll reads as bravado and returns to profile. special_1 v2 (roar burst; v1 was a horizontal beam off the RIGHT edge): green/gold/white, bright core contained at mouth, faint spray tip approaches TOP-RIGHT corner (marginal) - top-right edge-feather. special_2 v2 (tail strike; v1: tail crossed TOP + flash at BOTTOM edge): flash now fixed (small, green, at tail tip); thin tail-tip/motion-streak still grazes TOP edge ~frames 40-50 (marginal) - top edge-feather. special_3 (cleaver flash): green/teal/white starburst contained at blade (faint subtle halo, not a big orbiting ring); cleaver tip grazes TOP edge ~frame 50 on the raise (marginal) - top edge-feather.",
+  "edge_feather_applied": {
+    "strike_a": "top 48",
+    "strike_b": "top 48",
+    "throw_b": "left 48 (tail crosses source left edge x=0 frames 48-60, verified)",
+    "block_a": "top 32",
+    "block_b": "top 32",
+    "ko": "NONE - bottom feather rejected: content touches y=960 every frame (planted feet standing / resting body prone); a bottom band eats the feet. Dropped-blade floor cut reads as ground contact.",
+    "victory": "top 48",
+    "special_1_roar_burst": "top 48 (right feather rejected: rightmost content is static cleaver at x=931, 29px margin; spray does not cross right edge)",
+    "special_2_tail_strike": "top 48",
+    "special_3_cleaver_flash": "top 48",
+    "idle": "none",
+    "hit": "none"
+  },
   "clips": {
-    "idle": "20d0145c-d5c9-4a71-86a7-897190168793",
-    "strike_a": "2d5fc43e-d403-422b-8fb7-df7e565d9646",
-    "strike_b": "db471696-8ffc-46f2-ac3a-23d38e90ca03",
-    "throw_a": "ea000a6e-d317-4532-96ba-fd968152888c",
-    "throw_b": "ce8c0735-f377-43e9-b909-79f76037c69f",
-    "block_a": "aa0cb877-1ffe-40c5-b616-f16ef1122d91",
-    "block_b": "87ffebbd-d9b5-4ceb-8518-df1433fbdec1",
-    "hit": "e82c1671-e5d6-4f19-8af0-19322e7d69ca",
-    "ko": "806638ae-de18-4782-a09f-854e01f02805",
-    "victory": "635ddd33-2b0f-4a0d-b784-fee4db576c9c",
-    "special_1_roar_burst": "e0faf767-1bb8-4133-965d-cdb525e3a017",
-    "special_2_tail_strike": "68c4832b-8cba-4751-9e9a-c64655cee170",
-    "special_3_cleaver_flash": "ebccdedd-3423-499e-8ff8-0c5bb52e8b85"
-  }
+    "idle": {
+      "media": "20d0145c-d5c9-4a71-86a7-897190168793",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_030536_20d0145c-d5c9-4a71-86a7-897190168793.mp4",
+      "qa": "PASS - anchor-locked (frame0 approx last frame), on-model gold+green lion-serpent, strict side profile facing screen-right, chained cleaver + serpent tail hold silhouette every frame, no spin/talk/phantom/frame-fixed blob. Key clean: green armor fully survived, no magenta fringe on gold mane, chain preserved.",
+      "cal": {
+        "h": 102.05,
+        "bottom": -0.55,
+        "left": 50.21
+      },
+      "contacts": null,
+      "webm": "qa-boss/webm/ir56-lion-serpent-idle.webm"
+    },
+    "strike_a": {
+      "media": "2d5fc43e-d403-422b-8fb7-df7e565d9646",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_040536_2d5fc43e-d403-422b-8fb7-df7e565d9646.mp4",
+      "qa": "PASS - compact overhead cleaver chop, lands at ground with GREEN flash on blade ~frame 41. Blade tip grazes TOP edge ~f24-30 -> 48px top feather applied. On-model, faces right, returns to stance.",
+      "cal": {
+        "h": 125.14,
+        "bottom": -0.55,
+        "left": 51.02
+      },
+      "contacts": [
+        1708
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-strike_a.webm"
+    },
+    "strike_b": {
+      "media": "db471696-8ffc-46f2-ac3a-23d38e90ca03",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_042301_db471696-8ffc-46f2-ac3a-23d38e90ca03.mp4",
+      "qa": "PASS - compact cleaver hook across front, full forward extension ~frame 39 (faint green tint on blade). Blade nears TOP in the raise -> 48px top feather. On-model, faces right, returns to stance.",
+      "cal": {
+        "h": 125.14,
+        "bottom": -0.55,
+        "left": 50
+      },
+      "contacts": [
+        1625
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-strike_b.webm"
+    },
+    "throw_a": {
+      "media": "ea000a6e-d317-4532-96ba-fd968152888c",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_043922_ea000a6e-d317-4532-96ba-fd968152888c.mp4",
+      "qa": "FAIL - sustained full-FRONT torso rotation to camera ~frames 16-32 (both shoulders square, green chest plate faces camera, cleaver raised straight overhead) = torso-spin, the exact defect that re-rolled block/special v1s. Also off-spec acting (overhead raise, not the prompted claw grab-slam). NOT keyed, NOT encoded. RE-ROLL needed: solo-safe, strict torso-lock, arm-only reach through empty air, cleaver kept in one hand, no overhead raise.",
+      "cal": null,
+      "contacts": null,
+      "webm": null
+    },
+    "throw_b": {
+      "media": "ce8c0735-f377-43e9-b909-79f76037c69f",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_045705_ce8c0735-f377-43e9-b909-79f76037c69f.mp4",
+      "qa": "PASS - shoulder-barge lunge shove ~frame 42; head stays profile facing screen-right and it returns to the stance (forward lean, NOT a front spin). Serpent-tail tip crosses the SOURCE LEFT edge (x=0) frames 48-60 during the barge -> 48px left feather applied (verified). Warm bronze tail-tip motion smudge is a body part, keys fine. Green armor survived.",
+      "cal": {
+        "h": 114.21,
+        "bottom": -2.73,
+        "left": 49.93
+      },
+      "contacts": [
+        1750
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-throw_b.webm"
+    },
+    "block_a": {
+      "media": "aa0cb877-1ffe-40c5-b616-f16ef1122d91",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_055300_aa0cb877-1ffe-40c5-b616-f16ef1122d91.mp4",
+      "qa": "PASS - arm-only cleaver guard into short counter chop (v2 torso-lock confirmed: torso stays side-profile, only arms move). Counter chop full forward extension ~frame 38. Blade grazes TOP-RIGHT in guard frames -> 32px top feather. On-model.",
+      "cal": {
+        "h": 118.19,
+        "bottom": -0.55,
+        "left": 51.09
+      },
+      "contacts": [
+        1583
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-block_a.webm"
+    },
+    "block_b": {
+      "media": "87ffebbd-d9b5-4ceb-8518-df1433fbdec1",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_061119_87ffebbd-d9b5-4ceb-8518-df1433fbdec1.mp4",
+      "qa": "PASS - arm-only forearm brace into short LOW counter chop (v2, torso locked side-profile). Low chop full forward extension ~frame 72 (late, after the guard hold). Blade nears TOP in the guard raise -> 32px top feather. On-model.",
+      "cal": {
+        "h": 109.02,
+        "bottom": -0.55,
+        "left": 50
+      },
+      "contacts": [
+        3000
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-block_b.webm"
+    },
+    "hit": {
+      "media": "e82c1671-e5d6-4f19-8af0-19322e7d69ca",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_062940_e82c1671-e5d6-4f19-8af0-19322e7d69ca.mp4",
+      "qa": "PASS - sharp head/torso stagger back with mane+tail flare, impact read ~frame 13 (~15%), quick recover to guard stance (re-trigger-safe whole-body react, not a slow topple). No opponent/phantom. On-model, faces right, ends at stance.",
+      "cal": {
+        "h": 105.34,
+        "bottom": -0.55,
+        "left": 50.75
+      },
+      "contacts": null,
+      "webm": "qa-boss/webm/ir56-lion-serpent-hit.webm"
+    },
+    "ko": {
+      "media": "806638ae-de18-4782-a09f-854e01f02805",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_064807_806638ae-de18-4782-a09f-854e01f02805.mp4",
+      "qa": "PASS (OFF-ANCHOR by design) - starts on the anchor stance, drops the chained cleaver, sinks and crumples fully prone on the ground and HOLDS motionless (does not return to standing). No blow/opponent, own collapse only. Keyed with union-bbox (wide crop covering the prone body); cal computed from frame 0 (standing anchor) lands placement correctly. Dropped-blade floor cut reads as ground contact (NO bottom feather - would erode planted feet/resting body). Green survived; faint baked green ground-glow under body (harmless).",
+      "cal": {
+        "h": 105.46,
+        "bottom": -4.92,
+        "left": 48.36
+      },
+      "contacts": null,
+      "webm": "qa-boss/webm/ir56-lion-serpent-ko.webm"
+    },
+    "victory": {
+      "media": "635ddd33-2b0f-4a0d-b784-fee4db576c9c",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_070627_635ddd33-2b0f-4a0d-b784-fee4db576c9c.mp4",
+      "qa": "PASS - proud cleaver flourish to head height + roar, mane bristles, chest-puff bravado that returns to clean profile. Blade tip approaches TOP edge in flourish ~f20-50 -> 48px top feather. On-model, faces right, settles to stance.",
+      "cal": {
+        "h": 125.14,
+        "bottom": -0.55,
+        "left": 51.37
+      },
+      "contacts": null,
+      "webm": "qa-boss/webm/ir56-lion-serpent-victory.webm"
+    },
+    "special_1_roar_burst": {
+      "media": "e0faf767-1bb8-4133-965d-cdb525e3a017",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_075835_e0faf767-1bb8-4133-965d-cdb525e3a017.mp4",
+      "qa": "PASS - GREEN core + GOLD/WHITE (with warm orange rays) roar spray at the mouth, peak ~frame 33; warm/green rays SURVIVE the magenta key cleanly (no magenta/pink). Spray tip toward TOP-RIGHT -> 48px top feather (right kept clean: rightmost content is the static cleaver 29px inside). Torso stays side-profile.",
+      "cal": {
+        "h": 119.29,
+        "bottom": -0.55,
+        "left": 49.59
+      },
+      "contacts": [
+        1375
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-special_1_roar_burst.webm"
+    },
+    "special_2_tail_strike": {
+      "media": "68c4832b-8cba-4751-9e9a-c64655cee170",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_081712_68c4832b-8cba-4751-9e9a-c64655cee170.mp4",
+      "qa": "PASS - serpent tail loops overhead (crosses TOP edge -> 48px top feather) then whips down; GREEN/WHITE/GOLD impact burst peak ~frame 28 SURVIVES the key cleanly (green/white core dominates; only faint warm-pink on the outermost starburst petals, minor). Torso stays side-profile, no spin.",
+      "cal": {
+        "h": 131.15,
+        "bottom": -6.56,
+        "left": 49.93
+      },
+      "contacts": [
+        1167
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-special_2_tail_strike.webm"
+    },
+    "special_3_cleaver_flash": {
+      "media": "ebccdedd-3423-499e-8ff8-0c5bb52e8b85",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_083559_ebccdedd-3423-499e-8ff8-0c5bb52e8b85.mp4",
+      "qa": "SOFT-FAIL / CONCERN (keyed as usable fallback, RE-ROLL recommended) - two issues: (1) brief full-FRONT torso rotation at the overhead apex ~frames 46-50; (2) the flash starburst (f55-58) carries PINK/MAGENTA outer rays that the magenta key LARGELY EATS, leaving a degraded green+white spark. The keyed webm reads as a small green/white blade flash and is shippable as a fallback, but a re-roll should lock the torso and keep the flash strictly GREEN/GOLD/WHITE (no pink). Contact (spark) ~frame 54. 48px top feather applied.",
+      "cal": {
+        "h": 126.95,
+        "bottom": -2.19,
+        "left": 50
+      },
+      "contacts": [
+        2250
+      ],
+      "webm": "qa-boss/webm/ir56-lion-serpent-special_3_cleaver_flash.webm"
+    }
+  },
+  "orchestrator_notes": [
+    "2026-07-24 spot-check: green effect bloom lit the magenta screen -> MAGENTA FRINGE ring around the specials' bursts in the keyed webms (seen on special_2 matte over black+white). BEFORE WIRING: re-run keyed frames of the 3 specials through scripts/magenta-neutralize.mjs, re-encode, and re-check the inset-ring profile (learning 23). throw_a re-roll + special_3 re-roll go via FREE browser Unlimited (not credit-gated)."
+  ]
 }

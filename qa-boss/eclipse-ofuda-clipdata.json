@@ -4,27 +4,120 @@
   "boss": true,
   "chroma": "green",
   "anchor_media": "b38216bf-88f2-45be-a914-6ced75bb26b4",
-  "anchor_note": "flipped horizontally (hflip) so she faces screen-right like the rest of the roster",
+  "anchor_note": "flipped horizontally (hflip). NOTE from QA: the -r anchor AND all clips visually face screen-LEFT (nose/boot-toes/body-front point left; ponytail trails right), NOT right despite the '-r'/'faces right' labeling. The kit is internally consistent (every clip matches this anchor) — set manifest faces:'left' so THE FACING RULE (contract §4) mirrors her correctly per slot.",
   "model": "seedance_2_0",
   "aspect": "1:1",
   "resolution": "720p",
   "duration": 4,
-  "keyed": false,
-  "encoded": false,
-  "qa": "all 13 containment-verified (frame-strip + 4-edge colour sweep); throw_a/sp1/sp2/sp3 re-rolled to pass",
+  "keyed": true,
+  "encoded": true,
+  "keyer": "scripts/key-idle-clips.mjs --still qa-boss/anchors/eclipse-ofuda-anchor-green-r.png, then a GREEN-neutralize second pass (scratch greenclean, HARD=32: neutralize green chroma on ALL pixels incl alpha=0 so 4:2:0 VP9 subsampling cannot bleed green; the repo keyer is magenta-tuned), then edge-feather 48px on flagged blade-overrun edges. Encoded VP9 yuva420p crf30 24fps. Matte-verified over black+white: 0.000% visible green on every clip (matches shipped satoshi-odachi green-boss bar).",
+  "qa_summary": "11 PASS + 1 PASS-with-caveat keyed/encoded; victory FAILED (turns 180deg / starts mirrored off-anchor) and was dropped. strike_a/strike_b/block_a/block_b blade extends past a frame edge on the swing (she faces/cuts LEFT toward the opponent) -> 48px edge-feather softens the blade into a reach-off-frame fade. strike_b is the most aggressive overrun (sustained ~0.7s horizontal cut off left edge) -> accepted with feather, flagged for optional re-roll. special_3 starts with its talisman effect already present at frame 0 (minor trigger-start pop) but is body-anchor-locked and ends clean.",
+  "contacts_note": "Contacts are motion-energy-peak measurements on the keyed frames, in CLIP time ms (pre-CLIP_RATE), sanity-checked by viewing the peak frame. Single primary impact per clip; block clips also carry an earlier parry/deflect beat (noted). Fine-tune in-engine as needed.",
   "clips": {
-    "idle": "0d182292-40b9-4fcf-94a8-4ef861f24ebe",
-    "strike_a": "2c96c5da-f1d6-4f81-a1bb-7f77aa912dc7",
-    "strike_b": "67a9be7f-b864-4938-9cce-ef36dbb95479",
-    "throw_a": "b509db07-e5e8-43ae-8610-ca9923626a91",
-    "throw_b": "d0c7881d-c758-430d-8e15-d4558d25fa35",
-    "block_a": "d8c33056-fb6c-49f2-883a-800f56d45508",
-    "block_b": "842d2c1e-5a7d-4ab7-8014-caaf1630a8e6",
-    "hit": "eee3a3b5-7697-46ba-b968-d60ea86013b0",
-    "ko": "57e0eb75-553b-4c80-a0ec-5d6aacbb5453",
-    "victory": "694fd987-65c4-4a50-8d5e-cf25c1eb9f18",
-    "special_1_ofuda_flick": "8c01a818-1590-4856-b7cf-c9eda4069d44",
-    "special_2_vertical_drop_cut": "c952a8f3-d82c-4e8d-86fa-925c56d89cd3",
-    "special_3_talisman_guard": "fbbce49b-7ab9-423e-b8ea-6fd788e60867"
+    "idle": {
+      "media": "0d182292-40b9-4fcf-94a8-4ef861f24ebe",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_194710_0d182292-40b9-4fcf-94a8-4ef861f24ebe.mp4",
+      "qa": "PASS. Seamless kenjutsu idle loop, subtle sway, on-model every frame, consistent left facing, no talking, fully contained, f0~=last (anchor-locked).",
+      "cal": { "h": 100.95, "bottom": -0.48, "left": 49.11 },
+      "contacts": null,
+      "webm": "qa-boss/webm/eclipse-ofuda-idle.webm"
+    },
+    "strike_a": {
+      "media": "2c96c5da-f1d6-4f81-a1bb-7f77aa912dc7",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_200100_2c96c5da-f1d6-4f81-a1bb-7f77aa912dc7.mp4",
+      "qa": "PASS+feather. Diagonal draw-cut, returns to anchor. Blade tip crosses LEFT edge (f33-34) + grazes TOP (f35) -> edge-feather top+left 48px (blade reads as reaching off toward opponent).",
+      "cal": { "h": 111.17, "bottom": -0.49, "left": 44.11 },
+      "contacts": [1500],
+      "webm": "qa-boss/webm/eclipse-ofuda-strike_a.webm"
+    },
+    "strike_b": {
+      "media": "67a9be7f-b864-4938-9cce-ef36dbb95479",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_201245_67a9be7f-b864-4938-9cce-ef36dbb95479.mp4",
+      "qa": "PASS+feather (FLAG re-roll). Wide horizontal cut, returns to anchor. Blade CLIPPED mid-blade at LEFT edge sustained f31-48 (~0.7s, ~240px off-frame) -> most aggressive overrun; edge-feather left+top 48px makes it a soft off-frame fade. Consider a tighter re-roll for a fully-contained 2nd strike take.",
+      "cal": { "h": 111.17, "bottom": -0.49, "left": 47.63 },
+      "contacts": [1667],
+      "webm": "qa-boss/webm/eclipse-ofuda-strike_b.webm"
+    },
+    "throw_a": {
+      "media": "b509db07-e5e8-43ae-8610-ca9923626a91",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_221824_b509db07-e5e8-43ae-8610-ca9923626a91.mp4",
+      "qa": "PASS. Chosen take = the re-rolled SOLO-SAFE 'grab and pull' (reaches through EMPTY AIR, NO second figure/limb), upright, katana lowered, returns to anchor, fully contained.",
+      "cal": { "h": 100.97, "bottom": -0.36, "left": 46.66 },
+      "contacts": [1000],
+      "webm": "qa-boss/webm/eclipse-ofuda-throw_a.webm"
+    },
+    "throw_b": {
+      "media": "d0c7881d-c758-430d-8e15-d4558d25fa35",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_203434_d0c7881d-c758-430d-8e15-d4558d25fa35.mp4",
+      "qa": "PASS. Shoulder-barge SOLO drive through empty air (no opponent), recovers to anchor, contained.",
+      "cal": { "h": 102.42, "bottom": -1.45, "left": 61.38 },
+      "contacts": [1625],
+      "webm": "qa-boss/webm/eclipse-ofuda-throw_b.webm"
+    },
+    "block_a": {
+      "media": "d8c33056-fb6c-49f2-883a-800f56d45508",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_204633_d8c33056-fb6c-49f2-883a-800f56d45508.mp4",
+      "qa": "PASS+feather. Katana parry -> counter-slash, returns to anchor. Blade grazes TOP on the parry raise (f9-21) and crosses LEFT edge on the counter (f48-54) -> edge-feather top+left 48px. 2nd-most-aggressive overrun after strike_b.",
+      "cal": { "h": 111.17, "bottom": -0.49, "left": 47.75 },
+      "contacts": [750, 2000],
+      "webm": "qa-boss/webm/eclipse-ofuda-block_a.webm"
+    },
+    "block_b": {
+      "media": "842d2c1e-5a7d-4ab7-8014-caaf1630a8e6",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_205717_842d2c1e-5a7d-4ab7-8014-caaf1630a8e6.mp4",
+      "qa": "PASS+feather. Forearm deflect -> rising cut, returns to anchor. NO baked FX (thumbnail 'glow' was gold-blade motion blur). Blade grazes TOP (f39-44), LEFT (f54-55) and tip clips upper-RIGHT (f48) -> edge-feather top+left+right 48px.",
+      "cal": { "h": 111.17, "bottom": -0.49, "left": 49.94 },
+      "contacts": [1583, 2208],
+      "webm": "qa-boss/webm/eclipse-ofuda-block_b.webm"
+    },
+    "hit": {
+      "media": "eee3a3b5-7697-46ba-b968-d60ea86013b0",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_210656_eee3a3b5-7697-46ba-b968-d60ea86013b0.mp4",
+      "qa": "PASS. Hard head/torso whip-back stagger (ponytail+talismans flare), quick recovery to guard, stays on feet, consistent facing, contained. Transient flicked-ofuda speck during the whip only (not a persistent blob).",
+      "cal": { "h": 102.18, "bottom": -0.49, "left": 44.42 },
+      "contacts": null,
+      "webm": "qa-boss/webm/eclipse-ofuda-hit.webm"
+    },
+    "ko": {
+      "media": "57e0eb75-553b-4c80-a0ec-5d6aacbb5453",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_211729_57e0eb75-553b-4c80-a0ec-5d6aacbb5453.mp4",
+      "qa": "PASS. Cause-free collapse: drops katana, crumples to ground, ends collapsed and HOLDS (f73-97 stable). Solo, no opponent/blow. Ends off-anchor by design (correct ko). Dropped katana lies on ground (intentional prop, part of clip).",
+      "cal": { "h": 106.78, "bottom": -5.81, "left": 56.66 },
+      "contacts": null,
+      "webm": "qa-boss/webm/eclipse-ofuda-ko.webm"
+    },
+    "victory": {
+      "media": "694fd987-65c4-4a50-8d5e-cf25c1eb9f18",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_213112_694fd987-65c4-4a50-8d5e-cf25c1eb9f18.mp4",
+      "qa": "FAIL (DROPPED, not keyed/encoded). The flourish rotates her body 180deg: starts facing RIGHT (mirrored from the anchor, f1-49) and ends facing LEFT (f73-97). Turns the character AND starts off-anchor -> contract §2 hard rejection. Optional state, so no fallback impact. RE-ROLL: flourish with NO body rotation, start=end on the (left-facing) anchor.",
+      "cal": null,
+      "contacts": null,
+      "webm": null
+    },
+    "special_1_ofuda_flick": {
+      "media": "8c01a818-1590-4856-b7cf-c9eda4069d44",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_222908_8c01a818-1590-4856-b7cf-c9eda4069d44.mp4",
+      "qa": "PASS. Ofuda-flick finisher: starts clean anchor, white/pale-gold talisman burst contained centrally, fully dissipates, returns to anchor. Top graze (16px, effect bloom) handled by green-neutralize; no green halo after cleanup.",
+      "cal": { "h": 109.71, "bottom": -0.49, "left": 45.39 },
+      "contacts": [1250],
+      "webm": "qa-boss/webm/eclipse-ofuda-special_1.webm"
+    },
+    "special_2_vertical_drop_cut": {
+      "media": "c952a8f3-d82c-4e8d-86fa-925c56d89cd3",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_230328_c952a8f3-d82c-4e8d-86fa-925c56d89cd3.mp4",
+      "qa": "PASS+feather. Vertical drop-cut finisher: starts clean anchor (best anchor-lock), contained vertical white light-beam (bottom 17px margin), returns to anchor. Hands/pommel graze TOP (f44) -> edge-feather top 48px.",
+      "cal": { "h": 114.67, "bottom": -4.12, "left": 51.88 },
+      "contacts": [2250],
+      "webm": "qa-boss/webm/eclipse-ofuda-special_2.webm"
+    },
+    "special_3_talisman_guard": {
+      "media": "fbbce49b-7ab9-423e-b8ea-6fd788e60867",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_225203_fbbce49b-7ab9-423e-b8ea-6fd788e60867.mp4",
+      "qa": "PASS-with-caveat. Talisman-bind finisher: body anchor-locked (faces left, ends on clean anchor), talismans contained (222px+ margins, no edge issues). CAVEAT: the talisman effect is already present at frame 0 (starts mid-effect, not on the clean anchor) -> minor pop at trigger start; does NOT turn / does NOT end off-anchor so passes §2. No green halo after cleanup.",
+      "cal": { "h": 100.97, "bottom": -0.36, "left": 49.7 },
+      "contacts": [2000],
+      "webm": "qa-boss/webm/eclipse-ofuda-special_3.webm"
+    }
   }
 }

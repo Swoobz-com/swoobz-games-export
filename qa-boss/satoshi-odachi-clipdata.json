@@ -8,21 +8,122 @@
   "aspect": "1:1",
   "resolution": "720p",
   "duration": 4,
-  "keyed": false,
-  "encoded": false,
+  "keyed": true,
+  "encoded": true,
+  "keying_notes": "GREEN chroma. The shipped scripts/key-idle-clips.mjs despill is magenta-family only; a green-despill post-pass (two-branch: warm green-dominant pixels pulled to max(R,B) to keep the tan straw brown; cool green-dominant pixels neutralised to luminance-grey so the effect blooms read white, never teal) was applied to every clip before encode. Safe because nothing on this character is natively green. Specials also got a 48px edge-feather on the effect-bearing edges (sp1 right, sp2 left+right, sp3 right+top) so the contained arcs dissolve at the frame boundary instead of hard-cutting.",
   "clips": {
-    "idle": "f606ed14-e0b6-4f9e-a0a4-1fc60f44a967",
-    "strike_a": "18e39625-9d59-4691-b703-32408e5ab4a9",
-    "strike_b": "e48002dd-3836-4543-90ce-3a2e1974c29e",
-    "throw_a": "3fc68f46-3210-4bfc-b443-5dc39700cf93",
-    "throw_b": "3d8e68fa-0f6c-4d84-af22-91812e14eeb8",
-    "block_a": "d8371202-7903-4741-a40b-ebd21664926e",
-    "block_b": "956a6d78-8eac-4777-add7-d85e743d4869",
-    "hit": "5a443d8f-f656-4597-8d72-183ebdf24df1",
-    "ko": "54e7e0d2-670c-47f5-9868-dce5ca7c2390",
-    "victory": "eab52b3e-bbc9-4dd8-88b6-f2bf529ae3a4",
-    "special_1_iai_flash_cut": "d3b7ddb0-e44c-4e2f-a085-a6d5b5ef372a",
-    "special_2_odachi_cyclone": "59a4e8b8-306a-411d-baf5-ee39d4ceb615",
-    "special_3_rising_crescent": "b7fe4b96-1be2-403c-9529-4813b3f64514"
+    "idle": {
+      "media": "f606ed14-e0b6-4f9e-a0a4-1fc60f44a967",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_144651_f606ed14-e0b6-4f9e-a0a4-1fc60f44a967.mp4",
+      "qa": "pass",
+      "cal": { "h": 101.89, "bottom": -0.4, "left": 50.07 },
+      "webm": "qa-boss/webm/satoshi-odachi-idle.webm"
+    },
+    "strike_a": {
+      "media": "18e39625-9d59-4691-b703-32408e5ab4a9",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_145858_18e39625-9d59-4691-b703-32408e5ab4a9.mp4",
+      "qa": "pass",
+      "cal": { "h": 122.95, "bottom": -0.54, "left": 48.79 },
+      "contacts": [1167],
+      "webm": "qa-boss/webm/satoshi-odachi-strike_a.webm"
+    },
+    "strike_b": {
+      "media": "e48002dd-3836-4543-90ce-3a2e1974c29e",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_153439_e48002dd-3836-4543-90ce-3a2e1974c29e.mp4",
+      "qa": "pass",
+      "cal": { "h": 122.46, "bottom": -0.53, "left": 49.93 },
+      "contacts": [2250],
+      "webm": "qa-boss/webm/satoshi-odachi-strike_b.webm"
+    },
+    "throw_a": {
+      "media": "3fc68f46-3210-4bfc-b443-5dc39700cf93",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_154631_3fc68f46-3210-4bfc-b443-5dc39700cf93.mp4",
+      "qa": "pass",
+      "notes": "Solo-safe (no phantom opponent, empty reaching hand). During the grab-and-slam 'around' wrench (~f48-60) the torso rotates to a 3/4-BACK view then returns to the profile-right anchor; he never turns to FACE the camera. Anchor-locked f0==f96. Faint residual olive on the motion-blurred straw front-tuft near the reaching hand (transient).",
+      "cal": { "h": 101.34, "bottom": -0.4, "left": 50 },
+      "contacts": [2000],
+      "webm": "qa-boss/webm/satoshi-odachi-throw_a.webm"
+    },
+    "throw_b": {
+      "media": "3d8e68fa-0f6c-4d84-af22-91812e14eeb8",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_155823_3d8e68fa-0f6c-4d84-af22-91812e14eeb8.mp4",
+      "qa": "pass",
+      "notes": "Shoulder barge, solo-safe. Faces screen-right throughout, no back-turn. Anchor-locked.",
+      "cal": { "h": 123.06, "bottom": -0.8, "left": 50 },
+      "contacts": [917],
+      "webm": "qa-boss/webm/satoshi-odachi-throw_b.webm"
+    },
+    "block_a": {
+      "media": "d8371202-7903-4741-a40b-ebd21664926e",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_161013_d8371202-7903-4741-a40b-ebd21664926e.mp4",
+      "qa": "pass",
+      "notes": "Contact is the counter-punish slash (deflect/parry is ~f10-16, not the landing blow).",
+      "cal": { "h": 122.95, "bottom": -0.54, "left": 50.67 },
+      "contacts": [2083],
+      "webm": "qa-boss/webm/satoshi-odachi-block_a.webm"
+    },
+    "block_b": {
+      "media": "956a6d78-8eac-4777-add7-d85e743d4869",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_161812_956a6d78-8eac-4777-add7-d85e743d4869.mp4",
+      "qa": "pass",
+      "notes": "Contact is the rising counter cut. Brief 1-frame white steel blade-glint sparkle ~f36 (white-family, contained, keys clean).",
+      "cal": { "h": 123.66, "bottom": -1.21, "left": 50 },
+      "contacts": [2375],
+      "webm": "qa-boss/webm/satoshi-odachi-block_b.webm"
+    },
+    "hit": {
+      "media": "5a443d8f-f656-4597-8d72-183ebdf24df1",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_162922_5a443d8f-f656-4597-8d72-183ebdf24df1.mp4",
+      "qa": "pass",
+      "notes": "Sharp whip-back recoil, stays on feet, resolves quickly to guard. Anchor-locked.",
+      "cal": { "h": 122.95, "bottom": -0.54, "left": 50 },
+      "webm": "qa-boss/webm/satoshi-odachi-hit.webm"
+    },
+    "ko": {
+      "media": "54e7e0d2-670c-47f5-9868-dce5ca7c2390",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_184508_54e7e0d2-670c-47f5-9868-dce5ca7c2390.mp4",
+      "qa": "pass",
+      "notes": "Begins at anchor stance, drops odachi, sinks and collapses prone on the ground and HOLDS (does NOT return to anchor, per contract). Cause-free, no opponent. cal lands the frame-0 anchor.",
+      "cal": { "h": 106.17, "bottom": -4.83, "left": 51.34 },
+      "webm": "qa-boss/webm/satoshi-odachi-ko.webm"
+    },
+    "victory": {
+      "media": "eab52b3e-bbc9-4dd8-88b6-f2bf529ae3a4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_185337_eab52b3e-bbc9-4dd8-88b6-f2bf529ae3a4.mp4",
+      "qa": "pass",
+      "notes": "Odachi flourish + settle. During the spin flourish (~f16-20) the torso rotates to a brief 3/4-BACK view then returns to the profile-right anchor; never faces the camera. Anchor-locked.",
+      "cal": { "h": 122.79, "bottom": -0.54, "left": 50.54 },
+      "webm": "qa-boss/webm/satoshi-odachi-victory.webm"
+    },
+    "special_1_iai_flash_cut": {
+      "media": "d3b7ddb0-e44c-4e2f-a085-a6d5b5ef372a",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_190250_d3b7ddb0-e44c-4e2f-a085-a6d5b5ef372a.mp4",
+      "qa": "pass",
+      "notes": "Single decisive iai draw-cut; white steel arc at full extension. Effect contained in frame; right edge feathered 48px. One measured contact (specials guidance suggests 2-3, but the acting is a single cut - not fabricating a second).",
+      "cal": { "h": 101.48, "bottom": -0.54, "left": 51.61 },
+      "contacts": [1750],
+      "edge_feather": { "right": 48 },
+      "webm": "qa-boss/webm/satoshi-odachi-special_1_iai_flash_cut.webm"
+    },
+    "special_2_odachi_cyclone": {
+      "media": "59a4e8b8-306a-411d-baf5-ee39d4ceb615",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_191529_59a4e8b8-306a-411d-baf5-ee39d4ceb615.mp4",
+      "qa": "pass",
+      "notes": "Intended full-circle spin finisher (rotates through all facings incl. back and front - this is the designed cyclone, not a facing defect); anchor-locked f0==f96, white wind vortex contained and fully dissipated by the last frame. 3-hit string measured at the blade's forward passes. Heavy spin motion-blur: a faint OLIVE tint remains on the semi-transparent blurred straw cape edge for the fastest spin frames (residual green-screen bleed through blurred straw, neutralised from chroma-green to a plausible olive; transient, plays at 2x). left+right edges feathered 48px.",
+      "cal": { "h": 123.59, "bottom": -1.34, "left": 50 },
+      "contacts": [833, 1500, 2167],
+      "edge_feather": { "left": 48, "right": 48 },
+      "webm": "qa-boss/webm/satoshi-odachi-special_2_odachi_cyclone.webm"
+    },
+    "special_3_rising_crescent": {
+      "media": "b7fe4b96-1be2-403c-9529-4813b3f64514",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_192432_b7fe4b96-1be2-403c-9529-4813b3f64514.mp4",
+      "qa": "pass",
+      "notes": "Single explosive rising diagonal slash; white crescent of light at the apex of the rise. Effect contained; right+top edges feathered 48px. Very faint residual mint whisper in the crescent core (sub-threshold green, marginal). One measured contact.",
+      "cal": { "h": 122.79, "bottom": -0.54, "left": 50 },
+      "contacts": [2083],
+      "edge_feather": { "right": 48, "top": 48 },
+      "webm": "qa-boss/webm/satoshi-odachi-special_3_rising_crescent.webm"
+    }
   }
 }

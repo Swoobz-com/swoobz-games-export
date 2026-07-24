@@ -34,6 +34,62 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
+### ★★★ SESSION 4 RULING 2 (Tim, 2026-07-24): ENERGY DOCTRINE — BINDING ★★★
+Tim: "ir37 pink tessen looks very boring compared to gorvak - strikes and idle."
+ROOT CAUSE: the boss prompts' acting lines were written in containment language
+("quick compact", "short compact", "subtle sway") — the defect locks leaked into the
+ACTING. BINDING RULE for every remaining generation (LK rest-of-kit, hollow-pale,
+ir48, all re-rolls): containment/profile locks live in the shared SUFFIX ONLY; the
+acting line carries VIOLENCE per the GORVAK motion doctrine — anticipation/coil ->
+explosive whole-body commitment -> follow-through -> eased recovery, plus each
+character's signature theatric (ir37: the war-fan SNAPPING open; LK: whipped guards,
+vicious counters). Over-locking has its own failure mode: LK strike_b v2 double-baked
+the torso lock into the acting line and got a NO-ACTION clip (recorded in her
+clipdata). ir37 idle/strike_a/strike_b v2 ENERGY prompts authored in her prompts file
+- re-roll them (free) and drop-in replace the webms + cal/contacts when they pass.
+Consider the same audit for eclipse/ir56/satoshi strikes after Tim reviews them
+in-game (satoshi's odachi arcs measured with real wind-up; likely fine).
+
+### ★★★ SESSION 4 RULING (Tim, 2026-07-24) — WIRING IS GREENLIT ★★★
+Tim: "do QA on the animation we have from map 1 till final boss, if they go through add
+them already in the game, dont make them playable characters only make them playable
+after defeating the map." This SUPERSEDES ruling 2 below ("do NOT wire yet"):
+1. QA every boss kit (contract §6 sweep), key + encode via the proven VOLTA/GORVAK
+   pipeline (key-idle-clips.mjs -> VP9 alpha, measured contacts).
+2. Passing kits get WIRED as node enemies (FighterDef manifest + registry + node
+   fighterId in fightCampaign.ts; money fields byte-identical).
+3. NEW FEATURE: each boss becomes a PLAYABLE character ONLY after its node is beaten
+   (charSelect gates boss tiles on frozen-requiem.campaign.v1 beaten[]; locked = mystery
+   "?" tile). GORVAK + VOLTA stay always-available.
+Session 4 state: LK idle v2 QA-PASSED (clipdata updated), strike_a fired ~09:5x; four
+Opus agents dispatched to QA+key+encode satoshi/eclipse/ir37/ir56 kits (outputs
+qa-boss/webm/ + updated clipdata + matte proofs in qa-boss/proc/); harvest agent
+inventorying sora/kitsune/thorn from account history (missing states get re-fired).
+NEW LEXICAL GOTCHA (session 4): long single execCommand insertText is SILENTLY
+REVERTED — insert in ~250-char chunks after selectAll; clear remnants with real
+ctrl+Home + Delete keypresses; ALWAYS verify field text before clicking Generate.
+NEW KEYER LAW (session 4, ir37 agent finding): scripts/key-idle-clips.mjs's global
+magenta-family suppress CRUSHES hot-pink characters (pink IS magenta-family) and its
+magenta despill leaves green halos on GREEN-screen clips. GREEN clips of pink/crimson
+-trimmed bosses (ir37, lady-kurotachi, hollow-pale) key with
+scripts/key-clips-green-pinksafe.mjs (ported fork, same cal math). ALSO (satoshi
+agent finding): the stock keyer has NO green despill — green-chroma kits need the
+ported scripts/green-despill.mjs post-pass (warm green-dominant -> max(R,B) so straw/
+fur stays warm; cool green-dominant -> grey so blooms read white not teal); satoshi's
+13 webms already have it applied. THIRD PORT scripts/green-neutralize.mjs (eclipse
+agent): green-chroma kits need a post-key neutralize that covers ALPHA=0 pixels too
+(VP9 4:2:0 subsampling bleeds hidden green into visible edges after encode). All 3
+lessons also in global memory chroma-key-despill-lessons.md. ECLIPSE kit state:
+11/13 usable keyed (victory FAIL 180-rotation -> browser re-roll queued; strike_b
+aggressive edge overrun feathered, optional re-roll) and NOTE: eclipse anchor+clips
+actually face SCREEN-LEFT despite the -r labels -> her manifest must set
+faces:'left'. SATOSHI 13/13 keyed PASS (green-despill applied). IR56 note: its
+specials' green bloom lit the magenta screen -> magenta FRINGE ring around effects in
+the keyed webms; run scripts/magenta-neutralize.mjs + inset-ring recheck before wiring
+(recorded in ir56 clipdata). Kit QA state in qa-boss/<id>-clipdata.json per boss:
+ir37 13/13 PASS keyed; ir56 12/13 (throw_a torso-rotation FAIL + special_3 degraded
+-> both in the free browser re-fire queue); satoshi/eclipse agents in flight.
+
 ### ★★★ SESSION 3 UPDATE (2026-07-24) — READ THIS FIRST ★★★
 
 Still GENERATION-ONLY, still ZERO credits (browser Higgsfield Unlimited), balance
