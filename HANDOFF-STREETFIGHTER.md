@@ -32,7 +32,100 @@ invented "fan gems" to justify background leaks) + known cosmetic residuals.
 now** — the untracked `pack-machine/` demo stays untracked and unworked until Tim
 reopens it.
 
-## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS 2026-07-23, RESUME HERE)
+## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
+
+### ★★★ SESSION 3 UPDATE (2026-07-24) — READ THIS FIRST ★★★
+
+Still GENERATION-ONLY, still ZERO credits (browser Higgsfield Unlimited), balance
+**1210 untouched**. Everything lives in untracked `qa-boss/`; per-boss clip media ids are
+saved in **`qa-boss/<char>-clipdata.json`** (idle/strike_a/…/special_3 → Higgsfield media
+id). Per-boss prompt kits in `qa-boss/prompts/<char>.md`. Anchors in `qa-boss/anchors/`.
+
+**BOSS KIT STATUS (13 clips each = 10 base states + 3 specials; Tim: ALL bosses get the 3
+specials "for everyone"):**
+- node 5 **Satoshi Odachi** — ✅ 13/13 (`satoshi-odachi-clipdata.json`, GREEN)
+- node 6 **Eclipse Ofuda** — ✅ 13/13 (`eclipse-ofuda-clipdata.json`, GREEN, anchor hflipped)
+- node 7 **IR37 Pink Tessen** — ✅ 13/13 (`ir37-pink-tessen-clipdata.json`, GREEN)
+- node 8 **IR56 Lion Serpent** — ✅ 13/13 (`ir56-lion-serpent-clipdata.json`, **MAGENTA** — green-armored body)
+- node 9 **Lady Kurotachi** — 🔄 IN PROGRESS (`lady-kurotachi-clipdata.json`, GREEN, anchor hflipped, media c337bf7b). idle being re-rolled to a near-static lock at handoff; then grind strike_a…special_3.
+- node 4 **Hollow_Pale** — ⏳ QUEUED (`prompts/lady-kurotachi.md` style TBD). NEW char Tim dropped in `input/.../npc boss/map 4/` to REPLACE the blocked Onryo. Anchor ready: `qa-boss/anchors/hollow-pale-anchor-green.png` (GREEN, already green-screened, faces RIGHT no flip). Pale antlered yokai, **serrated bone-blade arm** (long, points right → right-edge risk, keep compact) + **floats on black smoke, no legs** (ko = smoke sinks/dissipates, no weapon-drop). Effects pale-gold/white/crimson NEVER green. **Do a moderation-test with idle first** (creepy creature may hard-block like Onryo).
+- node 10 **IR48 Hex Paper Lord** (FINALBOSS) — ⏳ NOT STARTED. Anchors exist (`ir48-hex-paper-lord-anchor{,-green}.png`). View art, pick chroma, upload via the SESSION-3 method, author kit, generate 13.
+- node 4 **Onryo Katana** — ⛔ SUPERSEDED by Hollow_Pale (moderation hard-block, no override button). Old anchor/prompts remain but unused.
+- nodes 1-3 (Sora Yari / Kitsune Tanto / Thorn Warden) — session-1/2 partial (see below); low-map non-special bosses.
+
+**★★★ THREE MECHANICAL BREAKTHROUGHS THIS SESSION (all saved to global memory
+`higgsfield-browser-lexical-input.md` — READ IT) ★★★**
+
+1. **DEAD-KEYBOARD BYPASS (the CDP `type` can wedge completely).** The prompt box is a
+   **Lexical contenteditable**. Set text WITHOUT the keyboard via:
+   `el.focus(); document.execCommand('selectAll'); document.execCommand('insertText',false,TEXT);`
+   This fires real `beforeinput` events Lexical processes → **syncs React state**. CRITICAL:
+   `editor.setEditorState(...)` is **COSMETIC ONLY** — the field shows your text but Generate
+   submits the STALE previous prompt (verified: made a duplicate idle). Always confirm the
+   fired prompt afterward via `show_generations` newest `params.prompt`. `execCommand('delete')`
+   after a manual DOM Range is a no-op (Lexical ignores foreign selections) → a bare insertText
+   then DOUBLES the text; always use `selectAll` to replace.
+
+2. **FIRE VIA JS, not coordinate clicks.**
+   `[...document.querySelectorAll('button')].find(b=>/Generate/i.test(b.textContent)).click()`
+   submits reliably (a mouse-click at the button sometimes no-ops). ALWAYS first verify Unlimited
+   ON: `document.querySelector('button[role="switch"]').getAttribute('aria-checked')==='true'`
+   (re-enable with `.click()`), and the button reads **"GenerateUnlimited"** (a reload resets it
+   to "Generate NN" = credits — firing then would BILL). Kill autoplay `<video>` first (they
+   freeze the renderer): `[...document.querySelectorAll('video')].forEach(v=>{v.pause();v.remove();})`.
+
+3. **ANCHOR SWAP without the OS file picker (needed per new boss).** MCP-`media_upload`ed images
+   do NOT appear in the browser Uploads modal (separate bucket). The left reference dropzone only
+   OPENS the modal on click; synthetic DragEvents are ignored (untrusted). To upload THROUGH the
+   browser: (a) remove the current anchor via the little **×** above its thumbnail; (b) fetch the
+   anchor's CloudFront URL in-page → File; (c) persistently patch `HTMLInputElement.prototype.click`
+   (a `type==='file'` input gets `Object.defineProperty(this,'files',{get:()=>dt.files})` + dispatch
+   input/change instead of opening the dialog) AND `window.showOpenFilePicker` (return
+   `[{getFile:async()=>file}]`); (d) do a **REAL TRUSTED click (computer tool)** on the modal's
+   "Upload media" button — a JS `.click()` does NOT satisfy the user-activation gate (that was the
+   missing piece); (e) the app uploads the injected file, mints a NEW browser media id, shows it as
+   the newest Uploads thumbnail; (f) **TRUSTED-click that thumbnail** to load it into the reference
+   slot ("Added to prompt box"). Verified lady-kurotachi (MCP id 4f7c57de → browser id c337bf7b).
+
+**GRIND LOOP (one JS call per clip):** set prompt via execCommand + verify a keyword + Unlimited
+ON + JS `.click()` Generate — all in ONE javascript_tool call that returns `{setOk,fired,banner}`.
+Then PIPELINE: fire the NEXT clip immediately, and QA the JUST-FINISHED one during the ~15-min
+render (curl the rawUrl → ffmpeg frame-strip `select='eq(n,0)+eq(n,24)+…',tile` → Read the PNG).
+Congestion is ~15-18 min/clip at night. Use a background `sleep` + notification to wait.
+
+**SEEDANCE DEFECT PLAYBOOK (what forced re-rolls on bosses 6-9 — bake into every prompt):**
+- **Overhead raise clips the TOP edge** (strikes/victory/rising counters): constrain to
+  "lift only to about head height, NEVER above the head, blade stays below the top edge."
+- **Torso ROTATES to camera on blocks/guards** (the "why are they spinning" defect): make blocks
+  **ARM-ONLY** — "keeping her torso LOCKED in strict side profile, ONLY her arms move … chest/hips/
+  shoulders do NOT rotate or open toward the camera." Also keep counters LOW (no rising chop).
+- **Specials balloon** into a **beam/stream/jet** (roar/energy) or a **ring/halo** that orbits, and
+  overrun the frame edges. Fix: effect COLOR away from the chroma (on GREEN → pink/white/gold NEVER
+  green; on MAGENTA → green/gold/white NEVER magenta), sized "no bigger than her head," CENTER of
+  frame, "wide empty <chroma> margin on all four edges," and explicitly **"NOT a beam, NOT a stream,
+  NOT a jet, NOT a ring, NOT a halo, does NOT orbit/shoot outward."**
+- **EDGE-FEATHER vs RE-ROLL:** a marginal 1-few-frame TIP graze (weapon/tail tip crosses an edge) →
+  ACCEPT + note a 48px edge-feather at keying (recorded in each clipdata `edge_feather_notes`).
+  RE-ROLL only for gross overrun / torso-rotation / beam-ring / phantom-opponent / weapon-morph.
+- **VERIFY-IDLE-FIRST with a near-static lock:** idle loops constantly, so the END pose must equal
+  the START pose. Even a ~20° torso opening at frame 95 causes a visible loop hitch → re-roll idle as
+  "holds the EXACT reference side-profile stance, ONLY breathes gently, does NOT step/turn/rotate/open,
+  end pose IDENTICAL to start." Check full-size frames 0/48/95 (the small montage can mislead).
+- **ko is the ONE off-anchor clip** (ends collapsed on the ground, not returning to stance) — use a
+  ko-suffix that drops the "keeps weapon in hand"/"begins and ends same stance" lines; needs
+  head-trim/lead-frame handling at keying (like volta/gorvak ko).
+
+**CHROMA DECISIONS SO FAR (Tim's rule: default GREEN; MAGENTA only for a green-bodied char; NEVER
+magenta on a pink/red char):** Satoshi GREEN, Eclipse GREEN, IR37 GREEN (black+pink), IR56 MAGENTA
+(gold+GREEN armored body), Lady Kurotachi GREEN (black+pink/crimson), Hollow_Pale GREEN (pale+black).
+Anchors that faced screen-left were hflipped to face RIGHT (roster faces right; engine mirrors).
+
+**NEXT:** finish Lady Kurotachi (9) → Hollow_Pale (4, moderation-test) → IR48 finalboss (10) → then
+the **game arena backgrounds** (Tim: "don't stop till all bosses finished and backgrounds are done").
+Keying + dual-encode (mobile 400p/crf36 + desktop 540p/crf30 + WebP + lazy-load) stays DEFERRED per
+Tim; edge-feather flagged clips per each clipdata's `edge_feather_notes`. Onryo rework optional.
+
+---
 
 **The job (Tim, 2026-07-23):** generate full animated fighter clip kits for all 10
 CONQUEST bosses so each node fights with its OWN character (today node fights still
@@ -102,15 +195,53 @@ cause-free ko, solo-safe throws, QA sweep §6). Also global memory
   opponent (throws are the risk — budget a re-roll). Measure attack `contacts` from motion-energy
   peak over the keyed frames (never guess).
 
-**WHAT'S DONE (all in `qa-boss/`, nothing committed):**
-- 10 GREEN + 10 MAGENTA anchor plates (`qa-boss/anchors/`), all viewed clean incl. the
-  green-armored lion-serpent (magenta) and the fox Kitsune (green).
-- **SORA YARI (node 1, magenta — steel/red body, keys clean):** idle + strike-a (thrust) +
-  strike-b (chop) FULLY DONE = generated, QA-passed (contact sheets viewed on-model), keyed,
-  encoded to `qa-boss/webm/sora-yari-{idle,strike-a,strike-b}.webm`, cals+contacts saved to
-  `qa-boss/sora-yari-clipdata.json`, still at `qa-boss/sora-yari-still.png`.
-- **KITSUNE TANTO (node 2, green — orange fox, gold blade):** idle DONE + QA-passed (raw at
-  `qa-boss/raw/kitsune-tanto-idle.mp4`), confirms the GREEN pipeline works for warm bodies.
+**WHAT'S DONE (updated 2026-07-23 session 2; GENERATION only, keying DEFERRED per Tim):**
+- 10 GREEN + 10 MAGENTA anchor plates (`qa-boss/anchors/`).
+- **SORA YARI (node 1, MAGENTA):** ALL 10 clips generated on-model on the account (idle, strike-a,
+  strike-b, throw-a, throw-b, block-a, block-b, hit, ko, victory). idle/strike-a/strike-b/throw-a
+  also keyed+encoded to `qa-boss/webm/`. The rest raw/on-account (harvest via show_generations).
+- **KITSUNE TANTO (node 2, GREEN):** ALL 10 clips generated. Kit RE-DONE single-blade + matte after
+  the first idle came out DUAL-WIELDING (learning below). Prompts: `qa-boss/prompts/kitsune-tanto.md`
+  (single-blade lock). NOTE: tanto renders with a gold sheen (not fully matte) — keys clean off green.
+  Old green-GLOW idle/block discarded.
+- **THORN WARDEN (node 3, GREEN, no specials):** ALL 10 clips generated + on-model (idle, strike-a,
+  strike-b, throw-a, throw-b, block-a, block-b, hit, ko, victory). idle RE-ROLLED with a FACING lock
+  (first idle rotated to frontal + broke the loop; v2 stays 3/4 screen-right, frame0==frame95, verified).
+  anchor = browser media e3b4b549. Prompts: `qa-boss/prompts/thorn-warden.md` (facing lock in suffix).
+- **ONRYO KATANA (node 4) — BLOCKED:** chroma = MAGENTA (green-flame katana makes green impossible;
+  magenta keeps the flame + keys the white/grey/black body clean; anchor plate green-flame intact).
+  MCP-uploaded anchor media 5d935d45. BUT the browser Uploads content-check flags it **"Not eligible"**
+  (moderation false-positive — the ghost's tattered burial robe + pale translucent body reads as
+  nsfw/gore). RESUME NEEDS an anchor rework: a less-tattered / more-covered onryo image (outpaint clothes
+  or regenerate), then retry. Prompts already authored: `qa-boss/prompts/onryo-katana.md`.
+- **SATOSHI ODACHI (node 5, GREEN, +3 specials/map5) — anchor uploaded, PENDING:** silver-haired ronin,
+  tan skin, dark hakama, straw cape, plain steel odachi (no glow -> green fine). MCP anchor media
+  fee7d25f uploaded; browser content-check was STUCK "Checking content..." (~30s, congestion). RESUME:
+  reopen picker, wait for it to go eligible, select it, author prompts (samurai kit + 3 contained-effect
+  specials), fire. NO prompts authored yet.
+- **CONGESTION (2026-07-23 late):** Seedance degraded badly this session — 9-min generations (vs 4-5),
+  submit POSTs hang ~90s then sometimes drop (re-verify each via show_generations; re-fire if absent),
+  a full session/page RELOAD happened once (reset the Unlimited toggle -> ALWAYS re-verify the Generate
+  button reads "Generate Unlimited" not credits before firing), and content-checks stall. When it clears,
+  the loop is fast again. Refs go stale after any reload -> re-read_page for the Generate (submit) ref.
+
+**SESSION-2 LEARNINGS (all baked into the prompt files above):**
+1. **Free Unlimited = 1 generation at a time + rate-limited.** Rapid re-clicks -> silent HTTP 429 on
+   POST `/fnf/jobs/v2/seedance_2_0` (no toast). Fire ONCE; confirm via the "Processing" banner or a 200
+   in read_network_requests; on 429, back off ~2min then single-click. NEVER rapid-fire.
+2. **Autoplaying feed videos freeze the renderer** -> `computer type` CDP-times-out (but often still
+   lands — verify field via JS, don't blind-retry). Before each prompt type, JS-pause all `<video>`.
+3. **Click Generate + focus the prompt field by REF** (ref_35 / the textbox ref) — the window keeps
+   drifting size (even to mobile layout; resize_window back to ~1300x960), so coords are unreliable.
+4. **Per-character chroma (Tim):** default GREEN; magenta ONLY for a green-bodied char (lion-serpent);
+   NEVER magenta on pink/red chars. A GLOWING weapon on a matching screen is unrecoverable (Kitsune
+   gold-GLOW went green) — spec MATTE weapons, add glow as an in-engine fx.
+5. **VERIFY the idle of each new boss (frames 0/48/95) BEFORE firing its other 9 clips** — caught
+   Kitsune dual-wield + Thorn frontal-rotation early. Add single-subject + facing/no-rotation locks.
+6. **Encode standard (Tim, deferred phase):** mobile 400p/crf36 (~285KB) + desktop 540p/crf30 (~628KB)
+   two-tier + WebP stills + lazy-load per node -> ~7MB/fight mobile. MK FINAL roster = NOT animated
+   (static cards; a curated few become playable later). Account = cinematicpotato1507, 1210cr (browser
+   Unlimited keeps them untouched).
 
 **WHAT'S NEXT (resume the grind, sequential-fire cadence):**
 1. RE-FIRE the states that got dropped by rapid-firing: Sora Yari {throw a/b, block a/b, hit,

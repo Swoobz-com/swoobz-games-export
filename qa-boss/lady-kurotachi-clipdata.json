@@ -1,0 +1,16 @@
+{
+  "character": "lady-kurotachi",
+  "node": 9,
+  "boss": true,
+  "chroma": "green",
+  "anchor_media": "c337bf7b",
+  "anchor_note": "GREEN, browser-uploaded (flipped hflip to face screen-right). Black samurai plate armor + hot-pink/crimson neon trim, horned kabuto helmet, single black katana. GREEN chroma because body is black+pink/crimson (magenta would kill the pink trim). Effects HOT-PINK/CRIMSON/WHITE NEVER green. MCP upload id was 4f7c57de; browser re-upload minted c337bf7b (the one actually referenced).",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "duration": 4,
+  "keyed": false,
+  "encoded": false,
+  "qa": "in progress",
+  "clips": {}
+}

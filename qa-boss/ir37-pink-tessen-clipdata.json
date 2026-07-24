@@ -1,0 +1,30 @@
+{
+  "character": "ir37-pink-tessen",
+  "node": 7,
+  "boss": true,
+  "chroma": "green",
+  "anchor_media": "19fa1dfb-7bd2-42de-aa13-b020370524cf",
+  "anchor_note": "green, faces right (no flip). Black+pink-neon kunoichi, dual-wield war-fan + dagger.",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "duration": 4,
+  "keyed": false,
+  "encoded": false,
+  "qa": "all 13 verified: strict-profile lock killed the rotate-to-camera spin (idle re-rolled v2); dual-weapon retained every clip; specials pink/white NEVER green (color rule). sp3 re-rolled v2 (v1 was an orbital ring). Edge-feather at keying: strike_b (fan right ~34), sp1 (right ~13), sp2 (fan right ~34), sp3 (right ray ~68) - fan sits up-right so it grazes the right edge in several clips.",
+  "clips": {
+    "idle": "74e608a3-2a64-4daf-99ba-bfa4c000fad0",
+    "strike_a": "950b878e-4c38-4762-8693-5a145a41ddcf",
+    "strike_b": "ad1836bf-4c58-4071-98f0-2821074735cb",
+    "throw_a": "1a51c819-b504-4928-9218-da7e4d9120e7",
+    "throw_b": "986134d9-2861-4bc9-be4d-4258b30a7025",
+    "block_a": "7d177224-1745-4e0c-a922-dab716eadb18",
+    "block_b": "ae5557aa-6739-4e90-b78d-6e514ed620f5",
+    "hit": "0ca12137-891c-421e-a625-c0f0c54c7117",
+    "ko": "33785a6e-0b7b-47a7-a789-fda17737740a",
+    "victory": "e1989e4b-c2e8-4991-88d5-006051506ee3",
+    "special_1_fan_gale": "dbefeb5d-d097-410e-88f8-27ff3a709813",
+    "special_2_petal_flurry": "870cb47e-3d9a-46e5-89f7-795f4de089f4",
+    "special_3_fan_flash": "4042b618-7b8b-4789-a735-e112cb4c2a42"
+  }
+}

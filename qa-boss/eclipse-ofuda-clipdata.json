@@ -1,0 +1,30 @@
+{
+  "character": "eclipse-ofuda",
+  "node": 6,
+  "boss": true,
+  "chroma": "green",
+  "anchor_media": "b38216bf-88f2-45be-a914-6ced75bb26b4",
+  "anchor_note": "flipped horizontally (hflip) so she faces screen-right like the rest of the roster",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "duration": 4,
+  "keyed": false,
+  "encoded": false,
+  "qa": "all 13 containment-verified (frame-strip + 4-edge colour sweep); throw_a/sp1/sp2/sp3 re-rolled to pass",
+  "clips": {
+    "idle": "0d182292-40b9-4fcf-94a8-4ef861f24ebe",
+    "strike_a": "2c96c5da-f1d6-4f81-a1bb-7f77aa912dc7",
+    "strike_b": "67a9be7f-b864-4938-9cce-ef36dbb95479",
+    "throw_a": "b509db07-e5e8-43ae-8610-ca9923626a91",
+    "throw_b": "d0c7881d-c758-430d-8e15-d4558d25fa35",
+    "block_a": "d8c33056-fb6c-49f2-883a-800f56d45508",
+    "block_b": "842d2c1e-5a7d-4ab7-8014-caaf1630a8e6",
+    "hit": "eee3a3b5-7697-46ba-b968-d60ea86013b0",
+    "ko": "57e0eb75-553b-4c80-a0ec-5d6aacbb5453",
+    "victory": "694fd987-65c4-4a50-8d5e-cf25c1eb9f18",
+    "special_1_ofuda_flick": "8c01a818-1590-4856-b7cf-c9eda4069d44",
+    "special_2_vertical_drop_cut": "c952a8f3-d82c-4e8d-86fa-925c56d89cd3",
+    "special_3_talisman_guard": "fbbce49b-7ab9-423e-b8ea-6fd788e60867"
+  }
+}

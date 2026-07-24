@@ -1,0 +1,31 @@
+{
+  "character": "ir56-lion-serpent",
+  "node": 8,
+  "boss": true,
+  "chroma": "magenta",
+  "anchor_media": "65b7a2d6-af67-411c-95e8-9d587e1da5a1",
+  "anchor_note": "magenta, faces right (no flip). Mechanical lion-serpent: gold+GREEN armored body, lion head, serpent tail, chained cleaver. MAGENTA chroma because the body is green-armored (green screen would key the body out). Effects GREEN/gold/white NEVER magenta.",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "duration": 4,
+  "keyed": false,
+  "encoded": false,
+  "qa": "COMPLETE 13/13, all containment+profile verified (frame-strip + top-band edge sweeps). Input method: dead-keyboard bypass via execCommand('selectAll')+execCommand('insertText',text) (setEditorState alone is cosmetic-only, submits stale prompt). Re-rolls: strike_a (v1 gross overhead clip), block_a (v1 torso rotated to cam -> arm-only lock), block_b (v1 rotated + rising chop hit top -> arm-only+low), special_1 (v1 roar beam off right edge -> compact puff), special_2 (v1 tail crossed top + flash at bottom -> tail strike). Edge-feather at keying per edge_feather_notes (mostly TOP-edge blade/tail tip grazes on raises). ko is OFF-ANCHOR.",
+  "edge_feather_notes": "strike_a v2: blade TIP grazes TOP edge ~frames 24-30 (marginal, thin point) - apply 48px top edge-feather at keying (v1 was gross overhead clip, re-rolled). throw_a: blade tip grazes TOP edge ~frame 20 during wind-up (marginal) - 48px top edge-feather. throw_b: serpent-tail tip may graze LEFT edge ~frame 55 during the barge lunge (marginal) - 48px left edge-feather; barge shows a forward lean but returns to clean side profile (not a spin). block_a v2 (arm-only torso-lock re-roll; v1 rotated torso to camera): blade tip may graze TOP-RIGHT in guard frames (marginal) - light edge-feather. block_b re-rolled arm-only + low counter (v1 rotated + rising chop hit top edge). ko: OFF-ANCHOR (ends collapsed on ground, not returning to stance) - needs head-trim/lead-frame handling at keying like volta/gorvak ko; dropped cleaver tip may graze BOTTOM edge in collapse frames - light bottom edge-feather. victory: blade tip approaches TOP edge in flourish frames ~20-50 (marginal) - top edge-feather; chest-puff roll reads as bravado and returns to profile. special_1 v2 (roar burst; v1 was a horizontal beam off the RIGHT edge): green/gold/white, bright core contained at mouth, faint spray tip approaches TOP-RIGHT corner (marginal) - top-right edge-feather. special_2 v2 (tail strike; v1: tail crossed TOP + flash at BOTTOM edge): flash now fixed (small, green, at tail tip); thin tail-tip/motion-streak still grazes TOP edge ~frames 40-50 (marginal) - top edge-feather. special_3 (cleaver flash): green/teal/white starburst contained at blade (faint subtle halo, not a big orbiting ring); cleaver tip grazes TOP edge ~frame 50 on the raise (marginal) - top edge-feather.",
+  "clips": {
+    "idle": "20d0145c-d5c9-4a71-86a7-897190168793",
+    "strike_a": "2d5fc43e-d403-422b-8fb7-df7e565d9646",
+    "strike_b": "db471696-8ffc-46f2-ac3a-23d38e90ca03",
+    "throw_a": "ea000a6e-d317-4532-96ba-fd968152888c",
+    "throw_b": "ce8c0735-f377-43e9-b909-79f76037c69f",
+    "block_a": "aa0cb877-1ffe-40c5-b616-f16ef1122d91",
+    "block_b": "87ffebbd-d9b5-4ceb-8518-df1433fbdec1",
+    "hit": "e82c1671-e5d6-4f19-8af0-19322e7d69ca",
+    "ko": "806638ae-de18-4782-a09f-854e01f02805",
+    "victory": "635ddd33-2b0f-4a0d-b784-fee4db576c9c",
+    "special_1_roar_burst": "e0faf767-1bb8-4133-965d-cdb525e3a017",
+    "special_2_tail_strike": "68c4832b-8cba-4751-9e9a-c64655cee170",
+    "special_3_cleaver_flash": "ebccdedd-3423-499e-8ff8-0c5bb52e8b85"
+  }
+}

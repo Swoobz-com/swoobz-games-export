@@ -1,0 +1,10 @@
+{
+  "id": "sora-yari", "name": "SORA YARI", "node": 1, "faces": "right", "bg": "magenta",
+  "still": "qa-boss/sora-yari-still.png",
+  "clips": {
+    "idle": { "webm": "qa-boss/webm/sora-yari-idle.webm", "cal": {"h":74.75,"bottom":-0.23,"left":49.91} },
+    "attack_strike_a": { "webm": "qa-boss/webm/sora-yari-strike-a.webm", "cal": {"h":74.97,"bottom":-0.23,"left":51.29}, "contactMs_peak": 2667 },
+    "attack_strike_b": { "webm": "qa-boss/webm/sora-yari-strike-b.webm", "cal": {"h":96.58,"bottom":-0.23,"left":48.86}, "contactMs_peak": 1917 }
+  },
+  "note": "3/10 keyed+encoded (idle+2 strikes). Other 7 (throw a/b, block a/b, hit, ko, victory) generated on account, pending harvest. Wiring DEFERRED per Tim 2026-07-23 (keep generating first)."
+}

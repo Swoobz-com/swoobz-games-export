@@ -1,0 +1,28 @@
+{
+  "character": "satoshi-odachi",
+  "node": 5,
+  "boss": true,
+  "chroma": "green",
+  "anchor_media": "c40cd6f6-2568-4f46-b0dd-7f0075e1e31b",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "duration": 4,
+  "keyed": false,
+  "encoded": false,
+  "clips": {
+    "idle": "f606ed14-e0b6-4f9e-a0a4-1fc60f44a967",
+    "strike_a": "18e39625-9d59-4691-b703-32408e5ab4a9",
+    "strike_b": "e48002dd-3836-4543-90ce-3a2e1974c29e",
+    "throw_a": "3fc68f46-3210-4bfc-b443-5dc39700cf93",
+    "throw_b": "3d8e68fa-0f6c-4d84-af22-91812e14eeb8",
+    "block_a": "d8371202-7903-4741-a40b-ebd21664926e",
+    "block_b": "956a6d78-8eac-4777-add7-d85e743d4869",
+    "hit": "5a443d8f-f656-4597-8d72-183ebdf24df1",
+    "ko": "54e7e0d2-670c-47f5-9868-dce5ca7c2390",
+    "victory": "eab52b3e-bbc9-4dd8-88b6-f2bf529ae3a4",
+    "special_1_iai_flash_cut": "d3b7ddb0-e44c-4e2f-a085-a6d5b5ef372a",
+    "special_2_odachi_cyclone": "59a4e8b8-306a-411d-baf5-ee39d4ceb615",
+    "special_3_rising_crescent": "b7fe4b96-1be2-403c-9529-4813b3f64514"
+  }
+}
