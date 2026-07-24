@@ -11,7 +11,7 @@
   "duration": 4,
   "keyed": false,
   "encoded": false,
-  "qa": "in progress",
+  "qa": "KIT COMPLETE 2026-07-24 session 5: 13/13 states usable. PRIMARY TAKES: idle_v4, strike_a_v2, strike_b_v4, throw_a_v2, throw_b (v1, conditional amber-wrap - v2 re-roll FAILED worse), block_a_v2, block_b, hit_v2 (HEAD-TRIM f10), ko, victory, special_1_v3, special_2, special_3_v2 (conditional steel-hold). Ready for key (green-pinksafe keyer) + cal + contacts + wire wave 2.",
   "clips": {
     "idle": {
       "media": "d980cd09-0f9b-4782-9533-a1865f3b83fb",
@@ -46,6 +46,114 @@
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_110206_32cb6aa7-f1f7-43bd-a93a-f3be5552aa61.mp4",
       "note": "Shoulder barge: body-committed lean+stride forward, no phantom, returns near anchor. CONDITIONAL: scabbard crimson wraps drift to glowing AMBER during action (weapon-identity drift) + medium energy. Usable fallback take (throw_a is the clean take); v2 re-roll queued end-of-kit with a wrap-color lock + stronger barge verbs.",
       "qa": "conditional:wrap-glow-drift"
+    },
+    "strike_b_v3": {
+      "media": "18643e56-2f1e-41e5-a2bd-2f3fec0f72e3",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_140322_18643e56-2f1e-41e5-a2bd-2f3fec0f72e3.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-strike-b-v3.mp4",
+      "note": "Session-5 finding: session-4's 'rendering at handoff' fire NEVER LANDED (lexical/click-lost class); re-fired 16:03 local from field text verified === v3 thrust prompt. MOTION PASS (sheet every-6th + full-size peaks viewed): coil -> raise -> committed step-in thrust held at chest height -> clean recovery to exact anchor; profile locked, no phantom, blade tip keeps ~17% right-edge margin, never above head. DEFECT: blade renders STEEL/SILVER with gold rings during the thrust while the anchor + passed strike_a v2 keep it BLACK with crimson rings = weapon-identity drift (throw_b class, more visible).",
+      "qa": "conditional:blade-turns-steel — usable fallback; v4 re-roll with blade-color lock queued end-of-kit"
+    },
+    "block_b": {
+      "media": "05492244-c050-4ac6-a5d9-ff298ea2eabc",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_144443_05492244-c050-4ac6-a5d9-ff298ea2eabc.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-block-b.mp4",
+      "note": "Blade-brace read (Seedance braced with the katana held horizontal, not the forearm - better visual anyway): raise to level chest-height guard, hot-WHITE gleam flares along the blade at the catch beat ~f48 (baked impact flash, white/warm = keys clean off green with despill; thorn block_a class - Tim call), quick low counter reads subtle, clean lower to anchor. Blade BLACK with crimson rings on-model, tip inside frame with margin, never above helmet, profile locked, end==start.",
+      "qa": "pass (note: baked white catch-gleam, Tim call)"
+    },
+    "block_a_v2": {
+      "media": "573d1349-64b6-47f0-bd12-76944dcf0828",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_150244_573d1349-64b6-47f0-bd12-76944dcf0828.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-block-a-v2.mp4",
+      "note": "LOW-guard re-roll PASS (sheet + full-size f54/f78 edge checks viewed): snap into level chest-height horizontal guard, coiled diagonal counter, whipping back-sweep deflect, recovery to anchor. All blade tips keep visible margins (closest ~5-9% at f54/f78, no slice at review speed), blade BLACK with crimson rings, never above helmet, profile locked, end==start. Primary block_a take.",
+      "qa": "pass"
+    },
+    "ko": {
+      "media": "2ad3ad76-12cc-4500-954f-436d50892d84",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_153626_2ad3ad76-12cc-4500-954f-436d50892d84.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-ko.mp4",
+      "note": "Cause-free collapse PASS (sheet + f0/f95 full-size + right-edge pixel probe viewed): f0 exact anchor facing right; strength drains -> knees buckle -> katana drops (small release glint ~f54) -> crumples to her side and HOLDS motionless. Single figure, no phantom, cause-free. Final frame: rightmost 6px columns pure green (the near-edge object is the HILT, blade lies pointing up-left - nothing touches any edge). OFF-ANCHOR by design; head-trim/lead-frame handling at keying like volta/gorvak ko.",
+      "qa": "pass"
+    },
+    "hit_v2": {
+      "media": "da2fa59a-7025-45ae-abce-77fe20afdf15",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_154958_da2fa59a-7025-45ae-abce-77fe20afdf15.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-hit-v2.mp4",
+      "note": "PASS WITH HEAD-TRIM (frames bounded full-size): Seedance AGAIN materialized a projectile (neon blue-white bolt) despite the nothing-enters-the-frame lock, but it lives ONLY in f5-f9 streaking past her head; f10+ is completely clean. Stagger is sharp (head/torso whipped back, quick recover to stance, empty air, single figure). KEYING SPEC: trim frames 0-9, start clip at f10 (near-stance) - standard head-trim free-fix class. LESSON: hit-reaction prompts attract projectiles twice in a row; head-trim beats a 3rd re-roll.",
+      "qa": "pass:head-trim-f10",
+      "trim": {"start_frame": 10}
+    },
+    "victory": {
+      "media": "6ed8e896-e931-4c96-8c08-544471337c95",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_160635_6ed8e896-e931-4c96-8c08-544471337c95.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-victory.mp4",
+      "note": "PASS (sheet + full-size f24/f48 viewed): lift -> long proud horizontal blade salute held just above helmet height (~2s, reads composed at 2x) -> lower back to exact anchor. Big top-edge margin, both blade tips well inside, blade BLACK with crimson rings on-model, profile locked, single figure, end==start.",
+      "qa": "pass"
+    },
+    "special_2": {
+      "media": "849696b7-3e9a-45e1-b0de-04ee10c3ab9a",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_165249_849696b7-3e9a-45e1-b0de-04ee10c3ab9a.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-special-2.mp4",
+      "note": "PETAL SPARK FLURRY PASS (sheet viewed): dynamic tight swirl of pink-white light bands around her torso + scattering sparks, builds f12-f42, fully dissipates by f72, anchor-sealed end==start, profile locked, katana kept. Containment good: core swirl torso-tight, scatter stays ~15%+ off all edges, no ring orbit, no beam. NOTE: sparks render GOLD/AMBER not pure pink/crimson (warm = keys clean off green; slightly off-palette - Tim call on the preview page).",
+      "qa": "pass (note: gold spark tint, Tim call)"
+    },
+    "throw_b_v2_FAILED": {
+      "media": "b9c845cc-44f2-43b6-ae28-d76a0d3d660a",
+      "raw": "qa-boss/raw/lady-kurotachi-throw-b-v2.mp4",
+      "note": "REJECTED triple (full-size f33-f42 viewed): (1) phantom black CYLINDER enters from the right edge at arm height ~f36; (2) she rotates FULLY FRONTAL mid-clip (wide square stance = torso-rotation class); (3) pink energy burst + grey smoke drift off the right edge. Wrap-color lock DID work (crimson stayed crimson). v1 (gentle barge, amber-wrap conditional) stays the throw_b take - throws are the phantom-prone class, diminishing returns on a v3.",
+      "qa": "fail:phantom-cylinder+frontal-rotation+edge-smoke"
+    },
+    "strike_b_v4": {
+      "media": "90953858-849f-49e7-812d-6ba8d5ead3c4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_181902_90953858-849f-49e7-812d-6ba8d5ead3c4.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-strike-b-v4.mp4",
+      "note": "PRIMARY TAKE - PASS (sheet + full-size v3-vs-v4 blade comparison viewed): blade-color lock WORKED on the rings (crimson red, was gold in v3) and pulled the blade to gunmetal-dark with only a steel top-edge highlight at thrust peak (v3 was fully silver) - reads as light on a glossy black blade. Motion better too: deeper coil, wider lunge, ~9% tip margin, profile locked, anchor-sealed. LESSON (doctrine): horizontal-blade steel drift is a Seedance lighting prior - the color-lock line reduces it to an acceptable highlight but cannot fully remove it; rings/wraps ARE fully lockable. v3 demoted to fallback.",
+      "qa": "pass"
+    },
+    "special_1_v3": {
+      "media": "be041cc8-67cb-425d-a7e3-2932c3eef94c",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_180035_be041cc8-67cb-425d-a7e3-2932c3eef94c.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-special-1-v3.mp4",
+      "note": "PRIMARY TAKE - PASS (sheet viewed): anchor start, explosive rip + bright crimson-white crescent hanging IN FRONT of her (top capped below helmet crest per the v3 cap, no body wrap), wide margins all edges, fades fully, settles to anchor. Greenish tinge in the fading tail = screen-through semi-transparency, keys out with despill. Supersedes v1 (no-action) and v2 (top-edge overrun feather-fallback).",
+      "qa": "pass"
+    },
+    "special_1_v2": {
+      "media": "7a50b830-6fc7-44e4-beab-c3a6c3a2bc7b",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_172741_7a50b830-6fc7-44e4-beab-c3a6c3a2bc7b.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-special-1-v2.mp4",
+      "note": "Motion-first fix WORKED (fast rip + violent wrapping crescent, fades fully, anchor-sealed end==start, on-palette pink-white-crimson) BUT the crescent's BRIGHT peak crosses the TOP edge at f18-f24 (visible slice, not a tip kiss -> re-roll class under the tightened edge rule). Keep as FEATHER-FALLBACK take (48px top edge-feather would soften it) if v3 misbehaves; v3 authored with below-helmet trail cap.",
+      "qa": "conditional:top-edge-overrun — feather-fallback; v3 queued"
+    },
+    "special_3_v2": {
+      "media": "dd7e27b3-dc12-4984-a21d-ed597009f2da",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_174157_dd7e27b3-dc12-4984-a21d-ed597009f2da.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-special-3-v2.mp4",
+      "note": "Anchored re-roll: BOTH v1 defects fixed (starts AND ends on exact anchor - f95 black blade, glow fully faded; raise capped at chest height; snap-down cut; flash compact helmet-sized at the blade tip; NO arc/crescent/ring; contained with margins). RESIDUAL: blade renders STEEL during the horizontal hold f24-f60 (strike_b v3 drift class; black again by recovery). If strike_b v4's blade-color lock line works, sp3 v3 = same acting + that line (cheap later re-roll, Tim call).",
+      "qa": "conditional:steel-hold — usable; blade-lock re-roll optional"
+    },
+    "special_3_v1_FAILED": {
+      "media": "ef96dc09-fa6d-4414-80b0-5ca73d06ba0d",
+      "raw": "qa-boss/raw/lady-kurotachi-special-3.mp4",
+      "note": "REJECTED double: (1) STARTS OFF-ANCHOR - f0 already has the katana raised overhead ('snaps the katana down' made the model begin at the top of the downstroke); (2) the 'tiny flash' rendered as a HUGE white-pink crescent ARC sweeping the whole right side and off the top edge (banned ring/arc scale) + ground spark burst. Long static tail f30-f90. v2 authored: raise INSIDE the clip (chest height only), flash no bigger than her helmet, explicit NOT-a-crescent/arc/trail ban.",
+      "qa": "fail:starts-off-anchor+oversized-arc"
+    },
+    "special_1_v1_FAILED": {
+      "media": "7e055521-6888-4e6d-a09e-0c23d25505a5",
+      "raw": "qa-boss/raw/lady-kurotachi-special-1.mp4",
+      "note": "REJECTED no-action (strike_b v2 class): the 'stays vertical and central, never swings out' containment matched her PLANTED point-down blade, so Seedance painted a pink-white glow onto the static planted katana and she never moves - no cut at all. Reads as a power-up ignition, not a finisher. v2 authored motion-first: RIP the blade up + carve the crescent, ignition DURING the cut.",
+      "qa": "fail:no-action"
+    },
+    "hit_v1_FAILED": {
+      "media": "3cda8c39-6baf-400b-8656-88f2fed69647",
+      "raw": "qa-boss/raw/lady-kurotachi-hit.mp4",
+      "note": "REJECTED phantom-projectile: Seedance materialized a dark armored gauntlet-like object flying in from upper-right past her head (~f36-f42, motion-blurred, partially edge-clipped) to 'motivate' the blow, despite the no-opponent lines. Stagger motion itself good; neon trim blazing pink as hit-flash is on-brand (keep that in v2 read). v2 authored with INVISIBLE-force + nothing-enters-the-frame lock.",
+      "qa": "fail:phantom-projectile"
+    },
+    "block_a_v1_FAILED": {
+      "media": "37700a84-bc90-4a79-9cec-66482455fd84",
+      "raw": "qa-boss/raw/lady-kurotachi-block-a.mp4",
+      "note": "REJECTED edge-overrun: 'WHIPS the katana up into a guard' sent the blade OVERHEAD - blade visibly sliced by the top edge at ~f12 and again at the guard peak ~f20 (multiple frames, reads at review speed = RE-ROLL class, not feather). Blade stayed BLACK with crimson rings (on-model) and profile locked. v2 authored: guard pinned to CHEST height, tip BELOW the helmet, + the framing guard phrase.",
+      "qa": "fail:top-edge-overrun"
     },
     "idle_v3_FAILED": {
       "media": "5c9adffa-4e41-4fc4-9477-bd81211a5e81",

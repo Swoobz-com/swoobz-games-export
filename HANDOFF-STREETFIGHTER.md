@@ -100,10 +100,25 @@ and alive; full detail in the blocks below):**
    clicking Generate; CDP timeouts usually mean the insert LANDED but the click
    didn't - verify state, then fire, never blind-retry.
 
+**SESSION 5 PROGRESS (2026-07-24 evening): LK KIT COMPLETE — 13/13 usable takes**
+(primary takes + full verdicts in lady-kurotachi-clipdata.json: idle_v4, strike_a_v2,
+strike_b_v4 [blade-color lock take], throw_a_v2, throw_b v1 [conditional; v2 re-roll
+FAILED worse: phantom cylinder + frontal turn], block_a_v2 [v1 top-edge FAIL],
+block_b, hit_v2 [HEAD-TRIM f10: phantom bolt lives f5-f9 only], ko, victory,
+special_1_v3 [v1 no-action, v2 top-edge], special_2, special_3_v2 [conditional
+steel-hold]). NEW SESSION-5 DOCTRINE ADDENDA: (a) hit-reaction prompts attract
+PHANTOM PROJECTILES (2 in a row) - if the phantom lives only in the lead frames,
+HEAD-TRIM beats a re-roll; (b) horizontal-blade STEEL drift is a Seedance lighting
+prior - a blade-color lock line reduces it to an edge highlight (rings/wraps ARE
+fully lockable) but cannot remove it; (c) specials need MOTION-FIRST acting lines -
+containment wording that matches the resting pose gets a no-action glow clip; (d)
+'snaps the blade down' can make f0 START at the top of the stroke - name the raise
+INSIDE the clip. ECLIPSE WAVE STARTED: anchor swapped in Uploads picker, idle v2
+fired. Remaining LK re-roll options (Tim call): sp3 v3 + throw_b v3 with locks.**
+
 **WHAT TO DO NEXT (the exact queue, one render at a time, ~15min each, QA the
 previous during the next render, record EVERY verdict in the clipdata ledger):**
-1. Harvest LK strike_b v3 -> QA -> fire block_a -> ... continue her kit to 13
-   (block_b, hit, ko, victory, sp1/2/3 - prompts ready).
+1. ~~LK kit~~ DONE (see above).
 2. ECLIPSE energy wave (8): swap anchor in the Uploads picker (her green -r tile;
    verify via the fired generation's medias[0]), fire idle v2..victory v2 per her
    prompts file.

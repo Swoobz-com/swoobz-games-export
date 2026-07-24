@@ -65,6 +65,12 @@ straight thrust forward at chest height toward the direction she faces, the blad
 front of her with a step into it, then pulls it back and returns to the starting stance. A fast, committed
 stab, kept central, the blade staying fully in frame and never reaching any edge.
 
+## strike_b v4 (thrust + BLADE-COLOR LOCK)  [v3 conditional 2026-07-24: motion PASS but the blade turned
+STEEL/SILVER with gold rings mid-thrust; anchor + passed strike_a v2 keep it BLACK with crimson rings.
+Fire end-of-kit with throw_b v2. Same v3 acting line + append:]
+The katana's blade stays glossy BLACK with crimson rings along its spine the ENTIRE clip, it is a black
+blade, NOT silver, NOT steel, NOT chrome, and the rings on the blade stay CRIMSON RED, never gold.
+
 ## throw_a  (grab and pull, solo-safe)  [v1 PASSED but gentle — v2 supersedes for the ENERGY bar.]
 ## throw_a v2 (ENERGY seize and slam)
 THROW (seize and slam): keeping the katana in one hand, she SNAPS her free hand forward and seizes an
@@ -84,6 +90,16 @@ then SNAPS one vicious counter cut kept close and central, then lowers back to t
 chest, hips and shoulders stay square in side profile facing screen-right and do NOT rotate, twist or open
 toward the camera at any point.
 
+## block_a v2 (LOW guard)  [v1 FAILED 2026-07-24: 'WHIPS the katana up' sent the blade overhead and
+sliced the top edge across multiple frames (re-roll class). Keep the whip-energy but pin the guard LOW.]
+BLOCK-COUNTER: keeping her torso LOCKED in strict side profile, ONLY her arms move - she SNAPS the katana
+across in front of her chest into a hard ringing HORIZONTAL guard, the blade held level at chest height
+with the tip staying BELOW her helmet at ALL times, holds the tension a beat as if catching a heavy blow,
+then RIPS one vicious counter cut kept close, central and below shoulder height, then lowers back to the
+starting stance. The whole action stays WELL INSIDE the frame with a wide margin on every side; the blade
+NEVER rises above her head. Her chest, hips and shoulders stay square in side profile facing screen-right
+and do NOT rotate, twist or open toward the camera at any point.
+
 ## block_b  (forearm brace into low counter, arm-only)  [energy pass 2026-07-24]
 BLOCK-COUNTER: keeping her torso LOCKED in strict side profile, ONLY her arms move — she SLAMS her armored
 forearm across her chest in a hard deflecting brace that visibly absorbs impact, then RIPS one vicious low
@@ -95,6 +111,14 @@ and do NOT rotate toward the camera.
 HIT REACTION: her head and torso jolt sharply back as she takes a blow, a hard stagger that quickly resolves
 back toward her guard stance. She stays on her feet, NOT a slow topple, and ends at the starting stance. No
 opponent, empty air only, single figure.
+
+## hit v2 (invisible force)  [v1 FAILED 2026-07-24: phantom PROJECTILE - a gauntlet-like object flew in
+from off-screen past her head to motivate the blow. Name the cause as INVISIBLE + ban entering objects.]
+HIT REACTION: her head and torso jolt sharply back as she is staggered by an INVISIBLE force, a hard
+stagger that quickly resolves back toward her guard stance. She stays on her feet, NOT a slow topple, and
+ends at the starting stance. The air around her is completely EMPTY the entire clip: NOTHING enters the
+frame, no object, no weapon, no debris, no projectile flies through the air, nothing visible hits her, no
+opponent, single figure only.
 
 ## ko  (cause-free collapse, ends on ground)  [OFF-ANCHOR]
 DEFEAT COLLAPSE: utterly spent, her strength leaves her, the katana drops from her grip to the ground, and
@@ -116,13 +140,45 @@ and never swings out sideways toward the edges, then snaps back to the starting 
 PINK and CRIMSON and WHITE, NEVER green, short and thin, centered with a wide green margin on all four edges,
 NOT a ring, NOT a beam.
 
+## special_1 v2 (CRIMSON CRESCENT, motion-first)  [v1 FAILED no-action 2026-07-24: the vertical/central
+containment matched her planted blade - Seedance lit the static katana and skipped the cut entirely.
+Lesson: for specials the acting line must LEAD with the violent cut; ignition happens DURING the cut.]
+SPECIAL FINISHER (crescent cut): she RIPS the katana up from its point-down rest and carves one fast,
+explosive vertical slash in front of her chest, the blade IGNITING hot-pink and white as it moves so the
+cut leaves a SHORT thin crimson-and-white crescent trail hanging in the air in front of her, then the
+trail fades and she snaps back to the starting stance. The whole cut and trail stay in the CENTER of the
+frame with a wide green margin on every side, the blade never lifts above her head. The trail is HOT PINK
+and CRIMSON and WHITE, NEVER green, short and thin, NOT a ring, NOT a beam, NOT a jet.
+
+## special_1 v3 (CRIMSON CRESCENT, capped trail)  [v2 2026-07-24: action fixed (rip reads violent) but
+the crescent's bright peak crossed the TOP edge f18-f24. v3 = same acting, trail capped below the helmet.]
+SPECIAL FINISHER (crescent cut): she RIPS the katana up from its point-down rest and carves one fast,
+explosive vertical slash in front of her chest, the blade IGNITING hot-pink and white as it moves, the cut
+leaving a SHORT thin crimson-and-white crescent trail no longer than the katana itself hanging in the air
+in front of her chest, the HIGHEST point of the trail staying clearly BELOW the top of her helmet with a
+wide empty green margin above it, then the trail fades and she snaps back to the starting stance. The
+whole action stays WELL INSIDE the frame with a wide margin on every side. The trail is HOT PINK and
+CRIMSON and WHITE, NEVER green, short and thin, NOT a ring, NOT a beam, NOT a jet, and it never wraps
+around her body.
+
 ## special_2  (PETAL SPARK FLURRY) — pink/crimson/white, contained
 SPECIAL FINISHER (spark flurry): a SMALL tight swirl of hot-pink and crimson sparks and white light spins
 close around her own body, no bigger than her torso, then fades, then she settles back. The sparks are HOT
 PINK and CRIMSON and WHITE, NEVER green, small and tight against her body in the CENTER with a wide green
 margin all around, NOT a ring that orbits, just a tight compact flurry.
 
-## special_3  (KATANA FLASH) — pink/crimson/white, contained
+## special_3 v2 (KATANA FLASH, anchored + no-arc)  [v1 FAILED 2026-07-24: 'snaps the katana down' made
+f0 START at the top of the downstroke (off-anchor), and the flash rendered as a huge crescent arc off the
+top/right edges. v2: the raise happens INSIDE the clip and stays low; explicit arc/trail ban.]
+SPECIAL FINISHER (katana flash): beginning in the EXACT reference stance with the katana point-down, she
+draws the katana up only to CHEST height, never above her shoulders, and snaps it back down in one short
+compact central cut; at the moment the blade stops a SMALL bright flash bursts right at the blade edge,
+tiny and compact, no bigger than her helmet, then instantly vanishes, and she settles back into the
+starting stance. The flash is HOT PINK and CRIMSON and WHITE, NEVER green; it is NOT a ring, NOT a
+crescent, NOT an arc, NOT a halo, NOT a beam, leaves NO trail hanging in the air, and it stays small and
+central with a wide empty green margin on all four edges; the blade never rises above her shoulders.
+
+## special_3  (KATANA FLASH) — pink/crimson/white, contained  [v1 - superseded by v2 above]
 SPECIAL FINISHER (katana flash): keeping her torso in side profile, she snaps the katana down in one compact
 central cut kept below the top edge, and a SMALL bright flash bursts right at the blade, tiny and compact,
 then instantly vanishes, then she settles back. The flash is HOT PINK and CRIMSON and WHITE, NEVER green,
