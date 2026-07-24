@@ -12,6 +12,7 @@ import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
 import { cpuWinPayout, formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
 import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
+import { isFighterSelectable } from '../characters/rosterGating';
 import type { FighterDef, FighterState } from '../characters';
 import { ARENAS, getArena } from '../arenas/arenas';
 import {
@@ -1230,6 +1231,11 @@ function RevealPlate({ move, cx, faceDown }: { move: Move | null; cx: number; fa
 // ============================================================================================
 // Character select — reference language (MK1 select plate), our frost-cathedral skin.
 // ============================================================================================
+// The fixed size of the charSelect roster grid (MK1-style: two rows of 11). Selectable tiles fill
+// it FIRST; the remainder are locked mystery "?" tiles. A newly-unlocked boss takes the place of a
+// mystery slot so the total never changes and no locked boss leaks its name/art.
+const SELECT_ROSTER_SIZE = 22;
+
 // A roster tile: a bust crop of the fighter's still, cropped with the SAME math as the Portrait
 // medallion but framed square-ish (3:4). The crop params come from the def, so a new manifest
 // needs zero edits here. Busts are mirrored as if in the p1/left slot so the whole roster
@@ -1457,6 +1463,15 @@ export function FightExperience(): JSX.Element {
   // Fighter slots render fine (right slot mirrored by isMirrored). The profile only arrives after
   // both sides commit, so the charSelect previews still show the derived opponent (distinct keys).
   const derivedOpponentId = Object.keys(FIGHTERS).find((id) => id !== playerId) ?? playerId;
+  // PLAYABLE-AFTER-BEATEN roster gate (presentation only): the charSelect PICK grid + arrow-nav
+  // offer the always-available fighters plus any boss whose campaign node is beaten. Boss tiles
+  // stay locked (mystery "?") until conquered. Reads ctl.campaign.beaten — the SAME corrupt-safe
+  // beaten[] the campaign persists (frozen-requiem.campaign.v1), live-reactive so a node beaten
+  // this session unlocks its boss on return to charSelect. RENDERING a boss (campaign fight, a
+  // friend peer's opaque id) stays unconditional — only this PICK list is gated.
+  const selectableFighters = Object.values(FIGHTERS).filter((def) =>
+    isFighterSelectable(def.id, ctl.campaign.beaten),
+  );
   const friendOpponentId = ctl.friend.opponentFighterId;
   // The active campaign node (campaign mode only): drives the enemy identity, the match format,
   // the defense presentation and the node-card copy. VOLTA fills every slot this phase.
@@ -1992,7 +2007,9 @@ export function FightExperience(): JSX.Element {
   // ------- keyboard: character select (arrows move, Enter confirms) -------
   useEffect(() => {
     if (phase !== 'charSelect') return undefined;
-    const ids = Object.keys(FIGHTERS); // registry order — only the real (unlocked) fighters
+    // Only SELECTABLE fighters (always-available + beaten bosses) — arrow-nav never lands on a
+    // locked boss, matching the visible grid (rosterGating, gated by ctl.campaign.beaten).
+    const ids = Object.keys(FIGHTERS).filter((id) => isFighterSelectable(id, ctl.campaign.beaten));
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -2488,10 +2505,13 @@ export function FightExperience(): JSX.Element {
                   ))}
                 </div>
               </div>
-              {/* Roster strip. Registry tiles FIRST (registry-driven — a new manifest appears
-                  here with zero edits), then 20 mystery "?" tiles. Two rows of 11 (see .fr-select-grid). */}
+              {/* Roster strip. SELECTABLE tiles FIRST (registry order — always-available fighters +
+                  any boss whose campaign node is beaten; a boss is unlocked as PLAYABLE only after
+                  its node falls, gated by ctl.campaign.beaten via rosterGating). Not-yet-beaten
+                  bosses stay hidden inside the mystery "?" pool so the grid always totals
+                  SELECT_ROSTER_SIZE (22) — no name/art leak. Two rows of 11 (see .fr-select-grid). */}
               <div className="fr-select-grid">
-                {Object.values(FIGHTERS).map((def) => (
+                {selectableFighters.map((def) => (
                   <CharacterTile
                     key={def.id}
                     def={def}
@@ -2505,7 +2525,7 @@ export function FightExperience(): JSX.Element {
                     }}
                   />
                 ))}
-                {Array.from({ length: 20 }, (_, i) => (
+                {Array.from({ length: Math.max(0, SELECT_ROSTER_SIZE - selectableFighters.length) }, (_, i) => (
                   <LockedTile key={`locked-${i}`} />
                 ))}
               </div>
