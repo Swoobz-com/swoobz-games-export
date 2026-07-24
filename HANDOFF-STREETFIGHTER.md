@@ -34,6 +34,111 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
+### ★★★★★ SESSION 5 START HERE (written end of session 4, 2026-07-24 afternoon) ★★★★★
+
+**WHERE THE GAME IS (HEAD ~2507ccf, 157/157 vitest, engine byte-frozen as always):**
+- **Phase 24 SHIPPED (706effe): SATOSHI ODACHI (node 5) + IR-37 PINK TESSEN (node 7)
+  are LIVE in-game as animated node enemies** (13-clip kits each: takes + specials +
+  measured cals/contacts), plus the NEW **playable-after-beaten** unlock:
+  `src/characters/rosterGating.ts` gates charSelect boss tiles on campaign
+  beaten[] (gorvak/volta always available; locked boss = mystery "?" tile; grid
+  fixed at 22). WIRING INVARIANT: register a boss manifest + flip its node
+  fighterId in the SAME commit or the gate treats it as ungated.
+- **Phase 24b (2507ccf): ir37's three ENERGY re-roll clips are live in-game**
+  (idle fan-snap loop, lunging dagger strike contact 2167ms, fan-cleave arc) —
+  Tim: "WAY better".
+- **Kit pipeline state (per-boss QA ledgers = qa-boss/<id>-clipdata.json, THE
+  source of truth; keyed webms in qa-boss/webm/ + matte proofs in qa-boss/proc/):**
+  n1 SORA 10/10 keyed PASS (Tim's ALIVENESS BENCHMARK - never touch) ·
+  n2 KITSUNE 2/10 (8 raws have GLOWING blades + baked VFX = unshippable; matte
+  re-fires queued; the glow may be in the anchor - harden the matte lock, test one
+  first) · n3 THORN 10/10 keyed PASS (block_a has a baked white flash - Tim call) ·
+  n4 HOLLOW PALE 0/13 (kit AUTHORED doctrine-native in prompts/hollow-pale.md;
+  MODERATION-TEST the idle first) · n5 SATOSHI 13/13 WIRED (special_2 cyclone
+  REJECTED by Tim -> ODACHI QUAKE replacement authored, re-fire + swap) ·
+  n6 ECLIPSE 11/13 keyed but Tim ruled the WHOLE action set static -> full ENERGY
+  WAVE v2 blocks authored in prompts/eclipse-ofuda.md (8 re-fires; hit/ko/specials
+  keep v1; victory v1 FAILED anyway; she faces LEFT - manifest faces:'left') ·
+  n7 IR37 WIRED + energy-swapped (strike_a v3 queued: v2's glint grazes right edge
+  146px; throws/blocks energy re-rolls queued last) · n8 IR56 12/13 keyed (specials'
+  magenta fringe FIXED via adapted warm-haze neutralize; throw_a torso-rotation FAIL
+  + special_3 degraded -> 2 re-fires queued) · n9 LADY KUROTACHI energy kit IN
+  FLIGHT: idle v4 PASS, strike_a v2 PASS, throw_a v2 conditional-pass, throw_b
+  conditional (amber wrap drift), **strike_b v3 (thrust) RENDERING at handoff**;
+  still to fire: block_a, block_b, hit, ko, victory, special_1/2/3 (prompts all
+  energy-passed in prompts/lady-kurotachi.md) · n10 IR48 0/13 (kit AUTHORED
+  doctrine-native in prompts/ir48-hex-paper-lord.md).
+- **Tim's review page: qa-boss/preview.html served by `node qa-boss/serve-preview.mjs`
+  (port 5341)** - reads the clipdata ledgers live, dark/light/checker stage, lazy-
+  loads videos (80+ eager videos WEDGE Chrome's media pool browser-wide until
+  restart - happened once; page now lazy-loads; tell Tim to use Edge if Chrome's
+  players are exhausted). Keep it running while Tim reviews.
+
+**★ THE SESSION-4 DOCTRINES (all BINDING - these are the difference between boring
+and alive; full detail in the blocks below):**
+1. **ENERGY DOCTRINE**: locks live in the shared SUFFIX only; the acting line
+   carries VIOLENCE (coil -> explosive whole-body commitment -> follow-through ->
+   eased recovery) + the character's signature theatric (ir37 fan-SNAP, LK whipped
+   guards, eclipse ponytail/ofuda flare). Over-locking = NO-ACTION clips (LK
+   strike_b v2); under-locking horizontal sweeps = frontal turns (LK strike_b v1).
+2. **IDLE = PROP-CENTRIC business** (fan twirl+snap, blade lift+re-grip), NEVER
+   body-language verbs ("sizing up prey", "rolls her shoulders" = posing frontal:
+   LK idle v3 FAIL). Idles must be ALIVE with end==start (near-static locks are
+   RETIRED - the seal is the loop, not stillness). SORA (map 1) is the bar.
+3. **EDGE-OVERRUN**: visible overrun at review speed = RE-ROLL; feather only for
+   imperceptible tip kisses. Framing guard phrase for big actions: "the whole
+   action stays WELL INSIDE the frame with a wide margin on every side."
+4. **Spin specials are BANNED** (720p renders them as smear - satoshi cyclone).
+5. **KEYER SELECTION LAW**: pink/crimson-trimmed chars on GREEN ->
+   scripts/key-clips-green-pinksafe.mjs; green-chroma kits need
+   scripts/green-despill.mjs + scripts/green-neutralize.mjs (neutralize alpha=0
+   pixels too - VP9 4:2:0 bleeds); magenta kits: stock keyer + magenta-neutralize
+   for emissive fringe (ir56 needed an adapted warm-haze two-axis test - see its
+   clipdata orchestrator_notes). Global memory: chroma-key-despill-lessons.md.
+6. **Lexical prompt box**: long single insertText SILENTLY REVERTS - chunk ~250
+   chars after a real ctrl+a Delete; ALWAYS verify field text === TEXT before
+   clicking Generate; CDP timeouts usually mean the insert LANDED but the click
+   didn't - verify state, then fire, never blind-retry.
+
+**WHAT TO DO NEXT (the exact queue, one render at a time, ~15min each, QA the
+previous during the next render, record EVERY verdict in the clipdata ledger):**
+1. Harvest LK strike_b v3 -> QA -> fire block_a -> ... continue her kit to 13
+   (block_b, hit, ko, victory, sp1/2/3 - prompts ready).
+2. ECLIPSE energy wave (8): swap anchor in the Uploads picker (her green -r tile;
+   verify via the fired generation's medias[0]), fire idle v2..victory v2 per her
+   prompts file.
+3. SATOSHI ODACHI QUAKE (1 clip) -> key (green pipeline) -> swap special_2 into
+   his wired kit (webm + cal + contacts, phase-24b pattern).
+4. KITSUNE matte re-fires (8) - moderation of the glow: fire ONE strike with a
+   hardened "plain matte steel tanto, NOT glowing, no energy effects" line; if the
+   glow persists the ANCHOR needs replacing (prep-boss-anchors off Tim's original).
+5. HOLLOW PALE kit (13; idle FIRST as moderation test - if hard-blocked like
+   Onryo, STOP and tell Tim).
+6. IR48 FINALBOSS kit (13).
+7. Small stragglers: ir56 throw_a + special_3 re-fires, ir37 strike_a v3 +
+   throws/blocks energy (5), nodes 1-3 specials (9 - Tim: all bosses get specials).
+8. WIRE WAVE 2 as kits complete (phase-24 pattern, one builder brief per batch):
+   sora-yari -> node 1, thorn-warden -> node 3, eclipse (faces:'left') -> node 6,
+   ir56 -> node 8, LK -> node 9, kitsune -> node 2, hollow-pale -> node 4,
+   ir48 -> node 10. Gates every time: tsc, vitest (157+), build, engine byte-frozen,
+   live drive w/ VIEWED screenshots, money to the cent.
+9. THEN: `input/MK FINAL/` roster (static cards) + its 134 backgrounds (animate
+   like phase-22 arenas).
+Energy re-rolls that pass DROP-IN replace wired webms (key + cal + contacts, no
+code) - the phase-24b agent brief is the template.
+
+**OPERATIONALLY:** browser tab "Create AI Videos... | Higgsfield" (Seedance 2.0,
+1:1, 4s, 720p, Unlimited toggle ON - button MUST read "GenerateUnlimited" before
+EVERY fire; a reload resets it to credits). ZERO credits spent again this session
+(balance untouched). MCP show_generations lags ~5-15min - poll the tab's
+Processing state for completion, then show_generations for the rawUrl. ONE
+generation at a time (free tier). Fire cadence: harvest -> fire next -> QA the
+harvested one during the render -> record verdict -> timer (background sleep
+~800s) -> repeat.
+
+(The SESSION 3/4 blocks below are historical detail; this section supersedes
+their next-step lists.)
+
 ### ★★★ SESSION 4 RULING 2 (Tim, 2026-07-24): ENERGY DOCTRINE — BINDING ★★★
 Tim: "ir37 pink tessen looks very boring compared to gorvak - strikes and idle."
 ROOT CAUSE: the boss prompts' acting lines were written in containment language

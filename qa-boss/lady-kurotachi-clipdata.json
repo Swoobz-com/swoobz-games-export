@@ -52,5 +52,25 @@
       "note": "ENERGY idle attempt: frame 0 = anchor profile but rotates FULLY FRONTAL by ~f6 and stays (duelist/shoulder-roll verbs = posing to camera). v4 authored: prop-centric business per the ir37 fan-snap pattern + profile named inside the acting line.",
       "qa": "fail:frontal-rotation"
     }
+  },
+  "energy_rerolls": {
+    "strike_a_v2": {
+      "media": "ec357e56-40b9-4ddf-9700-d5fe4b059880",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_130215_ec357e56-40b9-4ddf-9700-d5fe4b059880.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-strike-a-v2-energy.mp4",
+      "qa": "PASS (sheet viewed): deep coil -> explosive rising cut with crimson-white crescent trail -> flowing recovery to anchor. Trail peaks slightly above head but WELL inside frame with margin (contained = accepted). Supersedes the compact v1 strike_a as the primary take; keep v1 as the b-fallback if wanted."
+    },
+    "idle_v4": {
+      "media": "93388b51-cc63-46ef-9715-d734358c201e",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_132445_93388b51-cc63-46ef-9715-d734358c201e.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-idle-v4-energy.mp4",
+      "qa": "PASS (sheet viewed): profile LOCKED all frames (prop-centric fix worked), alive - draws katana up to chest, inspects + re-grips finger by finger, sets it back, weight shifting, ends at anchor. SUPERSEDES the near-static idle v2 as her idle."
+    },
+    "throw_a_v2": {
+      "media": "8436866b-8f51-458f-af57-9d7fa9e93200",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_134028_8436866b-8f51-458f-af57-9d7fa9e93200.mp4",
+      "raw": "qa-boss/raw/lady-kurotachi-throw-a-v2-energy.mp4",
+      "qa": "CONDITIONAL PASS (sheet viewed): violent seize -> deep wrenching slam, no phantom, returns to anchor. Transient torso-open toward camera during the pivot (~mid-clip) - dynamic moment not a static frontal, acceptable at 2x; Tim can veto on review. Ship as primary take with gentle v1 as b-take."
+    }
   }
 }
