@@ -72,10 +72,17 @@ SPECIAL FINISHER (iai flash cut): he drops into a draw stance then unleashes one
 horizontal draw-cut, leaving a bright white steel arc/afterimage along the blade path, then snaps back
 to the starting stance. The steel arc stays FULLY INSIDE the frame, never past the edges.
 
-## special_2  (ODACHI CYCLONE) — effect contained in frame
-SPECIAL FINISHER (odachi cyclone): he spins in place swinging the odachi in a fast full circle, a
-contained ring of wind and steel afterimages spiralling tight around his own body, then recovers to
-the starting stance. The vortex stays FULLY INSIDE the frame, never past the edges.
+## special_2  (ODACHI CYCLONE) — REJECTED by Tim 2026-07-24 ("looks bad"): a full-spin at 720p renders
+as motion-blur smear (olive-tinted blurred straw cape) and the vortex reads muddy. CONCEPT REPLACED —
+never re-roll the spin; use the QUAKE below.
+## special_2 v2  (ODACHI QUAKE) — replacement concept, effect contained in frame
+SPECIAL FINISHER (odachi quake): he raises the great odachi in both hands only to about head height,
+NEVER above his head, his whole body coiling under the lift, then SLAMS it down in one earth-splitting
+two-handed strike with everything he has, a SMALL compact burst of white steel-light and dust erupting
+right at the blade tip on impact, no bigger than his torso, fading fully within frame, then he settles
+heavily back to the starting stance. The burst is WHITE and PALE-GOLD, NEVER green, centered low with a
+wide empty green margin on all four edges; it is NOT a beam, NOT a ring, NOT a shockwave that travels,
+and does NOT shoot outward.
 
 ## special_3  (RISING CRESCENT) — effect contained in frame
 SPECIAL FINISHER (rising crescent): he drops low then explodes upward with a rising diagonal slash,

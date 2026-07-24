@@ -36,15 +36,26 @@ SPECIAL add-on: The energy of the finisher is HOT PINK and CRIMSON and WHITE, NE
 compact, staying in the CENTER of the frame with a wide empty green margin on all four edges, NOT a beam,
 NOT a ring, NOT a jet.
 
-## idle
-IDLE COMBAT-READY LOOP: a poised composed samurai stance, breathing steadily, the katana held ready, subtle
-weight shifts and a faint sway. Feet planted, alert and disciplined. Returns to the exact start pose so it
-loops seamlessly. Slow, controlled, subtle motion.
+## idle  [v1 sway + v2 near-static SUPERSEDED by v3 — Tim 2026-07-24: "map 9 super boring and static".
+The near-static lock fixed the loop hitch but killed the life; v3 = coiled duelist menace, loop-sealed.]
+## idle v3 (ENERGY) [FAILED: "duelist sizing up prey / rolls her shoulders" read as POSING - she turned
+fully frontal from ~f6 and stayed. LESSON: idle energy must be PROP-CENTRIC business (the ir37 fan-snap
+pattern), never body-language verbs, and the profile gets named INSIDE the acting line.]
+## idle v4 (ENERGY, prop-centric)
+IDLE COMBAT-READY LOOP: she begins in the EXACT reference pose, both hands on the pommel of the
+point-down katana; STAYING in her strict side-profile stance she shifts her weight slowly between her
+legs, her armored fingers flexing and re-gripping the hilt one by one, and once she lifts the katana a
+hand's width off the ground and sets it back down with slow menacing precision; then she settles back
+into the EXACT start pose so it loops seamlessly. Coiled menace, alive, never stiff.
 
-## strike_a  (compact overhead katana cut)
-STRIKE (compact cut): from her ready stance she lifts the katana only to about head height, NEVER raising
-it above her head, and brings it down in one clean vertical cut kept close and central, then recovers to
-the starting stance. The blade stays well below the top edge the whole time and is never lifted out of frame.
+## strike_a  (compact overhead katana cut)  [v1 PASSED but pre-doctrine ("boring" class) — v2 below
+supersedes it for the ENERGY bar; keep v1 as fallback take if v2 misbehaves.]
+## strike_a v2 (ENERGY rising cut)
+STRIKE (rising cut): from the point-down reference stance she COILS low onto her back leg, her whole body
+loading like a spring, then EXPLODES upward ripping the katana in one fierce rising diagonal cut in front
+of her, lifting only to about head height and NEVER above her head, hips and shoulders driving the cut
+through with real follow-through and a short crimson trail following the blade, then she flows back down
+into the starting stance. Fast, violent, total commitment; the blade stays well below the top edge.
 
 ## strike_b  (straight thrust)  [v1 REJECTED torso-rotation ("slash across the front" opened her to camera);
 v2 REJECTED no-action (double-baked torso lock suppressed the whole swing - bake the lock ONCE, in the
@@ -54,10 +65,12 @@ straight thrust forward at chest height toward the direction she faces, the blad
 front of her with a step into it, then pulls it back and returns to the starting stance. A fast, committed
 stab, kept central, the blade staying fully in frame and never reaching any edge.
 
-## throw_a  (grab and pull, solo-safe)
-THROW (grab and pull): keeping the katana in one hand, she reaches forward with her free hand through EMPTY
-AIR at chest height, clamps as if seizing an unseen foe, then pulls down and to her side in a short compact
-motion, staying fully upright, then returns to the starting stance. NO opponent, empty air only, single figure.
+## throw_a  (grab and pull, solo-safe)  [v1 PASSED but gentle — v2 supersedes for the ENERGY bar.]
+## throw_a v2 (ENERGY seize and slam)
+THROW (seize and slam): keeping the katana in one hand, she SNAPS her free hand forward and seizes an
+unseen foe at chest height through EMPTY AIR, then WRENCHES down and across her body in one violent
+slamming pull, her hips pivoting into it with real force, staying on her feet, then returns to the
+starting stance. NO opponent, empty air only, single figure. Explosive, merciless.
 
 ## throw_b  (shoulder barge, solo-safe)
 THROW (shoulder barge): she drives forward shoulder-first in a two-step barging shove through EMPTY AIR, the

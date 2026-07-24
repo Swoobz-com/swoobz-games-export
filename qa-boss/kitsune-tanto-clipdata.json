@@ -17,61 +17,95 @@
       "media": "7d774dfa-b482-4773-91ee-a696930b376e",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_111622_7d774dfa-b482-4773-91ee-a696930b376e.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-idle.mp4",
-      "qa": "pending"
+      "qa": "PASS",
+      "qa_note": "Matte single steel tanto in right hand, faces screen-right, tail sways, anchor-lock f0~f96, breathing loop. Green-keyed clean (no fringe over black+white). Left tail edge-feathered (--left 48).",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/kitsune-tanto-idle.webm",
+      "cal": { "h": 101.21, "bottom": -0.49, "left": 46.18 }
     },
     "strike_a": {
       "media": "643b1366-b671-4d5b-aad8-1c713c9c212f",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_112133_643b1366-b671-4d5b-aad8-1c713c9c212f.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-strike-a.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade (matte-lock violation) + baked yellow slash-arc VFX at f48 (effect-free-body violation). Needs MATTE re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "strike_b": {
       "media": "7ad2bce4-2c53-4702-b832-61e90d28f4b0",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_112523_7ad2bce4-2c53-4702-b832-61e90d28f4b0.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-strike-b.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade throughout (matte-lock violation). Needs MATTE re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "throw_a": {
       "media": "2fa766fe-4f7a-4e99-8445-30eef8995376",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_112934_2fa766fe-4f7a-4e99-8445-30eef8995376.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-throw-a.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade + mid-clip ~180 rotation showing the fox's back (facing-lock break). Solo-safe (empty air). Needs MATTE, facing-locked re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "throw_b": {
       "media": "279f9510-6e71-410b-8188-15f98cea17ef",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_113537_279f9510-6e71-410b-8188-15f98cea17ef.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-throw-b.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade + mid-clip rotation showing the back. Solo-safe. Needs MATTE, facing-locked re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "block_a": {
       "media": "481e7be6-d3a7-4e84-85ae-c91b21b486ce",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_114010_481e7be6-d3a7-4e84-85ae-c91b21b486ce.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-block-a.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade throughout (matte-lock violation). Needs MATTE re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "block_b": {
       "media": "4ff2f201-f5ba-45f6-8ec9-f2e9625415ae",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_114655_4ff2f201-f5ba-45f6-8ec9-f2e9625415ae.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-block-b.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade + baked white/yellow energy-beam VFX at f48 + mid-clip back-turn rotation. Needs MATTE, facing-locked re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "hit": {
       "media": "f70b3ce8-5694-446c-ac02-b13535f65a53",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_115319_f70b3ce8-5694-446c-ac02-b13535f65a53.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-hit.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "GLOWING gold blade + baked yellow impact/muzzle-flash streak from the head at f6 (baked-flash violation). Flinch motion itself reads. Needs MATTE, flash-free re-roll.",
+      "keyed": false,
+      "encoded": false
     },
     "ko": {
       "media": "de3e0573-bfc6-4e24-aacf-8c909324755b",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_115937_de3e0573-bfc6-4e24-aacf-8c909324755b.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-ko.mp4",
-      "qa": "pending"
+      "qa": "FAIL",
+      "qa_note": "Collapse motion is correct (sinks to kneeling, holds down, does not restand) BUT GLOWING gold blade persists and pools a green-yellow bloom near the ground (matte-lock violation + green-key hazard). Needs MATTE re-roll (weapon may drop).",
+      "keyed": false,
+      "encoded": false
     },
     "victory": {
       "media": "e72ca77f-5d1a-4870-a79d-6433a85b38f6",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_120554_e72ca77f-5d1a-4870-a79d-6433a85b38f6.mp4",
       "raw": "qa-boss/raw/kitsune-tanto-victory.mp4",
-      "qa": "pending"
+      "qa": "PASS_WITH_NOTE",
+      "qa_note": "MATTE single steel tanto (single wielded blade + a sheathed backup on the back = design, not dual-wield), faces right at f0 and f96, anchor-locked. Green-keyed clean (no fringe). CAVEAT: mid-clip flourish turns near-frontal (chest toward camera ~f30-54) before returning to the right-facing anchor; acceptable for a one-shot taunt but flagged. Top blade edge-feathered (--top 48).",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/kitsune-tanto-victory.webm",
+      "cal": { "h": 112, "bottom": -1.45, "left": 47.33 }
     }
   },
   "superseded": {
@@ -80,5 +114,5 @@
     "idle_dualwield_reject": "3c5ce896-6772-4a30-b3b6-062d387f4762 (first matte re-roll, suspected DUAL-WIELD, superseded)",
     "idle_alt_matte": "fefcf114-d0b8-40bb-8305-5041f4223e6f (matte idle, = old local kitsune-tanto-idle-v2.mp4; chosen idle is newest 7d774dfa = old idle-v3)"
   },
-  "note": "Complete 10/10 MATTE SINGLE-BLADE kit harvested from account (2026-07-23 afternoon). Chosen idle=7d774dfa (newest matte single-blade). Local kitsune-tanto-idle.mp4 and kitsune-tanto-block-a.mp4 were the OLD GLOWING (un-keyable) rolls - OVERWRITTEN with matte takes. Old idle-v2/idle-v3 local files are the matte fefcf114/7d774dfa. Keying/encode PENDING."
+  "note": "QA 2026-07-24 (Fable5 fork): CONTRADICTS the earlier 'MATTE SINGLE-BLADE 10/10' claim. Verified against SOURCE pixels: only idle + victory are MATTE and PASS (keyed+encoded). The other 8 states (strike_a/b, throw_a/b, block_a/b, hit, ko) all render a GLOWING gold/yellow-green blade (matte-lock violation, green-key hazard) and several carry baked VFX (strike_a slash-arc, block_b energy-beam, hit head muzzle-flash) and/or back-turn rotations (throw_a/b, block_b). The ANCHOR PNG (kitsune-tanto-anchor-green.png) ALSO glows. => 8/10 need MATTE, facing-locked, effect-free re-rolls before wiring. idle cal {h:101.21,bottom:-0.49,left:46.18}, victory cal {h:112,bottom:-1.45,left:47.33}. Matte proofs in qa-boss/proc/kitsune-tanto/."
 }

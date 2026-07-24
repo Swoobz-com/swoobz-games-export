@@ -49,6 +49,42 @@ clipdata). ir37 idle/strike_a/strike_b v2 ENERGY prompts authored in her prompts
 - re-roll them (free) and drop-in replace the webms + cal/contacts when they pass.
 Consider the same audit for eclipse/ir56/satoshi strikes after Tim reviews them
 in-game (satoshi's odachi arcs measured with real wind-up; likely fine).
+EXTENDED (Tim, same day, via the qa-boss/preview.html review page): "map 9 looks
+bad super boring and static" -> LK's pre-doctrine clips (near-static idle v2,
+compact strike_a, gentle throw_a) get ENERGY re-rolls too (v3/v2 prompts authored
+in her file); the near-static idle LOCK is retired everywhere - idles must be ALIVE
+with end==start (the hitch fix is the seal, not stillness). Review page:
+qa-boss/preview.html + serve-preview.mjs on :5341 (reads clipdata ledgers live;
+Chrome media stack can wedge under 80+ videos - lazy-load built in; use Edge if
+this Chrome profile's players are exhausted).
+★ EDGE-OVERRUN RULE TIGHTENED (Tim, 2026-07-24: "one of the strikes of ir37 goes
+outside the box of animation"): the old rule accepted 1-few-frame tip grazes with a
+48px edge-feather. NEW BAR: if the overrun is VISIBLE at review speed (weapon/effect
+slicing or fading at an invisible line), it is a RE-ROLL, not a feather - feathers
+are only for imperceptible tip kisses. Applies to ir37 strike_b v2's arc graze
+(check the keyed result; if the slice reads, re-roll v3 with 'the arc stays well
+inside the frame with a wide margin') and to the feathered v1 clips (throw-b/
+block-a/block-b/sp1) - re-check each keyed webm at review speed and queue re-rolls
+for any that read. Framing guard for future big-motion prompts: 'the whole action
+stays WELL INSIDE the frame with a wide margin on every side'.
+★ ALIVENESS BENCHMARK (Tim): "compare to map 1 - the character is way more alive in
+her movement." SORA YARI (map 1) = the approved aliveness bar. Cause confirmed: her
+kit is SESSION-1 (pre lock-creep); sessions 2-3 stacked containment locks that
+strangled acting. Judge every new/re-rolled clip against sora's read; her kit stays
+AS-IS.
+TIM'S REVIEW VERDICTS (2026-07-24, via the page): map5 special_2 cyclone BAD (spin
+= 720p smear -> CONCEPT REPLACED with ODACHI QUAKE, never re-roll a full spin);
+map6 eclipse ALL poses+strikes static -> full energy wave v2 blocks authored in her
+prompts file (8 re-rolls; hit/ko/specials keep v1); map7 ir37 v1 strikes boring but
+strike a/b v2 "WAY better" (doctrine confirmed; her throws/blocks queued for the
+same treatment last). BROWSER RE-FIRE QUEUE (order): ir37 idle v3 (in flight) ->
+LK energy re-rolls idle v3/strike_a v2/throw_a v2 + her 8 remaining states +
+throw_b v2 -> eclipse energy wave (8) -> satoshi QUAKE (1) -> kitsune matte
+re-fires (8, check anchor glow first) -> hollow-pale kit (13, moderation-test
+idle) -> ir48 finalboss kit (13) -> ir56 throw_a+special_3 (2) -> ir37
+throws/blocks energy (4) -> nodes 1-3 specials (9). ~70 clips ≈ 17h render — keep
+grinding sequentially across sessions; QA each during the next render; passing
+energy re-rolls DROP-IN replace wired webms (key + cal + contacts, no code).
 
 ### ★★★ SESSION 4 RULING (Tim, 2026-07-24) — WIRING IS GREENLIT ★★★
 Tim: "do QA on the animation we have from map 1 till final boss, if they go through add

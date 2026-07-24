@@ -23,20 +23,21 @@ export const IR37_PINK_TESSEN: FighterDef = {
   clips: {
     idle: {
       url: 'assets/characters/ir37-pink-tessen/idle.webm',
-      cal: { h: 101.7, bottom: -0.49, left: 49.88 },
+      cal: { h: 102.19, bottom: -0.49, left: 49.88 },
     },
     // Contract §10: two interchangeable takes per non-idle state (own cal + measured contacts each).
     attack_strike: [
       {
         // Take A: one committed dagger thrust to full extension screen-right.
         url: 'assets/characters/ir37-pink-tessen/attack-strike.webm',
-        cal: { h: 101.22, bottom: -0.49, left: 58.27 },
-        contacts: [750],
+        cal: { h: 102.19, bottom: -0.73, left: 50 },
+        contacts: [2167],
       },
       {
-        // Take B: compact fan swipe arc (distinct action, same strike family).
+        // Take B: fan SNAPS open mid-swing into a big glowing pink arc cleave (distinct action,
+        // same strike family). Arc grazes the top frame edge (~f23-38) -> 48px top feather.
         url: 'assets/characters/ir37-pink-tessen/attack-strike-b.webm',
-        cal: { h: 101.7, bottom: -0.49, left: 50.12 },
+        cal: { h: 111.44, bottom: -0.49, left: 54.26 },
         contacts: [1417],
       },
     ],

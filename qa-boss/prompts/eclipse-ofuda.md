@@ -28,6 +28,57 @@ NOTE: idle/strike_a/strike_b/throw_a were generated BEFORE this blade lock. stri
 (blade tip approached top with margin). All clips from block_a onward carry the blade lock. Re-QA every
 swing clip's blade against all four edges; re-roll any that clip.
 
+★★★ ENERGY DOCTRINE WAVE (Tim, 2026-07-24, via the review page: "map6 looks boring and static, super
+static, all poses and strikes"). The ENTIRE v1 action set is superseded by the v2 blocks below — locks in
+the suffix only, acting lines carry violence (coil -> explosive whole-body commitment -> follow-through ->
+eased recovery) + her signature theatrics: the silver ponytail whip and the ofuda talismans flaring.
+Victory v1 also FAILED separately (180-rotation). Re-roll order: idle, strike_a, strike_b, victory,
+throw_a, throw_b, block_a, block_b (hit/ko/specials passed and read fine — keep v1 unless Tim flags).
+
+## idle v2 (ENERGY)
+IDLE COMBAT-READY LOOP: she stalks in place with slow lethal patience — her weight sinking and rising
+through her stance like a predator breathing, silver ponytail and the paper ofuda talismans on her hat
+swaying with her motion, her thumb loosening the katana in her grip and re-setting it, one slow head turn
+along the line of her blade; then she settles back into the EXACT start pose so it loops seamlessly.
+Calm, lethal, alive — never stiff.
+
+## strike_a v2 (ENERGY draw-cut)
+STRIKE (draw-cut): she COILS into a deep draw crouch, her whole body loading like a spring, then EXPLODES
+through one blinding downward diagonal cut, hips and shoulders driving the blade through with real
+follow-through, her silver ponytail whipping with the force, then she flows back up into the starting
+stance. Fast, violent, total commitment.
+
+## strike_b v2 (ENERGY sweeping cut)
+STRIKE (sweeping cut): she steps INTO one fierce wide sweeping cut along the direction she faces, her
+hips uncoiling with real force and the ofuda talismans on her hat flaring with the motion, then she flows
+back into the starting stance. One huge committed cut, blade fully in frame.
+
+## throw_a v2 (ENERGY seize and wrench, solo-safe)
+THROW (seize and wrench): keeping the katana in one hand, she SNAPS her free hand forward and seizes an
+unseen foe through EMPTY AIR, then WRENCHES down and across her body in one violent slamming pull, hips
+pivoting into it with real force, then returns to the starting stance. NO opponent, empty air only,
+single figure. Explosive, merciless.
+
+## throw_b v2 (ENERGY barge, solo-safe)
+THROW (shoulder barge): she EXPLODES forward in a two-step shoulder-first barge through EMPTY AIR,
+slamming her whole body weight through the drive, coat and ponytail whipping, then shoves off and
+recovers to the starting stance. Alone, no opponent, empty air only, single figure.
+
+## block_a v2 (ENERGY parry-counter)
+BLOCK-COUNTER: she SLAMS the katana up into a hard ringing parry as if catching a heavy blow, holds the
+strain for a beat, then RIPS one vicious counter slash kept close and central, then returns to the
+starting stance.
+
+## block_b v2 (ENERGY deflect-rising cut)
+BLOCK-COUNTER: she sweeps her forearm across in a hard deflecting guard that visibly absorbs an impact,
+then EXPLODES through one short rising katana cut with her legs driving up into it, then recovers to the
+starting stance.
+
+## victory v2 (ENERGY flourish, no rotation — v1 FAILED on a 180 turn)
+VICTORY TAUNT: she whips the katana through one crisp fierce flourish arc in front of her, ponytail
+whipping with it, and snaps the blade down to her side in a proud stance, her chest staying in profile
+facing screen-right the whole time, then settles back to the starting stance. Alone, no opponent.
+
 SPECIAL suffix add-on (the 3 specials only; Tim's contain-in-frame rule):
 > The talisman-light / steel energy of the finisher stays FULLY INSIDE the frame and NEVER extends past
 > the edges.

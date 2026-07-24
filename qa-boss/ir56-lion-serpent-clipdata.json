@@ -168,7 +168,8 @@
       "contacts": [
         1375
       ],
-      "webm": "qa-boss/webm/ir56-lion-serpent-special_1_roar_burst.webm"
+      "webm": "qa-boss/webm/ir56-lion-serpent-special_1_roar_burst.webm",
+      "fix": "magenta-fringe-ring neutralized 2026-07-24 (wider fringe test, see note below) - feather verified intact, no re-feather needed"
     },
     "special_2_tail_strike": {
       "media": "68c4832b-8cba-4751-9e9a-c64655cee170",
@@ -182,7 +183,8 @@
       "contacts": [
         1167
       ],
-      "webm": "qa-boss/webm/ir56-lion-serpent-special_2_tail_strike.webm"
+      "webm": "qa-boss/webm/ir56-lion-serpent-special_2_tail_strike.webm",
+      "fix": "magenta-fringe-ring neutralized 2026-07-24 (wider fringe test, see note below) - feather verified intact, no re-feather needed"
     },
     "special_3_cleaver_flash": {
       "media": "ebccdedd-3423-499e-8ff8-0c5bb52e8b85",
@@ -196,10 +198,12 @@
       "contacts": [
         2250
       ],
-      "webm": "qa-boss/webm/ir56-lion-serpent-special_3_cleaver_flash.webm"
+      "webm": "qa-boss/webm/ir56-lion-serpent-special_3_cleaver_flash.webm",
+      "fix": "magenta-fringe-ring neutralized 2026-07-24 (wider fringe test, see note below) - feather verified intact, no re-feather needed"
     }
   },
   "orchestrator_notes": [
-    "2026-07-24 spot-check: green effect bloom lit the magenta screen -> MAGENTA FRINGE ring around the specials' bursts in the keyed webms (seen on special_2 matte over black+white). BEFORE WIRING: re-run keyed frames of the 3 specials through scripts/magenta-neutralize.mjs, re-encode, and re-check the inset-ring profile (learning 23). throw_a re-roll + special_3 re-roll go via FREE browser Unlimited (not credit-gated)."
+    "2026-07-24 spot-check: green effect bloom lit the magenta screen -> MAGENTA FRINGE ring around the specials' bursts in the keyed webms (seen on special_2 matte over black+white). BEFORE WIRING: re-run keyed frames of the 3 specials through scripts/magenta-neutralize.mjs, re-encode, and re-check the inset-ring profile (learning 23). throw_a re-roll + special_3 re-roll go via FREE browser Unlimited (not credit-gated).",
+    "2026-07-24 FRINGE FIX DONE (special_1_roar_burst, special_2_tail_strike, special_3_cleaver_flash). scripts/magenta-neutralize.mjs's default min(R-G,B-G)>14-family test (BOTH R and B above G) did NOT remove the ring - measured on the actual frames it left it visually unchanged, because the residual ring color is a desaturated warm maroon/red-gray haze where B sits AT OR BELOW G (not clearly above it, unlike a saturated hot-magenta despill). Root cause: the green/white burst lit the magenta screen brightly enough that the ORIGINAL key's 'tight global key' treated the lit magenta as legit foreground (kept fully opaque, alpha=255) instead of keying it transparent - so this is an opaque muddy-maroon haze ring, not a translucent edge bleed. Fix used a wider two-axis test in scratch (not committed to scripts/): redExcess=R-G>18 AND blueGap=G-B<15 (this correctly separates the fringe, which has a SMALL blueGap, from real gold/tan armor, which always has a LARGE blueGap ~20-40 - verified gold/green/white/blade colors are structurally safe from this test and confirmed byte-for-byte unchanged outside the effect region on all 3 clips). Same neutralize-toward-G recipe (KEEP=0.15) as the original script. Verified: (1) peak-frame before/after composited over black+white on all 3 specials - ring visually gone, green/gold/white burst and body colors intact; (2) inset-ring alpha profile at y=0/10/48/96 on the peak frame is BYTE-IDENTICAL before/after on all 3 (color-only pass, alpha untouched) - the 48px top edge-feather from edge_feather_applied survived with no re-feather needed; (3) re-decoded the FINAL re-encoded webms and re-checked the peak frames - fix survives VP9 lossy re-encode, ring stays gone. Re-encode: ffmpeg framerate 24, libvpx-vp9, yuva420p, crf 30, -an, alpha_mode=1 confirmed on all 3. File sizes ~3-4% smaller than pre-fix (special_1 1.57MB->1.52MB, special_2 1.75MB->1.69MB, special_3 1.69MB->1.63MB) - expected from the flatter neutralized ring color, not a data-loss red flag. NOT touched: scripts/, src/ (ir56 still not wired into src/characters). throw_a re-roll + special_3 torso/pink-flash re-roll remain queued separately (unchanged from prior note)."
   ]
 }

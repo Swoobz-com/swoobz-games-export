@@ -18,7 +18,10 @@
       "media": "5e2b2e03-1989-45ef-9da5-7883aaa2e152",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260722_232922_5e2b2e03-1989-45ef-9da5-7883aaa2e152.mp4",
       "raw": "qa-boss/raw/sora-yari-idle.mp4",
-      "qa": "keyed",
+      "qa": "pass",
+      "qaNote": "subtle breathing/weight-shift loop, faces right, anchor-lock f0/f96, spear held across; masked (no talk)",
+      "keyed": true,
+      "encoded": true,
       "webm": "qa-boss/webm/sora-yari-idle.webm",
       "cal": {
         "h": 74.75,
@@ -30,8 +33,12 @@
       "media": "159cc156-084f-41f3-9ab2-26e447b9ccd7",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260722_233704_159cc156-084f-41f3-9ab2-26e447b9ccd7.mp4",
       "raw": "qa-boss/raw/sora-yari-strike-a.mp4",
-      "qa": "keyed",
+      "qa": "pass",
+      "qaNote": "spear thrust, faces right, anchor-lock, solo, spear+rings silhouette holds",
+      "keyed": true,
+      "encoded": true,
       "webm": "qa-boss/webm/sora-yari-strike-a.webm",
+      "contacts": [2667],
       "cal": {
         "h": 74.97,
         "bottom": -0.23,
@@ -43,8 +50,12 @@
       "media": "9e461def-2705-4edf-85bd-090be8565aba",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_002038_9e461def-2705-4edf-85bd-090be8565aba.mp4",
       "raw": "qa-boss/raw/sora-yari-strike-b.mp4",
-      "qa": "keyed",
+      "qa": "pass",
+      "qaNote": "overhead spear chop, faces right, anchor-lock, solo",
+      "keyed": true,
+      "encoded": true,
       "webm": "qa-boss/webm/sora-yari-strike-b.webm",
+      "contacts": [1917],
       "cal": {
         "h": 96.58,
         "bottom": -0.23,
@@ -56,45 +67,106 @@
       "media": "131bf14b-fb8d-4453-926d-42d25a66eaec",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_095602_131bf14b-fb8d-4453-926d-42d25a66eaec.mp4",
       "raw": "qa-boss/raw/sora-yari-throw-a.mp4",
-      "qa": "keyed",
-      "webm": "qa-boss/webm/sora-yari-throw-a.webm"
+      "qa": "pass",
+      "qaNote": "hooking haft pull, solo-safe (empty air, no phantom), faces right, anchor-lock; webm predates cal-in-json (cal not recorded this session, re-key to emit if wiring needs it)",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-throw-a.webm",
+      "contacts": [1583]
     },
     "throw_b": {
       "media": "9d3ab927-b6e9-456e-b355-7899869bf8a3",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_100041_9d3ab927-b6e9-456e-b355-7899869bf8a3.mp4",
       "raw": "qa-boss/raw/sora-yari-throw-b.mp4",
-      "qa": "pending"
+      "qa": "pass",
+      "qaNote": "shaft shove-barge, solo-safe (empty air), faces right, anchor-lock f0/f96",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-throw-b.webm",
+      "contacts": [2583],
+      "cal": {
+        "h": 104.52,
+        "bottom": -1.2,
+        "left": 50.0
+      }
     },
     "block_a": {
       "media": "ace0be82-ede2-4944-9176-da35b1a57608",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_100432_ace0be82-ede2-4944-9176-da35b1a57608.mp4",
       "raw": "qa-boss/raw/sora-yari-block-a.mp4",
-      "qa": "pending"
+      "qa": "pass",
+      "qaNote": "shaft-up deflect guard -> butt jab counter, faces right, anchor-lock; contact peak is the guard-raise apex",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-block-a.webm",
+      "contacts": [2917],
+      "cal": {
+        "h": 137.95,
+        "bottom": -0.6,
+        "left": 48.34
+      }
     },
     "block_b": {
       "media": "74860929-da38-4425-a264-31d552db4597",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_101023_74860929-da38-4425-a264-31d552db4597.mp4",
       "raw": "qa-boss/raw/sora-yari-block-b.mp4",
-      "qa": "pending"
+      "qa": "pass",
+      "qaNote": "parry sweep -> forward thrust counter, faces right, anchor-lock",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-block-b.webm",
+      "contacts": [2833],
+      "cal": {
+        "h": 144.58,
+        "bottom": -7.23,
+        "left": 51.88
+      }
     },
     "hit": {
       "media": "27e02ff9-4d32-4950-873d-dd626f14f62a",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_101618_27e02ff9-4d32-4950-873d-dd626f14f62a.mp4",
       "raw": "qa-boss/raw/sora-yari-hit.mp4",
-      "qa": "pending"
+      "qa": "pass",
+      "qaNote": "sharp head/torso whip-back flinch (~f24) resolving quickly to guard; reads when re-triggered mid-flow; anchor-lock f0/f96",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-hit.webm",
+      "cal": {
+        "h": 136.14,
+        "bottom": -0.6,
+        "left": 50.0
+      }
     },
     "ko": {
       "media": "b2ddda26-ec63-4e37-9a3a-4b9f43cce27b",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_102349_b2ddda26-ec63-4e37-9a3a-4b9f43cce27b.mp4",
       "raw": "qa-boss/raw/sora-yari-ko.mp4",
-      "qa": "pending"
+      "qa": "pass",
+      "qaNote": "cause-free collapse (no blow/flash), knees buckle to ground, ends collapsed on ground f60-f96 and HOLDS (does not return to anchor) per contract",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-ko.webm",
+      "cal": {
+        "h": 108.13,
+        "bottom": -7.23,
+        "left": 51.81
+      }
     },
     "victory": {
       "media": "51e1ccc5-58c0-4202-950c-dfbd5da63318",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_102850_51e1ccc5-58c0-4202-950c-dfbd5da63318.mp4",
       "raw": "qa-boss/raw/sora-yari-victory.mp4",
-      "qa": "pending"
+      "qa": "pass",
+      "qaNote": "spear flourish -> plant butt -> straighten tall -> settle back to anchor stance; solo; anchor-lock f0/f96",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/sora-yari-victory.webm",
+      "cal": {
+        "h": 140.36,
+        "bottom": -3.01,
+        "left": 50.45
+      }
     }
   },
-  "note": "Complete 10/10 kit harvested from account (2026-07-23). 4 states already keyed+encoded to alpha WebM in qa-boss/webm/ (idle, strike_a, strike_b, throw_a) with cal data preserved; the other 6 raws downloaded, keying/encode PENDING. block_a='shaft-up guard->butt jab', block_b='parry sweep->thrust'. Wiring DEFERRED per Tim 2026-07-23."
+  "note": "Complete 10/10 kit. Session (2026-07-24 QA+keying agent): all 10 states QA-PASS (contract §6 sweep: on-model, faces right every frame, masked=no talk, throws solo-safe/no phantom, spear+ring silhouette holds, no baked flash, anchor-lock start≈end except ko which ends held on ground). 4 states were already keyed pre-session (idle/strike_a/strike_b/throw_a) - raw sheets re-QA'd PASS this session. The remaining 6 (throw_b/block_a/block_b/hit/ko/victory) keyed this session via magenta stock keyer (scripts/key-idle-clips.mjs) -> VP9 alpha; matte-verified clean over BLACK+WHITE with NO magenta fringe (bright metal spear tip/rings clean, dark-red lacing preserved) so magenta-neutralize was NOT needed. Matte proofs in qa-boss/proc/sora-yari/. Contacts = motion-energy peak (24fps clip time ms). throw_a cal absent (webm predates cal-in-json). Wiring DEFERRED per Tim 2026-07-23."
 }

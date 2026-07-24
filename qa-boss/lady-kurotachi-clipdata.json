@@ -46,6 +46,11 @@
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_110206_32cb6aa7-f1f7-43bd-a93a-f3be5552aa61.mp4",
       "note": "Shoulder barge: body-committed lean+stride forward, no phantom, returns near anchor. CONDITIONAL: scabbard crimson wraps drift to glowing AMBER during action (weapon-identity drift) + medium energy. Usable fallback take (throw_a is the clean take); v2 re-roll queued end-of-kit with a wrap-color lock + stronger barge verbs.",
       "qa": "conditional:wrap-glow-drift"
+    },
+    "idle_v3_FAILED": {
+      "media": "5c9adffa-4e41-4fc4-9477-bd81211a5e81",
+      "note": "ENERGY idle attempt: frame 0 = anchor profile but rotates FULLY FRONTAL by ~f6 and stays (duelist/shoulder-roll verbs = posing to camera). v4 authored: prop-centric business per the ir37 fan-snap pattern + profile named inside the acting line.",
+      "qa": "fail:frontal-rotation"
     }
   }
 }

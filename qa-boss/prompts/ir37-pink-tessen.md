@@ -17,13 +17,19 @@ the SUFFIX ONLY, the acting line needs VIOLENCE: anticipation/coil -> explosive 
 body driving the blow -> follow-through -> eased recovery (the GORVAK motion doctrine). Her signature
 beat = the war-fan SNAPPING open/shut. v2 re-rolls below supersede v1 idle/strike_a/strike_b.
 
-## idle v2 (ENERGY re-roll — supersedes v1)
-IDLE COMBAT-READY LOOP: a coiled predatory kunoichi stance, her weight flowing side to side on the balls
-of her feet like a dancer ready to strike, the closed war-fan slowly twirling between her fingers; midway
-through she SNAPS the war-fan open with a sharp flick, holds it open a beat like a threat, then snaps it
-shut again; the pink-glowing dagger stays ready at her side. Dangerous, elegant, alive. She returns to the
-EXACT start pose (fan closed) so it loops seamlessly.
+## idle v2 (ENERGY re-roll)  [CONDITIONAL: great energy but frame 0 shows the fan CLOSED while the anchor
++ every other clip holds it OPEN -> fan-state pop at each return-to-idle. v3 fixes the anchor-lock.]
+## idle v3 (ENERGY + anchor-locked open fan — supersedes v1 and v2)
+IDLE COMBAT-READY LOOP: she begins in the EXACT reference pose with the war-fan held OPEN; she SNAPS the
+fan shut with a sharp flick and twirls the closed fan between her fingers while her weight flows side to
+side on the balls of her feet like a coiled dancer ready to strike, the pink-glowing dagger ready at her
+side; then she SNAPS the fan open again like a threat and settles back into the EXACT open-fan reference
+pose so it loops seamlessly. Dangerous, elegant, alive.
 
+## strike_a v3 (QUEUED — v2 is live in-game but its white-hot glint trail grazes the RIGHT edge f32-55
+up to 146px = Tim's visible out-of-box class. v3 = same lunge with the wide-margin guard: append to the
+acting line "the entire lunge and the glint trail stay WELL INSIDE the frame with a wide margin on every
+side, the dagger never nearing any edge." Swap in when it passes.]
 ## strike_a v2 (dagger lunge — ENERGY re-roll, supersedes v1)
 STRIKE (dagger lunge): she COILS down onto her back leg, her whole body loading like a spring, then
 EXPLODES forward with a deep lunging step and drives the pink dagger in one vicious committed stab at

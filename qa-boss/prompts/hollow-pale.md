@@ -1,0 +1,110 @@
+# HOLLOW PALE (map 4 boss) — clip kit prompts (browser Unlimited Seedance, GREEN anchor, faces right)
+# AUTHORED DOCTRINE-NATIVE (2026-07-24): energy in the acting lines (coil -> explosive commitment ->
+# follow-through -> eased recovery), prop/body-horror business for the idle, locks ONLY in the suffix,
+# wide-margin containment on every big action (his bone-blade arm already reaches near the right edge
+# in the anchor — actions are pulled IN and vertical, never a forward extension).
+# ⚠ MODERATION-TEST FIRST: fire idle alone and confirm it generates (the creature may hard-block like
+# Onryo did). If blocked, stop and report — do not burn the queue.
+
+Character: a gaunt pale-white yokai demon — emaciated chalk-white body, a crowned skull head with tall
+antler horns and a fanged grin, black ink stains across the ribs, his LEFT arm fused into a long serrated
+BONE-BLADE like a skeletal wing-scythe, his right hand ending in long claws, his waist and legs wrapped in
+BLACK SMOKE with clawed talon feet emerging beneath. Faces: right (anchor faces screen-right, no flip).
+GREEN chroma. Node 4. Effects: PALE-GOLD / WHITE / CRIMSON, NEVER green. 13 clips (10 base + 3 specials).
+Anchor: qa-boss/anchors/hollow-pale-anchor-green.png.
+
+Shared prefix:
+> The EXACT SAME gaunt pale-white yokai demon from the reference image (identical emaciated chalk-white
+> body, crowned skull head with tall antler horns and a fanged grin, black ink stains on the ribs, the
+> left arm fused into a long serrated bone-blade like a skeletal wing-scythe, a clawed right hand, the
+> waist and legs wrapped in black smoke with clawed talon feet beneath), standing on a solid saturated
+> GREEN chroma screen (bright green #00b140, nothing green on the creature).
+
+Shared suffix (locks live HERE only):
+> His pale body, antlered skull head, bone-blade arm, claws and black smoke stay EXACTLY the same the
+> entire clip. The bone-blade arm and the smoke stay FULLY INSIDE the frame at ALL times and NEVER cross
+> any edge, even at the peak of a swing — the whole action stays WELL INSIDE the frame with a wide margin
+> on every side. He stays STRICTLY IN SIDE PROFILE FACING SCREEN-RIGHT the ENTIRE clip; his torso,
+> shoulders and head NEVER rotate toward the camera, this is a locked side-view, he NEVER spins or turns
+> front. The camera is absolutely locked, no zoom, no pan, his full body always fully in frame, he is the
+> ONLY figure in frame at all times, nothing else added. He begins and ends on the EXACT same reference
+> stance. 24fps.
+
+SPECIAL add-on: The energy of the finisher is PALE-GOLD and WHITE and CRIMSON, NEVER green, small and
+compact, staying in the CENTER of the frame with a wide empty green margin on all four edges; it is NOT
+a beam, NOT a ring, NOT a jet, and does NOT orbit or shoot outward.
+
+## idle (prop-centric energy — MODERATION TEST, FIRE THIS FIRST)
+IDLE COMBAT-READY LOOP: he begins in the EXACT reference pose; STAYING in his strict side-profile stance
+he sways gently on the smoke like something not quite anchored to the ground, the black smoke around his
+waist curling and breathing, his clawed right hand slowly flexing finger by finger, the serrated
+bone-blade arm rising a hand's width and settling back with predatory patience, his fanged grin twitching;
+then he settles back into the EXACT start pose so it loops seamlessly. Wrong, hungry, alive.
+
+## strike_a (bone-blade guillotine)
+STRIKE (guillotine cut): he COILS back and raises the serrated bone-blade arm only to about head height,
+NEVER above his head, his whole gaunt body loading, then RIPS it down in one vicious vertical guillotine
+cut kept close in front of him, the smoke whipping with the force, then he flows back to the starting
+stance. Fast, violent, total commitment, everything well inside the frame.
+
+## strike_b (gut-hook rip)
+STRIKE (gut-hook): he sinks low into the smoke, then EXPLODES upward dragging the serrated bone-blade in
+one savage rising hook in front of his body, lifting only to about shoulder height, his ribs flexing with
+the effort, then he sinks back into the starting stance. One brutal committed rip, kept close and central.
+
+## throw_a (claw seize and drag, solo-safe)
+THROW (seize and drag): keeping the bone-blade arm cocked back, he SNAPS his clawed right hand forward and
+seizes an unseen foe at chest height through EMPTY AIR, then WRENCHES it down into the smoke at his feet
+with one violent dragging pull, then returns to the starting stance. NO opponent, empty air only, single
+figure. Merciless.
+
+## throw_b (smoke surge barge, solo-safe)
+THROW (smoke barge): the black smoke around him SURGES as he lunges forward one body-length shoulder-first
+through EMPTY AIR, antlers first like a charging stag, then drifts back into the starting stance. Alone,
+no opponent, empty air only, single figure, the whole lunge well inside the frame.
+
+## block_a (bone-blade shield, arm-only)
+BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he WHIPS the serrated
+bone-blade up across his body like a shield as if catching a heavy blow, holds the strain a beat, then
+SNAPS one short vicious counter cut kept close and central, then lowers back to the starting stance.
+
+## block_b (claw parry into low rip, arm-only)
+BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he catches an unseen
+blow on his clawed forearm, the impact visibly rocking his arm, then RIPS a short low counter with the
+bone-blade kept below shoulder height, then settles back to the starting stance.
+
+## hit (stagger, quick recover)
+HIT REACTION: his skull head and gaunt torso whip sharply back as an unseen impact lands, the smoke
+scattering off his waist, a hard stagger that quickly resolves back toward his stance. He stays up — NOT
+a slow topple — and ends at the starting stance. No opponent, empty air only, single figure.
+
+## ko (cause-free dissolve, ends down)  [OFF-ANCHOR — smoke death, NO weapon-drop (the blade is his arm)]
+DEFEAT COLLAPSE: his strength leaves him — the black smoke holding him up thins and sinks, and he crumples
+slowly down into it, folding forward until he lies collapsed and motionless on the ground with the smoke
+settling low around him, and holds there. NO blow, no impact, no opponent, only his own failing. He begins
+on the reference stance but ends collapsed on the ground, motionless, and does NOT return to standing. He
+stays in side profile facing screen-right.
+
+## victory (antlered ascent)
+VICTORY TAUNT: the smoke beneath him SWELLS as he rises taller, spreading the bone-blade arm and his
+clawed hand wide like a skeletal wing display, antlered head tipping back in a silent fanged laugh, then
+he sinks back down into the EXACT starting stance. Alone, no opponent, everything well inside the frame.
+
+## special_1 (PALE HARVEST) — pale-gold/white/crimson, contained
+SPECIAL FINISHER (pale harvest): he rakes the serrated bone-blade in one fast compact vertical cut kept
+close in front of him, leaving a SHORT thin pale-gold-and-white crescent trail that hangs a beat and
+burns away, then he snaps back to the starting stance. The trail is PALE GOLD and WHITE, NEVER green,
+short and thin, centered with a wide green margin on all four edges, NOT a ring, NOT a beam.
+
+## special_2 (INK BLOOM) — crimson/white, contained
+SPECIAL FINISHER (ink bloom): a SMALL tight bloom of crimson light and black ink wisps flares around his
+ribcage where the ink stains are, no bigger than his torso, pulsing once and fading, while he arches with
+it, then he settles back. The bloom is CRIMSON and WHITE with black wisps, NEVER green, small and tight
+against his body in the CENTER with a wide green margin all around, NOT a ring that orbits.
+
+## special_3 (SMOKE SPIKE) — pale-gold/white, contained
+SPECIAL FINISHER (smoke spike): the black smoke at his feet SNAPS upward into a cluster of short smoke
+spikes just in front of him, tipped with pale-gold light, rising only to his waist height and collapsing
+back down within a beat, while he drives the bone-blade down toward them in one compact cut, then he
+settles back. The spikes are BLACK SMOKE with PALE-GOLD tips, NEVER green, compact and central with a
+wide green margin on all four edges; they do NOT travel or shoot outward.

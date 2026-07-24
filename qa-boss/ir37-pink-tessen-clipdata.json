@@ -20,101 +20,210 @@
       "media": "74e608a3-2a64-4daf-99ba-bfa4c000fad0",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_233717_74e608a3-2a64-4daf-99ba-bfa4c000fad0.mp4",
       "qa": "PASS - strict side-profile facing right, subtle breathe/weight-shift, f0 == f96 anchor-lock, fan open + dagger held, no spin/talk/walk. matte clean.",
-      "cal": { "h": 101.7, "bottom": -0.49, "left": 49.88 },
+      "cal": {
+        "h": 101.7,
+        "bottom": -0.49,
+        "left": 49.88
+      },
       "webm": "qa-boss/webm/ir37-pink-tessen-idle.webm"
     },
     "strike_a": {
       "media": "950b878e-4c38-4762-8693-5a145a41ddcf",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_235025_950b878e-4c38-4762-8693-5a145a41ddcf.mp4",
       "qa": "PASS - one committed dagger thrust, full extension screen-right ~f18, recovers to anchor; dual weapons, no green, no edge cut.",
-      "cal": { "h": 101.22, "bottom": -0.49, "left": 58.27 },
-      "contacts": [750],
+      "cal": {
+        "h": 101.22,
+        "bottom": -0.49,
+        "left": 58.27
+      },
+      "contacts": [
+        750
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-strike-a.webm"
     },
     "strike_b": {
       "media": "ad1836bf-4c58-4071-98f0-2821074735cb",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_000112_ad1836bf-4c58-4071-98f0-2821074735cb.mp4",
       "qa": "PASS - single compact fan swipe arc, peak ~f34, recovers to anchor; fan stayed contained (~198px right margin, NO cut) so no feather needed despite prior note.",
-      "cal": { "h": 101.7, "bottom": -0.49, "left": 50.12 },
-      "contacts": [1417],
+      "cal": {
+        "h": 101.7,
+        "bottom": -0.49,
+        "left": 50.12
+      },
+      "contacts": [
+        1417
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-strike-b.webm"
     },
     "throw_a": {
       "media": "1a51c819-b504-4928-9218-da7e4d9120e7",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_001305_1a51c819-b504-4928-9218-da7e4d9120e7.mp4",
       "qa": "PASS - solo-safe grab+pull through EMPTY AIR (no phantom opponent), reach ~f9, pull-connect ~f30, stays upright, recovers to anchor.",
-      "cal": { "h": 105.6, "bottom": -0.49, "left": 52.8 },
-      "contacts": [1250],
+      "cal": {
+        "h": 105.6,
+        "bottom": -0.49,
+        "left": 52.8
+      },
+      "contacts": [
+        1250
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-throw-a.webm"
     },
     "throw_b": {
       "media": "986134d9-2861-4bc9-be4d-4258b30a7025",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_002448_986134d9-2861-4bc9-be4d-4258b30a7025.mp4",
       "qa": "PASS - solo-safe shoulder-barge shove through empty air, deepest lunge/shove ~f56, recovers to anchor; right-edge graze feathered 48px, seam smooth.",
-      "cal": { "h": 107.06, "bottom": -2.43, "left": 62.17 },
-      "contacts": [2333],
+      "cal": {
+        "h": 107.06,
+        "bottom": -2.43,
+        "left": 62.17
+      },
+      "contacts": [
+        2333
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-throw-b.webm"
     },
     "block_a": {
       "media": "7d177224-1745-4e0c-a922-dab716eadb18",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_003558_7d177224-1745-4e0c-a922-dab716eadb18.mp4",
       "qa": "PASS - fan guard/deflect ~f30 then dagger counter-punish (scoring blow) ~f44, recovers to anchor; raised-fan top graze feathered 48px, seam smooth.",
-      "cal": { "h": 111.44, "bottom": -0.49, "left": 56.69 },
-      "contacts": [1833],
+      "cal": {
+        "h": 111.44,
+        "bottom": -0.49,
+        "left": 56.69
+      },
+      "contacts": [
+        1833
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-block-a.webm"
     },
     "block_b": {
       "media": "ae5557aa-6739-4e90-b78d-6e514ed620f5",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_004718_ae5557aa-6739-4e90-b78d-6e514ed620f5.mp4",
       "qa": "PASS - crossed-weapon deflect then sweep-apart counter ~f40, recovers to anchor; right-edge graze feathered 48px, seam smooth.",
-      "cal": { "h": 101.22, "bottom": -0.49, "left": 62.29 },
-      "contacts": [1667],
+      "cal": {
+        "h": 101.22,
+        "bottom": -0.49,
+        "left": 62.29
+      },
+      "contacts": [
+        1667
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-block-b.webm"
     },
     "hit": {
       "media": "0ca12137-891c-421e-a625-c0f0c54c7117",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_005835_0ca12137-891c-421e-a625-c0f0c54c7117.mp4",
       "qa": "PASS - sharp head/torso whip-back stagger, impact read ~f15, resolves QUICKLY back to guard (reads on mid-flow re-trigger), stays on feet, f0==f96 anchor-lock.",
-      "cal": { "h": 102.92, "bottom": -0.49, "left": 55.96 },
+      "cal": {
+        "h": 102.92,
+        "bottom": -0.49,
+        "left": 55.96
+      },
       "webm": "qa-boss/webm/ir37-pink-tessen-hit.webm"
     },
     "ko": {
       "media": "33785a6e-0b7b-47a7-a789-fda17737740a",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_011929_33785a6e-0b7b-47a7-a789-fda17737740a.mp4",
       "qa": "PASS - cause-free collapse (no blow/opponent), weapons drop ~f24-30, crumples prone, holds motionless on ground f72-96 (does NOT return to standing). Floor-contact bottom line left as a hard cut (NOT feathered - it is the ground line, not a graze).",
-      "cal": { "h": 106.33, "bottom": -5.84, "left": 48.66 },
+      "cal": {
+        "h": 106.33,
+        "bottom": -5.84,
+        "left": 48.66
+      },
       "webm": "qa-boss/webm/ir37-pink-tessen-ko.webm"
     },
     "victory": {
       "media": "e1989e4b-c2e8-4991-88d5-006051506ee3",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_013052_e1989e4b-c2e8-4991-88d5-006051506ee3.mp4",
       "qa": "PASS - proud fan flourish (fan snaps open) then settles to anchor; dual weapons retained, no opponent, f0==f96 anchor-lock.",
-      "cal": { "h": 100.97, "bottom": -0.49, "left": 57.77 },
+      "cal": {
+        "h": 100.97,
+        "bottom": -0.49,
+        "left": 57.77
+      },
       "webm": "qa-boss/webm/ir37-pink-tessen-victory.webm"
     },
     "special_1_fan_gale": {
       "media": "dbefeb5d-d097-410e-88f8-27ff3a709813",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_014527_dbefeb5d-d097-410e-88f8-27ff3a709813.mp4",
       "qa": "PASS - two HOT-PINK+WHITE gale arcs (NEVER green), contained near body, fades within frame, recovers to anchor; effect soft-edges keyed to neutral grey (no green halo); top graze feathered 48px.",
-      "cal": { "h": 111.44, "bottom": -0.49, "left": 58.03 },
-      "contacts": [250, 1125],
+      "cal": {
+        "h": 111.44,
+        "bottom": -0.49,
+        "left": 58.03
+      },
+      "contacts": [
+        250,
+        1125
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-special-1-fan-gale.webm"
     },
     "special_2_petal_flurry": {
       "media": "870cb47e-3d9a-46e5-89f7-795f4de089f4",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_015956_870cb47e-3d9a-46e5-89f7-795f4de089f4.mp4",
       "qa": "PASS - tight HOT-PINK lotus + white-light swirl tight to torso (NEVER green), bloom peak ~f33, fades, recovers to anchor; effect halo keyed to neutral grey (no green); contained, no edge cut.",
-      "cal": { "h": 110.71, "bottom": -0.49, "left": 49.76 },
-      "contacts": [1375],
+      "cal": {
+        "h": 110.71,
+        "bottom": -0.49,
+        "left": 49.76
+      },
+      "contacts": [
+        1375
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-special-2-petal-flurry.webm"
     },
     "special_3_fan_flash": {
       "media": "4042b618-7b8b-4789-a735-e112cb4c2a42",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_022913_4042b618-7b8b-4789-a735-e112cb4c2a42.mp4",
       "qa": "PASS - compact HOT-PINK+WHITE star-flash at the fan (v2 take: NOT the v1 orbital ring; NEVER green), peak ~f28, vanishes, recovers to anchor; yellow-green bloom keyed out to neutral grey; contained, no edge cut.",
-      "cal": { "h": 101.95, "bottom": -0.49, "left": 53.89 },
-      "contacts": [1167],
+      "cal": {
+        "h": 101.95,
+        "bottom": -0.49,
+        "left": 53.89
+      },
+      "contacts": [
+        1167
+      ],
       "webm": "qa-boss/webm/ir37-pink-tessen-special-3-fan-flash.webm"
+    }
+  },
+  "energy_rerolls": {
+    "idle_v2": {
+      "media": "6491b60e-781e-46ec-a513-ee1abe571358",
+      "qa": "conditional:great energy, f0 fan CLOSED vs open-fan anchor -> handoff pop; superseded by idle v3 (queued)"
+    },
+    "strike_a_v2": {
+      "media": "c459ba51-115d-4c97-8ed0-be8bfaf6a649",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_113624_c459ba51-115d-4c97-8ed0-be8bfaf6a649.mp4",
+      "raw": "qa-boss/raw/ir37-strike-a-v2-energy.mp4",
+      "qa": "PASS (sheet viewed): deep coil -> explosive lunge -> white-hot dagger glint at extension (pink/white keyable, dissipates) -> flowing recovery to anchor. Profile held, no phantom, contained. REPLACES v1 attack-strike.webm after keying (pinksafe fork + green-neutralize) + new cal/contacts.",
+      "webm": "qa-boss/webm/ir37-pink-tessen-strike-a-v2.webm",
+      "cal": { "h": 102.19, "bottom": -0.73, "left": 50 },
+      "contacts": [2167],
+      "swapped": true,
+      "swap_note": "Keyed pinksafe-green + green-neutralize (2nd pass 0px, keyer inline-neutralized). Matte clean over black+white, encoded green 0.0001%. Contact = dagger full extension + white-hot glint peak f52 (2167ms). NOTE: keyed output (authoritative) shows the explosive glint trail grazes the RIGHT frame edge f32-55 (up to 146px) despite the prior 'contained' note; NOT feathered (out of task scope, and the dagger tip reaches the edge at the contact frame so feather would fade the money shot) - flagged for Tim. Anchor-lock f0==f96 IoU 0.9934."
+    },
+    "strike_b_v2": {
+      "media": "f7743827-aacf-47f0-98b8-f3c73c6c7950",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_115856_f7743827-aacf-47f0-98b8-f3c73c6c7950.mp4",
+      "raw": "qa-boss/raw/ir37-strike-b-v2-energy.mp4",
+      "qa": "PASS (sheet viewed): fan SNAPS open mid-swing, huge glowing pink arc cleave with deep whole-body commitment, trails fully dissipated by recovery, ENDS at the open-fan anchor. Marginal arc edge-graze frames ~30-54 - 48px feather note at keying. REPLACES v1 attack-strike-b.webm after keying + cal/contacts.",
+      "webm": "qa-boss/webm/ir37-pink-tessen-strike-b-v2.webm",
+      "cal": { "h": 111.44, "bottom": -0.49, "left": 54.26 },
+      "contacts": [1417],
+      "swapped": true,
+      "swap_note": "Keyed pinksafe-green + green-neutralize (2nd pass 0px). Arc actually grazes the TOP edge f23-38 (up to 318px), NOT the right/f30-54 the stale note guessed -> 48px TOP feather applied (15 frames; top-48px band empty outside f23-38 so only the transient arc dissolves, head/fan/anchor untouched). Matte clean over black+white, arc dissolves smooth, encoded green 0.0001%. Contact = arc lowest/impact point f34 (1417ms). ANCHOR NOTE: f0 = fan-CLOSED windup vs the open-fan idle anchor (f0-vs-f96 IoU 0.8034; f96 open-fan = clean RETURN). Same closed-f0 trait that sank idle_v2, but QA-passed knowingly as an attack windup + Tim approved the raw - potential crossfade handoff at strike START, flagged."
+    },
+    "idle_v3": {
+      "media": "005db9b2-835d-421c-ae47-e46573ec09bc",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_121827_005db9b2-835d-421c-ae47-e46573ec09bc.mp4",
+      "raw": "qa-boss/raw/ir37-idle-v3b-anchorlocked.mp4",
+      "qa": "PASS (sheets viewed incl final frame): begins AND ends at the open-fan anchor, fan snaps shut -> coiled dancer twirl with weight flow -> snaps open -> settles. Alive + anchor-locked. REPLACES v1 idle.webm after keying.",
+      "webm": "qa-boss/webm/ir37-pink-tessen-idle-v2.webm",
+      "cal": { "h": 102.19, "bottom": -0.49, "left": 49.88 },
+      "swapped": true,
+      "swap_note": "Keyed pinksafe-green + green-neutralize (2nd pass 0px). No edge touches, no feather. Matte clean over black+white, encoded green 0.0000%. Anchor-lock f0==f96 open-fan IoU 0.9933. Wired to idle.webm (single idle take, no contacts)."
     }
   }
 }
