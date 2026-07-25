@@ -35,12 +35,16 @@ eased recovery) + her signature theatrics: the silver ponytail whip and the ofud
 Victory v1 also FAILED separately (180-rotation). Re-roll order: idle, strike_a, strike_b, victory,
 throw_a, throw_b, block_a, block_b (hit/ko/specials passed and read fine — keep v1 unless Tim flags).
 
-## idle v2 (ENERGY)
-IDLE COMBAT-READY LOOP: she stalks in place with slow lethal patience — her weight sinking and rising
+## idle v2 (ENERGY)  [FAILED 2026-07-24 session 5: 'one slow head turn along the line of her blade'
+became a full 180 BODY turn ~f42-f60 - f0 faces right, f95 faces LEFT (victory-v1 rotation class).
+NOTE: the -r anchor tile (medias[0] 5972e73a) renders RIGHT-facing - v2 wave is right-facing; the 5 kept
+v1 clips (hit/ko/sp1-3) face left -> HFLIP those at keying so the whole kit faces right, manifest normal.]
+## idle v3 (ENERGY, no turn beat)
+IDLE COMBAT-READY LOOP: she stalks in place with slow lethal patience - her weight sinking and rising
 through her stance like a predator breathing, silver ponytail and the paper ofuda talismans on her hat
-swaying with her motion, her thumb loosening the katana in her grip and re-setting it, one slow head turn
-along the line of her blade; then she settles back into the EXACT start pose so it loops seamlessly.
-Calm, lethal, alive — never stiff.
+swaying with her motion, her thumb loosening the katana in her grip and re-setting it, her gaze fixed
+forward the whole time; she NEVER turns, NEVER rotates, NEVER changes the direction she faces; then she
+settles back into the EXACT start pose so it loops seamlessly. Calm, lethal, alive - never stiff.
 
 ## strike_a v2 (ENERGY draw-cut)
 STRIKE (draw-cut): she COILS into a deep draw crouch, her whole body loading like a spring, then EXPLODES
@@ -48,10 +52,49 @@ through one blinding downward diagonal cut, hips and shoulders driving the blade
 follow-through, her silver ponytail whipping with the force, then she flows back up into the starting
 stance. Fast, violent, total commitment.
 
+## idle v4 (ENERGY, PROP-CENTRIC)  [v3 ALSO 180-turned despite never-turns locks x2: 'stalks in place /
+predator breathing' are BODY-LANGUAGE verbs - the exact LK-doctrine failure class (idle = prop-centric
+business ONLY). v4 anchors every beat on the planted katana.]
+IDLE COMBAT-READY LOOP: she begins in the EXACT reference pose, both hands resting on the pommel of the
+planted katana; STAYING planted in her strict side pose she drums her fingers slowly on the pommel one by
+one, lifts the katana a hand's width off the ground and sets it back down with slow menacing precision,
+her silver ponytail and the paper ofuda talismans on her hat swaying gently with the motion, her weight
+shifting between her legs without her feet ever leaving their spots; then she settles back into the EXACT
+start pose so it loops seamlessly. Calm, lethal, alive - never stiff. Her feet stay planted on the same
+two spots the ENTIRE clip; she NEVER steps, NEVER turns, NEVER rotates, and faces the SAME direction the
+entire clip.
+
+## strike_a v3 (ENERGY draw-cut, ONE-cut lock)  [v2 FAILED 2026-07-24 session 5: the energy verbs made
+a spinning multi-attack kata - full spins with smear swirls, 180 turns, back-to-camera, off-anchor
+arms-crossed pose. Eclipse + energy verbs = dervish; she needs a hard single-action lock.]
+STRIKE (draw-cut): she COILS into a deep draw crouch, her whole body loading like a spring, then EXPLODES
+through exactly ONE single downward diagonal cut, hips and shoulders driving the blade through with real
+follow-through, her silver ponytail whipping with the force, then she flows straight back up into the
+starting stance. It is ONE single cut and nothing else: she does NOT spin, does NOT turn, does NOT swing
+a second time, her back NEVER faces the camera, and she keeps facing the SAME direction the entire clip.
+Fast, violent, total commitment.
+
 ## strike_b v2 (ENERGY sweeping cut)
 STRIKE (sweeping cut): she steps INTO one fierce wide sweeping cut along the direction she faces, her
 hips uncoiling with real force and the ofuda talismans on her hat flaring with the motion, then she flows
 back into the starting stance. One huge committed cut, blade fully in frame.
+
+## strike_b v3 (ENERGY sweeping cut, LOW + re-plant)  [v2 FAILED 2026-07-24: overhead raise crossed the
+TOP edge f12, sweep turned her near-frontal, and she HELD the follow-through stance - never returned to
+anchor. v3: waist-height sweep only + explicit re-plant beat.]
+STRIKE (sweeping cut): keeping her profile, she rips the katana up from the ground and steps INTO one
+fierce wide sweeping cut at WAIST height along the direction she faces, the blade never rising above her
+shoulders, her hips uncoiling with real force and the ofuda talismans flaring with the motion; then in
+the final second she steps back, PLANTS the katana point-down on the ground and rests both hands on the
+pommel, settling into the EXACT reference pose. It is ONE single cut and nothing else: she does NOT spin,
+does NOT turn toward the camera, does NOT repeat the move, and she keeps facing the SAME direction the
+entire clip.
+
+## strike_b v4 (LOW wind-up)  [v3 2026-07-24: sweep/re-plant/anchor all fixed but the WIND-UP raise sent
+the blade tip off the TOP edge ~f30 (solid slice). v4 = same acting + the wind-up capped below the hat.]
+Same acting line as v3 PLUS append after 'never rising above her shoulders': and during the wind-up she
+draws the katana back LOW beside her hip, the blade staying BELOW the brim of her hat at ALL times, never
+raised overhead at any point of the clip.
 
 ## throw_a v2 (ENERGY seize and wrench, solo-safe)
 THROW (seize and wrench): keeping the katana in one hand, she SNAPS her free hand forward and seizes an
@@ -64,20 +107,53 @@ THROW (shoulder barge): she EXPLODES forward in a two-step shoulder-first barge 
 slamming her whole body weight through the drive, coat and ponytail whipping, then shoves off and
 recovers to the starting stance. Alone, no opponent, empty air only, single figure.
 
+## throw_b v3 (barge, TUCKED blade)  [v2 2026-07-24: superb energetic barge but the level blade carry
+sliced BOTH side edges (left ~f24, right ~f66) - her katana spans the frame when horizontal. v3 = same
+barge with the blade tucked.]
+Same acting line as throw_b v2 PLUS append after 'coat and ponytail whipping': the katana held TUCKED low
+at her side, angled down and back, its tip staying WELL INSIDE the frame with a wide margin from every
+edge the entire clip, never held level or pointed forward.
+
 ## block_a v2 (ENERGY parry-counter)
 BLOCK-COUNTER: she SLAMS the katana up into a hard ringing parry as if catching a heavy blow, holds the
 strain for a beat, then RIPS one vicious counter slash kept close and central, then returns to the
 starting stance.
+
+## block_a v3 (HORIZONTAL bar parry)  [v2 FAILED 2026-07-24: the parry rendered as a VERTICAL blade hold
+- her overlong katana crossed the top edge ~f12-f40 despite the below-hat cap. Her blade is too long for
+ANY vertical hold; the parry must be explicitly horizontal (LK block_b passing pattern).]
+BLOCK-COUNTER: she SLAMS the katana up into a hard ringing parry held HORIZONTALLY across her chest, the
+blade LEVEL with the ground like a bar, both hands wide on hilt and blade, as if catching a heavy blow
+from above; holds the strain for a beat, then RIPS one vicious counter slash kept close, central and
+below shoulder height, then returns to the starting stance. The blade stays HORIZONTAL or angled DOWN
+the entire clip and never points upward. It is ONE single action and nothing else: she does NOT spin,
+does NOT turn, does NOT repeat the move, and she keeps facing the SAME direction the entire clip.
 
 ## block_b v2 (ENERGY deflect-rising cut)
 BLOCK-COUNTER: she sweeps her forearm across in a hard deflecting guard that visibly absorbs an impact,
 then EXPLODES through one short rising katana cut with her legs driving up into it, then recovers to the
 starting stance.
 
+## block_b v3 (LK-pattern forearm brace)  [16:9 take: edge issues; 1:1 v2 take FAILED worse - phantom
+floating gauntlet f12, blade BENDING like a bow (morph), off-script high-knee kata. Mirror LK block_b's
+first-try-pass structure: arm-only brace + one low cut, katana otherwise planted.]
+BLOCK-COUNTER: keeping her torso in profile, ONLY her arms move - she SLAMS her free forearm across her
+chest in a hard deflecting brace that visibly absorbs an impact, the katana staying planted point-down
+under her other hand, then she RIPS the katana up through one short vicious diagonal cut kept LOW and
+central, the blade never lifting above her shoulders and staying rigid and straight, then plants it back
+point-down and settles into the EXACT reference pose. It is ONE single action and nothing else: she does
+NOT spin, does NOT turn, does NOT kick, does NOT repeat the move, nothing else appears in the frame, and
+she keeps facing the SAME direction the entire clip.
+
 ## victory v2 (ENERGY flourish, no rotation — v1 FAILED on a 180 turn)
 VICTORY TAUNT: she whips the katana through one crisp fierce flourish arc in front of her, ponytail
 whipping with it, and snaps the blade down to her side in a proud stance, her chest staying in profile
 facing screen-right the whole time, then settles back to the starting stance. Alone, no opponent.
+
+★ ECLIPSE ONE-ACTION LOCK (session 5, after strike_a v2's spin-kata): APPEND to EVERY remaining v2/v3
+acting line before firing:
+> It is ONE single action and nothing else: she does NOT spin, does NOT turn, does NOT repeat the move,
+> her back NEVER faces the camera, and she keeps facing the SAME direction the entire clip.
 
 SPECIAL suffix add-on (the 3 specials only; Tim's contain-in-frame rule):
 > The talisman-light / steel energy of the finisher stays FULLY INSIDE the frame and NEVER extends past

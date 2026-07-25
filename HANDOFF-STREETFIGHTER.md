@@ -116,9 +116,26 @@ containment wording that matches the resting pose gets a no-action glow clip; (d
 INSIDE the clip. ECLIPSE WAVE STARTED: anchor swapped in Uploads picker, idle v2
 fired. Remaining LK re-roll options (Tim call): sp3 v3 + throw_b v3 with locks.**
 
+**SESSION 5 (cont, night 24->25 Jul): ECLIPSE ENERGY WAVE COMPLETE — all 8 states
+banked** (ledger energy_rerolls block: idle_v4 [prop-centric fixed her 180-turns],
+strike_a_v3 [ONE-action lock kills her spin-kata prior], strike_b_v4-16:9 [PIPELINE
+CORRECTION: keyer crops to action bbox so 16:9 sources are FINE - an aspect-reset
+mishap turned into this ruling], throw_a_v2, throw_b_v3 [tucked-blade law for her
+overlong katana], block_a_v3 [HORIZONTAL-bar parry law - her blade is too long for
+ANY vertical hold; top feather f71-76], block_b_v3 [LK-pattern arm-only brace],
+victory_v2 [feather]). v1 keeps: hit/ko/sp1-3. FACES LEFT (anchor ground-truth
+5972e73a viewed; the -r label lie confirmed; manifest faces:'left', no hflip).
+NEW SESSION-5 ECLIPSE DOCTRINES: one-action lock, horizontal-parry law, tucked-carry
+law, 16:9-sources-are-fine ruling, prop-centric idle (2nd confirmation). NEW GATE:
+Higgsfield now randomly blurs outputs behind 'Rights verification required' -
+confirm via 'I own rights' (Tim's own art, session-3 attestation precedent); the
+gate also DELAYS show_generations indexing. PANEL LAW: after any UI mishap verify
+4s/1:1/720p + GenerateUnlimited before firing (a preset-picker misclick silently
+reset aspect to 16:9 for 2 fires).**
+
 **WHAT TO DO NEXT (the exact queue, one render at a time, ~15min each, QA the
 previous during the next render, record EVERY verdict in the clipdata ledger):**
-1. ~~LK kit~~ DONE (see above).
+1. ~~LK kit~~ DONE. 2'. ~~Eclipse wave~~ DONE (both see above).
 2. ECLIPSE energy wave (8): swap anchor in the Uploads picker (her green -r tile;
    verify via the fired generation's medias[0]), fire idle v2..victory v2 per her
    prompts file.
