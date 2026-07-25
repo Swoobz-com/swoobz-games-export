@@ -20,15 +20,19 @@ describe('bossNodeId — fighter id -> gating node (single source: CAMPAIGN_NODE
   });
   it('a wired boss maps to the node it is the enemy of', () => {
     expect(bossNodeId('satoshi-odachi')).toBe(5);
+    expect(bossNodeId('eclipse-ofuda')).toBe(6);
     expect(bossNodeId('ir37-pink-tessen')).toBe(7);
+    expect(bossNodeId('lady-kurotachi')).toBe(9);
   });
   it('an unknown / non-campaign fighter id is not gated', () => {
     expect(bossNodeId('nobody')).toBeNull();
   });
   it('the derived mapping matches the registry (no duplicated table)', () => {
-    // satoshi/ir37 nodes carry their own fighterId; the map is derived, not hand-listed.
+    // Each boss node carries its own fighterId; the map is derived, not hand-listed.
     expect(CAMPAIGN_NODES.find((n) => n.fighterId === 'satoshi-odachi')?.id).toBe(5);
+    expect(CAMPAIGN_NODES.find((n) => n.fighterId === 'eclipse-ofuda')?.id).toBe(6);
     expect(CAMPAIGN_NODES.find((n) => n.fighterId === 'ir37-pink-tessen')?.id).toBe(7);
+    expect(CAMPAIGN_NODES.find((n) => n.fighterId === 'lady-kurotachi')?.id).toBe(9);
   });
 });
 
@@ -40,7 +44,9 @@ describe('isFighterSelectable — playable-after-beaten gate', () => {
   });
   it('bosses locked on a fresh profile', () => {
     expect(isFighterSelectable('satoshi-odachi', FRESH)).toBe(false);
+    expect(isFighterSelectable('eclipse-ofuda', FRESH)).toBe(false);
     expect(isFighterSelectable('ir37-pink-tessen', FRESH)).toBe(false);
+    expect(isFighterSelectable('lady-kurotachi', FRESH)).toBe(false);
   });
   it('a boss unlocks exactly when its own node is beaten', () => {
     const node5 = beatenWith(5);
@@ -50,6 +56,13 @@ describe('isFighterSelectable — playable-after-beaten gate', () => {
     const node7 = beatenWith(7);
     expect(isFighterSelectable('ir37-pink-tessen', node7)).toBe(true);
     expect(isFighterSelectable('satoshi-odachi', node7)).toBe(false);
+    // WIRE WAVE 2 bosses: eclipse (node 6), lady-kurotachi (node 9).
+    const node6 = beatenWith(6);
+    expect(isFighterSelectable('eclipse-ofuda', node6)).toBe(true);
+    expect(isFighterSelectable('lady-kurotachi', node6)).toBe(false);
+    const node9 = beatenWith(9);
+    expect(isFighterSelectable('lady-kurotachi', node9)).toBe(true);
+    expect(isFighterSelectable('eclipse-ofuda', node9)).toBe(false);
   });
   it('beating an unrelated node never unlocks a boss', () => {
     // Nodes 1-4 (VOLTA stand-in enemies) beaten but not 5 => satoshi stays locked.
@@ -58,7 +71,9 @@ describe('isFighterSelectable — playable-after-beaten gate', () => {
   it('corrupt storage falls back to all-locked bosses (via parseCampaignBeaten)', () => {
     const fromGarbage = parseCampaignBeaten('not json {[');
     expect(isFighterSelectable('satoshi-odachi', fromGarbage)).toBe(false);
+    expect(isFighterSelectable('eclipse-ofuda', fromGarbage)).toBe(false);
     expect(isFighterSelectable('ir37-pink-tessen', fromGarbage)).toBe(false);
+    expect(isFighterSelectable('lady-kurotachi', fromGarbage)).toBe(false);
     // ...but the always-available fighters survive a corrupt read.
     expect(isFighterSelectable('gorvak', fromGarbage)).toBe(true);
     expect(isFighterSelectable('volta', fromGarbage)).toBe(true);
