@@ -133,9 +133,36 @@ gate also DELAYS show_generations indexing. PANEL LAW: after any UI mishap verif
 4s/1:1/720p + GenerateUnlimited before firing (a preset-picker misclick silently
 reset aspect to 16:9 for 2 fires).**
 
+**SESSION 5 NIGHT SHIFT (25 Jul ~02-04h): while the browser was BLOCKED (Chrome
+window OS-shrunk to 301x110 - CDP resize_window reports success but does NOT take;
+the mini layout hides the whole create form at 0x0, so no fires possible until the
+window is manually restored), the completed kits were KEYED + WIRED via background
+builders, each independently verified by the orchestrator:**
+- **KEYED (6adafd9)**: LK 13/13 via key-clips-green-pinksafe (pink trim/crimson
+  rings intact - proofs viewed; hit head-trimmed to 87 frames), eclipse 8 energy
+  takes via stock keyer + despill + neutralize (feathers: victory top+left; block_a
+  f62/f73 - the agent RE-MEASURED my f71-76 note and was right), v1 webms archived
+  qa-boss/webm/old-v1/, all alpha_mode=1 verified.
+- **WIRED (2062dee, phase 24d)**: eclipse -> node 6 (faces:'left', FIRST left-facing
+  boss - native facing = enemy side needs no mirror) + LK -> node 9. Gates re-run by
+  orchestrator (tsc, 157/157, build, engines 0-diff, fightCampaign diff = ONLY two
+  fighterId swaps). LIVE-DRIVEN (qa-boss/wire2-drive.mjs + wire2-shots/, screenshots
+  VIEWED): both bosses animate in-fight, video-probe shows their webms mounted+
+  playing, money to the cent (5.00 x3.51 defeat -> net -5.00, bank 995.00).
+  DRIVER NOTES: title needs PRESS TO BEGIN first; campaign.v1 seeding shape differs
+  - use the ?dev=1 CONQUER NEXT hook instead; node buttons carry the name in
+  aria-label/textContent ('HOLLOW SHRINE' etc.).
+- **SATOSHI QUAKE mid-flight**: anchor ALREADY SWAPPED to satoshi's tile in the
+  Uploads picker (grid-index calibrated vs the Not-eligible onryo tile at index 11;
+  satoshi = index 10) + the QUAKE prompt text is in window.__CUR of the tab; when
+  the window is restored: verify 4s/1:1/720p + GenerateUnlimited, insert (selectAll
+  -> chunked insertText with 400ms settle waits - delete is a Lexical no-op, only
+  selectAll+replace works), fire, then verify the anchor identity via the fired
+  generation's medias[0].url (download+view).
+
 **WHAT TO DO NEXT (the exact queue, one render at a time, ~15min each, QA the
 previous during the next render, record EVERY verdict in the clipdata ledger):**
-1. ~~LK kit~~ DONE. 2'. ~~Eclipse wave~~ DONE (both see above).
+1. ~~LK kit~~ DONE. 2'. ~~Eclipse wave~~ DONE + both KEYED + WIRED (see above).
 2. ECLIPSE energy wave (8): swap anchor in the Uploads picker (her green -r tile;
    verify via the fired generation's medias[0]), fire idle v2..victory v2 per her
    prompts file.
