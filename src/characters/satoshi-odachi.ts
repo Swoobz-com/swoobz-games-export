@@ -85,10 +85,12 @@ export const SATOSHI_ODACHI: FighterDef = {
         contacts: [1750],
       },
       {
-        // Odachi cyclone: full-circle spin finisher (3-hit string at the blade's forward passes).
+        // Odachi quake: coil -> head-height raise -> earth-splitting two-handed slam with a compact
+        // white-gold spark burst at the blade tip (single decisive impact). Replaces the Tim-rejected
+        // cyclone; left edge feathered 48px over f44-54 where the wind-up whip-back crosses frame.
         url: 'assets/characters/satoshi-odachi/special-b.webm',
-        cal: { h: 123.59, bottom: -1.34, left: 50 },
-        contacts: [833, 1500, 2167],
+        cal: { h: 129.03, bottom: -6.45, left: 50 },
+        contacts: [2417],
       },
       {
         // Rising crescent: explosive rising diagonal slash, white crescent of light at the apex.
