@@ -20,98 +20,112 @@
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_194710_0d182292-40b9-4fcf-94a8-4ef861f24ebe.mp4",
       "qa": "PASS. Seamless kenjutsu idle loop, subtle sway, on-model every frame, consistent left facing, no talking, fully contained, f0~=last (anchor-locked).",
       "cal": {
-        "h": 100.95,
-        "bottom": -0.48,
-        "left": 49.11
+        "h": 101.21,
+        "bottom": -0.49,
+        "left": 48.85
       },
       "contacts": null,
-      "webm": "qa-boss/webm/eclipse-ofuda-idle.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-idle.webm",
+      "take": "idle_v4",
+      "keyed_v2": true
     },
     "strike_a": {
       "media": "2c96c5da-f1d6-4f81-a1bb-7f77aa912dc7",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_200100_2c96c5da-f1d6-4f81-a1bb-7f77aa912dc7.mp4",
       "qa": "PASS+feather. Diagonal draw-cut, returns to anchor. Blade tip crosses LEFT edge (f33-34) + grazes TOP (f35) -> edge-feather top+left 48px (blade reads as reaching off toward opponent).",
       "cal": {
-        "h": 111.17,
-        "bottom": -0.49,
-        "left": 44.11
+        "h": 111.27,
+        "bottom": -2.14,
+        "left": 44.96
       },
       "contacts": [
-        1500
+        1875
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-strike_a.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-strike_a.webm",
+      "take": "strike_a_v3",
+      "keyed_v2": true
     },
     "strike_b": {
       "media": "67a9be7f-b864-4938-9cce-ef36dbb95479",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_201245_67a9be7f-b864-4938-9cce-ef36dbb95479.mp4",
       "qa": "PASS+feather (FLAG re-roll). Wide horizontal cut, returns to anchor. Blade CLIPPED mid-blade at LEFT edge sustained f31-48 (~0.7s, ~240px off-frame) -> most aggressive overrun; edge-feather left+top 48px makes it a soft off-frame fade. Consider a tighter re-roll for a fully-contained 2nd strike take.",
       "cal": {
-        "h": 111.17,
-        "bottom": -0.49,
-        "left": 47.63
+        "h": 114.8,
+        "bottom": -3.29,
+        "left": 34.95
       },
       "contacts": [
-        1667
+        2083
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-strike_b.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-strike_b.webm",
+      "take": "strike_b_v4_169_MOTION_PASS",
+      "keyed_v2": true
     },
     "throw_a": {
       "media": "b509db07-e5e8-43ae-8610-ca9923626a91",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_221824_b509db07-e5e8-43ae-8610-ca9923626a91.mp4",
       "qa": "PASS. Chosen take = the re-rolled SOLO-SAFE 'grab and pull' (reaches through EMPTY AIR, NO second figure/limb), upright, katana lowered, returns to anchor, fully contained.",
       "cal": {
-        "h": 100.97,
-        "bottom": -0.36,
-        "left": 46.66
+        "h": 101.7,
+        "bottom": -0.49,
+        "left": 49.94
       },
       "contacts": [
-        1000
+        1500
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-throw_a.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-throw_a.webm",
+      "take": "throw_a_v2",
+      "keyed_v2": true
     },
     "throw_b": {
       "media": "d0c7881d-c758-430d-8e15-d4558d25fa35",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_203434_d0c7881d-c758-430d-8e15-d4558d25fa35.mp4",
       "qa": "PASS. Shoulder-barge SOLO drive through empty air (no opponent), recovers to anchor, contained.",
       "cal": {
-        "h": 102.42,
-        "bottom": -1.45,
-        "left": 61.38
+        "h": 101.21,
+        "bottom": -0.61,
+        "left": 49.94
       },
       "contacts": [
-        1625
+        1458
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-throw_b.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-throw_b.webm",
+      "take": "throw_b_v3",
+      "keyed_v2": true
     },
     "block_a": {
       "media": "d8c33056-fb6c-49f2-883a-800f56d45508",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_204633_d8c33056-fb6c-49f2-883a-800f56d45508.mp4",
       "qa": "PASS+feather. Katana parry -> counter-slash, returns to anchor. Blade grazes TOP on the parry raise (f9-21) and crosses LEFT edge on the counter (f48-54) -> edge-feather top+left 48px. 2nd-most-aggressive overrun after strike_b.",
       "cal": {
-        "h": 111.17,
-        "bottom": -0.49,
-        "left": 47.75
+        "h": 110.76,
+        "bottom": -0.48,
+        "left": 48.31
       },
       "contacts": [
-        750,
-        2000
+        1750,
+        2583
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-block_a.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-block_a.webm",
+      "take": "block_a_v3",
+      "keyed_v2": true
     },
     "block_b": {
       "media": "842d2c1e-5a7d-4ab7-8014-caaf1630a8e6",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_205717_842d2c1e-5a7d-4ab7-8014-caaf1630a8e6.mp4",
       "qa": "PASS+feather. Forearm deflect -> rising cut, returns to anchor. NO baked FX (thumbnail 'glow' was gold-blade motion blur). Blade grazes TOP (f39-44), LEFT (f54-55) and tip clips upper-RIGHT (f48) -> edge-feather top+left+right 48px.",
       "cal": {
-        "h": 111.17,
-        "bottom": -0.49,
-        "left": 49.94
+        "h": 100.97,
+        "bottom": -0.36,
+        "left": 49.45
       },
       "contacts": [
-        1583,
-        2208
+        2167,
+        2833
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-block_b.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-block_b.webm",
+      "take": "block_b_v3",
+      "keyed_v2": true
     },
     "hit": {
       "media": "eee3a3b5-7697-46ba-b968-d60ea86013b0",
@@ -141,9 +155,15 @@
       "media": "694fd987-65c4-4a50-8d5e-cf25c1eb9f18",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260723_213112_694fd987-65c4-4a50-8d5e-cf25c1eb9f18.mp4",
       "qa": "FAIL (DROPPED, not keyed/encoded). The flourish rotates her body 180deg: starts facing RIGHT (mirrored from the anchor, f1-49) and ends facing LEFT (f73-97). Turns the character AND starts off-anchor -> contract §2 hard rejection. Optional state, so no fallback impact. RE-ROLL: flourish with NO body rotation, start=end on the (left-facing) anchor.",
-      "cal": null,
+      "cal": {
+        "h": 111.17,
+        "bottom": -0.49,
+        "left": 50.18
+      },
       "contacts": null,
-      "webm": null
+      "webm": "qa-boss/webm/eclipse-ofuda-victory.webm",
+      "take": "victory_v2",
+      "keyed_v2": true
     },
     "special_1_ofuda_flick": {
       "media": "8c01a818-1590-4856-b7cf-c9eda4069d44",
@@ -213,14 +233,36 @@
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_195027_a7c5425c-856f-4ac8-8963-b784a073a2e6.mp4",
       "raw": "qa-boss/raw/eclipse-ofuda-strike-a-v3.mp4",
       "note": "PRIMARY strike_a - PASS (sheet + fine f26-f41 viewed): coil into deep hat-tilted iai crouch -> 3-frame slash through the front arc with full left follow-through (violent at 2x) -> rises back to right-facing anchor. NO spin, NO turn (the ONE-action lock works on her), contained margins, end==start. Supersedes static v1 and spin-kata v2.",
-      "qa": "pass"
+      "qa": "pass",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-strike_a.webm",
+      "cal": {
+        "h": 111.27,
+        "bottom": -2.14,
+        "left": 44.96
+      },
+      "contacts": [
+        1875
+      ],
+      "feather_applied": "none",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "idle_v4": {
       "media": "2b58f345-7e39-4bb0-bd39-5e211e558e25",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_200657_2b58f345-7e39-4bb0-bd39-5e211e558e25.mp4",
       "raw": "qa-boss/raw/eclipse-ofuda-idle-v4.mp4",
       "note": "PRIMARY idle - PASS (sheet + f0/f95 seal viewed): planted LEFT-facing profile all 96 frames, alive prop-centric business (finger drums on pommel, katana lift + precise set-back, ponytail/ofuda sway, weight shifts, feet never move), seal f0==f95. The LK prop-centric idle doctrine fixed her turning. Supersedes static v1 + turned v2/v3.",
-      "qa": "pass"
+      "qa": "pass",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-idle.webm",
+      "cal": {
+        "h": 101.21,
+        "bottom": -0.49,
+        "left": 48.85
+      },
+      "contacts": null,
+      "feather_applied": "none",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "strike_b_v2_FAILED": {
       "media": "44ae87e8-19c1-41cf-a566-42addcfe03e7",
@@ -234,7 +276,17 @@
       "raw": "qa-boss/raw/eclipse-ofuda-victory-v2.mp4",
       "note": "PRIMARY victory - PASS w/ edge-feather note (sheet + full-size f12/f24 viewed): ONE crisp flourish whip with silver smear arc, NO spin, NO 180 (v1 fail fixed), snaps blade down, settles to sealed anchor. The arc FAINT dissipating tails kiss the top edge (f12) and left edge (f24) - translucent smear only, bright core well inside; 48px edge-feather at keying covers it (kiss class, not slice).",
       "edge_feather": "top+left 48px",
-      "qa": "pass (edge-feather)"
+      "qa": "pass (edge-feather)",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-victory.webm",
+      "cal": {
+        "h": 111.17,
+        "bottom": -0.49,
+        "left": 50.18
+      },
+      "contacts": null,
+      "feather_applied": "top+left 48px whole clip (27 frames touched — dissipating silver smear-arc tails kiss top+left edges)",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "strike_b_v3": {
       "media": "7b060c6e-b412-408d-b7e8-b98e3d76f433",
@@ -248,7 +300,19 @@
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_212148_17fbeda8-65be-41a1-ad1a-f3c5e1ed232e.mp4",
       "raw": "qa-boss/raw/eclipse-ofuda-throw-a-v2.mp4",
       "note": "PRIMARY throw_a - PASS (sheet viewed): free-hand SNAP seize through empty air -> violent wrench across the body, coat + ponytail whipping, blade flourish during the pull (katana kept in hand), no phantom, no 180, brief 3/4 at the dynamic peak only, blade tips inside with margins, end==start at anchor.",
-      "qa": "pass"
+      "qa": "pass",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-throw_a.webm",
+      "cal": {
+        "h": 101.7,
+        "bottom": -0.49,
+        "left": 49.94
+      },
+      "contacts": [
+        1500
+      ],
+      "feather_applied": "none",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "throw_b_v2_CONDITIONAL": {
       "media": "34ca92a6-5b1f-4a90-91d2-fe8f169bead7",
@@ -273,7 +337,19 @@
       "media": "7684c0d2-3413-4f99-bac1-6c3c5373d804",
       "raw": "qa-boss/raw/eclipse-ofuda-strike-b-v4-169.mp4",
       "note": "16:9 DISCARD but MOTION APPROVED: low wind-up worked (blade peaks at shoulder height horizontal, never overhead), waist-height smear sweep, re-plant beat, anchor seal, no spin/turn. The v4 prompt is proven - re-fire verbatim at 1:1.",
-      "qa": "PRIMARY strike_b (16:9 source, keyer crops to bbox)"
+      "qa": "PRIMARY strike_b (16:9 source, keyer crops to bbox)",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-strike_b.webm",
+      "cal": {
+        "h": 114.8,
+        "bottom": -3.29,
+        "left": 34.95
+      },
+      "contacts": [
+        2083
+      ],
+      "feather_applied": "none (16:9 source cropped to action bbox; sweep fully contained laterally)",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "block_b_11_FAILED": {
       "media": "b7187d92-4f5a-477b-86c3-332b309239b8",
@@ -292,7 +368,19 @@
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_234220_aae7ee7e-1b04-4be2-8284-d88e1c4eb9d8.mp4",
       "raw": "qa-boss/raw/eclipse-ofuda-throw-b-v3.mp4",
       "note": "PRIMARY throw_b - PASS (sheet + full-size f36/f42 margins viewed): tucked blade through the coil+drive, explosive two-step barge with ponytail whip, blade levels after the barge but ALL tips stay inside (closest ~3 percent at f36, no slice), no phantom, no turn, anchor-sealed. Supersedes edge-slicing v2.",
-      "qa": "pass"
+      "qa": "pass",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-throw_b.webm",
+      "cal": {
+        "h": 101.21,
+        "bottom": -0.61,
+        "left": 49.94
+      },
+      "contacts": [
+        1458
+      ],
+      "feather_applied": "none (polished-blade green reflection handled by despill->neutralize; greenclean removedPx=0 = NO blade holes, verified over black+white)",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "block_a_v3": {
       "media": "706aaadf-0459-4531-8b64-d3eb805b34d0",
@@ -300,15 +388,42 @@
       "raw": "qa-boss/raw/eclipse-ofuda-block-a-v3.mp4",
       "note": "PRIMARY block_a - CONDITIONAL PASS (sheet + full-size f70/f73 viewed): the HORIZONTAL-bar parry law WORKED (blade level at hat height, held strain, tips inside, no vertical raise anywhere), low counter, re-plant, anchor-sealed, no spin. RESIDUAL: the counter recovery whip crosses the top edge for ~3 motion-blurred frames (~f72-f75, 60ms at 2x - kiss class). KEYING: top 48px edge-feather on ~f71-f76. Card was rights-gated (3rd) - confirmed.",
       "edge_feather": "top 48px f71-f76",
-      "qa": "conditional-pass (top feather)"
+      "qa": "conditional-pass (top feather)",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-block_a.webm",
+      "cal": {
+        "h": 110.76,
+        "bottom": -0.48,
+        "left": 48.31
+      },
+      "contacts": [
+        1750,
+        2583
+      ],
+      "feather_applied": "top 48px on measured top-edge crossings f62 (counter slash, 44px) + f73 (recovery whip, 8px); supersedes QA note ~f71-76 which was ~10 frames off vs the keyed frames",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
     "block_b_v3": {
       "media": "9b204f41-159b-487d-8aa4-94e765298436",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260725_002137_9b204f41-159b-487d-8aa4-94e765298436.mp4",
       "raw": "qa-boss/raw/eclipse-ofuda-block-b-v3.mp4",
       "note": "PRIMARY block_b - PASS w/ note (sheet viewed): LK-pattern fix worked - arm-only forearm brace slams across the chest and holds (defensive read strong), katana stays planted, NO phantom, NO blade-bend, NO kata, profile locked, anchor-sealed. Counter beat is soft (reads as a controlled blade lift + set-back rather than a cut) - LK block_b class, acceptable at 2x; optional stronger-verb re-roll if Tim flags.",
-      "qa": "pass (note: soft counter)"
+      "qa": "pass (note: soft counter)",
+      "keyed": true,
+      "webm": "qa-boss/webm/eclipse-ofuda-block_b.webm",
+      "cal": {
+        "h": 100.97,
+        "bottom": -0.36,
+        "left": 49.45
+      },
+      "contacts": [
+        2167,
+        2833
+      ],
+      "feather_applied": "none",
+      "keyed_note": "session6 keyer (2026-07-25): frames@24fps -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (margin14 keep0.08) -> green-neutralize HARD=32 -> [feather] -> VP9 yuva420p crf30 24fps. Matte-verified whole-timeline over BLACK+WHITE: 0.0000% visible green on ALL 8, greenclean removedPx=0 (no holes). Contacts = motion-energy peak on keyed frames (block = 2 beats: parry/deflect + counter)."
     },
-    "_WAVE_COMPLETE": "2026-07-25 session 5: all 8 ENERGY states banked. PRIMARY TAKES: idle_v4, strike_a_v3, strike_b_v4_169 (16:9 source - keyer crops to bbox), throw_a_v2, throw_b_v3, block_a_v3 (top feather f71-76), block_b_v3, victory_v2 (top+left feather). v1 keeps: hit, ko, special_1/2/3. FACING: whole kit faces LEFT (anchor ground-truth) - manifest faces:left."
+    "_WAVE_COMPLETE": "2026-07-25 session 5: all 8 ENERGY states banked. PRIMARY TAKES: idle_v4, strike_a_v3, strike_b_v4_169 (16:9 source - keyer crops to bbox), throw_a_v2, throw_b_v3, block_a_v3 (top feather f71-76), block_b_v3, victory_v2 (top+left feather). v1 keeps: hit, ko, special_1/2/3. FACING: whole kit faces LEFT (anchor ground-truth) - manifest faces:left.",
+    "_KEYED_v2": "All 8 ENERGY re-rolls keyed+encoded session6 (2026-07-25). PRIMARY webms live at qa-boss/webm/eclipse-ofuda-<state>.webm, REPLACING the v1 same-state webms (v1 preserved at qa-boss/webm/old-v1/*-v1.webm). 5 v1 keeps untouched: hit, ko, special_1/2/3. All matte-clean 0.0000% green over black+white. Facing: LEFT, no hflip."
   }
 }
