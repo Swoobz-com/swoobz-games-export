@@ -22,7 +22,11 @@
       "keyed": true,
       "encoded": true,
       "webm": "qa-boss/webm/kitsune-tanto-idle.webm",
-      "cal": { "h": 101.21, "bottom": -0.49, "left": 46.18 }
+      "cal": {
+        "h": 101.21,
+        "bottom": -0.49,
+        "left": 46.18
+      }
     },
     "strike_a": {
       "media": "643b1366-b671-4d5b-aad8-1c713c9c212f",
@@ -105,7 +109,11 @@
       "keyed": true,
       "encoded": true,
       "webm": "qa-boss/webm/kitsune-tanto-victory.webm",
-      "cal": { "h": 112, "bottom": -1.45, "left": 47.33 }
+      "cal": {
+        "h": 112,
+        "bottom": -1.45,
+        "left": 47.33
+      }
     }
   },
   "superseded": {
@@ -114,5 +122,12 @@
     "idle_dualwield_reject": "3c5ce896-6772-4a30-b3b6-062d387f4762 (first matte re-roll, suspected DUAL-WIELD, superseded)",
     "idle_alt_matte": "fefcf114-d0b8-40bb-8305-5041f4223e6f (matte idle, = old local kitsune-tanto-idle-v2.mp4; chosen idle is newest 7d774dfa = old idle-v3)"
   },
-  "note": "QA 2026-07-24 (Fable5 fork): CONTRADICTS the earlier 'MATTE SINGLE-BLADE 10/10' claim. Verified against SOURCE pixels: only idle + victory are MATTE and PASS (keyed+encoded). The other 8 states (strike_a/b, throw_a/b, block_a/b, hit, ko) all render a GLOWING gold/yellow-green blade (matte-lock violation, green-key hazard) and several carry baked VFX (strike_a slash-arc, block_b energy-beam, hit head muzzle-flash) and/or back-turn rotations (throw_a/b, block_b). The ANCHOR PNG (kitsune-tanto-anchor-green.png) ALSO glows. => 8/10 need MATTE, facing-locked, effect-free re-rolls before wiring. idle cal {h:101.21,bottom:-0.49,left:46.18}, victory cal {h:112,bottom:-1.45,left:47.33}. Matte proofs in qa-boss/proc/kitsune-tanto/."
+  "note": "QA 2026-07-24 (Fable5 fork): CONTRADICTS the earlier 'MATTE SINGLE-BLADE 10/10' claim. Verified against SOURCE pixels: only idle + victory are MATTE and PASS (keyed+encoded). The other 8 states (strike_a/b, throw_a/b, block_a/b, hit, ko) all render a GLOWING gold/yellow-green blade (matte-lock violation, green-key hazard) and several carry baked VFX (strike_a slash-arc, block_b energy-beam, hit head muzzle-flash) and/or back-turn rotations (throw_a/b, block_b). The ANCHOR PNG (kitsune-tanto-anchor-green.png) ALSO glows. => 8/10 need MATTE, facing-locked, effect-free re-rolls before wiring. idle cal {h:101.21,bottom:-0.49,left:46.18}, victory cal {h:112,bottom:-1.45,left:47.33}. Matte proofs in qa-boss/proc/kitsune-tanto/.",
+  "matte_moderation_test": {
+    "media": "e742b67a-404c-4eac-8515-d52c4fdb561b",
+    "raw": "qa-boss/raw/kitsune-matte-test.mp4",
+    "anchor_used": "ddb4fa54 (browser tile = byte-same as qa-boss/anchors/kitsune-tanto-anchor-green.png)",
+    "verdict": "GLOW IS IN THE ANCHOR - CONFIRMED. Fired strike_a with a quadruple matte lock (MATTE/no glow/no aura/dull/never brightens); the output tanto still blazes gold-green from frame 0. Viewed the anchor full-size: the source art itself has a flaming gold blade WITH GREEN WISPS (unkeyable by definition) + a second-blade ambiguity. NO prompt can override a reference. FIX OPTIONS (Tim call): (A) ~1-2cr nano_banana anchor edit (same fox, plain matte steel tanto, no glow) - needs credit approval; (B) free local pixel-surgery on the blade region (risk: residue artifacts Seedance amplifies); (C) park kitsune, continue queue. Kit re-fires BLOCKED until the anchor is fixed.",
+    "qa": "blocked:anchor-glow — Tim decision needed"
+  }
 }

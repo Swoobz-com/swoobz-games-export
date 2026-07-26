@@ -34,7 +34,131 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★ SESSION 5 START HERE (written end of session 4, 2026-07-24 afternoon) ★★★★★
+### ★★★★★★ SESSION 6 START HERE (written end of session 5, 2026-07-26 ~03:15, for a fresh Opus 5 session) ★★★★★★
+
+You are the ORCHESTRATOR (plan / brief / verify / review / commit). You run generation
+in YOUR loop (browser Higgsfield Unlimited, ZERO credits); Opus builder subagents do
+keying + wiring from implementation-grade briefs, and you re-run every gate yourself
+and live-drive before committing. Never trust a builder's self-report. Full operating
+model in §0 below.
+
+**WHERE THE GAME IS (HEAD `913b815`, 157/157 vitest, engines byte-frozen):**
+The campaign has **5 of 10 nodes fighting with their OWN animated character** and
+playable-after-beaten: node 5 SATOSHI ODACHI, 6 ECLIPSE OFUDA, 7 IR-37 PINK TESSEN,
+9 LADY KUROTACHI are LIVE + wired; node 4 HOLLOW PALE kit is 11/13 generated (wiring
+pending). Nodes still on VOLTA stand-in visuals: 1 (sora), 2 (kitsune - BLOCKED),
+3 (thorn), 8 (ir56), 10 (ir48 finalboss - not started).
+
+**WHAT SESSION 5 SHIPPED (commits, newest first):**
+- `913b815` phase 24e: satoshi special_2 = ODACHI QUAKE (cyclone retired; keyed +
+  drop-in swapped into his wired kit; left-edge feather f44-54; contact 2417ms).
+- `2062dee` phase 24d: ECLIPSE (node 6, **faces:'left'** - first left-facing boss) +
+  LADY KUROTACHI (node 9) WIRED as live node enemies + playable-after-beaten. Gates
+  re-run by orchestrator, live-driven (qa-boss/wire2-drive.mjs + wire2-shots/, money
+  to the cent 5.00 x3.51 -> -5.00, bank 995.00).
+- `6adafd9` LK (13/13) + eclipse (8 energy takes) KEYED + ENCODED via two background
+  Opus keyer agents, orchestrator-verified (matte proofs viewed, alpha_mode=1).
+- `4f744a2` / `e2a26c8` LK kit + eclipse energy wave generation complete.
+- `7d8f498` a prior handoff (night-shift). THIS block supersedes it.
+
+**LIVE IN-FLIGHT AT HANDOFF — HOLLOW PALE (node 4) kit, 11/13 generated (all in
+`qa-boss/hollow-pale-clipdata.json`, raws in qa-boss/raw/hollow-pale-*.mp4; NOT keyed,
+NOT wired yet):** idle✓ strike_a(v2 low-wind-up)✓ strike_b(v1 primary +top-left
+feather f32-40; v2=b-take) throw_a✓ throw_b✓ block_a(wing-wrap shield)✓
+block_b(blade-tucks-behind note)✓ hit✓ ko✓ victory✓ + **special_1 (PALE HARVEST)
+RENDERING at handoff**. STILL TO FIRE: special_1 (harvest — poll it), special_2 (INK
+BLOOM), special_3 (SMOKE SPIKE) — prompts in qa-boss/prompts/hollow-pale.md. Anchor
+in the browser slot is hollow-pale (media fd71787f in the picker / 2387650b MCP);
+both moderation gates PASSED (upload + generation). HIS BONE-BLADE ARM has eclipse's
+overlong-weapon geometry, so EVERY blade action already carries the "below his antlers
+/ below shoulder height / low wind-up" caps — keep them on sp2/sp3.
+
+**EXACT NEXT QUEUE (one render at a time, ~5-12min each, QA prev during next, ledger
+every verdict):**
+1. Finish HOLLOW PALE: poll special_1, fire special_2 (INK BLOOM), fire special_3
+   (SMOKE SPIKE). Then his kit is 13/13.
+2. KEY + WIRE hollow-pale (node 4) — dispatch the proven keyer + wiring Opus briefs
+   (templates: the session-5 agent prompts; green pipeline = key-idle-clips.mjs +
+   green-despill + green-neutralize; faces:'right', NO flip). Apply the recorded
+   feathers (strike_a v1 was demoted — strike_a v2 is primary; strike_b v1 primary
+   +top-left feather f32-40). Then it's node 4 live.
+3. IR48 HEX PAPER LORD (node 10, FINALBOSS) kit — 13 clips. Anchors exist
+   (qa-boss/anchors/ir48-*), prompts authored (qa-boss/prompts/ir48-hex-paper-lord.md).
+   Upload his anchor via the MCP-upload -> browser-file-input method (see below), fire
+   idle first as a moderation test.
+4. STRAGGLERS: ir56 throw_a + special_3 re-fires (2); ir37 strike_a v3 + throws/blocks
+   energy (5); sora/kitsune/thorn specials (9 — Tim: all bosses get specials).
+5. WIRE WAVE 3 as kits complete (sora->n1, thorn->n3, ir56->n8, ir48->n10, kitsune->n2
+   if unblocked). Same phase-24 pattern (manifest + node fighterId flip in ONE commit).
+6. THEN: `input/MK FINAL/` roster (static cards) + its 134 backgrounds (animate like
+   the phase-22 arena loops).
+
+**BLOCKED — NEEDS TIM'S DECISION: KITSUNE (node 2).** The matte moderation test PROVED
+the tanto glow is BAKED INTO THE ANCHOR ART (gold-green flame aura with literal green
+wisps on the blade — unkeyable; a quadruple matte-lock prompt could not override the
+reference). Options recorded in kitsune-tanto-clipdata.json: (A) ~1-2cr nano_banana
+anchor edit — plain matte steel tanto, no glow (needs Tim's credit approval); (B) free
+local pixel-surgery on the blade region (Seedance-amplification risk); (C) keep parked.
+Do NOT re-fire kitsune until Tim rules. **NEW LAW: a defect baked into the ANCHOR (glow,
+dual-blade, wrong facing) can never be prompted away — VIEW the anchor full-size before
+firing a kit, and fix the anchor, not the prompt.**
+
+**★ SESSION-5 DOCTRINE ADDENDA (all binding, added to the session-4 doctrines below):**
+1. **PHANTOM-PROJECTILE / INVISIBLE-FORCE**: hit-reaction prompts attract a phantom
+   object flying in (LK got one twice). Fix = name the cause "an INVISIBLE force" +
+   "NOTHING enters the frame, no object/weapon/debris/projectile". If it still appears
+   only in the LEAD frames, HEAD-TRIM (LK hit_v2 = start at f10) beats a re-roll.
+2. **HORIZONTAL-BAR PARRY LAW**: a long blade (eclipse katana, hollow-pale bone-scythe)
+   crosses the top edge on ANY vertical hold. Parries must be explicitly HORIZONTAL /
+   "level like a bar" / "below the antlers". (LK block_b, eclipse block_a v3.)
+3. **ONE-ACTION LOCK**: energy verbs make some chars (eclipse) do a spinning multi-hit
+   kata. Append "It is ONE single action and nothing else: does NOT spin, NOT turn,
+   NOT repeat, back NEVER faces camera, faces the SAME direction the entire clip."
+4. **PROP-CENTRIC IDLE (re-confirmed)**: "stalks in place / breathes / predator" =
+   body-language verbs = a hidden 180 turn. Idle must be PLANTED prop business
+   (finger drums, weapon lift+set, weight shift, feet never move). Eclipse needed v4.
+5. **STEEL-BLADE DRIFT is a Seedance lighting prior**: a horizontal blade renders
+   silver even on a black-blade char. A blade-colour lock ("glossy BLACK blade, crimson
+   rings, NOT silver/steel/gold") pulls rings + wraps back fully but only reduces the
+   blade to an edge highlight. (LK strike_b v4.)
+6. **MOTION-FIRST SPECIALS**: containment wording that matches the resting pose makes
+   Seedance paint a no-action glow on the static weapon. The acting line must LEAD with
+   the violent cut; ignition happens DURING it. Also "snaps blade DOWN" can make f0
+   start at the top of the stroke — name the raise INSIDE the clip. (LK special_1 v3.)
+7. **16:9 SOURCES ARE FINE**: the keyer crops each clip to its action bbox + cal.json
+   normalizes geometry, so an accidental 16:9 render is usable (eclipse strike_b). The
+   1:1 rule is for ANCHOR PLATES, not shipped webms. STILL: after any UI mishap verify
+   4s / 1:1 / 720p + button reads "GenerateUnlimited" before firing.
+8. **"RIGHTS VERIFICATION REQUIRED" GATE (NEW platform behavior)**: Higgsfield now
+   randomly blurs some outputs behind a "Rights verification required" / "Confirm
+   rights" modal. Click "I own rights to this content" -> "I confirm" (Tim's own art;
+   same attestation precedent as the session-3 upload agreement). It also DELAYS
+   show_generations indexing by a few min — poll the tab's Processing badge, not the MCP.
+9. **CHROME WINDOW OS-SHRINK**: the automation window can collapse to 301x110 and CDP
+   resize_window reports success but does NOT take (the whole create form sits at 0x0).
+   Generation is impossible until TIM manually restores the window. While blocked, do
+   the keying + wiring of already-generated kits via background agents (that's how the
+   night shift shipped 24d/24e). Poll window size with a JS innerWidth check.
+
+**OPERATIONAL FIRE LOOP (proven this session, ONE javascript_tool call sets prompt):**
+Browser tab titled "Create AI Videos ... | Higgsfield", Seedance 2.0, 1:1, 4s, 720p,
+Unlimited ON. Set the Lexical prompt by: focus -> `document.execCommand('selectAll')`
+-> `execCommand('insertText', false, TEXT.slice(0,240))` -> loop the rest in 240-char
+chunks with ~300-400ms settle waits -> verify `el.textContent===TEXT` (a bare delete
+is a Lexical no-op; ALWAYS selectAll+replace; a single long insert SILENTLY REVERTS).
+Fire: `[...buttons].find(b=>/GenerateUnlimited/.test(b.textContent)).click()` (guard on
+swOn && aspectOk). ANCHOR SWAP without OS dialog: MCP `media_upload` the plate -> curl
+PUT to presigned -> `media_confirm` -> in the browser click the "Upload media" dropzone
+-> in JS `input=document.querySelector('input[type=file]'); input.files=dt.files;
+input.dispatchEvent(new Event('change'))` with the CloudFront blob -> wait for content
+verify -> click the newest Uploads tile (VERIFY identity via the fired gen's
+medias[0].url, download+view). Poll a render with a background `sleep 300-720` + a
+zoomed screenshot of the top result card (Processing/Generating/rendered).
+
+(The session-4/5 doctrine + method blocks below remain valid; this SESSION 6 block is
+the resume point and supersedes their next-step lists.)
+
+### ★★★★★ SESSION 5 START HERE (written end of session 4, 2026-07-24 afternoon) — SUPERSEDED BY SESSION 6 ABOVE ★★★★★
 
 **WHERE THE GAME IS (HEAD ~2507ccf, 157/157 vitest, engine byte-frozen as always):**
 - **Phase 24 SHIPPED (706effe): SATOSHI ODACHI (node 5) + IR-37 PINK TESSEN (node 7)

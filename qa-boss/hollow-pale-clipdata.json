@@ -1,0 +1,100 @@
+{
+  "character": "hollow-pale",
+  "node": 4,
+  "boss": true,
+  "chroma": "green",
+  "anchor_media": "2387650b (MCP) / browser-injected via picker file-input, content-check PASSED",
+  "model": "seedance_2_0",
+  "aspect": "1:1",
+  "resolution": "720p",
+  "duration": 4,
+  "keyed": false,
+  "encoded": false,
+  "clips": {
+    "idle": {
+      "media": "4e729a56-254d-4f65-9162-9c313dca3a4a",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260725_190924_4e729a56-254d-4f65-9162-9c313dca3a4a.mp4",
+      "raw": "qa-boss/raw/hollow-pale-idle.mp4",
+      "note": "PASS (sheet + f0/f95 seal viewed): planted right-facing profile, bone-scythe arm rises/settles with predatory patience, smoke curls+breathes, claw flexes, no turn/step, all inside frame, seal holds (smoke fluidity acceptable). On-model: antler crown, skull grin, ink ribs, wing-scythe. Faint green tint between fangs = screen-through, despill clears.",
+      "qa": "pass"
+    },
+    "strike_a_v1": {
+      "media": "4a89e34d-7fe8-4486-b217-67e550749f0f",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260725_192756_4a89e34d-7fe8-4486-b217-67e550749f0f.mp4",
+      "raw": "qa-boss/raw/hollow-pale-strike-a.mp4",
+      "note": "CONDITIONAL (feather-fallback): guillotine reads violent (coil -> whip -> rip -> recovery, end==start, smoke whipping) BUT the wind-up whips the bone-blade off the TOP-LEFT corner ~f20-f28 (solid crossing = eclipse strike_b wind-up class). Transient 3/4 open during the coil = accepted dynamic wind-up (LK throw_a precedent). v2 authored with the proven low-wind-up lock.",
+      "qa": "conditional:windup-corner-cross — v2 queued"
+    },
+    "strike_b_v1": {
+      "media": "01a406ea-be12-4a25-822b-a662e3d1a7c0",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260725_194624_01a406ea-be12-4a25-822b-a662e3d1a7c0.mp4",
+      "raw": "qa-boss/raw/hollow-pale-strike-b.mp4",
+      "note": "CONDITIONAL (feather-fallback): gut-hook reads brutal (sink into smoke -> explosive rising rip -> settle, end==start) BUT the hook peak crosses the TOP-LEFT corner ~f32-f40 (strike_a class; the shoulder-height cap overshot). Faint green glints in eye sockets f48 = screen reflection, despill handles. v2 queued with the antler-cap lock. RULING: v1 = PRIMARY with top-left 48px feather on ~f32-f40 (bounded crossing); v2 = b-take. No v3 (two usable takes, marathon moves on; Tim veto on preview).",
+      "qa": "primary (top-left feather f32-f40)"
+    },
+    "strike_a": {
+      "media": "6424cb63-86aa-4470-9dbe-e3f2f1d54e8e",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260725_200556_6424cb63-86aa-4470-9dbe-e3f2f1d54e8e.mp4",
+      "raw": "qa-boss/raw/hollow-pale-strike-a-v2.mp4",
+      "note": "PRIMARY (v2, low-wind-up lock) - PASS (sheet viewed): blade drawn back LOW at the hip (tip down - the lock worked, 3rd doctrine confirmation), one violent guillotine cut through the front with smoke whip, all tips inside, profile held, end==start. v1 (strike_a_v1) = feather-fallback.",
+      "qa": "pass"
+    },
+    "strike_b_v2": {
+      "media": "99e32482-67f9-4763-8f8c-0e6f1fda4a97",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260725_202419_99e32482-67f9-4763-8f8c-0e6f1fda4a97.mp4",
+      "raw": "qa-boss/raw/hollow-pale-strike-b-v2.mp4",
+      "note": "B-TAKE: the antler cap only partially held (blade above antlers ~f12 with top proximity, left proximity ~f24) and the action reads busier than v1 (blade ping-pongs through positions). Usable with feathers but v1 reads cleaner.",
+      "qa": "b-take"
+    },
+    "throw_a": {
+      "media": "ffb2963a-4961-40e5-96f4-441d8a3c157c",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_011707_ffb2963a-4961-40e5-96f4-441d8a3c157c.mp4",
+      "raw": "qa-boss/raw/hollow-pale-throw-a.mp4",
+      "note": "PASS (sheet viewed): claw SNAPS forward -> seizes high through empty air -> violent wrench down into the smoke -> recover to anchor. Bone-blade stays cocked low the entire clip (lock worked), no phantom, single figure, tips inside, end==start.",
+      "qa": "pass"
+    },
+    "throw_b": {
+      "media": "afe8ed8e-ea1d-4987-8382-481bc8a0167b",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_013540_afe8ed8e-ea1d-4987-8382-481bc8a0167b.mp4",
+      "raw": "qa-boss/raw/hollow-pale-throw-b.mp4",
+      "note": "PASS (sheet viewed): smoke SURGES as he lunges forward antlers-first like a charging stag, violent smoke plume trailing (fades before the left edge, semi-transparent tendrils key fine), profile locked, no phantom, tips inside, drifts back to anchor, end==start.",
+      "qa": "pass"
+    },
+    "block_a": {
+      "media": "cfe96674-c98b-4866-98a3-d0c0238a1345",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_015406_cfe96674-c98b-4866-98a3-d0c0238a1345.mp4",
+      "raw": "qa-boss/raw/hollow-pale-block-a.mp4",
+      "note": "PASS (sheet viewed): the shield rendered as the wing-blade WRAPPING over his shoulders in a defensive huddle (great body-horror read), held brace, subtle counter snap f66-72, tips inside (blade at antler height under the top edge), profile locked, no phantom, end==start.",
+      "qa": "pass (note: wing-wrap shield read, subtle counter)"
+    },
+    "block_b": {
+      "media": "98f24846-6e8c-4449-8f8e-cf7f600af37b",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_021234_98f24846-6e8c-4449-8f8e-cf7f600af37b.mp4",
+      "raw": "qa-boss/raw/hollow-pale-block-b.mp4",
+      "note": "PASS w/ note (sheet viewed): catch pulls the blade in across the chest (absorb reads), counter renders as a claw-arm shove with the blade briefly tucked BEHIND his body f60-72 before returning (visibility dip, not a morph - blade returns to anchor). Contained, profile locked, no phantom, end==start.",
+      "qa": "pass (note: blade tucked behind during counter)"
+    },
+    "hit": {
+      "media": "a7e47a16-7896-4a1a-bb09-b52752cbcf80",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_023114_a7e47a16-7896-4a1a-bb09-b52752cbcf80.mp4",
+      "raw": "qa-boss/raw/hollow-pale-hit.mp4",
+      "note": "PASS (sheet viewed): NO phantom (the LK invisible-force + nothing-enters lock worked first try) - head/torso whip back, smoke scatters off the waist, hard stagger, clean recover to anchor, empty air throughout, tips inside, profile held.",
+      "qa": "pass"
+    },
+    "ko": {
+      "media": "5827a8c6-96eb-4849-8978-d0405b6049fd",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_024957_5827a8c6-96eb-4849-8978-d0405b6049fd.mp4",
+      "raw": "qa-boss/raw/hollow-pale-ko.mp4",
+      "note": "PASS (sheet viewed): the smoke thins and sinks, he crumples down into it and lies flat with the smoke settling over him like a shroud - superb smoke-death read. Cause-free, ends collapsed + holds motionless, profile held, everything inside frame. OFF-ANCHOR by design; head-trim handling at keying per ko convention.",
+      "qa": "pass"
+    },
+    "victory": {
+      "media": "f52cc470-ba7c-4db1-9cba-94486257a6bd",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_030828_f52cc470-ba7c-4db1-9cba-94486257a6bd.mp4",
+      "raw": "qa-boss/raw/hollow-pale-victory.mp4",
+      "note": "PASS (sheet viewed): smoke SWELLS, he rises taller spreading the wing-scythe arm + clawed hand wide in a skeletal display, antlered head tips back (silent laugh), sinks back to anchor. Antlers + blade tip stay below the top edge with margin (cap held), profile locked, no phantom, end==start. Menacing wing-display read.",
+      "qa": "pass"
+    }
+  },
+  "moderation": "BOTH GATES PASSED 2026-07-25: upload content-check clean (where onryo hard-blocked) + idle generated with no nsfw flag. The sanitized redesign works."
+}
