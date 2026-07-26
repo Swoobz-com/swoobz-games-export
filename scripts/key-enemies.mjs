@@ -47,13 +47,28 @@ const POCKET_TOLERANCE = 45;
 // Self-check: after keying, no image may keep more than this many bg-colored pixels. This bakes
 // the defect class into the script permanently (a regression exits nonzero, never ships silently).
 const SELF_CHECK_MAX = 150;
+// INTERIOR GREEN KILL (opt-in per character via `interiorGreen: true`, phase 24f).
+// The three passes above only ever cut pixels that MATCH the backdrop within a tolerance, and the
+// despill only touches a 4px ring around a transparent pixel. That is correct for the 9 opaque
+// characters, but HOLLOW PALE's lower body is SEMI-TRANSPARENT BLACK SMOKE: the studio green shines
+// THROUGH it, producing mid-green pixels (e.g. rgb(54,187,44)) that are far enough from the backdrop
+// median to survive both the flood (BG_TOLERANCE) and the pocket cut (POCKET_TOLERANCE), and that sit
+// too deep inside the matte for the edge-ring despill to reach. They shipped as a bright green blob
+// in the smoke skirt + green slivers between the rib-blades. Fix = proper alpha estimation on the
+// green excess: fully-transmitted pixels become transparent, thin smoke becomes PARTIALLY transparent
+// (which is what smoke over a screen physically is), and every survivor has its green chroma zeroed
+// so no tint remains on any background. OPT-IN ONLY — ir56-lion-serpent's olive armor and
+// thorn-warden's foliage own real green and must never be touched (verified byte-identical output).
+const IG_LO = 20;   // green excess at/below which a pixel is just spill -> neutralize, keep opaque
+const IG_HI = 120;  // green excess at/above which a pixel is pure transmitted screen -> alpha 0
 
 // source file (relative to SRC_BASE), enemy id, PFP file.
 const ENEMIES = [
   { dir: 'map 1', base: 'Sora Yari.png', id: 'sora-yari', pfp: 'Sora Yari PFP.png' },
   { dir: 'map 2', base: 'Kitsune Tanto.png', id: 'kitsune-tanto', pfp: 'Kitsune Tanto PFP.png' },
   { dir: 'map 3', base: 'Thorn_Warden.png', id: 'thorn-warden', pfp: 'Thorn_Warden PFP.png' },
-  { dir: 'map 4', base: 'Onryo Katana.png', id: 'onryo-katana', pfp: 'Onryo Katana PFP.png' },
+  // interiorGreen: floats on semi-transparent black smoke -> the screen shines THROUGH the body.
+  { dir: 'map 4', base: 'Hollow_Pale.png', id: 'hollow-pale', pfp: 'Hollow_Pale PFP.png', interiorGreen: true },
   { dir: 'map 5', base: 'Satoshi Odachi.png', id: 'satoshi-odachi', pfp: 'Satoshi Odachi PFP.png' },
   { dir: 'map 6', base: 'Eclipse Ofuda.png', id: 'eclipse-ofuda', pfp: 'Eclipse Ofuda PFP.png' },
   { dir: 'map 7', base: 'IR-37 Pink Tessen.png', id: 'ir37-pink-tessen', pfp: 'IR-37 Pink Tessen PFP.png' },
@@ -124,7 +139,7 @@ function dilate(mask, width, height, r) {
   return out;
 }
 
-function key(pngIn) {
+function key(pngIn, opts = {}) {
   const png = pngIn;
   const { width, height, data } = png;
   const n = width * height;
@@ -270,6 +285,35 @@ function key(pngIn) {
     }
   }
 
+  // --- 4b. Interior green kill (opt-in; see IG_LO/IG_HI). Alpha estimation on the green excess. ---
+  let igCut = 0;
+  let igFaded = 0;
+  let igNeutral = 0;
+  if (opts.interiorGreen) {
+    for (let p = 0; p < n; p += 1) {
+      const i = p * 4;
+      const a0 = data[i + 3];
+      if (a0 === 0) continue;
+      const R = data[i];
+      const G = data[i + 1];
+      const B = data[i + 2];
+      const mrb = Math.max(R, B);
+      const excess = G - mrb;
+      if (excess <= 0) continue;
+      data[i + 1] = mrb; // zero the green chroma on every survivor
+      if (excess >= IG_HI) {
+        data[i + 3] = 0;
+        igCut += 1;
+      } else if (excess > IG_LO) {
+        const t = (excess - IG_LO) / (IG_HI - IG_LO); // 0..1 greenness
+        data[i + 3] = Math.round(a0 * (1 - t));
+        if (data[i + 3] === 0) igCut += 1; else igFaded += 1;
+      } else {
+        igNeutral += 1;
+      }
+    }
+  }
+
   // --- 5. Self-check: count kept pixels still matching the backdrop (should be ~0). ---
   let bgLikeKept = 0;
   for (let p = 0; p < n; p += 1) {
@@ -278,7 +322,10 @@ function key(pngIn) {
     if (colorDist(data[i], data[i + 1], data[i + 2], bgR, bgG, bgB) <= POCKET_TOLERANCE) bgLikeKept += 1;
   }
 
-  return { bg: [bgR, bgG, bgB], comp: bestSize, edge: keptEdge, despilled, pocketPx, bgLikeKept };
+  return {
+    bg: [bgR, bgG, bgB], comp: bestSize, edge: keptEdge, despilled, pocketPx, bgLikeKept,
+    igCut, igFaded, igNeutral,
+  };
 }
 
 // Composite the keyed PNG over dark | white side by side, downsampled for a compact QA sheet.
@@ -331,7 +378,7 @@ for (const e of ENEMIES) {
   const srcPath = join(SRC_BASE, e.dir, e.base);
   const pfpPath = join(SRC_BASE, e.dir, e.pfp);
   const png = PNG.sync.read(readFileSync(srcPath));
-  const stats = key(png);
+  const stats = key(png, { interiorGreen: e.interiorGreen === true });
 
   const tmpPng = join(TMP_DIR, `${e.id}-keyed.png`);
   writeFileSync(tmpPng, PNG.sync.write(png));
@@ -346,7 +393,7 @@ for (const e of ENEMIES) {
   ffmpeg(['-y', '-i', pfpPath, '-vf', 'scale=512:512:flags=lanczos', '-c:v', 'libwebp', '-q:v', '88', '-compression_level', '6', outPfp]);
 
   console.log(
-    `${e.id.padEnd(20)} bg=(${stats.bg.join(',')}) comp=${stats.comp}px pocket=${stats.pocketPx}px edge=${stats.edge}px despilled=${stats.despilled}px bgLikeKept=${stats.bgLikeKept}px  [${e.dir}/${e.base}]`,
+    `${e.id.padEnd(20)} bg=(${stats.bg.join(',')}) comp=${stats.comp}px pocket=${stats.pocketPx}px edge=${stats.edge}px despilled=${stats.despilled}px bgLikeKept=${stats.bgLikeKept}px${e.interiorGreen ? ` igCut=${stats.igCut}px igFaded=${stats.igFaded}px igNeutral=${stats.igNeutral}px` : ''}  [${e.dir}/${e.base}]`,
   );
   if (stats.bgLikeKept > SELF_CHECK_MAX) offenders.push(`${e.id} (${stats.bgLikeKept}px)`);
 }

@@ -5,9 +5,12 @@ import type { Move } from '../engine/fightEngine';
 import type { FighterDef, FighterState } from './types';
 import { ECLIPSE_OFUDA } from './eclipse-ofuda';
 import { GORVAK } from './gorvak';
+import { HOLLOW_PALE } from './hollow-pale';
 import { IR37_PINK_TESSEN } from './ir37-pink-tessen';
 import { LADY_KUROTACHI } from './lady-kurotachi';
 import { SATOSHI_ODACHI } from './satoshi-odachi';
+import { SORA_YARI } from './sora-yari';
+import { THORN_WARDEN } from './thorn-warden';
 import { VOLTA } from './volta';
 
 export type { ClipCal, FighterClip, FighterDef, FighterFxImpact, FighterPortrait, FighterState } from './types';
@@ -25,6 +28,9 @@ export const FIGHTERS: Record<string, FighterDef> = {
   'ir37-pink-tessen': IR37_PINK_TESSEN,
   'eclipse-ofuda': ECLIPSE_OFUDA,
   'lady-kurotachi': LADY_KUROTACHI,
+  'hollow-pale': HOLLOW_PALE,
+  'sora-yari': SORA_YARI,
+  'thorn-warden': THORN_WARDEN,
 };
 
 /** Resolve a fighter by id. THROWS on an unknown id — no silent fallback (contract §4): a

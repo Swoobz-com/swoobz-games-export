@@ -88,10 +88,10 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // NOTE: the demo cosmetic rewards (AUTOMAT packs on nodes 2 + 8) were REMOVED for now
   // (Tim, 2026-07-21). The CampaignReward type, `reward?` field, UI surfaces and the webp
   // assets all remain wired — re-adding a reward is one registry-row edit.
-  { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'docks', enemy: { id: 'sora-yari', name: 'SORA YARI' } },
+  { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 19200n, fighterId: 'sora-yari', arenaId: 'docks', enemy: { id: 'sora-yari', name: 'SORA YARI' } },
   { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'torii', enemy: { id: 'kitsune-tanto', name: 'KITSUNE TANTO' } },
-  { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'bamboo', enemy: { id: 'thorn-warden', name: 'THORN WARDEN' } },
-  { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'snowfang', enemy: { id: 'onryo-katana', name: 'ONRYO KATANA' } },
+  { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, multBps: 19200n, fighterId: 'thorn-warden', arenaId: 'bamboo', enemy: { id: 'thorn-warden', name: 'THORN WARDEN' } },
+  { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, multBps: 19200n, fighterId: 'hollow-pale', arenaId: 'snowfang', enemy: { id: 'hollow-pale', name: 'HOLLOW PALE' } },
   { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'satoshi-odachi', arenaId: 'kawa', enemy: { id: 'satoshi-odachi', name: 'SATOSHI ODACHI' } },
   { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'eclipse-ofuda', arenaId: 'shrine', enemy: { id: 'eclipse-ofuda', name: 'ECLIPSE OFUDA' } },
   { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: 42530n, fighterId: 'ir37-pink-tessen', arenaId: 'pagoda', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
