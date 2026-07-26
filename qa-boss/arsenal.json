@@ -1,0 +1,34 @@
+{
+  "_doc": "CHARACTER ARSENAL CONTRACT (Tim, 2026-07-26): what each boss actually WIELDS, so a prompt can never ask a swordsman to shoot something. Every clip prompt is checked against this by scripts/check-prompt-coherence.mjs BEFORE it is fired, and rendered side-by-side with the anchor art in qa-boss/prompt-review.html. ROSTER LAW: this is a MELEE roster - every boss fights hand-to-hand with a carried weapon or their own body. NOTHING in this game launches, throws, fires or drops a separate object. Effects are allowed ONLY when they stay attached to the character or to the weapon he is holding.",
+  "universalBanned": {
+    "_why": "These read as a projectile / detached prop regardless of character. hollow-pale special_3 v1 ('smoke SPIKE in front of him') rendered as a floating flaming object = 'one shoots a rocket' (Tim). hollow-pale throw_a v2 ('CLAMPS onto an unseen enemy') rendered the enemy as a brown ball in his fist.",
+    "phrases": [
+      "rocket", "missile", "projectile", "fireball", "cannon", "gun", "shoot", "shoots", "shooting",
+      "launch", "launches", "hurls it", "throws it", "flies toward", "travels toward", "shoots outward",
+      "beam", "laser", "blast wave", "energy ball", "orb", "sphere of energy",
+      "in the air in front of", "onto the air", "floating in front of", "hovering", "detaches", "breaks free"
+    ],
+    "grabFraming": {
+      "_why": "A SOLO clip that seizes an 'unseen enemy' makes the model PAINT the enemy as a visible object.",
+      "phrases": ["clamps onto", "seizes an unseen", "grabs an unseen", "grips an unseen", "onto an unseen enemy"],
+      "fix": "Make it a self-contained gesture with NO target: rake / smash / barge / sweep THROUGH EMPTY AIR, claw open and empty, plus 'no object, no ball, nothing in his hand'."
+    },
+    "requiredEffectAnchoring": {
+      "_why": "An effect must be visibly PART OF the character or the weapon in his hand.",
+      "mustContainOneOf": ["around his own body", "around his body", "against his own", "on the blade", "along the blade", "traces the blade", "in his hand", "hugs his frame", "attached to him", "on the fan", "close around his body", "off his body"],
+      "appliesTo": "special_*"
+    }
+  },
+  "characters": {
+    "sora-yari": { "node": 1, "wields": ["long spear (yari)"], "body": ["armored duelist"], "effectPalette": ["white", "steel-blue"], "banned": ["sword-only actions", "fan actions", "claw actions"] },
+    "kitsune-tanto": { "node": 2, "wields": ["single gold tanto (short blade)"], "body": ["fox spirit", "tails"], "effectPalette": ["white", "gold"], "banned": ["dual blades", "spear actions", "glowing blade (BAKED INTO ANCHOR - blocked)"] },
+    "thorn-warden": { "node": 3, "wields": ["thorn club / heavy staff"], "body": ["antlered forest warden"], "effectPalette": ["white", "amber"], "banned": ["blade-draw actions", "fan actions"] },
+    "hollow-pale": { "node": 4, "wields": ["left arm fused into a serrated BONE WING-SCYTHE", "clawed right hand"], "body": ["chalk-white yokai", "antler crown", "lower body is BLACK SMOKE, no legs"], "effectPalette": ["pale-gold", "white", "crimson", "black smoke"], "banned": ["dropping the weapon (it IS his arm)", "any thrown or launched smoke/object", "a smoke shape that stands apart from him"], "note": "His smoke must ERUPT AROUND HIS OWN BODY. A smoke shape placed beside/in front of him renders as a rocket." },
+    "satoshi-odachi": { "node": 5, "wields": ["plain steel odachi (greatsword)"], "body": ["silver-haired ronin", "straw cape"], "effectPalette": ["white", "gold-white"], "banned": ["spin/cyclone attacks (720p smears - Tim rejected)", "fan actions"] },
+    "eclipse-ofuda": { "node": 6, "faces": "left", "wields": ["long katana", "ofuda paper charms"], "body": ["dark robe", "ponytail"], "effectPalette": ["white", "pale-gold"], "banned": ["any vertical blade hold (her katana crosses the top edge)", "spinning multi-hit kata"] },
+    "ir37-pink-tessen": { "node": 7, "wields": ["large war-fan (tessen)", "short dagger"], "body": ["black + hot-pink armor"], "effectPalette": ["pink", "white"], "banned": ["sword-draw actions", "spear actions"] },
+    "ir56-lion-serpent": { "node": 8, "wields": ["heavy cleaver", "serpent tail"], "body": ["gold + GREEN armored lion-mech"], "effectPalette": ["green", "gold", "white"], "chroma": "MAGENTA (his body is green)", "banned": ["green-screen chroma (body is green)"] },
+    "lady-kurotachi": { "node": 9, "wields": ["black-bladed sword", "crimson rings"], "body": ["black + pink/crimson trim"], "effectPalette": ["crimson", "white"], "banned": ["silver/steel blade colour (blade is BLACK)"] },
+    "ir48-hex-paper-lord": { "node": 10, "wields": ["large deep-crimson war-fan with hexagon-cut border", "short black-bladed sword held REVERSED", "white paper talismans on his kasa hat"], "body": ["red oni demon face", "wide black pagoda kasa hat", "black + deep-crimson armor"], "effectPalette": ["crimson", "gold", "white"], "banned": ["dropping or swapping the fan/sword", "a talisman placed loose in the air (must stay in his hand or on the fan)"], "note": "FINAL BOSS. His paper charms are the signature - keep them swirling AROUND HIM or pinched in his hand, never floating free." }
+  }
+}

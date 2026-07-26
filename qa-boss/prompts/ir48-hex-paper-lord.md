@@ -102,11 +102,16 @@ WHITE, NEVER green, small and tight against his body in the CENTER with a wide g
 they do NOT orbit outward, NOT a ring.
 
 ## special_2 (TALISMAN BRAND) — crimson/white, contained
-SPECIAL FINISHER (talisman brand): he whips a single glowing white paper talisman off his hat brim with
-the fan and SLAPS it onto the air in front of him at chest height, where it flares crimson in a SMALL
-compact burst no bigger than his head and burns to nothing, then he settles back. The flare is CRIMSON
-and WHITE, NEVER green, tiny and central with a wide green margin on all four edges, NOT a beam, NOT a
-ring.
+# REWRITTEN 2026-07-26 (character-coherence gate, Tim): the v1 line put the talisman "onto the air in
+# front of him" = a DETACHED floating object, the exact pattern that made hollow-pale's special read as
+# a launched rocket. The talisman now stays IN HIS OWN HAND and flares against his own fan.
+SPECIAL FINISHER (talisman brand): he snatches a single glowing white paper talisman off his hat brim
+and CLAPS it flat against the face of his own war-fan, HOLDING it there in his hand as it flares crimson
+in a SMALL compact burst no bigger than his head and burns to nothing between his fingers, then he
+settles back. The talisman stays PINCHED IN HIS HAND against the fan the whole time and the flare
+happens ON the fan, touching his own body. Nothing leaves his hand, nothing floats free in the air,
+nothing detaches, launches, flies or travels. The flare is CRIMSON and WHITE, NEVER green, tiny and
+central with a wide green margin on all four edges, NOT a beam, NOT a ring, NOT a projectile.
 
 ## special_3 (ZERO CITADEL EDGE) — gold/white, contained
 SPECIAL FINISHER (citadel edge): he snaps the reversed sword forward-down in one compact executioner's
