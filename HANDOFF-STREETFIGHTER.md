@@ -34,6 +34,73 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
+### ★★★★★★★ SESSION 6 CONTINUED — RESUME HERE (written 2026-07-26 evening by Opus 4.8 orchestrator; SUPERSEDES the SESSION-6 START-HERE block below) ★★★★★★★
+
+**WHERE THE GAME IS (HEAD `c6dbad6`, 157/157 vitest, engines byte-frozen): the campaign now
+has 8 OF 10 NODES fighting with their OWN animated character** — nodes 1 (SORA YARI), 3
+(THORN WARDEN), 4 (HOLLOW PALE), 5 (satoshi), 6 (eclipse), 7 (ir37), 8 (IR-56 LION-SERPENT),
+9 (LADY KUROTACHI) are LIVE + wired + playable-after-beaten. Still on VOLTA stand-in: node 2
+(KITSUNE — BLOCKED) and node 10 (IR-48 HEX PAPER LORD finalboss — not started).
+
+**WHAT THIS SESSION SHIPPED (commits, newest first, all engine-byte-frozen / 157-157 /
+live-driven / ZERO credits via browser Higgsfield Unlimited):**
+- `c6dbad6` phase 24f-d: HOLLOW PALE special_3 re-roll -> SMOKE SHROUD (fixes the "rocket").
+- `cf212f2` phase 24g: wire IR-56 LION-SERPENT -> node 8 (RED MIST GORGE).
+- `dddbb62` phase 24f-c: pull the smoke-spike (rendered as a detached flaming projectile =
+  "one shoots a rocket", Tim review) + `47da03c` 24f-b that had added it.
+- `a78784a` phase 24f: wire SORA YARI->n1, THORN WARDEN->n3, HOLLOW PALE->n4. Node 4 was a
+  full build (new enemy identity replacing blocked Onryo; 12-clip pinksafe kit; ko re-rolled
+  compact to fix a 212px right-edge slice; enemy cutout needed `key-enemies.mjs` `interiorGreen`
+  flag for his translucent-smoke body).
+
+**IN FLIGHT AT THIS NOTE: HOLLOW PALE throw_a RE-ROLL** (grab-and-slam; v1 read as a vague
+hand-raise — Tim "some attacks don't look fitting"). Rendering under heavy night queue
+congestion (Processing->Generating->done, ~15-20min/clip tonight). When it lands: harvest via
+show_generations (newest video, verify params.prompt == the grab-and-slam), key with the
+pinksafe pipeline (`key-clips-green-pinksafe --still qa-boss/proc/hollow-pale-anchor-still.png`
+-> green-despill -> green-neutralize 32 -> VP9 yuva420p crf30), QA (green% + view), measure
+contact, and DROP-IN replace `public/assets/characters/hollow-pale/attack-throw.webm` +
+`qa-boss/webm/hollow-pale-attack_throw.cal.json` + the manifest attack_throw take-A cal/contact.
+The anchor in the browser picker is STILL hollow-pale, so his re-rolls need NO swap.
+
+**EXACT NEXT QUEUE:**
+1. Land + drop-in throw_a v2 (above). If it reads clean, commit as 24f-e.
+2. IR-48 HEX PAPER LORD (node 10, FINALBOSS) kit — 13 clips, prompts authored
+   (qa-boss/prompts/ir48-hex-paper-lord.md), GREEN anchor exists
+   (qa-boss/anchors/ir48-hex-paper-lord-anchor-green.png). NEEDS AN ANCHOR SWAP first (the
+   browser is loaded with hollow-pale). ANCHOR-SWAP GOTCHA (this session): the left-panel
+   "Change" button opens the STYLE PRESET picker (do NOT click a preset — it resets aspect);
+   the reference-IMAGE swap is the small thumbnail below it (hover -> × to remove -> the
+   dropzone/`input[type=file]` appears). The `input[type=file]` does NOT exist until the
+   dropzone is open. The browser `file_upload` MCP tool only accepts session-shared paths — I
+   copied the anchor to the scratchpad (`ir48-anchor-green.png`) to try that route; the proven
+   fallback is the SESSION-3 MCP-`media_upload` -> CloudFront -> in-page fetch+inject + a REAL
+   trusted click on "Upload media". Fire idle FIRST as a moderation test (creature bosses can
+   hard-block like Onryo). Then grind the 13 clips (sequential, one at a time, QA-during-next).
+3. Stragglers/specials: ir56 throw_a re-fire (+ a light-arena alpha re-key of its 3 specials'
+   grey haze if it ever becomes selectable on snowfang); sora/kitsune/thorn get their 3
+   specials each (Tim: all bosses get specials); ir37 throws/blocks energy re-rolls.
+4. KITSUNE (node 2) is BLOCKED pending TIM's ruling (glow baked into the anchor art): park /
+   ~1-2cr nano_banana anchor edit / free local pixel-surgery. Do NOT re-fire until he rules.
+5. THEN `input/MK FINAL/` roster (static cards) + its 134 backgrounds (animate like phase-22).
+
+**NEW SESSION-6-CONTINUED DOCTRINES (binding):**
+1. **CONNECTED-EFFECT / ANTI-ROCKET**: a finisher prompt that places smoke/energy "at his feet /
+   in front of him" can render it as a DETACHED floating object that reads as a launched
+   PROJECTILE/ROCKET (hollow-pale smoke-spike). Fix = lock the effect to ERUPT/WRAP AROUND HIS
+   OWN BODY, "stays CONNECTED to him, hugs his frame, NOT a separate object, NOT a projectile,
+   nothing detaches/launches/flies". The connected re-roll (SMOKE SHROUD) passed first try.
+2. **interiorGreen keyer flag**: a semi-transparent body (smoke/glass) lets the studio chroma
+   shine THROUGH and the flood/despill can't reach it; `scripts/key-enemies.mjs` gained an
+   opt-in `interiorGreen` alpha-estimate pass (used by hollow-pale only; other cutouts
+   byte-identical). Same class can hit CLIP keying of smoke-bodied chars — watch the matte.
+3. **cal-derivation for kits keyed without cal.json**: decode the shipped webm frames and
+   recompute the keyer's cal (h/bottom/left), but CROSS-CHECK the formula against a clip that
+   HAS a known cal first (inverting satoshi's live cals recovers onH=1/onBG=0/onCX=0.5 = the
+   full-bleed `qa-boss/anchors/<id>-anchor.png` convention). Caught a 0.732x stale-still trap
+   in sora's clipdata sheet. Also: the motion-energy argmax can be the RETURN-TO-ANCHOR or an
+   effect COLLAPSE, not the blow — verify the beat (block_b 3000->2083, smoke-shroud f72->f48).
+
 ### ★★★★★★ SESSION 6 START HERE (written end of session 5, 2026-07-26 ~03:15, for a fresh Opus 5 session) ★★★★★★
 
 You are the ORCHESTRATOR (plan / brief / verify / review / commit). You run generation
