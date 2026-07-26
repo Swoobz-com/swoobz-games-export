@@ -40,9 +40,19 @@ export const LADY_KUROTACHI: FighterDef = {
       },
       {
         // Take B: deep-coil committed step-in thrust held at chest height (distinct action, same family).
+        // SWAPPED TO TAKE v3 on 2026-07-26 (animation<->character sweep): the shipped encode was
+        // take v4, whose blade renders BRIGHT SILVER polished steel - longer, broader, with an
+        // ornate tsuba - for f52-f80. Her one hard blade rule is BLACK. The clipdata note had the
+        // takes INVERTED (it claimed v3 was the silver one); a v3-vs-v4-vs-shipped frame comparison
+        // proved otherwise. v3 keys to the correct black blade with crimson rings, so this needed no
+        // new generation - just a re-key of the raw already on disk. v4 archived at
+        // qa-boss/webm/lk-strikeb-v4-SILVER-backup.webm.
+        // cal re-emitted by the keyer for v3; contact = arrival at FULL EXTENSION (f36), verified on
+        // a blade-reach trace (reach climbs to 671px at f36 then holds) - the f23 motion-energy
+        // argmax is mid-thrust, not the landing.
         url: 'assets/characters/lady-kurotachi/attack-strike-b.webm',
-        cal: { h: 100.36, bottom: -0.18, left: 58.32 },
-        contacts: [3292],
+        cal: { h: 100.36, bottom: -0.18, left: 47.71 },
+        contacts: [1500],
       },
     ],
     attack_throw: [
@@ -52,12 +62,13 @@ export const LADY_KUROTACHI: FighterDef = {
         cal: { h: 102.29, bottom: -0.18, left: 58.2 },
         contacts: [1833],
       },
-      {
-        // Take B: body-committed shoulder barge, lean + stride forward (solo-safe).
-        url: 'assets/characters/lady-kurotachi/attack-throw-b.webm',
-        cal: { h: 101.09, bottom: -0.18, left: 33.68 },
-        contacts: [2583],
-      },
+      // Take B (attack-throw-b.webm) PULLED 2026-07-26 (animation<->character sweep): the clip is
+      // MIRRORED - visor on the left, sword in the screen-LEFT hand, she faces screen-LEFT for the
+      // entire take while her still, her idle and all 12 other clips face RIGHT. In game she flips
+      // to face AWAY from her opponent for the whole take and snaps back. Compounding it, her sword
+      // hand and hilt are sliced flat at the left frame edge (0px margin) continuously f44-f64 on a
+      // HELD lunge. No clean fallback take exists (throw_b v2 failed on a phantom cylinder +
+      // frontal rotation), so this needs a genuine re-roll with an explicit facing lock.
     ],
     attack_block: [
       {
@@ -94,12 +105,11 @@ export const LADY_KUROTACHI: FighterDef = {
         cal: { h: 116.08, bottom: -5.5, left: 53.87 },
         contacts: [917],
       },
-      {
-        // Snap-down cut: raise to chest -> snap-down cut with a compact blade-tip flash.
-        url: 'assets/characters/lady-kurotachi/special-c.webm',
-        cal: { h: 105.67, bottom: -5.49, left: 50.12 },
-        contacts: [2708],
-      },
+      // Snap-down cut (special-c.webm) PULLED 2026-07-26 (animation<->character sweep): the blade
+      // renders BRIGHT SILVER/steel through the whole horizontal chest-height hold (f26-f58, ~1.4s)
+      // - her one hard blade rule is BLACK. This was the take the ledger already marked
+      // "conditional: steel-hold" and it should not have shipped on a FINISHER that fires on every
+      // round-ending win. Re-roll with the blade-colour lock. She keeps 2 good finisher takes.
     ],
     // ko is the ONE off-anchor clip: strength drains, knees buckle, katana drops, crumples to her
     // side and HOLDS motionless (does NOT return to the anchor). Cause-free, no opponent.

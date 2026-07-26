@@ -62,12 +62,12 @@ export const ECLIPSE_OFUDA: FighterDef = {
       },
     ],
     attack_block: [
-      {
-        // Take A: horizontal-bar katana parry -> low counter (contact is the counter, not the deflect).
-        url: 'assets/characters/eclipse-ofuda/attack-block.webm',
-        cal: { h: 110.76, bottom: -0.48, left: 48.31 },
-        contacts: [1750, 2583],
-      },
+      // Take A (attack-block.webm) PULLED 2026-07-26 (animation<->character sweep): the ONLY true
+      // phantom OBJECT found in the roster. At f72 both her hands are empty (the katana is gone);
+      // f73 leaves only the tsuba+grip stub; at f74 a ~40px DETACHED BLADE FRAGMENT floats in open
+      // air above-left of her hat while both hands are crossed empty on her chest; f75 the blade
+      // re-materialises. Weapon vanish + morph + phantom in one beat. She is also fully frontal
+      // f10-f74 (~2.7s of a 4s clip) against her side-profile lock. Re-roll; take B carries blocks.
       {
         // Take B: forearm brace across the chest -> controlled counter cut.
         url: 'assets/characters/eclipse-ofuda/attack-block-b.webm',
@@ -83,26 +83,25 @@ export const ECLIPSE_OFUDA: FighterDef = {
     // Contract §11: the signature FINISHER — plays automatically on a round-ending win. Three takes,
     // one chosen uniform-random per exchange. The white/pale-gold talisman light is baked into the body
     // (sanctioned effect exception, never green); each effect fully dissipates by the final frame.
-    special: [
-      {
-        // Ofuda flick: white/pale-gold talisman burst contained centrally, dissipates to anchor.
-        url: 'assets/characters/eclipse-ofuda/special.webm',
-        cal: { h: 109.71, bottom: -0.49, left: 45.39 },
-        contacts: [1250],
-      },
-      {
-        // Vertical drop-cut: contained vertical white light-beam finisher, returns to anchor.
-        url: 'assets/characters/eclipse-ofuda/special-b.webm',
-        cal: { h: 114.67, bottom: -4.12, left: 51.88 },
-        contacts: [2250],
-      },
-      {
-        // Talisman guard: talisman-bind finisher, body anchor-locked, contained.
-        url: 'assets/characters/eclipse-ofuda/special-c.webm',
-        cal: { h: 100.97, bottom: -0.36, left: 49.7 },
-        contacts: [2000],
-      },
-    ],
+    // ALL THREE FINISHER TAKES PULLED 2026-07-26 (animation<->character sweep). Every one failed, so
+    // every round-ending win against her was showing a defect. With `special` empty the Experience
+    // correctly falls back to her ATTACK state on a round-ending win (FightExperience.tsx:1789
+    // gates on clipVariants(...,'special').length > 0), which is clean. Re-roll all three, then
+    // restore this array. Why each was pulled:
+    //  - special.webm (ofuda flick): the talismans are NOT in her palm - measured a ~60px AIR GAP
+    //    above the open hand at f22/f30, and f46-54 the burst drifts up-left AWAY from the hand =
+    //    the detached/hovering ban. From f38 the fan carries a strong LIME/YELLOW-GREEN fringe
+    //    (unkeyed green spill; her palette is white/pale-gold) and the tail pops off rather than
+    //    dissipating. (An earlier orchestrator check called this "attached in her palm" - that read
+    //    was taken from a decode WITHOUT the alpha plane and is corrected here.)
+    //  - special-b.webm (drop-cut): katana held VERTICAL point-up overhead f20-f64, which is her
+    //    explicit arsenal ban (her katana is too long for any vertical hold); the blade becomes a
+    //    lime/green glowing column that reads as a BEAM, and at f56 a fat spindle that no longer
+    //    reads as a katana.
+    //  - special-c.webm (talisman guard): a cluster of ~10 talismans + olive arcs hangs in OPEN AIR
+    //    beside her hip, unattached to body or blade, from f0 to ~f52 (~2.2s) - and being present at
+    //    f0 it pops in at trigger. Framing is also tight all round (top 5px, bottom 3px).
+    special: [],
     // ko is the ONE off-anchor clip: drops the katana, crumples to the ground and HOLDS prone (does
     // NOT return to the anchor). Cause-free, no opponent.
     ko: {
