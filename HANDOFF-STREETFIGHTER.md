@@ -91,15 +91,22 @@ live-driven / ZERO credits via browser Higgsfield Unlimited):**
   compact to fix a 212px right-edge slice; enemy cutout needed `key-enemies.mjs` `interiorGreen`
   flag for his translucent-smoke body).
 
-**IN FLIGHT AT THIS NOTE: HOLLOW PALE throw_a RE-ROLL** (grab-and-slam; v1 read as a vague
-hand-raise — Tim "some attacks don't look fitting"). Rendering under heavy night queue
-congestion (Processing->Generating->done, ~15-20min/clip tonight). When it lands: harvest via
-show_generations (newest video, verify params.prompt == the grab-and-slam), key with the
-pinksafe pipeline (`key-clips-green-pinksafe --still qa-boss/proc/hollow-pale-anchor-still.png`
--> green-despill -> green-neutralize 32 -> VP9 yuva420p crf30), QA (green% + view), measure
-contact, and DROP-IN replace `public/assets/characters/hollow-pale/attack-throw.webm` +
+**HOLLOW PALE throw_a POLISH — v2 REJECTED, v3 QUEUED (not ship-blocking; v1 is live + clean).**
+Tim: "some attacks don't look fitting" — his attack_throw take A (v1) reads as a vague hand-raise
+(clean matte, no phantom, just unclear). The v2 re-roll ("THROW grab and slam ... CLAMPS onto an
+unseen enemy") RENDERED A PHANTOM OBJECT: at f24 he grabs a distinct brown ball/severed-head orb
+and arches hard backward (raw at qa-boss/raw/hollow-pale-throw-a-v2.mp4). REJECTED — the
+"grab an unseen enemy" framing is a phantom-OBJECT magnet (see doctrine below). v1 stays live.
+**v3 recipe (do this to finish the polish): make it a SELF-CONTAINED violent gesture with NO grab
+target** — e.g. "he RAKES/SMASHES his clawed hand down and across through EMPTY AIR in one vicious
+downward claw-strike, the smoke scattering, then recovers" — NOTHING is seized, so there is no
+enemy for Seedance to paint as an object; keep "empty air only, nothing enters the frame, no
+object, no ball, no projectile, no severed head". The browser anchor is STILL hollow-pale (no
+swap). When v3 passes: key (pinksafe --still qa-boss/proc/hollow-pale-anchor-still.png ->
+green-despill -> green-neutralize 32 -> VP9 yuva420p crf30), QA (green% + view), measure contact,
+DROP-IN replace `public/assets/characters/hollow-pale/attack-throw.webm` +
 `qa-boss/webm/hollow-pale-attack_throw.cal.json` + the manifest attack_throw take-A cal/contact.
-The anchor in the browser picker is STILL hollow-pale, so his re-rolls need NO swap.
+NIGHT CONGESTION was brutal (~15-25min/clip incl long queue Processing->Generating->done).
 
 **EXACT NEXT QUEUE:**
 1. Land + drop-in throw_a v2 (above). If it reads clean, commit as 24f-e.
@@ -138,6 +145,13 @@ The anchor in the browser picker is STILL hollow-pale, so his re-rolls need NO s
    full-bleed `qa-boss/anchors/<id>-anchor.png` convention). Caught a 0.732x stale-still trap
    in sora's clipdata sheet. Also: the motion-energy argmax can be the RETURN-TO-ANCHOR or an
    effect COLLAPSE, not the blow — verify the beat (block_b 3000->2083, smoke-shroud f72->f48).
+4. **PHANTOM-OBJECT from grab-framing**: a SOLO throw prompted as "grab/seize/clamp onto an unseen
+   enemy" makes Seedance paint the seized enemy as a visible OBJECT (hollow-pale throw_a v2 grabbed
+   a brown ball/severed-head orb + arched backward). A solo throw must be a SELF-CONTAINED gesture
+   with NO target to seize — a downward claw-SMASH / rake / shoulder-barge through EMPTY AIR — plus
+   the explicit "no object, no ball, no severed head, nothing enters the frame" negative. (Related
+   to the session-5 phantom-PROJECTILE law and the session-6 anti-ROCKET law: name the cause
+   invisible and ban the object.)
 
 ### ★★★★★★ SESSION 6 START HERE (written end of session 5, 2026-07-26 ~03:15, for a fresh Opus 5 session) ★★★★★★
 
