@@ -34,155 +34,171 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★ FABLE 5 — START HERE (written 2026-07-26 evening by the Opus 4.8 orchestrator; SUPERSEDES every START-HERE block below it) ★★★★★★★
+### ★★★★★★★ OPUS 5 — START HERE (written 2026-07-27 by the Opus 4.8 orchestrator; SUPERSEDES every START-HERE block below it) ★★★★★★★
 
-**YOU (Fable 5) are the ORCHESTRATOR: plan / brief / verify / review / commit.** Run generation
-in YOUR own loop (browser Higgsfield Unlimited, ZERO credits); dispatch Opus builder subagents
-(Agent tool, `subagent-briefing` skill) to do keying + wiring from implementation-grade briefs;
-then RE-RUN every gate yourself, review the diff with your own eyes, and LIVE-DRIVE the real game
-(headless puppeteer, screenshots you VIEW, money asserted to the cent) before you commit. NEVER
-trust a builder's self-report — this session a builder DIED mid-response (connection error) after
-doing the file work but before updating the manifest; only inspecting the tree caught it. Tim
-reviews the running game and reports defects as SYMPTOMS ("one shoots a rocket") — MEASURE the
-mechanism and fix what the measurement implicates. Do cheap reversible work immediately; hold
-credit-spends + his design rulings when he is AFK. Commit each verified increment (don't let work
-pile up); update this handoff + project memory at every phase boundary (SAVE-GLOBAL law). Full
-operating model in §0; gates in §6; the browser fire-loop + all doctrines are below.
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** You run generation yourself
+in the browser (Higgsfield Unlimited, ZERO credits); you dispatch Opus builder/reviewer subagents
+(Agent tool + `subagent-briefing` skill) for keying, wiring and QA; then you RE-RUN every gate
+yourself, review the diff with your own eyes, and LIVE-DRIVE the real game before committing.
+Full operating model in §0, gates in §6.
 
-**GENESIS / verdict-logging reminder:** record a verdict for every subagent run and update memory
-at the end. Read `~/.claude/OPERATING-MANUAL.md` + the project memory
-`frozen-requiem-state.md` (its newest entry is this session, fully detailed) at session start.
-
-**═══ WHAT SESSION 6 (Opus 4.8) DID — 6 commits, campaign went 4→8 of 10 nodes live, ZERO credits ═══**
-`a78784a` wire SORA YARI→n1 + THORN WARDEN→n3 + HOLLOW PALE→n4 (node 4 a full build: new enemy
-identity replacing the blocked Onryo, 12-clip pinksafe kit, ko re-rolled compact to fix a 212px
-right-edge slice, enemy cutout `interiorGreen` keyer flag for his translucent smoke) · `47da03c`
-+`dddbb62` add-then-PULL hollow-pale smoke-spike (Tim: "one shoots a rocket" — it rendered as a
-detached flaming projectile) · `cf212f2` wire IR-56 LION-SERPENT→n8 · `c6dbad6` hollow-pale
-special_3 re-roll → SMOKE SHROUD (fixes the rocket, effect now wraps HIM) · `4bb2e07` this handoff.
-All engine-byte-frozen / 157-157 / live-driven / to-the-cent.
-
-**═══ KEY LEARNINGS (the 3 new doctrines are spelled out in full at the bottom of this block) ═══**
-(1) CONNECTED-EFFECT / ANTI-ROCKET: an effect placed "at his feet / in front of him" can render as
-a launched projectile → lock it to erupt/wrap AROUND HIS OWN BODY. (2) interiorGreen: a
-semi-transparent (smoke/glass) body lets the chroma shine THROUGH → needs an alpha-estimate pass,
-watch the matte. (3) cal-derivation for kits keyed without cal.json: recompute from the shipped
-webm but CROSS-CHECK the formula against a known cal first, and beware the motion-energy argmax
-being the RECOVERY / effect-collapse rather than the blow.
-
-**═══ WHAT TO DO NEXT is the "EXACT NEXT QUEUE" list further down this block. ═══**
+**THE THREE HARD LESSONS OF SESSION 6 — internalise these before you touch anything:**
+1. **NEVER trust a self-report — not a builder's, not a ledger's, not your own earlier one.** A
+   builder died mid-response after doing the file work but before updating the manifest (only
+   inspecting the tree caught it). The per-boss `qa-boss/<id>-clipdata.json` verdicts are
+   **demonstrably wrong in many places** — they record "PASS" on clips that ship a floating blade
+   fragment, a mirrored take, a silver blade on a black-blade character. **Trust the frames.**
+2. **ffmpeg silently drops the alpha plane of these VP9 webms unless `-c:v libvpx-vp9` comes
+   BEFORE `-i`.** A strip made without it shows the colour layer over its grey backing — NOT what
+   the game renders. This burned the orchestrator: an eclipse finisher was hand-checked and called
+   "attached in her palm", when in truth the talismans float with a measured ~60px air gap. **Force
+   the decoder on every QA strip**, and composite over BOTH black and white (each hides a different
+   defect: black hides dark smoke, white hides chalk bodies and shows chewed mattes).
+3. **When the Fable 5 spend limit kills subagents** ("You've hit your monthly spend limit"),
+   re-dispatch the SAME briefs with the Agent tool's `model: "opus"` override — they launch and run
+   normally. Don't abandon a fan-out over the limit; switch the tier. (Tim's standing ruling.)
 
 ---
 
-**WHERE THE GAME IS (HEAD `c6dbad6`, 157/157 vitest, engines byte-frozen): the campaign now
-has 8 OF 10 NODES fighting with their OWN animated character** — nodes 1 (SORA YARI), 3
-(THORN WARDEN), 4 (HOLLOW PALE), 5 (satoshi), 6 (eclipse), 7 (ir37), 8 (IR-56 LION-SERPENT),
-9 (LADY KUROTACHI) are LIVE + wired + playable-after-beaten. Still on VOLTA stand-in: node 2
-(KITSUNE — BLOCKED) and node 10 (IR-48 HEX PAPER LORD finalboss — not started).
+## WHAT SESSION 6 DID (HEAD `b62c3ca`, 157/157 vitest, engines byte-frozen, ZERO credits)
 
-**WHAT THIS SESSION SHIPPED (commits, newest first, all engine-byte-frozen / 157-157 /
-live-driven / ZERO credits via browser Higgsfield Unlimited):**
-- `c6dbad6` phase 24f-d: HOLLOW PALE special_3 re-roll -> SMOKE SHROUD (fixes the "rocket").
-- `cf212f2` phase 24g: wire IR-56 LION-SERPENT -> node 8 (RED MIST GORGE).
-- `dddbb62` phase 24f-c: pull the smoke-spike (rendered as a detached flaming projectile =
-  "one shoots a rocket", Tim review) + `47da03c` 24f-b that had added it.
-- `a78784a` phase 24f: wire SORA YARI->n1, THORN WARDEN->n3, HOLLOW PALE->n4. Node 4 was a
-  full build (new enemy identity replacing blocked Onryo; 12-clip pinksafe kit; ko re-rolled
-  compact to fix a 212px right-edge slice; enemy cutout needed `key-enemies.mjs` `interiorGreen`
-  flag for his translucent-smoke body).
+**Campaign went from 4 to 8 of 10 nodes fighting with their OWN animated character.** Live +
+playable-after-beaten: n1 SORA YARI, n3 THORN WARDEN, n4 HOLLOW PALE, n5 satoshi, n6 eclipse,
+n7 ir37, n8 IR-56 LION-SERPENT, n9 LADY KUROTACHI. Still VOLTA stand-in: **n2 KITSUNE (blocked)**
+and **n10 IR-48 HEX PAPER LORD (finalboss, 0/13 — the last kit)**.
 
-**HOLLOW PALE throw_a POLISH — v2 REJECTED, v3 QUEUED (not ship-blocking; v1 is live + clean).**
-Tim: "some attacks don't look fitting" — his attack_throw take A (v1) reads as a vague hand-raise
-(clean matte, no phantom, just unclear). The v2 re-roll ("THROW grab and slam ... CLAMPS onto an
-unseen enemy") RENDERED A PHANTOM OBJECT: at f24 he grabs a distinct brown ball/severed-head orb
-and arches hard backward (raw at qa-boss/raw/hollow-pale-throw-a-v2.mp4). REJECTED — the
-"grab an unseen enemy" framing is a phantom-OBJECT magnet (see doctrine below). v1 stays live.
-**v3 recipe (do this to finish the polish): make it a SELF-CONTAINED violent gesture with NO grab
-target** — e.g. "he RAKES/SMASHES his clawed hand down and across through EMPTY AIR in one vicious
-downward claw-strike, the smoke scattering, then recovers" — NOTHING is seized, so there is no
-enemy for Seedance to paint as an object; keep "empty air only, nothing enters the frame, no
-object, no ball, no projectile, no severed head". The browser anchor is STILL hollow-pale (no
-swap). When v3 passes: key (pinksafe --still qa-boss/proc/hollow-pale-anchor-still.png ->
-green-despill -> green-neutralize 32 -> VP9 yuva420p crf30), QA (green% + view), measure contact,
-DROP-IN replace `public/assets/characters/hollow-pale/attack-throw.webm` +
-`qa-boss/webm/hollow-pale-attack_throw.cal.json` + the manifest attack_throw take-A cal/contact.
-NIGHT CONGESTION was brutal (~15-25min/clip incl long queue Processing->Generating->done).
+Commits, oldest first:
+- `a78784a` **phase 24f** — wire SORA YARI→n1, THORN WARDEN→n3, HOLLOW PALE→n4. Node 4 was a full
+  build: the superseded onryo identity replaced by HOLLOW PALE, 12-clip pinksafe kit, ko re-rolled
+  compact (fixed a 212px right-edge slice on the HELD prone pose), and a new `interiorGreen` flag
+  in `scripts/key-enemies.mjs` because his translucent smoke body let studio green through.
+- `47da03c` → `dddbb62` — added then PULLED hollow-pale's smoke-spike finisher: **Tim's "one shoots
+  a rocket"** — it rendered as a detached flaming projectile.
+- `cf212f2` **phase 24g** — wire IR-56 LION-SERPENT→n8.
+- `c6dbad6` **phase 24f-d** — hollow-pale special_3 re-roll → SMOKE SHROUD (effect now wraps HIM).
+- `9a9e132` **phase 24h** — **the CHARACTER↔PROMPT COHERENCE GATE** (Tim's idea, see below).
+- `1605582` **phase 24i** — pulled 6 defective takes on n4/n5 found by the animation sweep.
+- `fa8eab7` **phase 24j** — head-trimmed IR-37 `hit`: **it had an actual grey, red-nosed, fin-tailed
+  ROCKET flying into frame at f8-9.** `hit` fires constantly, so this was the most-seen defect in
+  the game and is very likely the clip behind Tim's original report.
+- `ffb6df3` **phase 24k** — LK `strike_b` fixed for FREE (wrong take had shipped) + 5 more pulls
+  on n6/n9.
+- `b62c3ca` — the IR-48 model bake-off harness (`qa-boss/MODEL-BAKEOFF-ir48.md`).
 
-**★ CHARACTER<->PROMPT COHERENCE GATE (phase 24h, `9a9e132`) — RUN IT BEFORE EVERY FIRE ★**
-`node scripts/check-prompt-coherence.mjs [<character-id>]` checks each prompt kit against
-`qa-boss/arsenal.json` (what each boss actually WIELDS + the MELEE ROSTER LAW: nothing launches,
-throws or fires a separate object; effects must stay attached to the character or the weapon in his
-hand). Catches: projectile wording, grab-framing ("seizes an unseen enemy" makes the model PAINT the
-enemy as an object), detached-effect placement ("in front of him" / "at his feet"), per-character
-banned actions. It retroactively flags BOTH confirmed defects (hollow-pale sp3 "at his feet" = the
-rocket; throw_a "seizes an unseen" = the phantom ball). ir48 special_2 was rewritten before firing
-because of it. CALIBRATION: the gate flags on WORDING for REVIEW, it does not convict — two of its
-flags (eclipse sp1, ir37 sp1) were visually CLEARED. Always confirm with pixels.
+### The two tools this session added — USE THEM
+- **`node scripts/check-prompt-coherence.mjs [<id>]`** — pre-fire gate. Checks every prompt kit
+  against **`qa-boss/arsenal.json`** (what each boss actually WIELDS + the **MELEE ROSTER LAW**:
+  nothing launches/throws/fires a separate object; effects stay attached to the character or the
+  weapon in his hand). Catches projectile wording, grab-framing, detached-effect placement
+  ("in front of him" / "at his feet"), and per-character banned actions. It retroactively flags
+  both confirmed defects, and it caught ir48 special_2 **before it ever rendered** (rewritten:
+  the talisman now stays pinched in his hand). **CALIBRATION: it flags WORDING for review, it does
+  not convict** — two of its flags were visually cleared. Pixels decide.
+- **`qa-boss/BRIEF-animation-character-match.md`** — the read-only visual sweep brief. Re-run any
+  time (one agent per 2 characters, agentType `autisk`, model opus).
 
-**ANIMATION<->CHARACTER SWEEP (Tim: "check on everyone if all animation match the character") —
-STARTED, MOSTLY UNDONE.** The 4 dispatched reviewers ALL died instantly on
-"You've hit your monthly spend limit" (account-level; the Agent fleet is unavailable until Tim
-raises it). The orchestrator hand-checked only the highest-risk flagged clips:
-- `ir37 special` — **PASS** (the pink arc traces her own fan sweep, connected).
-- `eclipse special` — no rocket (talismans hover in her open palm, attached), BUT its dissipation
-  renders as **GREEN-TEAL wisps** at f56-68 = a chroma-adjacent effect colour the keyer partly ate,
-  leaving ragged teal remnants. **FLAG: re-roll with a pale-gold/white burn-away, never green.**
-- `lady-kurotachi attack-throw` — no phantom object, but she **ROTATES THROUGH FRONTAL** at f28-f40
-  (chest/hips open to camera, arm raised) before folding away. **FAIL: profile-lock violation, re-roll.**
-- `eclipse attack-throw` — no phantom object, but also rotates off strict profile mid-lunge. **FLAG.**
-The remaining ~80 clips were then swept by 4 re-dispatched reviewers (see their reports).
-**★ MODEL-FALLBACK LAW (Tim, 2026-07-26): when the Fable 5 spend limit kills subagents
-("You've hit your monthly spend limit"), re-dispatch the SAME briefs with the Agent tool's
-`model: "opus"` override — they launch and run normally. Don't abandon a fan-out over the limit,
-just switch the tier.** Brief: `qa-boss/BRIEF-animation-character-match.md` (one agent per 2
-characters, agentType `autisk`, model opus) — a straight re-run whenever the sweep needs redoing.
+### What the animation↔character sweep found (Tim: "check on everyone if all animation match the character")
+4 reviewers, ~90 shipped clips, every frame viewed. **Every character had defects.** Confirmed and
+acted on: hollow-pale 4 FAILs (**the bone-scythe — which IS his arm — VANISHES** in block-b),
+satoshi 2 (**both hands empty while a crescent floats free**), ir37 5 (**the rocket**; fan detaches
+then becomes a banned pole-arm), ir56 5 (**breathes fire during a throw**, laser streak in hit),
+thorn 1 severe (**a log appears, replaces his head, flies off frame**), sora 5 (helmet morphs in
+`hit`, frontal 2.5s in block_b, magenta bleeding onto her spear), eclipse (**the only true phantom
+OBJECT: a detached blade fragment at f74** + all three finishers failed), LK (**a mirrored take**
+where she faces away from her opponent).
 
-**EXACT NEXT QUEUE:**
-1. Land + drop-in throw_a v2 (above). If it reads clean, commit as 24f-e.
-2. IR-48 HEX PAPER LORD (node 10, FINALBOSS) kit — 13 clips, prompts authored
-   (qa-boss/prompts/ir48-hex-paper-lord.md), GREEN anchor exists
-   (qa-boss/anchors/ir48-hex-paper-lord-anchor-green.png). NEEDS AN ANCHOR SWAP first (the
-   browser is loaded with hollow-pale). ANCHOR-SWAP GOTCHA (this session): the left-panel
-   "Change" button opens the STYLE PRESET picker (do NOT click a preset — it resets aspect);
-   the reference-IMAGE swap is the small thumbnail below it (hover -> × to remove -> the
-   dropzone/`input[type=file]` appears). The `input[type=file]` does NOT exist until the
-   dropzone is open. The browser `file_upload` MCP tool only accepts session-shared paths — I
-   copied the anchor to the scratchpad (`ir48-anchor-green.png`) to try that route; the proven
-   fallback is the SESSION-3 MCP-`media_upload` -> CloudFront -> in-page fetch+inject + a REAL
-   trusted click on "Upload media". Fire idle FIRST as a moderation test (creature bosses can
-   hard-block like Onryo). Then grind the 13 clips (sequential, one at a time, QA-during-next).
-3. Stragglers/specials: ir56 throw_a re-fire (+ a light-arena alpha re-key of its 3 specials'
-   grey haze if it ever becomes selectable on snowfang); sora/kitsune/thorn get their 3
-   specials each (Tim: all bosses get specials); ir37 throws/blocks energy re-rolls.
-4. KITSUNE (node 2) is BLOCKED pending TIM's ruling (glow baked into the anchor art): park /
-   ~1-2cr nano_banana anchor edit / free local pixel-surgery. Do NOT re-fire until he rules.
-5. THEN `input/MK FINAL/` roster (static cards) + its 134 backgrounds (animate like phase-22).
+**Recurring root causes — these are the re-roll briefs:**
+- **Weapon instability** — vanishes / shrinks / morphs / floats free (hollow-pale, ir37, ir56, thorn).
+- **Rotation out of profile**, usually through the BACK, held 1–2.7s (systemic; ~10 clips).
+- **Effects that outlive the blade** — the arc keeps going after the weapon stops = projectile read.
+- **Chroma bleeding into effects** on blurred/semi-transparent frames (sora magenta, eclipse lime).
 
-**NEW SESSION-6-CONTINUED DOCTRINES (binding):**
-1. **CONNECTED-EFFECT / ANTI-ROCKET**: a finisher prompt that places smoke/energy "at his feet /
-   in front of him" can render it as a DETACHED floating object that reads as a launched
-   PROJECTILE/ROCKET (hollow-pale smoke-spike). Fix = lock the effect to ERUPT/WRAP AROUND HIS
-   OWN BODY, "stays CONNECTED to him, hugs his frame, NOT a separate object, NOT a projectile,
-   nothing detaches/launches/flies". The connected re-roll (SMOKE SHROUD) passed first try.
-2. **interiorGreen keyer flag**: a semi-transparent body (smoke/glass) lets the studio chroma
-   shine THROUGH and the flood/despill can't reach it; `scripts/key-enemies.mjs` gained an
-   opt-in `interiorGreen` alpha-estimate pass (used by hollow-pale only; other cutouts
-   byte-identical). Same class can hit CLIP keying of smoke-bodied chars — watch the matte.
-3. **cal-derivation for kits keyed without cal.json**: decode the shipped webm frames and
-   recompute the keyer's cal (h/bottom/left), but CROSS-CHECK the formula against a clip that
-   HAS a known cal first (inverting satoshi's live cals recovers onH=1/onBG=0/onCX=0.5 = the
-   full-bleed `qa-boss/anchors/<id>-anchor.png` convention). Caught a 0.732x stale-still trap
-   in sora's clipdata sheet. Also: the motion-energy argmax can be the RETURN-TO-ANCHOR or an
-   effect COLLAPSE, not the blow — verify the beat (block_b 3000->2083, smoke-shroud f72->f48).
-4. **PHANTOM-OBJECT from grab-framing**: a SOLO throw prompted as "grab/seize/clamp onto an unseen
-   enemy" makes Seedance paint the seized enemy as a visible OBJECT (hollow-pale throw_a v2 grabbed
-   a brown ball/severed-head orb + arched backward). A solo throw must be a SELF-CONTAINED gesture
-   with NO target to seize — a downward claw-SMASH / rake / shoulder-barge through EMPTY AIR — plus
-   the explicit "no object, no ball, no severed head, nothing enters the frame" negative. (Related
-   to the session-5 phantom-PROJECTILE law and the session-6 anti-ROCKET law: name the cause
-   invisible and ban the object.)
+---
 
-### ★★★★★★ SESSION 6 START HERE (written end of session 5, 2026-07-26 ~03:15, for a fresh Opus 5 session) ★★★★★★
+## WHAT TO DO NEXT
+
+**0. Ask Tim two open questions first** (both are his calls, both were pending at handoff):
+   (a) **Re-roll campaign vs ir48 first?** ~20 clips need re-rolls. The orchestrator's recommendation
+   is re-rolls first — a broken live node hurts more than a missing one — but it is Tim's call.
+   (b) **KITSUNE (node 2) is BLOCKED**: the tanto glow is baked into the ANCHOR ART and cannot be
+   prompted or keyed away. Options: park it / ~1-2cr nano_banana anchor edit / free local
+   pixel-surgery (Seedance-amplification risk). **Do NOT re-fire kitsune until he rules.**
+
+**1. The re-roll queue** (all free; every prompt must pass the coherence gate before firing).
+   Ranked by player impact:
+   - **eclipse: all 3 finishers** — currently `special: []`, so every win against her plays a plain
+     attack. Highest value: restores a whole boss's finisher.
+   - **LK `attack-throw-b`** (mirrored; no clean fallback take exists) and **`special-c`** (silver blade).
+   - **hollow-pale** `attack-block-b` (weapon vanish), `attack-throw` A, `special` A (detached
+     crescent), `special-c` (shroud swallows his head + opaque top-edge slab).
+   - **satoshi** `special-c` (empty hands + floating crescent), `attack-throw` A.
+   - **thorn `hit`** (the flying log / decapitation) and **sora `hit`** + `block_b` — both are
+     high-frequency states on the two lowest nodes.
+   - **ir37** block-b / special-b / special-c, **ir56** throw / hit / block-b / specials.
+   **THE RE-ROLL RULE the sweep taught us:** for slash-VFX the fix is NOT "less effect" — it is
+   **"the arc must TERMINATE ON THE BLADE in every frame, and the blade stays in hand."**
+
+**2. IR-48 HEX PAPER LORD (node 10, the last kit, 13 clips).** Prompts authored + gate-passing
+   (`qa-boss/prompts/ir48-hex-paper-lord.md`). **His anchor is ALREADY SWAPPED INTO THE BROWSER**
+   picker, so his kit can be fired immediately. Fire `idle` FIRST as a moderation test. Tim also
+   set up a **model bake-off** (`qa-boss/MODEL-BAKEOFF-ir48.md`) — Opus 5 vs Fable 5 both write his
+   kit from the picture and are scored on 12 real defect classes; the winner's prompts get fired.
+   Check whether he has run it before generating from the existing prompts.
+
+**3. Then:** ir56 throw_a re-fire; sora/kitsune/thorn 3 specials each (Tim: all bosses get specials);
+   a light-arena alpha re-key of ir56's specials (grey haze, invisible on the dark gorge but a
+   latent blocker); then `input/MK FINAL/` roster + its 134 backgrounds (animate like phase-22).
+
+### BROWSER OPERATIONAL NOTES (all verified this session)
+- Tab: "Create AI Videos … | Higgsfield", Seedance 2.0, **1:1, 4s, 720p**, and the button MUST read
+  **"GenerateUnlimited"** before EVERY fire (a reload resets it to credits = billing).
+- **Kill autoplay `<video>` elements first** (`v.pause(); v.remove()`) — they freeze the renderer and
+  cause CDP `Input.dispatchKeyEvent` timeouts. With them killed, `computer type` works fine; a
+  timeout usually means the text LANDED but the click didn't, so VERIFY state, never blind-retry.
+- Prompt field is a **Lexical contenteditable**: real `ctrl+a` + `Delete`, then `computer type`.
+  `execCommand` paths double-insert or silently revert. ALWAYS verify `el.textContent` before firing.
+- **ANCHOR SWAP (much easier than the old JS-injection dance):** click the small reference thumbnail
+  → a "Use as…" menu opens and a **×** appears at its top-right → click the × → the "Upload media"
+  dropzone appears → click its image icon → the Uploads picker opens → **the `input[type=file]` only
+  exists once that dropzone is open**, then the native **`file_upload` MCP tool works directly**
+  (copy the anchor into the session scratchpad first so the path is accepted). Verify the tile is
+  the right character by ZOOMING it before selecting. NOTE: the left-panel **"Change" button opens
+  the STYLE PRESET picker — do NOT click a preset**, it silently resets aspect to 16:9.
+- **Chrome window OS-shrink** (viewport collapses to ~140x135, form at 0x0): `resize_window` reports
+  success but may not take on the first call — **call it twice** with different sizes; that worked.
+  Then `el.scrollIntoView()` since the form can sit off-screen.
+- Renders were **15-25 min** at night (queue: Processing → Generating → done). `show_generations`
+  lags several minutes behind the tab — poll the tab's badge, then use MCP for the rawUrl, and
+  ALWAYS confirm `params.prompt` matches what you meant to fire.
+
+### BINDING DOCTRINES (session 6; the session 4/5 ones below still apply)
+1. **CONNECTED-EFFECT / ANTI-ROCKET**: an effect placed "at his feet / in front of him / beside him"
+   renders as a DETACHED floating object that reads as a launched projectile. Lock it to erupt/wrap
+   AROUND HIS OWN BODY or trace ALONG the blade — "stays CONNECTED to him, NOT a separate object,
+   nothing detaches/launches/flies". The connected re-roll passed first try.
+2. **PHANTOM-OBJECT from grab-framing**: a SOLO throw prompted as "grab/seize/clamp an unseen enemy"
+   makes Seedance PAINT that enemy as a visible object (we got a brown ball in a fist). A solo throw
+   must be a self-contained gesture with NO target — rake / smash / barge THROUGH EMPTY AIR — plus
+   "no object, no ball, nothing in his hand, nothing enters the frame".
+3. **interiorGreen keyer flag**: a semi-transparent body (smoke/glass) lets the chroma shine THROUGH
+   where flood+despill can't reach; `scripts/key-enemies.mjs` has an opt-in alpha-estimate pass
+   (hollow-pale only; the other 9 cutouts re-encode byte-identical). Watch for it on clip mattes too.
+4. **cal-derivation without cal.json**: recompute from the shipped webm, but CROSS-CHECK the formula
+   against a clip that HAS a known cal first (inverting satoshi's live cals recovers
+   onH=1/onBG=0/onCX=0.5 = the full-bleed `qa-boss/anchors/<id>-anchor.png` convention). This caught
+   a 0.732x stale-still trap in sora's ledger.
+5. **The motion-energy argmax is often NOT the blow** — it can be the return-to-anchor or an effect
+   collapsing. Verify with a reach/centroid trace (corrections made: ir56 block_b 3000→2083,
+   smoke-shroud f72→f48, LK strike_b f23→f36).
+6. **Pulling a bad take is cheap and reversible** — `clipVariants` treats a 1-element array like a
+   bare clip, and an EMPTY `special: []` correctly falls back to the attack state
+   (`FightExperience.tsx:1789`). Pull first, re-roll after; never ship a known-defective take while
+   waiting on a render. Prove it with a throwaway integrity test (every non-special state resolves
+   ≥1 take, every referenced webm exists on disk).
+
+---
+
+### ★★★★★★ SESSION 6 START HERE (written end of session 5, 2026-07-26 ~03:15) — SUPERSEDED BY THE OPUS 5 BLOCK ABOVE; kept for its browser/keying method detail ★★★★★★
 
 You are the ORCHESTRATOR (plan / brief / verify / review / commit). You run generation
 in YOUR loop (browser Higgsfield Unlimited, ZERO credits); Opus builder subagents do
