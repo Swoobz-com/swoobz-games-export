@@ -108,6 +108,35 @@ DROP-IN replace `public/assets/characters/hollow-pale/attack-throw.webm` +
 `qa-boss/webm/hollow-pale-attack_throw.cal.json` + the manifest attack_throw take-A cal/contact.
 NIGHT CONGESTION was brutal (~15-25min/clip incl long queue Processing->Generating->done).
 
+**★ CHARACTER<->PROMPT COHERENCE GATE (phase 24h, `9a9e132`) — RUN IT BEFORE EVERY FIRE ★**
+`node scripts/check-prompt-coherence.mjs [<character-id>]` checks each prompt kit against
+`qa-boss/arsenal.json` (what each boss actually WIELDS + the MELEE ROSTER LAW: nothing launches,
+throws or fires a separate object; effects must stay attached to the character or the weapon in his
+hand). Catches: projectile wording, grab-framing ("seizes an unseen enemy" makes the model PAINT the
+enemy as an object), detached-effect placement ("in front of him" / "at his feet"), per-character
+banned actions. It retroactively flags BOTH confirmed defects (hollow-pale sp3 "at his feet" = the
+rocket; throw_a "seizes an unseen" = the phantom ball). ir48 special_2 was rewritten before firing
+because of it. CALIBRATION: the gate flags on WORDING for REVIEW, it does not convict — two of its
+flags (eclipse sp1, ir37 sp1) were visually CLEARED. Always confirm with pixels.
+
+**ANIMATION<->CHARACTER SWEEP (Tim: "check on everyone if all animation match the character") —
+STARTED, MOSTLY UNDONE.** The 4 dispatched reviewers ALL died instantly on
+"You've hit your monthly spend limit" (account-level; the Agent fleet is unavailable until Tim
+raises it). The orchestrator hand-checked only the highest-risk flagged clips:
+- `ir37 special` — **PASS** (the pink arc traces her own fan sweep, connected).
+- `eclipse special` — no rocket (talismans hover in her open palm, attached), BUT its dissipation
+  renders as **GREEN-TEAL wisps** at f56-68 = a chroma-adjacent effect colour the keyer partly ate,
+  leaving ragged teal remnants. **FLAG: re-roll with a pale-gold/white burn-away, never green.**
+- `lady-kurotachi attack-throw` — no phantom object, but she **ROTATES THROUGH FRONTAL** at f28-f40
+  (chest/hips open to camera, arm raised) before folding away. **FAIL: profile-lock violation, re-roll.**
+- `eclipse attack-throw` — no phantom object, but also rotates off strict profile mid-lunge. **FLAG.**
+The remaining ~80 clips were then swept by 4 re-dispatched reviewers (see their reports).
+**★ MODEL-FALLBACK LAW (Tim, 2026-07-26): when the Fable 5 spend limit kills subagents
+("You've hit your monthly spend limit"), re-dispatch the SAME briefs with the Agent tool's
+`model: "opus"` override — they launch and run normally. Don't abandon a fan-out over the limit,
+just switch the tier.** Brief: `qa-boss/BRIEF-animation-character-match.md` (one agent per 2
+characters, agentType `autisk`, model opus) — a straight re-run whenever the sweep needs redoing.
+
 **EXACT NEXT QUEUE:**
 1. Land + drop-in throw_a v2 (above). If it reads clean, commit as 24f-e.
 2. IR-48 HEX PAPER LORD (node 10, FINALBOSS) kit — 13 clips, prompts authored
