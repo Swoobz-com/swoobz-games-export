@@ -42,12 +42,11 @@ export const SATOSHI_ODACHI: FighterDef = {
       },
     ],
     attack_throw: [
-      {
-        // Take A: grab-and-slam wrench (solo-safe, no phantom opponent).
-        url: 'assets/characters/satoshi-odachi/attack-throw.webm',
-        cal: { h: 101.34, bottom: -0.4, left: 50 },
-        contacts: [2000],
-      },
+      // Take A (attack-throw.webm) PULLED 2026-07-26 (animation<->character sweep): three stacked
+      // defects - a full 180 BACK-TURN f48-72 (his face hides behind his hair and he reads as a
+      // faceless white blob), the odachi MORPHS into a wide straight pale broadsword at f24-36 then
+      // degrades to a 1px hairline by f72, and that hairline is sliced flat at the left frame edge
+      // for 21 frames. Re-roll queued. Take B carries the state meanwhile.
       {
         // Take B: shoulder barge (solo-safe, faces screen-right throughout).
         url: 'assets/characters/satoshi-odachi/attack-throw-b.webm',
@@ -92,12 +91,12 @@ export const SATOSHI_ODACHI: FighterDef = {
         cal: { h: 129.03, bottom: -6.45, left: 50 },
         contacts: [2417],
       },
-      {
-        // Rising crescent: explosive rising diagonal slash, white crescent of light at the apex.
-        url: 'assets/characters/satoshi-odachi/special-c.webm',
-        cal: { h: 122.79, bottom: -0.54, left: 50 },
-        contacts: [2083],
-      },
+      // Rising crescent (special-c.webm) PULLED 2026-07-26 (animation<->character sweep): the
+      // clearest projectile in the roster. At f48 he is airborne with both arms tucked BEHIND HIS
+      // HEAD and NO SWORD IN HIS HANDS (only the sheathed one at his waist) while a huge white
+      // crescent hangs in open air to his right, fully detached; at f52 a second crescent still
+      // floats free. He is also back-turned f36-44 with the blade sliced at the left edge f28-45.
+      // Re-roll rule: the arc must TERMINATE ON THE BLADE in every frame, and the blade stays in hand.
     ],
     // ko is the ONE off-anchor clip: drops the odachi, sinks and collapses prone, holds on the
     // ground (does NOT return to the anchor). Cause-free, no opponent.

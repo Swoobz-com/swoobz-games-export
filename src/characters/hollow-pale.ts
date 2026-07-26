@@ -51,16 +51,12 @@ export const HOLLOW_PALE: FighterDef = {
       },
     ],
     attack_throw: [
-      {
-        // Take A: claw snaps forward, seizes high through EMPTY AIR, wrenches down into the smoke
-        // (solo-safe, no phantom opponent). Contact = the wrench.
-        url: 'assets/characters/hollow-pale/attack-throw.webm',
-        cal: { h: 105.02, bottom: 0, left: 42.99 },
-        contacts: [1833],
-      },
+      // Take A (attack-throw.webm) PULLED 2026-07-26 (animation<->character sweep, orchestrator-
+      // verified): he turns his BACK to camera at f46-50 (side-profile lock broken) AND the
+      // bone-scythe shrinks to a few rib-stubs at his hip while turned. Re-roll queued.
       {
         // Take B: the smoke surges as he lunges antlers-first like a charging stag. Contact = the
-        // deepest committed lunge.
+        // deepest committed lunge. (This take also fixed the phantom brown ball: hand open + empty.)
         url: 'assets/characters/hollow-pale/attack-throw-b.webm',
         cal: { h: 99.85, bottom: 0, left: 51.42 },
         contacts: [1000],
@@ -74,13 +70,10 @@ export const HOLLOW_PALE: FighterDef = {
         cal: { h: 100.08, bottom: 0, left: 42.09 },
         contacts: [333],
       },
-      {
-        // Take B: catch pulls the blade in across the chest to absorb, then a claw-arm counter
-        // shove. Contact = the counter shove.
-        url: 'assets/characters/hollow-pale/attack-block-b.webm',
-        cal: { h: 99.85, bottom: 0, left: 49.63 },
-        contacts: [2333],
-      },
+      // Take B (attack-block-b.webm) PULLED 2026-07-26: THE BONE-SCYTHE VANISHES. At f64-f78 his
+      // left arm renders as a plain fleshy arm with an ordinary clawed hand - his signature weapon
+      // (which IS his arm) disappears for ~0.8s, then returns. Orchestrator-verified on the frames.
+      // Worst possible arsenal break; re-roll queued.
     ],
     hit: {
       // Head and torso whip back, smoke scatters off the waist, hard stagger, clean recover to the
@@ -91,15 +84,10 @@ export const HOLLOW_PALE: FighterDef = {
     // Contract §11: the signature FINISHER — plays automatically on a round-ending win; one take is
     // chosen uniform-random per finish. Two takes so far (special_3 SMOKE SPIKE appends later, no re-wire).
     special: [
-      {
-        // Take A — PALE HARVEST: a pale-gold, white and crimson reaping crescent with warm flame
-        // igniting along the bone-blade. The effect fully burns away by the final frame (anchor-locked).
-        // Top edge feathered 48px over f31-f55 (+ right over f51-f53) where the crescent arc
-        // crosses frame. Contact = the crescent ignition peak.
-        url: 'assets/characters/hollow-pale/special.webm',
-        cal: { h: 105.02, bottom: 0, left: 48.5 },
-        contacts: [1417],
-      },
+      // Take A (PALE HARVEST, special.webm) PULLED 2026-07-26: at f32 the white crescent arc hangs in
+      // OPEN AIR up-right of the blade with a visible GAP to it, and at f38-f44 it still extends far
+      // past the blade tip as a separate arc = the detached-projectile ("rocket") class. The fix on
+      // re-roll is not "less effect" but "the arc must TERMINATE ON THE BLADE in every frame".
       {
         // Take B — INK BLOOM: a tight crimson-and-white bloom with black ink wisps bursts from the
         // ribcage as he arches, pulsing once (f43-f52) and fading. Centered, contained, no edge
@@ -108,17 +96,14 @@ export const HOLLOW_PALE: FighterDef = {
         cal: { h: 99.84, bottom: 0.01, left: 49.41 },
         contacts: [1958],
       },
-      {
-        // Take C — SMOKE SHROUD (re-roll of the pulled "rocket" spike): the black smoke around his
-        // legs ERUPTS upward AROUND his own body, roiling up his torso with pale-gold embers glinting
-        // inside it, as he drives the bone-blade down through it, then it sinks back. CONNECTED to
-        // him, no detached object. 0.0000% green. Contact = the eruption/cut climax (f48; the f72
-        // motion argmax is the smoke COLLAPSING, not the beat). Soft smoke kisses the top edge ~f44
-        // (diffuse; a top feather would fade his antler tips, so accepted as billowing smoke).
-        url: 'assets/characters/hollow-pale/special-c.webm',
-        cal: { h: 105.02, bottom: 0, left: 49.06 },
-        contacts: [2000],
-      },
+      // Take C (SMOKE SHROUD, special-c.webm) PULLED 2026-07-26. It DID fix the rocket (the smoke
+      // wraps him instead of flying off) but the sweep found three new defects the orchestrator
+      // then verified on the frames: the shroud SWALLOWS HIS HEAD at peak (only antler tips show,
+      // f44-64); it HARD-CUTS against the top frame edge for 8 frames (f40-47 carry ~100-130 fully
+      // OPAQUE alpha-255 pixels in the top row = a black slab, not billowing smoke - an earlier
+      // orchestrator check used too low an alpha threshold and wrongly accepted this); and at f58 it
+      // sheds a separate black blob floating clear of the mass. Re-roll: keep the shroud LOW (waist
+      // to chest, never over the head) and well inside the top edge.
     ],
     // ko is the ONE off-anchor clip: the smoke thins and sinks, he crumples straight DOWN and lies
     // low with the smoke settling over him like a shroud, then HOLDS (does NOT return to the
