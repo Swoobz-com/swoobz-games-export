@@ -34,7 +34,45 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★ SESSION 6 CONTINUED — RESUME HERE (written 2026-07-26 evening by Opus 4.8 orchestrator; SUPERSEDES the SESSION-6 START-HERE block below) ★★★★★★★
+### ★★★★★★★ FABLE 5 — START HERE (written 2026-07-26 evening by the Opus 4.8 orchestrator; SUPERSEDES every START-HERE block below it) ★★★★★★★
+
+**YOU (Fable 5) are the ORCHESTRATOR: plan / brief / verify / review / commit.** Run generation
+in YOUR own loop (browser Higgsfield Unlimited, ZERO credits); dispatch Opus builder subagents
+(Agent tool, `subagent-briefing` skill) to do keying + wiring from implementation-grade briefs;
+then RE-RUN every gate yourself, review the diff with your own eyes, and LIVE-DRIVE the real game
+(headless puppeteer, screenshots you VIEW, money asserted to the cent) before you commit. NEVER
+trust a builder's self-report — this session a builder DIED mid-response (connection error) after
+doing the file work but before updating the manifest; only inspecting the tree caught it. Tim
+reviews the running game and reports defects as SYMPTOMS ("one shoots a rocket") — MEASURE the
+mechanism and fix what the measurement implicates. Do cheap reversible work immediately; hold
+credit-spends + his design rulings when he is AFK. Commit each verified increment (don't let work
+pile up); update this handoff + project memory at every phase boundary (SAVE-GLOBAL law). Full
+operating model in §0; gates in §6; the browser fire-loop + all doctrines are below.
+
+**GENESIS / verdict-logging reminder:** record a verdict for every subagent run and update memory
+at the end. Read `~/.claude/OPERATING-MANUAL.md` + the project memory
+`frozen-requiem-state.md` (its newest entry is this session, fully detailed) at session start.
+
+**═══ WHAT SESSION 6 (Opus 4.8) DID — 6 commits, campaign went 4→8 of 10 nodes live, ZERO credits ═══**
+`a78784a` wire SORA YARI→n1 + THORN WARDEN→n3 + HOLLOW PALE→n4 (node 4 a full build: new enemy
+identity replacing the blocked Onryo, 12-clip pinksafe kit, ko re-rolled compact to fix a 212px
+right-edge slice, enemy cutout `interiorGreen` keyer flag for his translucent smoke) · `47da03c`
++`dddbb62` add-then-PULL hollow-pale smoke-spike (Tim: "one shoots a rocket" — it rendered as a
+detached flaming projectile) · `cf212f2` wire IR-56 LION-SERPENT→n8 · `c6dbad6` hollow-pale
+special_3 re-roll → SMOKE SHROUD (fixes the rocket, effect now wraps HIM) · `4bb2e07` this handoff.
+All engine-byte-frozen / 157-157 / live-driven / to-the-cent.
+
+**═══ KEY LEARNINGS (the 3 new doctrines are spelled out in full at the bottom of this block) ═══**
+(1) CONNECTED-EFFECT / ANTI-ROCKET: an effect placed "at his feet / in front of him" can render as
+a launched projectile → lock it to erupt/wrap AROUND HIS OWN BODY. (2) interiorGreen: a
+semi-transparent (smoke/glass) body lets the chroma shine THROUGH → needs an alpha-estimate pass,
+watch the matte. (3) cal-derivation for kits keyed without cal.json: recompute from the shipped
+webm but CROSS-CHECK the formula against a known cal first, and beware the motion-energy argmax
+being the RECOVERY / effect-collapse rather than the blow.
+
+**═══ WHAT TO DO NEXT is the "EXACT NEXT QUEUE" list further down this block. ═══**
+
+---
 
 **WHERE THE GAME IS (HEAD `c6dbad6`, 157/157 vitest, engines byte-frozen): the campaign now
 has 8 OF 10 NODES fighting with their OWN animated character** — nodes 1 (SORA YARI), 3
