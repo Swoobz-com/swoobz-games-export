@@ -108,6 +108,14 @@ export const HOLLOW_PALE: FighterDef = {
         cal: { h: 99.84, bottom: 0.01, left: 49.41 },
         contacts: [1958],
       },
+      {
+        // Take C — SMOKE SPIKE: the black smoke erupts into a tall pale-gold-tipped spike beside him
+        // as he drives the bone-blade toward it, then it collapses. Contained (30px top margin in
+        // source), 0.0000% green. Contact = the drive/spike peak (f53).
+        url: 'assets/characters/hollow-pale/special-c.webm',
+        cal: { h: 101.65, bottom: 0, left: 48.39 },
+        contacts: [2208],
+      },
     ],
     // ko is the ONE off-anchor clip: the smoke thins and sinks, he crumples straight DOWN and lies
     // low with the smoke settling over him like a shroud, then HOLDS (does NOT return to the
