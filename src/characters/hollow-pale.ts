@@ -108,9 +108,17 @@ export const HOLLOW_PALE: FighterDef = {
         cal: { h: 99.84, bottom: 0.01, left: 49.41 },
         contacts: [1958],
       },
-      // Take C (SMOKE SPIKE) PULLED 2026-07-26: the "smoke at his feet" rendered as a DETACHED
-      // dark projectile with a flaming tip hovering to his right — it read as him shooting a rocket
-      // (Tim review). special-c.webm stays on disk; a connected-smoke re-roll drops back in here.
+      {
+        // Take C — SMOKE SHROUD (re-roll of the pulled "rocket" spike): the black smoke around his
+        // legs ERUPTS upward AROUND his own body, roiling up his torso with pale-gold embers glinting
+        // inside it, as he drives the bone-blade down through it, then it sinks back. CONNECTED to
+        // him, no detached object. 0.0000% green. Contact = the eruption/cut climax (f48; the f72
+        // motion argmax is the smoke COLLAPSING, not the beat). Soft smoke kisses the top edge ~f44
+        // (diffuse; a top feather would fade his antler tips, so accepted as billowing smoke).
+        url: 'assets/characters/hollow-pale/special-c.webm',
+        cal: { h: 105.02, bottom: 0, left: 49.06 },
+        contacts: [2000],
+      },
     ],
     // ko is the ONE off-anchor clip: the smoke thins and sinks, he crumples straight DOWN and lies
     // low with the smoke settling over him like a shroud, then HOLDS (does NOT return to the
