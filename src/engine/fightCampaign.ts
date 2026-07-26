@@ -95,7 +95,7 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'satoshi-odachi', arenaId: 'kawa', enemy: { id: 'satoshi-odachi', name: 'SATOSHI ODACHI' } },
   { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'eclipse-ofuda', arenaId: 'shrine', enemy: { id: 'eclipse-ofuda', name: 'ECLIPSE OFUDA' } },
   { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: 42530n, fighterId: 'ir37-pink-tessen', arenaId: 'pagoda', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
-  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 42530n, fighterId: 'volta', arenaId: 'gorge', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
+  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 42530n, fighterId: 'ir56-lion-serpent', arenaId: 'gorge', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
   { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: 73430n, fighterId: 'lady-kurotachi', arenaId: 'moat', enemy: { id: 'lady-kurotachi', name: 'LADY KUROTACHI' } },
   // Tim's ruling (2026-07-22): the finalboss art IS the final boss - IR-48 HEX PAPER LORD is the
   // name; the lore line follows the other nodes' register. RONIN ZERO stays as the SEASON brand
