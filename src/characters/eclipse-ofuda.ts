@@ -36,8 +36,14 @@ export const ECLIPSE_OFUDA: FighterDef = {
     attack_strike: [
       {
         // Take A: coiled hat-tilted iai crouch -> committed diagonal draw-cut with left follow-through.
+        // FACING FIX (phase 26): this take was generated MIRRORED (faced screen-RIGHT while idle/victory
+        // and 7 siblings face LEFT), so it rendered facing away from the opponent in BOTH slots.
+        // Re-keyed from qa-boss/raw/eclipse-ofuda-strike-a-v3.mp4 with hflip at the FRAME level before
+        // the key (no extra generation), identical recipe (stock keyer -> green-despill -> green-
+        // neutralize, feather none). cal is keyer-EMITTED: h/bottom unchanged, left 44.96 -> 55.04
+        // (= 100 - 44.96, mirror about the still's content centre at 50%). contacts unaffected.
         url: 'assets/characters/eclipse-ofuda/attack-strike.webm',
-        cal: { h: 111.27, bottom: -2.14, left: 44.96 },
+        cal: { h: 111.27, bottom: -2.14, left: 55.04 },
         contacts: [1875],
       },
       {
@@ -68,6 +74,10 @@ export const ECLIPSE_OFUDA: FighterDef = {
       // air above-left of her hat while both hands are crossed empty on her chest; f75 the blade
       // re-materialises. Weapon vanish + morph + phantom in one beat. She is also fully frontal
       // f10-f74 (~2.7s of a 4s clip) against her side-profile lock. Re-roll; take B carries blocks.
+      // ALSO facing-fixed on disk (phase 26): the file was mirrored too, and has been re-keyed hflipped
+      // so the kit is 13/13 self-consistent for the facing gate. If this take is ever restored (it
+      // should be re-rolled instead), its keyer-emitted cal is now { h: 110.76, bottom: -0.48, left: 51.69 }
+      // (was left 48.31), contacts unchanged [1750, 2583].
       {
         // Take B: forearm brace across the chest -> controlled counter cut.
         url: 'assets/characters/eclipse-ofuda/attack-block-b.webm',
@@ -101,12 +111,20 @@ export const ECLIPSE_OFUDA: FighterDef = {
     //  - special-c.webm (talisman guard): a cluster of ~10 talismans + olive arcs hangs in OPEN AIR
     //    beside her hip, unattached to body or blade, from f0 to ~f52 (~2.2s) - and being present at
     //    f0 it pops in at trigger. Framing is also tight all round (top 5px, bottom 3px).
+    // FACING (phase 26): special-b.webm was ALSO mirrored on disk and has been re-keyed hflipped so the
+    // kit is 13/13 self-consistent for the facing gate. If it were ever restored (it should be
+    // re-rolled instead), its keyer-emitted cal is now { h: 114.67, bottom: -4.12, left: 48.12 }
+    // (was left 51.88), contacts unchanged [2250]. special.webm / special-c.webm already faced LEFT
+    // correctly and were NOT touched.
     special: [],
     // ko is the ONE off-anchor clip: drops the katana, crumples to the ground and HOLDS prone (does
     // NOT return to the anchor). Cause-free, no opponent.
+    // FACING FIX (phase 26): ko was generated MIRRORED (faced screen-RIGHT against the kit's LEFT).
+    // Re-keyed from qa-boss/raw/eclipse-ofuda-ko.mp4 with a frame-level hflip, v1-keep recipe (stock
+    // keyer -> green-neutralize, NO despill, no feather). cal keyer-emitted: left 56.66 -> 43.34.
     ko: {
       url: 'assets/characters/eclipse-ofuda/ko.webm',
-      cal: { h: 106.78, bottom: -5.81, left: 56.66 },
+      cal: { h: 106.78, bottom: -5.81, left: 43.34 },
     },
     // Round-win taunt: one crisp flourish whip (silver smear arc), settles back to the anchor.
     victory: {

@@ -71,8 +71,15 @@ export const IR37_PINK_TESSEN: FighterDef = {
     ],
     hit: {
       // Sharp head/torso whip-back stagger, resolves quickly back to guard, stays on feet.
+      // FACING FIX (phase 26): this take was generated MIRRORED (faced screen-LEFT while the rest of
+      // the kit + the still face RIGHT), so it rendered facing away from the opponent in BOTH slots.
+      // Re-keyed from qa-boss/raw/ir37-hit.mp4 with hflip applied at the FRAME level before the key
+      // (no extra generation), same pink-safe keyer, then the same f0-f11 head-trim (phase 24j rocket).
+      // cal is the keyer-EMITTED value for the flipped frames: h/bottom unchanged (a horizontal flip
+      // touches neither), left 55.96 -> 44.04 (= 100 - 55.96, the mirror about the still's content
+      // centre at 50%), which holds her at the same stage x. contacts unaffected (timings).
       url: 'assets/characters/ir37-pink-tessen/hit.webm',
-      cal: { h: 102.92, bottom: -0.49, left: 55.96 },
+      cal: { h: 102.92, bottom: -0.49, left: 44.04 },
     },
     // Contract §11: the signature FINISHER — plays automatically on a round-ending win. Three takes,
     // one chosen uniform-random per exchange. The pink/white bloom is baked into the body (sanctioned
@@ -104,9 +111,11 @@ export const IR37_PINK_TESSEN: FighterDef = {
       cal: { h: 106.33, bottom: -5.84, left: 48.66 },
     },
     // Round-win taunt: proud fan flourish (fan snaps open) then settles to the anchor.
+    // FACING FIX (phase 26): same defect + same fix as `hit` — re-keyed from qa-boss/raw/ir37-victory.mp4
+    // with a frame-level hflip. cal keyer-emitted: left 57.77 -> 42.23 (= 100 - 57.77).
     victory: {
       url: 'assets/characters/ir37-pink-tessen/victory.webm',
-      cal: { h: 100.97, bottom: -0.49, left: 57.77 },
+      cal: { h: 100.97, bottom: -0.49, left: 42.23 },
     },
   },
   quotes: [
