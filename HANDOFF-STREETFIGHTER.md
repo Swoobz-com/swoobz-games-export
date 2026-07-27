@@ -34,7 +34,95 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★★ OPUS 5 — START HERE (written 2026-07-27 ~03:20 by the SESSION-7 Opus 5 orchestrator; SUPERSEDES every START-HERE block below it) ★★★★★★★★
+### ★★★★★★★★★ OPUS 5 — START HERE (SESSION 8, written 2026-07-27 ~12:50; SUPERSEDES every START-HERE block below) ★★★★★★★★★
+
+**STATE.** HEAD `9ed9bfd`, `npx vitest run` = **157/157**, tsc clean, engines + `src/ui` byte-frozen all
+session. Working tree clean except the pre-existing untracked dirs. **ZERO generation happened — the
+browser extension never connected** (checked repeatedly; Tim was asked to reconnect and it stayed down).
+Everything below was done locally.
+
+#### WHAT SESSION 8 SHIPPED — three commits, all live-driven before commit
+
+- **`07bcbfe` phase 26 — hollow-pale drop-ins.** Phase 25 generated four clean re-rolls but never keyed
+  or wired them, so node 4 was running three states on a SINGLE take. Now `attack_block` 1→2 takes and
+  `special` 1→3. `attack_throw` Take A **stays PULLED**: its v2 fixed the arsenal break (scythe full in
+  all 97 frames) but reproduces the back-turn (f43–f62, ~0.8s, scapulae to camera). Orchestrator
+  confirmed on the frames; doctrine 6 says never ship a known-defective take. **The keyed webm is on
+  disk** — a re-roll or Tim overriding is a pure manifest swap, no re-key.
+- **`3a894ef` phase 27 — the FACING GATE + Lady Kurotachi.** 11 of her 13 clips faced the wrong way.
+- **`9ed9bfd` phase 28 — ir37 (2) + eclipse (4) hflipped.** Roster now self-consistent.
+
+#### THE FACING DEFECT CLASS (new; `scripts/check-facing.mjs`)
+
+`faces:` is a **CORRECTNESS input, not a label**. `FightExperience.tsx:920` computes
+`isMirrored = faces !== (slot==='p1'?'right':'left')` and applies ONE mirror to the whole stack (:1087).
+Because that decision is uniform per kit, **every clip must NATIVELY face the direction `faces:` states**.
+Clips being generated one way and reused for both slots is by design and is fine (Tim confirmed); clips
+disagreeing WITH EACH OTHER is the bug. Found: LK 11 wrong, eclipse 4, ir37 2 (`hit` — fires on nearly
+every exchange). hollow-pale, ir56, satoshi, sora, thorn were clean.
+
+Fix recipe that worked 17/17: **re-key FROM RAW with `-vf hflip` at the FRAME level**, never webm→webm.
+Validate first by re-keying one clip UNFLIPPED and reproducing the shipped cal bit-exactly, then trust
+the flipped run. `h`/`bottom` are flip-invariant; `left_new = 200·onCX − left_old` (= `100 − left_old`
+when the still is centred) and must come from the KEYER'S EMISSION, never hand-applied. `contacts` are
+timings — untouched.
+
+**TWO TRAPS THIS GATE TAUGHT (both nearly shipped a confident wrong answer):**
+1. `qa-boss/anchors/<id>-anchor.png` are RGBA **containers whose alpha is 255 everywhere** — raw plates,
+   not cutouts. Anchoring on one normalises to a filled rectangle, which is symmetric, so
+   `IoU(as-is) === IoU(mirrored)` for every clip and the gate prints a serene, meaningless "0/13
+   mirrored". The gate now ABORTS on any anchor mask covering >95% of frame. Use `--still`.
+2. **The gate reports agreement RELATIVE to its anchor, NOT absolute correctness.** On eclipse the STILL
+   is itself the outlier, so reading the gate literally would have flipped the wrong 9 clips. Verdicts
+   come from viewing frames; the gate only tells you which clips disagree with which.
+
+#### OPEN DECISIONS FOR TIM (asked, never answered — do NOT decide these unilaterally)
+1. **eclipse's still** `public/assets/enemies/eclipse-ofuda.webp` is itself mis-facing for `faces:'left'`
+   (that is why her now-consistent kit reads "13/13 mirrored" against it). It is shared art the MAP NODE
+   CARDS render, so flipping it fixes the HUD medallion + select tile but may flip her map card.
+2. **Delete the dead `qa-boss/prompts/onryo-katana.md`?** It is the superseded identity hollow-pale
+   replaced. It is NOT "unchecked" as the old handoff claimed — `check-prompt-coherence.mjs:129` globs
+   the prompts dir, so it IS scanned in degraded mode (`wields: (arsenal not declared)`) and emits a
+   phantom BLOCK that holds the gate at **exit 1** for a character that cannot ship. Also
+   `scripts/prep-boss-anchors.mjs:39` still lists onryo as map 4 and is **missing hollow-pale entirely** —
+   out of sync in both directions.
+3. **hollow-pale `attack_throw` Take A** — ship the back-turn for 2-take variety, or keep it pulled?
+
+#### CONTAINMENT GATE IS NOW CALIBRATED — `qa-boss/CONTAINMENT-TRIAGE.md`
+The old handoff's "48 of 104" was **measured on the wrong directory**: 104 is the file count of the
+`qa-boss/webm/` STAGING dir. The real shipped set is **97 clips, 49 flagged**. And the "some contact is
+expected and invisible" assumption is **FALSE** — derived from render geometry (`translate(-50%,-100%)`,
+fighter box 58% at cx 24/76), every clip edge lands well inside the visible stage, and
+`.fr-ko-zoom-active` scales 1.15× on KO, MAGNIFYING cuts in `ko`/`special`/`victory`. Opacity is not the
+discriminator (A40/A128/A200 barely differ — it is solid matter); RUN LENGTH is, because it measures the
+width of the flat cut face.
+```
+CLEAR   A200 < 32                                   bands: BLOCK 18 · REVIEW 14 · COSMETIC 16 · CLEAR 1
+REVIEW  32 <= A200 < 90
+BLOCK   A200 >= 200  OR  (A200 >= 90 AND dwell >= 3)
+```
+**thorn-warden (n3) is the re-roll priority** — 7 of 10 clips flagged, 3 BLOCK, earliest defective node.
+satoshi (n5) and ir56 (n8) need kit-level re-rolls, 5 BLOCK each. hollow-pale is the cleanest kit.
+**`special` is NOT a rare state** — `FightExperience.tsx:1789` swaps it in on EVERY round-ending win.
+
+#### WHAT TO DO NEXT
+1. **Get the browser up first** — everything valuable left is generation. Then, in order: Eclipse ×3
+   finishers (her `special: []` means every win against her plays a plain attack — still the single
+   highest-value fix), LK `throw_b` harvest from History, IR-48's July-26 renders (harvest before
+   re-firing), hollow-pale `throw-a` re-roll (kill the back-turn), hollow-pale `special_3` for presence.
+2. **thorn-warden n3 containment re-rolls** per the triage ranking.
+3. Then the old queue: kitsune (still blocked on the baked-in tanto glow — Tim has not ruled),
+   sora/thorn specials, ir56 light-arena alpha re-key, `input/MK FINAL/`.
+
+#### LIVE-DRIVE HARNESS
+`node qa-boss/phase28-drive.mjs` (needs `npm run dev -- --port 5340 --strictPort`) drives n4/n6/n7/n9,
+probes that each boss's OWN webms mount AND play, and asserts the FACING RULE wrapper's computed
+`scaleX` matches what the manifest implies for the p2 slot. All four PASS. Note it does not assert money
+(its `$` regex found no balance text on these screens) — the wire2/wire3 drivers are the money check.
+
+---
+
+### ★★★★★★★★ (SUPERSEDED) OPUS 5 — START HERE (written 2026-07-27 ~03:20 by the SESSION-7 Opus 5 orchestrator) ★★★★★★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the BROWSER
 (Higgsfield Unlimited, ZERO credits) — never MCP `generate_video`, which always bills. Full detail in
