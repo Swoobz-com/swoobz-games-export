@@ -80,13 +80,29 @@ export const LADY_KUROTACHI: FighterDef = {
         cal: { h: 102.29, bottom: -0.18, left: 41.68 },
         contacts: [1833],
       },
-      // Take B (attack-throw-b.webm) PULLED 2026-07-26 (animation<->character sweep): the clip is
-      // MIRRORED - visor on the left, sword in the screen-LEFT hand, she faces screen-LEFT for the
-      // entire take while her still, her idle and all 12 other clips face RIGHT. In game she flips
-      // to face AWAY from her opponent for the whole take and snaps back. Compounding it, her sword
-      // hand and hilt are sliced flat at the left frame edge (0px margin) continuously f44-f64 on a
-      // HELD lunge. No clean fallback take exists (throw_b v2 failed on a phantom cylinder +
-      // frontal rotation), so this needs a genuine re-roll with an explicit facing lock.
+      {
+        // Take B: driving shoulder barge through empty air - coil back, rotate through a 3/4 lunge,
+        // then a committed step-through with the lead arm punched out to full extension, held, and
+        // wound back to the anchor (solo-safe: the lead hand is an EMPTY FIST, no phantom object,
+        // katana trails in the off hand the whole take).
+        // RESTORED 2026-07-27 (phase 26) as the v3 RE-ROLL. The take that was PULLED 2026-07-26 had
+        // her sword hand sliced flat at the left frame edge on a held lunge (a 422px edge slice) AND
+        // faced screen-LEFT. v3 fixes BOTH natively: 0px contiguous opaque run on TOP/LEFT/RIGHT
+        // (and bottom) across all 97 keyed frames, and it is generated FACING SCREEN-RIGHT already,
+        // so - uniquely among her kit - it needed NO hflip (keyed straight off raw
+        // qa-boss/raw/lady-kurotachi-throw-b-v3.mp4, 960x960 @24fps, 97f). The mid-clip 3/4 lunge
+        // pass-through is accepted acting, not a back-turn: f0 and f96 are the anchor pose.
+        // cal is the keyer's OWN emission (qa-boss/webm/lady-kurotachi-throw_b.cal.json).
+        // contact = ARRIVAL AT FULL EXTENSION (f44 -> 1833ms), verified on a reach/centroid trace,
+        // NOT the motion-energy argmax: argmax lands on f41 (1708ms), which the trace shows is the
+        // fast 3/4->profile rotation frame with the fist still CHAMBERED (upper-body reach 615px, a
+        // local MINIMUM). Fist reach jumps 755->857->867 over f42-f44 and then only creeps to the
+        // 879px maximum it holds through f57 - i.e. the travel decelerates to zero at f44, which is
+        // the blow. Centroid cx agrees (427 anchor -> 534 at f44 -> peak 542 at f57).
+        url: 'assets/characters/lady-kurotachi/attack-throw-b.webm',
+        cal: { h: 100.84, bottom: -0.18, left: 47.35 },
+        contacts: [1833],
+      },
     ],
     attack_block: [
       {

@@ -107,9 +107,18 @@ timings — untouched.
    shared art. (Correction to an earlier note in this file: the node CARD uses a separate `<id>-pfp.webp`
    — `FightExperience.tsx:2382/2633` — so only the frontier silhouette tease `fr-map-sil` (:330) reads
    `<id>.webp`. The map-card risk was overstated.) Implementation: the 4 clips phase 28 flipped are
-   RESTORED from `3a894ef` (bit-exact, no double re-key); the other 9 get the hflip re-key. **Her
-   generation anchor faces LEFT, so every FUTURE eclipse re-roll must be hflipped at keying** — that note
-   must not be lost or the drift returns one re-roll later.
+   RESTORED from `3a894ef` (bit-exact, no double re-key); the other 9 get the hflip re-key.
+
+   **CORRECTION (measured 2026-07-27 during the eclipse re-roll fires — supersedes the phase-29 claim
+   that her anchor faces left and every future re-roll needs an hflip).** Both plates were VIEWED:
+   `qa-boss/anchors/eclipse-ofuda-anchor-green.png` faces **screen-RIGHT**; `-anchor-green-r.png` is the
+   left-facing mirror. The "anchor faces left" line was inherited from the ledger, never measured.
+   So: fire eclipse on the **base `-anchor-green.png`** plate with prompts commanding **SCREEN-RIGHT**,
+   and the output needs **NO hflip** — confirmed on `special_1` v2, which measured as-is 0.88/0.70/0.94
+   vs mirrored ~0.25 against her still at f0/f48/f96. Her `-REROLL.md` prompt bodies were flipped
+   SCREEN-LEFT -> SCREEN-RIGHT to match (coherence gate re-run: PASS). NOTE the file's meta header and
+   self-score still describe the old right-facing assumption from two sessions ago and were already
+   internally contradictory with its own bodies — trust the bodies + this note.
 2. **Delete the dead `qa-boss/prompts/onryo-katana.md`?** It is the superseded identity hollow-pale
    replaced. It is NOT "unchecked" as the old handoff claimed — `check-prompt-coherence.mjs:129` globs
    the prompts dir, so it IS scanned in degraded mode (`wields: (arsenal not declared)`) and emits a
