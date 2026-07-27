@@ -1,4 +1,10 @@
-# HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Fable 5 session
+# HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
+
+> **READ THIS FIRST — the paragraph below is STALE (it describes phase 22b/23 in July 2026).**
+> Current state as of **session 10, 2026-07-27**: HEAD **`b350c43`**, `npx vitest run` = **157/157**,
+> tsc clean, engines + `src/ui` byte-frozen. Boss clips ARE wired now (Tim's old "generate first,
+> don't wire" ruling was lifted back in wire wave 2). **Jump to
+> "★ OPUS 5 — START HERE (SESSION 10)" below** and start there; everything above it is provenance.
 
 Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN; was
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
@@ -34,7 +40,176 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 9, written 2026-07-27 ~16:00; SUPERSEDES every START-HERE block below) ★★★★★★★★★★
+### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 10, written 2026-07-27 ~18:30; SUPERSEDES every START-HERE block below) ★★★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the BROWSER
+(Higgsfield Unlimited, ZERO credits) — never MCP `generate_video`, which always bills. Re-run every
+gate yourself, VIEW the frames, live-drive before committing. Never accept a self-report.
+
+**STATE AT HANDOFF.** HEAD `b350c43`. `npx vitest run` = **157/157**, tsc clean. **Engines and
+`src/ui` are byte-frozen across sessions 8-10** — session 10 touched exactly one src file
+(`src/characters/eclipse-ofuda.ts`, a manifest). Tracked tree clean apart from the long-standing
+untracked dirs. **THE CHROME EXTENSION DISCONNECTED at the end of session 10** — reconnect it before
+any generation work (`tabs_context_mcp` will tell you).
+
+---
+
+#### WHAT SESSION 10 SHIPPED — 2 commits
+
+| commit | what |
+|---|---|
+| `8a312c7` | phase 31 — **eclipse finishers RESTORED**: `special: []` -> 2 wired takes |
+| `b350c43` | phase 31 (cont) — **IR-48 final-boss kit STARTED** (idle PASS, strike_a REJECT+re-roll) + prompt tooling |
+
+**1. ECLIPSE NODE 6 IS FIXED.** Her `special: []` meant *every* round-ending win against her played a
+plain attack. Now two takes ship: `special.webm` (OFUDA RITE — talisman fused to the blade, burns
+tip-to-tsuba) and `special-c.webm` (JUDGEMENT PLUNGE — blade driven into the ground, gold flare).
+Both keyed from the session-9 raws, **both with NO hflip**, both live-driven at node 6 and screenshotted.
+`special_2` stays PULLED (its v2 hard-cuts the frame RIGHT 272px @f29 — re-roll, not a feather).
+
+**2. IR-48 HEX PAPER LORD (node 10, FINAL BOSS) IS UNDER WAY — 1 of 13 passed.** Was 0/13; node 10
+still shows VOLTA until the kit is keyed and wired.
+
+---
+
+#### ⚠ THE FIRST THING TO DO: HARVEST THE IN-FLIGHT `strike_a` v2
+
+**A `strike_a` v2 was FIRED and never harvested** — the extension dropped while it was generating. It
+is sitting in Higgsfield History right now, already paid for (free, Unlimited). Do NOT re-fire it.
+
+```
+1. Reconnect the extension, open https://higgsfield.ai/ai/video.
+2. The newest card whose prompt contains "LOW and IN FRONT" is it. Click its play button,
+   read video.currentSrc, PAUSE IMMEDIATELY.
+3. curl it to qa-boss/raw/ir48-hex-paper-lord-strike-a-v2.mp4 (URL pattern:
+   https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/<the hf_ filename>).
+4. QA it against the two v1 defects specifically — see the strike_a entry in
+   qa-boss/ir48-hex-paper-lord-clipdata.json for exactly what to look for.
+```
+
+---
+
+#### THE SIX LESSONS OF SESSION 10 (internalise before touching anything)
+
+1. **VALIDATE THE TOOLCHAIN WITH A CONTROL BEFORE TRUSTING ITS OUTPUT.** Before keying eclipse's new
+   specials I re-ran `flip-eclipse.mjs flip special_1` and it reproduced the shipped cal EXACTLY
+   ({h:109.71, bottom:-0.49, left:54.61} @ bbox 444x904). Only then were the new cals believable.
+   (The webm is NOT byte-identical on re-encode — libvpx isn't deterministic — so judge the CAL, not
+   the file hash.)
+2. **A DOWNSCALED STRIP LIES ABOUT POSE. JUDGE SUSPECTS AT FULL SIZE.** On strike_a's 300px strip the
+   wind-up read unmistakably as "he turns his BACK to camera" = a spin = a severe defect. At full
+   resolution it is plainly a wind-up coil, still in strict side profile. Had I acted on the strip I
+   would have "fixed" a facing that was never broken. This is AGENT_MEMORY lesson 2 recurring — it
+   costs a whole clip cycle every time.
+3. **EVERY TAKE MOUNTS AS A SIBLING `<video>`. A PROBE THAT RETURNS THE FIRST MATCH IS A LIAR.** My
+   first eclipse live-drive ran 14 full matches and concluded take B "never plays". The engine mounts
+   all takes of a state as sibling elements, so `querySelector`-style probing reported take A forever.
+   Enumerate ALL matching videos and check `playing && visible && currentTime > 0`. Fixed probe found
+   both takes in one match. **Cost: ~25 wasted minutes and a nearly-filed false bug.**
+4. **THE SHARED SUFFIX CONTRADICTS THE `ko` BODY — AND ONLY ONE PROMPT FILE SAYS SO.** `ko` is the one
+   off-anchor state: the fighter DROPS the weapon and ENDS COLLAPSED. The shared suffix's weapon lock
+   ("keeps X in his hands the whole time and never drops or swaps them") and anchor lock ("begins and
+   ends on the EXACT same reference stance") directly contradict that. `lady-kurotachi.md` carries a
+   hand-written operator note about it; **ir48's file does not.** The rule now lives in
+   `qa-boss/build-prompt.mjs` so it cannot depend on whoever fires remembering it. **Check any other
+   prompt file you fire a `ko` from.**
+5. **ONE IDENTITY LOCK IN THE SUFFIX IS NOT ENOUGH FOR A BIG-PROP SWING.** strike_a v1's crimson
+   hex-bordered war-fan MORPHED into a pale grey feathered shape mid-wind-up (f8-f20, f48-f60) even
+   though the suffix locks the fan. The lock has to be repeated **in the body, at the moment of
+   motion**. Also: the word "COILS back" with a large prop reads to the model as "take it behind and
+   over the shoulder", which is exactly the trajectory the morph happened on — the v2 re-specifies it
+   as a LOW FRONT COCK.
+6. **MEASURE "IT LOOKS GREEN", DON'T RULE ON IT.** IR-48's fan hub and hex rim look alarmingly green —
+   the kitsune baked-in-glow blocker class. Measured: of 8847 green-dominant pixels inside his bbox,
+   **8657 (98%) are edge spill** within 2px of backdrop and the remaining 190 are dark shadow tones.
+   The hub green is BACKDROP THROUGH OPEN RIB GAPS — it keys to transparency correctly. Not a blocker.
+   (Watch item: those gaps are 2-6px, so expect fine alpha that VP9 crf30 may soften.)
+
+---
+
+#### THE BILLING TRAP — IT RESET TWICE THIS SESSION
+
+`Generate2418` = **2418 CREDITS = BILLING**. `GenerateUnlimited` = free. **A fresh tab OR a reload
+silently resets it to credits.** It reset twice in session 10 (once on first load, once when I opened
+a replacement tab) and was re-armed both times. The model row can still read "UNLIMITED" while the
+BUTTON says 2418 — **the button is the authority.** Toggle: click the `[role="switch"]` with
+`aria-checked="false"`, then re-read the button label.
+
+**Never fire with a bare click.** Use a guarded click that re-asserts, *inside the same JS task as the
+click*: exact prompt length, exactly ONE identity-lock occurrence, `FACING SCREEN-RIGHT` present, and
+`label === 'GenerateUnlimited'`. Pattern is in this file's session-9 fire loop; both session-10 fires
+used it.
+
+---
+
+#### NEW TOOLING (committed, use it — don't hand-assemble prompts again)
+
+`node qa-boss/build-prompt.mjs <promptFile> <state>` — prints the fire-ready prompt to stdout and
+`LEN=<n>` to stderr. It assembles shared prefix + state body + shared suffix (+ the SPECIAL add-on for
+`special_*`), drops `#` operator-comment lines, applies the ko-suffix rule, and **flattens newlines to
+single spaces** so the pre-fire assertion `textContent.length === LEN` is a real gate against the
+Lexical paste defect (clipboard paste drops newlines WITHOUT substituting a space, joining a word at
+every line break — ~34 joins in one session-9 prompt, invisible except by length).
+
+All 13 IR-48 prompts are pre-built and validated (each: exactly 1 identity lock, FACING SCREEN-RIGHT
+present). Set the clipboard with PowerShell `Set-Clipboard`, verify with `Get-Clipboard`, then in the
+page: `ed.focus()`, select ONLY the editor contents with a Range (**never document-wide ctrl+a**), ctrl+v.
+
+---
+
+#### WHAT TO DO NEXT (in order)
+
+1. **Harvest the in-flight `strike_a` v2** (see the box above). Then continue the IR-48 kit **STRICTLY
+   ONE CLIP AT A TIME**: strike_b, throw_a, throw_b, block_a, block_b, hit, ko, victory, special_1,
+   special_2, special_3. **~25 min per clip** — 11 left is roughly 5 hours of wall-clock. QA every
+   harvest before the next fire (containment gate + a VIEWED full-size frame strip + facing).
+   **His anchor natively faces SCREEN-RIGHT, so this kit needs NO hflip at keying.**
+2. **Then key + wire the IR-48 kit** and flip node 10 off VOLTA. Expect fine-alpha work on the fan's
+   open rib gaps (see lesson 6).
+3. **Re-roll eclipse `special_2` v3** — tighten the arc radius / cut length or re-angle to a descending
+   diagonal; KEEP the "trailing edge fused to the cutting edge" wording, which worked. Then key + wire
+   as her third finisher take (no hflip; she fires on the **base** `-anchor-green.png` plate).
+4. **Regenerate `qa-boss/CONTAINMENT-TRIAGE.md`** — still stale for the 17 phase-27/28 flipped clips
+   (its RANKING is valid, its per-clip border data is not). Calibration:
+   `CLEAR A200<32 · REVIEW 32-90 · BLOCK >=200 or (>=90 & dwell>=3)`.
+5. **thorn-warden n3 containment re-rolls** (7 of 10 flagged, 3 BLOCK — earliest defective node), then
+   satoshi n5 and ir56 n8 (5 BLOCK each).
+6. **hollow-pale `throw-a` re-roll** (kill the back-turn; its keyed webm is on disk so a pass is a pure
+   manifest swap) and **`special_3` presence re-roll** (defect-free but weak).
+7. Then: sora/thorn specials (both ship `special: []` — same bug class eclipse just had, so a
+   round-ending win at nodes 1 and 3 plays a plain attack), ir56 light-arena alpha re-key,
+   `input/MK FINAL/`.
+
+#### ROSTER CENSUS (measured off the manifests 2026-07-27, not from memory)
+
+| node | boss | wired takes | gap |
+|---|---|---|---|
+| 1 | sora-yari | 10 | **no `special`** |
+| 2 | **kitsune-tanto** | **0 — not wired at all** | 13 raws exist, only 2 keyed; BLOCKED on the baked-in tanto glow, Tim has never ruled |
+| 3 | thorn-warden | 10 | **no `special`**; 7/10 containment-flagged, 3 BLOCK |
+| 4 | hollow-pale | 12 | `throw` on 1 take (Take A pulled, back-turn) |
+| 5 | satoshi-odachi | 11 | `throw` 1 take; 5 BLOCK containment |
+| 6 | eclipse-ofuda | 11 | `block` 1 take; special_2 pulled — **finishers fixed session 10** |
+| 7 | ir37-pink-tessen | 13 | complete |
+| 8 | ir56-lion-serpent | 12 | 5 BLOCK containment |
+| 9 | lady-kurotachi | 12 | complete-ish |
+| 10 | **ir48-hex-paper-lord** | **1 of 13 generated, 0 wired** | final boss; node shows VOLTA |
+
+#### STILL OPEN FOR TIM (asked, never answered — do NOT decide these unilaterally)
+- **KITSUNE node 2** — park / ~1-2cr nano_banana anchor edit / free local pixel-surgery. Blocks a whole node.
+- **hollow-pale `attack_throw` Take A** — ship the back-turn for 2-take variety, or keep it pulled?
+- **Delete the dead `qa-boss/prompts/onryo-katana.md`?** `check-prompt-coherence.mjs:129` globs the
+  prompts dir, so it IS scanned in degraded mode and emits a phantom BLOCK holding the gate at exit 1
+  for a dead identity. `scripts/prep-boss-anchors.mjs:39` still lists onryo as map 4 and is MISSING
+  hollow-pale — out of sync in both directions.
+- **Session-10 residual, eclipse `special.webm` take A**: f62-f70 (~0.33s) small white paper scraps
+  detach from the burning ofuda and drift off the blade, cleared by f72. Judged authored ash debris
+  (causally originated, adjacent, self-clearing) rather than the detached/hovering ban. Shipped and
+  flagged rather than buried — Tim's call whether to re-roll.
+
+---
+
+### ★★★★★★★★★ (SUPERSEDED) OPUS 5 — START HERE (SESSION 9, written 2026-07-27 ~16:00) ★★★★★★★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the BROWSER
 (Higgsfield Unlimited, ZERO credits) — never MCP `generate_video`, which always bills. You dispatch
