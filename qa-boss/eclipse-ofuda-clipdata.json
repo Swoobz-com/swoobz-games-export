@@ -247,7 +247,33 @@
         "bottom": -0.49,
         "left": 45.39
       },
-      "facing_phase29_2026_07_27": "RE-KEYED HFLIPPED to screen-RIGHT (roster convention, Tim 2026-07-27). Raw decoded with -vf hflip at the FRAME level before the key, same recipe as the unflipped reproduction. cal keyer-EMITTED, h/bottom unchanged, contacts unchanged. left 45.39 -> 54.61 = exactly 100 - old."
+      "facing_phase29_2026_07_27": "RE-KEYED HFLIPPED to screen-RIGHT (roster convention, Tim 2026-07-27). Raw decoded with -vf hflip at the FRAME level before the key, same recipe as the unflipped reproduction. cal keyer-EMITTED, h/bottom unchanged, contacts unchanged. left 45.39 -> 54.61 = exactly 100 - old.",
+      "phase31_v2_2026_07_27": {
+        "status": "SUPERSEDED BY THE v2 RE-ROLL — this entry's media/cal/contacts describe the PULLED v1 take. The SHIPPED special.webm is now the v2 described here.",
+        "raw": "qa-boss/raw/eclipse-ofuda-special-1-v2.mp4",
+        "fired": "browser Higgsfield Unlimited (ZERO credits), seedance_2_0 / 4s / 1:1 / 720p, on the RIGHT-FACING base plate qa-boss/anchors/eclipse-ofuda-anchor-green.png with a SCREEN-RIGHT prompt",
+        "hflip": false,
+        "hflip_note": "FIRST eclipse clip keyed with NO hflip. The base plate faces screen-RIGHT; only the '-r' plate (used for every earlier fire) faces LEFT, despite its filename. Both plates VIEWED. Anchor-IoU as-is ~0.88 vs mirrored ~0.25.",
+        "keyer": "qa-boss/key-eclipse-specials-v2.mjs — stock scripts/key-idle-clips.mjs --still qa-boss/anchors/eclipse-ofuda-anchor-green-r.png, then green-neutralize HARD=32. NO green-despill (v1-keep family recipe). No feather (containment gate clean).",
+        "control": "BEFORE trusting the toolchain, \"node qa-boss/flip-eclipse.mjs flip special_1\" was re-run and reproduced the shipped v1 cal EXACTLY {h:109.71, bottom:-0.49, left:54.61}, bbox 444x904.",
+        "frames": 97,
+        "bbox": "528x882",
+        "cal": {
+          "h": 106.91,
+          "bottom": -4.12,
+          "left": 46.18
+        },
+        "cal_source": "keyer-EMITTED (qa-boss/flip-ec/sp-v2/keyed/special_1.cal.json), never hand-derived",
+        "contacts": [
+          2667
+        ],
+        "contacts_source": "scripts/measure-contacts.mjs motion-energy argmax f64 (energy 16.23). NOTE: the profile is FLAT (f64 16.23 / f76 14.35 / f80 13.41) because a talisman rite has no hard impact — the argmax is the seal completing, not a strike. Sanity-checked by viewing f36-f68.",
+        "containment": "check-containment.mjs --plate green: scanned 1, clean 1, over threshold 0.",
+        "matte": "matte-proof over BLACK and WHITE at f0/24/48/72/96, both VIEWED: clean edges, no chewing, no halo. Full-frame scan over ALL opaque pixels: ZERO pixels where G > max(R,B) — the v1 LIME/YELLOW-GREEN FRINGE DEFECT IS FIXED, and what reads as gold measures as gold (R~=G, low B).",
+        "fixes_vs_v1": "The ~60px palm AIR GAP is gone — the talisman is fused to the BLADE and burns tip-to-tsuba along it. The tail dissipates instead of popping off.",
+        "known_residual": "f62-f70 (~0.33s): small white paper scraps detach from the burning ofuda and drift off the blade; fully cleared by f72. Judged authored ash debris (causally originated at the talisman, adjacent to it, short, self-clearing) rather than the detached/hovering ban, which targets effects with NO source. VIEWED at a 400px crop f60-f68. FLAGGED FOR THE OPERATOR, not buried.",
+        "verdict": "PASS — SHIPPED as special.webm take A (phase 31)."
+      }
     },
     "special_2_vertical_drop_cut": {
       "media": "c952a8f3-d82c-4e8d-86fa-925c56d89cd3",
@@ -268,7 +294,14 @@
         "bottom": -4.12,
         "left": 48.12
       },
-      "facing_phase29_2026_07_27": "NOT re-keyed. This clip was ALREADY screen-RIGHT as originally shipped; phase 26/28 had flipped it to LEFT to match the then-left kit. Under the phase-29 right convention the FILE was RESTORED BIT-EXACT from git 3a894ef rather than flipped a second time (a re-key would cost a needless VP9 generation), and the cal reverts with it: left 48.12 -> 51.88."
+      "facing_phase29_2026_07_27": "NOT re-keyed. This clip was ALREADY screen-RIGHT as originally shipped; phase 26/28 had flipped it to LEFT to match the then-left kit. Under the phase-29 right convention the FILE was RESTORED BIT-EXACT from git 3a894ef rather than flipped a second time (a re-key would cost a needless VP9 generation), and the cal reverts with it: left 48.12 -> 51.88.",
+      "phase31_v2_2026_07_27": {
+        "status": "RE-ROLLED AND REJECTED — still PULLED. Needs a v3.",
+        "raw": "qa-boss/raw/eclipse-ofuda-special-2-v2.mp4 (ECLIPSE CRESCENT)",
+        "fixed": "The effect is correctly fused to the blade — the v1 f74 DETACHED FRAGMENT is gone.",
+        "rejected_for": "The arc HARD-CUTS the frame: RIGHT 272px @f29, plus LEFT 60px @f25, and the level blade reaches the edge again at f52.",
+        "ruling": "Per the edge-overrun doctrine 272px is far past a tip-kiss, so this is a RE-ROLL, not a feather (feathering 272px would truncate the arc). Her own prompt file predicts it: \"the katana is nearly leg-length; any raised or level hold spans the frame\". v3 fix = shrink the arc radius / cut length, or re-angle to a descending diagonal. KEEP the \"trailing edge fused to the cutting edge\" wording, which worked."
+      }
     },
     "special_3_talisman_guard": {
       "media": "fbbce49b-7ab9-423e-b8ea-6fd788e60867",
@@ -288,7 +321,32 @@
         "bottom": -0.36,
         "left": 49.7
       },
-      "facing_phase29_2026_07_27": "RE-KEYED HFLIPPED to screen-RIGHT (roster convention, Tim 2026-07-27). Raw decoded with -vf hflip at the FRAME level before the key, same recipe as the unflipped reproduction. cal keyer-EMITTED, h/bottom unchanged, contacts unchanged. left 49.7 -> 50.18 = (100 - old) MINUS 0.12, the keyer's odd-width `if (cw % 2) cw--` crop shift: the union bbox was odd-width so the flipped crop drops the mirror-image column and lands exactly 1px off a perfect mirror. Predicted deviation = -h/cropH = -0.1214; observed -0.1200. The emitted cal already compensates, so she holds the same stage x."
+      "facing_phase29_2026_07_27": "RE-KEYED HFLIPPED to screen-RIGHT (roster convention, Tim 2026-07-27). Raw decoded with -vf hflip at the FRAME level before the key, same recipe as the unflipped reproduction. cal keyer-EMITTED, h/bottom unchanged, contacts unchanged. left 49.7 -> 50.18 = (100 - old) MINUS 0.12, the keyer's odd-width `if (cw % 2) cw--` crop shift: the union bbox was odd-width so the flipped crop drops the mirror-image column and lands exactly 1px off a perfect mirror. Predicted deviation = -h/cropH = -0.1214; observed -0.1200. The emitted cal already compensates, so she holds the same stage x.",
+      "phase31_v2_2026_07_27": {
+        "status": "SUPERSEDED BY THE v2 RE-ROLL — this entry's media/cal/contacts describe the PULLED v1 take. The SHIPPED special-c.webm is now the v2 described here.",
+        "raw": "qa-boss/raw/eclipse-ofuda-special-3-v2.mp4",
+        "action": "JUDGEMENT PLUNGE (the v1 was a static talisman GUARD; this re-roll is a different action)",
+        "fired": "browser Higgsfield Unlimited (ZERO credits), seedance_2_0 / 4s / 1:1 / 720p, RIGHT-FACING base plate, SCREEN-RIGHT prompt",
+        "hflip": false,
+        "keyer": "qa-boss/key-eclipse-specials-v2.mjs — same recipe as special_1 v2 above.",
+        "frames": 97,
+        "bbox": "504x866",
+        "cal": {
+          "h": 105.1,
+          "bottom": -3.64,
+          "left": 48.12
+        },
+        "cal_source": "keyer-EMITTED (qa-boss/flip-ec/sp-v2/keyed/special_3.cal.json)",
+        "contacts": [
+          1333
+        ],
+        "contacts_source": "motion-energy argmax f32, energy 93.66 — a DECISIVE peak (next is f30 at 72.36): the blade driving into the ground. Unlike special_1 there is no ambiguity here.",
+        "containment": "check-containment.mjs --plate green: scanned 1, clean 1, over threshold 0.",
+        "matte": "matte-proof over BLACK and WHITE at f0/24/48/72/96, both VIEWED: clean. Full-frame scan: ZERO green-dominant opaque pixels.",
+        "fixes_vs_v1": "No open-air talisman cluster; nothing present at f0, so the v1 TRIGGER-TIME POP is gone (the flare ignites on the plunge); lime chroma-bleed gone; margins comfortable.",
+        "arsenal_check": "f66-f78 she DOES hold the blade vertical — but POINT-DOWN, withdrawing it from the ground. That is the motivated opposite of her banned point-up overhead hold (the defect that killed special_2 v1). VIEWED at full size every 2 frames f66-f78: it stays a curved katana with a visible tsuba, never a beam, never a spindle.",
+        "verdict": "PASS — SHIPPED as special-c.webm take B (phase 31)."
+      }
     }
   },
   "energy_rerolls": {
@@ -518,5 +576,6 @@
     "proof": "At the LOSSLESS keyed-PNG level 6 of 9 flips are PERFECT pixel mirrors of the unflipped re-key (IoU 1.000000, MAD 0.0000, zero RGB-differing pixels). The other 3 (idle, special_3, victory) are perfect mirrors at a +1px offset - the odd-width crop shift - with zero RGB difference; victory's residual 0.999368 is one column of its mirrored side feather band. Webm-level mirror IoU reads 0.967-0.998, which is VP9 lossy-alpha noise only, NOT a keying asymmetry: the PNG comparison is the authoritative one.",
     "gates": "node scripts/check-facing.mjs eclipse-ofuda --still -> 0/13 mirrored (was 13/13), unanimous across all 5 sampled frames, as-is ~0.93 vs mirror ~0.25. alpha_mode=1 on all 13. h/bottom unmoved on every clip. contacts untouched. tsc clean, vitest 157/157. src/engine, src/ui, src/characters/index.ts byte-untouched.",
     "followup": "CONTAINMENT DATA IS NOW WRONG-HANDED for these 9 clips: a flip swaps every left/right pixel result, so qa-boss/CONTAINMENT-TRIAGE.md per-clip border instructions for eclipse must be re-run before they are acted on (per the standoff-clip-facing skill: normalise facing FIRST, then containment/feather/edge QA)."
-  }
+  },
+  "phase31_2026_07_27": "FINISHERS RESTORED. eclipse special: [] -> 2 takes (special.webm OFUDA RITE + special-c.webm JUDGEMENT PLUNGE), both from session-9 browser re-rolls, both keyed with NO hflip (the base anchor plate faces RIGHT — see each entry). special_2 stays pulled pending a v3. Before phase 31 every round-ending win against node 6 fell back to a plain attack."
 }

@@ -25,12 +25,18 @@ import type { FighterDef } from './types';
 // public/assets/enemies/ was touched. All 13 clips now natively face screen-RIGHT: head, nose,
 // boot-toes and body-front point RIGHT and the ponytail trails LEFT, matching the still.
 //
-// !! HER GENERATION ANCHOR FACES **LEFT** !!  qa-boss/anchors/eclipse-ofuda-anchor-green-r.png shows
-// her facing screen-LEFT despite its '-r' filename. Every clip generated from that anchor therefore
-// comes out LEFT-facing, so EVERY FUTURE ECLIPSE RE-ROLL MUST BE HFLIPPED AT KEYING — decode the raw
-// with `-vf hflip` so the mirror lands at the FRAME level BEFORE the key (never webm->webm, which
-// costs a VP9 generation), then key as normal. See qa-boss/flip-eclipse.mjs for the exact recipe.
-// Forget this and the re-rolled clip ships facing away from the opponent in both slots.
+// !! SHE HAS TWO ANCHOR PLATES AND THEY FACE OPPOSITE WAYS — PICK THE RIGHT ONE !!
+//   qa-boss/anchors/eclipse-ofuda-anchor-green.png    faces screen-RIGHT  <- FIRE ON THIS ONE
+//   qa-boss/anchors/eclipse-ofuda-anchor-green-r.png  faces screen-LEFT   (the mirror, despite '-r')
+// Both were VIEWED (phase 31). Everything generated up to and including phase 29 was fired on the
+// '-r' plate, came out LEFT-facing, and had to be hflipped at keying — which is what the phase-29
+// notes below describe. That is a property of THAT PLATE, not of the character. Fire on the base
+// plate with prompts commanding SCREEN-RIGHT and the output needs NO hflip (confirmed on all three
+// session-9 fires: anchor-IoU as-is ~0.88 vs mirrored ~0.25). Whichever plate you use, the rule is
+// the same: the clip must NATIVELY face screen-RIGHT by the time it is keyed. If you do need the
+// mirror, apply `-vf hflip` at the FRAME level before the key (never webm->webm, which costs a VP9
+// generation) — see qa-boss/flip-eclipse.mjs for that recipe and qa-boss/key-eclipse-specials-v2.mjs
+// for the no-flip one.
 //
 // Why it matters: `faces:` is a CORRECTNESS input, not a label. FightExperience.tsx:920 computes
 // isMirrored = faces !== (slot==='p1'?'right':'left') and applies ONE mirror to the whole fighter
@@ -120,39 +126,60 @@ export const ECLIPSE_OFUDA: FighterDef = {
       url: 'assets/characters/eclipse-ofuda/hit.webm',
       cal: { h: 102.18, bottom: -0.49, left: 55.58 },
     },
-    // Contract §11: the signature FINISHER — plays automatically on a round-ending win. Three takes,
-    // one chosen uniform-random per exchange. The white/pale-gold talisman light is baked into the body
+    // Contract §11: the signature FINISHER — plays automatically on a round-ending win. Takes are
+    // chosen uniform-random per exchange. The white/pale-gold talisman light is baked into the body
     // (sanctioned effect exception, never green); each effect fully dissipates by the final frame.
-    // ALL THREE FINISHER TAKES PULLED 2026-07-26 (animation<->character sweep). Every one failed, so
-    // every round-ending win against her was showing a defect. With `special` empty the Experience
-    // correctly falls back to her ATTACK state on a round-ending win (FightExperience.tsx:1789
-    // gates on clipVariants(...,'special').length > 0), which is clean. Re-roll all three, then
-    // restore this array. Why each was pulled:
-    //  - special.webm (ofuda flick): the talismans are NOT in her palm - measured a ~60px AIR GAP
-    //    above the open hand at f22/f30, and f46-54 the burst drifts up-left AWAY from the hand =
-    //    the detached/hovering ban. From f38 the fan carries a strong LIME/YELLOW-GREEN fringe
-    //    (unkeyed green spill; her palette is white/pale-gold) and the tail pops off rather than
-    //    dissipating. (An earlier orchestrator check called this "attached in her palm" - that read
-    //    was taken from a decode WITHOUT the alpha plane and is corrected here.)
-    //  - special-b.webm (drop-cut): katana held VERTICAL point-up overhead f20-f64, which is her
-    //    explicit arsenal ban (her katana is too long for any vertical hold); the blade becomes a
-    //    lime/green glowing column that reads as a BEAM, and at f56 a fat spindle that no longer
-    //    reads as a katana.
-    //  - special-c.webm (talisman guard): a cluster of ~10 talismans + olive arcs hangs in OPEN AIR
-    //    beside her hip, unattached to body or blade, from f0 to ~f52 (~2.2s) - and being present at
-    //    f0 it pops in at trigger. Framing is also tight all round (top 5px, bottom 3px).
-    // FACING (phase 29) — all three now face screen-RIGHT with the rest of the kit, so a restore does
-    // not also need a flip. Keyer-emitted cals for a restore (which should really be a re-roll):
-    //  - special.webm    re-keyed hflipped from eclipse-ofuda-special_1.mp4 (v1 keep, NO despill):
-    //                    { h: 109.71, bottom: -0.49, left: 54.61 } (was 45.39 = 100 - 45.39), contacts [1250].
-    //  - special-b.webm  ALREADY right-facing as shipped, so the FILE was RESTORED bit-exact from
-    //                    3a894ef rather than flipped twice: { h: 114.67, bottom: -4.12, left: 51.88 }
-    //                    (phase 28 had 48.12), contacts [2250]. Its feather IS whole-clip (--top 48,
-    //                    46/97 frames touched) — unlike block_a's frame-subset one.
-    //  - special-c.webm  re-keyed hflipped from eclipse-ofuda-special_3.mp4 (v1 keep, NO despill):
-    //                    { h: 100.97, bottom: -0.36, left: 50.18 }, contacts [2000]. That is 100 - 49.7
-    //                    minus 0.12, the odd-width crop shift (see the idle note); keyer-emitted, correct.
-    special: [],
+    //
+    // HISTORY. All three v1 finishers were PULLED 2026-07-26 (animation<->character sweep) — every
+    // round-ending win against her then played a plain attack, because with `special` empty the
+    // Experience falls back to her ATTACK state (FightExperience.tsx:1789 gates on
+    // clipVariants(...,'special').length > 0). Phase 31 restores TWO of the three from re-rolls
+    // fired doctrine-native in the browser (Unlimited, zero credits) on the RIGHT-FACING base plate,
+    // so — unlike every earlier eclipse re-roll — these were keyed with NO hflip. Recipe: her
+    // v1-keep pipeline (stock keyer + green-neutralize HARD=32, NO green-despill), driver
+    // qa-boss/key-eclipse-specials-v2.mjs, control run first (`flip-eclipse.mjs flip special_1`
+    // reproduced the shipped cal exactly, so the toolchain was validated before it was trusted).
+    // Both cals below are keyer-EMITTED; both contacts are motion-energy argmax off the keyed frames.
+    // Matte-proofed over black AND white: 0 green-dominant pixels over the whole frame, both clips.
+    //
+    // special_2 (special-b.webm) STAYS PULLED. Its v1 broke her arsenal (katana held vertical
+    // point-up overhead f20-f64 — her blade is too long for any vertical hold — reading as a
+    // lime beam, and a fat spindle at f56). Its v2 re-roll fixed the effect fusion but HARD-CUTS the
+    // frame: RIGHT 272px @f29 (+ LEFT 60px @f25), far past a tip-kiss, so per the edge-overrun
+    // doctrine it needs a v3 (tighter arc / off-horizontal descending cut), not a feather. Its
+    // keyer-emitted cal if it is ever restored: { h: 114.67, bottom: -4.12, left: 51.88 }, contacts
+    // [2250]; its feather is whole-clip (--top 48, 46/97 frames), unlike block_a's frame-subset one.
+    special: [
+      {
+        // Take A — OFUDA RITE: she draws a talisman across the blade and it burns tip-to-tsuba.
+        // Re-rolled from qa-boss/raw/eclipse-ofuda-special-1-v2.mp4 (bbox 528x882, 97 frames).
+        // Fixes the v1 pull: the talisman is now FUSED TO THE BLADE, not floating — the measured
+        // ~60px palm air-gap is gone — and the lime/yellow-green fringe is gone with it (0 pixels
+        // where G > max(R,B) anywhere in the clip, so what reads as gold IS gold: R≈G, low B).
+        // KNOWN COSMETIC RESIDUAL: f62-f70 (~0.33s) small white paper scraps detach from the
+        // burning ofuda and drift off the blade. Judged authored ash debris — causally originated
+        // at the talisman, adjacent to it, fully cleared by f72 — not the detached/hovering ban,
+        // which is for effects with no source (see special-c's v1: 10 talismans in open air 2.2s).
+        // Flagged for the operator rather than buried.
+        url: 'assets/characters/eclipse-ofuda/special.webm',
+        cal: { h: 106.91, bottom: -4.12, left: 46.18 },
+        contacts: [2667],
+      },
+      {
+        // Take B — JUDGEMENT PLUNGE: two-hand drive of the katana down into the ground, solid
+        // opaque gold flare running the blade into the floor, withdrawn and settled back to anchor.
+        // Re-rolled from qa-boss/raw/eclipse-ofuda-special-3-v2.mp4 (bbox 504x866, 97 frames).
+        // Fixes the v1 pull entirely: no open-air talisman cluster, nothing present at f0 (the
+        // effect ignites on the plunge, so there is no trigger-time pop), and the lime chroma-bleed
+        // is gone. ARSENAL CHECK (this is the trap that killed special_2's v1): f66-f78 she does
+        // hold the blade vertical — but point-DOWN, withdrawing it from the ground, which is the
+        // motivated opposite of the banned point-up overhead hold. VIEWED at full size across
+        // f66-f78: it stays a curved katana with a visible tsuba, never a beam or a spindle.
+        url: 'assets/characters/eclipse-ofuda/special-c.webm',
+        cal: { h: 105.1, bottom: -3.64, left: 48.12 },
+        contacts: [1333],
+      },
+    ],
     // ko is the ONE off-anchor clip: drops the katana, crumples to the ground and HOLDS prone (does
     // NOT return to the anchor). Cause-free, no opponent.
     // FACING (phase 29): ko was ALREADY right-facing as shipped, so the FILE was RESTORED bit-exact
