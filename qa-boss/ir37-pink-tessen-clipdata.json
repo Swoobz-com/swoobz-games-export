@@ -11,6 +11,7 @@
   "resolution": "720p",
   "duration": 4,
   "faces": "right",
+  "facing_audit_2026_07_27": "CORRECTION to the per-clip `qa` strings below, which claim 'facing screen-RIGHT every frame' for all 13. That was wrong for TWO clips. scripts/check-facing.mjs (anchor-IoU mirror test) anchored on the keyed in-game still (--still) measured hit.webm ratio 1.662 and victory.webm ratio 1.533 = MIRRORED, against 11 siblings at ratio ~0.14 = as-is; confirmed by viewing composited frames. Because faces:'right' drives ONE uniform mirror over the whole fighter stack, those two rendered facing AWAY from the opponent in BOTH slots. Both were RE-KEYED hflipped from their raws on 2026-07-27 (see each clip's facing_fix_2026_07_27) and their cal.left mirrored to 100-left. faces:'right' is CORRECT and was NOT changed. Gate after the fix: 0/13 mirrored - kit fully self-consistent with the still.",
   "keyed": true,
   "encoded": true,
   "qa": "all 13 independently re-verified per-frame (dense every-6th-frame sheets + peak frames): on-model black+pink armored dual-wield fan+dagger, strict side-profile facing screen-RIGHT every frame (no torso-spin/talk/phantom-limb/remnant), dual weapons retained every clip, anchor-lock f0==f96 on every one-shot, ko collapses+holds prone (floor line hard-cut, intentional). ALL 3 specials HOT-PINK/WHITE, NEVER green (sp3=v2 compact star-flash, not v1 orbital ring). Edge grazes detected from keyed output (authoritative, not the stale prior notes): throw-b right / block-a top / block-b right / sp1 top -> 48px feather; strike-b + sp2 + sp3 were actually contained (no cut) so no feather.",
@@ -118,9 +119,10 @@
       "cal": {
         "h": 102.92,
         "bottom": -0.49,
-        "left": 55.96
+        "left": 44.04
       },
-      "webm": "qa-boss/webm/ir37-pink-tessen-hit.webm"
+      "webm": "qa-boss/webm/ir37-pink-tessen-hit.webm",
+      "facing_fix_2026_07_27": "HFLIPPED (phase 26). MEASURED DEFECT: this take shipped MIRRORED - it faced screen-LEFT while the still, idle and the other 10 clips face screen-RIGHT, so with faces:'right' driving ONE uniform mirror over the whole kit (FightExperience.tsx:920) she rendered facing AWAY from the opponent in BOTH slots. hit fires on nearly every exchange, so this was the most-seen facing defect in the game. FIX PATH = RE-KEY, not a webm flip: qa-boss/raw/ir37-hit.mp4 (byte-identical to ir37-pink-tessen-hit.mp4, md5 29b9f238781b) decoded with `-vf hflip` so the mirror happens at the FRAME level BEFORE the key -> scripts/key-clips-green-pinksafe.mjs --still qa-boss/anchors/ir37-pink-tessen-anchor-green.png -> scripts/green-neutralize.mjs 32 (no-op, 0 px: the pinksafe keyer neutralizes inline) -> NO despill, NO feather (none was ever applied to this clip) -> head-trim f0-f11 (97->85 frames, preserving the phase-24j ROCKET trim) -> VP9 yuva420p crf30 24fps. RECIPE PROVEN FIRST: the same pipeline run WITHOUT the flip reproduces the archived pre-trim master (qa-boss/webm/ir37-hit-PRE-TRIM-backup.webm) BIT-EXACTLY (alpha IoU 1.00000, meanAbsAlphaDiff 0.000 on every sampled frame) and re-emits the old cal 55.96 exactly, so the flipped run differs from the original in the flip and nothing else. Flipped output vs the old shipped clip, compared after mirroring: alpha IoU 1.00000 - a pixel-exact mirror. Frame size unchanged 826x846; alpha_mode=1. Note the new file is ONE VP9 generation CLEANER than the old shipped hit (the phase-24j trim was a webm->webm re-encode; this one is trimmed on the PNGs before the single encode). CAL: h and bottom are untouched by a horizontal flip (computeCal derives both from heights only); left is keyer-EMITTED 44.04, i.e. exactly 100 - 55.96, because the keyer's still anchor (ir37-pink-tessen-anchor-green.png) is a 1536x1536 full-frame plate whose content centre is 50% of the stage, and cal.left = 100*onCX - h*(cxFracV-0.5)*AR with cxFracV -> 1-cxFracV under the flip. The subject therefore holds the SAME stage x and only its facing changes. contacts are timings and are unaffected. Matte re-verified over BLACK and WHITE (f10/30/50/70): hot-pink trim vivid, no green halo, edges clean."
     },
     "ko": {
       "media": "33785a6e-0b7b-47a7-a789-fda17737740a",
@@ -140,9 +142,10 @@
       "cal": {
         "h": 100.97,
         "bottom": -0.49,
-        "left": 57.77
+        "left": 42.23
       },
-      "webm": "qa-boss/webm/ir37-pink-tessen-victory.webm"
+      "webm": "qa-boss/webm/ir37-pink-tessen-victory.webm",
+      "facing_fix_2026_07_27": "HFLIPPED (phase 26). Same measured defect and same fix path as hit: this take shipped MIRRORED (faced screen-LEFT against the kit's RIGHT). RE-KEYED from qa-boss/raw/ir37-victory.mp4 (md5 001479e5883f) with `-vf hflip` at decode -> key-clips-green-pinksafe.mjs --still ir37-pink-tessen-anchor-green.png -> green-neutralize 32 (no-op) -> no despill, no feather -> VP9 yuva420p crf30 24fps, 97 frames. RECIPE PROVEN FIRST: the unflipped run of this exact pipeline reproduces the old shipped victory.webm BIT-EXACTLY (alpha IoU 1.00000, MAD 0.000) and re-emits cal left 57.77, so only the flip differs. Flipped output vs old shipped, mirror-compared: alpha IoU 1.00000. 580x832 unchanged, alpha_mode=1. CAL: keyer-emitted left 42.23 = 100 - 57.77 (see the hit note for the derivation); h/bottom unchanged; no contacts on this clip. Matte re-verified over BLACK and WHITE: pink trim vivid, no green halo."
     },
     "special_1_fan_gale": {
       "media": "dbefeb5d-d097-410e-88f8-27ff3a709813",

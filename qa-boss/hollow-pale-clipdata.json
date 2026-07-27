@@ -101,7 +101,60 @@
       "raw": "qa-boss/raw/hollow-pale-special-1.mp4",
       "note": "CONDITIONAL (feather-fallback): GORGEOUS pale-gold+white+crimson reaping crescent + warm flame igniting on the bone-blade (on-palette, on-theme, keys clean off green, burns away by f90 back to anchor). DEFECT: the crescent bright ARC crosses the TOP-RIGHT edge f38-54 (visible slice, LK special_1-v2 class). v2 queued end-of-kit: cap the crescent shorter + keep its whole arc below the top edge. Keep v1 as feather-fallback (48px top-right feather).",
       "qa": "conditional:crescent-top-right-cross — v2 queued"
+    },
+    "throw_a_v2": {
+      "raw": "qa-boss/raw/hollow-pale-throw-a-v2.mp4",
+      "webm": "public/assets/characters/hollow-pale/attack-throw.webm",
+      "keyed": "qa-boss/keyed/hollow-pale-attack-throw-v2",
+      "cal": { "h": 100.08, "bottom": 0, "left": 46.93 },
+      "contacts": [1833],
+      "contact_verification": "argmax f44 (44.77). Centroid/reach trace: cy 443.9 -> 473.1 and subject top 30 -> 76px between f42 and f44 = the violent wrench DOWN; held f46-52 (cy 483-485); the f60 secondary peak is the monotone return to anchor. f44 is the action beat.",
+      "containment": "TOP 0px / LEFT 0px / RIGHT 0px (--min 1). Clean.",
+      "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f24/f44/f50): no halo, no chewed matte, ink-rib stains and pale body intact, claw OPEN AND EMPTY (no phantom object), no opponent.",
+      "fixed": "v1 arsenal break RESOLVED - the bone-scythe renders as a full forward blade in every frame instead of shrinking to rib-stubs at the hip.",
+      "qa": "SHIPPED WITH FLAG — side-profile lock still broken f43-f62 (~0.8s): the torso rotates past profile into a 3/4 BACK view (scapulae to camera) with the skull twisted round to face screen-right. Same rotation as v1, but v1's weapon defect is gone. Orchestrator decision requested; a further re-roll is a pure file swap.",
+      "feather": "none"
+    },
+    "block_b_v2": {
+      "raw": "qa-boss/raw/hollow-pale-block-b-v2.mp4",
+      "webm": "public/assets/characters/hollow-pale/attack-block-b.webm",
+      "keyed": "qa-boss/keyed/hollow-pale-attack-block-b-v2",
+      "cal": { "h": 100.75, "bottom": 0, "left": 42.65 },
+      "contacts": [500],
+      "contact_verification": "argmax f12 (22.45) = the guard-CATCH, not the counter. Reach trace: scythe tip retracts maxX 909 -> 531 between f8 and f16 (the blade snatched in across the chest to absorb) with the argmax mid-pull; brace held f22-f40; the counter is f42-46 and the later peaks f76/f80 are the return to anchor.",
+      "containment": "TOP 0px / LEFT 0px / RIGHT 16px @f46 (over the 6px threshold).",
+      "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f12/f30/f50): no halo, no chewed matte, crimson/ink trim intact, no phantom.",
+      "fixed": "v1 vanish RESOLVED - the bone-scythe is a fully rendered blade in all 97 frames, never a plain fleshy arm.",
+      "qa": "SHIPPED WITH FLAG — the counter thrust overshoots: the blade tip is cut flat by the RIGHT edge, 16px contiguous, sustained f46-f62 (~0.7s). NOT feathered (scythe, not smoke - feathering a weapon edge is disallowed). Far less bad than the v1 arsenal break; a shorter-counter re-roll is a pure swap.",
+      "feather": "none"
+    },
+    "special_1_v2": {
+      "raw": "qa-boss/raw/hollow-pale-special-1-v2.mp4",
+      "webm": "public/assets/characters/hollow-pale/special.webm",
+      "keyed": "qa-boss/keyed/hollow-pale-special-v2",
+      "cal": { "h": 100.08, "bottom": 0, "left": 40.4 },
+      "contacts": [1917],
+      "contact_verification": "argmax f46 (70.48). Alpha-pixel count spikes 137k (rest) -> 218k at f46 as the reaping fan opens, and the warm-effect pixel count also argmaxes at f46; f80-f90 (the return) carries zero effect pixels. f46 is the effect/action beat.",
+      "containment": "TOP 0px / RIGHT 0px / LEFT 18px @f38 (over the 6px threshold).",
+      "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f30/f46/f56): no halo, crimson speckle trim and pale-gold fire both survive the pink-safe key, no chewed matte.",
+      "fixed": "v1 ROCKET class RESOLVED - the arc TERMINATES ON THE BLADE in every frame; no detached crescent in open air, nothing extends past the blade tip as a separate object.",
+      "qa": "SHIPPED WITH FLAG — during the back-swing wind-up the blade tip is cut flat by the LEFT edge, 18px contiguous, f34-f40 (~0.25s). NOT feathered (scythe, not smoke).",
+      "feather": "none"
+    },
+    "special_3_v2": {
+      "raw": "qa-boss/raw/hollow-pale-special-3-v2.mp4",
+      "webm": "public/assets/characters/hollow-pale/special-c.webm",
+      "keyed": "qa-boss/keyed/hollow-pale-special_3-v2",
+      "cal": { "h": 100.08, "bottom": 0, "left": 48.16 },
+      "contacts": [1833],
+      "contact_verification": "argmax f44 (48.72). Centroid trace: subject top 6 -> 42px and cy 434 -> 447 between f42 and f44 as he hunches/arches into the ignition; glow held f46-f58; f60-f64 is the rise back to anchor. f44 is the action beat.",
+      "containment": "TOP 0px / LEFT 0px / RIGHT 0px (--min 1). Clean.",
+      "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f44/f50/f56): no halo, no chewed matte, head and antlers clear on every frame, smoke silhouette clean, no detached blob.",
+      "fixed": "all three v1 defects RESOLVED - head never swallowed, no opaque top-edge slab (top containment 0px), no shed floating blob.",
+      "qa": "SHIPPED, DEFECT-FREE BUT WEAK — measured bright-pixel share above its own resting baseline: peak +1.83pp, only 0.46s above +1pp, versus take A at +16.2pp / 1.71s and take B at +8.9pp / 0.25s. Reads as an internal ember, not a finisher flourish. Presence re-roll later is a pure drop-in swap.",
+      "feather": "none"
     }
   },
+  "phase26_dropins": "Four v2 re-rolls keyed + wired 2026-07-27 with the proven pink-safe recipe (key-clips-green-pinksafe --still qa-boss/proc/hollow-pale-anchor-still.png -> green-despill -> green-neutralize 32 -> VP9 yuva420p crf30). All four keyed at 0 despilled px / 0 neutralized px / 0 green-dominant px. attack_throw and attack_block now resolve to 2 takes each and special to 3. No clip was feathered.",
   "moderation": "BOTH GATES PASSED 2026-07-25: upload content-check clean (where onryo hard-blocked) + idle generated with no nsfw flag. The sanitized redesign works."
 }

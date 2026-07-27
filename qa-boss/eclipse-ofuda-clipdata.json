@@ -11,6 +11,7 @@
   "duration": 4,
   "keyed": true,
   "encoded": true,
+  "facing_audit_2026_07_27": "The '_KEYED_v2' claim below ('Facing: LEFT, no hflip') held for 9 of 13 clips, NOT all 13. scripts/check-facing.mjs --still (anchor-IoU mirror test against the keyed in-game cutout) measured FOUR clips as-is while the other nine read MIRRORED: attack-block.webm (block_a), attack-strike.webm (strike_a), ko.webm, special-b.webm (special_2). Reading the gate naively would flip the wrong nine - the ABSOLUTE verdict was established by VIEWING composited frames: idle, victory and 7 others correctly face screen-LEFT (matching faces:'left'), and those four faced screen-RIGHT, i.e. away from the opponent in BOTH slots. Those four were RE-KEYED hflipped from their raws on 2026-07-27 (see each clip's facing_fix_2026_07_27); faces:'left' is CORRECT and was NOT changed. KNOWN REMAINING OUTLIER, DELIBERATELY NOT TOUCHED: public/assets/enemies/eclipse-ofuda.webp - the shared still that drives the HUD medallion, the select tile AND the campaign map node cards - is ITSELF mis-facing relative to the 13-clip kit. That is why the gate's --still anchor inverts the sense of the whole report for this character. Changing shared map art is the operator's call, not a clip-keying task. Post-fix gate reads 13/13 in ONE group (all agreeing with each other) with the still as the lone dissenter.",
   "keyer": "scripts/key-idle-clips.mjs --still qa-boss/anchors/eclipse-ofuda-anchor-green-r.png, then a GREEN-neutralize second pass (scratch greenclean, HARD=32: neutralize green chroma on ALL pixels incl alpha=0 so 4:2:0 VP9 subsampling cannot bleed green; the repo keyer is magenta-tuned), then edge-feather 48px on flagged blade-overrun edges. Encoded VP9 yuva420p crf30 24fps. Matte-verified over black+white: 0.000% visible green on every clip (matches shipped satoshi-odachi green-boss bar).",
   "qa_summary": "11 PASS + 1 PASS-with-caveat keyed/encoded; victory FAILED (turns 180deg / starts mirrored off-anchor) and was dropped. strike_a/strike_b/block_a/block_b blade extends past a frame edge on the swing (she faces/cuts LEFT toward the opponent) -> 48px edge-feather softens the blade into a reach-off-frame fade. strike_b is the most aggressive overrun (sustained ~0.7s horizontal cut off left edge) -> accepted with feather, flagged for optional re-roll. special_3 starts with its talisman effect already present at frame 0 (minor trigger-start pop) but is body-anchor-locked and ends clean.",
   "contacts_note": "Contacts are motion-energy-peak measurements on the keyed frames, in CLIP time ms (pre-CLIP_RATE), sanity-checked by viewing the peak frame. Single primary impact per clip; block clips also carry an earlier parry/deflect beat (noted). Fine-tune in-engine as needed.",
@@ -36,14 +37,15 @@
       "cal": {
         "h": 111.27,
         "bottom": -2.14,
-        "left": 44.96
+        "left": 55.04
       },
       "contacts": [
         1875
       ],
       "webm": "qa-boss/webm/eclipse-ofuda-strike_a.webm",
       "take": "strike_a_v3",
-      "keyed_v2": true
+      "keyed_v2": true,
+      "facing_fix_2026_07_27": "HFLIPPED (phase 26). Shipped MIRRORED (faced screen-RIGHT against the kit's LEFT) = facing away from the opponent in both slots. RE-KEYED, not webm-flipped: qa-boss/raw/eclipse-ofuda-strike-a-v3.mp4 decoded with `-vf hflip` so the mirror lands at the FRAME level BEFORE the key -> scripts/key-idle-clips.mjs --still qa-boss/anchors/eclipse-ofuda-anchor-green-r.png -> scripts/green-despill.mjs --margin 14 --keep 0.08 -> scripts/green-neutralize.mjs 32 -> NO feather -> VP9 yuva420p crf30 24fps, 97 frames. RECIPE PROVEN FIRST: the same pipeline run UNFLIPPED reproduces the old shipped attack-strike.webm BIT-EXACTLY (alpha IoU 1.00000, meanAbsAlphaDiff 0.000 on every sampled frame) at 910x938 and re-emits cal left 44.96, so only the flip differs. This also RESOLVED a contradiction in this ledger: the clips.strike_a `qa` string claims 'edge-feather top+left 48px' but energy_rerolls.strike_a_v3.feather_applied says 'none' - the bit-exact no-feather reproduction proves feather_applied is authoritative and the qa prose is stale v1 text. Flipped output vs old shipped, mirror-compared: alpha IoU 1.00000. alpha_mode=1. CAL: keyer-EMITTED, h/bottom unchanged (a horizontal flip touches neither - computeCal derives both from heights), left 44.96 -> 55.04 = exactly 100 - 44.96 because the keyer's still anchor is a 1536x1536 full-frame plate (content centre = 50% of stage) and cal.left = 100*onCX - h*(cxFracV-0.5)*AR with cxFracV -> 1-cxFracV under the flip; she therefore holds the SAME stage x and only her facing changes. contacts are timings, unaffected. Matte re-verified over BLACK and WHITE (f10/30/50/70): gold kimono trim intact, silver ponytail clean, no green halo."
     },
     "strike_b": {
       "media": "67a9be7f-b864-4938-9cce-ef36dbb95479",
@@ -100,7 +102,7 @@
       "cal": {
         "h": 110.76,
         "bottom": -0.48,
-        "left": 48.31
+        "left": 51.69
       },
       "contacts": [
         1750,
@@ -108,7 +110,8 @@
       ],
       "webm": "qa-boss/webm/eclipse-ofuda-block_a.webm",
       "take": "block_a_v3",
-      "keyed_v2": true
+      "keyed_v2": true,
+      "facing_fix_2026_07_27": "HFLIPPED (phase 26). Shipped MIRRORED (faced screen-RIGHT against the kit's LEFT). NOTE THIS TAKE IS CURRENTLY PULLED from src/characters/eclipse-ofuda.ts (2026-07-26 phantom-blade-fragment defect at f72-f75; take B carries blocks) - it was flipped anyway so the on-disk kit is 13/13 self-consistent for the facing gate, and this cal is recorded for a restore that should really be a re-roll. RE-KEYED from qa-boss/raw/eclipse-ofuda-block-a-v3.mp4 with `-vf hflip` at decode -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-despill (14/0.08) -> green-neutralize 32 -> edge-feather --top 48 on FRAMES 62,72,73,74 ONLY -> VP9 yuva420p crf30 24fps. RECIPE PROVEN FIRST, AND IT CORRECTED THE LEDGER: a whole-clip `--top 48` feather did NOT reproduce the shipped clip (first divergence at f75, meanAbsAlphaDiff 0.064). Scanning the shipped alpha in the top-48 band against an unfeathered re-key showed content in exactly 6 frames (62, 72-76) of which only 62, 72, 73, 74 were attenuated; re-running with the feather restricted to those 4 frames reproduces the shipped clip BIT-EXACTLY (alpha IoU 1.00000, MAD 0.000) at 934x916 with cal left 48.31. So the recorded 'top 48px on measured top-edge crossings f62 + f73' was a FRAME-SUBSET feather, not a whole-clip one - documented here because a whole-clip re-run would silently over-feather f75/f76. A top feather is unchanged by a horizontal flip (hflip does not move rows), so the same 4 frames were feathered in the flipped build. Flipped output vs old shipped, mirror-compared: alpha IoU 1.00000 avg / 0.99994 worst. alpha_mode=1. CAL: keyer-emitted left 51.69 = 100 - 48.31; h/bottom unchanged; contacts unaffected."
     },
     "block_b": {
       "media": "842d2c1e-5a7d-4ab7-8014-caaf1630a8e6",
@@ -146,10 +149,11 @@
       "cal": {
         "h": 106.78,
         "bottom": -5.81,
-        "left": 56.66
+        "left": 43.34
       },
       "contacts": null,
-      "webm": "qa-boss/webm/eclipse-ofuda-ko.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-ko.webm",
+      "facing_fix_2026_07_27": "HFLIPPED (phase 26). Shipped MIRRORED (faced screen-RIGHT against the kit's LEFT). RE-KEYED from qa-boss/raw/eclipse-ofuda-ko.mp4 (byte-identical to eclipse-ko.mp4, md5 1c4432335c6e) with `-vf hflip` at decode -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-neutralize 32 -> NO despill, NO feather -> VP9 yuva420p crf30 24fps, 97 frames. RECIPE PROVEN FIRST, AND IT SETTLED THE v1-vs-v2 RECIPE QUESTION: with green-despill ON the unflipped re-key does NOT match the shipped clip (alpha IoU 0.972); with green-despill OFF it matches BIT-EXACTLY (alpha IoU 1.00000, MAD 0.000) at 840x882 and re-emits cal left 56.66. So the v1 KEEPS (hit, ko, special_1/2/3) were keyed WITHOUT the despill pass - despill belongs only to the session-6 ENERGY re-rolls. Recorded here because the top-level `keyer` string does not distinguish them. Flipped output vs old shipped, mirror-compared: alpha IoU 1.00000. alpha_mode=1. CAL: keyer-emitted left 43.34 = 100 - 56.66; h/bottom unchanged (she ends prone off-anchor, and the flip does not move her vertically); no contacts."
     },
     "victory": {
       "media": "694fd987-65c4-4a50-8d5e-cf25c1eb9f18",
@@ -186,12 +190,13 @@
       "cal": {
         "h": 114.67,
         "bottom": -4.12,
-        "left": 51.88
+        "left": 48.12
       },
       "contacts": [
         2250
       ],
-      "webm": "qa-boss/webm/eclipse-ofuda-special_2.webm"
+      "webm": "qa-boss/webm/eclipse-ofuda-special_2.webm",
+      "facing_fix_2026_07_27": "HFLIPPED (phase 26). Shipped MIRRORED (faced screen-RIGHT against the kit's LEFT). NOTE THIS TAKE IS CURRENTLY PULLED (`special: []` in src/characters/eclipse-ofuda.ts, 2026-07-26: vertical point-up katana hold = arsenal ban, blade reads as a green beam) - flipped anyway so the on-disk kit is 13/13 self-consistent for the facing gate; this cal is recorded for a restore that should really be a re-roll. RE-KEYED from qa-boss/raw/eclipse-ofuda-special_2.mp4 (byte-identical to eclipse-sp2-v3.mp4, md5 206d2927310a - which also CONFIRMS the raw->shipped mapping, since v1/v2 of sp2 are different files) with `-vf hflip` at decode -> key-idle-clips.mjs --still eclipse-ofuda-anchor-green-r.png -> green-neutralize 32 -> NO despill (v1 keep, see the ko note) -> edge-feather --top 48 WHOLE CLIP (46/97 frames touched; unlike block_a this one really was a whole-clip feather) -> VP9 yuva420p crf30 24fps. RECIPE PROVEN FIRST: the unflipped run reproduces the old shipped special-b.webm BIT-EXACTLY (alpha IoU 1.00000, MAD 0.000) at 392x946 and re-emits cal left 51.88. A top feather is unchanged by a horizontal flip. Flipped output vs old shipped, mirror-compared: alpha IoU 0.99999 avg / 0.99988 worst. alpha_mode=1. CAL: keyer-emitted left 48.12 = 100 - 51.88; h/bottom unchanged; contacts unaffected."
     },
     "special_3_talisman_guard": {
       "media": "fbbce49b-7ab9-423e-b8ea-6fd788e60867",
