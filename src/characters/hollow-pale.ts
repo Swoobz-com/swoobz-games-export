@@ -51,9 +51,17 @@ export const HOLLOW_PALE: FighterDef = {
       },
     ],
     attack_throw: [
-      // Take A (attack-throw.webm) PULLED 2026-07-26 (animation<->character sweep, orchestrator-
-      // verified): he turns his BACK to camera at f46-50 (side-profile lock broken) AND the
-      // bone-scythe shrinks to a few rib-stubs at his hip while turned. Re-roll queued.
+      // Take A STAYS PULLED after its v2 re-roll (phase 26, orchestrator-verified on the frames).
+      // The re-roll DID fix the arsenal break — the bone-scythe is a full forward blade in all 97
+      // frames instead of shrinking to rib-stubs — and its containment is clean (0px top/left/right,
+      // cal { h: 100.08, bottom: 0, left: 46.93 }, contact f44/1833ms). But it reproduces the OTHER
+      // half of the v1 defect: at f43-f62 (~0.8s) the torso rotates past profile into a 3/4 BACK view,
+      // both scapulae and the spine groove to camera, skull twisted round. That is the systemic
+      // "rotation out of profile through the back" class the animation sweep flagged across ~10 clips.
+      // Session-6 doctrine 6 is binding — never ship a known-defective take while waiting on a render;
+      // pulling is cheap and reversible, and clipVariants treats the remaining 1-element array like a
+      // bare clip. The keyed webm is kept at public/assets/characters/hollow-pale/attack-throw.webm so
+      // a future re-roll (or Tim overriding this call) is a pure manifest swap, no re-key.
       {
         // Take B: the smoke surges as he lunges antlers-first like a charging stag. Contact = the
         // deepest committed lunge. (This take also fixed the phantom brown ball: hand open + empty.)
@@ -70,10 +78,22 @@ export const HOLLOW_PALE: FighterDef = {
         cal: { h: 100.08, bottom: 0, left: 42.09 },
         contacts: [333],
       },
-      // Take B (attack-block-b.webm) PULLED 2026-07-26: THE BONE-SCYTHE VANISHES. At f64-f78 his
-      // left arm renders as a plain fleshy arm with an ordinary clawed hand - his signature weapon
-      // (which IS his arm) disappears for ~0.8s, then returns. Orchestrator-verified on the frames.
-      // Worst possible arsenal break; re-roll queued.
+      {
+        // Take B (v2 RE-ROLL, phase 26): the blade is snatched IN across the chest to absorb while
+        // the free claw comes up as a high guard, a long braced hold, then a straight counter thrust.
+        // Contact = the guard-CATCH (f12, blocks fire on the catch, not the counter), verified by the
+        // reach trace: the scythe tip retracts 909 -> 531px between f8 and f16 and the argmax sits
+        // mid-pull; the later energy peaks are the counter (f44) and the return to anchor (f76/f80).
+        // The re-roll FIXED the vanish: the bone-scythe is a fully rendered blade in all 97 frames,
+        // never a plain fleshy arm.
+        // FLAG: the counter overshoots the frame - the blade tip is cut flat by the RIGHT edge,
+        // 16px contiguous, sustained f46-f62 (~0.7s). NOT feathered: this is the scythe, not smoke,
+        // and feathering a weapon edge is not allowed here. Accepted as far less bad than the v1
+        // arsenal break; a shorter-counter re-roll is a pure swap.
+        url: 'assets/characters/hollow-pale/attack-block-b.webm',
+        cal: { h: 100.75, bottom: 0, left: 42.65 },
+        contacts: [500],
+      },
     ],
     hit: {
       // Head and torso whip back, smoke scatters off the waist, hard stagger, clean recover to the
@@ -82,12 +102,24 @@ export const HOLLOW_PALE: FighterDef = {
       cal: { h: 102.11, bottom: -0.68, left: 47.71 },
     },
     // Contract §11: the signature FINISHER — plays automatically on a round-ending win; one take is
-    // chosen uniform-random per finish. Two takes so far (special_3 SMOKE SPIKE appends later, no re-wire).
+    // chosen uniform-random per finish. Three takes: A PALE HARVEST (v2), B INK BLOOM, C EMBER RIBS (v2).
     special: [
-      // Take A (PALE HARVEST, special.webm) PULLED 2026-07-26: at f32 the white crescent arc hangs in
-      // OPEN AIR up-right of the blade with a visible GAP to it, and at f38-f44 it still extends far
-      // past the blade tip as a separate arc = the detached-projectile ("rocket") class. The fix on
-      // re-roll is not "less effect" but "the arc must TERMINATE ON THE BLADE in every frame".
+      {
+        // Take A - PALE HARVEST (v2 RE-ROLL, phase 26): pale-gold fire ignites ALONG the bone-scythe
+        // during a back-swing wind-up, then he sweeps it forward and the flame drags a wide reaping
+        // fan that stays welded to the blade. Contact = the sweep peak (f46), verified as the action
+        // beat two ways: the alpha-pixel count spikes 137k (rest) -> 218k at f46 as the fan opens,
+        // and the warm-effect pixel count also argmaxes at f46; the tail f80-f90 is the return to
+        // anchor with zero effect pixels.
+        // The re-roll FIXED the rocket class: in every frame the arc TERMINATES ON THE BLADE - there
+        // is no detached crescent hanging in open air and nothing extends past the blade tip as a
+        // separate object. Crimson/pale-gold trim survives the pink-safe key (0 green-dominant px).
+        // FLAG: during the wind-up the blade tip is swung back over the shoulder and is cut flat by
+        // the LEFT edge, 18px contiguous, f34-f40 (~0.25s). NOT feathered (scythe, not smoke).
+        url: 'assets/characters/hollow-pale/special.webm',
+        cal: { h: 100.08, bottom: 0, left: 40.4 },
+        contacts: [1917],
+      },
       {
         // Take B — INK BLOOM: a tight crimson-and-white bloom with black ink wisps bursts from the
         // ribcage as he arches, pulsing once (f43-f52) and fading. Centered, contained, no edge
@@ -96,14 +128,26 @@ export const HOLLOW_PALE: FighterDef = {
         cal: { h: 99.84, bottom: 0.01, left: 49.41 },
         contacts: [1958],
       },
-      // Take C (SMOKE SHROUD, special-c.webm) PULLED 2026-07-26. It DID fix the rocket (the smoke
-      // wraps him instead of flying off) but the sweep found three new defects the orchestrator
-      // then verified on the frames: the shroud SWALLOWS HIS HEAD at peak (only antler tips show,
-      // f44-64); it HARD-CUTS against the top frame edge for 8 frames (f40-47 carry ~100-130 fully
-      // OPAQUE alpha-255 pixels in the top row = a black slab, not billowing smoke - an earlier
-      // orchestrator check used too low an alpha threshold and wrongly accepted this); and at f58 it
-      // sheds a separate black blob floating clear of the mass. Re-roll: keep the shroud LOW (waist
-      // to chest, never over the head) and well inside the top edge.
+      {
+        // Take C - EMBER RIBS (v2 RE-ROLL, phase 26): smoke gathers up his back, he hunches and
+        // arches, and the ribcage lights from WITHIN - the rib bars glow amber-white through the
+        // ink-stained chest - then it dims and he settles back to the anchor. Contact = the arch
+        // (f44), verified as the action beat by the centroid trace: the subject top drops 6 -> 42px
+        // and cy rises 434 -> 447 between f42 and f44 as he hunches into the ignition; the glow is
+        // held f46-58 and f60-64 is the rise back to the anchor.
+        // The re-roll FIXED all three v1 defects: the head is never swallowed (skull and antlers
+        // clear in every frame), the top edge is clean (containment 0px on top/left/right), and
+        // there is no shed floating blob.
+        // KNOWN WEAKNESS (shipped deliberately): it is by far the WEAKEST of the three finishers.
+        // Measured on the keyed frames as bright-pixel share of the subject above its own resting
+        // baseline: take C peaks at +1.8pp and stays above +1pp for only 0.46s, versus take A at
+        // +16.2pp / 1.71s and take B (ink bloom) at +8.9pp / 0.25s. It reads as an internal ember
+        // rather than a finisher flourish. Defect-free beats absent, and a presence re-roll later
+        // is a pure drop-in swap (same file name, same slot).
+        url: 'assets/characters/hollow-pale/special-c.webm',
+        cal: { h: 100.08, bottom: 0, left: 48.16 },
+        contacts: [1833],
+      },
     ],
     // ko is the ONE off-anchor clip: the smoke thins and sinks, he crumples straight DOWN and lies
     // low with the smoke settling over him like a shroud, then HOLDS (does NOT return to the
