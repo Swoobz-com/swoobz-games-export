@@ -80,6 +80,15 @@
       "containment": "LEFT 32px at f69 — a SINGLE FRAME (42ms), dwell 1 of 97. Under the projects own calibration this is not a BLOCK (BLOCK needs A200>=200, or >=90 with dwell>=3) and it is milder than the already-shipped eclipse/attack-throw-b (A200 50, dwell 1). It is the CLOSED fan at the end of his fully-extended rear arm just reaching the left edge at the peak of the cast. Banded REVIEW, shipped.",
       "false_alarm_recorded": "The facing IoU INVERTS at f70 — as-is 0.128 vs mirrored 0.354, mirrored winning — which reads as a mid-clip turn to screen-LEFT. VIEWED at full size it is WRONG: he is still plainly facing screen-right (oni face, both feet and the hip sword all point right). His rear arm is extended far to screen-left holding the closed fan, which shifts the silhouettes mass left and corrupts the bbox-normalised comparison. A relative gate reports agreement with its REFERENCE, not correctness (sessions 8-9 lesson 1b). Do NOT hflip this clip.",
       "verdict": "ACCEPT. 4th of 13."
+    },
+    "throw_b": {
+      "raw": "qa-boss/raw/ir48-hex-paper-lord-throw-b.mp4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260727_232045_87294636-4c17-4521-9d1b-486c55204e99.mp4",
+      "fired": "2026-07-28 ~01:20 local, promptLen 2181, GenerateUnlimited",
+      "qa": "REJECT — OVERTRAVEL + RIGHT-EDGE CUT. He SPRINTS across the frame instead of delivering a short shoulder check. VIEWED at f25: he is mid-run far over on the right side with the left half of the frame empty green, and the OPEN war-fan is HARD-CUT FLAT by the right edge. Containment RIGHT 184px @f25 with THREE frames >=90px (f23:156, f24:174, f25:184) and dwell 4 — that satisfies the BLOCK conjunct (A200>=90 AND dwell>=3), so this is a re-roll, not a feather. The cut lands on his signature identity prop.",
+      "front_turn_false_positive": "check-frontturn flagged aspect 1.274 with 25 frames over 1.0, which is normally the hard frontal tell. VIEWED it is NOT a front-turn — it is the RUNNING STRIDE (legs fully extended fore and aft) stretching the bbox horizontally while he stays in clean side profile facing screen-right. RECORD: aspect>1.0 is only a frontal tell for a PLANTED pose; a locomotion clip can exceed it legitimately. Always view before convicting on aspect alone.",
+      "reroll_fix": "v2: the body no longer says EXPLODES forward in a two-step charge (which reads as sprint across frame). It now specifies a short heavy shoulder CHECK with explicit travel bounds — stays PLANTED and CENTERED, never moves more than HALF A BODY-WIDTH from the start, never runs/sprints/strides/crosses the frame, wide green margin on LEFT and RIGHT at all times, and the war-fan NEVER reaches the right edge. Side-profile lock retained.",
+      "verdict": "v1 REJECT (overtravel, RIGHT 184px BLOCK). v2 queued."
     }
   },
   "remaining": "strike_b, throw_a, throw_b, block_a, block_b, hit, ko, victory, special_1, special_2, special_3 — all 11 prompts pre-built and validated (one identity lock, FACING SCREEN-RIGHT present). Node 10 shows VOLTA until this kit is keyed and wired.",

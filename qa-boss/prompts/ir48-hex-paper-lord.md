@@ -73,14 +73,17 @@ war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border a
 white, grey, silver or feathered.
 
 ## throw_b (armored shoulder quake, solo-safe)
-THROW (shoulder quake): he EXPLODES forward TOWARD SCREEN-RIGHT along his own profile line in a two-step
-armored shoulder charge through EMPTY AIR, his kasa hat's talismans whipping back with the force, then
-plants his feet with a heavy stop and recovers to the starting stance. He charges ACROSS the frame to
-screen-right, NEVER toward the camera: his NEAR shoulder stays IN FRONT OF his far shoulder in every
-single frame so only ONE side of his body is ever visible, his chest NEVER opens toward the camera, his
-feet stay IN LINE one behind the other both pointing SCREEN-RIGHT, and he NEVER squares up into a frontal
-pose. His silhouette stays NARROW and side-on and is NEVER wider than it is tall. Alone, no opponent,
-empty air only, single figure, the whole charge well inside the frame.
+THROW (shoulder quake): he drives his armored shoulder forward TOWARD SCREEN-RIGHT along his own profile
+line in one short, heavy, EXPLOSIVE shoulder check through EMPTY AIR, his kasa hat's talismans whipping
+back with the force, then plants his feet with a heavy stop and recovers to the starting stance. HE
+BARELY TRAVELS: he stays PLANTED and CENTERED in the middle of the frame, his body NEVER moving more than
+HALF A BODY-WIDTH from where it starts, and he NEVER runs, sprints, strides or crosses the frame — the
+power is in his shoulder and hips, not in covering ground. He stays CENTRAL with a WIDE GREEN MARGIN on
+the LEFT and RIGHT edges at all times, and the war-fan NEVER reaches or touches the right edge. He drives
+toward screen-right, NEVER toward the camera: his NEAR shoulder stays IN FRONT OF his far shoulder in
+every single frame so only ONE side of his body is ever visible, his chest NEVER opens toward the camera,
+his feet stay IN LINE one behind the other both pointing SCREEN-RIGHT, and he NEVER squares up into a
+frontal pose. Alone, no opponent, empty air only, single figure.
 
 ## block_a (fan wall into counter, arm-only)
 BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he SLAMS the open
