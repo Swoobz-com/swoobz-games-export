@@ -11,7 +11,7 @@
   "duration": 4,
   "keyed": true,
   "encoded": true,
-  "qa": "KIT COMPLETE 2026-07-24 session 5: 13/13 states usable. PRIMARY TAKES: idle_v4, strike_a_v2, strike_b_v4, throw_a_v2, throw_b (v1, conditional amber-wrap - v2 re-roll FAILED worse), block_a_v2, block_b, hit_v2 (HEAD-TRIM f10), ko, victory, special_1_v3, special_2, special_3_v2 (conditional steel-hold). Ready for key (green-pinksafe keyer) + cal + contacts + wire wave 2.",
+  "qa": "KIT COMPLETE 2026-07-24 session 5: 13/13 states usable. PRIMARY TAKES: idle_v4, strike_a_v2, strike_b_v4, throw_a_v2, throw_b (v1, conditional amber-wrap - v2 re-roll FAILED worse), block_a_v2, block_b, hit_v2 (HEAD-TRIM f10), ko, victory, special_1_v3, special_2, special_3_v2 (conditional steel-hold). Ready for key (green-pinksafe keyer) + cal + contacts + wire wave 2. | 2026-07-27 phase 26: attack_throw Take B RESTORED from the v3 re-roll (throw_b_v3) - 422px edge slice fixed, native screen-RIGHT (no hflip). attack_throw is back to 2 takes.",
   "clips": {
     "idle": {
       "media": "d980cd09-0f9b-4782-9533-a1865f3b83fb",
@@ -45,7 +45,7 @@
       "media": "32cb6aa7-f1f7-43bd-a93a-f3be5552aa61",
       "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260724_110206_32cb6aa7-f1f7-43bd-a93a-f3be5552aa61.mp4",
       "note": "Shoulder barge: body-committed lean+stride forward, no phantom, returns near anchor. CONDITIONAL: scabbard crimson wraps drift to glowing AMBER during action (weapon-identity drift) + medium energy. Usable fallback take (throw_a is the clean take); v2 re-roll queued end-of-kit with a wrap-color lock + stronger barge verbs.",
-      "qa": "conditional:wrap-glow-drift",
+      "qa": "superseded:PULLED-2026-07-26 (422px left-edge slice + faces screen-LEFT). Archived at qa-boss/webm/_archive/lady-kurotachi-throw_b-PULLED-v1.webm(+.cal.json). Replaced by throw_b_v3.",
       "keyed": true,
       "webm": "qa-boss/webm/lady-kurotachi-throw_b.webm",
       "cal": {
@@ -272,6 +272,29 @@
       "media": "5c9adffa-4e41-4fc4-9477-bd81211a5e81",
       "note": "ENERGY idle attempt: frame 0 = anchor profile but rotates FULLY FRONTAL by ~f6 and stays (duelist/shoulder-roll verbs = posing to camera). v4 authored: prop-centric business per the ir37 fan-snap pattern + profile named inside the acting line.",
       "qa": "fail:frontal-rotation"
+    },
+    "throw_b_v3": {
+      "rawFile": "qa-boss/raw/lady-kurotachi-throw-b-v3.mp4",
+      "source": "Higgsfield re-roll harvested 2026-07-27 (phase 26). 960x960, 24fps, 97 frames.",
+      "note": "Driving shoulder barge through empty air: coil -> rotate through a 3/4 lunge -> committed step-through with the lead arm punched to full extension, held f44-f57, wound back to the anchor. Lead hand is an EMPTY FIST (verified at 4x zoom over black+white) - no phantom object. Katana stays in the off hand, blade BLACK, crimson hilt rings intact. The mid-clip 3/4 lunge pass-through is ACCEPTED ACTING, not a back-turn.",
+      "qa": "pass",
+      "facing": "NATIVE screen-RIGHT - the FIRST take in her kit that needed NO hflip. Keyed straight off raw with zero frame-level mirroring.",
+      "containment": "FIXED. Decoded keyed webm, all 97 frames: max contiguous opaque edge run TOP=0px LEFT=0px RIGHT=0px BOTTOM=0px. scripts/check-containment.mjs: clean 1 / over threshold 0. (The pulled take had a 422px left-edge slice.)",
+      "keyed": true,
+      "encoded": true,
+      "webm": "qa-boss/webm/lady-kurotachi-throw_b.webm",
+      "shipped": "public/assets/characters/lady-kurotachi/attack-throw-b.webm",
+      "cal": {
+        "h": 100.84,
+        "bottom": -0.18,
+        "left": 47.35
+      },
+      "cal_file": "qa-boss/webm/lady-kurotachi-throw_b.cal.json",
+      "contacts": [
+        1833
+      ],
+      "contacts_note": "f44 @24fps = ARRIVAL AT FULL EXTENSION. NOT the motion-energy argmax: measure-contacts.mjs argmax is f41 (1708ms), which a reach/centroid trace proves is the fast 3/4->profile rotation frame with the fist still CHAMBERED (upper-body reach 615px = a local MINIMUM). Fist reach (rightmost opaque column, cov>=3) goes 755(f42) -> 857(f43) -> 867(f44) -> 869(f45) and then only creeps to the 879px max it holds through f57: travel decelerates to zero at f44. Centroid cx 427(anchor) -> 534(f44) -> 542(f57) agrees.",
+      "keying_note": "key-clips-green-pinksafe.mjs --still qa-boss/proc/lk-anchor-still.png -> green-despill.mjs -> green-neutralize.mjs 32 -> ffmpeg -framerate 24 -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 30. Both post-passes touched 0px (the pinksafe keyer interior g>b neutralize had already removed all green). Union bbox x16 y80 884x836, 97 frames. ffprobe TAG:alpha_mode=1; decoded RGBA confirms a real alpha plane (minAlpha=0, 83.85% fully transparent). Residual green post-VP9 (g-max(r,b)>10 over visible px) = 0.0100%, in family with shipped Take A attack-throw.webm at 0.0050% under the same metric. Hot-pink trim 1.836% of visible px (Take A: 1.881%). Matte proof over BLACK+WHITE: qa-boss/proc/lk-proof-throw_b-black.png / -white.png, fist zoom qa-boss/proc/lk-tbv3-fist-black.png / -white.png, beat sheets qa-boss/proc/lk-tbv3-windup-sheet.png / lk-tbv3-impact-sheet.png."
     }
   },
   "energy_rerolls": {
