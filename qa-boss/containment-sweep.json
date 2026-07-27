@@ -1,0 +1,5420 @@
+{
+  "generatedAt": "2026-07-27T21:26:58.145Z",
+  "tool": "qa-boss/profile-containment.mjs",
+  "target": "public/assets/characters",
+  "params": {
+    "scale": 480,
+    "alphaLevels": [
+      40,
+      128,
+      200
+    ],
+    "dwellMinSourcePx": 24,
+    "plate": "green"
+  },
+  "calibration": {
+    "note": "band driven by worst of TOP/LEFT/RIGHT only; BOTTOM never counts",
+    "CLEAR": "A200 < 32",
+    "REVIEW": "32 <= A200 < 90",
+    "BLOCK": "A200 >= 200 OR (A200 >= 90 AND dwell >= 3)"
+  },
+  "totals": {
+    "scanned": 98,
+    "errors": 0,
+    "CLEAR": 67,
+    "REVIEW": 15,
+    "BLOCK": 16
+  },
+  "clips": [
+    {
+      "clip": "eclipse-ofuda/attack-block-b.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 380,
+        "h": 832
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/attack-block.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 934,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 12,
+          "a40Frame": 66,
+          "a128": 10,
+          "a128Frame": 66,
+          "a200": 10,
+          "a200Frame": 67,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 10,
+        "frame": 67,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/attack-strike-b.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 806,
+        "h": 698
+      },
+      "edges": {
+        "top": {
+          "a40": 17,
+          "a40Frame": 13,
+          "a128": 17,
+          "a128Frame": 13,
+          "a200": 15,
+          "a200Frame": 13,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 15,
+        "frame": 13,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/attack-strike.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 910,
+        "h": 938
+      },
+      "edges": {
+        "top": {
+          "a40": 178,
+          "a40Frame": 47,
+          "a128": 176,
+          "a128Frame": 47,
+          "a200": 176,
+          "a200Frame": 47,
+          "dwell": 2
+        },
+        "left": {
+          "a40": 201,
+          "a40Frame": 45,
+          "a128": 199,
+          "a128Frame": 45,
+          "a200": 197,
+          "a200Frame": 45,
+          "dwell": 2
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 197,
+        "frame": 45,
+        "dwell": 2,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "eclipse-ofuda/attack-throw-b.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 834
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 54,
+          "a40Frame": 18,
+          "a128": 52,
+          "a128Frame": 18,
+          "a200": 50,
+          "a200Frame": 18,
+          "dwell": 1
+        },
+        "right": {
+          "a40": 8,
+          "a40Frame": 33,
+          "a128": 8,
+          "a128Frame": 33,
+          "a200": 6,
+          "a200Frame": 33,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 50,
+        "frame": 18,
+        "dwell": 1,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "eclipse-ofuda/attack-throw.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 838
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 14,
+          "a40Frame": 39,
+          "a128": 14,
+          "a128Frame": 39,
+          "a200": 10,
+          "a200Frame": 39,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 18,
+          "a40Frame": 60,
+          "a128": 18,
+          "a128Frame": 60,
+          "a200": 16,
+          "a200Frame": 60,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 16,
+        "frame": 60,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/hit.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 832,
+        "h": 842
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/idle.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 418,
+        "h": 834
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/ko.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 840,
+        "h": 882
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 23,
+          "a40Frame": 28,
+          "a128": 21,
+          "a128Frame": 28,
+          "a200": 19,
+          "a200Frame": 28,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 60,
+          "a40Frame": 78,
+          "a128": 60,
+          "a128Frame": 78,
+          "a200": 58,
+          "a200Frame": 77,
+          "dwell": 20
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 19,
+        "frame": 28,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/special-b.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 392,
+        "h": 946
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/special-c.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 504,
+        "h": 866
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/special.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 528,
+        "h": 882
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "eclipse-ofuda/victory.webm",
+      "character": "eclipse-ofuda",
+      "frames": 97,
+      "source": {
+        "w": 952,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/attack-block-b.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 944,
+        "h": 896
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 16,
+          "a40Frame": 46,
+          "a128": 12,
+          "a128Frame": 46,
+          "a200": 12,
+          "a200Frame": 46,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 12,
+        "frame": 46,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/attack-block.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 922,
+        "h": 890
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/attack-strike-b.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 946,
+        "h": 934
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/attack-strike.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 818,
+        "h": 888
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/attack-throw-b.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 786,
+        "h": 888
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/attack-throw.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 806,
+        "h": 890
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/hit.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 786,
+        "h": 906
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/idle.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 776,
+        "h": 890
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/ko.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 928,
+        "h": 908
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/special-b.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 590,
+        "h": 904
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/special-c.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 776,
+        "h": 890
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/special.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 938,
+        "h": 890
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 18,
+          "a40Frame": 38,
+          "a128": 14,
+          "a128Frame": 38,
+          "a200": 14,
+          "a200Frame": 38,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 14,
+        "frame": 38,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "hollow-pale/victory.webm",
+      "character": "hollow-pale",
+      "frames": 97,
+      "source": {
+        "w": 898,
+        "h": 936
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/attack-block-b.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 758,
+        "h": 832
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/attack-block.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 762,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 62,
+          "a40Frame": 60,
+          "a128": 62,
+          "a128Frame": 60,
+          "a200": 59,
+          "a200Frame": 60,
+          "dwell": 2
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 59,
+        "frame": 60,
+        "dwell": 2,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "ir37-pink-tessen/attack-strike-b.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 862,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/attack-strike.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 840
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 10,
+          "a40Frame": 61,
+          "a128": 10,
+          "a128Frame": 61,
+          "a200": 6,
+          "a200Frame": 61,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 120,
+          "a40Frame": 66,
+          "a128": 120,
+          "a128Frame": 66,
+          "a200": 116,
+          "a200Frame": 66,
+          "dwell": 26
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 116,
+        "frame": 66,
+        "dwell": 26,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir37-pink-tessen/attack-throw-b.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 760,
+        "h": 880
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 158,
+          "a40Frame": 44,
+          "a128": 157,
+          "a128Frame": 44,
+          "a200": 157,
+          "a200Frame": 44,
+          "dwell": 12
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 157,
+        "frame": 44,
+        "dwell": 12,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir37-pink-tessen/attack-throw.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 630,
+        "h": 868
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/hit.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 85,
+      "source": {
+        "w": 826,
+        "h": 846
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/idle.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 566,
+        "h": 840
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/ko.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 902,
+        "h": 874
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 113,
+          "a40Frame": 41,
+          "a128": 111,
+          "a128Frame": 41,
+          "a200": 109,
+          "a200Frame": 41,
+          "dwell": 65
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/special-b.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 596,
+        "h": 910
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/special-c.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 620,
+        "h": 838
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/special.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 708,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir37-pink-tessen/victory.webm",
+      "character": "ir37-pink-tessen",
+      "frames": 97,
+      "source": {
+        "w": 580,
+        "h": 832
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir56-lion-serpent/attack-block-b.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 798
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 110,
+          "a40Frame": 41,
+          "a128": 110,
+          "a128Frame": 41,
+          "a200": 106,
+          "a200Frame": 41,
+          "dwell": 58
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 106,
+        "frame": 41,
+        "dwell": 58,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir56-lion-serpent/attack-block.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 942,
+        "h": 864
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 6,
+          "a40Frame": 47,
+          "a128": 4,
+          "a128Frame": 46,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir56-lion-serpent/attack-strike-b.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 54,
+          "a40Frame": 59,
+          "a128": 52,
+          "a128Frame": 59,
+          "a200": 50,
+          "a200Frame": 59,
+          "dwell": 7
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 50,
+        "frame": 59,
+        "dwell": 7,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "ir56-lion-serpent/attack-strike.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 942,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir56-lion-serpent/attack-throw.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 836
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 142,
+          "a40Frame": 46,
+          "a128": 140,
+          "a128Frame": 46,
+          "a200": 138,
+          "a200Frame": 46,
+          "dwell": 22
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 138,
+        "frame": 46,
+        "dwell": 22,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir56-lion-serpent/hit.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 948,
+        "h": 770
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 32,
+          "a40Frame": 6,
+          "a128": 32,
+          "a128Frame": 6,
+          "a200": 30,
+          "a200Frame": 6,
+          "dwell": 2
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 30,
+        "frame": 6,
+        "dwell": 2,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir56-lion-serpent/idle.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 912,
+        "h": 746
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir56-lion-serpent/ko.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 936,
+        "h": 772
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 199,
+          "a40Frame": 68,
+          "a128": 197,
+          "a128Frame": 68,
+          "a200": 197,
+          "a200Frame": 68,
+          "dwell": 38
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 197,
+        "frame": 68,
+        "dwell": 38,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir56-lion-serpent/special-b.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 960
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 24,
+          "a40Frame": 23,
+          "a128": 18,
+          "a128Frame": 23,
+          "a200": 16,
+          "a200Frame": 23,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 364,
+          "a40Frame": 29,
+          "a128": 362,
+          "a128Frame": 29,
+          "a200": 362,
+          "a200Frame": 29,
+          "dwell": 10
+        },
+        "bottom": {
+          "a40": 32,
+          "a40Frame": 30,
+          "a128": 28,
+          "a128Frame": 30,
+          "a200": 28,
+          "a200Frame": 30,
+          "dwell": 1
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 362,
+        "frame": 29,
+        "dwell": 10,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir56-lion-serpent/special-c.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 928
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 76,
+          "a40Frame": 64,
+          "a128": 76,
+          "a128Frame": 64,
+          "a200": 72,
+          "a200Frame": 64,
+          "dwell": 5
+        },
+        "right": {
+          "a40": 438,
+          "a40Frame": 59,
+          "a128": 436,
+          "a128Frame": 59,
+          "a200": 434,
+          "a200Frame": 59,
+          "dwell": 12
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 434,
+        "frame": 59,
+        "dwell": 12,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "ir56-lion-serpent/special.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 924,
+        "h": 872
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "ir56-lion-serpent/victory.webm",
+      "character": "ir56-lion-serpent",
+      "frames": 97,
+      "source": {
+        "w": 938,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 39,
+          "a40Frame": 8,
+          "a128": 33,
+          "a128Frame": 8,
+          "a200": 31,
+          "a200Frame": 8,
+          "dwell": 1
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 31,
+        "frame": 8,
+        "dwell": 1,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/attack-block-b.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 622,
+        "h": 838
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/attack-block.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 876,
+        "h": 932
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 20,
+          "a40Frame": 82,
+          "a128": 20,
+          "a128Frame": 83,
+          "a200": 16,
+          "a200Frame": 82,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 16,
+        "frame": 82,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/attack-strike-b.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 676,
+        "h": 832
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/attack-strike.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 894,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 255,
+          "a40Frame": 40,
+          "a128": 251,
+          "a128Frame": 40,
+          "a200": 251,
+          "a200Frame": 40,
+          "dwell": 8
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 20,
+          "a40Frame": 66,
+          "a128": 20,
+          "a128Frame": 66,
+          "a200": 17,
+          "a200Frame": 66,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 251,
+        "frame": 40,
+        "dwell": 8,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "lady-kurotachi/attack-throw-b.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 884,
+        "h": 836
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/attack-throw.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 706,
+        "h": 848
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/hit.webm",
+      "character": "lady-kurotachi",
+      "frames": 87,
+      "source": {
+        "w": 522,
+        "h": 832
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/idle.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 396,
+        "h": 842
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/ko.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 808,
+        "h": 878
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 74,
+          "a40Frame": 58,
+          "a128": 71,
+          "a128Frame": 58,
+          "a200": 71,
+          "a200Frame": 58,
+          "dwell": 40
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/special-b.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 896,
+        "h": 960
+      },
+      "edges": {
+        "top": {
+          "a40": 7,
+          "a40Frame": 63,
+          "a128": 7,
+          "a128Frame": 63,
+          "a200": 7,
+          "a200Frame": 63,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 15,
+          "a40Frame": 17,
+          "a128": 13,
+          "a128Frame": 17,
+          "a200": 13,
+          "a200Frame": 49,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 4,
+          "a40Frame": 27,
+          "a128": 4,
+          "a128Frame": 27,
+          "a200": 2,
+          "a200Frame": 27,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 13,
+        "frame": 49,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/special-c.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 606,
+        "h": 876
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/special.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 772,
+        "h": 832
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "lady-kurotachi/victory.webm",
+      "character": "lady-kurotachi",
+      "frames": 97,
+      "source": {
+        "w": 556,
+        "h": 880
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/attack-block-b.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 920
+      },
+      "edges": {
+        "top": {
+          "a40": 32,
+          "a40Frame": 65,
+          "a128": 30,
+          "a128Frame": 65,
+          "a200": 28,
+          "a200Frame": 65,
+          "dwell": 1
+        },
+        "left": {
+          "a40": 18,
+          "a40Frame": 63,
+          "a128": 14,
+          "a128Frame": 62,
+          "a200": 14,
+          "a200Frame": 63,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 22,
+          "a40Frame": 21,
+          "a128": 22,
+          "a128Frame": 21,
+          "a200": 20,
+          "a200Frame": 21,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 28,
+        "frame": 65,
+        "dwell": 1,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/attack-block.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 950,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 32,
+          "a40Frame": 14,
+          "a128": 30,
+          "a128Frame": 14,
+          "a200": 28,
+          "a200Frame": 14,
+          "dwell": 6
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 10,
+          "a40Frame": 7,
+          "a128": 6,
+          "a128Frame": 7,
+          "a200": 6,
+          "a200Frame": 7,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 28,
+        "frame": 14,
+        "dwell": 6,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/attack-strike-b.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 280,
+          "a40Frame": 51,
+          "a128": 280,
+          "a128Frame": 51,
+          "a200": 276,
+          "a200Frame": 51,
+          "dwell": 10
+        },
+        "left": {
+          "a40": 36,
+          "a40Frame": 50,
+          "a128": 36,
+          "a128Frame": 50,
+          "a200": 34,
+          "a200Frame": 50,
+          "dwell": 1
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 276,
+        "frame": 51,
+        "dwell": 10,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "satoshi-odachi/attack-strike.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 942,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 263,
+          "a40Frame": 25,
+          "a128": 259,
+          "a128Frame": 25,
+          "a200": 259,
+          "a200Frame": 25,
+          "dwell": 2
+        },
+        "left": {
+          "a40": 27,
+          "a40Frame": 17,
+          "a128": 26,
+          "a128Frame": 18,
+          "a200": 24,
+          "a200Frame": 18,
+          "dwell": 4
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 259,
+        "frame": 25,
+        "dwell": 2,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "satoshi-odachi/attack-throw-b.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 918
+      },
+      "edges": {
+        "top": {
+          "a40": 34,
+          "a40Frame": 21,
+          "a128": 34,
+          "a128Frame": 21,
+          "a200": 30,
+          "a200Frame": 21,
+          "dwell": 2
+        },
+        "left": {
+          "a40": 18,
+          "a40Frame": 18,
+          "a128": 16,
+          "a128Frame": 18,
+          "a200": 14,
+          "a200Frame": 18,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 26,
+          "a40Frame": 48,
+          "a128": 24,
+          "a128Frame": 48,
+          "a200": 22,
+          "a200Frame": 48,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 30,
+        "frame": 21,
+        "dwell": 2,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/attack-throw.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 756
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 20,
+          "a40Frame": 52,
+          "a128": 16,
+          "a128Frame": 52,
+          "a200": 16,
+          "a200Frame": 52,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 38,
+          "a40Frame": 49,
+          "a128": 36,
+          "a128Frame": 49,
+          "a200": 34,
+          "a200Frame": 49,
+          "dwell": 1
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 34,
+        "frame": 49,
+        "dwell": 1,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "satoshi-odachi/hit.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 2,
+          "a40Frame": 39,
+          "a128": 2,
+          "a128Frame": 39,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 44,
+          "a40Frame": 25,
+          "a128": 44,
+          "a128Frame": 25,
+          "a200": 40,
+          "a200Frame": 25,
+          "dwell": 8
+        },
+        "right": {
+          "a40": 38,
+          "a40Frame": 39,
+          "a128": 38,
+          "a128Frame": 39,
+          "a200": 34,
+          "a200Frame": 39,
+          "dwell": 8
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 40,
+        "frame": 25,
+        "dwell": 8,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "satoshi-odachi/idle.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 910,
+        "h": 756
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/ko.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 936,
+        "h": 792
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/old/special-b-cyclone.webm",
+      "character": "old",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 922
+      },
+      "edges": {
+        "top": {
+          "a40": 88,
+          "a40Frame": 72,
+          "a128": 84,
+          "a128Frame": 72,
+          "a200": 82,
+          "a200Frame": 72,
+          "dwell": 5
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 82,
+        "frame": 72,
+        "dwell": 5,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "satoshi-odachi/special-b.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 960
+      },
+      "edges": {
+        "top": {
+          "a40": 348,
+          "a40Frame": 54,
+          "a128": 348,
+          "a128Frame": 54,
+          "a200": 340,
+          "a200Frame": 54,
+          "dwell": 12
+        },
+        "left": {
+          "a40": 24,
+          "a40Frame": 36,
+          "a128": 24,
+          "a128Frame": 37,
+          "a200": 22,
+          "a200Frame": 41,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 318,
+          "a40Frame": 63,
+          "a128": 316,
+          "a128Frame": 63,
+          "a200": 314,
+          "a200Frame": 63,
+          "dwell": 29
+        },
+        "bottom": {
+          "a40": 294,
+          "a40Frame": 61,
+          "a128": 294,
+          "a128Frame": 61,
+          "a200": 292,
+          "a200Frame": 61,
+          "dwell": 3
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 340,
+        "frame": 54,
+        "dwell": 12,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "satoshi-odachi/special-c.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 504,
+          "a40Frame": 52,
+          "a128": 498,
+          "a128Frame": 52,
+          "a200": 486,
+          "a200Frame": 52,
+          "dwell": 10
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 486,
+        "frame": 52,
+        "dwell": 10,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "satoshi-odachi/special.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 934,
+        "h": 756
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "satoshi-odachi/victory.webm",
+      "character": "satoshi-odachi",
+      "frames": 97,
+      "source": {
+        "w": 950,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 196,
+          "a40Frame": 77,
+          "a128": 192,
+          "a128Frame": 77,
+          "a200": 192,
+          "a200Frame": 77,
+          "dwell": 13
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 198,
+          "a40Frame": 30,
+          "a128": 192,
+          "a128Frame": 30,
+          "a200": 188,
+          "a200Frame": 30,
+          "dwell": 3
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 192,
+        "frame": 77,
+        "dwell": 13,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "sora-yari/attack-block-b.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 936,
+        "h": 960
+      },
+      "edges": {
+        "top": {
+          "a40": 14,
+          "a40Frame": 68,
+          "a128": 14,
+          "a128Frame": 68,
+          "a200": 12,
+          "a200Frame": 68,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 14,
+          "a40Frame": 64,
+          "a128": 14,
+          "a128Frame": 64,
+          "a200": 12,
+          "a200Frame": 64,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 12,
+        "frame": 68,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "sora-yari/attack-block.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 938,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 49,
+          "a40Frame": 14,
+          "a128": 47,
+          "a128Frame": 14,
+          "a200": 47,
+          "a200Frame": 14,
+          "dwell": 6
+        },
+        "left": {
+          "a40": 23,
+          "a40Frame": 30,
+          "a128": 20,
+          "a128Frame": 30,
+          "a200": 20,
+          "a200Frame": 30,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 47,
+        "frame": 14,
+        "dwell": 6,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "sora-yari/attack-strike-b.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 940,
+        "h": 876
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 16,
+          "a40Frame": 61,
+          "a128": 16,
+          "a128Frame": 61,
+          "a200": 14,
+          "a200Frame": 61,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 14,
+        "frame": 61,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "sora-yari/attack-strike.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 936,
+        "h": 680
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 25,
+          "a40Frame": 20,
+          "a128": 23,
+          "a128Frame": 20,
+          "a200": 21,
+          "a200Frame": 20,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 21,
+        "frame": 20,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "sora-yari/attack-throw-b.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 694
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 16,
+          "a40Frame": 11,
+          "a128": 16,
+          "a128Frame": 11,
+          "a200": 12,
+          "a200Frame": 10,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 42,
+          "a40Frame": 35,
+          "a128": 42,
+          "a128Frame": 35,
+          "a200": 38,
+          "a200Frame": 35,
+          "dwell": 1
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 38,
+        "frame": 35,
+        "dwell": 1,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "sora-yari/attack-throw.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 40,
+          "a40Frame": 36,
+          "a128": 38,
+          "a128Frame": 36,
+          "a200": 36,
+          "a200Frame": 36,
+          "dwell": 4
+        },
+        "right": {
+          "a40": 24,
+          "a40Frame": 40,
+          "a128": 22,
+          "a128Frame": 40,
+          "a200": 20,
+          "a200Frame": 40,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 18,
+          "a40Frame": 28,
+          "a128": 16,
+          "a128Frame": 28,
+          "a200": 14,
+          "a200Frame": 28,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 36,
+        "frame": 36,
+        "dwell": 4,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "sora-yari/hit.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 904
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 42,
+          "a40Frame": 61,
+          "a128": 40,
+          "a128Frame": 61,
+          "a200": 38,
+          "a200Frame": 61,
+          "dwell": 4
+        },
+        "right": {
+          "a40": 26,
+          "a40Frame": 20,
+          "a128": 26,
+          "a128Frame": 47,
+          "a200": 22,
+          "a200Frame": 20,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 38,
+        "frame": 61,
+        "dwell": 4,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "sora-yari/idle.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 908,
+        "h": 678
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "sora-yari/ko.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 936,
+        "h": 718
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 25,
+          "a40Frame": 41,
+          "a128": 21,
+          "a128Frame": 41,
+          "a200": 21,
+          "a200Frame": 41,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 230,
+          "a40Frame": 61,
+          "a128": 230,
+          "a128Frame": 61,
+          "a200": 228,
+          "a200Frame": 86,
+          "dwell": 48
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 21,
+        "frame": 41,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "sora-yari/victory.webm",
+      "character": "sora-yari",
+      "frames": 97,
+      "source": {
+        "w": 916,
+        "h": 932
+      },
+      "edges": {
+        "top": {
+          "a40": 29,
+          "a40Frame": 26,
+          "a128": 27,
+          "a128Frame": 26,
+          "a200": 25,
+          "a200Frame": 26,
+          "dwell": 1
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 25,
+        "frame": 26,
+        "dwell": 1,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "thorn-warden/attack-block-b.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 914
+      },
+      "edges": {
+        "top": {
+          "a40": 72,
+          "a40Frame": 60,
+          "a128": 70,
+          "a128Frame": 53,
+          "a200": 68,
+          "a200Frame": 53,
+          "dwell": 3
+        },
+        "left": {
+          "a40": 68,
+          "a40Frame": 58,
+          "a128": 64,
+          "a128Frame": 56,
+          "a200": 62,
+          "a200Frame": 56,
+          "dwell": 3
+        },
+        "right": {
+          "a40": 44,
+          "a40Frame": 70,
+          "a128": 44,
+          "a128Frame": 70,
+          "a200": 42,
+          "a200Frame": 71,
+          "dwell": 13
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 68,
+        "frame": 53,
+        "dwell": 3,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "thorn-warden/attack-block.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 940,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 80,
+          "a40Frame": 16,
+          "a128": 78,
+          "a128Frame": 16,
+          "a200": 76,
+          "a200Frame": 16,
+          "dwell": 3
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 317,
+          "a40Frame": 48,
+          "a128": 315,
+          "a128Frame": 48,
+          "a200": 315,
+          "a200Frame": 48,
+          "dwell": 1
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 315,
+        "frame": 48,
+        "dwell": 1,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "thorn-warden/attack-strike-b.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 916
+      },
+      "edges": {
+        "top": {
+          "a40": 60,
+          "a40Frame": 12,
+          "a128": 60,
+          "a128Frame": 12,
+          "a200": 56,
+          "a200Frame": 12,
+          "dwell": 1
+        },
+        "left": {
+          "a40": 96,
+          "a40Frame": 14,
+          "a128": 96,
+          "a128Frame": 14,
+          "a200": 94,
+          "a200Frame": 14,
+          "dwell": 8
+        },
+        "right": {
+          "a40": 102,
+          "a40Frame": 67,
+          "a128": 98,
+          "a128Frame": 67,
+          "a200": 98,
+          "a200Frame": 67,
+          "dwell": 35
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 98,
+        "frame": 67,
+        "dwell": 35,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "thorn-warden/attack-strike.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 686,
+        "h": 922
+      },
+      "edges": {
+        "top": {
+          "a40": 61,
+          "a40Frame": 65,
+          "a128": 59,
+          "a128Frame": 65,
+          "a200": 59,
+          "a200Frame": 65,
+          "dwell": 5
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 59,
+        "frame": 65,
+        "dwell": 5,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "thorn-warden/attack-throw-b.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 750,
+        "h": 886
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 50,
+          "a40Frame": 71,
+          "a128": 48,
+          "a128Frame": 71,
+          "a200": 48,
+          "a200Frame": 71,
+          "dwell": 2
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "right",
+        "a200": 48,
+        "frame": 71,
+        "dwell": 2,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "thorn-warden/attack-throw.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 960,
+        "h": 918
+      },
+      "edges": {
+        "top": {
+          "a40": 62,
+          "a40Frame": 50,
+          "a128": 62,
+          "a128Frame": 50,
+          "a200": 58,
+          "a200Frame": 50,
+          "dwell": 1
+        },
+        "left": {
+          "a40": 150,
+          "a40Frame": 44,
+          "a128": 146,
+          "a128Frame": 44,
+          "a200": 142,
+          "a200Frame": 44,
+          "dwell": 4
+        },
+        "right": {
+          "a40": 50,
+          "a40Frame": 51,
+          "a128": 50,
+          "a128Frame": 51,
+          "a200": 46,
+          "a200Frame": 51,
+          "dwell": 1
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 142,
+        "frame": 44,
+        "dwell": 4,
+        "band": "BLOCK"
+      },
+      "band": "BLOCK"
+    },
+    {
+      "clip": "thorn-warden/hit.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 914,
+        "h": 960
+      },
+      "edges": {
+        "top": {
+          "a40": 10,
+          "a40Frame": 38,
+          "a128": 10,
+          "a128Frame": 38,
+          "a200": 10,
+          "a200Frame": 38,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 44,
+          "a40Frame": 34,
+          "a128": 42,
+          "a128Frame": 34,
+          "a200": 42,
+          "a200Frame": 34,
+          "dwell": 1
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "left",
+        "a200": 42,
+        "frame": 34,
+        "dwell": 1,
+        "band": "REVIEW"
+      },
+      "band": "REVIEW"
+    },
+    {
+      "clip": "thorn-warden/idle.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 520,
+        "h": 838
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "thorn-warden/ko.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 850,
+        "h": 876
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 5,
+          "a40Frame": 42,
+          "a128": 4,
+          "a128Frame": 42,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    },
+    {
+      "clip": "thorn-warden/victory.webm",
+      "character": "thorn-warden",
+      "frames": 97,
+      "source": {
+        "w": 664,
+        "h": 860
+      },
+      "edges": {
+        "top": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "left": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "right": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        },
+        "bottom": {
+          "a40": 0,
+          "a40Frame": -1,
+          "a128": 0,
+          "a128Frame": -1,
+          "a200": 0,
+          "a200Frame": -1,
+          "dwell": 0
+        }
+      },
+      "worstTLR": {
+        "edge": "top",
+        "a200": 0,
+        "frame": -1,
+        "dwell": 0,
+        "band": "CLEAR"
+      },
+      "band": "CLEAR"
+    }
+  ]
+}

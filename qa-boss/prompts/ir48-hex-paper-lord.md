@@ -51,13 +51,16 @@ then he flows back to the starting stance. Big, heavy, total commitment, everyth
 ## strike_b (reversed-blade stab)
 STRIKE (reversed stab): he steps INTO one brutal downward stab with the reversed short sword, his whole
 armored weight dropping into the blow at chest height and below, the fan sweeping back for balance, then
-he rises back into the starting stance. Fast, merciless, kept close and central.
+he rises back into the starting stance. Fast, merciless, kept close and central. Throughout the sweep the
+war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale,
+white, grey, silver or feathered; the fan stays LOW and never rises above his hat brim.
 
 ## throw_a (fan clamp and cast down, solo-safe)
 THROW (clamp and cast): he SNAPS the closed war-fan forward and clamps it onto an unseen foe at chest
 height through EMPTY AIR, then WRENCHES down and across his body in one violent casting throw, his hips
 pivoting into it with real force, then returns to the starting stance. NO opponent, empty air only,
-single figure. Imperial violence.
+single figure. Imperial violence. Throughout the clamp and the wrench the war-fan stays the SAME solid
+DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered.
 
 ## throw_b (armored shoulder quake, solo-safe)
 THROW (shoulder quake): he EXPLODES forward in a two-step armored shoulder charge through EMPTY AIR, his
@@ -69,12 +72,16 @@ frame.
 BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he SLAMS the open
 war-fan up across his body like a wall as if catching a heavy blow, holds the strain a beat, then RIPS
 one short vicious counter stab with the reversed sword kept close and central, then lowers back to the
-starting stance.
+starting stance. Through the whole raise and hold the war-fan stays the SAME solid DEEP CRIMSON fan with
+its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered, and it stays in front
+of his chest and NEVER rises above his hat brim.
 
 ## block_b (sword brace into fan backhand, arm-only)
 BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he braces the
 reversed sword across his chest in a hard deflecting guard that visibly absorbs an impact, then SNAPS a
-short fan backhand kept below shoulder height, then settles back to the starting stance.
+short fan backhand kept below shoulder height, then settles back to the starting stance. Through the
+backhand the war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER
+turns pale, white, grey, silver or feathered.
 
 ## hit (stagger, quick recover)
 HIT REACTION: his head and armored torso rock sharply back as an unseen impact lands, the paper talismans
@@ -89,17 +96,21 @@ He begins on the reference stance but ends collapsed on the ground, motionless, 
 standing. He stays in side profile facing screen-right; the dropped fan and sword stay within the frame.
 
 ## victory (imperial fan snap)
-VICTORY TAUNT: he SNAPS the great war-fan fully open with a flourish and raises it beside his oni face
-only to about head height, striking one slow imperial pose as the talismans settle, his fanged grin
-widening, then he lowers it back into the EXACT starting stance. Alone, no opponent, everything well
-inside the frame.
+VICTORY TAUNT: he SNAPS the great war-fan fully open with a flourish and raises it beside his oni face,
+keeping the TOP EDGE OF THE FAN BELOW HIS HAT BRIM AT ALL TIMES and never letting any part of it pass
+above the hat, striking one slow imperial pose as the talismans settle, his fanged grin widening, then he
+lowers it back into the EXACT starting stance. Through the flourish and the hold the war-fan stays the
+SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or
+feathered. Alone, no opponent, everything well inside the frame.
 
 ## special_1 (HEX STORM) — crimson/gold/white, contained
 SPECIAL FINISHER (hex storm): he sweeps the open war-fan once and a SMALL tight flurry of glowing crimson
 hexagon paper charms swirls close around his body, no bigger than his torso, flaring gold and burning
-away within a beat, then he settles back to the starting stance. The charms are CRIMSON and GOLD and
-WHITE, NEVER green, small and tight against his body in the CENTER with a wide green margin all around;
-they do NOT orbit outward, NOT a ring.
+away within a beat, then he settles back to the starting stance. Through the sweep the war-fan stays the
+SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or
+feathered, and the sweep is kept LOW with the fan never rising above his hat brim. The charms are CRIMSON
+and GOLD and WHITE, NEVER green, small and tight against his body in the CENTER with a wide green margin
+all around; they do NOT orbit outward, NOT a ring.
 
 ## special_2 (TALISMAN BRAND) — crimson/white, contained
 # REWRITTEN 2026-07-26 (character-coherence gate, Tim): the v1 line put the talisman "onto the air in
@@ -110,8 +121,10 @@ and CLAPS it flat against the face of his own war-fan, HOLDING it there in his h
 in a SMALL compact burst no bigger than his head and burns to nothing between his fingers, then he
 settles back. The talisman stays PINCHED IN HIS HAND against the fan the whole time and the flare
 happens ON the fan, touching his own body. Nothing leaves his hand, nothing floats free in the air,
-nothing detaches, launches, flies or travels. The flare is CRIMSON and WHITE, NEVER green, tiny and
-central with a wide green margin on all four edges, NOT a beam, NOT a ring, NOT a projectile.
+nothing detaches, launches, flies or travels. Underneath the flare the war-fan stays the SAME solid DEEP
+CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered. The
+flare is CRIMSON and WHITE, NEVER green, tiny and central with a wide green margin on all four edges,
+NOT a beam, NOT a ring, NOT a projectile.
 
 ## special_3 (ZERO CITADEL EDGE) — gold/white, contained
 SPECIAL FINISHER (citadel edge): he snaps the reversed sword forward-down in one compact executioner's
