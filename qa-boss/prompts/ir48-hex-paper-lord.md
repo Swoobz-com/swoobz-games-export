@@ -49,24 +49,38 @@ height and NEVER above his head, hips and shoulders driving the cut through with
 then he flows back to the starting stance. Big, heavy, total commitment, everything well inside the frame.
 
 ## strike_b (reversed-blade stab)
-STRIKE (reversed stab): he steps INTO one brutal downward stab with the reversed short sword, his whole
-armored weight dropping into the blow at chest height and below, the fan sweeping back for balance, then
-he rises back into the starting stance. Fast, merciless, kept close and central. Throughout the sweep the
-war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale,
-white, grey, silver or feathered; the fan stays LOW and never rises above his hat brim.
+STRIKE (reversed stab): he steps FORWARD TOWARD SCREEN-RIGHT along his own profile line into one brutal
+downward stab with the reversed short sword, his whole armored weight dropping into the blow at chest
+height and below, the fan sweeping back for balance, then he rises back into the starting stance. His
+NEAR shoulder stays IN FRONT OF his far shoulder in every single frame so only ONE side of his body is
+ever visible; his chest NEVER opens toward the camera, his feet stay IN LINE one behind the other both
+pointing SCREEN-RIGHT, and his stance NEVER widens into a square frontal fighting pose with both arms
+spread apart. His silhouette stays NARROW and side-on for the whole clip and is NEVER wider than it is
+tall. Fast, merciless, kept close and central. Throughout the sweep the war-fan stays the SAME solid DEEP
+CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered; the
+fan stays LOW and never rises above his hat brim.
 
 ## throw_a (fan clamp and cast down, solo-safe)
 THROW (clamp and cast): he SNAPS the closed war-fan forward and clamps it onto an unseen foe at chest
 height through EMPTY AIR, then WRENCHES down and across his body in one violent casting throw, his hips
-pivoting into it with real force, then returns to the starting stance. NO opponent, empty air only,
-single figure. Imperial violence. Throughout the clamp and the wrench the war-fan stays the SAME solid
-DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered.
+pivoting into it with real force, then returns to the starting stance. The hips pivot ONLY along his own
+profile line: his NEAR shoulder stays IN FRONT OF his far shoulder in every single frame so only ONE side
+of his body is ever visible, his chest NEVER opens toward the camera, his feet stay IN LINE one behind
+the other both pointing SCREEN-RIGHT, and his stance NEVER widens into a square frontal pose with both
+arms spread apart. His silhouette stays NARROW and side-on and is NEVER wider than it is tall. NO
+opponent, empty air only, single figure. Imperial violence. Throughout the clamp and the wrench the
+war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale,
+white, grey, silver or feathered.
 
 ## throw_b (armored shoulder quake, solo-safe)
-THROW (shoulder quake): he EXPLODES forward in a two-step armored shoulder charge through EMPTY AIR, his
-kasa hat's talismans whipping back with the force, then plants his feet with a heavy stop and recovers to
-the starting stance. Alone, no opponent, empty air only, single figure, the whole charge well inside the
-frame.
+THROW (shoulder quake): he EXPLODES forward TOWARD SCREEN-RIGHT along his own profile line in a two-step
+armored shoulder charge through EMPTY AIR, his kasa hat's talismans whipping back with the force, then
+plants his feet with a heavy stop and recovers to the starting stance. He charges ACROSS the frame to
+screen-right, NEVER toward the camera: his NEAR shoulder stays IN FRONT OF his far shoulder in every
+single frame so only ONE side of his body is ever visible, his chest NEVER opens toward the camera, his
+feet stay IN LINE one behind the other both pointing SCREEN-RIGHT, and he NEVER squares up into a frontal
+pose. His silhouette stays NARROW and side-on and is NEVER wider than it is tall. Alone, no opponent,
+empty air only, single figure, the whole charge well inside the frame.
 
 ## block_a (fan wall into counter, arm-only)
 BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he SLAMS the open
@@ -99,7 +113,11 @@ standing. He stays in side profile facing screen-right; the dropped fan and swor
 VICTORY TAUNT: he SNAPS the great war-fan fully open with a flourish and raises it beside his oni face,
 keeping the TOP EDGE OF THE FAN BELOW HIS HAT BRIM AT ALL TIMES and never letting any part of it pass
 above the hat, striking one slow imperial pose as the talismans settle, his fanged grin widening, then he
-lowers it back into the EXACT starting stance. Through the flourish and the hold the war-fan stays the
+lowers it back into the EXACT starting stance. The pose is struck IN STRICT SIDE PROFILE: his near
+shoulder stays IN FRONT OF his far shoulder, his chest NEVER opens toward the camera, his feet stay IN
+LINE both pointing SCREEN-RIGHT, and he NEVER squares up or spreads both arms into a frontal victory
+pose; his silhouette stays NARROW and is NEVER wider than it is tall. Through the flourish and the hold
+the war-fan stays the
 SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or
 feathered. Alone, no opponent, everything well inside the frame.
 
