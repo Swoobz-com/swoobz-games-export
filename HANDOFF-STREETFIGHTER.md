@@ -52,6 +52,31 @@ Everything below was done locally.
 - **`3a894ef` phase 27 — the FACING GATE + Lady Kurotachi.** 11 of her 13 clips faced the wrong way.
 - **`9ed9bfd` phase 28 — ir37 (2) + eclipse (4) hflipped.** Roster now self-consistent.
 
+#### ★ TIM'S ORDERING RULE (2026-07-27, BINDING): FLIP ALL CLIPS TO THE SAME SIDE **BEFORE** DOING QA
+
+Facing normalisation is a **precondition for QA, not a QA item.** A flip invalidates the side-dependent
+output of every pixel gate — containment borders, feather args (`--left/--right`), edge-inset ring
+profiles, weapon-exit-side notes. Proven here: the containment triage ran concurrently with the facing
+fix, and after 17 clips flipped the SAME clips flagged with **identical magnitudes, LEFT↔RIGHT swapped**
+(`lady-kurotachi attack-throw-b` LEFT 422px → RIGHT 422px, re-measured at HEAD). The triage's ranking
+survives (it sorts on run length) but **its per-clip side data is stale for those 17 clips.**
+
+Order for any kit: (1) normalise every clip — and the `still` — to ONE side; (2) then containment /
+feather / effect-edge QA; (3) then re-rolls. **One convention for the WHOLE roster** — a lone exception
+is how this class survives.
+
+**SCOPED DELIBERATELY (Tim, 2026-07-27): this rule is STANDOFF-ONLY.** It lives in the REPO-LOCAL skill
+`.claude/skills/standoff-clip-facing/SKILL.md`, NOT in the global `character-clip-qa`. It was briefly
+added there as a "GATE 0" and that was **reverted** (stormforge `4dd33f9`) because `character-clip-qa` is
+junctioned into every project and its reference implementation is a SLOT character. A slot has ONE main
+character, no opposing slot, no per-slot mirror and no `faces:` field — "normalise the kit to one side"
+is meaningless there and would cause pointless re-keys. **Do not re-add facing rules to the global slot
+skills** (`character-clip-qa`, `slot-character-animation`, `character-assets`). The global memory entry
+`~/.claude/memory/clip-facing-and-containment-are-pixel-measurements.md` carries the same scope warning.
+
+**CONSEQUENCE FOR THE NEXT SESSION: re-run the containment sweep once facing is settled, and regenerate
+`qa-boss/CONTAINMENT-TRIAGE.md` from it before acting on any per-clip border instruction in it.**
+
 #### THE FACING DEFECT CLASS (new; `scripts/check-facing.mjs`)
 
 `faces:` is a **CORRECTNESS input, not a label**. `FightExperience.tsx:920` computes
@@ -77,9 +102,14 @@ timings — untouched.
    come from viewing frames; the gate only tells you which clips disagree with which.
 
 #### OPEN DECISIONS FOR TIM (asked, never answered — do NOT decide these unilaterally)
-1. **eclipse's still** `public/assets/enemies/eclipse-ofuda.webp` is itself mis-facing for `faces:'left'`
-   (that is why her now-consistent kit reads "13/13 mirrored" against it). It is shared art the MAP NODE
-   CARDS render, so flipping it fixes the HUD medallion + select tile but may flip her map card.
+1. ~~**eclipse's still**~~ **RULED (Tim, 2026-07-27): normalise ECLIPSE TO `faces:'right'`** so the whole
+   roster is one convention. Her still ALREADY faces right, so this fixes it for free and touches NO
+   shared art. (Correction to an earlier note in this file: the node CARD uses a separate `<id>-pfp.webp`
+   — `FightExperience.tsx:2382/2633` — so only the frontier silhouette tease `fr-map-sil` (:330) reads
+   `<id>.webp`. The map-card risk was overstated.) Implementation: the 4 clips phase 28 flipped are
+   RESTORED from `3a894ef` (bit-exact, no double re-key); the other 9 get the hflip re-key. **Her
+   generation anchor faces LEFT, so every FUTURE eclipse re-roll must be hflipped at keying** — that note
+   must not be lost or the drift returns one re-roll later.
 2. **Delete the dead `qa-boss/prompts/onryo-katana.md`?** It is the superseded identity hollow-pale
    replaced. It is NOT "unchecked" as the old handoff claimed — `check-prompt-coherence.mjs:129` globs
    the prompts dir, so it IS scanned in degraded mode (`wields: (arsenal not declared)`) and emits a
