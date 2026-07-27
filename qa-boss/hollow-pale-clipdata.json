@@ -94,6 +94,13 @@
       "raw": "qa-boss/raw/hollow-pale-victory.mp4",
       "note": "PASS (sheet viewed): smoke SWELLS, he rises taller spreading the wing-scythe arm + clawed hand wide in a skeletal display, antlered head tips back (silent laugh), sinks back to anchor. Antlers + blade tip stay below the top edge with margin (cap held), profile locked, no phantom, end==start. Menacing wing-display read.",
       "qa": "pass"
+    },
+    "special_1_v1": {
+      "media": "7856e9bb-6dbc-4482-96ba-f48800088624",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260726_170350_7856e9bb-6dbc-4482-96ba-f48800088624.mp4",
+      "raw": "qa-boss/raw/hollow-pale-special-1.mp4",
+      "note": "CONDITIONAL (feather-fallback): GORGEOUS pale-gold+white+crimson reaping crescent + warm flame igniting on the bone-blade (on-palette, on-theme, keys clean off green, burns away by f90 back to anchor). DEFECT: the crescent bright ARC crosses the TOP-RIGHT edge f38-54 (visible slice, LK special_1-v2 class). v2 queued end-of-kit: cap the crescent shorter + keep its whole arc below the top edge. Keep v1 as feather-fallback (48px top-right feather).",
+      "qa": "conditional:crescent-top-right-cross — v2 queued"
     }
   },
   "moderation": "BOTH GATES PASSED 2026-07-25: upload content-check clean (where onryo hard-blocked) + idle generated with no nsfw flag. The sanitized redesign works."

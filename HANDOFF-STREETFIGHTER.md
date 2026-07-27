@@ -34,7 +34,131 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★ OPUS 5 — START HERE (written 2026-07-27 by the Opus 4.8 orchestrator; SUPERSEDES every START-HERE block below it) ★★★★★★★
+### ★★★★★★★★ OPUS 5 — START HERE (written 2026-07-27 ~03:20 by the SESSION-7 Opus 5 orchestrator; SUPERSEDES every START-HERE block below it) ★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the BROWSER
+(Higgsfield Unlimited, ZERO credits) — never MCP `generate_video`, which always bills. Full detail in
+`qa-boss/SESSION7-FINDINGS.md`; read that file, it is the evidence behind everything below.
+
+**STATE AT HANDOFF.** HEAD `11ae61d`, `npx vitest run` = **157/157**. Nothing wired into the game.
+Working tree: `scripts/check-prompt-coherence.mjs` (2 bug fixes) + `scripts/check-containment.mjs`
+(new) + `qa-boss/prompts/eclipse-ofuda-REROLL.md` facing fix are UNCOMMITTED. `qa-boss/` is untracked
+as before. **The browser extension DISCONNECTED mid-session with LK `throw_b` rendering** — that clip
+is probably finished in the cloud; re-open the tab and check History before re-firing it.
+
+---
+
+#### WHAT SESSION 7 DID
+
+**HOLLOW PALE re-rolled 4/4, every one PASS, zero credits.** Raws in `qa-boss/raw/hollow-pale-*-v2.mp4`.
+
+| clip | defect it fixes | anchor IoU | containment |
+|---|---|---|---|
+| `block-b-v2` | scythe VANISHED | 0.991 | 14px R graze |
+| `throw-a-v2` | phantom object in claw | 0.9925 | 0px |
+| `special-1-v2` | DETACHED CRESCENT | 0.9936 | 16px L graze |
+| `special-3-v2` | head swallowed + top-edge slab | 0.9895 | 0px |
+
+`special-1-v2` is the model finisher: gold light welded ALONG the bone edge, effect 1.83s peaking at
+26% of subject pixels. **`special-3-v2` is defect-free but WEAK** — Seedance gave an internal ribcage
+glow (0.67s, 3% peak) instead of the specified shroud. Re-roll it for presence when the queue clears.
+
+**Two gate bugs fixed in `check-prompt-coherence.mjs`** — both were silently corrupting the pre-fire check:
+1. A `<id>-REROLL.md` kit did not resolve to its base character, so it gated with **no arsenal** and
+   printed a **false PASS**. Eclipse's first "PASS" was meaningless.
+2. The scanner read the kits' own self-score TABLES and convicted them for documenting that they had
+   banned projectile words → 8 phantom BLOCKs on LK. Now skips markdown table rows.
+   Regression-checked: every pre-existing BLOCK still BLOCK, every PASS still PASS.
+
+**New gate: `node scripts/check-containment.mjs <file|dir> [--min N]`.** The coherence gate reads
+PROMPTS; this reads PIXELS — longest CONTIGUOUS run of subject pixels per border, bottom edge never
+counts (feet on the floor line). Handles alpha-webm and chroma-mp4. **Sweep of all 104 shipped clips:
+48 have TOP/LEFT/RIGHT contact**, worst `satoshi special_3` **LEFT 504px**, `ir56 special_3` RIGHT
+437px, `LK throw_b` LEFT 422px. Calibrate like the coherence gate — flag for review, don't convict.
+
+---
+
+#### THE THREE LESSONS OF SESSION 7 (internalise before touching anything)
+
+1. **MEASURE, NEVER EYEBALL.** Reading frames by eye was wrong **2/2**; measurement right **4/4**. I
+   called a left-edge crossing on a clip whose LEFT contact measured **0px**, and called `LK throw_b`
+   wholly mirrored when it is correct at f0 and rotates only at f40–f56. A "which way do the helmet
+   horns sweep" heuristic looked convincing and **disagreed with the anchor test**. Contact sheets tell
+   you WHAT happened; verdicts come from numbers.
+2. **FACING IS DECIDED BY THE ANCHOR-IoU MIRROR TEST**, then cross-checked against the registry's
+   `faces:` field. Bbox-normalise anchor + clip silhouettes to 64x64, compare `IoU(anchor,clip)` vs
+   `IoU(anchor,mirror(clip))`. **A prompt that commands the opposite facing to its own plate reliably
+   produces a 180-turn** — eclipse's clipdata already documented this as "the -r label lie", and the
+   agent reproduced it anyway (see below).
+3. **BROWSER UNLIMITED IS ONE-AT-A-TIME.** Four back-to-back fires registered as ONE; clips 2–4 were
+   silent no-ops. Generation is strictly serial: fire → wait → verify → fire next. ~15–25 min/clip.
+
+---
+
+#### WHAT I CAUGHT IN AGENT OUTPUT (do not trust self-scores)
+
+- **Eclipse's 3 finisher prompts commanded `FACING SCREEN-RIGHT` on a plate that faces screen-LEFT.**
+  The agent's own header even said the plate faces LEFT. Registry is ground truth:
+  `src/characters/eclipse-ofuda.ts` → `faces:'left'`. **I corrected all three to SCREEN-LEFT and
+  re-gated PASS.** They are ready to fire as-is; do NOT re-invert them.
+- Both agents self-scored 12/12 and both claimed a clean gate run. One had run the gate in its broken
+  degraded mode; the other's kit failed on 8 phantom blocks. **Re-score independently, always.**
+
+#### OPEN ISSUE FOR TIM (do not fix unilaterally)
+
+**LK's kit is internally inconsistent.** Anchor-IoU: `idle` matches her anchor (0.546 vs 0.150) and her
+registry `faces:'right'`; **the other 12 clips are MIRRORED against both** (`victory` 0.203 as-is vs
+0.745 mirrored). Either those 12 need re-rolling or the registry needs flipping — Tim's call.
+**Consequence:** her re-rolls generate right-facing (matching idle + anchor) so they MISMATCH the 12 →
+**hflip them at keying** to sit with the shipped kit (hflip-at-keying is an established step; see
+eclipse clipdata "HFLIP the 5 kept v1 clips at keying").
+
+---
+
+#### WHAT TO DO NEXT (in order)
+
+1. **Reconnect the browser tab and check History for LK `throw_b`** — fired ~03:12, likely complete.
+   Download, run `check-containment.mjs`, anchor-IoU, and confirm no rotation at f40–f56 (its actual
+   defect; it is NOT a whole-clip mirror). Then fire **LK `special_3`** (prompt lines 130–191; its
+   defect is a SILVER blade on a BLACK-bladed character).
+2. **Eclipse ×3 finishers** — `qa-boss/prompts/eclipse-ofuda-REROLL.md`, facing already corrected,
+   gate PASS. Her `special` array is EMPTY in-game so every win against her plays a plain attack —
+   this is the single highest-value fix remaining. Prompt line ranges (unfenced, heading-delimited):
+   `special_1` 99–133, `special_2` 136–172, `special_3` 175–211.
+3. **Re-roll `hollow-pale special_3` for presence** (defect-free but a 0.67s/3% flicker; compare
+   `special-1-v2` at 1.83s/26%).
+4. **IR-48 (node 10, last kit, 13 clips).** `0` clips on disk, BUT finished renders from July 26 exist
+   in the cloud History — the pane appears scoped to the loaded reference, so they surface once his
+   anchor is loaded. **Harvest those before re-firing.** His anchor was in the picker at session start.
+5. Remaining sweep re-rolls the gate still flags on SHIPPED kits: `ir37 special_1` ("in front of her"),
+   `satoshi special_3` ("in front of him"), `LK throw_a` ("seizes an unseen"), `ir56` 3× unanchored WARN.
+   **`onryo-katana` has NO arsenal entry** so it gates unchecked — confirm it is the dead superseded
+   identity and delete it, or give it an entry.
+6. Then: kitsune (still blocked on the baked-in tanto glow — Tim has not ruled), sora/thorn specials,
+   ir56 light-arena alpha re-key, `input/MK FINAL/`.
+
+#### BROWSER OPERATIONAL NOTES — NEW THIS SESSION (the older notes below still apply)
+
+- **CLIPBOARD PASTE WORKS on the Lexical prompt field** and is far better than `computer type` for 5k
+  chars: PowerShell `Set-Clipboard` → click field → `ctrl+a` → `Delete` → `ctrl+v`. Landed 4,826 chars
+  exactly, no double-insert. **Always verify `el.textContent.length` against the source before firing.**
+- **The Generate button reads `Generate2418` (credits) PRE-HYDRATION and `GenerateUnlimited` once the
+  page settles.** Check AFTER load, and confirm the `Unlimited mode` toggle is ON, before EVERY fire.
+- **MCP `show_generations` is DAYS stale** — it returned July 22 arena backgrounds while a July 27 job
+  was processing. It CANNOT verify a fire. The tab is the only source of truth.
+- Status progression is `Processing → Generating → (empty)`. Completion = status empty + the card gains
+  a `Rerun` button. Get the mp4 URL by clicking the card's play button then reading `video.currentSrc`,
+  and **pause the video immediately** (autoplay freezes the renderer → CDP timeouts).
+- CloudFront filenames are **UTC**: `hf_20260726_235318` = 01:53 local on the 27th. Use this to confirm
+  a URL is YOUR fire and not the previous one.
+- Anchor swap is unchanged and reliable: click the reference thumb → `×` at its top-right → dropzone →
+  click the image icon (an IN-APP picker, not an OS dialog) → `input[type=file]` now exists → `file_upload`.
+  **Verify identity by enlarging the 48px thumb via injected CSS** (`position:fixed;width:320px;z-index:999999`)
+  then reverting — the tile is too small to judge and the CORS block prevents canvas sampling.
+  **A stale prompt in the box makes a WRONG anchor look right** — the box held a hollow-pale prompt
+  while IR-48's anchor was loaded; I nearly fired that pairing.
+
+### ★★★ (SUPERSEDED) OPUS 5 — START HERE (written 2026-07-27 by the Opus 4.8 orchestrator) ★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** You run generation yourself
 in the browser (Higgsfield Unlimited, ZERO credits); you dispatch Opus builder/reviewer subagents

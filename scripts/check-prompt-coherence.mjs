@@ -51,11 +51,20 @@ function checkCharacter(id) {
   if (!existsSync(file)) return { id, missing: true, findings: [] };
   const md = readFileSync(file, 'utf8');
   const states = parseStates(md);
-  const def = ARSENAL.characters[id] || {};
+  // Re-roll kits live beside the original as `<id>-REROLL.md`. Resolve them back to the base
+  // character so the arsenal + per-character banned actions are still enforced — without this
+  // a *-REROLL file silently gates in degraded mode and reports a false PASS.
+  const baseId = id.replace(/-REROLL$/i, '');
+  const def = ARSENAL.characters[id] || ARSENAL.characters[baseId] || {};
   const U = ARSENAL.universalBanned;
   const findings = [];
 
-  for (const { state, body } of states) {
+  for (const { state, body: rawBody } of states) {
+    // Strip markdown TABLE rows before scanning. Re-roll kits carry a self-score table whose
+    // "named shapes banned in the NEGATIVE block: beam / laser / orb / ..." row is documentation
+    // of compliance, not prompt text — scanning it convicts a kit for proving it obeyed the rule.
+    // A real prompt never contains a pipe-delimited table row, so this cannot mask a true defect.
+    const body = rawBody.split('\n').filter((l) => !/^\s*\|/.test(l)).join('\n');
     const low = body.toLowerCase();
     // NOTE: a prompt may legitimately NEGATE a banned word ("NOT a beam", "no projectile").
     // Only flag an occurrence that is NOT inside a negation window.
