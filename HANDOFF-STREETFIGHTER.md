@@ -34,7 +34,199 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★★★ OPUS 5 — START HERE (SESSION 8, written 2026-07-27 ~12:50; SUPERSEDES every START-HERE block below) ★★★★★★★★★
+### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 9, written 2026-07-27 ~16:00; SUPERSEDES every START-HERE block below) ★★★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the BROWSER
+(Higgsfield Unlimited, ZERO credits) — never MCP `generate_video`, which always bills. You dispatch
+Opus builder subagents for keying/wiring, then RE-RUN every gate yourself, VIEW the frames, and
+live-drive before committing. Never accept a builder's self-report.
+
+**STATE AT HANDOFF.** HEAD `95ed978`, `npx vitest run` = **157/157**, tsc clean, engines + `src/ui`
+byte-frozen across all of sessions 8-9. Tracked tree is clean except the three untracked raws below.
+The Chrome extension IS connected and the Higgsfield tab is live at
+`https://higgsfield.ai/flow/video/prompt?model=seedance_2_0` (it redirects to `/ai/video`).
+**The loaded anchor is ECLIPSE's right-facing plate** and Unlimited mode is ON.
+
+---
+
+#### WHAT SESSIONS 8-9 SHIPPED — 6 commits
+
+| commit | what |
+|---|---|
+| `07bcbfe` | phase 26 — hollow-pale drop-ins: node 4 back to 2 takes on block, 3 on special |
+| `3a894ef` | phase 27 — the FACING GATE + LK's 11 backwards clips |
+| `9ed9bfd` | phase 28 — ir37 (2) + eclipse (4) hflipped |
+| `be06e52`/`d64eaa0` | session-8 handoff + clipdata ledgers |
+| `ad10f83` | scoped the facing rule to STANDOFF only (see "SKILL SCOPING" below) |
+| `1d199b7` | phase 29 — eclipse normalised to `faces:'right'`; **all 8 bosses now ONE convention** |
+| `95ed978` | phase 30 — LK `attack_throw` Take B restored from a harvested re-roll |
+
+**THE FACING DEFECT CLASS (found and closed this session).** `faces:` is a CORRECTNESS input, not a
+label: `FightExperience.tsx:920` computes `isMirrored = faces !== (slot==='p1'?'right':'left')` and
+applies ONE mirror to the whole fighter stack (`:1087`). So every clip in a kit must NATIVELY face what
+`faces:` states. 17 clips across 3 bosses were backwards — LK 11, eclipse 4, ir37 2 (`hit`, which fires
+nearly every exchange). All fixed. **All 8 bosses are now `faces:'right'`.** Tool: `scripts/check-facing.mjs`.
+
+---
+
+#### THE FIVE LESSONS OF SESSIONS 8-9 (internalise before touching anything)
+
+1. **VALIDATE THE MEASUREMENT'S REFERENCE BEFORE TRUSTING THE MEASUREMENT.** Two traps each produced a
+   serene, confident, WRONG answer:
+   (a) `qa-boss/anchors/<id>-anchor.png` are RGBA *containers with alpha=255 everywhere* — raw plates,
+   not cutouts. Anchoring on one makes the mask a filled rectangle, which is symmetric, so
+   `IoU(as-is) === IoU(mirrored)` for every clip and the gate prints "0/13 mirrored" as a clean PASS.
+   The gate now ABORTS above 95% mask coverage. Use `--still`.
+   (b) **A relative gate reports agreement with its REFERENCE, not correctness.** On eclipse the STILL
+   was the outlier, so the gate flagged her 9 CORRECT clips. A literal read flips the wrong nine.
+   *Tell: identical scores across many different inputs means the reference is degenerate.*
+2. **A PROXY WHOSE CONFOUND YOU CAN NAME IS NOT EVIDENCE.** On LK's throw I read a frontal turn off a
+   small contact strip, and a hip-band width proxy "confirmed" it at 1.86x baseline over 19 frames.
+   Both wrong — at full resolution she is in a 3/4 lunge still facing right, and the wide lunge STANCE
+   was inflating the hip measurement. Re-render suspects at FULL SIZE before judging.
+3. **VERIFY PASTED PROMPT LENGTH AGAINST THE SOURCE, ALWAYS.** Clipboard paste into the Lexical field
+   silently DROPS newlines WITHOUT substituting spaces, joining a word at every line break
+   ("ends on" -> "endson", ~34 joins in one prompt). Only a length check catches it (3316 vs 3350).
+   **Flatten newlines to spaces before copying** (see the fire loop below).
+4. **THE LEDGERS AND PROMPT META CONTRADICT THEMSELVES — TRUST MEASURED PIXELS.** Eclipse's
+   `-REROLL.md` meta header and self-score claimed right-facing while its own prompt BODIES said
+   SCREEN-LEFT. Three ledger errors were also found and corrected (block_a's feather is a FRAME SUBSET
+   62/72/73/74 not whole-clip; the v1 keeps were keyed WITHOUT green-despill; `strike_a.qa` prose is
+   stale vs the authoritative `feather_applied`). Each would silently corrupt a future re-key.
+5. **CHECK THE TREE BEFORE RELAUNCHING A DEAD BUILDER.** Two builders died on API 529 mid-run; BOTH had
+   already finished their file work and only owed the ledger. Inspect, then resume from the real state
+   — never redo blindly.
+
+---
+
+#### GENERATION RESULTS THIS SESSION (browser Unlimited, ZERO credits)
+
+Raws are UNTRACKED in `qa-boss/raw/` per convention. **None of the three eclipse clips are keyed or
+wired yet** — that is the first job of the next session.
+
+| clip | raw | verdict |
+|---|---|---|
+| LK `throw_b` | `lady-kurotachi-throw-b-v3.mp4` | **PASS, already keyed + WIRED** (`95ed978`) |
+| eclipse `special_1` OFUDA RITE | `eclipse-ofuda-special-1-v2.mp4` | **PASS** — containment 0px; facing right 0.88/0.70/0.94 vs ~0.25; talisman burns ALONG the blade, brim charms tethered; the ~60px air-gap defect is FIXED |
+| eclipse `special_2` ECLIPSE CRESCENT | `eclipse-ofuda-special-2-v2.mp4` | **REJECT — needs v3.** Effect correctly fused to the blade (the f74 detached fragment IS fixed) but the arc HARD-CUTS the right edge, **RIGHT 272px @f29** (+ LEFT 60px @f25), and the level blade reaches the edge at f52 |
+| eclipse `special_3` JUDGEMENT PLUNGE | `eclipse-ofuda-special-3-v2.mp4` | **PASS** — containment 0px; facing right; solid opaque gold flare along the blade into the ground; the lime chroma-bleed defect is FIXED |
+
+**WHY special_2 FAILED, and how to fix it:** her own prompt file predicts it — *"the katana is nearly
+leg-length; any raised or level hold spans the frame"*. A waist-height horizontal draw-cut with a
+leg-length blade WILL span a 1:1 frame. 272px is far past a "tip kiss", so per the edge-overrun doctrine
+this is a **RE-ROLL, not a feather** (feathering 272px would truncate the arc). The v3 fix is to shrink
+the arc radius and cut length, or re-angle the cut off-horizontal (a descending diagonal) — keep the
+"trailing edge fused to the cutting edge" wording, which worked.
+
+---
+
+#### ECLIPSE FACING — THE SETTLED TRUTH (supersedes every earlier note in this file)
+
+Both plates were VIEWED: **`qa-boss/anchors/eclipse-ofuda-anchor-green.png` faces screen-RIGHT**;
+`-anchor-green-r.png` is the left-facing mirror. Earlier claims that "her anchor faces left, always
+hflip" were inherited from the ledger and never measured — **they are wrong**.
+So: fire eclipse on the **base `-anchor-green.png`** plate with prompts commanding **SCREEN-RIGHT**, and
+the output needs **NO hflip**. Confirmed on all three fires (as-is ~0.88 vs mirrored ~0.25 at f0/f96).
+Her `-REROLL.md` bodies were flipped SCREEN-LEFT -> SCREEN-RIGHT; coherence gate re-run **PASS**. Her
+prompt file's META HEADER and SELF-SCORE still describe the stale assumption — ignore them, trust the
+bodies plus this note.
+
+---
+
+#### SKILL SCOPING — DO NOT UNDO (Tim's explicit ruling, 2026-07-27)
+
+The facing rule is **STANDOFF-ONLY** and lives in the repo-local skill
+`.claude/skills/standoff-clip-facing/SKILL.md`. It was briefly added to the GLOBAL `character-clip-qa`
+skill as a "GATE 0" and that was **REVERTED** (stormforge `4dd33f9`, verified byte-identical to its
+pre-change state). That skill is junctioned into EVERY project and its reference implementation is a
+SLOT character — a slot has ONE main character, no opposing slot, no per-slot mirror and no `faces:`
+field, so "normalise the kit to one side" is meaningless there and would cause pointless re-keys.
+**Never re-add facing rules to `character-clip-qa`, `slot-character-animation` or `character-assets`.**
+
+---
+
+#### TIM'S ORDERING RULE (binding): FLIP ALL CLIPS TO THE SAME SIDE **BEFORE** DOING QA
+
+Facing normalisation is a PRECONDITION for QA, not a QA item — a flip invalidates every side-dependent
+result (containment borders, feather `--left/--right`, edge-ring profiles). Proven: after 17 clips
+flipped, the same clips flagged with identical magnitudes, LEFT<->RIGHT swapped (`lady-kurotachi
+attack-throw-b` LEFT 422px -> RIGHT 422px). **CONSEQUENCE: `qa-boss/CONTAINMENT-TRIAGE.md` per-clip
+border data is STALE for those 17 clips — regenerate the sweep before acting on any border instruction
+in it.** Its RANKING is still valid (it sorts on run length).
+
+---
+
+#### WHAT TO DO NEXT (in order)
+
+1. **KEY + WIRE eclipse `special_1` and `special_3`.** This is the single highest-value job left: her
+   `special: []` is EMPTY, so *every* win against node 6 currently plays a plain attack. Two verified
+   finishers are sitting unkeyed in `qa-boss/raw/`. **NO hflip** (they already face right). Use her
+   pipeline: stock keyer + `green-neutralize` — **NOT green-despill**, which belongs only to her
+   session-6 energy re-rolls (with despill on, her v1 keeps re-key to IoU 0.972; without, bit-exact).
+2. **Re-roll eclipse `special_2` v3** with the tightened arc described above, then key + wire it.
+3. **Regenerate `qa-boss/CONTAINMENT-TRIAGE.md`** now that facing is settled roster-wide (97 shipped
+   clips; the old "48 of 104" was measured on the `qa-boss/webm/` STAGING dir). Calibration to reuse:
+   `CLEAR A200<32 · REVIEW 32-90 · BLOCK >=200 or (>=90 & dwell>=3)`.
+4. **IR-48 HEX PAPER LORD (node 10, finalboss, 13 clips, the LAST kit).** Node 10 still shows VOLTA.
+   Prompts exist (`qa-boss/prompts/ir48-hex-paper-lord.md`). His anchor must be swapped in. Fire `idle`
+   FIRST as a moderation test. **NOTE: no IR-48 renders were visible in History this session** — the
+   July-26 renders the old handoff mentioned did NOT surface, so treat his kit as 0/13.
+5. **thorn-warden n3 containment re-rolls** — 7 of 10 clips flagged, 3 BLOCK, earliest defective node.
+   Then satoshi n5 and ir56 n8 (5 BLOCK each).
+6. **hollow-pale `throw-a` re-roll** (kill the back-turn; its keyed webm is on disk so a pass is a pure
+   manifest swap) and **`special_3` presence re-roll** (defect-free but weak: +1.83pp/0.46s vs take A's
+   +16.2pp/1.71s).
+7. Then: kitsune node 2 (still BLOCKED on the baked-in tanto glow — Tim has never ruled),
+   sora/thorn specials, ir56 light-arena alpha re-key, `input/MK FINAL/`.
+
+#### STILL OPEN FOR TIM (asked, never answered — do NOT decide these unilaterally)
+- **Delete the dead `qa-boss/prompts/onryo-katana.md`?** It is NOT "unchecked" as an older handoff
+  claimed — `check-prompt-coherence.mjs:129` globs the prompts dir, so it IS scanned in degraded mode
+  (`wields: (arsenal not declared)`) and emits a phantom BLOCK holding the gate at **exit 1** for a dead
+  identity. Also `scripts/prep-boss-anchors.mjs:39` still lists onryo as map 4 and is MISSING
+  hollow-pale entirely — out of sync in both directions.
+- **hollow-pale `attack_throw` Take A** — ship the back-turn for 2-take variety, or keep it pulled?
+- **KITSUNE node 2** — park / ~1-2cr nano_banana anchor edit / free local pixel-surgery.
+
+---
+
+#### THE FIRE LOOP THAT WORKED (follow exactly; ~15-25 min per clip, STRICTLY ONE AT A TIME)
+
+```
+1. Panel check BEFORE EVERY fire: Seedance 2.0 / 4s / 1:1 / 720p, and the Generate button must read
+   "GenerateUnlimited". A RELOAD SILENTLY RESETS IT to "Generate2418" = 2418 CREDITS = BILLING.
+   Toggle: click the [role="switch"] with aria-checked="false"; re-verify the label after.
+2. Anchor: verify identity by ENLARGING the 48px thumb via injected CSS (position:fixed;width:320px;
+   z-index:999999), then revert. It was LK's plate loaded when I came to fire eclipse — a stale prompt
+   makes a wrong anchor look right.
+   Swap = click thumb -> click the small button.button-xxs.absolute (the x) -> "Upload media" dropzone
+   -> click its IMAGE icon (in-app picker, NOT an OS dialog) -> only THEN does input[type=file] exist
+   -> mcp find "hidden file input" -> file_upload with a copy in the session scratchpad.
+   New uploads go through "Checking content..." moderation for ~20-40s. ("Protected content is not
+   allowed" under the Upload tile is a STATIC hint, not a rejection - do not misread it.)
+3. Prompt: FLATTEN newlines to spaces first, then PowerShell Set-Clipboard (retry on
+   "Clipboard operation did not succeed" - transient lock) and VERIFY with Get-Clipboard.
+   In the page: ed.focus() then select ONLY the editor's contents with a Range —
+   **never document-wide ctrl+a, it selects the whole page and the paste goes nowhere** — then ctrl+v.
+4. VERIFY BEFORE FIRING: textContent.length === source length exactly, exactly ONE identity-lock
+   occurrence (no double-insert), FACING SCREEN-RIGHT present, and the button still says Unlimited.
+   Fire via a guarded JS click that re-checks all of it.
+5. Poll the TAB, not MCP. **MCP `show_generations` is not merely stale — it returns a DIFFERENT ACCOUNT**
+   (`user_3FLbEdg3frPqTTQKyUf3xpB0P8k`) than the browser session (`user_3FzP62OkeSn8OYHW3kjt3xDrWKK`).
+   It cannot see these fires at all. Done = no "Processing"/"Generating" text + the card gains "Rerun".
+6. Harvest: click the top card's play button (~630,277), read `video.currentSrc`, PAUSE IMMEDIATELY.
+   CloudFront names are UTC — `hf_20260727_132517` = 15:25 local — use it to confirm the URL is YOUR
+   fire and not the previous card.
+7. Renderer freezes / CDP "Input.dispatchMouseEvent timed out" = autoplay videos. PAUSE them
+   (`v.pause()`); **do NOT `v.remove()`/`v.src=''`** — that breaks the preview player and forces a reload
+   (which resets Unlimited to credits).
+8. QA every harvest before the next fire: `check-containment.mjs <raw> --plate green`, an anchor-IoU
+   facing test against the character's in-game still, and a VIEWED frame strip at full size.
+```
+
+---
+
+### ★★★★★★★★★ (SUPERSEDED) OPUS 5 — START HERE (SESSION 8, written 2026-07-27 ~12:50) ★★★★★★★★★
 
 **STATE.** HEAD `9ed9bfd`, `npx vitest run` = **157/157**, tsc clean, engines + `src/ui` byte-frozen all
 session. Working tree clean except the pre-existing untracked dirs. **ZERO generation happened — the
