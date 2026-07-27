@@ -16,54 +16,78 @@ import type { FighterDef } from './types';
 //
 // still = the phase-20 keyed enemy cutout (public/assets/enemies/eclipse-ofuda.webp, 473x900): the
 // ultimate fallback + the HUD medallion / select-tile head-crop source; the idle clip overlays it
-// once loaded. faces:'left' — GROUND-TRUTH VERIFIED (qa-boss clipdata anchor_note): the head, nose,
-// boot-toes and body-front all point screen-LEFT (the ponytail trails right), despite the '-r' anchor
-// label. The whole kit is internally consistent left-facing; THE FACING RULE (contract §4) mirrors
-// her per whichever slot she lands in. (satoshi/ir37 face right — she is the first left-facing boss.)
+// once loaded.
+//
+// FACING — faces:'right', normalised phase 29 (Tim's ruling 2026-07-27). The roster now runs ONE
+// convention: all eight bosses are faces:'right'. A lone exception is how the facing defect class
+// survives, so eclipse — the only 'left' kit — was normalised rather than left as a special case.
+// The still ALREADY faced screen-right; it was the CLIPS that disagreed with it, so nothing under
+// public/assets/enemies/ was touched. All 13 clips now natively face screen-RIGHT: head, nose,
+// boot-toes and body-front point RIGHT and the ponytail trails LEFT, matching the still.
+//
+// !! HER GENERATION ANCHOR FACES **LEFT** !!  qa-boss/anchors/eclipse-ofuda-anchor-green-r.png shows
+// her facing screen-LEFT despite its '-r' filename. Every clip generated from that anchor therefore
+// comes out LEFT-facing, so EVERY FUTURE ECLIPSE RE-ROLL MUST BE HFLIPPED AT KEYING — decode the raw
+// with `-vf hflip` so the mirror lands at the FRAME level BEFORE the key (never webm->webm, which
+// costs a VP9 generation), then key as normal. See qa-boss/flip-eclipse.mjs for the exact recipe.
+// Forget this and the re-rolled clip ships facing away from the opponent in both slots.
+//
+// Why it matters: `faces:` is a CORRECTNESS input, not a label. FightExperience.tsx:920 computes
+// isMirrored = faces !== (slot==='p1'?'right':'left') and applies ONE mirror to the whole fighter
+// stack (:1087), so every clip in the kit must NATIVELY face the direction this field states.
 export const ECLIPSE_OFUDA: FighterDef = {
   id: 'eclipse-ofuda',
   name: 'ECLIPSE OFUDA',
   still: 'assets/enemies/eclipse-ofuda.webp',
-  faces: 'left',
+  faces: 'right',
   // Head-crop for the HUD medallion + select tile (hat/face centre ~x0.36 / y0.13 of the 473x900 still).
   portrait: { headX: 0.36, headY: 0.13, zoom: 3.8 },
   clips: {
     idle: {
+      // Phase 29 facing normalisation: re-keyed from qa-boss/raw/eclipse-ofuda-idle-v4.mp4 with
+      // `-vf hflip` at decode. cal keyer-EMITTED: left 48.85 -> 51.03. That is 100 - 48.85 MINUS 0.12,
+      // the keyer's odd-width `if (cw % 2) cw--` crop shift (the union bbox was 419px wide, so the
+      // flipped crop drops the mirror-image column and lands 1px off a perfect mirror). Predicted
+      // deviation = -h/cropH = -101.21/834 = -0.1214; observed -0.1200. Benign and self-correcting:
+      // the emitted cal already compensates, so she holds the same stage x.
       url: 'assets/characters/eclipse-ofuda/idle.webm',
-      cal: { h: 101.21, bottom: -0.49, left: 48.85 },
+      cal: { h: 101.21, bottom: -0.49, left: 51.03 },
     },
     // Contract §10: two interchangeable takes per non-idle state (own cal + measured contacts each).
     attack_strike: [
       {
         // Take A: coiled hat-tilted iai crouch -> committed diagonal draw-cut with left follow-through.
-        // FACING FIX (phase 26): this take was generated MIRRORED (faced screen-RIGHT while idle/victory
-        // and 7 siblings face LEFT), so it rendered facing away from the opponent in BOTH slots.
-        // Re-keyed from qa-boss/raw/eclipse-ofuda-strike-a-v3.mp4 with hflip at the FRAME level before
-        // the key (no extra generation), identical recipe (stock keyer -> green-despill -> green-
-        // neutralize, feather none). cal is keyer-EMITTED: h/bottom unchanged, left 44.96 -> 55.04
-        // (= 100 - 44.96, mirror about the still's content centre at 50%). contacts unaffected.
+        // FACING (phase 29): this take was ALREADY right-facing as originally shipped. Phase 26/28
+        // flipped it to LEFT to match the then-left kit; the phase-29 ruling made 'right' the roster
+        // convention, so the FILE was RESTORED bit-exact from 3a894ef rather than flipped a second
+        // time (a re-key would have cost a needless VP9 generation), and this cal is reverted with it:
+        // left 55.04 -> 44.96. h/bottom/contacts never moved.
         url: 'assets/characters/eclipse-ofuda/attack-strike.webm',
-        cal: { h: 111.27, bottom: -2.14, left: 55.04 },
+        cal: { h: 111.27, bottom: -2.14, left: 44.96 },
         contacts: [1875],
       },
       {
         // Take B: wide waist-height horizontal smear cut (distinct action, same strike family).
+        // Phase 29: re-keyed hflipped from eclipse-ofuda-strike-b-v4-169.mp4. cal keyer-emitted,
+        // left 34.95 -> 65.05 = exactly 100 - 34.95.
         url: 'assets/characters/eclipse-ofuda/attack-strike-b.webm',
-        cal: { h: 114.8, bottom: -3.29, left: 34.95 },
+        cal: { h: 114.8, bottom: -3.29, left: 65.05 },
         contacts: [2083],
       },
     ],
     attack_throw: [
       {
         // Take A: free-hand snap seize through empty air -> violent wrench (solo-safe, no phantom).
+        // Phase 29: re-keyed hflipped from eclipse-ofuda-throw-a-v2.mp4. left 49.94 -> 50.06 = 100 - 49.94.
         url: 'assets/characters/eclipse-ofuda/attack-throw.webm',
-        cal: { h: 101.7, bottom: -0.49, left: 49.94 },
+        cal: { h: 101.7, bottom: -0.49, left: 50.06 },
         contacts: [1500],
       },
       {
         // Take B: explosive two-step shoulder barge through empty air (solo-safe).
+        // Phase 29: re-keyed hflipped from eclipse-ofuda-throw-b-v3.mp4. left 49.94 -> 50.06 = 100 - 49.94.
         url: 'assets/characters/eclipse-ofuda/attack-throw-b.webm',
-        cal: { h: 101.21, bottom: -0.61, left: 49.94 },
+        cal: { h: 101.21, bottom: -0.61, left: 50.06 },
         contacts: [1458],
       },
     ],
@@ -74,21 +98,27 @@ export const ECLIPSE_OFUDA: FighterDef = {
       // air above-left of her hat while both hands are crossed empty on her chest; f75 the blade
       // re-materialises. Weapon vanish + morph + phantom in one beat. She is also fully frontal
       // f10-f74 (~2.7s of a 4s clip) against her side-profile lock. Re-roll; take B carries blocks.
-      // ALSO facing-fixed on disk (phase 26): the file was mirrored too, and has been re-keyed hflipped
-      // so the kit is 13/13 self-consistent for the facing gate. If this take is ever restored (it
-      // should be re-rolled instead), its keyer-emitted cal is now { h: 110.76, bottom: -0.48, left: 51.69 }
-      // (was left 48.31), contacts unchanged [1750, 2583].
+      // FACING (phase 29): this take was ALREADY right-facing as shipped, so its FILE was RESTORED
+      // bit-exact from 3a894ef rather than flipped twice, and its recorded cal reverts with it. If it
+      // is ever restored to the kit (it should be RE-ROLLED instead — the phantom blade fragment is a
+      // generation defect a flip cannot fix), its keyer-emitted cal is { h: 110.76, bottom: -0.48,
+      // left: 48.31 } (phase 28 had it at 51.69), contacts unchanged [1750, 2583]. NOTE for a re-roll:
+      // this take's feather was a FRAME SUBSET (--top 48 on frames 62, 72, 73, 74 only), not whole-clip
+      // — a whole-clip top feather silently over-feathers f75/f76.
       {
         // Take B: forearm brace across the chest -> controlled counter cut.
+        // Phase 29: re-keyed hflipped from eclipse-ofuda-block-b-v3.mp4. left 49.45 -> 50.55 = 100 - 49.45.
         url: 'assets/characters/eclipse-ofuda/attack-block-b.webm',
-        cal: { h: 100.97, bottom: -0.36, left: 49.45 },
+        cal: { h: 100.97, bottom: -0.36, left: 50.55 },
         contacts: [2167, 2833],
       },
     ],
     hit: {
       // Hard head/torso whip-back stagger (ponytail + ofuda flare), quick recovery to guard, on feet.
+      // Phase 29: re-keyed hflipped from eclipse-ofuda-hit.mp4 (v1 KEEP recipe — stock keyer +
+      // green-neutralize, NO despill). left 44.42 -> 55.58 = exactly 100 - 44.42.
       url: 'assets/characters/eclipse-ofuda/hit.webm',
-      cal: { h: 102.18, bottom: -0.49, left: 44.42 },
+      cal: { h: 102.18, bottom: -0.49, left: 55.58 },
     },
     // Contract §11: the signature FINISHER — plays automatically on a round-ending win. Three takes,
     // one chosen uniform-random per exchange. The white/pale-gold talisman light is baked into the body
@@ -111,25 +141,34 @@ export const ECLIPSE_OFUDA: FighterDef = {
     //  - special-c.webm (talisman guard): a cluster of ~10 talismans + olive arcs hangs in OPEN AIR
     //    beside her hip, unattached to body or blade, from f0 to ~f52 (~2.2s) - and being present at
     //    f0 it pops in at trigger. Framing is also tight all round (top 5px, bottom 3px).
-    // FACING (phase 26): special-b.webm was ALSO mirrored on disk and has been re-keyed hflipped so the
-    // kit is 13/13 self-consistent for the facing gate. If it were ever restored (it should be
-    // re-rolled instead), its keyer-emitted cal is now { h: 114.67, bottom: -4.12, left: 48.12 }
-    // (was left 51.88), contacts unchanged [2250]. special.webm / special-c.webm already faced LEFT
-    // correctly and were NOT touched.
+    // FACING (phase 29) — all three now face screen-RIGHT with the rest of the kit, so a restore does
+    // not also need a flip. Keyer-emitted cals for a restore (which should really be a re-roll):
+    //  - special.webm    re-keyed hflipped from eclipse-ofuda-special_1.mp4 (v1 keep, NO despill):
+    //                    { h: 109.71, bottom: -0.49, left: 54.61 } (was 45.39 = 100 - 45.39), contacts [1250].
+    //  - special-b.webm  ALREADY right-facing as shipped, so the FILE was RESTORED bit-exact from
+    //                    3a894ef rather than flipped twice: { h: 114.67, bottom: -4.12, left: 51.88 }
+    //                    (phase 28 had 48.12), contacts [2250]. Its feather IS whole-clip (--top 48,
+    //                    46/97 frames touched) — unlike block_a's frame-subset one.
+    //  - special-c.webm  re-keyed hflipped from eclipse-ofuda-special_3.mp4 (v1 keep, NO despill):
+    //                    { h: 100.97, bottom: -0.36, left: 50.18 }, contacts [2000]. That is 100 - 49.7
+    //                    minus 0.12, the odd-width crop shift (see the idle note); keyer-emitted, correct.
     special: [],
     // ko is the ONE off-anchor clip: drops the katana, crumples to the ground and HOLDS prone (does
     // NOT return to the anchor). Cause-free, no opponent.
-    // FACING FIX (phase 26): ko was generated MIRRORED (faced screen-RIGHT against the kit's LEFT).
-    // Re-keyed from qa-boss/raw/eclipse-ofuda-ko.mp4 with a frame-level hflip, v1-keep recipe (stock
-    // keyer -> green-neutralize, NO despill, no feather). cal keyer-emitted: left 56.66 -> 43.34.
+    // FACING (phase 29): ko was ALREADY right-facing as shipped, so the FILE was RESTORED bit-exact
+    // from 3a894ef rather than flipped a second time, and this cal reverts with it: left 43.34 -> 56.66.
     ko: {
       url: 'assets/characters/eclipse-ofuda/ko.webm',
-      cal: { h: 106.78, bottom: -5.81, left: 43.34 },
+      cal: { h: 106.78, bottom: -5.81, left: 56.66 },
     },
     // Round-win taunt: one crisp flourish whip (silver smear arc), settles back to the anchor.
+    // Phase 29: re-keyed hflipped from eclipse-ofuda-victory-v2.mp4, feather MIRRORED with the frame
+    // (--top 48 --left 48 becomes --top 48 --right 48; hflip does not move rows, so the top band is
+    // unchanged and only the side band swaps). left 50.18 -> 49.70 = 100 - 50.18 minus the 0.12
+    // odd-width crop shift (see the idle note); keyer-emitted, correct.
     victory: {
       url: 'assets/characters/eclipse-ofuda/victory.webm',
-      cal: { h: 111.17, bottom: -0.49, left: 50.18 },
+      cal: { h: 111.17, bottom: -0.49, left: 49.7 },
     },
   },
   quotes: [
