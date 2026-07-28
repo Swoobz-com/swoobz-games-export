@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>STANDOFF — boss animation review (map 1 → finalboss)</title>
+<style>
+  :root { --ink:#07080c; --bone:#f2f3ef; --gold:#FFC83D; --blood:#FF4135; --cyan:#29E6FF; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ink); color:var(--bone); font:14px/1.5 "Segoe UI",system-ui,sans-serif; padding:24px; }
+  body.light .clipbox { background:#e8e8e4; }
+  body.checker .clipbox { background:conic-gradient(#666 0 25%,#999 0 50%,#666 0 75%,#999 0) 0 0/24px 24px; }
+  h1 { font-size:22px; letter-spacing:.08em; margin-bottom:4px; }
+  .sub { color:#9aa0a8; margin-bottom:16px; }
+  .bgbar { position:sticky; top:0; background:var(--ink); padding:8px 0; z-index:5; margin-bottom:10px; }
+  .bgbar button { background:#1a1d24; color:var(--bone); border:1px solid #333; padding:6px 14px; margin-right:8px; cursor:pointer; border-radius:4px; }
+  .bgbar button:hover { border-color:var(--gold); }
+  .boss { margin:26px 0; border-top:1px solid #23262e; padding-top:14px; }
+  .boss h2 { font-size:17px; color:var(--gold); letter-spacing:.06em; }
+  .boss .meta { color:#9aa0a8; font-size:12px; margin:2px 0 10px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; }
+  .cell { background:#101218; border:1px solid #23262e; border-radius:6px; overflow:hidden; }
+  .clipbox { background:#181a20; display:flex; align-items:center; justify-content:center; aspect-ratio:1; }
+  .clipbox video { width:100%; height:100%; object-fit:contain; display:block; }
+  .cap { padding:7px 9px; font-size:12px; }
+  .cap .st { font-weight:600; letter-spacing:.04em; }
+  .cap .v { display:inline-block; margin-left:6px; padding:0 6px; border-radius:3px; font-size:10.5px; letter-spacing:.05em; }
+  .v.pass { background:#123c22; color:#5ee78a; } .v.fail { background:#3c1214; color:#ff7b74; }
+  .v.cond { background:#3c3212; color:#ffd75e; } .v.pend { background:#22252d; color:#9aa0a8; }
+  .v.raw { background:#1c2340; color:#7fb2ff; }
+  .v.ver { background:#2a2340; color:#c9a4ff; }
+  .cap .flag { color:#ffd75e; background:#2b2410; border-left:2px solid var(--gold); padding:4px 6px;
+               font-size:11px; margin-top:5px; max-height:80px; overflow:auto; }
+  .cap .note { color:#8b93a0; font-size:11px; margin-top:3px; max-height:52px; overflow:auto; }
+  .placeholder { padding:22px; color:#697080; font-size:13px; }
+  .rerolls h3 { font-size:13px; color:var(--cyan); margin:14px 0 8px; letter-spacing:.05em; }
+</style>
+</head>
+<body class="dark">
+<h1>STANDOFF · BOSS ANIMATION REVIEW</h1>
+<div class="sub">map 1 → finalboss · keyed clips play transparent over the stage color · RAW = not yet keyed (chroma screen visible) · refresh the page any time — it reads the live QA ledgers</div>
+<div class="bgbar">
+  stage: <button onclick="document.body.className='dark'">dark</button>
+  <button onclick="document.body.className='light'">light</button>
+  <button onclick="document.body.className='checker'">checker</button>
+  <button onclick="document.querySelectorAll('video').forEach(v=>{if(v.src){v.currentTime=0;v.play().catch(()=>{})}})">replay visible</button>
+</div>
+<div id="root">loading…</div>
+<script>
+const BOSSES = [
+  { map:1,  id:'sora-yari',        name:'SORA YARI' },
+  { map:2,  id:'kitsune-tanto',    name:'KITSUNE TANTO' },
+  { map:3,  id:'thorn-warden',     name:'THORN WARDEN' },
+  { map:4,  id:'hollow-pale',      name:'HOLLOW PALE', pending:'generation queued (replaces Onryo; moderation-test first)' },
+  { map:5,  id:'satoshi-odachi',   name:'SATOSHI ODACHI', wired:true },
+  { map:6,  id:'eclipse-ofuda',    name:'ECLIPSE OFUDA' },
+  { map:7,  id:'ir37-pink-tessen', name:'IR-37 PINK TESSEN', wired:true },
+  { map:8,  id:'ir56-lion-serpent',name:'IR-56 LION-SERPENT' },
+  { map:9,  id:'lady-kurotachi',   name:'LADY KUROTACHI', partial:'kit in progress (browser grind running)' },
+  { map:10, id:'ir48-hex-paper-lord', name:'IR-48 HEX PAPER LORD · FINAL BOSS', partial:'13/13 accepted — RAW, awaiting the joint QA pass with Tim before keying' },
+];
+const vClass = q => !q||q==='pending' ? 'pend' : /^(pass|accept)/i.test(q) ? 'pass' : /^fail|REJECT/i.test(q) ? 'fail' : 'cond';
+async function head(url){ try { const r = await fetch(url,{method:'HEAD'}); return r.ok; } catch(e){ return false; } }
+// Lazy media: 80+ simultaneous <video> elements choke the decoder pool (readyState 0 forever).
+// Videos mount their src ONLY while visible (IntersectionObserver) and unload off-screen.
+const io = new IntersectionObserver((ents) => {
+  for (const en of ents) {
+    const v = en.target;
+    if (en.isIntersecting) { if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.play().catch(()=>{}); } }
+    else if (v.src) { v.removeAttribute('src'); v.load(); }
+  }
+}, { rootMargin: '200px' });
+function cell(state, src, isRaw, qa, note, contacts, ver, flag){
+  const v = document.createElement('div'); v.className = 'cell';
+  const media = src ? `<video data-src="${src}" preload="none" autoplay loop muted playsinline></video>` : `<div class="placeholder">not generated yet</div>`;
+  const badge = src && isRaw ? `<span class="v raw">RAW</span>` : '';
+  const vb = ver ? `<span class="v ver">${ver}</span>` : '';
+  const cts = contacts && contacts.length ? ` · contacts ${contacts.join('/')}ms` : '';
+  // flagged_not_blocking is exactly what Tim has to rule on, so it gets its own visible line.
+  const fl = flag ? `<div class="flag">FLAGGED: ${String(flag).slice(0,400)}</div>` : '';
+  v.innerHTML = `<div class="clipbox">${media}</div>
+    <div class="cap"><span class="st">${state}</span><span class="v ${vClass(qa)}">${(qa||'pending').split(':')[0]}</span>${vb}${badge}
+    <div class="note">${(note||'').slice(0,220)}${cts}</div>${fl}</div>`;
+  const vid = v.querySelector('video'); if (vid) io.observe(vid);
+  return v;
+}
+// A clip entry's top level is v1; later re-rolls hang off it as sibling .v2/.v3/.v4 keys.
+// The SHIPPING take is named by .accepted and is NOT always the highest vN — ir48 special_3
+// has a v4 that is a containment BLOCK, so never resolve by taking the last version.
+function shipping(entry){
+  if (!entry || typeof entry !== 'object') return entry;
+  const v = entry.accepted;
+  if (!v || v === 'v1') return entry;
+  return entry[v] || entry;
+}
+async function srcFor(entry){
+  if (!entry) return null;
+  if (typeof entry === 'string') return null;                     // bare media id, nothing local
+  if (entry.webm) { const p = entry.webm.replace(/^qa-boss\//,''); if (await head(p)) return { src:p, raw:false }; }
+  if (entry.raw)  { const p = entry.raw.replace(/^qa-boss\//,'');  if (await head(p)) return { src:p, raw:true }; }
+  if (entry.rawUrl) return { src: entry.rawUrl, raw:true };
+  return null;
+}
+(async () => {
+  const root = document.getElementById('root'); root.textContent = '';
+  for (const b of BOSSES) {
+    const sec = document.createElement('div'); sec.className = 'boss';
+    sec.innerHTML = `<h2>MAP ${b.map} · ${b.name}${b.wired ? ' — WIRED IN-GAME' : ''}</h2>`;
+    let data = null;
+    try { const r = await fetch(`${b.id}-clipdata.json`, {cache:'no-store'}); if (r.ok) data = await r.json(); } catch(e){}
+    const meta = document.createElement('div'); meta.className = 'meta';
+    meta.textContent = data ? `chroma ${data.chroma || '?'} · ${Object.keys(data.clips||{}).length} clips in ledger` : (b.pending || b.partial || 'no ledger yet');
+    sec.appendChild(meta);
+    if (data && data.clips) {
+      const grid = document.createElement('div'); grid.className = 'grid';
+      for (const [state, entry] of Object.entries(data.clips)) {
+        const e = shipping(entry);                                 // the ACCEPTED take, not the v1 reject
+        const s = await srcFor(e);
+        const o = (typeof e === 'object') ? e : {};
+        const ver = (typeof entry === 'object' && entry.accepted) || null;
+        // A take named by .accepted IS the shipping take, whatever its historical qa prose says.
+        // ir48 special_3 v3 reads "REJECT" because it was written before Tim's accept-as-is ruling.
+        const verdict = ver ? 'ACCEPTED' : o.qa;
+        grid.appendChild(cell(state, s && s.src, s && s.raw, verdict, o.qa || o.note, o.contacts, ver, o.flagged_not_blocking));
+      }
+      sec.appendChild(grid);
+      if (data.energy_rerolls) {
+        const rr = document.createElement('div'); rr.className = 'rerolls';
+        rr.innerHTML = '<h3>ENERGY RE-ROLLS (Tim doctrine 2026-07-24 — candidates to replace the kit clips above)</h3>';
+        const g2 = document.createElement('div'); g2.className = 'grid';
+        for (const [state, entry] of Object.entries(data.energy_rerolls)) {
+          const s = await srcFor(entry);
+          g2.appendChild(cell(state, s && s.src, s && s.raw, entry.qa, entry.qa, null));
+        }
+        rr.appendChild(g2); sec.appendChild(rr);
+      }
+    } else {
+      const ph = document.createElement('div'); ph.className = 'placeholder';
+      ph.textContent = b.pending || b.partial || 'nothing yet';
+      sec.appendChild(ph);
+    }
+    root.appendChild(sec);
+  }
+})();
+</script>
+</body>
+</html>
