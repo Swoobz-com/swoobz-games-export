@@ -130,3 +130,25 @@ sword. The white paper talismans hanging from his hat brim STAY FIRMLY ATTACHED 
 they may swing and flutter on their strings, but they NEVER tear off, NEVER detach and NEVER fly away,
 and there are NO loose paper scraps, NO torn paper, NO confetti and NO floating debris anywhere at any
 moment. He stays up — NOT a slow topple — and ends at the starting stance.
+
+## ko (cause-free collapse — v1r, EMPTY-BACKGROUND LOCK PRE-APPLIED)  [OFF-ANCHOR]
+# Not a re-roll of a rejected clip: this is the FIRST ko fire, pre-hardened with the lesson that cost
+# `hit` four cycles. The base ko body banned the cause by ENUMERATION ("NO blow, no impact, no
+# opponent"), which is exactly the phrasing that let hit v1-v3 keep inventing an attacker at whatever
+# edge was still unguarded. A DEFEAT state is the likeliest of all to invent one. So the enumerated
+# ban is replaced by a POSITIVE whole-frame constraint — worded to still allow HIS OWN dropped fan,
+# sword and hat, which is the whole point of this state.
+# NOTE build-prompt.mjs applies the ko-suffix rule to this section automatically (it strips the
+# weapon-lock and anchor-lock sentences), so do NOT hand-edit those out here.
+DEFEAT COLLAPSE: his strength simply leaves him — the great war-fan and the short sword slip out of his
+hands and fall to the ground beside him, he sinks to one armored knee, then crumples the rest of the way
+down and lies motionless on the ground, his kasa hat settling beside him, and he holds there completely
+still. This is his own collapse from within, under his own weight, and nothing else in the world touches
+him. THE GREEN BACKGROUND AROUND HIM STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE CLIP: the ONLY
+things visible anywhere in the frame in any frame are HIS OWN body, HIS OWN war-fan, HIS OWN short sword
+and HIS OWN kasa hat. No other person, no other figure, no attacker, no second weapon, no object, no
+shape, no blur, no streak, no smear and no shadow ever appears in the green, and NOTHING ever enters,
+touches or crosses the top, bottom, left or right edge of the picture. He begins on the reference stance
+but ends collapsed on the ground, motionless, and does NOT return to standing. He stays in side profile
+facing screen-right throughout, and his dropped fan, sword and hat all come to rest WELL INSIDE the
+frame with a clear margin from every edge.
