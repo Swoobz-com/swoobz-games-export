@@ -345,3 +345,46 @@ THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict 
 
 ## special_1 (HEX STORM — v4, CRIMSON CHARM LOCK AT THE MOMENT THEY APPEAR)
 THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his chest at about head height in one hand — NOT closed, NOT folded, NOT lowered, NOT at his hip — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. SPECIAL FINISHER (hex storm): WITHOUT MOVING HIS ARM ANYWHERE ELSE, he gives the open war-fan ONE SHORT SHARP SHAKE exactly where it already sits beside his chest, and a SMALL tight flurry of glowing hexagon paper charms swirls close around his own body, no bigger than his torso, and EVERY SINGLE CHARM IS THE SAME DEEP BLOOD-CRIMSON AS HIS OWN WAR-FAN, with a thin GOLD edge — the charms are NEVER pink, NEVER pale, NEVER white, NEVER silver, NEVER grey, NEVER tan and NEVER pastel; only their brief burning-out FLASH is gold and white, while the charm bodies themselves stay that deep crimson from the moment they appear to the moment they vanish, burning away within a beat, then he settles back to the starting stance. THE FAN DOES NOT TRAVEL AT ALL: it STAYS IN THE EXACT SAME PLACE beside his chest for the whole clip, at the SAME height it sits at in the very first frame. It NEVER rises, NEVER goes above the brim of his hat, NEVER arcs up or over, NEVER crosses in front of his chest, NEVER cuts across his body and NEVER carries his arm to his far side. There is ALWAYS a WIDE band of empty green between the top of the fan and the top edge of the picture. Only his wrist moves. HIS SHOULDERS STAY STACKED ONE BEHIND THE OTHER FOR THE WHOLE CLIP: his near shoulder stays IN FRONT OF his far shoulder in every single frame, his chest NEVER opens or turns toward the camera even slightly, his far arm and far shoulder stay HIDDEN BEHIND his body, and his silhouette stays NARROW and side-on from the first frame to the last. Throughout the whole clip the war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered. THE CHARMS STAY TIGHT AGAINST HIM: their paper bodies are DEEP CRIMSON with gold edges, NEVER green and NEVER pink or pale, and the ENTIRE swarm stays inside a SMALL AREA NO BIGGER THAN HIS OWN TORSO, hugging his chest and shoulders. NO charm EVER drifts further from his body than the width of his own shoulders, none of them scatters, drifts across the picture, wanders out into the open green or fills the frame, they do NOT orbit outward, do NOT shoot out and do NOT form a ring, and NOT ONE of them ever reaches, touches or crosses the top, bottom, left or right edge of the frame. A WIDE band of completely empty green surrounds him on all four sides at all times. APART FROM HIS OWN CHARMS THE GREEN STAYS COMPLETELY EMPTY AND UNBROKEN: the ONLY things visible anywhere in the picture, in every frame, are HIS OWN body, HIS OWN war-fan, HIS OWN short sword and HIS OWN crimson hex charms. No other person, no figure, no attacker, no second weapon, no other object, no shape, no blur, no streak and no shadow ever appears in the green, and nothing ever enters the picture from outside it. HIS FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or drifting. 
+
+## special_2 (TALISMAN BRAND — v1r, ALL FOUR special_1 LESSONS PRE-APPLIED)
+# First special_2 fire, pre-hardened with everything special_1 cost four cycles to learn:
+#   1. NO SWEEP. Any large-fan sweep must either cross the chest (opens the torso) or arc upward
+#      (breaks the height cap). The base body's "CLAPS it flat against the face of his own war-fan"
+#      is already a small in-place gesture, so it is KEPT — but the fan is explicitly pinned in place.
+#   2. SHOULDER-STACKING clause verbatim from special_1 v2, which took front-turn 57/97 -> 9/97.
+#   3. COLOUR AT THE MOMENT OF APPEARANCE, separating the talisman/flare BODY from its burn-out
+#      FLASH — the fix that took special_1 v4's charms from pink back to crimson.
+#   4. EFFECT-PERMITTING background lock (his own flare allowed, intruders and edge-crossing closed).
+# Tim's 2026-07-26 coherence rewrite is preserved intact: the talisman stays PINCHED IN HIS HAND
+# against his own fan and never becomes a detached floating object (the hollow-pale rocket pattern).
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his
+chest at about head height in one hand — NOT closed, NOT folded, NOT lowered, NOT at his hip — and the
+short black-bladed sword held reversed at his hip in the other, matching the reference image pose
+EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the
+last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same
+raised-fan reference stance in the final frame. SPECIAL FINISHER (talisman brand): he snatches a single
+white paper talisman off his own hat brim and CLAPS it flat against the face of his own war-fan, HOLDING
+it pinched there in his fingers as it flares in a SMALL compact burst no bigger than his head and burns
+to nothing between his fingers, then he settles back to the starting stance. THE FLARE IS DEEP CRIMSON
+AND GOLD from the instant it appears — the same deep crimson as his own war-fan — and it is NEVER pink,
+NEVER pale, NEVER lavender, NEVER silver, NEVER grey and NEVER pastel; only the final burning-out
+FLASH is white. THE FAN DOES NOT TRAVEL: it STAYS IN THE EXACT SAME PLACE beside his chest at the SAME
+height it sits at in the very first frame, NEVER rises, NEVER goes above the brim of his hat, NEVER arcs
+up or over, NEVER crosses in front of his chest and NEVER cuts across his body. Only his free hand and
+wrist move. HIS SHOULDERS STAY STACKED ONE BEHIND THE OTHER FOR THE WHOLE CLIP: his near shoulder stays
+IN FRONT OF his far shoulder in every single frame, his chest NEVER opens or turns toward the camera even
+slightly, his far arm and far shoulder stay HIDDEN BEHIND his body, and his silhouette stays NARROW and
+side-on from the first frame to the last. The talisman stays PINCHED IN HIS HAND against the fan the
+whole time and the flare happens ON the fan, touching his own body — nothing leaves his hand, nothing
+floats free in the air, nothing detaches, launches, flies or travels. Underneath the flare the war-fan
+stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey,
+silver or feathered. The flare stays TINY and CENTRAL, no bigger than his head, hugging his own hands
+with a WIDE band of completely empty green on all four sides; it is NOT a beam, NOT a ring, NOT a
+projectile, does NOT shoot out and NEVER reaches, touches or crosses any edge of the frame. APART FROM
+HIS OWN FLARE THE GREEN STAYS COMPLETELY EMPTY AND UNBROKEN: the ONLY things visible anywhere in the
+picture, in every frame, are HIS OWN body, HIS OWN war-fan, HIS OWN short sword and HIS OWN talisman
+flare. No other person, no figure, no attacker, no second weapon, no other object, no shape, no blur, no
+streak and no shadow ever appears in the green, and nothing ever enters the picture from outside it. HIS
+FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or
+drifting.
