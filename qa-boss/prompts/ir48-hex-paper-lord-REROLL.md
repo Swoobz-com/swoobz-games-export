@@ -269,3 +269,34 @@ or crosses the top, bottom, left or right edge of the picture.
 
 ## victory (imperial fan present — v4, NO VERTICAL RAISE)
 THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his chest at about head height in one hand — NOT closed, NOT folded, NOT a bundle, NOT lowered, NOT at his hip — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. THE WAR-FAN IS ALREADY FULLY OPEN AND FANNED OUT IN THE VERY FIRST FRAME AND STAYS FULLY OPEN AND FANNED OUT IN EVERY SINGLE FRAME OF THE CLIP: it NEVER folds, NEVER closes, NEVER collapses into a bundle, a stick or a thin edge-on line, because it is already open from the very first frame and simply stays that way for the whole clip. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere. VICTORY TAUNT: keeping the fan fully open the whole time and WITHOUT EVER LIFTING IT ANY HIGHER THAN IT ALREADY IS, he sweeps the already-open war-fan slowly SIDEWAYS ACROSS THE FRONT OF HIS CHEST and presents it there in one slow contemptuous imperial pose, tilting only his head as the talismans settle and his fanged grin widens, then draws it smoothly back to the EXACT same raised-beside-the-chest reference stance it started in, so the final frame matches the first frame EXACTLY. THE FAN NEVER RISES: the movement is PURELY SIDEWAYS AND HORIZONTAL, the fan NEVER travels upward, NEVER goes up beside his face, NEVER goes above his shoulder, and its TOP EDGE STAYS BELOW THE BRIM OF HIS HAT AND NO HIGHER THAN IT ALREADY SITS IN THE VERY FIRST FRAME, in every single frame of the clip. There is always a WIDE band of empty green between the top of the fan and the top edge of the picture. The pose is struck IN STRICT SIDE PROFILE: his near shoulder stays IN FRONT OF his far shoulder, his chest NEVER opens toward the camera, his feet stay IN LINE both pointing SCREEN-RIGHT, and he NEVER squares up or throws both arms out into a frontal victory pose; his silhouette stays NARROW and is NEVER wider than it is tall. Throughout, the war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered. HIS FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or drifting sideways. THE GREEN BACKGROUND AROUND HIM STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE CLIP: the ONLY things visible anywhere in the frame, in every frame, are HIS OWN body, HIS OWN war-fan and HIS OWN short sword. No other person, no figure, no object, no shape, no blur, no streak, no smear, no shadow, and NO celebratory effect of any kind — no confetti, no petals, no sparks, no embers, no glow, no energy, no banner and no falling paper — ever appears in the green, and NOTHING ever enters, touches or crosses the top, bottom, left or right edge of the picture.
+
+## special_1 (HEX STORM — v1r, EFFECT-PERMITTING BACKGROUND LOCK)
+# First special fire, pre-hardened. NOTE the blanket "the green stays COMPLETELY EMPTY, nothing visible
+# in it" wording that fixed hit v4 and cleared ko/victory CANNOT be used verbatim here: every special
+# has a LEGITIMATE finisher effect, and that wording would forbid the very thing the clip exists to
+# show. This is the effect-permitting variant — his own charms are allowed, everything else is closed.
+# Trap audit vs the two rules this kit has learned: (a) no causal language, there is no impact to
+# justify; (b) the action "sweeps the OPEN war-fan" presupposes an open fan, which MATCHES the anchor,
+# so no action-vs-start-pose conflict. The fan-height clause is kept LOW-compatible: the sweep is
+# explicitly low, so the constraint and the motion agree (the lesson from victory v3).
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his
+chest at about head height in one hand — NOT closed, NOT folded, NOT lowered, NOT at his hip — and the
+short black-bladed sword held reversed at his hip in the other, matching the reference image pose
+EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the
+last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same
+raised-fan reference stance in the final frame. SPECIAL FINISHER (hex storm): he sweeps the open war-fan
+once, LOW and IN FRONT OF HIS CHEST, and a SMALL tight flurry of glowing crimson hexagon paper charms
+swirls close around his own body, no bigger than his torso, flaring gold and burning away within a beat,
+then he settles back to the starting stance. THE SWEEP STAYS LOW: the fan NEVER rises above the brim of
+his hat and NEVER goes higher than it already sits in the very first frame. Through the sweep the war-fan
+stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey,
+silver or feathered. THE CHARMS STAY TIGHT AGAINST HIM: they are CRIMSON and GOLD and WHITE, NEVER green,
+small and clustered against his own body in the CENTRE of the picture with a WIDE band of empty green on
+all four sides; they do NOT orbit outward, do NOT shoot out, do NOT form a ring, and NOT ONE of them ever
+reaches, touches or crosses the top, bottom, left or right edge of the frame. APART FROM HIS OWN CHARMS
+THE GREEN STAYS COMPLETELY EMPTY AND UNBROKEN: the ONLY things visible anywhere in the picture, in every
+frame, are HIS OWN body, HIS OWN war-fan, HIS OWN short sword and HIS OWN crimson hex charms. No other
+person, no figure, no attacker, no second weapon, no other object, no shape, no blur, no streak and no
+shadow ever appears in the green, and nothing ever enters the picture from outside it. HIS FEET STAY
+PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or drifting.
