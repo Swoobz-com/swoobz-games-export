@@ -1,0 +1,149 @@
+clip                                    frames  minIoU  travel  strong%  spanPk  verdict
+--------------------------------------------------------------------------------------------------------
+attack-block-b.webm                         97   0.756      22       0    1.03  FLAG [attack]
+                                          · POSE minIoU 0.756 > 0.45 (barely leaves the anchor pose)
+                                          · TRAVEL 22px < 60px (no footwork / weight shift)
+                                          · DUTY 0% < 30% strong frames (action is a blip, rest is dead air)
+attack-block.webm                           97   0.117     152      92    1.79  ok   [attack]
+attack-strike-b.webm                        97   0.129     222      63    2.26  ok   [attack]
+attack-strike.webm                          97   0.163     230      56    1.43  ok   [attack]
+attack-throw-b.webm                         97   0.286     206      64    2.17  ok   [attack]
+attack-throw.webm                           97   0.090     156      44    2.17  ok   [attack]
+hit.webm                                    97   0.280     160      35    1.79  ok   [attack]
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+special-b.webm                              97   0.580      12      28    1.03  FLAG [special]
+                                          · POSE minIoU 0.580 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 12px < 90px (no footwork / weight shift)
+                                          · DUTY 28% < 40% strong frames (action is a blip, rest is dead air)
+special-c.webm                              97   0.475     106      40    1.21  FLAG [special]
+                                          · POSE minIoU 0.475 > 0.32 (barely leaves the anchor pose)
+special.webm                                97   0.401      90      11    1.31  FLAG [special]
+                                          · POSE minIoU 0.401 > 0.32 (barely leaves the anchor pose)
+                                          · DUTY 11% < 40% strong frames (action is a blip, rest is dead air)
+victory.webm                                97   0.308      84      33    2.63  ok   [attack]
+attack-block-b.webm                         97   0.085     290      68    1.16  ok   [attack]
+attack-block.webm                           97   0.070     292      65    1.03  ok   [attack]
+attack-strike-b.webm                        97   0.026     232      63    1.04  ok   [attack]
+attack-strike.webm                          97   0.092     304      53    1.00  ok   [attack]
+attack-throw-b.webm                         97   0.142     146      60    1.04  ok   [attack]
+attack-throw.webm                           97   0.191     182      45    1.03  ok   [attack]
+hit.webm                                    97   0.357      54      41    1.04  FLAG [attack]
+                                          · TRAVEL 54px < 60px (no footwork / weight shift)
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+special-b.webm                              97   0.305     122      36    1.55  FLAG [special]
+                                          · DUTY 36% < 40% strong frames (action is a blip, rest is dead air)
+special-c.webm                              97   0.536      18      15    1.04  FLAG [special]
+                                          · POSE minIoU 0.536 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 18px < 90px (no footwork / weight shift)
+                                          · DUTY 15% < 40% strong frames (action is a blip, rest is dead air)
+special.webm                                97   0.060     310      63    1.02  ok   [special]
+victory.webm                                97   0.085     268      70    1.02  ok   [attack]
+attack-block-b.webm                         97   0.174     178      55    1.21  ok   [attack]
+attack-block.webm                           97   0.158     178      61    1.00  ok   [attack]
+attack-strike-b.webm                        97   0.202     132      98    1.77  ok   [attack]
+attack-strike.webm                          97   0.174     128      73    1.75  ok   [attack]
+attack-throw-b.webm                         97   0.316     180      44    1.23  ok   [attack]
+attack-throw.webm                           97   0.310      60      35    1.13  ok   [attack]
+hit.webm                                    85   0.173     248      98    1.17  ok   [attack]
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+special-b.webm                              97   0.338     100      37    1.05  FLAG [special]
+                                          · POSE minIoU 0.338 > 0.32 (barely leaves the anchor pose)
+                                          · DUTY 37% < 40% strong frames (action is a blip, rest is dead air)
+special-c.webm                              97   0.429      56      15    1.11  FLAG [special]
+                                          · POSE minIoU 0.429 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 56px < 90px (no footwork / weight shift)
+                                          · DUTY 15% < 40% strong frames (action is a blip, rest is dead air)
+special.webm                                97   0.218     114      56    1.22  ok   [special]
+victory.webm                                97   0.231     120      73    1.37  ok   [attack]
+attack-block-b.webm                         97   0.501      34      38    1.06  FLAG [attack]
+                                          · POSE minIoU 0.501 > 0.45 (barely leaves the anchor pose)
+                                          · TRAVEL 34px < 60px (no footwork / weight shift)
+attack-block.webm                           97   0.493      30      51    1.03  FLAG [attack]
+                                          · POSE minIoU 0.493 > 0.45 (barely leaves the anchor pose)
+                                          · TRAVEL 30px < 60px (no footwork / weight shift)
+attack-strike-b.webm                        97   0.397      90      42    1.04  ok   [attack]
+attack-strike.webm                          97   0.371      80      48    1.03  ok   [attack]
+attack-throw.webm                           97   0.302     112      56    1.05  ok   [attack]
+hit.webm                                    97   0.472      32      26    1.04  FLAG [attack]
+                                          · POSE minIoU 0.472 > 0.45 (barely leaves the anchor pose)
+                                          · TRAVEL 32px < 60px (no footwork / weight shift)
+                                          · DUTY 26% < 30% strong frames (action is a blip, rest is dead air)
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+special-b.webm                              97   0.390      52      43    1.06  FLAG [special]
+                                          · POSE minIoU 0.390 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 52px < 90px (no footwork / weight shift)
+special-c.webm                              97   0.357      52      21    1.06  FLAG [special]
+                                          · POSE minIoU 0.357 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 52px < 90px (no footwork / weight shift)
+                                          · DUTY 21% < 40% strong frames (action is a blip, rest is dead air)
+special.webm                                97   0.478      18      34    1.02  FLAG [special]
+                                          · POSE minIoU 0.478 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 18px < 90px (no footwork / weight shift)
+                                          · DUTY 34% < 40% strong frames (action is a blip, rest is dead air)
+victory.webm                                97   0.469      26      57    1.03  FLAG [attack]
+                                          · POSE minIoU 0.469 > 0.45 (barely leaves the anchor pose)
+                                          · TRAVEL 26px < 60px (no footwork / weight shift)
+attack-block-b.webm                         97   0.166     130      57    1.43  ok   [attack]
+attack-block.webm                           97   0.057     184      79    1.60  ok   [attack]
+attack-strike-b.webm                        97   0.070     192      70    1.59  ok   [attack]
+attack-strike.webm                          97   0.100     180      61    2.00  ok   [attack]
+attack-throw-b.webm                         97   0.083     132      63    2.23  ok   [attack]
+attack-throw.webm                           97   0.196     146      54    1.59  ok   [attack]
+hit.webm                                    87   0.365     116      91    1.12  ok   [attack]
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+special-b.webm                              97   0.169     150      74    2.17  ok   [special]
+special-c.webm                              97   0.280      96      47    1.26  ok   [special]
+special.webm                                97   0.187     114      71    1.96  ok   [special]
+victory.webm                                97   0.113     208      61    1.22  ok   [attack]
+attack-block-b.webm                         97   0.211     208      47    1.05  ok   [attack]
+attack-block.webm                           97   0.256     208      19    1.05  FLAG [attack]
+                                          · DUTY 19% < 30% strong frames (action is a blip, rest is dead air)
+attack-strike-b.webm                        97   0.205     216      36    1.05  ok   [attack]
+attack-strike.webm                          97   0.201     218      22    1.03  FLAG [attack]
+                                          · DUTY 22% < 30% strong frames (action is a blip, rest is dead air)
+attack-throw-b.webm                         97   0.196     174      48    1.03  ok   [attack]
+attack-throw.webm                           97   0.178     194      58    1.06  ok   [attack]
+hit.webm                                    97   0.158      56      32    1.06  FLAG [attack]
+                                          · TRAVEL 56px < 60px (no footwork / weight shift)
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+special-b-cyclone.webm                      97   0.175     192      73    1.04  ok   [special]
+special-b.webm                              97   0.170     212      57    1.06  ok   [special]
+special-c.webm                              97   0.172     216      39    1.05  FLAG [special]
+                                          · DUTY 39% < 40% strong frames (action is a blip, rest is dead air)
+special.webm                                97   0.645      20       0    1.01  FLAG [special]
+                                          · POSE minIoU 0.645 > 0.32 (barely leaves the anchor pose)
+                                          · TRAVEL 20px < 90px (no footwork / weight shift)
+                                          · DUTY 0% < 40% strong frames (action is a blip, rest is dead air)
+victory.webm                                97   0.139     226      63    1.00  ok   [attack]
+attack-block-b.webm                         97   0.145     184      68    1.01  ok   [attack]
+attack-block.webm                           97   0.103     200      62    1.00  ok   [attack]
+attack-strike-b.webm                        97   0.273     120      30    1.00  FLAG [attack]
+                                          · DUTY 30% < 30% strong frames (action is a blip, rest is dead air)
+attack-strike.webm                          97   0.505      38      45    1.03  FLAG [attack]
+                                          · POSE minIoU 0.505 > 0.45 (barely leaves the anchor pose)
+                                          · TRAVEL 38px < 60px (no footwork / weight shift)
+attack-throw-b.webm                         97   0.297     112      54    1.02  ok   [attack]
+attack-throw.webm                           97   0.117     214      51    1.02  ok   [attack]
+hit.webm                                    97   0.288     148      60    1.03  ok   [attack]
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+victory.webm                                97   0.155     204      78    1.01  ok   [attack]
+attack-block-b.webm                         97   0.081     210      51    1.49  ok   [attack]
+attack-block.webm                           97   0.144     202      70    1.65  ok   [attack]
+attack-strike-b.webm                        97   0.120     208      72    1.48  ok   [attack]
+attack-strike.webm                          97   0.131     192      72    1.17  ok   [attack]
+attack-throw-b.webm                         97   0.187     154      71    1.43  ok   [attack]
+attack-throw.webm                           97   0.065     190      74    1.50  ok   [attack]
+hit.webm                                    97   0.159     162      58    1.53  ok   [attack]
+idle.webm                                 — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+ko.webm                                   — EXEMPT (idle/ko are near-anchor or off-anchor by spec)
+victory.webm                                97   0.234     140      72    1.19  ok   [attack]
+--------------------------------------------------------------------------------------------------------
+82 judged, 23 flagged, 16 exempt.
+A FLAG MEANS GO AND LOOK. This gate measures motion, not quality — flailing scores well.

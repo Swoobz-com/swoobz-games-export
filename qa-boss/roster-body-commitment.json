@@ -1,0 +1,822 @@
+[
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "attack-block-b",
+  "minIoU": 0.756,
+  "travel": 22,
+  "strong": 0,
+  "span": 1.03,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "attack-block",
+  "minIoU": 0.117,
+  "travel": 152,
+  "strong": 92,
+  "span": 1.79,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "attack-strike-b",
+  "minIoU": 0.129,
+  "travel": 222,
+  "strong": 63,
+  "span": 2.26,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "attack-strike",
+  "minIoU": 0.163,
+  "travel": 230,
+  "strong": 56,
+  "span": 1.43,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "attack-throw-b",
+  "minIoU": 0.286,
+  "travel": 206,
+  "strong": 64,
+  "span": 2.17,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "attack-throw",
+  "minIoU": 0.09,
+  "travel": 156,
+  "strong": 44,
+  "span": 2.17,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "hit",
+  "minIoU": 0.28,
+  "travel": 160,
+  "strong": 35,
+  "span": 1.79,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "special-b",
+  "minIoU": 0.58,
+  "travel": 12,
+  "strong": 28,
+  "span": 1.03,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "special-c",
+  "minIoU": 0.475,
+  "travel": 106,
+  "strong": 40,
+  "span": 1.21,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "special",
+  "minIoU": 0.401,
+  "travel": 90,
+  "strong": 11,
+  "span": 1.31,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "eclipse-ofuda",
+  "clip": "victory",
+  "minIoU": 0.308,
+  "travel": 84,
+  "strong": 33,
+  "span": 2.63,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "attack-block-b",
+  "minIoU": 0.085,
+  "travel": 290,
+  "strong": 68,
+  "span": 1.16,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "attack-block",
+  "minIoU": 0.07,
+  "travel": 292,
+  "strong": 65,
+  "span": 1.03,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "attack-strike-b",
+  "minIoU": 0.026,
+  "travel": 232,
+  "strong": 63,
+  "span": 1.04,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "attack-strike",
+  "minIoU": 0.092,
+  "travel": 304,
+  "strong": 53,
+  "span": 1,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "attack-throw-b",
+  "minIoU": 0.142,
+  "travel": 146,
+  "strong": 60,
+  "span": 1.04,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "attack-throw",
+  "minIoU": 0.191,
+  "travel": 182,
+  "strong": 45,
+  "span": 1.03,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "hit",
+  "minIoU": 0.357,
+  "travel": 54,
+  "strong": 41,
+  "span": 1.04,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "special-b",
+  "minIoU": 0.305,
+  "travel": 122,
+  "strong": 36,
+  "span": 1.55,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "special-c",
+  "minIoU": 0.536,
+  "travel": 18,
+  "strong": 15,
+  "span": 1.04,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "special",
+  "minIoU": 0.06,
+  "travel": 310,
+  "strong": 63,
+  "span": 1.02,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "hollow-pale",
+  "clip": "victory",
+  "minIoU": 0.085,
+  "travel": 268,
+  "strong": 70,
+  "span": 1.02,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "attack-block-b",
+  "minIoU": 0.174,
+  "travel": 178,
+  "strong": 55,
+  "span": 1.21,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "attack-block",
+  "minIoU": 0.158,
+  "travel": 178,
+  "strong": 61,
+  "span": 1,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "attack-strike-b",
+  "minIoU": 0.202,
+  "travel": 132,
+  "strong": 98,
+  "span": 1.77,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "attack-strike",
+  "minIoU": 0.174,
+  "travel": 128,
+  "strong": 73,
+  "span": 1.75,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "attack-throw-b",
+  "minIoU": 0.316,
+  "travel": 180,
+  "strong": 44,
+  "span": 1.23,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "attack-throw",
+  "minIoU": 0.31,
+  "travel": 60,
+  "strong": 35,
+  "span": 1.13,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "hit",
+  "minIoU": 0.173,
+  "travel": 248,
+  "strong": 98,
+  "span": 1.17,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "special-b",
+  "minIoU": 0.338,
+  "travel": 100,
+  "strong": 37,
+  "span": 1.05,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "special-c",
+  "minIoU": 0.429,
+  "travel": 56,
+  "strong": 15,
+  "span": 1.11,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "special",
+  "minIoU": 0.218,
+  "travel": 114,
+  "strong": 56,
+  "span": 1.22,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "ir37-pink-tessen",
+  "clip": "victory",
+  "minIoU": 0.231,
+  "travel": 120,
+  "strong": 73,
+  "span": 1.37,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "attack-block-b",
+  "minIoU": 0.501,
+  "travel": 34,
+  "strong": 38,
+  "span": 1.06,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "attack-block",
+  "minIoU": 0.493,
+  "travel": 30,
+  "strong": 51,
+  "span": 1.03,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "attack-strike-b",
+  "minIoU": 0.397,
+  "travel": 90,
+  "strong": 42,
+  "span": 1.04,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "attack-strike",
+  "minIoU": 0.371,
+  "travel": 80,
+  "strong": 48,
+  "span": 1.03,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "attack-throw",
+  "minIoU": 0.302,
+  "travel": 112,
+  "strong": 56,
+  "span": 1.05,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "hit",
+  "minIoU": 0.472,
+  "travel": 32,
+  "strong": 26,
+  "span": 1.04,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "special-b",
+  "minIoU": 0.39,
+  "travel": 52,
+  "strong": 43,
+  "span": 1.06,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "special-c",
+  "minIoU": 0.357,
+  "travel": 52,
+  "strong": 21,
+  "span": 1.06,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "special",
+  "minIoU": 0.478,
+  "travel": 18,
+  "strong": 34,
+  "span": 1.02,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "ir56-lion-serpent",
+  "clip": "victory",
+  "minIoU": 0.469,
+  "travel": 26,
+  "strong": 57,
+  "span": 1.03,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "attack-block-b",
+  "minIoU": 0.166,
+  "travel": 130,
+  "strong": 57,
+  "span": 1.43,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "attack-block",
+  "minIoU": 0.057,
+  "travel": 184,
+  "strong": 79,
+  "span": 1.6,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "attack-strike-b",
+  "minIoU": 0.07,
+  "travel": 192,
+  "strong": 70,
+  "span": 1.59,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "attack-strike",
+  "minIoU": 0.1,
+  "travel": 180,
+  "strong": 61,
+  "span": 2,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "attack-throw-b",
+  "minIoU": 0.083,
+  "travel": 132,
+  "strong": 63,
+  "span": 2.23,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "attack-throw",
+  "minIoU": 0.196,
+  "travel": 146,
+  "strong": 54,
+  "span": 1.59,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "hit",
+  "minIoU": 0.365,
+  "travel": 116,
+  "strong": 91,
+  "span": 1.12,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "special-b",
+  "minIoU": 0.169,
+  "travel": 150,
+  "strong": 74,
+  "span": 2.17,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "special-c",
+  "minIoU": 0.28,
+  "travel": 96,
+  "strong": 47,
+  "span": 1.26,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "special",
+  "minIoU": 0.187,
+  "travel": 114,
+  "strong": 71,
+  "span": 1.96,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "lady-kurotachi",
+  "clip": "victory",
+  "minIoU": 0.113,
+  "travel": 208,
+  "strong": 61,
+  "span": 1.22,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "attack-block-b",
+  "minIoU": 0.211,
+  "travel": 208,
+  "strong": 47,
+  "span": 1.05,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "attack-block",
+  "minIoU": 0.256,
+  "travel": 208,
+  "strong": 19,
+  "span": 1.05,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "attack-strike-b",
+  "minIoU": 0.205,
+  "travel": 216,
+  "strong": 36,
+  "span": 1.05,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "attack-strike",
+  "minIoU": 0.201,
+  "travel": 218,
+  "strong": 22,
+  "span": 1.03,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "attack-throw-b",
+  "minIoU": 0.196,
+  "travel": 174,
+  "strong": 48,
+  "span": 1.03,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "attack-throw",
+  "minIoU": 0.178,
+  "travel": 194,
+  "strong": 58,
+  "span": 1.06,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "hit",
+  "minIoU": 0.158,
+  "travel": 56,
+  "strong": 32,
+  "span": 1.06,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "old",
+  "clip": "special-b-cyclone",
+  "minIoU": 0.175,
+  "travel": 192,
+  "strong": 73,
+  "span": 1.04,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "special-b",
+  "minIoU": 0.17,
+  "travel": 212,
+  "strong": 57,
+  "span": 1.06,
+  "verdict": "ok",
+  "prof": "special"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "special-c",
+  "minIoU": 0.172,
+  "travel": 216,
+  "strong": 39,
+  "span": 1.05,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "special",
+  "minIoU": 0.645,
+  "travel": 20,
+  "strong": 0,
+  "span": 1.01,
+  "verdict": "FLAG",
+  "prof": "special"
+ },
+ {
+  "boss": "satoshi-odachi",
+  "clip": "victory",
+  "minIoU": 0.139,
+  "travel": 226,
+  "strong": 63,
+  "span": 1,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "attack-block-b",
+  "minIoU": 0.145,
+  "travel": 184,
+  "strong": 68,
+  "span": 1.01,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "attack-block",
+  "minIoU": 0.103,
+  "travel": 200,
+  "strong": 62,
+  "span": 1,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "attack-strike-b",
+  "minIoU": 0.273,
+  "travel": 120,
+  "strong": 30,
+  "span": 1,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "attack-strike",
+  "minIoU": 0.505,
+  "travel": 38,
+  "strong": 45,
+  "span": 1.03,
+  "verdict": "FLAG",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "attack-throw-b",
+  "minIoU": 0.297,
+  "travel": 112,
+  "strong": 54,
+  "span": 1.02,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "attack-throw",
+  "minIoU": 0.117,
+  "travel": 214,
+  "strong": 51,
+  "span": 1.02,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "hit",
+  "minIoU": 0.288,
+  "travel": 148,
+  "strong": 60,
+  "span": 1.03,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "sora-yari",
+  "clip": "victory",
+  "minIoU": 0.155,
+  "travel": 204,
+  "strong": 78,
+  "span": 1.01,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "attack-block-b",
+  "minIoU": 0.081,
+  "travel": 210,
+  "strong": 51,
+  "span": 1.49,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "attack-block",
+  "minIoU": 0.144,
+  "travel": 202,
+  "strong": 70,
+  "span": 1.65,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "attack-strike-b",
+  "minIoU": 0.12,
+  "travel": 208,
+  "strong": 72,
+  "span": 1.48,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "attack-strike",
+  "minIoU": 0.131,
+  "travel": 192,
+  "strong": 72,
+  "span": 1.17,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "attack-throw-b",
+  "minIoU": 0.187,
+  "travel": 154,
+  "strong": 71,
+  "span": 1.43,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "attack-throw",
+  "minIoU": 0.065,
+  "travel": 190,
+  "strong": 74,
+  "span": 1.5,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "hit",
+  "minIoU": 0.159,
+  "travel": 162,
+  "strong": 58,
+  "span": 1.53,
+  "verdict": "ok",
+  "prof": "attack"
+ },
+ {
+  "boss": "thorn-warden",
+  "clip": "victory",
+  "minIoU": 0.234,
+  "travel": 140,
+  "strong": 72,
+  "span": 1.19,
+  "verdict": "ok",
+  "prof": "attack"
+ }
+]

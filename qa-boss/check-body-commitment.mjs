@@ -74,6 +74,7 @@ const { PNG } = require('pngjs');
 
 const SCALE = 240;                 // decode width; source is 960 so results scale by 4
 const SRC_W = 960;
+const ALPHA_MIN = 24;              // keyed-webm alpha cutoff, matches check-frontturn.mjs
 const isGreen = (r, g, b) => g > 110 && g > r + 40 && g > b + 40;
 // Bright gold/white glow — excluded from the CORE mask so an effect cannot fake commitment.
 const isGlow = (r, g, b) => (r > 200 && g > 170) || (r > 230 && g > 230 && b > 200);
@@ -110,7 +111,12 @@ export function measure(file) {
   fs.rmSync(tmp, { recursive: true, force: true });
   fs.mkdirSync(tmp, { recursive: true });
   try {
-    const r = spawnSync('ffmpeg', ['-y', '-v', 'error', '-i', file, '-vf', `scale=${SCALE}:-1`,
+    // RAW mp4 -> key the green plate. Keyed webm -> use its own alpha, but decode to RGBA PNG
+    // (NOT alphaextract) so the glow test still has colour and the CORE mask keeps its meaning.
+    // The vp9 decoder flag MUST come before -i or the alpha plane is silently dropped.
+    const isWebm = /\.webm$/i.test(file);
+    const pre = isWebm ? ['-c:v', 'libvpx-vp9'] : [];
+    const r = spawnSync('ffmpeg', ['-y', '-v', 'error', ...pre, '-i', file, '-vf', `scale=${SCALE}:-1`,
       '-vsync', '0', path.join(tmp, 'f_%04d.png')], { encoding: 'utf8' });
     if (r.status !== 0) return { error: (r.stderr || 'ffmpeg failed').split('\n')[0] };
     const files = fs.readdirSync(tmp).filter((f) => f.endsWith('.png')).sort();
@@ -122,8 +128,8 @@ export function measure(file) {
       const { width: w, height: h, data } = p;
       const all = new Uint8Array(w * h), core = new Uint8Array(w * h);
       for (let i = 0; i < all.length; i++) {
-        const k = i * 4, r0 = data[k], g0 = data[k + 1], b0 = data[k + 2];
-        if (isGreen(r0, g0, b0)) continue;
+        const k = i * 4, r0 = data[k], g0 = data[k + 1], b0 = data[k + 2], a0 = data[k + 3];
+        if (isWebm ? a0 <= ALPHA_MIN : isGreen(r0, g0, b0)) continue;
         all[i] = 1;
         if (!isGlow(r0, g0, b0)) core[i] = 1;
       }
@@ -168,7 +174,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
   const flag = (n, d) => { const i = argv.indexOf(n); return i >= 0 ? argv[i + 1] : d; };
   const kit = flag('--kit', null);
   const forced = flag('--profile', null);
-  let files = argv.filter((a) => /\.mp4$/i.test(a));
+  let files = argv.filter((a) => /\.(mp4|webm)$/i.test(a));
   if (kit) {
     const dir = path.join(HERE, 'raw');
     files = fs.readdirSync(dir).filter((f) => f.startsWith(kit) && f.endsWith('.mp4')).map((f) => path.join(dir, f));
