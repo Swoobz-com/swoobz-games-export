@@ -190,7 +190,16 @@ confetti, no petals, no sparks, no embers, no glow, no energy, no banner and no 
 appears in the green, and NOTHING ever enters, touches or crosses the top, bottom, left or right edge of
 the picture.
 
-## victory (imperial fan raise — v2, FAN ALREADY OPEN, NO OPENING ACTION)
+## SUPERSEDED-victory2 (imperial fan raise — v2, FAN ALREADY OPEN, NO OPENING ACTION)
+# NEVER RENDERED — BLOCKED BY THE NSFW MODERATION FILTER, credits refunded. Nothing to QA. The clip
+# fix itself (remove the opening from the action) is untested and is carried forward verbatim into v3.
+# The only suspect is wording v2 INTRODUCED that v1 did not have: "SPREAD WIDE", twice. v1 (3579 chars,
+# no such phrase) rendered fine; v2 (3975, "SPREAD WIDE" x2) was flagged. v3 removes every form of
+# "spread", including "spreads both arms", since a single refusal does not say WHICH token tripped and
+# "spread ... wide" adjacency is the most plausible. "wide"/"widens"/"wider" are deliberately KEPT —
+# they all appear in v1, which rendered fine, so they are proven safe and removing them would be
+# superstition rather than inference. Note the identity is NOT generally blocked: idle was fired first
+# as the moderation test for it and cleared, and 10 clips have rendered since — a per-PROMPT trip.
 THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
 large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND SPREAD WIDE and HELD RAISED beside his
 chest at about head height in one hand — NOT closed, NOT folded, NOT a bundle, NOT lowered, NOT at his
@@ -217,3 +226,33 @@ and HIS OWN short sword. No other person, no figure, no object, no shape, no blu
 no shadow, and NO celebratory effect of any kind — no confetti, no petals, no sparks, no embers, no glow,
 no energy, no banner and no falling paper — ever appears in the green, and NOTHING ever enters, touches
 or crosses the top, bottom, left or right edge of the picture.
+
+
+## victory (imperial fan raise — v3, v2 CLIP FIX + NSFW-SAFE WORDING)
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his
+chest at about head height in one hand — NOT closed, NOT folded, NOT a bundle, NOT lowered, NOT at his
+hip — and the short black-bladed sword held reversed at his hip in the other, matching the reference
+image pose EXACTLY. THE WAR-FAN IS ALREADY FULLY OPEN AND FANNED OUT IN THE VERY FIRST FRAME AND STAYS FULLY
+OPEN AND FANNED OUT IN EVERY SINGLE FRAME OF THE CLIP: it NEVER folds, NEVER closes, NEVER collapses
+into a bundle, a stick or a thin edge-on line, because it is already open from the very first frame and
+simply stays that way for the whole clip. Both weapons
+stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent,
+never stowed, never appearing out of nowhere. VICTORY TAUNT: keeping the fan fully open the whole time,
+he RAISES the already-open war-fan up beside his oni face in one slow proud sweep, holds one imperial
+pose there as the talismans settle and his fanged grin widens, then LOWERS it smoothly back down to the
+EXACT same raised-beside-the-chest reference stance it started in, so the final frame matches the first
+frame EXACTLY. He keeps the TOP EDGE OF THE FAN BELOW HIS HAT BRIM AT ALL TIMES and never lets any part
+of it pass above the hat. The pose is struck IN STRICT SIDE PROFILE: his near shoulder stays IN FRONT OF
+his far shoulder, his chest NEVER opens toward the camera, his feet stay IN LINE both pointing
+SCREEN-RIGHT, and he NEVER squares up or throws both arms out into a frontal victory pose; his silhouette
+stays NARROW and is NEVER wider than it is tall. Throughout, the war-fan stays the SAME solid DEEP
+CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered. HIS
+FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or
+drifting sideways. THE GREEN BACKGROUND AROUND HIM STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE
+CLIP: the ONLY things visible anywhere in the frame, in every frame, are HIS OWN body, HIS OWN war-fan
+and HIS OWN short sword. No other person, no figure, no object, no shape, no blur, no streak, no smear,
+no shadow, and NO celebratory effect of any kind — no confetti, no petals, no sparks, no embers, no glow,
+no energy, no banner and no falling paper — ever appears in the green, and NOTHING ever enters, touches
+or crosses the top, bottom, left or right edge of the picture.
+
