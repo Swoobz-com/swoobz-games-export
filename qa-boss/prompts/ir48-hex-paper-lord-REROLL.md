@@ -153,7 +153,13 @@ but ends collapsed on the ground, motionless, and does NOT return to standing. H
 facing screen-right throughout, and his dropped fan, sword and hat all come to rest WELL INSIDE the
 frame with a clear margin from every edge.
 
-## victory (imperial fan snap — v1r, EMPTY-BACKGROUND LOCK PRE-APPLIED)
+## SUPERSEDED-victory (imperial fan snap — v1r, EMPTY-BACKGROUND LOCK PRE-APPLIED)
+# REJECTED on the START POSE, and the fault was in the prompt, not the model. The action said he
+# "SNAPS the great war-fan fully open with a flourish" — which PRESUPPOSES the fan starts CLOSED —
+# while the start-pose lock demanded it already be "HELD OPEN AND RAISED". Given two contradictory
+# orders the model obeyed the ACTION: f0 has the fan folded to a bundle, bbox x1=595 instead of the
+# anchor's 721, IoU vs the kit anchor 0.6424 and f0-vs-f96 only 0.7231. Superseded by the "## victory"
+# v2 section below, which removes the OPENING from the action entirely.
 # Not a re-roll: first victory fire, pre-hardened like ko. The base body's locks (start pose, fan below
 # the hat brim, strict side profile, crimson colour) are all KEPT verbatim — they are what stopped the
 # fan-morph and front-turn defects elsewhere in this kit. The only change is that the closing
@@ -183,3 +189,31 @@ object, no shape, no blur, no streak, no smear, no shadow, and NO celebratory ef
 confetti, no petals, no sparks, no embers, no glow, no energy, no banner and no falling paper — ever
 appears in the green, and NOTHING ever enters, touches or crosses the top, bottom, left or right edge of
 the picture.
+
+## victory (imperial fan raise — v2, FAN ALREADY OPEN, NO OPENING ACTION)
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND SPREAD WIDE and HELD RAISED beside his
+chest at about head height in one hand — NOT closed, NOT folded, NOT a bundle, NOT lowered, NOT at his
+hip — and the short black-bladed sword held reversed at his hip in the other, matching the reference
+image pose EXACTLY. THE WAR-FAN IS ALREADY FULLY OPEN AND SPREAD IN THE VERY FIRST FRAME AND STAYS FULLY
+OPEN AND SPREAD WIDE IN EVERY SINGLE FRAME OF THE CLIP: it NEVER folds, NEVER closes, NEVER collapses
+into a bundle, a stick or a thin edge-on line, because it is already open from the very first frame and
+simply stays that way for the whole clip. Both weapons
+stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent,
+never stowed, never appearing out of nowhere. VICTORY TAUNT: keeping the fan fully open the whole time,
+he RAISES the already-open war-fan up beside his oni face in one slow proud sweep, holds one imperial
+pose there as the talismans settle and his fanged grin widens, then LOWERS it smoothly back down to the
+EXACT same raised-beside-the-chest reference stance it started in, so the final frame matches the first
+frame EXACTLY. He keeps the TOP EDGE OF THE FAN BELOW HIS HAT BRIM AT ALL TIMES and never lets any part
+of it pass above the hat. The pose is struck IN STRICT SIDE PROFILE: his near shoulder stays IN FRONT OF
+his far shoulder, his chest NEVER opens toward the camera, his feet stay IN LINE both pointing
+SCREEN-RIGHT, and he NEVER squares up or spreads both arms into a frontal victory pose; his silhouette
+stays NARROW and is NEVER wider than it is tall. Throughout, the war-fan stays the SAME solid DEEP
+CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered. HIS
+FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or
+drifting sideways. THE GREEN BACKGROUND AROUND HIM STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE
+CLIP: the ONLY things visible anywhere in the frame, in every frame, are HIS OWN body, HIS OWN war-fan
+and HIS OWN short sword. No other person, no figure, no object, no shape, no blur, no streak, no smear,
+no shadow, and NO celebratory effect of any kind — no confetti, no petals, no sparks, no embers, no glow,
+no energy, no banner and no falling paper — ever appears in the green, and NOTHING ever enters, touches
+or crosses the top, bottom, left or right edge of the picture.
