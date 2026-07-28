@@ -88,7 +88,16 @@
       "qa": "REJECT — OVERTRAVEL + RIGHT-EDGE CUT. He SPRINTS across the frame instead of delivering a short shoulder check. VIEWED at f25: he is mid-run far over on the right side with the left half of the frame empty green, and the OPEN war-fan is HARD-CUT FLAT by the right edge. Containment RIGHT 184px @f25 with THREE frames >=90px (f23:156, f24:174, f25:184) and dwell 4 — that satisfies the BLOCK conjunct (A200>=90 AND dwell>=3), so this is a re-roll, not a feather. The cut lands on his signature identity prop.",
       "front_turn_false_positive": "check-frontturn flagged aspect 1.274 with 25 frames over 1.0, which is normally the hard frontal tell. VIEWED it is NOT a front-turn — it is the RUNNING STRIDE (legs fully extended fore and aft) stretching the bbox horizontally while he stays in clean side profile facing screen-right. RECORD: aspect>1.0 is only a frontal tell for a PLANTED pose; a locomotion clip can exceed it legitimately. Always view before convicting on aspect alone.",
       "reroll_fix": "v2: the body no longer says EXPLODES forward in a two-step charge (which reads as sprint across frame). It now specifies a short heavy shoulder CHECK with explicit travel bounds — stays PLANTED and CENTERED, never moves more than HALF A BODY-WIDTH from the start, never runs/sprints/strides/crosses the frame, wide green margin on LEFT and RIGHT at all times, and the war-fan NEVER reaches the right edge. Side-profile lock retained.",
-      "verdict": "v1 REJECT (overtravel, RIGHT 184px BLOCK). v2 queued."
+      "verdict": "v1 REJECT (overtravel, RIGHT 184px BLOCK). v2 ACCEPT — see .v2.",
+      "v2": {
+        "raw": "qa-boss/raw/ir48-hex-paper-lord-throw-b-v2.mp4",
+        "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260727_234005_2c2effe7-ba2d-47c7-a678-0fae59e09044.mp4",
+        "fired": "2026-07-28 ~01:40 local, promptLen 2490, GenerateUnlimited",
+        "qa": "ACCEPT. OVERTRAVEL FIXED — containment CLEAN 0px on TOP/LEFT/RIGHT (v1 was RIGHT 184px BLOCK with dwell 4). Travel bound held: bbox centre-x drifts only 169px of 960 across the whole clip, inside the half-body-width limit specified (his body is 482px wide, so the bound is ~241px). Front-turn gate CLEAN at run 0/97, aspect peak 0.77. Anchor lock f0 vs f96 IoU 0.9863 with bbox IDENTICAL. Facing as-is beats mirrored at every sample. Crimson dips only 23% (min 33031 @f68 vs 42967 at f0) — the fan stays open and on-model throughout.",
+        "viewed": "f49 VIEWED at full size: strict side profile facing screen-right, feet planted in line one behind the other, shoulder driving forward, fan raised open and intact deep crimson with the gold hex rim, wide green margins on BOTH left and right. This is the shoulder CHECK that was specified, not the sprint v1 produced.",
+        "note": "Top-edge rise is 18px here vs 4px on the other accepted clips, because the fan is carried high on the drive. throw_b carries NO below-the-hat-brim clause (that constraint belongs to strike_a and victory), so this is within spec and containment is clean regardless.",
+        "verdict": "ACCEPT. 5th of 13."
+      }
     }
   },
   "remaining": "strike_b, throw_a, throw_b, block_a, block_b, hit, ko, victory, special_1, special_2, special_3 — all 11 prompts pre-built and validated (one identity lock, FACING SCREEN-RIGHT present). Node 10 shows VOLTA until this kit is keyed and wired.",
