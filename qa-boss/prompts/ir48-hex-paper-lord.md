@@ -86,10 +86,7 @@ his feet stay IN LINE one behind the other both pointing SCREEN-RIGHT, and he NE
 frontal pose. Alone, no opponent, empty air only, single figure.
 
 ## block_a (fan wall into counter, arm-only)
-BLOCK-COUNTER: FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large OPEN deep-crimson war-fan in one
-hand and the reversed short sword in the other, exactly as in the reference image — the war-fan is
-present and clearly visible in EVERY SINGLE FRAME including the first and the last, it is NEVER absent,
-never stowed, never folded away behind him and never appears out of nowhere partway through. Keeping his
+BLOCK-COUNTER: THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. Keeping his
 torso LOCKED in strict side profile, ONLY his arms move — he SLAMS the open
 war-fan up across his body like a wall as if catching a heavy blow, holds the strain a beat, then RIPS
 one short vicious counter stab with the reversed sword kept close and central, then lowers back to the
@@ -98,14 +95,14 @@ its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feather
 of his chest and NEVER rises above his hat brim.
 
 ## block_b (sword brace into fan backhand, arm-only)
-FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large deep-crimson hex-bordered war-fan in one hand and the reversed short sword in the other, exactly as in the reference image, and BOTH stay present and clearly visible in EVERY SINGLE FRAME including the first and the last — never absent, never stowed, never appearing out of nowhere. BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he braces the
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. BLOCK-COUNTER: keeping his torso LOCKED in strict side profile, ONLY his arms move — he braces the
 reversed sword across his chest in a hard deflecting guard that visibly absorbs an impact, then SNAPS a
 short fan backhand kept below shoulder height, then settles back to the starting stance. Through the
 backhand the war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER
 turns pale, white, grey, silver or feathered.
 
 ## hit (stagger, quick recover)
-FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large deep-crimson hex-bordered war-fan in one hand and the reversed short sword in the other, exactly as in the reference image, and BOTH stay present and clearly visible in EVERY SINGLE FRAME including the first and the last — never absent, never stowed, never appearing out of nowhere. HIT REACTION: his head and armored torso rock sharply back as an unseen impact lands, the paper talismans
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. HIT REACTION: his head and armored torso rock sharply back as an unseen impact lands, the paper talismans
 on his hat flaring, one heavy backward step that he immediately reclaims, resolving back toward his
 stance. He stays up — NOT a slow topple — and ends at the starting stance. No opponent, empty air only.
 
@@ -117,7 +114,7 @@ He begins on the reference stance but ends collapsed on the ground, motionless, 
 standing. He stays in side profile facing screen-right; the dropped fan and sword stay within the frame.
 
 ## victory (imperial fan snap)
-FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large deep-crimson hex-bordered war-fan in one hand and the reversed short sword in the other, exactly as in the reference image, and BOTH stay present and clearly visible in EVERY SINGLE FRAME including the first and the last — never absent, never stowed, never appearing out of nowhere. VICTORY TAUNT: he SNAPS the great war-fan fully open with a flourish and raises it beside his oni face,
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. VICTORY TAUNT: he SNAPS the great war-fan fully open with a flourish and raises it beside his oni face,
 keeping the TOP EDGE OF THE FAN BELOW HIS HAT BRIM AT ALL TIMES and never letting any part of it pass
 above the hat, striking one slow imperial pose as the talismans settle, his fanged grin widening, then he
 lowers it back into the EXACT starting stance. The pose is struck IN STRICT SIDE PROFILE: his near
@@ -129,7 +126,7 @@ SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pal
 feathered. Alone, no opponent, everything well inside the frame.
 
 ## special_1 (HEX STORM) — crimson/gold/white, contained
-FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large deep-crimson hex-bordered war-fan in one hand and the reversed short sword in the other, exactly as in the reference image, and BOTH stay present and clearly visible in EVERY SINGLE FRAME including the first and the last — never absent, never stowed, never appearing out of nowhere. SPECIAL FINISHER (hex storm): he sweeps the open war-fan once and a SMALL tight flurry of glowing crimson
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. SPECIAL FINISHER (hex storm): he sweeps the open war-fan once and a SMALL tight flurry of glowing crimson
 hexagon paper charms swirls close around his body, no bigger than his torso, flaring gold and burning
 away within a beat, then he settles back to the starting stance. Through the sweep the war-fan stays the
 SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or
@@ -141,7 +138,7 @@ all around; they do NOT orbit outward, NOT a ring.
 # REWRITTEN 2026-07-26 (character-coherence gate, Tim): the v1 line put the talisman "onto the air in
 # front of him" = a DETACHED floating object, the exact pattern that made hollow-pale's special read as
 # a launched rocket. The talisman now stays IN HIS OWN HAND and flares against his own fan.
-FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large deep-crimson hex-bordered war-fan in one hand and the reversed short sword in the other, exactly as in the reference image, and BOTH stay present and clearly visible in EVERY SINGLE FRAME including the first and the last — never absent, never stowed, never appearing out of nowhere. SPECIAL FINISHER (talisman brand): he snatches a single glowing white paper talisman off his hat brim
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. SPECIAL FINISHER (talisman brand): he snatches a single glowing white paper talisman off his hat brim
 and CLAPS it flat against the face of his own war-fan, HOLDING it there in his hand as it flares crimson
 in a SMALL compact burst no bigger than his head and burns to nothing between his fingers, then he
 settles back. The talisman stays PINCHED IN HIS HAND against the fan the whole time and the flare
@@ -152,7 +149,7 @@ flare is CRIMSON and WHITE, NEVER green, tiny and central with a wide green marg
 NOT a beam, NOT a ring, NOT a projectile.
 
 ## special_3 (ZERO CITADEL EDGE) — gold/white, contained
-FROM THE VERY FIRST FRAME he is ALREADY HOLDING the large deep-crimson hex-bordered war-fan in one hand and the reversed short sword in the other, exactly as in the reference image, and BOTH stay present and clearly visible in EVERY SINGLE FRAME including the first and the last — never absent, never stowed, never appearing out of nowhere. SPECIAL FINISHER (citadel edge): he snaps the reversed sword forward-down in one compact executioner's
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final frame. SPECIAL FINISHER (citadel edge): he snaps the reversed sword forward-down in one compact executioner's
 cut kept below shoulder height, and a SHORT thin gold-and-white edge of light traces the blade path and
 vanishes, then he settles back. The edge-light is GOLD and WHITE, NEVER green, short and thin, central
 with a wide green margin on all four edges; NOT a beam, NOT a ring, does NOT travel outward.
