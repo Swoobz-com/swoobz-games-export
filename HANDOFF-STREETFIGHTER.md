@@ -1,10 +1,11 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-> **READ THIS FIRST — the paragraph below is STALE (it describes phase 22b/23 in July 2026).**
-> Current state as of **session 10, 2026-07-27**: HEAD **`b350c43`**, `npx vitest run` = **157/157**,
-> tsc clean, engines + `src/ui` byte-frozen. Boss clips ARE wired now (Tim's old "generate first,
-> don't wire" ruling was lifted back in wire wave 2). **Jump to
-> "★ OPUS 5 — START HERE (SESSION 10)" below** and start there; everything above it is provenance.
+> **READ THIS FIRST — everything below this box is PROVENANCE, most of it STALE.**
+> Current state as of **session 12, 2026-07-28**: HEAD **`7d50e4a`**, `npx vitest run` = **157/157**,
+> `npx tsc --noEmit` clean, `src/` untouched this whole session. **The IR-48 HEX PAPER LORD final-boss
+> clip kit is COMPLETE at 13/13 accepted, and is NOT keyed, NOT encoded and NOT wired — deliberately.**
+> **Jump to "★★★ OPUS 5 — START HERE (SESSION 12)" immediately below** and start there. The SESSION 10
+> block and everything under it is history.
 
 Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN; was
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
@@ -40,7 +41,251 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 10, written 2026-07-27 ~18:30; SUPERSEDES every START-HERE block below) ★★★★★★★★★★
+### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 12, written 2026-07-28 ~23:00; SUPERSEDES every START-HERE block below) ★★★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** HEAD `7d50e4a`. `src/` is
+byte-untouched this session; tsc clean; vitest 157/157 (verified, not assumed, immediately before
+writing this).
+
+---
+
+## 0. THE ONE THING THAT BLOCKS EVERYTHING ELSE
+
+**The IR-48 HEX PAPER LORD kit is DONE at 13/13 and is waiting on a JOINT QA CHECK WITH TIM.**
+Standing instruction from session 10, reconfirmed through session 12:
+
+> *"after that final boss we gonna do first QA check togetehr then we start building playable characters"*
+
+**DO NOT key, encode or wire IR-48 until Tim has done that pass with you.** Do not "get a head start"
+on it. When he is ready, walk him through the flagged items in section 3, take his rulings, and only
+then proceed to keying.
+
+---
+
+## 1. WHAT SESSION 12 DID
+
+Generated, QA'd and accepted the entire **IR-48 HEX PAPER LORD** final-boss clip kit (node 10), one
+clip at a time, in a self-paced `/loop`. **13/13 accepted. ZERO credits spent.**
+
+| clip | shipped | cycles | clip | shipped | cycles |
+|---|---|---|---|---|---|
+| idle | v1 | 1 | ko | v1 | **1** |
+| strike_a | v2 | 2 | victory | v4 | 4 |
+| strike_b | v2 | 2 | special_1 | v4 | 4 |
+| throw_a | v1 | 1 | special_2 | v1 | **1** |
+| throw_b | v2 | 2 | special_3 | v3 | 4 |
+| block_a | v3 | 3 | hit | v4 | 4 |
+| block_b | v1 | 1 | | | |
+
+All accepted raws are in `qa-boss/raw/ir48-hex-paper-lord-*.mp4` and are listed, with measured gate
+numbers and every reject reason, in **`qa-boss/ir48-hex-paper-lord-clipdata.json`** — that ledger is
+the source of truth, read it before touching anything. Its `KIT_STATUS` key is the one-screen summary.
+
+**New QA tool: `qa-boss/check-extra-objects.mjs`.** Labels 8-connected components on the keyed
+silhouette and reports max simultaneous blobs. Closes a gap the other two gates *structurally cannot*
+see (section 2.7). Calibrated against a known-bad control — read its header, it documents why a clean
+result means something and why it must NOT be run on `ko`.
+
+Commits: `dcfa3d9` through `7d50e4a` (phases 33f–34).
+
+---
+
+## 2. LEARNINGS — READ BEFORE WRITING A SINGLE PROMPT
+
+These cost roughly 30 generation cycles to find. They are the real deliverable of this session.
+
+### 2.1 Governing rule: WHEN THE ACTION AND THE LOCK CANNOT BOTH BE TRUE, CHANGE THE MOTION
+
+Most rejects here were **self-contradictory prompts**, not model failures. A constraint cannot win
+against an action whose geometry makes it unsatisfiable. Restating the lock louder never worked;
+rewriting the *action* always did.
+
+| clip | irreconcilable pair | fix |
+|---|---|---|
+| `hit` v1-v3 | "unseen impact" implies a cause, so the model invents an attacker | delete all causal language |
+| `victory` v1 | "SNAPS the fan **open**" presupposes it starts closed vs "starts open" | action raises an already-open fan |
+| `victory` v3 | "raise it beside his face" vs "top edge below the hat brim" — the fan is head-sized, so impossible | delete the vertical raise |
+| `special_1` v1 | "sweep **across his chest**" vs "strict side profile" — a cross-chest sweep forces the shoulders open | sweep forward along the body line |
+| `special_1` v2 | "sweep **forward along the body**" reads as an overhead arc vs "never above the hat" | delete the sweep; a wrist shake |
+| `special_3` v3/v4 | light "**traces the blade path**" vs "no longer than the blade" — a slash's path IS a long arc | unresolved, see section 3 |
+
+**Corollary, learned the hard way twice on `special_3`:** constraining ONE axis leaves the others
+free. A fan-height clause forbidding *rising* does not stop *dropping*; pinning the height does not
+stop it swinging *out sideways*. Pin every axis you care about, explicitly.
+
+### 2.2 Describe the EFFECT, never the CAUSE
+
+`hit` took 4 cycles because the brief named an impact it forbade you to show, so the model kept
+supplying an attacker at whatever edge was still unguarded (talismans, then a blade from the left,
+then a blade from the top). Banning objects **by name** only moved the entry point. What worked:
+delete every causal word, describe pure kinesis, and replace the blacklist with a **positive
+whole-frame constraint** — *"the green background stays COMPLETELY EMPTY AND UNBROKEN ... nothing is
+ever visible in it."*
+
+### 2.3 The effect-permitting variant, for specials
+
+The blanket "green stays completely empty" wording **cannot** be used verbatim on a special — every
+finisher has a legitimate effect and that phrasing forbids the very thing the clip exists to show.
+Use: *"APART FROM HIS OWN CHARMS/FLARE/EDGE-LIGHT the green stays completely empty and unbroken; the
+ONLY things visible are HIS OWN body, war-fan, sword and HIS OWN <effect>."* Caught at audit, not by
+burning a clip.
+
+### 2.4 ATTACHED beats SMALL
+
+Size and trajectory bounds do **not** stop an effect detaching. `special_3` v1 asked for "short thin,
+no longer than the blade, does not travel outward" and still produced free-floating arcs. What works
+is an **attachment requirement** — which is what Tim's own 2026-07-26 hollow-pale rewrite already
+encoded: `special_2`'s talisman stays *"PINCHED IN HIS HAND"*, and what finally stopped `special_3`
+detaching was *"STAYS WELDED TO THE METAL ... at NO moment is there any glowing shape not physically
+touching his own sword."*
+
+### 2.5 State colour AT THE MOMENT OF APPEARANCE, and split BODY from FLASH
+
+`special_1` v3's charms rendered pink/grey. The shared SPECIAL add-on calls the energy "CRIMSON and
+GOLD and **WHITE**", and that WHITE licenses pale bodies. Fix (the same one that cured the `strike_a`
+v1 fan morph): put the colour lock *in the action clause where the thing appears*, and separate the
+object's body from its burn-out flash.
+
+### 2.6 Adding text about ONE prop silently steals from the OTHER
+
+`special_3` v2 added ~600 chars of sword-focused wording and **the war-fan vanished entirely** while
+the blade grew into a katana. Same class as the `block_a` v1 fan-absence. If you add a block about one
+prop, restate the other prop's presence in the same breath.
+
+### 2.7 Gate blind spots — no single gate is sufficient
+
+- **`profile-containment.mjs`** scores the *longest contiguous border run*, so small debris crossing an
+  edge slips under it. It returned **CLEAR** on `hit` v1, a clip whose pixels reached both row 0 and
+  the last column.
+- **`check-frontturn.mjs`** derives both signals from the **bbox**, so a detached object doesn't merely
+  go unnoticed — it **corrupts the reading**. Debris pushed `hit` v1's aspect to 1.06 and tripped the
+  "wider than tall" hard tell on a clip whose torso was in clean side profile. Motion blur does the
+  same (`hit` v4, `special_1`). **Never convict on front-turn without viewing.**
+- **`check-extra-objects.mjs`** (new) catches detached objects the other two miss — but a legitimately
+  dropped prop reads as a second blob, so it is **inapplicable to `ko`**.
+- **The bbox trajectory is the cheapest catch-all.** Per-frame `min y0` / `min x0` exposed both the
+  `hit` v1 debris and the `special_3` v1 detachment for free.
+
+**The single most useful trick:** when **IoU says static but bbox says something moved a long way**,
+that contradiction *is* the signature of a small detached object — high IoU (barely changes the
+silhouette) plus a collapsed bbox (drags the box). Neither number alone finds it.
+
+### 2.8 Anchor lock FIRST, always
+
+`check-frontturn.mjs` baselines on frame 0, so a defective f0 corrupts the whole gate. Run the anchor
+lock before anything else. The kit anchor is bbox **`{x0:239, y0:88, x1:721, y1:911}`**; every accepted
+clip has f0 == fEND == that, IoU >= 0.99. A closed fan measures `x1=595` instead of 721 — that number
+alone tells you the start pose is wrong.
+
+### 2.9 A single mid-frame sample is not a liveness test
+
+`block_b`'s `IoU(f0, fMID)` came back 0.9895 and looked like a dead clip. It wasn't — the
+choreography *returns to the anchor mid-clip*. Sample the whole per-frame curve.
+
+### 2.10 NSFW moderation looks exactly like a slow render
+
+`victory` v2 registered normally, showed the right prompt, spun, and never produced a thumbnail. I
+polled it as "rendering" for **37 minutes** before reloading, which finally surfaced an
+**"NSFW / Credits refunded"** banner. **A render materially past ~25 min should be RELOADED and read
+for a status banner, not polled again.** Suspected trigger: the phrase **"SPREAD WIDE"** (v1 lacked it
+and rendered fine). Every prompt since asserts zero `spread`. Note `wide`/`widens`/`wider` are
+**proven safe** — they appear in rendered clips — so do not strip them out of superstition.
+
+---
+
+## 3. FLAGGED FOR THE JOINT QA CHECK — TIM'S RULINGS NEEDED
+
+All accepted, none blocking, all viewed. Full detail per clip in the ledger under
+`flagged_not_blocking`.
+
+1. **`victory` v4 — the fan is presented EDGE-ON for the whole hold (~f30-f70).** It is genuinely open,
+   but the sweep became a forward extension along the camera axis, so the boss's signature prop barely
+   reads in his showcase moment. **The exact v5 wording is already in the ledger**
+   (`v5_fix_if_tim_wants_it`), including the warning that "broadside to camera" fights the side-profile
+   body lock and must be scoped to the fan and forearm only. This is the likeliest re-roll candidate.
+2. **`special_3` v3 — two known faults ship with it.** Tim chose "option A, accept as-is" on
+   2026-07-28: the edge-light is an oversized gold crescent rather than a short glow on the blade, and
+   the war-fan drops to hip height mid-clip. If he changes his mind, the ledger's `HANDOFF_TO_TIM`
+   block holds options B (re-roll with **no** edge-light — most likely to converge, since every
+   remaining fault orbits the light) and C (swap to the effect family that already works:
+   `special_1`'s tight hex charms or `special_2`'s pinched flare). **Do NOT re-fire v4 — it is a
+   containment BLOCK.**
+3. **`special_1` v4** — the fan rises ~43px above the hat brim.
+4. **`special_2`** — the flare is roughly fan-sized rather than the specified head-sized.
+5. **`ko`** — sword occluded under his body from ~f60 (it is on the ground at f30, he crumples across
+   it); the final hold settles rather than freezing (IoU f68 vs f96 = 0.9402); he ends supine.
+
+---
+
+## 4. WHAT TO DO NEXT, IN ORDER
+
+1. **Joint QA check with Tim on the 13 clips.** Take rulings on section 3. Nothing else starts first.
+2. **Then key + encode + wire IR-48** (only after sign-off). `src/characters/ir56-lion-serpent.ts` is
+   the manifest template; node 10 is already registered at `src/engine/fightCampaign.ts:103` and
+   flipping it off `volta` is a one-field change once a manifest exists.
+   **KEYING WATCH ITEM:** `special_3` v3's crescent comes within **4px** of the top row at f37.
+   Containment passes pre-key, but any feather/dilate/edge-soften pass could push it onto the border —
+   **re-check the top edge AFTER keying**, do not trust the pre-key CLEAR.
+3. **Then playable characters** — Tim's stated next milestone.
+4. **Backlog, unchanged from session 11.** `qa-boss/containment-sweep.md` (regenerated at HEAD) is the
+   ranked list: thorn-warden n3 (3 BLOCK, earliest defective node), satoshi n5 (5), ir37 n7 (2), ir56
+   n8 (5), lady-kurotachi n9 (1); eclipse `special_2` v3 re-roll; hollow-pale `throw-a` re-roll (Tim:
+   *"Re-roll it when generation is back"*); sora/thorn empty `special: []`.
+5. **Still open for Tim, do not decide unilaterally:** kitsune node 2; the onryo `arsenal.json` entry
+   (a real character with full art in `input/MK FINAL/legendary/` — **do not delete the prompt**, three
+   earlier handoffs wrongly recommended it); the `input/MK FINAL/` library scope (153 characters, 214
+   backgrounds); `wsTransport.test.ts` intermittent flake (spins a real relay on a real port,
+   load-sensitive, clears on re-run — reported, not buried); calibrating `check-frontturn.mjs` for
+   cross-roster use (it flags 77/97 shipped clips at defaults — see its calibration box).
+
+---
+
+## 5. THE FIRING PROCEDURE — EXACT, DO NOT IMPROVISE
+
+**Generation runs in the BROWSER on Higgsfield Unlimited. NEVER MCP `generate_video`, which always
+bills.** `Generate2418` = 2418 CREDITS. `GenerateUnlimited` = free. **The BUTTON LABEL is the
+authority, not the model row.**
+
+1. Build with `node qa-boss/build-prompt.mjs <promptFile> <state>` and **assert the locks are present**,
+   not merely that it produced output. **`build-prompt.mjs` matches the FIRST `^## <state>\b` heading**,
+   so a superseded section of the same name silently shadows the new one — rename old ones with a
+   *prefix* (`## SUPERSEDED-hit`). A `hit-v2` rename does NOT work: `\b` treats the hyphen as a
+   boundary. Assert on **lowercased** text, and scope asserts to the BODY (the heading legitimately
+   contains banned words).
+2. **Clear the editor and VERIFY length 0 in a separate call.** The synthetic paste **appends** to a
+   non-empty Lexical editor, and `execCommand('delete')` is intercepted. This produced two
+   franken-prompts this session, both caught only by the length assertion. When the keyboard stops
+   reaching the page (it did twice): `execCommand('insertText', ...)` over a JS range **replaces**, then
+   a synthetic `beforeinput` / `deleteContentBackward` gets you to 0.
+3. **Paste via a synthetic `paste` event** carrying a `DataTransfer` — no OS clipboard, verifiable in
+   the same call. Assert `textContent.length === source.length` (clipboard paste drops newlines
+   *without* substituting spaces; only a length check catches it).
+4. **Re-arm Unlimited.** **Every page reload silently resets the toggle to `Generate2418`.** The harvest
+   check now always reloads, so the re-arm is mandatory every cycle. This guard blocked one real
+   2418-credit fire this session.
+5. **Fire with a guarded click that re-asserts, IN THE SAME JS TASK as the click:** exact prompt length,
+   each lock exactly once, no `spread`, and `label === 'GenerateUnlimited'`.
+6. **Confirm it queued** by a **new generation ID appearing in the feed** plus the version-specific lock
+   text in a history card. **Do not** regex the page for "generating|processing|%" — that matched *my
+   own prompt text* ("**starting** stance") and the "30% OFF" nav banner, and reported success on a fire
+   that never happened.
+7. **Harvest by direct URL** — no browser needed:
+   `https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_<UTC-STAMP>_<UUID>.mp4`
+   (CloudFront filenames are UTC).
+
+**Gate order (anchor lock first, see 2.8):** anchor-lock, containment, extra-objects, front-turn, bbox
+trajectory, then **VIEW the suspect frames at FULL SIZE**. Three false alarms this session were killed
+only by viewing. Account note: the browser session is `user_3FzP62OkeSn8OYHW3kjt3xDrWKK`; MCP
+`show_generations` returns a DIFFERENT account and cannot see these fires.
+
+Other standing constraints: skip **everything** RONIN ZERO VENDING MACHINE (`pack-machine/` stays
+untracked and unworked); `input/progressivemap.jpg` is ANOTHER GAME'S map, reference-only, never ship
+or commit; never re-add facing rules to the global slot skills — that rule is STANDOFF-only and lives
+in `.claude/skills/standoff-clip-facing/SKILL.md`.
+
+---
+
+### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 10 — SUPERSEDED by SESSION 12 above; kept as provenance) ★★★★★★★★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the BROWSER
 (Higgsfield Unlimited, ZERO credits) — never MCP `generate_video`, which always bills. Re-run every
