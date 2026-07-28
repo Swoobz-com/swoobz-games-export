@@ -388,3 +388,41 @@ flare. No other person, no figure, no attacker, no second weapon, no other objec
 streak and no shadow ever appears in the green, and nothing ever enters the picture from outside it. HIS
 FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or
 drifting.
+
+## special_3 (ZERO CITADEL EDGE — v1r, ALL FOUR LESSONS PRE-APPLIED)
+# Final clip of the kit. Same four pre-applied lessons as special_2, which cleared on fire one.
+# NOTE this is the only special driven by the SWORD, not the fan — so the risk profile differs:
+# the sword is small and already at his hip, so a short forward-down cut needs no torso rotation and
+# no upward arc (unlike a fan sweep). The FAN is the thing that must not move here, since his other
+# hand is doing the work; it is pinned explicitly. The edge-light is GOLD and WHITE by design (not
+# crimson), so the colour lock states THAT palette at the moment of appearance and bans the pale
+# pink/lavender drift that hit special_1 v3.
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his
+chest at about head height in one hand — NOT closed, NOT folded, NOT lowered, NOT at his hip — and the
+short black-bladed sword held reversed at his hip in the other, matching the reference image pose
+EXACTLY. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the
+last, never absent, never stowed, never appearing out of nowhere, and he RETURNS to that EXACT same
+raised-fan reference stance in the final frame. SPECIAL FINISHER (citadel edge): he snaps the reversed
+black-bladed sword forward and down in ONE short compact executioner's cut kept BELOW SHOULDER HEIGHT and
+close in front of his own hip, and a SHORT THIN edge of light traces the blade path and vanishes, then he
+settles back to the starting stance. THE EDGE-LIGHT IS GOLD AND WHITE from the instant it appears — it is
+NEVER green, NEVER pink, NEVER pale lavender, NEVER silver-grey and NEVER pastel — and it is a SHORT THIN
+line hugging the blade itself, no longer than the blade, that fades within a beat. It is NOT a beam, NOT
+a ring, NOT a jet, NOT a projectile, does NOT travel outward, does NOT shoot away from him and NEVER
+reaches, touches or crosses any edge of the frame. THE CUT STAYS SMALL AND LOW: the sword NEVER rises
+above his shoulder, NEVER goes above the brim of his hat and NEVER swings out to arm's length away from
+his body; the whole cut happens close in front of him. THE WAR-FAN DOES NOT MOVE AT ALL: it STAYS EXACTLY
+WHERE IT IS beside his chest at the SAME height it sits at in the very first frame, still fully open and
+fanned out, NEVER rises, NEVER lowers, NEVER goes above the brim of his hat and NEVER crosses in front of
+his chest — only his sword hand moves. HIS SHOULDERS STAY STACKED ONE BEHIND THE OTHER FOR THE WHOLE
+CLIP: his near shoulder stays IN FRONT OF his far shoulder in every single frame, his chest NEVER opens
+or turns toward the camera even slightly, his far arm and far shoulder stay HIDDEN BEHIND his body, and
+his silhouette stays NARROW and side-on from the first frame to the last. Throughout the whole clip the
+war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale,
+white, grey, silver or feathered. APART FROM HIS OWN EDGE-LIGHT THE GREEN STAYS COMPLETELY EMPTY AND
+UNBROKEN: the ONLY things visible anywhere in the picture, in every frame, are HIS OWN body, HIS OWN
+war-fan, HIS OWN short sword and HIS OWN edge-light. No other person, no figure, no attacker, no second
+weapon, no other object, no shape, no blur, no streak and no shadow ever appears in the green, and
+nothing ever enters the picture from outside it. HIS FEET STAY PLANTED ON THE SPOT and he stays CENTERED
+exactly where he starts, never sliding, stepping or drifting.
