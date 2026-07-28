@@ -228,7 +228,16 @@ no energy, no banner and no falling paper — ever appears in the green, and NOT
 or crosses the top, bottom, left or right edge of the picture.
 
 
-## victory (imperial fan raise — v3, v2 CLIP FIX + NSFW-SAFE WORDING)
+## SUPERSEDED-victory3 (imperial fan raise — v3, v2 CLIP FIX + NSFW-SAFE WORDING)
+# REJECTED on the FAN-HEIGHT lock, and it is the ACTION-vs-LOCK conflict again in a new form. The v2
+# start-pose fix WORKED and is proven: f0 bbox == fEND == kit anchor exactly, anchor lock 0.9916, fan
+# open at f0. NSFW wording fix also worked - it rendered. But the action said he "RAISES the already-
+# open war-fan UP BESIDE HIS ONI FACE", and the fan is nearly as tall as his head, so raising it to
+# face height NECESSARILY puts its top edge above the hat brim - which the very next sentence forbids.
+# Measured: min y0 = 4 @f37 (4px from the frame top) against the f0 hat top at y=88, i.e. the fan ends
+# up ~84px ABOVE the brim and within a hair of a containment BLOCK.
+#   THE LESSON IS GEOMETRIC, not emphatic: when an action's GEOMETRY is incompatible with a constraint,
+#   restating the constraint cannot win. Change the MOTION. v4 removes the vertical raise entirely.
 THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
 large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his
 chest at about head height in one hand — NOT closed, NOT folded, NOT a bundle, NOT lowered, NOT at his
@@ -256,3 +265,7 @@ no shadow, and NO celebratory effect of any kind — no confetti, no petals, no 
 no energy, no banner and no falling paper — ever appears in the green, and NOTHING ever enters, touches
 or crosses the top, bottom, left or right edge of the picture.
 
+
+
+## victory (imperial fan present — v4, NO VERTICAL RAISE)
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the large deep-crimson hex-bordered war-fan ALREADY FULLY OPEN AND FANNED OUT and HELD RAISED beside his chest at about head height in one hand — NOT closed, NOT folded, NOT a bundle, NOT lowered, NOT at his hip — and the short black-bladed sword held reversed at his hip in the other, matching the reference image pose EXACTLY. THE WAR-FAN IS ALREADY FULLY OPEN AND FANNED OUT IN THE VERY FIRST FRAME AND STAYS FULLY OPEN AND FANNED OUT IN EVERY SINGLE FRAME OF THE CLIP: it NEVER folds, NEVER closes, NEVER collapses into a bundle, a stick or a thin edge-on line, because it is already open from the very first frame and simply stays that way for the whole clip. Both weapons stay present and clearly visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never appearing out of nowhere. VICTORY TAUNT: keeping the fan fully open the whole time and WITHOUT EVER LIFTING IT ANY HIGHER THAN IT ALREADY IS, he sweeps the already-open war-fan slowly SIDEWAYS ACROSS THE FRONT OF HIS CHEST and presents it there in one slow contemptuous imperial pose, tilting only his head as the talismans settle and his fanged grin widens, then draws it smoothly back to the EXACT same raised-beside-the-chest reference stance it started in, so the final frame matches the first frame EXACTLY. THE FAN NEVER RISES: the movement is PURELY SIDEWAYS AND HORIZONTAL, the fan NEVER travels upward, NEVER goes up beside his face, NEVER goes above his shoulder, and its TOP EDGE STAYS BELOW THE BRIM OF HIS HAT AND NO HIGHER THAN IT ALREADY SITS IN THE VERY FIRST FRAME, in every single frame of the clip. There is always a WIDE band of empty green between the top of the fan and the top edge of the picture. The pose is struck IN STRICT SIDE PROFILE: his near shoulder stays IN FRONT OF his far shoulder, his chest NEVER opens toward the camera, his feet stay IN LINE both pointing SCREEN-RIGHT, and he NEVER squares up or throws both arms out into a frontal victory pose; his silhouette stays NARROW and is NEVER wider than it is tall. Throughout, the war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale, white, grey, silver or feathered. HIS FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where he starts, never sliding, stepping or drifting sideways. THE GREEN BACKGROUND AROUND HIM STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE CLIP: the ONLY things visible anywhere in the frame, in every frame, are HIS OWN body, HIS OWN war-fan and HIS OWN short sword. No other person, no figure, no object, no shape, no blur, no streak, no smear, no shadow, and NO celebratory effect of any kind — no confetti, no petals, no sparks, no embers, no glow, no energy, no banner and no falling paper — ever appears in the green, and NOTHING ever enters, touches or crosses the top, bottom, left or right edge of the picture.
