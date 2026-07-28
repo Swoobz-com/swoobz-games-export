@@ -56,7 +56,13 @@ the SAME solid DEEP CRIMSON fan with its black hexagon-cut border and gold hexag
 pale, white, grey, silver or feathered, never becomes blades or feathers, and never changes its shape,
 colour or material for even one frame. Big, heavy, total commitment, everything well inside the frame.
 
-## hit (stagger — v2, TALISMANS ATTACHED + PLANTED)
+## SUPERSEDED-hit (stagger — v2, TALISMANS ATTACHED + PLANTED)
+# REJECTED: fixed the talisman debris and planted the feet, but the model filled the "unseen impact"
+# gap with a REAL INCOMING BLADE flying in from the left edge (f16), and the waist recoil overshot
+# into a 1.2s limbo backbend. Superseded by the "## hit" v3 section below. Renamed with a prefix
+# rather than deleted because build-prompt.mjs matches the FIRST `^## <state>\b` heading, so two
+# live sections named `hit` would silently keep firing the older one. A `hit-v2` rename would NOT
+# work: `\b` treats the hyphen as a word boundary and it would still match.
 THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
 large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one
 hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed
@@ -73,3 +79,26 @@ flutter on their strings, but they NEVER tear off, NEVER detach, NEVER come loos
 there are NO loose paper scraps, NO torn paper, NO confetti and NO floating debris anywhere in the frame
 at any moment. Nothing ever separates from his body, his hat, his armor or his weapons. He stays up —
 NOT a slow topple — and ends at the starting stance. No opponent, empty air only.
+
+## hit (stagger — v3, NO PROJECTILE + SHORT RECOIL)
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one
+hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed
+at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly
+visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never
+appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final
+frame. HIT REACTION: his head and armored torso give ONE SHORT SHARP recoil backward from the waist as an
+unseen impact lands, and he immediately reclaims it and resolves back to the starting stance. THE RECOIL
+IS SMALL AND QUICK: his head and shoulders snap back only a SHORT distance and come straight back — he
+does NOT bend over backwards, does NOT arch into a deep backbend or a limbo, his head NEVER drops below
+the height of his own shoulders, and he is upright again almost immediately. HIS FEET STAY PLANTED ON THE
+SPOT and he stays CENTERED exactly where he starts — he NEVER slides, steps, stumbles or drifts sideways
+and NEVER moves more than HALF A BODY-WIDTH from where he starts. THE IMPACT IS COMPLETELY INVISIBLE:
+NOTHING whatsoever enters the frame from outside at any moment — NO blade, NO sword, NO spear, NO arrow,
+NO projectile, NO weapon, NO limb, NO object and NO streak of any kind ever flies in, appears at, or
+crosses any edge of the frame. There is NO attacker and NO second weapon anywhere in the picture; the
+ONLY objects in the entire frame are his own body, his own war-fan and his own short sword. The white
+paper talismans hanging from his hat brim STAY FIRMLY ATTACHED TO THE HAT at all times — they may swing
+and flutter on their strings, but they NEVER tear off, NEVER detach and NEVER fly away, and there are NO
+loose paper scraps, NO torn paper, NO confetti and NO floating debris anywhere in the frame at any
+moment. He stays up — NOT a slow topple — and ends at the starting stance. Empty air only.
