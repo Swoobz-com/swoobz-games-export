@@ -80,7 +80,11 @@ there are NO loose paper scraps, NO torn paper, NO confetti and NO floating debr
 at any moment. Nothing ever separates from his body, his hat, his armor or his weapons. He stays up —
 NOT a slow topple — and ends at the starting stance. No opponent, empty air only.
 
-## hit (stagger — v3, NO PROJECTILE + SHORT RECOIL)
+## SUPERSEDED-hit3 (stagger — v3, NO PROJECTILE + SHORT RECOIL)
+# REJECTED: fixed the travel and the backbend completely, but a blade STILL flew in - this time from
+# the TOP edge (f9, 220px top run, containment BLOCK). Banning objects BY NAME does not work; the
+# causal language ("HIT REACTION", "as an unseen impact lands") is what makes the model supply a
+# visible attacker. Superseded by the "## hit" v4 section below, which removes the CAUSE entirely.
 THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
 large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one
 hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed
@@ -102,3 +106,27 @@ paper talismans hanging from his hat brim STAY FIRMLY ATTACHED TO THE HAT at all
 and flutter on their strings, but they NEVER tear off, NEVER detach and NEVER fly away, and there are NO
 loose paper scraps, NO torn paper, NO confetti and NO floating debris anywhere in the frame at any
 moment. He stays up — NOT a slow topple — and ends at the starting stance. Empty air only.
+
+## hit (stagger — v4, NO CAUSAL LANGUAGE, EMPTY-BACKGROUND LOCK)
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one
+hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed
+at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly
+visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never
+appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final
+frame. RECOIL MOTION: his head and armored torso SNAP backward from the waist in ONE short sharp jolt and
+then immediately come straight back to the starting stance, like a man absorbing a shove and instantly
+recovering his balance. THE JOLT IS SMALL AND QUICK: his head and shoulders travel back only a SHORT
+distance — he does NOT bend over backwards, does NOT arch into a deep backbend or a limbo, his head NEVER
+drops below the height of his own shoulders, and he is upright again almost immediately. HIS FEET STAY
+PLANTED ON THE SPOT and he stays CENTERED exactly where he starts — he NEVER slides, steps, stumbles or
+drifts sideways and NEVER moves more than HALF A BODY-WIDTH from where he starts. THE GREEN BACKGROUND
+AROUND HIM STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE CLIP: the flat green area on all four sides
+of him is PURE EMPTY GREEN in every single frame, and NOTHING is ever visible in it — no object, no shape,
+no blur, no streak, no smear, no shadow and no motion of any kind ever appears in the green, and nothing
+ever enters, touches or crosses the top, bottom, left or right edge of the picture. The ONLY things
+visible anywhere in the entire frame, in every frame, are his own body, his own war-fan and his own short
+sword. The white paper talismans hanging from his hat brim STAY FIRMLY ATTACHED TO THE HAT at all times —
+they may swing and flutter on their strings, but they NEVER tear off, NEVER detach and NEVER fly away,
+and there are NO loose paper scraps, NO torn paper, NO confetti and NO floating debris anywhere at any
+moment. He stays up — NOT a slow topple — and ends at the starting stance.
