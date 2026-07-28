@@ -152,3 +152,34 @@ touches or crosses the top, bottom, left or right edge of the picture. He begins
 but ends collapsed on the ground, motionless, and does NOT return to standing. He stays in side profile
 facing screen-right throughout, and his dropped fan, sword and hat all come to rest WELL INSIDE the
 frame with a clear margin from every edge.
+
+## victory (imperial fan snap — v1r, EMPTY-BACKGROUND LOCK PRE-APPLIED)
+# Not a re-roll: first victory fire, pre-hardened like ko. The base body's locks (start pose, fan below
+# the hat brim, strict side profile, crimson colour) are all KEPT verbatim — they are what stopped the
+# fan-morph and front-turn defects elsewhere in this kit. The only change is that the closing
+# enumerated ban ("Alone, no opponent") is replaced by the positive whole-frame constraint that fixed
+# hit v4. A VICTORY state is a strong candidate for inventing celebratory particles — confetti, petals,
+# sparks, banners, energy — and the enumeration would not cover any of those, since none of them is an
+# "opponent". The positive form closes all of it at once.
+THE VERY FIRST FRAME IS THE EXACT REFERENCE STANCE: he already stands in strict side profile with the
+large deep-crimson hex-bordered war-fan HELD OPEN AND RAISED beside his chest at about head height in one
+hand — NOT lowered, NOT down at his hip, NOT at his waist — and the short black-bladed sword held reversed
+at his hip in the other, matching the reference image pose EXACTLY. Both weapons stay present and clearly
+visible in EVERY SINGLE FRAME including the first and the last, never absent, never stowed, never
+appearing out of nowhere, and he RETURNS to that EXACT same raised-fan reference stance in the final
+frame. VICTORY TAUNT: he SNAPS the great war-fan fully open with a flourish and raises it beside his oni
+face, keeping the TOP EDGE OF THE FAN BELOW HIS HAT BRIM AT ALL TIMES and never letting any part of it
+pass above the hat, striking one slow imperial pose as the talismans settle, his fanged grin widening,
+then he lowers it back into the EXACT starting stance. The pose is struck IN STRICT SIDE PROFILE: his
+near shoulder stays IN FRONT OF his far shoulder, his chest NEVER opens toward the camera, his feet stay
+IN LINE both pointing SCREEN-RIGHT, and he NEVER squares up or spreads both arms into a frontal victory
+pose; his silhouette stays NARROW and is NEVER wider than it is tall. Through the flourish and the hold
+the war-fan stays the SAME solid DEEP CRIMSON fan with its gold hexagon-cut border and NEVER turns pale,
+white, grey, silver or feathered. HIS FEET STAY PLANTED ON THE SPOT and he stays CENTERED exactly where
+he starts, never sliding, stepping or drifting sideways across the frame. THE GREEN BACKGROUND AROUND HIM
+STAYS COMPLETELY EMPTY AND UNBROKEN FOR THE ENTIRE CLIP: the ONLY things visible anywhere in the frame,
+in every frame, are HIS OWN body, HIS OWN war-fan and HIS OWN short sword. No other person, no figure, no
+object, no shape, no blur, no streak, no smear, no shadow, and NO celebratory effect of any kind — no
+confetti, no petals, no sparks, no embers, no glow, no energy, no banner and no falling paper — ever
+appears in the green, and NOTHING ever enters, touches or crosses the top, bottom, left or right edge of
+the picture.
