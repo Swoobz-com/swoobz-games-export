@@ -100,7 +100,7 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // Tim's ruling (2026-07-22): the finalboss art IS the final boss - IR-48 HEX PAPER LORD is the
   // name; the lore line follows the other nodes' register. RONIN ZERO stays as the SEASON brand
   // (map header), not the boss identity.
-  { id: 10, name: 'ZERO CITADEL', title: 'Lord of the Zero Citadel', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'volta', arenaId: 'sanctum', enemy: { id: 'ir48-hex-paper-lord', name: 'IR-48 HEX PAPER LORD' } },
+  { id: 10, name: 'ZERO CITADEL', title: 'Lord of the Zero Citadel', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'ir48-hex-paper-lord', arenaId: 'sanctum', enemy: { id: 'ir48-hex-paper-lord', name: 'IR-48 HEX PAPER LORD' } },
 ];
 
 /** The number of nodes in the campaign (frontier bookkeeping + persistence array length). */

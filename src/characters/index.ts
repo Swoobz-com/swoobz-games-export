@@ -7,6 +7,7 @@ import { ECLIPSE_OFUDA } from './eclipse-ofuda';
 import { GORVAK } from './gorvak';
 import { HOLLOW_PALE } from './hollow-pale';
 import { IR37_PINK_TESSEN } from './ir37-pink-tessen';
+import { IR48_HEX_PAPER_LORD } from './ir48-hex-paper-lord';
 import { IR56_LION_SERPENT } from './ir56-lion-serpent';
 import { LADY_KUROTACHI } from './lady-kurotachi';
 import { SATOSHI_ODACHI } from './satoshi-odachi';
@@ -27,6 +28,7 @@ export const FIGHTERS: Record<string, FighterDef> = {
   volta: VOLTA,
   'satoshi-odachi': SATOSHI_ODACHI,
   'ir37-pink-tessen': IR37_PINK_TESSEN,
+  'ir48-hex-paper-lord': IR48_HEX_PAPER_LORD,
   'ir56-lion-serpent': IR56_LION_SERPENT,
   'eclipse-ofuda': ECLIPSE_OFUDA,
   'lady-kurotachi': LADY_KUROTACHI,
