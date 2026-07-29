@@ -253,3 +253,42 @@ CARRY THESE FORWARD from the ir37 re-roll (do NOT rediscover them — they cost 
 
 ## attack_block v2 (ACTING LINE, phase 53) - parry at CHEST height, counter DOWNWARD, ends facing right
 BLOCK-COUNTER (parry into a downward counter): she begins in the EXACT reference stance in strict side profile facing screen-right; she brings the katana ACROSS the front of her body into a hard braced parry held at CHEST height, her weight settling onto her back leg as she absorbs the pressure, and one or two white paper ofuda talismans tear loose from her hat brim and flutter down beside her; then she drives forward off that leg and cuts back with one short DIAGONAL DOWNWARD counter slash across her body, then flows in one eased motion back into the EXACT same reference stance, still facing screen-right. Braced, precise, lethal. She NEVER raises the katana above her own shoulder and NEVER lifts it overhead - the parry is held across her CHEST and the counter travels DOWNWARD and across only.
+
+## attack_strike v2 (ACTING LINE, phase 53) - diagonal DOWNWARD draw-cut, katana point-down at both ends
+STRIKE (diagonal draw-cut): she begins in the EXACT reference stance in strict side profile facing screen-right, katana held point-down in front of her exactly as in the reference; she COILS down onto her back leg, then drives forward and carves the katana in one fast committed DIAGONAL cut DOWNWARD and ACROSS the front of her body, hips and shoulders following the blade through with real follow-through, and one or two white paper ofuda talismans tear loose from her hat brim and flutter down beside her; she settles her weight and flows in one eased motion back into the EXACT same reference stance, katana point-down again, still facing screen-right. Fast, precise, lethal. She NEVER raises the katana above her own shoulder and NEVER lifts it overhead - the cut travels DOWNWARD and across only.
+
+## ★★ ECLIPSE v3 LESSON — "drives forward off that leg" MAKES HER LEAP (phase 53)
+attack_block v2 RESULT: the acting fix landed FIRST TRY, which validates carrying the ir37 lessons
+across — anchor-lock f0 **0.939** / fLast **0.938** (v1 was 0.771 / **0.244**) and turn gate **0/97**
+(v1 was an 18-frame run at gain 0.748). Plate retention 0.00%/0.00%. The ofuda signature beat reads.
+BUT containment failed TOP 104px / RIGHT 66px / LEFT 10px, and VIEWING it explains why: at f50 she has
+**LEAPT INTO THE AIR** — both feet off the ground, hat clipped by the top of frame. The overrun pixels
+are rgb(13,15,0), i.e. her black hat brim. She also extends the katana to FULL ARM'S REACH toward the
+right edge at f24-f40.
+ROOT CAUSE IS MY OWN WORDING: "she drives forward off that leg". For this model that phrase reads as a
+JUMP, not a weight transfer. With only 140px of headroom, a leap is guaranteed to clip her hat.
+BINDING FOR EVERY REMAINING ECLIPSE CLIP (and worth carrying to the rest of the roster): add an
+explicit PLANTED clause — "her feet stay flat on the ground at ALL times; she never jumps, never leaps,
+never hops and never lifts both feet off the ground" — and bound the blade's REACH, not just its
+height, because a long katana at full extension eats the side margin the same way ir37's fan did.
+NOTE: attack_strike v2 was already fired with the same "drives forward" phrasing before this was
+diagnosed, so expect the same leap there and re-roll it with the planted clause.
+
+## attack_strike v2 RESULT + v3 (spanPeak 2.15 — a LUNGE, not a leap)
+CORRECTION to my own prediction: I expected strike v2 to LEAP like block v2 did, since it carried the
+same "drives forward" phrasing. It did NOT — zero TOP overrun. The failure mode is different.
+v2 measures: f0 **0.909** (v1 was 0.719, so the start improved) but fLast **0.502** — she does not
+return to the anchor. Turn gate: no turns. Plate 0.00%/0.00%. Containment only LEFT 18px / RIGHT 14px.
+THE NUMBER THAT EXPLAINS IT: body-commitment **spanPeak 2.15**, travel 176px. Her silhouette MORE THAN
+DOUBLES in width — she throws a big lunging cut. That breaks the HARD RULE spanPeak <= ~1.60 and it
+explains all three symptoms at once: the widening eats both side margins (LEFT+RIGHT), and a lunge that
+big cannot settle back to the anchor inside 4s (fLast 0.502).
+This is the IR-48 special_1 arithmetic again in a different costume: a lunge WIDENS the silhouette
+rather than translating it, so it consumes margin on BOTH sides simultaneously.
+v3: keep v2's start (0.909 is good), add the PLANTED clause, and bound the SPAN explicitly rather than
+only the height/reach — "she never spreads wider than about one and a half times her standing width".
+Same acting as v2 with these inserted: "HER FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - she
+never jumps, never leaps, never hops and never lunges out into a wide stance; she keeps her stance
+narrow and never spreads wider than about one and a half times her standing width. ... she settles in
+one eased motion back into the EXACT same reference stance, katana point-down again - and the clip ENDS
+standing exactly as it began."
