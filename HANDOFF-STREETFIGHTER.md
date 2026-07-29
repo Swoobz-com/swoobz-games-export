@@ -1,11 +1,260 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-> **READ THIS FIRST — everything below this box is PROVENANCE, most of it STALE.**
-> Current state as of **session 12, 2026-07-28**: HEAD **`7d50e4a`**, `npx vitest run` = **157/157**,
-> `npx tsc --noEmit` clean, `src/` untouched this whole session. **The IR-48 HEX PAPER LORD final-boss
-> clip kit is COMPLETE at 13/13 accepted, and is NOT keyed, NOT encoded and NOT wired — deliberately.**
-> **Jump to "★★★ OPUS 5 — START HERE (SESSION 12)" immediately below** and start there. The SESSION 10
-> block and everything under it is history.
+> **READ THIS FIRST — everything below the SESSION 13 block is PROVENANCE, most of it STALE.**
+> Current state as of **session 13, 2026-07-29**: HEAD **`64942b0`**, `npx vitest run` = **157/157**,
+> `npx tsc --noEmit` clean, **`src/` byte-untouched across sessions 8-13** (six sessions of asset work
+> with zero engine risk). **IR-48 is 12 of 13 clips keyed + encoded + gate-verified; `special_3` v6 is
+> harvested and gated but NOT yet viewed/keyed.** Node 10 still shows VOLTA.
+> **Jump to "★★★★ OPUS 5 — START HERE (SESSION 13)" immediately below.** The SESSION 12 block and
+> everything under it is history.
+
+## ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 13, written 2026-07-29) ★★★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the
+BROWSER on Higgsfield Unlimited = **ZERO CREDITS**; MCP `generate_video` always bills 2418/clip and
+is a DIFFERENT account that cannot even see these fires. Re-run every gate yourself, VIEW the frames
+at FULL SIZE, never accept a self-report — including your own numbers (this session had three
+separate cases of a gate confidently reporting the wrong thing; see §3).
+
+---
+
+## 0. WHAT CHANGED THIS SESSION — the one-screen version
+
+Tim, on the finished 13/13 IR-48 kit: **"all specials from final boss look super super boring."**
+He was right, it was measurable, and chasing it exposed a whole family of defects the pipeline
+structurally could not see. 19 commits, `35fae8b`..`64942b0`.
+
+| shipped | state |
+|---|---|
+| IR-48 `special_1`, `special_2` + the 10 ordinary clips | keyed, encoded, gate-verified, committed |
+| IR-48 `special_3` v6 | harvested + gated CLEAN, **not yet viewed or keyed** |
+| 5 new gates | body-commitment, plate-retention, anchor-lock, cal re-derivation, + a build-prompt bug fix |
+| `PRODUCT.md` + `DESIGN.md` + `.impeccable/design.json` | written via /impeccable init + document |
+| Tim's node-7 bug | root-caused and measured, **not yet fixed** |
+
+---
+
+## 1. THE FIVE LEARNINGS THAT MATTER MOST
+
+### 1.1 A suite of DEFECT-ONLY gates converges on BORING
+containment asks "does anything cross an edge", front-turn asks "does he rotate", extra-objects asks
+"did something detach". **All three pass PERFECTLY on a clip where nothing happens** — a still frame
+is the most containable, most side-profile, most single-blob output obtainable. So session 12's loop,
+which fixed every reject by DELETING motion, converged on the most boring clip that passes. The
+prompts literally ended up saying *"Only his wrist moves"* and *"HIS FEET STAY PLANTED ON THE SPOT"*.
+**Ask of any QA suite: "would an asset where nothing happens pass all of this?"** Global memory:
+`~/.claude/memory/defect-gates-converge-on-boring.md`.
+
+### 1.2 The side-profile lock only ever banned the WRONG AXIS
+"Strict side profile" forbids TRANSVERSE motion (chest rotating to camera). It never had anything to
+say about SAGITTAL motion — lunging, striding, sinking. Sagittal is what a side view renders BEST.
+~30 cycles were spent obeying a constraint that was never there. Proof it costs nothing: `throw_a`
+runs 174px travel at minIoU 0.114 and still anchor-locks at 0.9931.
+
+### 1.3 NAME THE MATERIAL, NOT THE ADJECTIVE
+`special_2` v3's prompt said *"thick, dense, OPAQUE ... NEVER see-through"* and the model produced a
+translucent gas flame anyway — which is **unkeyable on green** (10.45% retained plate raw; neutralize
+then washes the fire to speckled cream; no setting wins, because translucent orange over green blends
+to a muddy yellow-green genuinely indistinguishable from spill). Recast as **BURNING PAPER** — a solid
+material — and it dropped to 3.30% raw / 0.69% olive with the effect intact. **Every effect must be
+specified as a solid material doing something** (burning paper, flying chips, kicked grit, shed bone,
+a glowing metal edge), never as flame/glow/mist/aura. This is HARD CONSTRAINT 3 in
+`qa-boss/SIGNATURE-BEAT-PLAN.md` and binds every remaining roster clip.
+
+### 1.4 A lunge WIDENS the silhouette, it does not translate it
+I wrote (and committed) a note claiming "239px spare each side, so a full forward lunge is safe". That
+treats a lunge as translation. The back foot travels back as far as the front foot travels forward:
+anchor 483px wide, at spanPeak 2.00 that is **966px in a 960px frame — cannot fit**. `special_1` v5
+and v6 were geometrically doomed before the wording mattered. **HARD RULE: spanPeak <= ~1.60, bounded
+IN THE PROMPT.** And: when a gate fails twice on the same edge with different wording, stop rewriting
+prose and go check the arithmetic.
+
+### 1.5 The BOTTOM EDGE IS FREE
+`check-containment.mjs` treats bottom contact as expected (feet on the floor line) and never counts it.
+Top headroom is only 88px. So **ground-hugging effects buy drama at zero containment cost** — dust
+shockwaves, ground cracks, erupting thorns, a low tail-lash. Several beats in the signature plan are
+deliberately built on this.
+
+---
+
+## 2. TIM'S TWO STANDING RULES (both in global memory, both binding)
+
+1. **EVERY clip gets a signature beat** — `~/.claude/memory/every-clip-gets-a-signature-beat.md`.
+   *"whenever we generated a attack or special attack we should also add something more unique for
+   normal attacks"* and *"continue till everyone has something unique special with effect"*. Finishers
+   get a distinct character-derived effect AND full body commitment; strikes/throws get a smaller
+   signature too (edge-glow, trailing charm, dust scuff). A plain effect-free swing is not acceptable
+   output. The goal is DIFFERENTIATION between characters — the effect must come from that fighter's
+   own arsenal and palette. Budget it into the brief BEFORE firing; retro-fitting costs a full cycle.
+2. **v5/v6 of `special_1` are the approved LOOK.** Tim viewed them in Higgsfield: *"the last two
+   special attacks look WAY cooler like this is perfect."* When a gate score and that look conflict,
+   the look wins — see §3.2.
+
+---
+
+## 3. THE GATES LIED THREE TIMES. VERIFY THE VERIFIER.
+
+### 3.1 A gate can be a TAUTOLOGY
+`check-plate-retention` run AFTER `green-neutralize` always reads 0.00%, because neutralize forces
+`g <= max(r,b)` by construction. **Run it BEFORE neutralize.** The post-run number proves nothing.
+
+### 3.2 A gate can be BLIND to the axis you asked for
+`minIoU` bbox-NORMALISES before comparing, which divides out scale — and a crouch's entire signal IS
+the height change. `special_2` v5 collapses to 57% of standing height (42.7% drop, head sinking 352px)
+and still scored 0.363 = "barely leaves the anchor pose". **I fired a whole cycle chasing a number
+that could not see the thing I had asked for.** `dropPct` now exists; for any sinking/kneeling action
+judge on that, not minIoU. Reference: idle 1.0% · a static "finisher" 1.9% · a real crouch 30-43%.
+
+### 3.3 A RELATIVE gate reports agreement with its REFERENCE, not correctness
+The new anchor-lock gate flagged **all 13** lady-kurotachi clips. The tell was near-identical scores
+(0.375-0.387) across completely different animations. Cross-checked her clips against EACH OTHER:
+median IoU **0.932**, a perfectly healthy kit. **HER IDLE IS THE OUTLIER.** I nearly filed 12 false
+defects. The gate now carries a DEGENERATE-ANCHOR SELF-CHECK that refuses to judge a kit when the
+action clips agree among themselves but the anchor disagrees with all of them. **This is the same trap
+session 9 hit with eclipse's still. It will recur. Assume it.**
+
+**Also: `check-containment.mjs` processes ONE argument.** Passing a glob prints "scanned 1 | clean 1"
+and silently ignores the rest. Loop one file at a time or you are reporting a pass for unexamined clips.
+
+---
+
+## 4. TIM'S LIVE BUG — node 7, NOT YET FIXED (do this early)
+
+Tim, playing: *"the 7 map boss when she get hit her model turns because she get hit in the back and
+then turns back."* Confirmed and measured.
+
+`ir37-pink-tessen/hit.webm` **starts hunched with her back to camera** while every other clip in her
+kit starts in a right-facing profile, so the `idle -> hit` crossfade rotates her away, she takes the
+hit in the back, and rotates home. `hit` fires nearly every exchange = the most-seen animation in the
+game.
+
+```
+hit          f0 0.333 / last 0.136   snaps IN and OUT
+strike-b     f0 0.489                snaps in, recovers
+victory      f0 0.373 / last 0.374   never on anchor
+other 10     0.93-0.96               healthy
+```
+
+**NOT TRIMMABLE** — no frame anywhere in `hit` reaches 0.90 against her anchor (max 0.353). It needs
+a re-roll. And note the phase-26 "facing fix" hflipped this clip: that corrected which SIDE she faced
+and never touched the pose. **A mirror fix cannot fix a wrong start pose.**
+
+Roster anchor-lock sweep (`node qa-boss/check-anchor-lock.mjs <clipDir>`):
+- **clean:** ir56-lion-serpent, sora-yari, thorn-warden
+- **genuine breaks:** hollow-pale `special-b` 0.231 · eclipse `attack-block` 0.779 / `attack-strike`
+  0.729 · ir37 the three above · satoshi `attack-strike-b` 0.885 (mild)
+- **lady-kurotachi:** gate REFUSES — her idle is the outlier, needs a human decision (§6)
+
+---
+
+## 5. WHAT TO DO NEXT, IN ORDER
+
+1. **VIEW `special_3` v6 at full size**, then key + encode it. Already harvested to
+   `qa-boss/raw/ir48-hex-paper-lord-special-3-v6.mp4` and gated: minIoU 0.171, **duty 19% -> 79%**
+   (the duration fix worked), drop 24%, containment CLEAN. Pipeline of record:
+   `extract -> key-idle-clips --still -> check-plate-retention (BEFORE) -> green-neutralize <dir> 4
+   -> edge-feather only where an edge overruns -> ffmpeg VP9 yuva420p crf30 -auto-alt-ref 0`.
+2. **Write `src/characters/ir48-hex-paper-lord.ts`.** Template = `src/characters/ir56-lion-serpent.ts`.
+   - **cal: use `node qa-boss/rederive-cal.mjs <finalFramesDir> <still> --emitted <json>`, NOT the
+     keyer's emitted value.** 7 of 10 drifted ~0.25 because neutralize deletes pixels after the cal
+     was computed. Contract §4 (never hand-derived) still holds — this re-derives with the keyer's
+     own math.
+   - **contacts: the argmax is often the RECOVERY.** Frame-inspect every one. Already found and
+     overridden: `throw_b` f73 -> **f46 (1917ms)**, `block_a` f66 -> **f52 (2167ms)**, `special_2`
+     f84 -> **f40 (1667ms)**. Measured-good: strike_a 1667, strike_b 1500, throw_a 1833, block_b 2583.
+3. **Flip node 10 off volta** — one field, `src/engine/fightCampaign.ts:103`
+   `fighterId: 'volta'` -> `'ir48-hex-paper-lord'`. Then live-drive node 10 and commit.
+4. **Re-roll ir37 `hit`** (§4). Highest-value single clip in the game.
+5. **Anchor-lock repairs** (5 clips, §4). Cheaper than new effects — they only need to start and end
+   on the anchor.
+6. **The 12 "more sick" specials**, worst first: satoshi `special` (0.645/20px/**0% duty** — a static
+   hold with a 2-frame blob flash, worse than IR-48's was), eclipse `special-b`, hollow-pale
+   `special-c`, ir56 `special`, then the rest. Per-character effects are already specced in
+   `qa-boss/SIGNATURE-BEAT-PLAN.md` from each fighter's DECLARED arsenal — satoshi's ground dust
+   shockwave, **ir56's serpent tail (unique in the roster and currently unused)**, hollow-pale's bone
+   feather-shed, thorn's erupting ground-thorns, LK's crimson rings.
+7. **3 flagged strikes:** sora `attack-strike` + `attack-strike-b`, satoshi `attack-strike`.
+
+**Volume: 23 distinct clips, 0 credits, ~30-50h of render** at current times (renders slowed from
+~25min to ~60min during this session). The three constraints in §1 are banked, so expect ~2 fires/clip
+rather than IR-48's 3.5.
+
+---
+
+## 6. STILL OPEN FOR TIM — do NOT decide these unilaterally
+
+- **lady-kurotachi's anchor.** Her 12 action clips agree at 0.932; her `idle` disagrees with all of
+  them. Which pose is her true anchor? This is a decision, not a re-roll — and it is ONE clip either
+  way, not 13.
+- **ir37 `victory` (0.373).** May be an intentional distinct celebration stance rather than a snap.
+  View it with him before re-rolling.
+- **kitsune node 2** — still 0 wired clips, blocked on the baked-in tanto glow. Asked since session 8,
+  never answered. Blocks a whole node.
+- **hollow-pale `attack_throw` Take A** — ship the back-turn for 2-take variety, or keep it pulled?
+- **Delete the dead `qa-boss/prompts/onryo-katana.md`?** `check-prompt-coherence.mjs:129` globs the
+  prompts dir, so it emits a phantom BLOCK that holds the gate at exit 1 for a dead identity.
+- **`input/MK FINAL/` scope** (153 characters, 214 backgrounds).
+
+---
+
+## 7. TOOLING BUILT THIS SESSION (all committed, use them)
+
+| tool | what it catches |
+|---|---|
+| `qa-boss/check-body-commitment.mjs` | "boring". minIoU / travel / **duty cycle** / spanPeak / **dropPct**. Reads raw mp4 AND keyed webm. Floor is the character's OWN ordinary attacks. idle/ko exempt. |
+| `qa-boss/check-plate-retention.mjs` | backdrop surviving INSIDE the silhouette, + the neutralizer's own **olive (r==g)** artifact. **Run BEFORE neutralize.** Must test the clip's OWN plate (ir56 is magenta). |
+| `qa-boss/check-anchor-lock.mjs` | clips that start/end off the kit anchor = a visible SNAP on crossfade. Carries the degenerate-anchor self-check. |
+| `qa-boss/rederive-cal.mjs` | cal drift introduced by post-key passes. |
+| `qa-boss/SIGNATURE-BEAT-PLAN.md` | the per-character effect worklist + the 3 hard constraints. |
+| `qa-boss/preview.html` + `serve-preview.mjs` | review surface on :5341; resolves each clip's `accepted` version, not the v1 reject. |
+
+**`build-prompt.mjs` BUG FIXED (`fd09ac6`):** it matched the literal `SPECIAL add-on:`, but
+satoshi-odachi.md and eclipse-ofuda.md head theirs `SPECIAL suffix add-on (...)`. It returned ''
+SILENTLY, so **both characters' specials were built with NO add-on at all** and Tim's contain-in-frame
+rule was dropped from every special they ever fired. satoshi carries 5 containment BLOCKs; very likely
+related. Now matched by regex and it WARNS when a prompt file has no add-on (kitsune/onryo/sora/thorn
+have none — sora and thorn need one before any special is fired for them).
+
+**Keying pipeline of record.** `green-neutralize <dir> 4` — **not** the default HARD=32. At 32 it
+leaves 7% of pixels at exactly r==g, which renders as sickly OLIVE; I shipped special_1 that way,
+reported it clean off a downscaled composite, and only caught it at 3x zoom. At HARD=4 those pixels
+become transparent (correct — they were mostly backdrop): olive 7.02% -> 1.06%, residual green 0.00%.
+
+---
+
+## 8. DESIGN DOCS (new this session)
+
+`PRODUCT.md` — product truth, confirmed with Tim: **real-money** Swoobz Originals title (RTP/CSPRNG/
+RG-C5 are load-bearing, not decorative); positioning is **the conquest ladder** (ten hand-built,
+independently priced bosses — progression IS the product); **mobile and desktop equally primary**, a
+deliberate divergence from the rest of the catalogue.
+
+`DESIGN.md` + `.impeccable/design.json` — the incumbent visual system. North Star **"Arcade Cabinet in
+a Dark Room"**. The defining finding: **the UI has NO media queries at all** — every dimension is in
+`--sw`/`--sh` (hundredths of an aspect-locked stage box set by a ResizeObserver), which is how both
+surfaces are primary. Ten Named Rules extracted from the code's own comments (the Cover-Plate Law, the
+No-Stroke Rule, the OLED Bloom Rule, the Mirrored Lean Rule).
+
+---
+
+## 9. STANDING CONSTRAINTS (unchanged, still binding)
+
+- Skip **everything** RONIN ZERO VENDING MACHINE — `pack-machine/` stays untracked and unworked.
+- `input/progressivemap.jpg` is ANOTHER GAME'S map, reference-only, never ship or commit it.
+- Never re-add facing rules to the global slot skills — STANDOFF-only, lives in
+  `.claude/skills/standoff-clip-facing/SKILL.md`.
+- Raws stay untracked in `qa-boss/raw/`; keyed webms in `qa-boss/webm/` are committed.
+- **Harvest by scanning the DOM for `hf_<UTC>_<uuid>` ids, not by clicking a card's play button** —
+  clicking now raises a "Confirm rights" terms dialog, which must NOT be accepted on Tim's behalf.
+- The Unlimited toggle **resets to `Generate2418` on every reload**. Re-arm and assert
+  `label === 'GenerateUnlimited'` in the SAME JS task as the click. This blocked 2 billed fires.
+- Dev server: `npm run dev` on **5340 strictPort**. Kill only PIDs whose command line points at THIS
+  folder.
+
+
+---
+
+# PROVENANCE — everything below is HISTORY (sessions 8-12)
 
 Branded **STANDOFF** (Tim's pick 2026-07-20, over CLASH / DUEL ZERO / THROWDOWN; was
 working title Frozen Requiem). Folder `streetfighter/` (own git repo inside the
@@ -41,7 +290,7 @@ reopens it.
 
 ## PHASE 23 — BOSS CHARACTER CLIP GENERATION (IN PROGRESS, RESUME HERE)
 
-### ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 12, written 2026-07-28 ~23:00; SUPERSEDES every START-HERE block below) ★★★★★★★★★★
+### ★★★ (SUPERSEDED by SESSION 13) OPUS 5 — SESSION 12, written 2026-07-28 ★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** HEAD `7d50e4a`. `src/` is
 byte-untouched this session; tsc clean; vitest 157/157 (verified, not assumed, immediately before
