@@ -70,16 +70,36 @@ export const IR37_PINK_TESSEN: FighterDef = {
       },
     ],
     hit: {
-      // Sharp head/torso whip-back stagger, resolves quickly back to guard, stays on feet.
-      // FACING FIX (phase 26): this take was generated MIRRORED (faced screen-LEFT while the rest of
-      // the kit + the still face RIGHT), so it rendered facing away from the opponent in BOTH slots.
-      // Re-keyed from qa-boss/raw/ir37-hit.mp4 with hflip applied at the FRAME level before the key
-      // (no extra generation), same pink-safe keyer, then the same f0-f11 head-trim (phase 24j rocket).
-      // cal is the keyer-EMITTED value for the flipped frames: h/bottom unchanged (a horizontal flip
-      // touches neither), left 55.96 -> 44.04 (= 100 - 55.96, the mirror about the still's content
-      // centre at 50%), which holds her at the same stage x. contacts unaffected (timings).
+      // Front-facing recoil: her head snaps back and her chest caves as she gives a short half-step,
+      // the war-fan pulled TIGHT across her chest, shedding solid hot-pink lotus petals that drift
+      // down; she catches her balance and flows back to the anchor. She takes it in the CHEST and
+      // FACE — never the back.
+      //
+      // RE-ROLLED (phase 53, v6). THIS IS TIM'S NODE-7 BUG: *"the 7 map boss when she get hit her
+      // model turns because she get hit in the back and then turns back."* `hit` fires nearly every
+      // exchange, so it was the most-seen animation in the game. Measured on the old clip: f0 0.324 /
+      // fLast 0.132 against her idle anchor, no frame anywhere reaching 0.90 (max 0.347), and
+      // qa-boss/check-turn.mjs flagged a 28-frame run at gain 0.861. NOT fixable without a re-roll:
+      // hflipping it gives fLast 0.993 but f0 0.174, i.e. the START pose is wrong in BOTH
+      // orientations — which is why the phase-26 hflip (recorded in the comment this replaces)
+      // corrected which SIDE she faced and could never fix the pose.
+      // v6 measures: containment CLEAN, plate retention 0.00%/0.00%, turn gate 0/97, anchor-lock
+      // f0 0.992 / fLast 0.989, body-commitment minIoU 0.227 / travel 76 / 68% strong / spanPeak 1.19.
+      //
+      // Six rolls, and the two that mattered are recorded in qa-boss/prompts/ir37-pink-tessen.md:
+      //  - v2..v4 all baked an IMPACT STREAK flying in from off-frame. That is a contract §7 violation
+      //    as well as a containment one — the engine draws its own frost ring / hitspark / "-1"
+      //    floater, so a baked beam DOUBLE-RENDERS the hit. An explicit "NO flash, NO beam, NO streak"
+      //    negative block did NOT remove it (86px -> 24px, still there). Naming the blow summons the
+      //    thing that delivers it; v5's CAUSE-FREE rewrite (direction encoded in the recoil, the
+      //    striking thing never referred to at all) killed it on the first try. This is exactly the
+      //    phase-12 KO PROMPT LAW, generalised from ko to hit.
+      //  - the fan then oscillated between edges (v2 LEFT 216px when it swung back, v3's "fan stays
+      //    FORWARD and HIGH" fix causing RIGHT 96px) until the ★ IR37 FRAME BUDGET explained it: she
+      //    has 206px/208px of side margin against a ~250px fan, so the fan can never leave her body.
+      // cal RE-DERIVED from the shipped webm (drift 0.13 vs keyer-emitted = a match).
       url: 'assets/characters/ir37-pink-tessen/hit.webm',
-      cal: { h: 102.92, bottom: -0.49, left: 44.04 },
+      cal: { h: 107.06, bottom: -3.65, left: 51.95 },
     },
     // Contract §11: the signature FINISHER — plays automatically on a round-ending win. Three takes,
     // one chosen uniform-random per exchange. The pink/white bloom is baked into the body (sanctioned
