@@ -124,3 +124,44 @@ SPECIAL FINISHER (crescent fan cut): she makes one fast compact vertical cut wit
 and central, leaving a SHORT thin hot-pink-and-white crescent trail that stays vertical and central and
 never swings out sideways, then snaps back. The trail is HOT PINK and WHITE, NEVER green, short and thin,
 centered with a wide green margin on all four edges.
+
+---
+
+## hit v2 (ANCHOR-LOCK + FACING re-roll — supersedes v1)  [session 14, 2026-07-29]
+WHY: Tim, playing node 7 — *"the 7 map boss when she get hit her model turns because she get hit in
+the back and then turns back."* Measured: v1 `hit` f0 0.324 / fLast 0.132 against her idle anchor, and
+NO frame anywhere in the clip reaches 0.90 (max 0.347), so it is not trimmable. The new turn gate
+(`qa-boss/check-turn.mjs`) confirms the mechanism: mirroring the clip's own frames AGREES with the
+anchor far better than the frames as-is (worst gain 0.861, a 28-frame run), i.e. she is genuinely
+facing the wrong way for most of the clip. HFLIP alone does NOT fix it — flipped f0 is 0.174, so the
+START pose is wrong in BOTH orientations. It needs a re-roll. `hit` fires nearly every exchange, so
+this is the most-seen animation in the game.
+THE FIX in this prompt, beyond the v1 wording: (a) the blow is given a DIRECTION — it arrives from
+SCREEN-RIGHT, the side she already faces, so there is no reason for the model to rotate her; (b) an
+explicit never-show-the-back clause, because the v1 suffix only banned rotating TOWARD camera and she
+rotated AWAY; (c) first frame == last frame == the exact reference stance, stated as its own sentence;
+(d) a spanPeak bound (<= ~1.5x standing width) so the stagger cannot widen her out of frame; (e) her
+signature beat — the war-fan SNAPPING half-shut on impact and open again on recovery, shedding solid
+hot-pink lotus PETALS (a SOLID MATERIAL per HARD CONSTRAINT 3, never a glow/flare, which is unkeyable
+on green).
+HIT REACTION (blow from the front): she begins in the EXACT reference stance in strict side profile
+facing screen-right; an unseen blow arrives from SCREEN-RIGHT, the direction she is already facing,
+and slams into her chest and helmet - her head snaps back and her shoulders and torso fold backward
+toward screen-LEFT, her front foot skids back one hard step and her knees buckle, the open war-fan
+SNAPS half shut from the impact and a few solid hot-pink lotus petals shear off its edge and scatter;
+she catches her weight, drives forward off the back foot, SNAPS the fan open again and flows in one
+eased recovery back into the EXACT same reference stance. She is struck in the CHEST and FACE, never
+in the back; she never turns away from the blow.
+
+## victory v2 (ANCHOR-LOCK + FACING re-roll — supersedes v1)  [session 14, 2026-07-29]
+WHY: same defect class, found by the same sweep and NOT previously confirmed — the handoff had this
+one open as "may be an intentional distinct celebration stance". It is not: v1 `victory` is 0.362 f0 /
+0.361 fLast, never reaches 0.90 on any frame, and the turn gate flags a 70-of-97-frame run at gain
+0.861. Visually confirmed at f43 — her idle faces screen-RIGHT with the fan on the right, and in
+`victory` she is facing screen-LEFT with the fan on the left. She is mirrored for most of the clip.
+VICTORY TAUNT (fan flourish): she begins in the EXACT reference stance in strict side profile facing
+screen-right; she sweeps the open war-fan down and across her body and SNAPS it shut with a sharp
+flick, spins it once between her fingers, then SNAPS it wide open again and holds it high in a proud
+flourish as a scatter of solid hot-pink lotus petals lifts off the fan edge and drifts down; the
+dagger stays low in her left hand; she settles back into the EXACT same reference stance. Elegant,
+confident, dangerous - a dancer's finish, not a pose change.
