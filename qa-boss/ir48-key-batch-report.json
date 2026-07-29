@@ -1,0 +1,152 @@
+[
+ {
+  "state": "idle",
+  "bbox": "cal {\"h\":101.94,\"bottom\":-0.49,\"left\":52} -> qa-boss/keyed/ir48-idle.cal.json",
+  "neutralized": true,
+  "greenPre": "3.32",
+  "greenPost": "0.00",
+  "olive": "0.14",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 101.94,
+   "bottom": -0.49,
+   "left": 52
+  },
+  "bytes": 832942
+ },
+ {
+  "state": "strike_a",
+  "bbox": "cal {\"h\":101.7,\"bottom\":-0.49,\"left\":50.06} -> qa-boss/keyed/ir48-strike_a.cal.json",
+  "neutralized": true,
+  "greenPre": "3.38",
+  "greenPost": "0.00",
+  "olive": "0.13",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 101.7,
+   "bottom": -0.49,
+   "left": 50.06
+  },
+  "bytes": 915105
+ },
+ {
+  "state": "strike_b",
+  "bbox": "cal {\"h\":105.34,\"bottom\":-4.13,\"left\":42.42} -> qa-boss/keyed/ir48-strike_b.cal.json",
+  "neutralized": true,
+  "greenPre": "3.43",
+  "greenPost": "0.00",
+  "olive": "0.12",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 105.34,
+   "bottom": -4.13,
+   "left": 42.42
+  },
+  "bytes": 1712819
+ },
+ {
+  "state": "throw_a",
+  "bbox": "cal {\"h\":101.7,\"bottom\":-0.49,\"left\":43.26} -> qa-boss/keyed/ir48-throw_a.cal.json",
+  "neutralized": true,
+  "greenPre": "2.32",
+  "greenPost": "0.00",
+  "olive": "0.05",
+  "edges": "L16 R0 T0",
+  "cal": {
+   "h": 101.7,
+   "bottom": -0.49,
+   "left": 43.26
+  },
+  "bytes": 741571
+ },
+ {
+  "state": "throw_b",
+  "bbox": "cal {\"h\":103.16,\"bottom\":-0.49,\"left\":58.13} -> qa-boss/keyed/ir48-throw_b.cal.json",
+  "neutralized": true,
+  "greenPre": "3.80",
+  "greenPost": "0.00",
+  "olive": "0.14",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 103.16,
+   "bottom": -0.49,
+   "left": 58.13
+  },
+  "bytes": 1233942
+ },
+ {
+  "state": "block_a",
+  "bbox": "cal {\"h\":106.07,\"bottom\":-0.36,\"left\":47.51} -> qa-boss/keyed/ir48-block_a.cal.json",
+  "neutralized": true,
+  "greenPre": "3.09",
+  "greenPost": "0.00",
+  "olive": "0.13",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 106.07,
+   "bottom": -0.36,
+   "left": 47.51
+  },
+  "bytes": 503040
+ },
+ {
+  "state": "block_b",
+  "bbox": "cal {\"h\":100.97,\"bottom\":-0.36,\"left\":51.27} -> qa-boss/keyed/ir48-block_b.cal.json",
+  "neutralized": true,
+  "greenPre": "3.11",
+  "greenPost": "0.00",
+  "olive": "0.12",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 100.97,
+   "bottom": -0.36,
+   "left": 51.27
+  },
+  "bytes": 750226
+ },
+ {
+  "state": "hit",
+  "bbox": "cal {\"h\":103.4,\"bottom\":-0.49,\"left\":40.23} -> qa-boss/keyed/ir48-hit.cal.json",
+  "neutralized": true,
+  "greenPre": "3.45",
+  "greenPost": "0.00",
+  "olive": "0.16",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 103.4,
+   "bottom": -0.49,
+   "left": 40.23
+  },
+  "bytes": 543969
+ },
+ {
+  "state": "ko",
+  "bbox": "cal {\"h\":102.67,\"bottom\":-2.06,\"left\":53.88} -> qa-boss/keyed/ir48-ko.cal.json",
+  "neutralized": true,
+  "greenPre": "3.02",
+  "greenPost": "0.00",
+  "olive": "0.14",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 102.67,
+   "bottom": -2.06,
+   "left": 53.88
+  },
+  "bytes": 1128343
+ },
+ {
+  "state": "victory",
+  "bbox": "cal {\"h\":100.97,\"bottom\":-0.36,\"left\":54.55} -> qa-boss/keyed/ir48-victory.cal.json",
+  "neutralized": true,
+  "greenPre": "2.82",
+  "greenPost": "0.00",
+  "olive": "0.07",
+  "edges": "L0 R0 T0",
+  "cal": {
+   "h": 100.97,
+   "bottom": -0.36,
+   "left": 54.55
+  },
+  "bytes": 686478
+ }
+]
