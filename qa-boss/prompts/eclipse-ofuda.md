@@ -250,3 +250,6 @@ CARRY THESE FORWARD from the ir37 re-roll (do NOT rediscover them — they cost 
      a SOLID MATERIAL, so it satisfies HARD CONSTRAINT 3 as-is (no flame/glow recast needed).
   4. State first frame == last frame as its OWN sentence, and bound the travel so the recovery does
      not carry her out of frame.
+
+## attack_block v2 (ACTING LINE, phase 53) - parry at CHEST height, counter DOWNWARD, ends facing right
+BLOCK-COUNTER (parry into a downward counter): she begins in the EXACT reference stance in strict side profile facing screen-right; she brings the katana ACROSS the front of her body into a hard braced parry held at CHEST height, her weight settling onto her back leg as she absorbs the pressure, and one or two white paper ofuda talismans tear loose from her hat brim and flutter down beside her; then she drives forward off that leg and cuts back with one short DIAGONAL DOWNWARD counter slash across her body, then flows in one eased motion back into the EXACT same reference stance, still facing screen-right. Braced, precise, lethal. She NEVER raises the katana above her own shoulder and NEVER lifts it overhead - the parry is held across her CHEST and the counter travels DOWNWARD and across only.

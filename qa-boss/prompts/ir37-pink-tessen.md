@@ -348,3 +348,17 @@ arm's length in any direction - it never reaches further from her body than it d
 image, on either side. She is ALONE in an empty frame - nothing whatsoever enters, crosses or appears
 in the frame at any time, and there is no light, no flare and no streak anywhere in the shot. Only her
 own body moves.
+
+## attack_strike_b v3 RESULT + v4 (tighten the petal SCATTER — the cleave itself is right)
+v3 measures: anchor-lock f0 **0.993** / fLast **0.993** (v1 was 0.461 f0 — the start snap is FIXED),
+turn gate **0/97 with zero abstentions**, plate retention 0.00%/0.00%, body-commitment minIoU 0.208 /
+travel 84 / 65% strong / spanPeak 1.53 (under the 1.60 rule), drop 17%. The DIAGONAL-DOWNWARD cleave
+solved the start-pose break — the v1/v2 line "whips the war-fan UPWARD" was starting the clip mid-whip
+and fighting her 88px ceiling at the same time.
+ONLY remaining defect: RIGHT 44px @f57-58. Pixel-sampled rgb(147,42,94)/rgb(222,124,178) = PINK, and
+viewed at 2x it is a single LOTUS PETAL drifting past the right edge, NOT the fan. So the fan bound
+worked; the petal SCATTER is too wide. v4 changes only the petal clause: fewer petals, and an explicit
+bound in body-widths rather than the vaguer "close to her body".
+Same acting line as v3, with the petal sentence replaced by: "and only TWO OR THREE solid hot-pink
+lotus petals shear off the fan edge, staying within one body-width of her and drifting DOWNWARD toward
+her feet - they never travel sideways and never come near the left or right edge of the frame."
