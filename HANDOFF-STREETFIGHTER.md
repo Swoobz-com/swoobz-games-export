@@ -1,14 +1,84 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-> **READ THIS FIRST — everything below the SESSION 13 block is PROVENANCE, most of it STALE.**
-> Current state as of **session 13, 2026-07-29**: HEAD **`64942b0`**, `npx vitest run` = **157/157**,
-> `npx tsc --noEmit` clean, **`src/` byte-untouched across sessions 8-13** (six sessions of asset work
-> with zero engine risk). **IR-48 is 12 of 13 clips keyed + encoded + gate-verified; `special_3` v6 is
-> harvested and gated but NOT yet viewed/keyed.** Node 10 still shows VOLTA.
-> **Jump to "★★★★ OPUS 5 — START HERE (SESSION 13)" immediately below.** The SESSION 12 block and
-> everything under it is history.
+> **READ THIS FIRST — everything below the SESSION 14 block is PROVENANCE, most of it STALE.**
+> Current state as of **session 14, 2026-07-29**: HEAD **`0af5d10`**, `npx vitest run` = **157/157**,
+> `npx tsc --noEmit` clean. **IR-48 is 13/13 keyed + encoded + gate-verified + WIRED, and node 10 now
+> renders the real final boss** — the first `src/` change since session 7, live-driven before commit.
+> **Jump to "★★★★ OPUS 5 — START HERE (SESSION 14)" immediately below.** The SESSION 13 block is
+> retained directly under it because its five learnings still bind; everything below THAT is history.
 
-## ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 13, written 2026-07-29) ★★★★★★★★★★
+## ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 14, written 2026-07-29) ★★★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the
+BROWSER on Higgsfield Unlimited = **ZERO CREDITS**. Re-run every gate yourself, VIEW the frames at
+FULL SIZE, never accept a self-report — including your own. Session 13's §3 ("the gates lied three
+times") and §1 (the five learnings) below are STILL BINDING and were load-bearing again this session.
+
+### 0. WHAT SHIPPED THIS SESSION — one commit, `0af5d10` (phase 52)
+
+| shipped | state |
+|---|---|
+| IR-48 `special_3` | viewed, keyed, gate-verified, encoded — **the kit is 13/13** |
+| `src/characters/ir48-hex-paper-lord.ts` + registry | written, all 13 cals re-derived, all contacts frame-inspected |
+| node 10 `fighterId` volta -> ir48-hex-paper-lord | **the final boss is real**, live-driven, money fields byte-identical |
+| `qa-boss/cut-bloom-plate.mjs` | new gate/tool for a NEW defect class (below) |
+| `qa-boss/n10-drive.mjs` | repeatable node-10 wire proof |
+
+### 1. THE NEW DEFECT CLASS — BLOOM-LIT PLATE (this will recur on every emissive effect)
+
+A bright effect **lights the chroma plate around it**. Those brightened plate pixels are far from the
+sampled green, so the distance key KEEPS them; `green-neutralize` then forces `g <= max(r,b)` and
+lands them at `r == g` — a wide **olive halo wrapped around the hero effect**. 3.04% of all visible
+pixels on `special_3`.
+
+**No existing gate caught it.** Global olive% read a passing 0.81%. Plate-retention read 0.00%, which
+is the §3.1 tautology. It is **invisible in a downscaled composite** — I only saw it by compositing
+ONE peak frame over near-black and zooming 2x with nearest-neighbour.
+
+**I got the fix wrong first, and the wrong fix SHIPS.** The halo looks like it wants to be recoloured
+gold, and a warm regrade makes every number go green-free. It is wrong: **the halo is lit BACKDROP,
+not effect**, so tinting it paints the plate and ships a fabricated bloom whose shape tracks the
+plate rather than the blade. **Cut it, never tint it.** The decisive test is to go back to the RAW
+frame — there the effect's true extent is obvious (on IR-48 it was a thin blade line and everything
+around it was plainly plate). Do that BEFORE choosing, because both fixes make the metric go green.
+Global memory: `~/.claude/memory/bloom-lit-plate-survives-the-key.md`.
+
+Pipeline of record is now:
+`extract -> key-idle-clips --still -> check-plate-retention (BEFORE) -> green-neutralize <dir> 4
+ -> cut-bloom-plate <dir> -> edge-feather (only where an edge overruns) -> ffmpeg VP9 yuva420p crf30`
+
+### 2. TWO THINGS THAT WILL BITE THE NEXT WIRE
+
+- **The emitted `<state>.cal.json` files are STALE — all of them.** Every one of IR-48's ten was off
+  by exactly **+0.25 `h` / -0.24 `bottom`**, because neutralize deletes pixels after the cal is
+  computed. Always `node qa-boss/rederive-cal.mjs`. Good news, measured this session: re-deriving
+  from the **shipped webm** is safe — for idle, victory and attack-strike it is BYTE-IDENTICAL to
+  re-deriving from the lossless pre-encode PNGs, so you do not need to keep the frame dirs around.
+- **The motion-energy argmax is the wrong frame more often than it is right.** 5 of the 7 I checked
+  on IR-48 were the recovery or the tail of a sustained effect, not the blow. `special` was the worst:
+  argmax f58, but the fan snaps open at **f14** and the burst then SUSTAINS to ~f60 — the energy peak
+  is 2s after the hit lands. **Frame-inspect every argmax.**
+
+### 3. WHAT TO DO NEXT, IN ORDER (session 13's list, items 1-3 now done)
+
+1. **Re-roll ir37 `hit`** (session 13 §4, unchanged and still the highest-value single clip in the
+   game — it fires nearly every exchange and she currently takes the hit with her back turned).
+2. **Anchor-lock repairs**, 5 clips: hollow-pale `special-b` 0.231 · eclipse `attack-block` 0.779 /
+   `attack-strike` 0.729 · satoshi `attack-strike-b` 0.885. They only need to start and end on the
+   anchor — cheaper than new effects.
+3. **The 12 "more sick" specials**, worst first: satoshi `special` (0.645 / 20px / **0% duty**),
+   eclipse `special-b`, hollow-pale `special-c`, ir56 `special`. Per-character effects are specced in
+   `qa-boss/SIGNATURE-BEAT-PLAN.md`. **Every one of these is an emissive effect — budget the
+   bloom-lit-plate cut into the plan, and prefer a SOLID MATERIAL, which does not bloom the plate.**
+4. **3 flagged strikes:** sora `attack-strike` + `attack-strike-b`, satoshi `attack-strike`.
+
+Still open for Tim, unchanged — see session 13 §6 (lady-kurotachi's true anchor · ir37 `victory` ·
+kitsune node 2's baked-in tanto glow · hollow-pale `attack_throw` Take A · the dead
+`onryo-katana.md` prompt · `input/MK FINAL/` scope). **None were decided this session.**
+
+---
+
+## ★★★ (SUPERSEDED by SESSION 14, but §1 and §3 still bind) OPUS 5 — SESSION 13, written 2026-07-29 ★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the
 BROWSER on Higgsfield Unlimited = **ZERO CREDITS**; MCP `generate_video` always bills 2418/clip and
