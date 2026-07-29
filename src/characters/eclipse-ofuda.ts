@@ -98,7 +98,33 @@ export const ECLIPSE_OFUDA: FighterDef = {
       },
     ],
     attack_block: [
-      // Take A (attack-block.webm) PULLED 2026-07-26 (animation<->character sweep): the ONLY true
+      {
+        // Take A RESTORED (phase 61) — RE-ROLLED from scratch, which is what the pulled-take note
+        // below asked for. The old file was never wired after the pull, so this is a restoration of
+        // variant coverage (contract §10 wants 2 interchangeable takes), NOT a live-bug fix.
+        // Acting: she angles the katana across her body into a braced high guard, shedding one or two
+        // white paper ofuda from the hat brim, then cuts back with a short diagonal DOWNWARD counter
+        // and settles to the anchor. Feet planted the whole clip.
+        // v3 measures: containment CLEAN (after feather, below), plate retention 0.00%/0.00%,
+        // turn gate 0/97, anchor-lock f0 0.939 / fLast 0.937 (the pulled take was 0.771 / 0.244).
+        // Three things this re-roll had to learn, all recorded in qa-boss/prompts/eclipse-ofuda.md:
+        //  - v2 made her LEAP (both feet off the ground, hat clipped) because the acting line said
+        //    "drives forward off that leg"; a PLANTED clause fixed it, verified by tracking the lowest
+        //    subject row per frame (never rises above its f1 value).
+        //  - her measured budget is only 140px of headroom against a LONG katana, so no prose bound on
+        //    the blade survived — v3 and v4 both kept a ~25px blade-tip overrun.
+        //  - so the tip is FEATHERED, not re-rolled again: scripts/edge-feather.mjs --top 48 --right 48,
+        //    which is exactly what that tool exists for ("content that crosses the source frame
+        //    boundary must DISSOLVE at the edge instead of cutting flat ... never re-generate for
+        //    this"). Her body sits well inside both bands; only the blade reaches them.
+        // contacts: motion-energy argmax f76, frame-checked to be the COUNTER CUT (the guard is held
+        // first, so the counter genuinely lands late) rather than a recovery.
+        // cal RE-DERIVED from the shipped webm: drift 0.00 against the keyer-emitted value.
+        url: 'assets/characters/eclipse-ofuda/attack-block.webm',
+        cal: { h: 111.17, bottom: -0.49, left: 54.98 },
+        contacts: [3167],
+      },
+      // Take A (the ORIGINAL attack-block.webm) PULLED 2026-07-26 (animation<->character sweep): the ONLY true
       // phantom OBJECT found in the roster. At f72 both her hands are empty (the katana is gone);
       // f73 leaves only the tsuba+grip stub; at f74 a ~40px DETACHED BLADE FRAGMENT floats in open
       // air above-left of her hat while both hands are crossed empty on her chest; f75 the blade
