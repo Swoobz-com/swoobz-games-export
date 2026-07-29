@@ -309,3 +309,19 @@ not bound a long prop.
 v4: forbid the vertical blade outright. Insert - "the katana is NEVER held vertical or pointing upward
 at any moment; the blade stays HORIZONTAL or angled DOWNWARD for the entire clip, and the BLADE TIP
 never rises above her own shoulder." Bound the TIP, not the hands.
+
+## attack_strike v3 RESULT + v4 (fLast is a TIME-BUDGET problem, not another pose instruction)
+v3 measures: the SPAN bound WORKED — spanPeak 2.15 -> **1.73**, travel 176 -> **80**, and the side
+overruns are gone (only TOP 36px left, the vertical blade again). turn gate no turns, plate 0.00/0.00,
+f0 **0.910**. But fLast **0.467** — she STILL does not return, now twice (v2 0.502, v3 0.467).
+DIAGNOSIS — and this is why a third pose instruction would have been wasted: v3's prompt already said
+"returns in one eased motion to the EXACT same reference stance, katana point-down again", AND "the clip
+ENDS standing exactly as it began", AND the suffix's first-frame==last-frame sentence. Three separate
+statements of the requirement, ignored. Meanwhile `attack_block` v3 — SAME suffix, same character —
+returns fine at fLast 0.937. The difference is not the wording, it is the SIZE of the motion: the block
+is a small braced parry, the strike is a full committed cut. She runs out of clip.
+So the fix is a TIME BUDGET, not another instruction: state WHEN the action must be finished, leaving
+the back half of the clip for the settle. v4 inserts - "the entire cut is COMPLETE by the halfway point
+of the clip; the whole second half of the clip is her slow settle back into the exact reference stance,
+so that she is already standing still in the reference pose well before the clip ends." Plus the
+vertical-blade / BLADE-TIP ban from block v4.
