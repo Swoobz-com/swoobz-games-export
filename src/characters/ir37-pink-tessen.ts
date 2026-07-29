@@ -110,12 +110,26 @@ export const IR37_PINK_TESSEN: FighterDef = {
       url: 'assets/characters/ir37-pink-tessen/ko.webm',
       cal: { h: 106.33, bottom: -5.84, left: 48.66 },
     },
-    // Round-win taunt: proud fan flourish (fan snaps open) then settles to the anchor.
-    // FACING FIX (phase 26): same defect + same fix as `hit` — re-keyed from qa-boss/raw/ir37-victory.mp4
-    // with a frame-level hflip. cal keyer-emitted: left 57.77 -> 42.23 (= 100 - 57.77).
+    // Round-win taunt: she snaps the fan shut, spins it once between her fingers, sweeps it ACROSS her
+    // body at chest height and snaps it wide open there, shedding solid hot-pink lotus petals that
+    // drift down; then settles back to the anchor. Body stays upright and planted — only the arms move.
+    //
+    // RE-ROLLED (phase 53, v5). The phase-26 clip was a FACING DEFECT, not the "intentional celebration
+    // stance" the handoff had it down as: measured f0 0.362 / fLast 0.361 against her idle anchor, never
+    // reaching 0.90 on ANY frame, and qa-boss/check-turn.mjs flagged a 70-of-97-frame run at gain 0.861
+    // — at f43 the fan is on her LEFT while the idle holds it on her RIGHT. The phase-26 hflip corrected
+    // which SIDE she faced and never touched the pose, so it could not fix this.
+    // v5 measures: containment CLEAN, plate retention 0.00%/0.00%, turn gate 0/97, anchor-lock f0 0.993
+    // / fLast 0.981, body-commitment minIoU 0.180 / travel 96 / 68% strong / spanPeak 1.32 (comparable
+    // to the clip it replaces, so the re-roll did not cost energy).
+    // Getting here took 5 rolls, and the two dead ends are recorded in qa-boss/prompts/ir37-pink-tessen.md:
+    // v3 RAISED the fan (TOP 216px overrun) and v4 LOWERED it (fLast 0.213 — she sinks and holds, never
+    // returning to anchor). Both are LEVEL changes, and per the measured IR37 FRAME BUDGET she has only
+    // 88px of headroom with a ~250px fan, so the flourish had to become LATERAL with the body held still.
+    // cal RE-DERIVED from the shipped webm (drift 0.13 vs the keyer-emitted value, i.e. a match).
     victory: {
       url: 'assets/characters/ir37-pink-tessen/victory.webm',
-      cal: { h: 100.97, bottom: -0.49, left: 42.23 },
+      cal: { h: 110.46, bottom: -3.89, left: 57.79 },
     },
   },
   quotes: [
