@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-29T00:00:00.000Z",
+  "title": "Design System: STANDOFF",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#07080c",
+        "tonalRamp": ["#020204", "#07080c", "#0d0f15", "#151823", "#232838", "#3a4157", "#5d6580", "#98a1b3"]
+      },
+      "coal": {
+        "role": "neutral",
+        "displayName": "Coal",
+        "canonical": "#0d0f15",
+        "tonalRamp": ["#04050a", "#0a0c12", "#0d0f15", "#161a24", "#242a3a", "#3b4358", "#606a85", "#9aa3b8"]
+      },
+      "cyan-text": {
+        "role": "primary",
+        "displayName": "Signal Cyan (small-text step)",
+        "canonical": "#00d0de",
+        "note": "Use below 32px. The brighter steps bloom on OLED at small sizes.",
+        "tonalRamp": ["#00272a", "#003f45", "#005a62", "#00787f", "#0096a1", "#00b3c0", "#00d0de", "#7cebf3"]
+      },
+      "cyan-glow": {
+        "role": "primary",
+        "displayName": "Signal Cyan (large-text and glow step)",
+        "canonical": "#29e6ff",
+        "tonalRamp": ["#052b33", "#08424f", "#0b5b6d", "#0f758c", "#1490ad", "#1cb4d6", "#29e6ff", "#a3f2ff"]
+      },
+      "cyan-fill": {
+        "role": "primary",
+        "displayName": "Signal Cyan (fill step)",
+        "canonical": "#0ea5e9",
+        "tonalRamp": ["#031c29", "#052c40", "#073f5c", "#09547b", "#0b6c9c", "#0d88c2", "#0ea5e9", "#7cccf5"]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Season Gold",
+        "canonical": "#ffc83d",
+        "tonalRamp": ["#2e2205", "#4a3708", "#674c0b", "#87630e", "#a87c12", "#cd9a1f", "#ffc83d", "#ffe3a0"]
+      },
+      "gold-deep": {
+        "role": "secondary",
+        "displayName": "Deep Gold",
+        "canonical": "#b8860b",
+        "tonalRamp": ["#231a02", "#3a2a04", "#523b06", "#6c4d08", "#8a630a", "#a2740b", "#b8860b", "#e0b74a"]
+      },
+      "gold-hairline": {
+        "role": "secondary",
+        "displayName": "Gold Hairline",
+        "canonical": "rgba(191, 138, 26, 0.5)",
+        "note": "The authority stroke. Marks the edge of any plate that owns something."
+      },
+      "blood": {
+        "role": "tertiary",
+        "displayName": "Blood",
+        "canonical": "#ff4135",
+        "note": "Damage and danger ONLY. Never decorative.",
+        "tonalRamp": ["#2e0805", "#4c0d08", "#6b130c", "#8d1a11", "#b32217", "#d92c1f", "#ff4135", "#ff9c95"]
+      },
+      "bone": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "canonical": "#f2f3ef",
+        "tonalRamp": ["#2b2c2a", "#454643", "#61625e", "#7e7f7a", "#9c9d98", "#bcbdb8", "#dadbd6", "#f2f3ef"]
+      },
+      "fog": {
+        "role": "neutral",
+        "displayName": "Fog",
+        "canonical": "#98a1b3",
+        "tonalRamp": ["#1a1d23", "#2b3038", "#3e444f", "#535a68", "#6a7382", "#828c9c", "#98a1b3", "#c4cad4"]
+      },
+      "fog-deep": {
+        "role": "neutral",
+        "displayName": "Deep Fog",
+        "canonical": "#4a5261",
+        "tonalRamp": ["#0e1014", "#181b21", "#242830", "#323741", "#414753", "#4a5261", "#6d768a", "#99a1b1"]
+      },
+      "glass": {
+        "role": "neutral",
+        "displayName": "Glass",
+        "canonical": "rgba(13, 15, 21, 0.72)",
+        "note": "Translucent panel over arena art. NOT permitted where a plate must mask baked chrome."
+      },
+      "plate-cover": {
+        "role": "neutral",
+        "displayName": "Plate Cover",
+        "canonical": "#0d0f15",
+        "note": "Fully opaque by law. At alpha 0.94 the baked PLAYER 1/2 text ghosted through."
+      },
+      "plate-edge": {
+        "role": "neutral",
+        "displayName": "Plate Edge",
+        "canonical": "rgba(255, 255, 255, 0.08)",
+        "note": "Containing hairline, used where a surface merely holds content rather than owning it."
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display / Banner", "purpose": "Arcade callouts: ROUND 1, FIGHT!, K.O., FLAWLESS. Skewed -6deg, gradient-clipped, outlined with stacked drop-shadows rather than a text stroke." },
+      "title": { "displayName": "Pick Label", "purpose": "STRIKE / THROW / BLOCK on the pick controls - the most important words on screen." },
+      "label": { "displayName": "Button Label", "purpose": "Every actionable control. Uppercase, wide-tracked." },
+      "body": { "displayName": "Body", "purpose": "Supporting UI copy." },
+      "mono": { "displayName": "Mono / Countable", "purpose": "Anything the player counts, verifies or stakes money on: stakes, multipliers, timers, the permanent triangle legend." }
+    },
+    "shadows": [
+      { "name": "stage-vignette", "value": "0 0 120px rgba(0, 0, 0, 0.7) inset", "purpose": "Structural. Binds arena, fighters and HUD into one lit volume - the cabinet bezel." },
+      { "name": "plate-bevel-top", "value": "inset 0 calc(var(--sh) * 0.14) 0 rgba(242, 243, 239, 0.5)", "purpose": "Bone specular top edge. Half of the component-level depth mechanism." },
+      { "name": "plate-bevel-bottom", "value": "inset 0 calc(var(--sh) * -0.16) 0 rgba(4, 10, 16, 0.55)", "purpose": "Honed dark bottom edge. The other half of the bevel." },
+      { "name": "focus-glow", "value": "0 0 calc(var(--sw) * 0.6) rgba(41, 230, 255, 0.4)", "purpose": "Interactive focus and hover. State, never elevation." },
+      { "name": "reward-glow", "value": "0 0 calc(var(--sw) * 0.35) rgba(255, 200, 61, 0.65), inset 0 0 calc(var(--sw) * 0.25) rgba(255, 224, 138, 0.4)", "purpose": "Gold significance: progression, reward, victory." },
+      { "name": "damage-glow", "value": "0 0 calc(var(--sw) * 0.5) rgba(255, 65, 53, 0.7), inset 0 calc(var(--sh) * 0.1) 0 rgba(255, 255, 255, 0.25)", "purpose": "Impact and critical HP." },
+      { "name": "cast-shadow", "value": "0 calc(var(--sh) * 0.3) calc(var(--sh) * 0.6) rgba(0, 0, 0, 0.7)", "purpose": "Grounds fighters and floating elements against the arena. Not an elevation step." },
+      { "name": "bar-inset", "value": "inset 0 calc(var(--sh) * 0.15) calc(var(--sh) * 0.3) rgba(0, 0, 0, 0.75), 0 calc(var(--sh) * 0.2) calc(var(--sh) * 0.5) rgba(0, 0, 0, 0.5)", "purpose": "Health-bar backing: recessed trough holding the armour plates." }
+    ],
+    "motion": [
+      { "name": "control-response", "value": "90ms ease", "purpose": "Every interactive control. Arcade-fast: transform, box-shadow and border-color. Slowness in the control layer is a bug." },
+      { "name": "impact-shake", "value": "220ms decaying oscillation", "purpose": "Contact ripple - big first oscillation into small, not a uniform buzz." },
+      { "name": "ko-zoom", "value": "240ms ease-out, scale(1.15)", "purpose": "Match/round-ending hit. Applied to the whole stage." },
+      { "name": "hp-flash", "value": "240ms ease-out, single", "purpose": "Segment whites out then fades. Deliberately one eased flash, not a hard 2x strobe." },
+      { "name": "hp-collapse", "value": "260ms cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "The lacquer cover bleeds across a lost segment with an eased settle, so the bar visibly loses a plate instead of popping to empty." },
+      { "name": "scene-fade", "value": "600ms, value-independent", "purpose": "Video and scene transitions. Value-independent by RG-C5 requirement." }
+    ],
+    "breakpoints": [
+      { "name": "none", "value": "0", "purpose": "THE SYSTEM HAS NO MEDIA QUERIES. Responsiveness comes from --sw/--sh stage units on an aspect-locked box, which is how phone and desktop are both primary. A layout that needs a breakpoint has left the system." }
+    ],
+    "stageUnits": {
+      "sw": "stage width / 100, written by a ResizeObserver",
+      "sh": "stage height / 100, written by a ResizeObserver",
+      "stage-ar": "plain NUMBER taken from the arena artwork (1.83333 for the 2816x1536 cathedral). A 'w / h' expression inside calc(100vw / var()) would double-divide.",
+      "law": "No raw px for anything that should scale. The only sanctioned px value is min-height: 44px on interactive controls."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Every actionable control. Arcade-fast 90ms response; hover and focus take the cyan border and glow.",
+      "html": "<button class=\"ds-btn\">ENTER NODE</button>",
+      "css": ".ds-btn { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #f2f3ef; background: linear-gradient(180deg, #1a1d26 0%, #0d0f15 100%); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 26px; min-height: 44px; cursor: pointer; transition: transform 90ms ease, box-shadow 90ms ease, border-color 90ms ease; } .ds-btn:hover, .ds-btn:focus-visible { transform: translateY(-2px); border-color: #00d0de; box-shadow: 0 0 12px rgba(41,230,255,0.4); outline: none; } .ds-btn:active { transform: translateY(0); }"
+    },
+    {
+      "name": "Gold Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The committing action - staking, entering a node. Gold marks authority and consequence.",
+      "html": "<button class=\"ds-btn-gold\">STAKE AND FIGHT</button>",
+      "css": ".ds-btn-gold { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #f2f3ef; background: linear-gradient(180deg, #1a1d26 0%, #0d0f15 100%); border: 1px solid rgba(191,138,26,0.5); border-radius: 6px; padding: 12px 26px; min-height: 44px; cursor: pointer; transition: transform 90ms ease, box-shadow 90ms ease, border-color 90ms ease; } .ds-btn-gold:hover, .ds-btn-gold:focus-visible { transform: translateY(-2px); border-color: #ffc83d; box-shadow: 0 0 14px rgba(255,200,61,0.55); outline: none; }"
+    },
+    {
+      "name": "Pick Control",
+      "kind": "custom",
+      "refersTo": "pick-button",
+      "description": "Signature component. The three STRIKE / THROW / BLOCK choices - the core of the game. Transparent body, grounded by a cast shadow, 90ms lift.",
+      "html": "<button class=\"ds-pick\"><span class=\"ds-pick-glyph\">⚔</span><span class=\"ds-pick-label\">STRIKE</span></button>",
+      "css": ".ds-pick { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 12px 18px; background: rgba(13,15,21,0.72); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; color: #f2f3ef; min-height: 44px; cursor: pointer; filter: drop-shadow(0 4px 7px rgba(0,0,0,0.5)); transition: transform 90ms ease, opacity 150ms ease, filter 150ms ease; } .ds-pick-glyph { font-size: 22px; line-height: 1; } .ds-pick-label { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 900; letter-spacing: 0.08em; font-size: 15px; } .ds-pick:hover, .ds-pick:focus-visible { transform: translateY(-3px); border-color: #00d0de; box-shadow: 0 0 14px rgba(41,230,255,0.45); outline: none; } .ds-pick:active { transform: translateY(-1px); }"
+    },
+    {
+      "name": "Stake Input",
+      "kind": "input",
+      "refersTo": "input-stake",
+      "description": "Centred, wide-tracked mono so a stake reads as a displayed value rather than a text field.",
+      "html": "<input class=\"ds-input\" value=\"25.00\" aria-label=\"Stake\" />",
+      "css": ".ds-input { font-family: 'JetBrains Mono', monospace; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; color: #f2f3ef; background: rgba(7,8,12,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 14px; min-height: 44px; width: 100%; } .ds-input:focus-visible { border-color: #00d0de; box-shadow: 0 0 12px rgba(41,230,255,0.4); outline: none; }"
+    },
+    {
+      "name": "Card Surface",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Translucent coal panel over the arena. Flat at rest - no shadow elevation.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">ZERO CITADEL</div><div class=\"ds-card-meta\">11.94x</div></div>",
+      "css": ".ds-card { background: linear-gradient(180deg, rgba(13,15,21,0.92), rgba(7,8,12,0.94)); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 22px 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; } .ds-card-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #f2f3ef; } .ds-card-meta { font-family: 'JetBrains Mono', monospace; font-weight: 600; letter-spacing: 0.08em; color: #ffc83d; }"
+    },
+    {
+      "name": "Health Bar",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature component. Lacquered armour plates with mirrored blade cuts in an opaque, gold-hairlined trough. Losing HP covers a plate rather than shrinking the bar.",
+      "html": "<div class=\"ds-hpbar\"><span class=\"ds-hpseg\"></span><span class=\"ds-hpseg\"></span><span class=\"ds-hpseg ds-hp-lost\"><span class=\"ds-hpseg-cover\"></span></span></div>",
+      "css": ".ds-hpbar { display: flex; gap: 5px; padding: 3px 5px; background: linear-gradient(180deg, #12121a 0%, #07080c 100%); border: 1px solid rgba(191,138,26,0.5); border-radius: 4px; box-shadow: inset 0 3px 6px rgba(0,0,0,0.75), 0 4px 10px rgba(0,0,0,0.5); overflow: hidden; width: 260px; } .ds-hpseg { flex: 1 1 0; position: relative; height: 22px; overflow: hidden; background: linear-gradient(178deg, #d9f6ff 0%, #29e6ff 22%, #0ea5e9 58%, #085e86 100%); box-shadow: inset 0 3px 0 rgba(242,243,239,0.5), inset 0 -3px 0 rgba(4,10,16,0.55); clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%); } .ds-hpseg-cover { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,9,11,0.97), rgba(6,4,6,0.98)); box-shadow: inset 0 0 0 1px rgba(255,65,53,0.14); }"
+    },
+    {
+      "name": "Name Plate",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Opaque lacquer backing masking baked artwork, carrying an angled steel face with a gold hairline rim. Leans toward screen centre.",
+      "html": "<div class=\"ds-nameplate\"><span class=\"ds-nameplate-face\"></span><span class=\"ds-nameplate-name\">IR-48 HEX PAPER LORD</span></div>",
+      "css": ".ds-nameplate { position: relative; display: inline-flex; align-items: center; padding: 10px 26px; background: linear-gradient(180deg, #12121a 0%, #07080c 100%); border: 1px solid rgba(191,138,26,0.5); border-radius: 5px; font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 600; letter-spacing: 0.08em; color: #f2f3ef; text-shadow: 0 1px 2px #000; line-height: 1; white-space: nowrap; overflow: hidden; } .ds-nameplate-face { position: absolute; inset: 4px 6px; background: linear-gradient(180deg, #c79a2a 0%, #6b5410 100%); clip-path: polygon(7% 0, 100% 0, 93% 100%, 0 100%); } .ds-nameplate-face::after { content: ''; position: absolute; inset: 2px; clip-path: inherit; background: linear-gradient(178deg, #232d3a 0%, #131c28 48%, #0a0e16 100%); box-shadow: inset 0 3px 0 rgba(217,246,255,0.22), inset 0 -3px 0 rgba(4,10,16,0.55); } .ds-nameplate-name { position: relative; z-index: 1; }"
+    },
+    {
+      "name": "Arcade Banner",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The callout voice: ROUND 1, FIGHT!, K.O., FLAWLESS. Gradient-clipped Anton, skewed, outlined by stacked drop-shadows - never a text stroke.",
+      "html": "<div class=\"ds-banner\">FIGHT!</div>",
+      "css": ".ds-banner { font-family: 'Anton', sans-serif; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; font-size: 54px; line-height: 1; transform: skew(-6deg); background: linear-gradient(180deg, #f2f3ef 0%, #98a1b3 45%, #4a5261 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 2px rgba(7,8,12,0.95)) drop-shadow(0 0 2px rgba(7,8,12,0.9)) drop-shadow(0 5px 6px rgba(0,0,0,0.7)); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Arcade Cabinet in a Dark Room",
+    "overview": "Everything is lit against near-black. The stage is a single aspect-locked box with a heavy inset vignette that binds arena art, fighters and HUD into one illuminated volume, the way a cabinet bezel binds a CRT. Nothing floats on a page; there is no page. There is a lit box, and the room around it is dark.\n\nThe material vocabulary inside that box is armour: near-black lacquer backings, steel faces cut into angled parallelograms that lean toward screen centre, and a gold hairline marking every authoritative edge. Health is not a bar that shrinks - it is a row of plates that get covered. Type is skewed, gradient-clipped Anton for callouts and disciplined Space Grotesk for anything you operate.\n\nThe system's defining technical decision is that it has no breakpoints at all. Every dimension, radius, gap and type size is expressed in --sw / --sh (hundredths of the stage box, set by a ResizeObserver), and the box itself is aspect-locked to the arena artwork. The layout therefore cannot break between phone and desktop, because there is only one layout, scaled.",
+    "keyCharacteristics": [
+      "Lit box on black; the vignette is structural, not decorative",
+      "Lacquer plate + angled blade cut + gold hairline as the recurring form",
+      "Stage-relative units everywhere; zero media queries",
+      "Sub-100ms controls, 220-260ms consequences, 600ms scene changes",
+      "Cyan rationed and brightness-laddered for OLED safety"
+    ],
+    "rules": [
+      { "name": "The OLED Bloom Rule", "body": "Cyan has three values and the choice is driven by SIZE, not meaning: below 32px use cyan-text (#00d0de); for large text and glows use cyan-glow (#29e6ff); for fills use cyan-fill (#0ea5e9). Using the bright value on small text blooms on OLED and is a defect.", "section": "colors" },
+      { "name": "The Cover-Plate Law", "body": "Any HUD element that sits over baked background artwork must be a fully opaque backing across its whole footprint. At alpha 0.94 the baked PLAYER 1 text ghosted through. Opaque backing first, decorative face on top.", "section": "colors" },
+      { "name": "The One Job Rule", "body": "Cyan means live and interactive. Gold means authority and reward. Blood means damage. A colour used for a second job weakens the first.", "section": "colors" },
+      { "name": "The No-Stroke Rule", "body": "Never apply -webkit-text-stroke to gradient-clipped display text. Chrome sprays miter-spike artifacts at sharp glyph corners. Fake the outline with tight stacked drop-shadow() filters instead.", "section": "typography" },
+      { "name": "The Countable Numbers Rule", "body": "Anything the player counts, verifies or stakes money on is set in JetBrains Mono. Money and mono are the same decision.", "section": "typography" },
+      { "name": "The Stage-Unit Rule", "body": "No raw px for anything that should scale. The only sanctioned px values are accessibility floors - notably min-height: 44px on every interactive control, which must survive at any stage size.", "section": "layout" },
+      { "name": "The Aspect-Follows-Art Rule", "body": "--stage-ar comes from the arena artwork, never a fixed guess. New artwork with a new ratio sets a new --stage-ar; it is not cropped to fit.", "section": "layout" },
+      { "name": "The Glow-Is-State Rule", "body": "Outer glow communicates state, never elevation. If an element glows at rest with no state behind it, remove the glow.", "section": "elevation" },
+      { "name": "The Mirrored Lean Rule", "body": "Every angled cut leans toward screen centre, mirrored between p1 and p2. An unmirrored cut reads as a mistake because it points the wrong fighter's authority outward.", "section": "shapes" },
+      { "name": "The Rectangular Backing Rule", "body": "Angle the inner face, never the outer cover plate. The outer rect must stay rectangular and opaque because it is what masks the baked artwork beneath.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do express every dimension in --sw / --sh stage units so the interface scales as one piece across phone and desktop.",
+      "Do keep min-height: 44px on every interactive control - the one sanctioned raw-px value.",
+      "Do pick the cyan value by text size, not by meaning (the OLED Bloom Rule).",
+      "Do make any HUD element that overlays baked artwork a fully opaque backing, then decorate the inner face.",
+      "Do mirror every angled cut toward screen centre.",
+      "Do answer input in <=90ms; reserve 220-260ms for consequence beats and 600ms for scene transitions.",
+      "Do set anything countable or stakeable in JetBrains Mono."
+    ],
+    "donts": [
+      "Don't add a media query. If a layout needs one, the layout has left the system.",
+      "Don't use outer glow for elevation - glow is state only.",
+      "Don't apply -webkit-text-stroke to gradient-clipped display type (Chrome miter spikes).",
+      "Don't let the presentation imply a changed outcome: settle and celebration treatments are identical regardless of stake or streak (RG-C5), and callouts like FLAWLESS are value-independent.",
+      "Don't make this look like a slot machine or casino skin - no coin showers, jackpot chrome, spinning reels, flashing win-meters or gilt casino furniture. It is a fighting game that happens to carry a stake.",
+      "Don't crop arena artwork to fit a fixed aspect; set --stage-ar from the art.",
+      "Don't use blood red decoratively. It means damage."
+    ]
+  }
+}
