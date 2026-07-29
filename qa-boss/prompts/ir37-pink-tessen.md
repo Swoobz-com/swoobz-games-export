@@ -165,3 +165,186 @@ flick, spins it once between her fingers, then SNAPS it wide open again and hold
 flourish as a scatter of solid hot-pink lotus petals lifts off the fan edge and drifts down; the
 dagger stays low in her left hand; she settles back into the EXACT same reference stance. Elegant,
 confident, dangerous - a dancer's finish, not a pose change.
+
+## hit v3 (containment fix — v2 SOLVED the facing/anchor defect, only the frame overrun remains)
+v2 RESULT, measured: anchor-lock f0 **0.991** / fLast **0.993** (v1 was 0.324/0.132) — Tim's crossfade
+snap is FIXED; turn gate **0/97, no turns** — the facing defect is FIXED; plate retention 0.00%/0.00%
+clean on the pink-safe keyer, no bloom-lit-plate halo. The blow lands from the FRONT with the impact
+flash, and the shed lotus petals read well. ONLY containment fails: LEFT **216px @f52-54**, TOP 38px.
+WHAT IS ACTUALLY CROSSING (pixel-sampled, not eyeballed): the left-edge run is rgb(16,13,17) = NEAR
+BLACK = the WAR-FAN itself, swinging BEHIND her as she staggers back toward screen-left. The petals
+are only the smaller TOP 38px. So the v2 clause "the war-fan stays FULLY INSIDE the frame" was not
+enough — the model obeyed it for the swing but not for the recoil, because the STAGGER carries her
+(and the trailing fan arm) toward the left edge. v3 therefore bounds the TRAVEL and the FAN ARM
+POSITION, and bounds the PETALS, which v2 never did at all (my omission — the signature beat was
+added without a containment clause, exactly the failure the SPECIAL add-on bug caused for satoshi).
+HIT REACTION (blow from the front): she begins in the EXACT reference stance in strict side profile
+facing screen-right; an unseen blow arrives from SCREEN-RIGHT, the direction she is already facing,
+and slams into her chest and helmet - her head snaps back and her shoulders and torso fold backward,
+she gives ground only a SHORT half-step and stays close to the CENTRE of the frame, her knees buckle,
+the open war-fan SNAPS half shut from the impact and a few solid hot-pink lotus petals shear off its
+edge and scatter close around her; she catches her weight, drives forward off the back foot, SNAPS the
+fan open again and flows in one eased recovery back into the EXACT same reference stance. She is
+struck in the CHEST and FACE, never in the back; she never turns away from the blow. Her war-fan stays
+FORWARD and HIGH in front of her body for the whole clip - it NEVER swings back behind her and NEVER
+travels toward the left edge of the frame. The shed lotus petals stay small and close to her body,
+well inside the frame, and NEVER reach or cross any edge.
+
+## victory v3 (containment fix — v2 SOLVED the facing/anchor defect, same petal overrun as hit v2)
+v2 RESULT, measured: anchor-lock f0 **0.954** / fLast **0.936** (v1 was 0.362/0.361) and turn gate
+**0/97, no turns** (v1 flagged a 70-frame run at gain 0.861). The facing defect Tim never reported —
+and that the handoff had open as "maybe an intentional stance" — is FIXED. ONLY containment fails:
+TOP 48-50px, RIGHT 42px. Pixel-sampled: the top run is rgb(249,124,244) / rgb(255,145,255) = bright
+PINK = the shed LOTUS PETALS; the right run is rgb(169,87,112) = the fan edge at the top of the
+flourish.
+THE REPEATED LESSON (hit v2 hit this too, and it is now 2 for 2): when a SIGNATURE-BEAT effect is
+added to a prompt, it MUST carry its own containment clause. The inherited suffix bounds only the
+NAMED PROPS ("the war-fan AND the dagger stay FULLY INSIDE the frame") — a newly-introduced effect is
+not covered by it and will drift out of frame. Same defect class as the build-prompt.mjs bug that
+silently dropped the SPECIAL add-on for satoshi and eclipse.
+VICTORY TAUNT (fan flourish): she begins in the EXACT reference stance in strict side profile facing
+screen-right; she sweeps the open war-fan down and across her body and SNAPS it shut with a sharp
+flick, spins it once between her fingers, then SNAPS it wide open again and raises it in a proud
+flourish held at HEAD HEIGHT, well below the top of the frame, as a small scatter of solid hot-pink
+lotus petals lifts off the fan edge and drifts down close around her; the dagger stays low in her left
+hand; she settles back into the EXACT same reference stance. Elegant, confident, dangerous - a
+dancer's finish, not a pose change. The war-fan NEVER rises past head height and NEVER reaches the top
+or right edge of the frame. The lotus petals stay small and close to her body, well inside the frame,
+and NEVER reach or cross any edge.
+
+## hit v4 (NEGATIVE the baked impact — v3 fixed travel/fan/petals, and exposed a contract violation)
+v3 RESULT, measured: anchor-lock f0 **0.994** / fLast **0.991**, turn gate **0/97 with ZERO abstained
+frames**, plate retention 0.00%/0.00%, and the union bbox pulled in from v2's 960px (full width) to
+802px. The v3 travel + fan-arm + petal bounds all WORKED — LEFT and TOP are clean.
+THE REMAINING DEFECT IS NOT REALLY CONTAINMENT. The one overrun is RIGHT 86px on a SINGLE frame (f7),
+rgb(252,238,253) = near-white. Viewed at full size over dark, it is a BAKED IMPACT STREAK — a
+pink-white beam flying in from off-frame right and bursting on her chest. That is two problems:
+  1. it crosses the right edge (the containment number), and
+  2. it VIOLATES the contract — the engine draws its OWN contact FX (frost impact ring, swelling
+     radial glow, hitspark, the "-1" floater, hit-stop) at the defender's contact point. A baked
+     flash DOUBLE-RENDERS the hit and cannot be art-directed or reduced-motion-gated.
+This is a STANDING LESSON I failed to apply (phase 11, learning 2): *"baked IMPACT FLASHES appear on
+hit-reaction prompts unless negatived — the impact itself is INVISIBLE"*, and the phase-12 KO PROMPT
+LAW is the same rule for ko (describe ONLY the fall, never the blow). My v2/v3 line "an unseen blow
+arrives from SCREEN-RIGHT and slams into her chest and helmet" actively INVITED the flash. v4 keeps
+the DIRECTION (which is what fixed the facing defect) but makes the blow itself invisible.
+HIT REACTION (blow from the front, impact invisible): she begins in the EXACT reference stance in
+strict side profile facing screen-right; she is struck from SCREEN-RIGHT, the direction she is already
+facing - her head snaps back and her shoulders and torso fold backward, she gives ground only a SHORT
+half-step and stays close to the CENTRE of the frame, her knees buckle, the open war-fan SNAPS half
+shut and a few solid hot-pink lotus petals shear off its edge and scatter close around her; she
+catches her weight, drives forward off the back foot, SNAPS the fan open again and flows in one eased
+recovery back into the EXACT same reference stance. She is struck in the CHEST and FACE, never in the
+back; she never turns away from the blow. THE IMPACT ITSELF IS COMPLETELY INVISIBLE - there is NO
+flash, NO beam, NO streak, NO spark, NO shockwave and NO weapon entering the frame; ONLY HER BODY
+REACTS. Nothing at all enters the frame from off-screen.
+
+## victory v4 (GEOMETRY fix — "raise the fan" is IMPOSSIBLE in this frame, stop rewording it)
+v3 RESULT: the facing/anchor fix held, but TOP went from 48px (v2, petals) to **216px** (v3) and the
+overrun is now rgb(53,47,52) = DARK = the WAR-FAN ITSELF, cut by the top edge at f60 — WORSE, despite
+adding "the war-fan NEVER rises past head height".
+MEASURED, and this is the whole answer: her anchor occupies **y89..y911 of a 960 frame** = 85.7% of
+frame height, leaving **89px of headroom**. The open war-fan is ~250px across. So raising the fan in
+ANY flourish is GEOMETRICALLY IMPOSSIBLE — a 250px fan cannot go into 89px. "Head height" made it
+worse because that phrase bounds her HAND, and the fan extends far above the hand.
+This is the SECOND time this exact trap has been hit (IR-48 special_1 v5/v6: spanPeak 2.00 on a 483px
+subject = 966px in a 960px frame, doomed before the wording mattered). THE RULE HOLDS: when a gate
+fails twice on the same edge with different wording, STOP REWRITING PROSE AND CHECK THE ARITHMETIC.
+The fix is a DIFFERENT ACTION, not a tighter sentence. Her flourish becomes LOW and LATERAL — swept
+down and across the body — which also exploits the free bottom edge (check-containment never counts
+bottom contact) instead of fighting the 89px ceiling.
+VICTORY TAUNT (low fan flourish): she begins in the EXACT reference stance in strict side profile
+facing screen-right; she SNAPS the war-fan shut with a sharp flick and spins it once between her
+fingers, then sweeps it DOWNWARD and ACROSS the front of her body at WAIST height and SNAPS it wide
+open there, low and wide, as a small scatter of solid hot-pink lotus petals lifts off the fan edge and
+drifts DOWN toward her feet; she straightens with a slow confident settle, the dagger held low in her
+left hand, back into the EXACT same reference stance. Elegant, confident, dangerous - a dancer's
+finish, not a pose change. The war-fan is NEVER raised above her waist and NEVER goes higher than her
+own shoulder at any point; the whole flourish happens LOW, in front of her body. Nothing she holds
+ever approaches the TOP edge of the frame. The lotus petals stay small, drift DOWNWARD only, and NEVER
+reach or cross any edge.
+
+## hit v5 (CAUSE-FREE kinematics — three wordings failed to remove the baked streak)
+v4 RESULT: RIGHT overrun fell 86px -> 24px and it is still rgb(254,248,255) = a WHITE STREAK flying
+in from off-frame and striking the fan (viewed at 2x over dark, f9). v4 said, verbatim, "THE IMPACT
+ITSELF IS COMPLETELY INVISIBLE - there is NO flash, NO beam, NO streak... Nothing at all enters the
+frame from off-screen." The model rendered a beam anyway. Three variants (v2 "an unseen blow
+arrives", v3 same, v4 with an explicit NEGATIVE block) all baked it.
+DIAGNOSIS: negating a described cause does not work — MENTIONING the blow at all is what summons the
+agent that delivers it. This is the identical failure the phase-12 KO PROMPT LAW already solved:
+"an unseen blow arrives" baked an impact flash/spray through the negatives on BOTH v1 kos, and the
+cause-free re-roll ("his strength leaves him... collapses under his own weight") came back clean on
+the FIRST try. The lesson generalises from ko to hit and I should have carried it across.
+WHY NOT JUST DELETE THE DIRECTION: the directional phrasing is exactly what fixed the facing defect
+(anchor-lock 0.324 -> 0.994, turn gate 0.861 -> 0/97). So v5 keeps the DIRECTION but moves it out of
+the CAUSE and into the BODY'S OWN KINEMATICS — the recoil vector is described, the striking thing is
+never referred to at all, not even to negate it. No "blow", no "struck", no "impact", no "unseen".
+NOTE this also fixes a CONTRACT violation, not just a containment number: the engine draws its own
+contact FX (frost ring, swelling glow, hitspark, "-1" floater, hit-stop) at the defender's contact
+point, so a baked streak DOUBLE-RENDERS the hit and cannot be art-directed or reduced-motion-gated.
+HIT REACTION (recoil only, no cause shown): she begins in the EXACT reference stance in strict side
+profile facing screen-right; her head SNAPS backward and her chin lifts as her chest caves inward and
+her shoulders are thrown back toward screen-LEFT, her front foot skids back a SHORT half-step and her
+knees buckle under the weight, she stays close to the CENTRE of the frame; the open war-fan SNAPS half
+shut as her arm is jarred and a few solid hot-pink lotus petals shear off its edge and scatter close
+around her; she catches her balance, drives forward off the back foot, SNAPS the fan open again and
+flows in one eased recovery back into the EXACT same reference stance. Her chest and face lead the
+recoil; her back is never shown. She is ALONE in an empty frame - nothing whatsoever enters, crosses
+or appears in the frame at any time, and there is no light, no flare and no streak anywhere in the
+shot. Only her own body moves.
+
+## victory v5 (LATERAL at chest height — v3 went too high, v4 went too low)
+v4 RESULT: containment **CLEAN** (the geometry diagnosis was right — the low flourish cleared the 89px
+ceiling), plate retention 0.00/0.00, turn gate 0/97, f0 **0.992**. But **fLast 0.213**: per-frame IoU
+decays from f67 and sits FLAT at 0.21 from f80 to f96 — she sinks into the low open-fan pose and HOLDS
+there, never rising. Only frames 0-4 are on anchor. The suffix "The FIRST frame and the LAST frame are
+the EXACT same reference stance" was present and was NOT enough, because the acting line's "low and
+wide" dominated and the body committed to the level change.
+THE SHAPE OF THE PROBLEM: v3 raised the fan and hit the TOP edge (89px headroom); v4 lowered it and
+lost the RETURN. Both are LEVEL changes on a subject that already fills 85.7% of frame height. The
+answer is neither up nor down — it is LATERAL, with the BODY HELD STILL. Keeping her upright and
+planted means there is no level change to recover from, so the return to anchor is trivial (this is
+exactly why the `hit` clips anchor-lock at 0.99 — their level change is a half-step, not a sink).
+VICTORY TAUNT (lateral fan flourish, body still): she begins in the EXACT reference stance in strict
+side profile facing screen-right and STAYS STANDING UPRIGHT AND PLANTED for the whole clip - she never
+crouches, never kneels, never sinks and never lifts her feet; ONLY HER ARMS MOVE. She SNAPS the war-fan
+shut with a sharp flick, spins it once between her fingers, sweeps it ACROSS the front of her body at
+CHEST height in one wide horizontal arc and SNAPS it wide open there, as a small scatter of solid
+hot-pink lotus petals lifts off the fan edge and drifts down close around her; she then brings the open
+fan smoothly back to its starting position beside her head and settles, the dagger held low in her left
+hand, ENDING in the EXACT same reference stance she began in, standing tall. Elegant, confident,
+dangerous - a dancer's finish. The fan moves only HORIZONTALLY across her body and NEVER rises above
+her own shoulder, so it never approaches the TOP edge of the frame. The lotus petals stay small, close
+to her body and NEVER reach or cross any edge. The clip ENDS with her standing exactly as she started.
+
+## ★ IR37 FRAME BUDGET — measured, applies to EVERY clip of hers (do not re-derive per clip)
+Anchor bbox in the 960x960 frame: **x206..x751 (546 wide), y88..y911 (824 tall)**.
+  left margin **206px** · right margin **208px** · headroom **88px** · bottom: free (feet on floor).
+The OPEN WAR-FAN is ~250px across. Therefore:
+  - RAISING the fan is impossible (250px prop into 88px headroom) — victory v3 proved it (TOP 216px).
+  - EXTENDING the fan to arm's length in EITHER direction is impossible — hit v5 grew the subject by
+    exactly **206px**, precisely consuming the right margin (RIGHT 96px overrun).
+  - So her fan must move LATERALLY and CLOSE TO THE BODY. Any beat needing reach must move her BODY
+    the other way first, or use the free bottom edge.
+This budget is why hit oscillated: v2 fan swung back -> LEFT 216px; v3 "fan stays FORWARD and HIGH"
+fixed left and caused RIGHT 96px. Opposite instructions, same 206px wall.
+
+## hit v6 (fan held CLOSE — v5 removed the baked streak, only the fan reach remains)
+v5 RESULT: the CAUSE-FREE rewrite WORKED — the baked white impact streak is GONE (the right-edge run
+is now rgb(245,121,195) = the fan's pink edge, not the rgb(254,248,255) beam of v3/v4). The contract
+violation is fixed. Remaining: RIGHT 96px @f20 and LEFT 30px @f37, both the FAN, per the frame budget
+above. v6 keeps v5's cause-free wording verbatim and only changes where the fan goes: pulled IN to
+the chest, which is also the truer defensive read for a recoil.
+HIT REACTION (recoil only, no cause shown): she begins in the EXACT reference stance in strict side
+profile facing screen-right; her head SNAPS backward and her chin lifts as her chest caves inward and
+her shoulders are thrown back toward screen-LEFT, her front foot skids back a SHORT half-step and her
+knees buckle under the weight, she stays close to the CENTRE of the frame; she PULLS THE WAR-FAN IN
+TIGHT ACROSS HER CHEST as her arm is jarred, the fan SNAPPING half shut against her body, and a few
+solid hot-pink lotus petals shear off its edge and scatter close around her; she catches her balance,
+drives forward off the back foot, opens the fan again beside her head and flows in one eased recovery
+back into the EXACT same reference stance. Her chest and face lead the recoil; her back is never
+shown. THROUGHOUT THE WHOLE CLIP the war-fan stays CLOSE TO HER BODY and is NEVER extended out to
+arm's length in any direction - it never reaches further from her body than it does in the reference
+image, on either side. She is ALONE in an empty frame - nothing whatsoever enters, crosses or appears
+in the frame at any time, and there is no light, no flare and no streak anywhere in the shot. Only her
+own body moves.
