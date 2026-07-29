@@ -31,7 +31,9 @@
 // USAGE
 //   node qa-boss/check-plate-retention.mjs --plate green  <clip.webm|frames-dir> ...
 //   node qa-boss/check-plate-retention.mjs --plate magenta <clip.webm> ...
-// Thresholds: >=5% BAD (visible halo) · 1-5% WATCH · <1% clean.
+// Thresholds: plate >=5% BAD (visible halo) · 1-5% WATCH · <1% clean.
+// olive (neutralizer artifact) >=2% BAD — fix by LOWERING green-neutralize HARD (default 32);
+// HARD=4 took ir48 special_1 from 7.02% olive to 1.06% with residual green still 0.00%.
 import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
@@ -54,6 +56,23 @@ const isPlate = PLATE === 'magenta'
   ? (r, g, b) => r > 90 && b > 90 && r > g + 30 && b > g + 30
   : (r, g, b) => g > 90 && g > r + 30 && g > b + 30;
 
+// *** RUN THIS BEFORE green-neutralize, NOT AFTER — READ THIS OR THE RESULT IS MEANINGLESS ***
+// green-neutralize pulls G down to max(R,B), so AFTER it runs g <= max(r,b) BY CONSTRUCTION and
+// isPlate() can never fire. A post-neutralize 0.00% is a TAUTOLOGY, not evidence. Caught 2026-07-29
+// on ir48 special_2 v4: the gate said 0.00% while the flame tips were plainly CHARTREUSE on screen.
+//
+// SECOND SIGNAL — THE NEUTRALIZER FINGERPRINT. green-neutralize sets G := max(R,B), so a pixel
+// that WAS green-contaminated comes out with r EXACTLY EQUAL TO g and b well below. At low
+// brightness that renders as sickly OLIVE/khaki. Measured on the charm rims of ir48 special_1:
+// 164,164,77 · 152,152,65 · 142,142,77 — all exactly r==g.
+//
+// The discriminator matters and my first attempt got it WRONG. Legitimate warm GOLD is r > g > b
+// (247,200,121), so a test of "g >= r - 20" catches gold too and fired on a perfectly good clip.
+// Requiring |r-g| <= 2 isolates the artifact: no natural material lands exactly on r==g at scale.
+// Only DARK ones (g < 190) read as olive — bright r==g is just a yellow highlight and is fine.
+const isNeutralizerOlive = (r, g, b) =>
+  PLATE === 'green' && Math.abs(r - g) <= 2 && b < g - 40 && g > 100 && g < 190;
+
 function sample(target) {
   let dir = target, tmp = null;
   if (!fs.statSync(target).isDirectory()) {
@@ -67,7 +86,7 @@ function sample(target) {
     if (r.status !== 0) { fs.rmSync(tmp, { recursive: true, force: true }); return { error: 'decode failed' }; }
     dir = tmp;
   }
-  let plate = 0, opaque = 0;
+  let plate = 0, hue = 0, opaque = 0;
   for (const fn of fs.readdirSync(dir).filter((f) => f.endsWith('.png'))) {
     const p = PNG.sync.read(fs.readFileSync(path.join(dir, fn)));
     const d = p.data;
@@ -76,23 +95,26 @@ function sample(target) {
       if (A <= 24) continue;
       opaque++;
       if (isPlate(R, G, B)) plate++;
+      if (isNeutralizerOlive(R, G, B)) hue++;
     }
   }
   if (tmp) fs.rmSync(tmp, { recursive: true, force: true });
-  return { pct: opaque ? 100 * plate / opaque : 0, opaque };
+  return { pct: opaque ? 100 * plate / opaque : 0, huePct: opaque ? 100 * hue / opaque : 0, opaque };
 }
 
 console.log(`plate=${PLATE}`);
-console.log('clip'.padEnd(54) + 'plate%   opaquePx   verdict');
+console.log('clip'.padEnd(50) + 'plate%  olive%   opaquePx   verdict');
 console.log('-'.repeat(88));
 let bad = 0;
 for (const t of targets.sort()) {
   const r = sample(t);
   const name = path.basename(path.dirname(t)) + '/' + path.basename(t);
   if (r.error) { console.log(name.padEnd(54) + r.error); bad++; continue; }
-  const v = r.pct >= 5 ? 'BAD  plate halo — run the neutralize pass' : r.pct >= 1 ? 'WATCH' : 'clean';
-  if (r.pct >= 5) bad++;
-  console.log(name.padEnd(54) + r.pct.toFixed(2).padStart(6) + '   ' + String(r.opaque).padStart(8) + '   ' + v);
+  const v = r.pct >= 5 ? "BAD  plate halo - run the neutralize pass"
+    : r.huePct >= 2 ? "BAD  OLIVE residue (r==g) - translucent effect blended with the plate; lower green-neutralize HARD"
+    : r.pct >= 1 ? "WATCH" : "clean";
+  if (r.pct >= 5 || r.huePct >= 2) bad++;
+  console.log(name.padEnd(50) + r.pct.toFixed(2).padStart(6) + "   " + r.huePct.toFixed(2).padStart(5) + "   " + String(r.opaque).padStart(8) + "   " + v);
 }
 console.log('-'.repeat(88));
 console.log(bad ? `${bad} clip(s) need the neutralize pass.` : 'all clean.');
