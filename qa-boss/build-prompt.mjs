@@ -26,10 +26,17 @@ function quoted(afterLabel) {
 }
 
 // "SPECIAL add-on:" is a plain paragraph, not a blockquote.
-function paragraphAfter(label) {
-  const i = src.indexOf(label);
-  if (i < 0) return '';
-  const rest = src.slice(i + label.length);
+// Matches the add-on heading by REGEX, not by an exact literal.
+// BUG FOUND 2026-07-29: this used src.indexOf('SPECIAL add-on:'). satoshi-odachi.md and
+// eclipse-ofuda.md head theirs "SPECIAL suffix add-on (the 3 specials only; Tim's
+// contain-in-frame rule):", which does not contain that literal — so BOTH characters' specials
+// were assembled with NO add-on at all and Tim's explicit contain-in-frame rule was silently
+// dropped from every special they ever fired. satoshi carries 5 containment BLOCKs on record.
+// A silent '' return is exactly the failure mode that hides this, so the caller now asserts.
+function paragraphAfter(re) {
+  const m = src.match(re);
+  if (!m) return '';
+  const rest = src.slice(m.index + m[0].length);
   const end = rest.search(/\n\s*\n/);
   return (end < 0 ? rest : rest.slice(0, end)).replace(/\s+/g, ' ').trim();
 }
@@ -63,8 +70,12 @@ function koSuffix(s) {
 
 const parts = [quoted('Shared prefix:'), stateBody(state)];
 if (state.startsWith('special')) {
-  const addon = paragraphAfter('SPECIAL add-on:');
+  // Accepts "SPECIAL add-on:" and "SPECIAL suffix add-on (...):" alike.
+  const addon = paragraphAfter(/SPECIAL[^:\n]*add-on[^:\n]*:/i);
   if (addon) parts.push(addon);
+  else process.stderr.write(
+    'WARN: no SPECIAL add-on paragraph found in ' + file + ' — the contain-in-frame rule is NOT ' +
+    'in this prompt. Add a "SPECIAL add-on:" paragraph before firing a special.\n');
 }
 const suffix = quoted('Shared suffix');
 parts.push(state === 'ko' ? koSuffix(suffix) : suffix);
