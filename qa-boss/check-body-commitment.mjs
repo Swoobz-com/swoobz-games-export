@@ -26,6 +26,16 @@
 //            catches a clip with one big spike and 78% dead air, which is exactly how ir48
 //            special_3 read as boring despite a good peak. A finisher has to SUSTAIN.
 //   spanPeak max bbox width / f0 bbox width. A committed strike extends the frame.
+//   dropPct  1 - (min bbox height / f0 bbox height). HOW FAR THE BODY SINKS.
+//
+// *** WHY dropPct EXISTS — minIoU IS STRUCTURALLY BLIND TO A CROUCH. ***
+// minIoU bbox-NORMALISES to 64x64 before comparing, which divides out scale — and a crouch's
+// entire signal IS the height change. Measured on ir48 special_2: v5 collapses to 57% of standing
+// height (42.7% drop, head sinking 352px) and still scored minIoU 0.363, i.e. "barely leaves the
+// anchor pose". It plainly does. The boring v1 it replaced drops 1.9%, and idle drops 1.0%.
+// I fired a whole re-roll cycle chasing a minIoU number that could not see the thing I had asked
+// for. For any sinking / kneeling / ducking action, JUDGE ON dropPct, not minIoU.
+//   reference: idle 1.0% · a static "finisher" 1.9% · a real crouch 30-43%.
 //
 // CRITICAL: travel/spanPeak are measured on a CORE mask that EXCLUDES bright gold/white glow
 // pixels, so a big flashy effect CANNOT fake body commitment. That is the whole point — ir48
@@ -143,6 +153,7 @@ export function measure(file) {
     const cx0 = (f0.core.x0 + f0.core.x1) / 2;
     const span0 = f0.core.x1 - f0.core.x0 + 1;
     let minIoU = 1, travel = 0, spanPeak = 1, strong = 0, active = 0;
+    const h0 = f0.core.y1 - f0.core.y0 + 1; let minH = h0;
     for (const r2 of rows) {
       const v = iou(f0.n, r2.n);
       minIoU = Math.min(minIoU, v);
@@ -150,10 +161,12 @@ export function measure(file) {
       if (v < 0.60) strong++;
       travel = Math.max(travel, Math.abs((r2.core.x0 + r2.core.x1) / 2 - cx0) * S);
       spanPeak = Math.max(spanPeak, (r2.core.x1 - r2.core.x0 + 1) / span0);
+      minH = Math.min(minH, r2.core.y1 - r2.core.y0 + 1);
     }
     return {
       frames: rows.length, minIoU, travel, spanPeak,
       strongPct: 100 * strong / rows.length, activePct: 100 * active / rows.length,
+      dropPct: 100 * (1 - minH / h0),
     };
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
@@ -162,7 +175,7 @@ export function measure(file) {
 
 function judge(m, th) {
   const fails = [];
-  if (m.minIoU > th.minIoU) fails.push(`POSE minIoU ${m.minIoU.toFixed(3)} > ${th.minIoU} (barely leaves the anchor pose)`);
+  if (m.minIoU > th.minIoU && m.dropPct < 20) fails.push(`POSE minIoU ${m.minIoU.toFixed(3)} > ${th.minIoU} (barely leaves the anchor pose)`);
   if (m.travel < th.travel) fails.push(`TRAVEL ${m.travel.toFixed(0)}px < ${th.travel}px (no footwork / weight shift)`);
   if (m.strongPct < th.strong) fails.push(`DUTY ${m.strongPct.toFixed(0)}% < ${th.strong}% strong frames (action is a blip, rest is dead air)`);
   return fails;
@@ -181,7 +194,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
   }
   if (!files.length) { console.error('usage: check-body-commitment.mjs <clip.mp4 ...> | --kit <character-id>'); process.exit(2); }
 
-  console.log('clip                                    frames  minIoU  travel  strong%  spanPk  verdict');
+  console.log('clip                                    frames  minIoU  travel  strong%  spanPk   drop%  verdict');
   console.log('-'.repeat(104));
   let failed = 0, skipped = 0;
   for (const f of files.sort()) {
@@ -199,7 +212,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
     console.log(
       name.padEnd(40) + String(m.frames).padStart(6) + m.minIoU.toFixed(3).padStart(8) +
       m.travel.toFixed(0).padStart(8) + m.strongPct.toFixed(0).padStart(8) +
-      m.spanPeak.toFixed(2).padStart(8) + '  ' + (fails.length ? `FLAG [${prof}]` : `ok   [${prof}]`)
+      m.spanPeak.toFixed(2).padStart(8) + m.dropPct.toFixed(0).padStart(7) + '  ' + (fails.length ? `FLAG [${prof}]` : `ok   [${prof}]`)
     );
     for (const x of fails) console.log(' '.repeat(42) + '· ' + x);
   }
