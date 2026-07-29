@@ -292,3 +292,20 @@ never jumps, never leaps, never hops and never lunges out into a wide stance; sh
 narrow and never spreads wider than about one and a half times her standing width. ... she settles in
 one eased motion back into the EXACT same reference stance, katana point-down again - and the clip ENDS
 standing exactly as it began."
+
+## attack_block v3 RESULT + v4 (the blade must never be VERTICAL — bound the PROP TIP, not the hands)
+v3 measures: anchor-lock f0 **0.939** / fLast **0.937** (holds from v2), THE LEAP IS FIXED (lowest
+subject row never rises above its f1 value of 911 — her feet stay planted, so the PLANTED clause
+worked), TOP 104px -> **24px**, RIGHT 66px -> **32px**, plate 0.00%/0.00%.
+The turn gate flagged a 5-frame run at gain **0.153** — VISUALLY VERIFIED AS A FALSE POSITIVE (she
+faces screen-right in every frame of f50..f58). That gain sits at the noise floor: real turns measured
+0.748-0.861, the known-good ir48 kit ceilinged at 0.144. check-turn.mjs now carries a MIN_GAIN of 0.20
+so a short quiet run reports as noise WITH its number, instead of a confident wrong answer.
+THE REAL REMAINING DEFECT, found by looking: at f50-f58 she holds the katana **VERTICAL**, blade
+pointing straight UP in a guard. Her HANDS are at chest height exactly as instructed — but the blade is
+long, so its TIP clears the 140px ceiling anyway. This is EXACTLY the ir37 "head height" trap: I bounded
+where she RAISES it (her shoulder) instead of where the PROP ENDS UP. A height bound on the body does
+not bound a long prop.
+v4: forbid the vertical blade outright. Insert - "the katana is NEVER held vertical or pointing upward
+at any moment; the blade stays HORIZONTAL or angled DOWNWARD for the entire clip, and the BLADE TIP
+never rises above her own shoulder." Bound the TIP, not the hands.

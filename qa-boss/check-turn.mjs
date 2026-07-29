@@ -55,6 +55,14 @@ const num = (flag, dflt) => { const i = argv.indexOf(flag); return i >= 0 ? Numb
 const str = (flag, dflt) => { const i = argv.indexOf(flag); return i >= 0 ? argv[i + 1] : dflt; };
 const MARGIN = num('--margin', 0.04);
 const MIN_RUN = num('--min-run', 4);
+// MIN_GAIN — calibrated from measured data, not guessed. Real turns are LOUD; noise is quiet:
+//   ir37 hit / victory (confirmed turns, visually verified)      gain 0.861
+//   eclipse attack-block v1 (confirmed turn)                     gain 0.748
+//   ir48 kit (known-good, watched frame by frame)          ceiling 0.144
+//   eclipse attack-block v3 (visually verified NOT a turn)       gain 0.153  <-- false positive
+// A 5-frame run at 0.153 sat just over MIN_RUN and produced a confident wrong answer, so a run alone
+// is not enough — the run must also be LOUD. 0.20 sits in the empty band between 0.153 and 0.748.
+const MIN_GAIN = num('--min-gain', 0.20);
 // Below this mirrored-fit the silhouette is not recognisably the character in EITHER orientation,
 // so the comparison carries no information and the frame is abstained. See THE ABSTENTION RULE.
 const MIN_AGREE = num('--min-agree', 0.45);
@@ -138,8 +146,13 @@ for (const f of files) {
     else run = 0;
   }
   const isKo = /(^|[-_])ko\.webm$/.test(path.basename(f));
-  const verdict = best >= MIN_RUN ? (isKo ? 'ok (ko exempt: a prone body has no side)' : '*** TURNS ***') : 'ok';
-  if (best >= MIN_RUN && !isKo) bad++;
+  // A run must be BOTH long enough and LOUD enough — see MIN_GAIN. A quiet run is noise.
+  const flagged = best >= MIN_RUN && worst >= MIN_GAIN;
+  const quiet = best >= MIN_RUN && worst < MIN_GAIN;
+  const verdict = flagged
+    ? (isKo ? 'ok (ko exempt: a prone body has no side)' : '*** TURNS ***')
+    : quiet ? `ok (run ${best} but gain ${worst.toFixed(3)} < ${MIN_GAIN} = noise)` : 'ok';
+  if (flagged && !isKo) bad++;
   console.log(`  ${path.basename(f).padEnd(28)} ${String(flags.length).padStart(5)}/${String(frames.length).padEnd(5)} ${worst.toFixed(3).padStart(10)}${worstAt >= 0 ? ' @f' + worstAt : '   '}   ${best >= MIN_RUN ? 'run ' + best + ' @f' + bestStart + '  ' : ''}${verdict}${abstained ? '   [' + abstained + ' frames abstained]' : ''}`);
 }
 console.log('  ' + '-'.repeat(74));
