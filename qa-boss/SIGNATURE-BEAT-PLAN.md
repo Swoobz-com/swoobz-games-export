@@ -19,6 +19,24 @@ and is the defect we are fixing.
    ground-level effect costs nothing. **Prefer ground-hugging effects** — dust, scorch, shockwave
    along the floor — over anything that rises or wraps.
 
+## HARD CONSTRAINT 3 - SPECIFY A SOLID MATERIAL, NEVER FLAME / GLOW / MIST
+
+Found the expensive way on ir48 special_2 v3, 2026-07-29. The brand-flare rendered as a big
+TRANSLUCENT ORANGE GAS FLAME and it is **unkeyable off a green plate**:
+
+  raw keyed              10.45% of opaque px still green - a fat opaque green blob around the flame
+  after green-neutralize  0.00% green, but THE FIRE ITSELF washed out to speckled pale cream
+
+Translucent orange over green blends to a muddy yellow-green genuinely indistinguishable from spill,
+so every setting is wrong: keep the green and you ship a halo, remove it and you eat the effect.
+**The v3 prompt already said "thick, dense, OPAQUE ... NEVER see-through" and the model produced a
+gas flame anyway - the adjective is not enough, the MATERIAL must be named.**
+
+RULE: describe every effect as a SOLID MATERIAL DOING SOMETHING - burning paper, flying chips,
+kicked grit, shed bone, a glowing metal edge - never as flame, fire, glow, mist, smoke, vapour or
+aura. Solid materials keyed clean (ir48 special_1: 0.00% after neutralize, effect fully intact).
+This binds every beat in the table below.
+
 ## Per character
 
 | boss | arsenal (declared) | SPECIAL signature | NORMAL-ATTACK signature |
