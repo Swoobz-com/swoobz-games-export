@@ -108,3 +108,27 @@ spikes just in front of him, tipped with pale-gold light, rising only to his wai
 back down within a beat, while he drives the bone-blade down toward them in one compact cut, then he
 settles back. The spikes are BLACK SMOKE with PALE-GOLD tips, NEVER green, compact and central with a
 wide green margin on all four edges; they do NOT travel or shoot outward.
+
+---
+
+## ★ HOLLOW-PALE FRAME BUDGET (measured on qa-boss/anchors/hollow-pale-anchor-green.png, phase 53)
+Plate 720x720. Content **560w x 662h**, so: LEFT **131px** · RIGHT **29px** · HEADROOM **37px**
+(he fills 91.9% of frame height) · bottom free.
+**HE IS THE TIGHTEST CHARACTER IN THE ROSTER — 29px of right margin and 37px of ceiling.** Any beat
+that reaches screen-right or lifts overhead overruns almost immediately; there is effectively no room
+in either direction. The only real space he has is ~131px to screen-LEFT and the free bottom edge.
+Design his beats DOWNWARD and slightly BACKWARD (ground-hugging: a low shed, a crouch, a sink, dust
+or bone-shard at his feet), never outward or up. Compare ir37, who has 206px/208px/88px and STILL
+could not extend her fan — this is far tighter than that.
+
+## special_b v2 — QUEUED (anchor-break re-roll, phase 53)
+WHY (measured against his idle f0): `special-b` f0 **0.231** / fLast **0.187** — the worst anchor
+break in the entire roster. NO frame reaches 0.90, so it is not trimmable. Note the turn gate reports
+NO turns for his whole kit, so this is a POSE break, not a facing break: he starts and ends the clip
+somewhere that is simply not his anchor.
+CARRY FORWARD (from the ir37 re-roll, 5 rolls of evidence — do not rediscover):
+  1. First frame == last frame == the anchor, stated as its OWN sentence.
+  2. Any signature-beat effect needs its OWN containment clause — the inherited suffix bounds only
+     the NAMED props. His beat is the BONE FEATHER-SHED (already a solid material, good).
+  3. Given the 29px/37px budget, the shed must fall DOWNWARD close to his body, never spray outward.
+  4. Cause-free wording if any reaction is implied.

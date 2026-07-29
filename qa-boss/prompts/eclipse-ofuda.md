@@ -220,3 +220,33 @@ starting stance. The crescent stays FULLY INSIDE the frame and NEVER extends pas
 SPECIAL FINISHER (talisman bind): glowing paper talismans spiral tight around her katana as she raises it
 then drives a contained thrust forward, the talisman-light fading within frame, then she lands back in the
 starting stance. The spiralling talismans stay FULLY INSIDE the frame and NEVER extend past the edges.
+
+---
+
+## ★ ECLIPSE FRAME BUDGET (measured on qa-boss/anchors/eclipse-ofuda-anchor-green.png, phase 53)
+Plate 1536x1536. Content **557w x 1319h**, so: LEFT **495px** · RIGHT **484px** · HEADROOM **140px**
+(she fills 85.9% of frame height) · bottom free (check-containment never counts feet-on-floor).
+READ THIS BEFORE WRITING ANY BEAT FOR HER: she is NARROW with generous side room but almost no
+ceiling. Her katana is long, so a RAISE or an overhead cut cannot fit in 140px — that is the same
+arithmetic that killed ir37 victory v3 and IR-48 special_1 v5/v6. Her beats must be LATERAL or
+DIAGONAL-DOWNWARD, where she has ~490px each side to play with. The existing shared suffix already
+says the blade stays inside "even at the peak of a swing or raise" — treat the word RAISE as a
+warning, not a permission.
+
+## attack_block v2 + attack_strike v2 — QUEUED (turn-gate re-rolls, phase 53)
+WHY (measured, qa-boss/check-turn.mjs + check-anchor-lock.mjs against her idle f0):
+  attack-block   f0 0.771 / fLast **0.244**, turn run **18 frames @f79, gain 0.748** — she ENDS the
+                 clip facing the wrong way, so the return-to-idle crossfade snaps her back every time.
+  attack-strike  f0 0.719 / fLast 0.721, turn run 16 @f28, gain 0.282 — never on anchor at all.
+  Neither is trimmable: NO frame in either clip reaches 0.90 against the anchor.
+CARRY THESE FORWARD from the ir37 re-roll (do NOT rediscover them — they cost 5 rolls there):
+  1. CAUSE-FREE for any reaction beat. Naming the blow summons the thing that delivers it; an
+     explicit "NO flash, NO beam" NEGATIVE block does NOT remove it (phase-12 KO PROMPT LAW).
+     A counter-attack beat is fine — she is the ATTACKER in both of these, so this mainly means
+     no incoming weapon and no impact flash on the counter.
+  2. ANY newly-added signature-beat effect needs its OWN containment clause. The inherited suffix
+     bounds only the NAMED props (her katana), so shed ofuda talismans are NOT covered by it.
+  3. Her signature beat is the OFUDA — paper talismans shearing off the hat/blade. Paper is already
+     a SOLID MATERIAL, so it satisfies HARD CONSTRAINT 3 as-is (no flame/glow recast needed).
+  4. State first frame == last frame as its OWN sentence, and bound the travel so the recovery does
+     not carry her out of frame.
