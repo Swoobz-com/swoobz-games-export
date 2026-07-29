@@ -280,7 +280,19 @@
         "flagged_not_blocking": "THE FAN RISES ~43px ABOVE THE HAT BRIM at f48 (min y0 = 44 over the clip against the f0 hat-top of 88), against this clip's own 'THE FAN DOES NOT TRAVEL AT ALL ... NEVER goes above the brim of his hat'. Not blocking, and the reasoning is explicit: that clause was written to prevent the v2 failure where the fan's rim touched ROW 0 of the picture, and that purpose is fully served here — 44px of clear green remains above it and containment is CLEAR on every edge. It is also the same order as the 20px rise accepted on hit v4. v3 was tighter on this single axis (min y0 = 80, an 8px rise) but v3 is not shippable because its charms were pink; between the two, correct charm identity beats 35px of fan height.",
         "verdict": "ACCEPT v4. 11th of 13. special_1 cost 4 cycles, each isolating a different layer: torso rotation, then fan geometry, then charm palette. Not yet keyed or wired."
       },
-      "accepted": "v4"
+      "accepted": "v5",
+      "v5": {
+        "raw": "qa-boss/raw/ir48-hex-paper-lord-special-1-v5.mp4",
+        "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_20260728_215754_8ce11629-6d7e-42d8-81ec-f243c96cbfed.mp4",
+        "webm": "qa-boss/webm/ir48-hex-paper-lord-special_1.webm",
+        "fired": "2026-07-28 ~21:57 UTC",
+        "tim_ruling": "ACCEPTED BY TIM. He VIEWED v5 and v6 in Higgsfield and ruled \"the last two special attacks look WAY cooler like this is perfect\", then confirmed it was specifically the last two generations. When the 4-cycle stop rule was hit he chose option A: ship v5 with a left-edge feather.",
+        "qa": "ACCEPT. BODY COMMITMENT (the whole point of the re-roll): minIoU 0.109 / travel 140px / 78% strong frames / spanPeak 2.00, against v4 0.475 / 68px / 53%. It beats throw_a (0.114 / 174px / 68%), the most committed clip in the old kit. Encoded webm re-measures 0.123 / 138px / 78% — alpha survived VP9.",
+        "containment_resolution": "Raw was LEFT 80px @f51 — the REVIEW band (CLEAR <32 / REVIEW 32-90 / BLOCK >=200), NOT an automatic reject. Resolved at keying with edge-feather --left 40. Verified AFTER the feather per the standing watch item: left-edge alpha run 92px -> 0, RIGHT 2px, TOP 0 against a 6px threshold, and check-containment on the ENCODED webm returns CLEAN.",
+        "KEYING_LESSON": "THE STOCK KEYER ALONE IS NOT ENOUGH FOR A DENSE GLOWING EFFECT ON GREEN. key-idle-clips.mjs left 18.4% of the opaque pixels green-dominant — every charm carried a thick opaque green halo, because the charms glow translucently and the backdrop seen THROUGH them keys to a darkened green (r~70-108 g~141-155 b~62-84) that the tight global key misses, and the flood fill cannot reach it because the glow rings enclose it. scripts/green-neutralize.mjs fixes it completely: 18.4% -> 0.0%. MANDATORY for any clip with a big translucent effect. Pipeline of record: extract -> key-idle-clips -> green-neutralize -> edge-feather -> VP9 yuva420p crf30 -auto-alt-ref 0.",
+        "spec": "960x960 source, 24fps, 97 frames; keyed crop 960x870"
+      },
+      "reroll_chain": "v5 ACCEPTED. v6 (charms plastered as rectangular strips, LEFT 110), v7 (contained at RIGHT 28 but charms went hollow/sparse and the fan folded edge-on — a gates-up/look-down regression), v8 (best motion of all at 0.103/122/81% and the fan+density fixes landed, but the storm inverted into a backward wake, LEFT 378 BLOCK). All four are on disk in qa-boss/raw/ if a future pass wants them."
     },
     "special_2": {
       "raw": "qa-boss/raw/ir48-hex-paper-lord-special-2.mp4",
