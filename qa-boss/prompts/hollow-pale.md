@@ -102,6 +102,47 @@ ribcage where the ink stains are, no bigger than his torso, pulsing once and fad
 it, then he settles back. The bloom is CRIMSON and WHITE with black wisps, NEVER green, small and tight
 against his body in the CENTER with a wide green margin all around, NOT a ring that orbits.
 
+## special_3 v2 (ACTING LINE, phase 63) - BONE ERUPTION, ground-hugging, deep crouch for commitment
+# WIRE NAME: this take ships as `special-c.webm` (3rd entry of the `special` list in
+# src/characters/hollow-pale.ts). Build it as `special_3`.
+# CONCEPT DRIFT, noted not fixed: the v1 section below is headed SMOKE SPIKE, but what actually
+# shipped as take C is EMBER RIBS (see the manifest comment on special-c.webm). The prompt file and
+# the wire have disagreed since phase 26. This v2 supersedes both.
+# WHY v2: measured 0.536 minIoU / 18px travel / 15% duty. The manifest itself already calls take C
+# "by far the WEAKEST of the three finishers" — bright-pixel share above its own resting baseline
+# peaks at +1.8pp for 0.46s, versus take A at +16.2pp/1.71s. It reads as an internal ember, not a
+# finisher, and the manifest notes a presence re-roll is a pure drop-in swap (same file, same slot).
+# THREE THINGS THIS FIXES, deliberately:
+#  1. COMMITMENT. The fix is a deep braced CROUCH, because dropPct is the metric that actually sees a
+#     sink — minIoU bbox-NORMALISES, which divides out scale, so it scored special_2 v5's 42.7% height
+#     collapse as 0.363 "barely leaves the anchor". Judge this clip on dropPct, not minIoU.
+#  2. GROUND LEVEL. His budget is L131 / R29 / T37 — there is no room out to either side and none
+#     above. The bottom edge is the only free one he has (check-containment treats feet-on-floor as
+#     expected and never counts it), so the whole effect lives at his feet.
+#  3. SOLID MATERIAL. v1's "black smoke ... tipped with pale-gold light" is mist plus glow, which
+#     violates HARD CONSTRAINT 3 and invites the bloom-lit-plate defect. Recast as opaque bone shards.
+# DIFFERENTIATION from his other two takes, which matters because all three fire in the same slot:
+# take A is fire ALONG THE BLADE, take B (v2) is a shed AT THE RIBS, take C is now an eruption FROM
+# THE GROUND. Three different origins, three different silhouettes.
+SPECIAL FINISHER (bone eruption): he begins in the EXACT reference stance in strict side profile
+facing screen-right, the long serrated bone-blade arm held low exactly as in the reference image. He
+drops his weight into a DEEP braced crouch over his own feet, sinking low, and DRIVES the bone-blade
+arm straight DOWN into the ground beside his lead foot; on the impact a short cluster of solid
+bone-white shards ERUPTS out of the ground around his own feet - jagged, chalk-white and fully opaque,
+rising only to his own KNEE height and no higher, spanning no wider than his own standing width - and
+they crumble back down to the floor within a beat while he holds the low crouch. The shards are SOLID
+BONE: never smoke, never mist, never a glow, never a flare. They stay at GROUND LEVEL around his feet,
+never rise above his own knee, never travel sideways away from him, and never come near the left,
+right or top edge of the frame. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never jumps,
+never leaps, never hops and never lunges out into a wide stance; he keeps his stance narrow and never
+spreads wider than about one and a half times his standing width. The bone-blade arm is NEVER raised
+above his own shoulder and is NEVER lifted overhead, and its TIP never rises above his own shoulder at
+any moment; it travels DOWNWARD only. The entire strike and eruption are COMPLETE by the halfway point
+of the clip; the whole second half of the clip is his slow rise back up into the EXACT same reference
+stance, still facing screen-right, so that he is already standing still in the reference pose well
+before the clip ends. The first frame and the last frame are the EXACT same reference stance. Heavy,
+brutal, final.
+
 ## special_3 (SMOKE SPIKE) — pale-gold/white, contained
 SPECIAL FINISHER (smoke spike): the black smoke at his feet SNAPS upward into a cluster of short smoke
 spikes just in front of him, tipped with pale-gold light, rising only to his waist height and collapsing
