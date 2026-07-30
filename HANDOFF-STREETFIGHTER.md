@@ -1,5 +1,58 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
+## ★★★★★★ SESSION 16 (2026-07-30) — CORRECTIONS TO §6A AND §6C BELOW. READ BEFORE FIRING ANYTHING ★★★★★★
+
+HEAD **`8870cc8`**. `npx tsc --noEmit` clean, `npx vitest run` **157/157**. **Zero clips fired this
+session — Chrome was never logged in to Higgsfield.** Everything below is desk work, all committed.
+
+**1. The §6A queue was NOT fireable. None of the three.** `build-prompt.mjs` took the FIRST
+`^## <state>` heading, and these files accumulate analysis blocks and dead concepts ABOVE the live
+acting line. **14 of 109 state builds resolved to the wrong section**, including all three queued
+clips: ir37 `attack_strike_b` and hollow-pale `special_b` would have fired **raw QA telemetry as the
+prompt** (`v3 measures: anchor-lock f0 0.993`, `Pixel-sampled rgb(147,42,94)`, and the meta-line
+"Same acting line as v3, with the petal sentence replaced by:"); satoshi `special_2` would have
+re-fired the ODACHI CYCLONE **Tim rejected as "looks bad"**; eclipse `attack_strike` emitted stale v1.
+The §6A claim that eclipse v4 was "already composed (3046 chars) at `:313`" was **wrong** — `:313` is
+the analysis heading. Fixed in `9e76e91`; **`node qa-boss/check-prompt-sections.mjs` is now the
+standing gate (108 clean / 0 problems) — run it before firing anything.**
+
+**2. All three §6A prompts are now genuinely fire-ready** (`1857897`): eclipse `attack_strike` 2521 ·
+ir37 `attack_strike_b` 3020 · hollow-pale **`special_2`** 3142 chars. Two notes that bind:
+- ir37's v4 is **RECONSTRUCTED** — v3's wording was never persisted anywhere, only its measurements.
+  Labelled as such in the file: a regression in f0/fLast is a problem with that wording, not new
+  information about the acting.
+- hollow-pale's was filed under the WIRE name `special_b`; build-prompt builds by PROMPT-FILE state
+  name. **Build it as `special_2`.** Its emissive "bloom of crimson light" is recast to solid material.
+
+**3. §6C is ONE geometry problem, not four prompt problems** (`8870cc8`, full detail in
+**`qa-boss/ANCHOR-BUDGETS.md`**). Measured every anchor: the roster splits into **prop-TUCKED**
+(eclipse 495/484, LK 458/455, thorn 360/362, ir37 329/332 — the clean kits) and **prop-EXTENDED**
+(ir56 46/46, satoshi 48/48, sora 48/48, onryo 50/57, kitsune 110/118). Their bodies are fine —
+satoshi's body mass has the roster's most generous clearance. **His odachi extends 699px past his body
+with the tip 48px from the frame edge in the ANCHOR ITSELF.** So "bound the PROP TIP" cannot save
+them, and every wording that passed containment did so by deleting the motion — which is why his
+finisher is 0.645 / 20px / **0% duty**. **All four top §6C targets are prop-EXTENDED.**
+→ **HOLDING rolls on satoshi `special`, sora `attack-strike`/`-b`, ir56 `special` pending Tim's
+re-plate decision** (re-plating is the only fix, but it changes the kit anchor, so satoshi 11 / sora
+10 / ir56 12 wired clips would need re-rolling — see §7 below).
+
+**4. §6C also listed eclipse `special-b`, which is UNWIRED** — re-rolling it fixes nothing live. That
+is the §1 mistake repeated inside the handoff's own next-steps. Manifest-verified unwired list (5):
+`eclipse-ofuda/special-b`, `hollow-pale/attack-throw`, `lady-kurotachi/special-c`,
+`satoshi-odachi/attack-throw`, `satoshi-odachi/special-c`. Note §1's list named
+`eclipse-ofuda/attack-block` (since re-wired) and **omitted `hollow-pale/attack-throw`**.
+
+**5. Composed and ready: hollow-pale `special_3` v2** (BONE ERUPTION) — the one §6C target not
+blocked by the plate decision. **Judge it on dropPct, not minIoU** (minIoU bbox-normalises and cannot
+see a sink).
+
+**NEXT, in order:** log in to Higgsfield → fire the three §6A clips → hollow-pale `special_3` v2 →
+get Tim's re-plate ruling → then the MK FINAL playables (§6B, unchanged).
+**New tools:** `qa-boss/check-prompt-sections.mjs`, `qa-boss/measure-anchor-budget.mjs`,
+`qa-boss/ANCHOR-BUDGETS.md`.
+
+---
+
 > **READ THIS FIRST — everything below the SESSION 15 block is PROVENANCE, most of it STALE.**
 > Current state as of **session 15, 2026-07-30**: HEAD **`3263321`**, `npx vitest run` = **157/157**,
 > `npx tsc --noEmit` clean. Session 15 fixed **Tim's node-7 bug** (ir37 `hit` + `victory` re-rolled and
