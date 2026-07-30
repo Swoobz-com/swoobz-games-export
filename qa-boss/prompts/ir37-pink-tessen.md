@@ -349,7 +349,36 @@ image, on either side. She is ALONE in an empty frame - nothing whatsoever enter
 in the frame at any time, and there is no light, no flare and no streak anywhere in the shot. Only her
 own body moves.
 
-## attack_strike_b v3 RESULT + v4 (tighten the petal SCATTER — the cleave itself is right)
+## attack_strike_b v4 (ACTING LINE, phase 63) - diagonal-DOWNWARD fan cleave, petal scatter bounded
+# RECONSTRUCTED, and labelled so on purpose. v3's exact wording was NEVER PERSISTED — not in this
+# file, not in ir37-pink-tessen-clipdata.json, not anywhere in qa-boss/. It lived only in a session
+# transcript. What IS on record is v3's measured behaviour (below): f0 0.993 / fLast 0.993, turn gate
+# 0/97, plate 0.00/0.00, spanPeak 1.53, travel 84, drop 17%, 65% strong duty, and a single defect of
+# RIGHT 44px @f57-58 caused by ONE lotus petal, not the fan. This line rebuilds that shape from those
+# numbers and applies the v4 petal replacement verbatim. Because the reconstruction cannot be
+# byte-faithful to v3, treat a REGRESSION in f0/fLast/spanPeak as a wording problem in THIS line
+# rather than as new information about the acting.
+# Bounds come from the IR37 FRAME BUDGET above: L206 / R208 / T88, open fan ~250px across, so the fan
+# must stay CLOSE TO THE BODY and can never be raised or extended to arm's length in either direction.
+STRIKE (fan cleave): she begins in the EXACT reference stance in strict side profile facing
+screen-right, the war-fan held OPEN beside her exactly as in the reference image and the dagger tucked
+at her side; she loads her weight briefly onto her back leg, then cleaves the open war-fan in one fast
+committed DIAGONAL cut DOWNWARD and ACROSS the front of her body toward her opposite hip, her hips and
+shoulders following the fan through with real follow-through, and only TWO OR THREE solid hot-pink
+lotus petals shear off the fan edge, staying within one body-width of her and drifting DOWNWARD toward
+her feet - they never travel sideways and never come near the left or right edge of the frame. HER FEET
+STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - she never jumps, never leaps, never hops and never lunges
+out into a wide stance; she keeps her stance narrow and never spreads wider than about one and a half
+times her standing width. THROUGHOUT THE WHOLE CLIP the war-fan stays CLOSE TO HER BODY and is NEVER
+extended out to arm's length in any direction - it never reaches further from her body than it does in
+the reference image, on either side - and it is NEVER raised above her own shoulder; the cleave travels
+DOWNWARD and across only. The entire cleave is COMPLETE by the halfway point of the clip; the whole
+second half of the clip is her slow settle back into the EXACT same reference stance, war-fan open
+beside her again, still facing screen-right, so that she is already standing still in the reference
+pose well before the clip ends. The first frame and the last frame are the EXACT same reference stance.
+Fast, precise, lethal.
+
+## attack_strike_b v3 RESULT (analysis — NOT a prompt; see the v4 acting line above)
 v3 measures: anchor-lock f0 **0.993** / fLast **0.993** (v1 was 0.461 f0 — the start snap is FIXED),
 turn gate **0/97 with zero abstentions**, plate retention 0.00%/0.00%, body-commitment minIoU 0.208 /
 travel 84 / 65% strong / spanPeak 1.53 (under the 1.60 rule), drop 17%. The DIAGONAL-DOWNWARD cleave

@@ -121,7 +121,46 @@ Design his beats DOWNWARD and slightly BACKWARD (ground-hugging: a low shed, a c
 or bone-shard at his feet), never outward or up. Compare ir37, who has 206px/208px/88px and STILL
 could not extend her fan — this is far tighter than that.
 
-## special_b v2 — QUEUED (anchor-break re-roll, phase 53)
+## special_2 v2 (ACTING LINE, phase 63) - INK BLOOM recast as SOLID SHED, ground-hugging, anchor-locked
+# STATE NAME: the wire calls this take `special-b.webm` (2nd entry of the `special` list in
+# src/characters/hollow-pale.ts), but build-prompt.mjs builds by PROMPT-FILE state name, which is
+# `special_2`. The old "## special_b v2 — QUEUED" heading below therefore built NOTHING for either
+# name — it matched `special_b`, which no prompt section defines an acting line for, and it never
+# matched `special_2` at all. Named `special_2` here so it actually builds.
+# WHY v2: measured f0 0.231 / fLast 0.187 — the worst anchor break in the roster, and NO frame reaches
+# 0.90, so it is not trimmable. The turn gate reports no turns for his whole kit, so this is a POSE
+# break, not a facing break. Hence the explicit start-pose description and the first==last sentence.
+# TWO deliberate changes from v1 beyond the anchor fix:
+#  1. v1 asked for "a bloom of crimson LIGHT" — that is an EMISSIVE effect, which violates HARD
+#     CONSTRAINT 3 (name the material, not the adjective) AND invites the session-14 BLOOM-LIT PLATE
+#     defect, where the effect brightens the chroma plate around it and the key keeps those pixels as
+#     an olive halo. Recast as the SOLID material his own arsenal already implies: bone-white feather
+#     flakes off the scythe serration plus dry black ink flecks off the rib stains.
+#  2. It is aimed DOWNWARD and slightly BACK toward screen-LEFT, because the frame budget below gives
+#     him 131px left, 29px right and 37px of ceiling — the bottom edge is the only free one he has.
+SPECIAL FINISHER (ink shed): he begins in the EXACT reference stance in strict side profile facing
+screen-right, the long serrated bone-blade arm held low exactly as in the reference image. He sinks his
+weight straight DOWN into a low braced crouch over his own feet and drives the bone-blade arm DOWNWARD
+and slightly BACK toward screen-LEFT in one compact heavy sweep, and as it passes his ribs a tight
+burst of solid material tears loose from him - a handful of bone-white feather flakes shearing off the
+blade serration together with dry black ink flecks off the stains on his ribs - no wider than his own
+torso, falling DOWNWARD to the ground at his feet and settling there within a beat. The shed material
+stays within one body-width of him at ALL times, never sprays outward, never rises above his own
+shoulder, and never comes near the left, right or top edge of the frame. HIS FEET STAY FLAT ON THE
+GROUND FOR THE ENTIRE CLIP - he never jumps, never leaps, never hops and never lunges out into a wide
+stance; he keeps his stance narrow and never spreads wider than about one and a half times his standing
+width. The bone-blade arm is NEVER raised above his own shoulder and is NEVER lifted overhead, and its
+TIP never rises above his own shoulder at any moment; it travels DOWNWARD and BACK only. The entire
+burst is COMPLETE by the halfway point of the clip; the whole second half of the clip is his slow
+settle back up into the EXACT same reference stance, still facing screen-right, so that he is already
+standing still in the reference pose well before the clip ends. The first frame and the last frame are
+the EXACT same reference stance. Compact, heavy, lethal.
+
+## (analysis) the special_b anchor-break — SUPERSEDED by the special_2 v2 acting line above
+# Heading deliberately does NOT start with "## special_b", so build-prompt.mjs sees no section for
+# that name and says "no state section" instead of refusing. `special_b` is a WIRE name (the 2nd
+# `special` take in src/characters/hollow-pale.ts), never a prompt-file state name — build by
+# `special_2`.
 WHY (measured against his idle f0): `special-b` f0 **0.231** / fLast **0.187** — the worst anchor
 break in the entire roster. NO frame reaches 0.90, so it is not trimmable. Note the turn gate reports
 NO turns for his whole kit, so this is a POSE break, not a facing break: he starts and ends the clip

@@ -185,7 +185,7 @@ katana above her own shoulder and NEVER lifts it overhead - the cut travels DOWN
 The entire cut is COMPLETE by the halfway point of the clip; the whole second half of the clip is her
 slow settle back into the EXACT same reference stance, katana point-down again, still facing
 screen-right, so that she is already standing still in the reference pose well before the clip ends.
-Fast, precise, lethal.
+The first frame and the last frame are the EXACT same reference stance. Fast, precise, lethal.
 
 ## attack_strike B  (wide horizontal cut)
 STRIKE (horizontal cut): she sweeps the katana in a wide horizontal arc across the front, then recovers
