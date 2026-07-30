@@ -1,13 +1,162 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-> **READ THIS FIRST — everything below the SESSION 14 block is PROVENANCE, most of it STALE.**
-> Current state as of **session 14, 2026-07-29**: HEAD **`0af5d10`**, `npx vitest run` = **157/157**,
-> `npx tsc --noEmit` clean. **IR-48 is 13/13 keyed + encoded + gate-verified + WIRED, and node 10 now
-> renders the real final boss** — the first `src/` change since session 7, live-driven before commit.
-> **Jump to "★★★★ OPUS 5 — START HERE (SESSION 14)" immediately below.** The SESSION 13 block is
-> retained directly under it because its five learnings still bind; everything below THAT is history.
+> **READ THIS FIRST — everything below the SESSION 15 block is PROVENANCE, most of it STALE.**
+> Current state as of **session 15, 2026-07-30**: HEAD **`3263321`**, `npx vitest run` = **157/157**,
+> `npx tsc --noEmit` clean. Session 15 fixed **Tim's node-7 bug** (ir37 `hit` + `victory` re-rolled and
+> shipped), restored eclipse `attack_block` Take A, built the **TURN GATE**, and scoped + unblocked the
+> **6 MK FINAL playables**. **Jump to "★★★★ OPUS 5 — START HERE (SESSION 15)" immediately below.**
+> The SESSION 14 and 13 blocks are retained under it (their defect classes and §3 "verify the verifier"
+> still bind); everything below THOSE is history.
 
-## ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 14, written 2026-07-29) ★★★★★★★★★★
+## ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 15, written 2026-07-30) ★★★★★★★★★★
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the
+BROWSER on Higgsfield Unlimited = **ZERO CREDITS**. Re-run every gate yourself, VIEW the frames at
+FULL SIZE, never accept a self-report — including your own. Session 13 §3 and §1, and session 14's
+bloom-lit-plate + stale-cal + argmax warnings, were all load-bearing AGAIN this session.
+
+### 0. WHAT SHIPPED — 12 commits, `9f84557` → `3263321` (phases 52-61)
+
+| shipped | evidence |
+|---|---|
+| **ir37 `hit` RE-ROLLED (v6)** — this was **Tim's node-7 bug** | anchor-lock f0 0.324→**0.992** / fLast 0.132→**0.989**, turn gate 0.861→**0/97**, containment CLEAN |
+| **ir37 `victory` RE-ROLLED (v5)** | f0 0.362→**0.993** / fLast 0.361→**0.981**, turn gate **0/97** |
+| **eclipse `attack_block` Take A RESTORED** (v3 + feather) | 0.771/0.244 → **0.939/0.937**, containment CLEAN, turn 0/97 |
+| `qa-boss/check-turn.mjs` — **the TURN GATE**, calibrated | real turns 0.748-0.861 · known-good ceiling 0.144 · MIN_GAIN 0.20 in the empty band |
+| `qa-boss/cut-bloom-plate.mjs` + IR-48 `special_3` + **node 10 final boss wired** | phase 52, live-driven |
+| `qa-boss/pad-anchor-plate.mjs` + **6 padded MK FINAL plates** | all 6 measured ≥200px L/R/T, printed by the tool itself |
+| `qa-boss/BRIEF-mk-final-playables.md` | the 6 picks, the rejections, the 7 carried-forward prompt laws |
+| 3 global memories | `bloom-lit-plate-survives-the-key.md` · `unlimited-is-serialized.md` · `frame-headroom-arithmetic.md` |
+
+### 1. THE CORRECTION YOU MUST NOT REPEAT — measure the MANIFEST, not the DISK
+
+I reported eclipse `attack-block` as a live crossfade defect. **It was not wired.** It was the Take A
+pulled 2026-07-26 for a phantom blade fragment; the manifest only referenced Take B, so the game never
+played it. My roster sweep globbed `public/assets/characters/*/**.webm` — **files on disk** — instead of
+walking `src/characters/*.ts` for the URLs actually referenced.
+
+**Five files on disk are UNWIRED** (do not "fix" them thinking they're live, and do not delete them —
+they are re-roll candidates): `eclipse-ofuda/special-b.webm`, `lady-kurotachi/special-c.webm`,
+`satoshi-odachi/attack-throw.webm`, `satoshi-odachi/special-c.webm`
+(+ `eclipse-ofuda/attack-block.webm`, now re-wired as Take A).
+
+**Rule: any roster-wide sweep enumerates its file list FROM the manifests.**
+
+### 2. THE PROMPT LAWS THAT COST ~15 ROLLS TO LEARN (all six re-verified this session)
+
+1. **Bound HEIGHT, REACH and SPAN independently, on the PROP TIP, not the hands.** Bounding one axis
+   silently pushes the motion into another — bitten four ways: ir37 fan height→reach; eclipse
+   height→span; height→**leap**; height→**prop tip** (hands at chest height, katana tip still overruns).
+2. **PLANTED clause on every clip** — *feet stay flat, never jumps/leaps/hops/lifts both feet.* Without
+   it, "drives forward off that leg" is read as a JUMP.
+3. **CAUSE-FREE wording for any reaction (`hit`, `ko`) — never mention the blow, not even to negate
+   it.** ir37 hit v4 said verbatim "NO flash, NO beam, NO streak… nothing enters the frame" and the
+   baked streak survived (86px→24px). v5's cause-free rewrite killed it first try. **A NEGATIVE BLOCK
+   DOES NOT WORK — naming the blow summons the thing that delivers it.** This was already written down
+   as the phase-12 KO PROMPT LAW; I failed to carry it from `ko` to `hit`. Carry it to every reaction.
+4. **Every signature-beat effect needs its OWN containment clause** — the inherited suffix bounds only
+   the NAMED props, so a newly-added effect is uncovered and drifts out of frame.
+5. **TIME BUDGET for any big motion:** *the action is COMPLETE by the halfway point; the whole second
+   half is the settle back to the reference stance.* Three separate "return to the anchor" sentences did
+   NOT achieve it on eclipse `attack_strike` — the clip simply ran out of time.
+6. **Effects are a SOLID MATERIAL** (burning paper, petals, bone shards, stone chips), never
+   flame/glow/mist/aura — solid material also does not bloom the plate (§ session 14).
+7. `first frame == last frame == the anchor`, as its own sentence.
+
+### 3. WHEN PROSE FAILS, FEATHER — do not roll a 5th time
+
+Eclipse has **140px of headroom against a long katana**. v3 and v4 both left a ~25px blade-tip overrun,
+and v4 was **no better than v3** despite an explicit never-vertical clause. `scripts/edge-feather.mjs`
+exists exactly for this — its own header: *"content that crosses the source frame boundary must
+DISSOLVE at the edge instead of cutting flat (the cut lives in the SOURCE pixels — wide-framing prompts
+shrink but never eliminate it; **never re-generate for this**)."* Feathering the tip gave 0.939/0.937.
+**Test before feathering: is the BODY well inside the band, with only a prop tip crossing?** If the body
+itself busts the frame, that is a re-roll, not a feather.
+
+### 4. THE THREE MISTAKES SHARED ONE SHAPE — "a number that didn't mean what it looked like"
+
+- `warm-regrade.mjs` made every metric go green while shipping a **fabricated bloom** shaped like the
+  plate (session 14 §1). Deleted; `cut-bloom-plate.mjs` is the fix of record.
+- The turn gate's first draft flagged 3 known-good ir48 clips (→ ABSTENTION RULE), then later emitted a
+  confident `*** TURNS ***` on eclipse block v3 at gain 0.153 (→ MIN_GAIN 0.20).
+- I called a containment result a false positive; re-scanning at full res with the gate's own `isGreen`
+  showed **the gate was right and I was off-by-one** (its f19 = file `f_0020`).
+- `pad-anchor-plate.mjs` v1 emitted **two-tone plates** (hardcoded `#00b140` canvas under a brighter
+  source crop) — invisible in the numbers, and it would have mis-seeded the keyer's border sampling.
+
+**Every one was caught only by compositing the frame and LOOKING.** Budget that step; it is not optional.
+
+### 5. OPERATIONAL: the browser is the bottleneck and it is unreliable
+
+- **Unlimited is SERIALIZED** — ONE generation at a time, ~20-30 min each
+  (`~/.claude/memory/unlimited-is-serialized.md`).
+- **Unlimited resets to `Generate2418` on EVERY reload.** Assert `label === 'GenerateUnlimited'` in the
+  SAME JS task as the click. My pre-flight guard **blocked a would-be 2418-credit fire** this session
+  after a reload — keep it.
+- The Chrome renderer **froze twice** after hours of accumulated video; recovery = reload (which resets
+  Unlimited). Expect to spend real time on recovery, not progress.
+- **Harvest by scanning the DOM for `hf_<UTC>_<uuid>` ids — NEVER click a card's play button**, which
+  raises a "Confirm rights" terms dialog that must not be accepted on Tim's behalf.
+- Poll the badge by matching **elements whose exact trimmed text is a status word**. Two bugs here:
+  checking only `/Processing/` (the badge changes to "Generating"), then a widened regex matching
+  "starting" inside a history card's prompt text ("starting stance"), so it never went false.
+
+### 6. WHAT TO DO NEXT, IN ORDER
+
+**A. Finish the live re-roll batch (3 clips).** These are the genuinely WIRED defects:
+1. **eclipse `attack_strike` v4** — prompt is **already composed** (3046 chars) at
+   `qa-boss/prompts/eclipse-ofuda.md:313`. Carries the TIME-BUDGET clause + the blade-tip ban. **Not yet
+   fired** — the last reload reset Unlimited, so re-arm it first. v3's failure was `fLast`, i.e. time,
+   not pose (phase 58).
+2. **ir37 `attack_strike_b` v4** — `qa-boss/prompts/ir37-pink-tessen.md:352`. Petal scatter tightened to
+   2-3 petals bounded in body-widths; the cleave itself is right. **Swap the ir37 anchor back in first.**
+3. **hollow-pale `special_b` v2** — `qa-boss/prompts/hollow-pale.md:124`. Untouched, and the **worst
+   anchor break in the roster (0.231)** on the **tightest budget (L131 R29 T37)**. Expect to feather.
+
+**B. Then the 6 MK FINAL PLAYABLES.** Read `qa-boss/BRIEF-mk-final-playables.md` in full first.
+Picks: **Oni Tetsubo · Raiju Naginata · Minotaur Axe · Skullrend Orcus · Pale_Choir · Jin_Goldenhand**.
+- **Tim: "those will be PLAYABLE characters"** — so they wire into the **charSelect roster** like
+  gorvak/volta, **not** as node bosses. Do not touch `fightCampaign.ts` for these.
+- The **padding pre-step is DONE**: 6 verified plates in `qa-boss/anchors/mk/*-anchor-green.png`
+  (oni L234/R234/T468 · raiju L202/R200/T468 · minotaur L222/R224/T620 `--fill 0.58` ·
+  skullrend L252/R254/T468 · pale-choir L466/R464/T468 · jin L392/R393/T468). **Generate off THESE,
+  never the raw `input/MK FINAL/` art** — every raw plate is tighter than ir37 and would repeat the
+  v2..v6 oscillation six times over.
+- **WATCH ITEM: raiju's padded plate retains a faint rectangle** (source gradient; dominant green only
+  56.7%). Check its FIRST keyed clip for a rectangular alpha edge before generating the other 12.
+- **ONE CHARACTER AT A TIME**, full kit, so each finished fighter is shippable:
+  padded anchor → `idle` (the anchor hub) → `hit`/`ko`/`victory` → strikes/throws/blocks → specials.
+- **Scope, stated plainly:** 6 × 13 = **78 clips minimum**; serialized Unlimited at ~20-30 min makes
+  that ~30-40h of wall-clock **even if every clip landed first try**. At the observed 2-4 rolls/clip it
+  is realistically **150-250 renders across many sessions.** Don't promise a session can finish it.
+
+**C. Remaining known defects after A** (all measured, all still open): the 12 "more sick" specials worst
+first — satoshi `special` (0.645 / 20px / **0% duty**), eclipse `special-b`, hollow-pale `special-c`,
+ir56 `special` — specced in `qa-boss/SIGNATURE-BEAT-PLAN.md`; plus 3 flagged strikes (sora
+`attack-strike` + `attack-strike-b`, satoshi `attack-strike`).
+
+### 7. STILL OPEN FOR TIM — do NOT decide these unilaterally
+
+Unchanged from session 13 §6, **none decided in sessions 14 or 15**: lady-kurotachi's true anchor ·
+kitsune node 2's baked-in tanto glow (a baked effect that cannot be keyed — the class that already cost
+a whole blocked node) · hollow-pale `attack_throw` Take A · the dead `onryo-katana.md` prompt.
+**`input/MK FINAL/` scope is now CLOSED** — Tim ruled 6 playables (§6B).
+
+### 8. TOOLING ADDED THIS SESSION (all committed, all self-documenting in their headers)
+
+| tool | what it answers |
+|---|---|
+| `qa-boss/check-turn.mjs` | *does the fighter face the WRONG WAY mid-clip?* bbox-normalised IoU vs the kit anchor, both ways. **Has an ABSTENTION RULE and a MIN_GAIN — do not remove either, each was added after a confident wrong answer.** `ko` is exempt. |
+| `qa-boss/cut-bloom-plate.mjs` | deletes backdrop that an emissive effect LIT UP (the session-14 defect class). Cuts, never tints. |
+| `qa-boss/pad-anchor-plate.mjs` | rebuilds tight-cropped art into a generation-ready plate. Samples the source border-ring median for the canvas colour, **REFUSES rather than emitting bad output**, and re-measures its own result. |
+| `qa-boss/n10-drive.mjs` | repeatable node-10 wire proof — probes the live `<video>` currentSrc/readyState/currentTime. |
+
+Also: `check-frontturn.mjs` is **not** a roster sweep (9-12 flags/character, `ko` flags on everyone — a
+prone body is a wide bbox, correct by spec). It answers "is she square to camera", a different question.
+
+---
+
+## ★★★ (SUPERSEDED by SESSION 15 — but §1 the BLOOM-LIT PLATE and §2 the STALE CALS / ARGMAX warnings STILL BIND) OPUS 5 — SESSION 14, written 2026-07-29 ★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the
 BROWSER on Higgsfield Unlimited = **ZERO CREDITS**. Re-run every gate yourself, VIEW the frames at
