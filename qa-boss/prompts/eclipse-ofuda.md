@@ -164,9 +164,28 @@ IDLE COMBAT-READY LOOP: a poised grounded kenjutsu stance, breathing steadily, t
 ponytail and the paper ofuda talismans on her hat swaying faintly, subtle weight shifts. Feet planted,
 calm and lethal. Returns to the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 
-## attack_strike A  (fast diagonal draw-cut)
-STRIKE (diagonal cut): she cuts the katana in one fast downward diagonal slash, then recovers to the
-starting stance. One sharp committed cut.
+## attack_strike A  (fast diagonal draw-cut) — v4 ACTING LINE, phase 63
+# v4 = v3 (PLANTED + span bound, which fixed the leap and spanPeak 2.15->1.73) PLUS the two inserts
+# diagnosed at "## attack_strike v3 RESULT + v4" below: the TIME BUDGET (fLast 0.502/0.467 twice is a
+# clip-length problem, not a pose-wording problem) and the BLADE-TIP / never-vertical ban (the last
+# 36px of TOP overrun). ONE variable pair changed vs v3 — everything else is v3 verbatim.
+# v1 body, superseded, kept for provenance: "STRIKE (diagonal cut): she cuts the katana in one fast
+# downward diagonal slash, then recovers to the starting stance. One sharp committed cut."
+STRIKE (diagonal draw-cut): she begins in the EXACT reference stance in strict side profile facing
+screen-right, katana held point-down in front of her exactly as in the reference; she COILS down onto
+her back leg, then drives forward and carves the katana in one fast committed DIAGONAL cut DOWNWARD and
+ACROSS the front of her body, hips and shoulders following the blade through with real follow-through,
+and one or two white paper ofuda talismans tear loose from her hat brim and flutter down beside her,
+staying close to her body and fully inside the frame at all times. HER FEET STAY FLAT ON THE GROUND FOR
+THE ENTIRE CLIP - she never jumps, never leaps, never hops and never lunges out into a wide stance; she
+keeps her stance narrow and never spreads wider than about one and a half times her standing width. The
+katana is NEVER held vertical or pointing upward at any moment; the blade stays HORIZONTAL or angled
+DOWNWARD for the entire clip, and the BLADE TIP never rises above her own shoulder. She NEVER raises the
+katana above her own shoulder and NEVER lifts it overhead - the cut travels DOWNWARD and across only.
+The entire cut is COMPLETE by the halfway point of the clip; the whole second half of the clip is her
+slow settle back into the EXACT same reference stance, katana point-down again, still facing
+screen-right, so that she is already standing still in the reference pose well before the clip ends.
+Fast, precise, lethal.
 
 ## attack_strike B  (wide horizontal cut)
 STRIKE (horizontal cut): she sweeps the katana in a wide horizontal arc across the front, then recovers
