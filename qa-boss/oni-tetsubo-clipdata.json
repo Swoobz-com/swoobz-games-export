@@ -4,7 +4,7 @@
   "source": "input/MK FINAL/ (mythic). PLAYABLE character — wires into the charSelect roster like gorvak/volta, NOT a campaign node. Do not touch fightCampaign.ts.",
   "anchor": "qa-boss/anchors/mk/oni-tetsubo-anchor-green.png (PADDED via pad-anchor-plate.mjs; raw art was L51/R28/T71)",
   "frame_budget": "L234 / R234 / HEADROOM 468. PROP-EXTENDED: body mass only 401px wide (x279..x679), tetsubo hangs 622px past the body. Workable only because padding gives 234px past the club tip vs satoshi's 48px.",
-  "KIT_STATUS": "2/13. idle (kit anchor) + hit ACCEPTED.",
+  "KIT_STATUS": "3/13. idle (kit anchor) + hit + ko ACCEPTED.",
   "clips": {
     "idle": {
       "accepted": "v1",
@@ -49,6 +49,29 @@
       "qa": "PASS, and the strongest anchor-lock in the project so far: 0.997 / 0.995 against the kit anchor. minIoU 0.318 confirms a REAL stagger with genuine body displacement rather than the twitch that defect-only gates reward. Cause-free wording held — nothing enters the frame, no impact flash, and his back is never shown, which is exactly the ir37 node-7 defect this law exists to prevent.",
       "feather_note": "FEATHER, not re-roll: RIGHT ~91px real on just 2 of 97 frames (f8, f14). Sampled rgb(89,70,76) / rgb(74,66,65) = dark iron, i.e. the TETSUBO TIP during the recoil — not his body and not debris. The documented test is \"body well inside AND only a PROP TIP crosses\"; his body scores 0.997, so this is the feather case. Contrast ir37 special_3, rejected at 48-62px because detached PETALS are not a prop tip.",
       "why_hit_second": "Chosen as clip 2 deliberately: hit fires nearly every exchange, so it is the most-seen animation in the game, and it is the state whose defect produced Tim's node-7 bug on ir37 (she took the hit with her back turned, needing 5 rolls)."
+    },
+    "ko": {
+      "accepted": "v1",
+      "job": "f1c6db2b-8d53-43d7-80fc-0b96ba4ed397",
+      "raw": "qa-boss/raw/oni-tetsubo-ko-v1.mp4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_073633_f1c6db2b-8d53-43d7-80fc-0b96ba4ed397.mp4",
+      "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, start_image ONLY (NO end_image — see note), use_unlim (0 credits)",
+      "measured": {
+        "f0_vs_anchor": 0.994,
+        "fLast_vs_anchor": "0.249 — CORRECTLY low; ko is off-anchor by spec (ir48 ko = 0.272)",
+        "fLast_bbox_aspect": "4.10 (wide and short) — confirms genuinely PRONE, not merely crouched",
+        "tail_stability": "0.998 min frame-to-frame IoU over the last 12 frames — comes fully to rest",
+        "containment_proxy200": "TOP 0, LEFT 0, RIGHT 12 (~58px real). Bottom exempt — he is ON the floor.",
+        "frames": 97,
+        "size": "960x960",
+        "fps": 24
+      },
+      "verdict": "ACCEPT (feather at keying)",
+      "qa": "PASS on every ko-specific criterion. It starts ON the anchor (0.994) and ends genuinely PRONE — proven by bbox aspect 4.10 (wide/short) rather than by the raw IoU alone, because a low IoU could equally mean a crouch or a mess. Tail stability 0.998 shows he comes to rest and stays there instead of twitching, which is what a KO must do while the round-end holds. Cause-free: nothing enters the frame.",
+      "no_end_image_note": "end_image was deliberately OMITTED for this clip alone. Every other clip pins start AND end to the standing plate, which is what makes fLast land on the anchor — but a ko MUST end prone, so pinning the last frame to a standing plate would fight the acting. This is the transport-level twin of the KO-SUFFIX RULE.",
+      "ko_suffix_verified": "build-prompt stripped BOTH contradictions for ko: the weapon-lock (\"keeps the tetsubo in his hands ... never drops or swaps\") and the anchor-lock (\"begins and ends on the EXACT same reference stance\"). Verified 0 occurrences of each in the built prompt before firing. Without that the prompt would order him to keep AND drop the club, and to end on the anchor AND end prone.",
+      "feather_note": "FEATHER not re-roll: RIGHT ~58px is the DROPPED TETSUBO lying on the floor. Prop, not body, and the body is well inside.",
+      "debris_fix": "The acting line originally said the landing dust \"settles\", contradicting the vanish law (which is NOT stripped for ko). Changed to \"drifting away to nothing\" before firing. Fourth instance of that contradiction class this session — phrase-list sweeps only find the phrasings you thought of, and this one wrapped across a line break so even a targeted sed missed it on the first try."
     }
   },
   "next": "hit / ko / victory, then strikes / throws / blocks, then the 3 specials (EARTHSHAKER / SPIKE DRIVER / OGRE STOMP). All 13 acting lines are already written and gate-clean in qa-boss/prompts/oni-tetsubo.md."

@@ -136,7 +136,7 @@ flare and no streak anywhere in the shot. Only his own body moves.
 KO (collapse): he begins in the EXACT reference stance in strict side profile facing screen-right; his
 legs give way beneath him, the tetsubo drops from his grip to the floor beside him, and he crumples
 heavily forward and down onto the ground, coming to rest fully prone and motionless, a small puff of dust
-rising from the floor where he lands and settling. He is ALONE in an empty frame - nothing whatsoever
+rising from the floor where he lands and drifting away to nothing. He is ALONE in an empty frame - nothing whatsoever
 enters, crosses or appears in the frame at any time. Only his own body moves. He does NOT get back up.
 
 ## victory  (club planted, roar)
