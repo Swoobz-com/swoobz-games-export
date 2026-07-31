@@ -202,8 +202,14 @@
       "raw": "qa-boss/raw/ir37-strike-a-v2-energy.mp4",
       "qa": "PASS (sheet viewed): deep coil -> explosive lunge -> white-hot dagger glint at extension (pink/white keyable, dissipates) -> flowing recovery to anchor. Profile held, no phantom, contained. REPLACES v1 attack-strike.webm after keying (pinksafe fork + green-neutralize) + new cal/contacts.",
       "webm": "qa-boss/webm/ir37-pink-tessen-strike-a-v2.webm",
-      "cal": { "h": 102.19, "bottom": -0.73, "left": 50 },
-      "contacts": [2167],
+      "cal": {
+        "h": 102.19,
+        "bottom": -0.73,
+        "left": 50
+      },
+      "contacts": [
+        2167
+      ],
       "swapped": true,
       "swap_note": "Keyed pinksafe-green + green-neutralize (2nd pass 0px, keyer inline-neutralized). Matte clean over black+white, encoded green 0.0001%. Contact = dagger full extension + white-hot glint peak f52 (2167ms). NOTE: keyed output (authoritative) shows the explosive glint trail grazes the RIGHT frame edge f32-55 (up to 146px) despite the prior 'contained' note; NOT feathered (out of task scope, and the dagger tip reaches the edge at the contact frame so feather would fade the money shot) - flagged for Tim. Anchor-lock f0==f96 IoU 0.9934."
     },
@@ -213,8 +219,14 @@
       "raw": "qa-boss/raw/ir37-strike-b-v2-energy.mp4",
       "qa": "PASS (sheet viewed): fan SNAPS open mid-swing, huge glowing pink arc cleave with deep whole-body commitment, trails fully dissipated by recovery, ENDS at the open-fan anchor. Marginal arc edge-graze frames ~30-54 - 48px feather note at keying. REPLACES v1 attack-strike-b.webm after keying + cal/contacts.",
       "webm": "qa-boss/webm/ir37-pink-tessen-strike-b-v2.webm",
-      "cal": { "h": 111.44, "bottom": -0.49, "left": 54.26 },
-      "contacts": [1417],
+      "cal": {
+        "h": 111.44,
+        "bottom": -0.49,
+        "left": 54.26
+      },
+      "contacts": [
+        1417
+      ],
       "swapped": true,
       "swap_note": "Keyed pinksafe-green + green-neutralize (2nd pass 0px). Arc actually grazes the TOP edge f23-38 (up to 318px), NOT the right/f30-54 the stale note guessed -> 48px TOP feather applied (15 frames; top-48px band empty outside f23-38 so only the transient arc dissolves, head/fan/anchor untouched). Matte clean over black+white, arc dissolves smooth, encoded green 0.0001%. Contact = arc lowest/impact point f34 (1417ms). ANCHOR NOTE: f0 = fan-CLOSED windup vs the open-fan idle anchor (f0-vs-f96 IoU 0.8034; f96 open-fan = clean RETURN). Same closed-f0 trait that sank idle_v2, but QA-passed knowingly as an attack windup + Tim approved the raw - potential crossfade handoff at strike START, flagged."
     },
@@ -224,9 +236,35 @@
       "raw": "qa-boss/raw/ir37-idle-v3b-anchorlocked.mp4",
       "qa": "PASS (sheets viewed incl final frame): begins AND ends at the open-fan anchor, fan snaps shut -> coiled dancer twirl with weight flow -> snaps open -> settles. Alive + anchor-locked. REPLACES v1 idle.webm after keying.",
       "webm": "qa-boss/webm/ir37-pink-tessen-idle-v2.webm",
-      "cal": { "h": 102.19, "bottom": -0.49, "left": 49.88 },
+      "cal": {
+        "h": 102.19,
+        "bottom": -0.49,
+        "left": 49.88
+      },
       "swapped": true,
       "swap_note": "Keyed pinksafe-green + green-neutralize (2nd pass 0px). No edge touches, no feather. Matte clean over black+white, encoded green 0.0000%. Anchor-lock f0==f96 open-fan IoU 0.9933. Wired to idle.webm (single idle take, no contacts)."
     }
+  },
+  "phase75_strike_b_reroll_2026_07_31": {
+    "_doc": "RE-ROLL of strike_b (ships as attack-strike-b.webm). Added WITHOUT touching any existing key.",
+    "accepted": "v4",
+    "job": "db7bb989-7299-4d60-bd4f-88060662c7d0",
+    "raw": "qa-boss/raw/ir37-attack-strike-b-v4.mp4",
+    "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_030656_db7bb989-7299-4d60-bd4f-88060662c7d0.mp4",
+    "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, plate as start_image + end_image, use_unlim (0 credits)",
+    "measured": {
+      "f0_all": 0.93,
+      "f0_body": 0.929,
+      "fLast_all": 0.93,
+      "fLast_body": 0.929,
+      "containment_proxy200": "TOP 0, LEFT 0, RIGHT 0 — CLEAN on every counted edge",
+      "frames": 97,
+      "size": "960x960",
+      "fps": 24
+    },
+    "verdict": "ACCEPT",
+    "qa": "PASS. The re-roll target is MET: v3 carried RIGHT 44px @f57-58 (one lotus petal past the edge); v4 is 0/0/0, fully clean. body==all (0.929/0.930) means NO debris at the last frame — second independent confirmation of the DEBRIS-VANISH law, on a different character and a different shed material (petals vs paper). Viewed at full size: f0 and f96 both show the fan OPEN beside her at the reference angle, petals shear at f20-f60 and are GONE by f96.",
+    "regression_note": "f0/fLast dropped 0.993 -> 0.930. This is EXPECTED and is MY WORDING, not the acting: v3 exact text was never persisted anywhere, so this line was reconstructed from v3 measurements and labelled as such in the prompt file. 0.930 still clears the 0.90 bar comfortably. Trade accepted: v3 scored higher on anchor-lock but BROKE containment; v4 is clean on containment, which is why it was re-rolled.",
+    "green_fan_note": "Her FAN INNER SECTOR renders near-chroma green — v4 f0 has 1202 enclosed green px inside the silhouette (0.130% of frame). NOT introduced by this clip: the ANCHOR PLATE itself has 3318 px (0.141%), i.e. the same property at a comparable rate, so every ir37 clip ever generated carries it. Her 13 shipped clips are evidence the keyer tolerates it. Flagged for the keying stage, not a blocker."
   }
 }
