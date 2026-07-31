@@ -4,7 +4,7 @@
   "source": "input/MK FINAL/ (mythic). PLAYABLE character — wires into the charSelect roster like gorvak/volta, NOT a campaign node. Do not touch fightCampaign.ts.",
   "anchor": "qa-boss/anchors/mk/oni-tetsubo-anchor-green.png (PADDED via pad-anchor-plate.mjs; raw art was L51/R28/T71)",
   "frame_budget": "L234 / R234 / HEADROOM 468. PROP-EXTENDED: body mass only 401px wide (x279..x679), tetsubo hangs 622px past the body. Workable only because padding gives 234px past the club tip vs satoshi's 48px.",
-  "KIT_STATUS": "1/13. idle ACCEPTED as the kit anchor.",
+  "KIT_STATUS": "2/13. idle (kit anchor) + hit ACCEPTED.",
   "clips": {
     "idle": {
       "accepted": "v1",
@@ -18,12 +18,37 @@
         "loop_f0_vs_fLast": 0.917,
         "minIoU_vs_f0": "0.916 @f95 (real subtle motion — a frozen clip reads ~1.000)",
         "containment_proxy200": "TOP 0, LEFT 0, RIGHT 0 — CLEAN",
-        "frames": 97, "size": "960x960", "fps": 24
+        "frames": 97,
+        "size": "960x960",
+        "fps": 24
       },
       "verdict": "ACCEPT — this clip DEFINES the kit anchor",
       "qa": "PASS. On-model, strict side profile facing screen-right, tetsubo held at the reference angle, containment clean on every counted edge. minIoU 0.916 confirms real subtle idle motion rather than a frozen frame — the defect-gates-converge-on-boring failure. The padded plate is doing its job: zero containment overrun on a PROP-EXTENDED character, which is exactly what the raw art could never have achieved.",
       "anchor_note": "The kit anchor IS this clip's f0, not the plate. So its 0.926-vs-plate is informational; what matters for the other 12 clips is that they return to THIS f0.",
       "residual": "Loop f0-vs-fLast 0.917 — a small pop each time the idle repeats. Accepted for now because it does not block building the kit. A v2 should add an explicit final-second-motionless beat. Compare: session peers hit 0.925-0.930 on anchor-lock."
+    },
+    "hit": {
+      "accepted": "v1",
+      "job": "18d6203c-7226-4048-a81e-7d43610bc7fd",
+      "raw": "qa-boss/raw/oni-tetsubo-hit-v1.mp4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_070556_18d6203c-7226-4048-a81e-7d43610bc7fd.mp4",
+      "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, plate as start_image + end_image, use_unlim (0 credits)",
+      "measured": {
+        "reference": "THE KIT ANCHOR = idle v1 f0 (not the plate)",
+        "f0_all": 0.997,
+        "f0_body": 0.997,
+        "fLast_all": 0.995,
+        "fLast_body": 0.995,
+        "minIoU_vs_anchor": "0.318 @f16 — a real stagger, not a twitch",
+        "containment_proxy200": "TOP 0, LEFT 0, RIGHT 19 @f8 (2 of 97 frames: f8, f14)",
+        "frames": 97,
+        "size": "960x960",
+        "fps": 24
+      },
+      "verdict": "ACCEPT (feather at keying)",
+      "qa": "PASS, and the strongest anchor-lock in the project so far: 0.997 / 0.995 against the kit anchor. minIoU 0.318 confirms a REAL stagger with genuine body displacement rather than the twitch that defect-only gates reward. Cause-free wording held — nothing enters the frame, no impact flash, and his back is never shown, which is exactly the ir37 node-7 defect this law exists to prevent.",
+      "feather_note": "FEATHER, not re-roll: RIGHT ~91px real on just 2 of 97 frames (f8, f14). Sampled rgb(89,70,76) / rgb(74,66,65) = dark iron, i.e. the TETSUBO TIP during the recoil — not his body and not debris. The documented test is \"body well inside AND only a PROP TIP crosses\"; his body scores 0.997, so this is the feather case. Contrast ir37 special_3, rejected at 48-62px because detached PETALS are not a prop tip.",
+      "why_hit_second": "Chosen as clip 2 deliberately: hit fires nearly every exchange, so it is the most-seen animation in the game, and it is the state whose defect produced Tim's node-7 bug on ir37 (she took the hit with her back turned, needing 5 rolls)."
     }
   },
   "next": "hit / ko / victory, then strikes / throws / blocks, then the 3 specials (EARTHSHAKER / SPIKE DRIVER / OGRE STOMP). All 13 acting lines are already written and gate-clean in qa-boss/prompts/oni-tetsubo.md."
