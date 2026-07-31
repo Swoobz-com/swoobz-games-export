@@ -53,15 +53,66 @@ function decode(file) {
   return { first, last, n: names.length };
 }
 
+// THE DEBRIS-DRAG CORRECTION (phase 72). This gate bbox-NORMALISES, and that makes it acutely
+// vulnerable to anything the beat leaves lying in frame. Session 12 already recorded the shape of it
+// — "check-frontturn derives both signals from the bbox, so a detached object doesn't merely go
+// unnoticed, it CORRUPTS the reading" — but anchor-lock inherited the same flaw unnoticed.
+//
+// Measured on eclipse attack_strike v4: the clip ends with her shed ofuda talismans lying on the
+// FLOOR. Those few litter pixels push the frame's bbox from x0=65 out to x0=42, so the normalised
+// grid samples a different part of her body in every cell:
+//     fLast over ALL pixels        0.415   <- reads as a hard FAIL
+//     fLast over the BODY only     0.930   <- she is back on the anchor, correctly
+// Her pose was right the whole time. The number was measuring litter.
+//
+// This matters beyond one clip: v2 (0.502) and v3 (0.467) of the same state ALSO shed ofuda, so those
+// two "failures" are suspect too, and a re-roll may have been spent chasing a corrupted number. Every
+// signature beat in this project sheds something — petals, bone flakes, stone chips, burning paper —
+// so unfixed, this gate would mis-score most of the roster's best clips.
+//
+// So the gate now reports BOTH: `body` (largest connected component = the fighter and whatever she
+// holds) is the POSE verdict; `all` still includes debris and is what catches a genuinely displaced
+// silhouette. A large gap between them IS the signal that the clip ends with litter on screen — which
+// is a real defect worth fixing in the PROMPT (a clip that ends with debris crossfades badly back to
+// idle), just not a pose failure.
+function largestComponent(m, w, h) {
+  const seen = new Uint8Array(w * h);
+  let best = null;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const id = w * y + x;
+    if (!m[id] || seen[id]) continue;
+    const px = [];
+    const st = [x, y];
+    while (st.length) {
+      const yy = st.pop(), xx = st.pop();
+      if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
+      const i2 = w * yy + xx;
+      if (seen[i2] || !m[i2]) continue;
+      seen[i2] = 1; px.push(i2);
+      st.push(xx + 1, yy); st.push(xx - 1, yy); st.push(xx, yy + 1); st.push(xx, yy - 1);
+    }
+    if (!best || px.length > best.length) best = px;
+  }
+  if (!best) return null;
+  const out = new Uint8Array(w * h);
+  for (const i of best) out[i] = 1;
+  return out;
+}
+
 // bbox-normalised silhouette: compares POSE, with position and scale divided out, so a clip that
 // merely sits lower or larger in frame is not mistaken for a broken start pose.
-function norm(p) {
+// bodyOnly=true first reduces to the largest connected component, discarding shed debris.
+function norm(p, bodyOnly) {
   const { width: w, height: h, data: d } = p;
-  const m = new Uint8Array(w * h);
+  let m = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i++) if (d[i * 4 + 3] > ALPHA) m[i] = 1;
+  if (bodyOnly) {
+    const lc = largestComponent(m, w, h);
+    if (lc) m = lc;
+  }
   let x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1;
   for (let i = 0; i < w * h; i++) {
-    if (d[i * 4 + 3] > ALPHA) {
-      m[i] = 1;
+    if (m[i]) {
       const x = i % w, y = (i / w) | 0;
       if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
     }
@@ -116,15 +167,21 @@ if (others.length >= 3) {
 }
 
 console.log('anchor = ' + idleName + ' f0   (' + path.basename(dir) + ')');
-console.log('clip'.padEnd(32) + 'f0 vs anchor   fLAST vs anchor   verdict');
-console.log('-'.repeat(88));
+// BODY columns are the POSE verdict (debris discarded); ALL columns still include everything, and a
+// large body-vs-all gap means the clip ENDS WITH LITTER ON SCREEN — a real defect, but a prompt one.
+const anchorBody = norm(idle.first, true);
+console.log('clip'.padEnd(30) + '  f0body  fLASTbody |  f0all fLASTall   verdict');
+console.log('-'.repeat(104));
 const bad = [];
 for (const f of files) {
   const d = decode(path.join(dir, f));
-  if (!d) { console.log(f.padEnd(32) + 'DECODE FAILED'); bad.push(f); continue; }
+  if (!d) { console.log(f.padEnd(30) + 'DECODE FAILED'); bad.push(f); continue; }
   const a = norm(d.first), z = norm(d.last);
-  const s = a ? iou(anchor, a) : 0;
-  const e = z ? iou(anchor, z) : 0;
+  const ab = norm(d.first, true), zb = norm(d.last, true);
+  const sAll = a ? iou(anchor, a) : 0;
+  const eAll = z ? iou(anchor, z) : 0;
+  const s = ab ? iou(anchorBody, ab) : 0;   // POSE verdict
+  const e = zb ? iou(anchorBody, zb) : 0;
   const isKo = /(^|[-_])ko/.test(f);
   let v;
   if (s < 0.80) { v = '*** START POSE BROKEN — will SNAP on crossfade ***'; bad.push(f); }
@@ -132,7 +189,12 @@ for (const f of files) {
   else if (isKo) v = 'ok (end exempt: ko ends down by spec)';
   else if (e < 0.80) { v = 'END pose broken — will snap on return to idle'; bad.push(f); }
   else v = 'ok';
-  console.log(f.padEnd(32) + s.toFixed(3).padStart(9) + e.toFixed(3).padStart(17) + '   ' + v);
+  // Debris tell: pose is fine but the all-pixel number is far worse.
+  if (!isKo && e >= 0.90 && eAll < e - 0.15) {
+    v += '  [ENDS WITH DEBRIS ON SCREEN — pose ok, but fix the prompt: the shed material must be GONE by the last frame]';
+  }
+  console.log(f.padEnd(30) + s.toFixed(3).padStart(8) + e.toFixed(3).padStart(10) + ' |' +
+    sAll.toFixed(3).padStart(7) + eAll.toFixed(3).padStart(9) + '   ' + v);
 }
 console.log('-'.repeat(88));
 console.log(bad.length ? bad.length + ' clip(s) break the anchor: ' + bad.join(', ') : 'kit anchor-locked.');
