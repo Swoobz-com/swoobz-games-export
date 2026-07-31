@@ -73,6 +73,28 @@ ir37 anchor back in first" means exactly this — the reference image left loade
 whatever the previous fire used, and a clip generated against another character's plate is a wasted
 render that will not anchor-lock against its own kit.
 
+## ★ MEASUREMENT REFERENCE — three references exist and they are NOT interchangeable (phase 78)
+
+A freshly generated clip is a RAW GREEN-SCREEN mp4. A shipped clip is a KEYED webm with alpha. The
+kit anchor can be either the anchor PLATE png or `idle.webm` f0. Mixing them silently changes the
+scale of every number, and I did exactly that: I rejected hollow-pale special_2 v2 for falling under a
+"0.906 kit floor" that was measured `keyed webm vs idle.webm`, while the clip's own numbers were
+measured `raw mp4 vs plate`.
+
+Measured proof that the references are not comparable — the SAME shipped clip, scored two ways:
+    hollow-pale special-c.webm  vs idle.webm f0  ->  0.988
+    hollow-pale special-c.webm  vs anchor PLATE  ->  0.872 all / 0.832 body
+A perfect clip loses ~0.15 just by changing the reference.
+
+**RULE. Judge a fresh clip only against clips measured the SAME way.** For raw mp4s that means
+`raw green-screen frames vs the anchor plate`, and the peer set is the other raw clips from this
+session, not the shipped kit:
+    eclipse strike_a v5    f0 0.924  fLast 0.925   ACCEPT
+    ir37 strike_b v4       f0 0.930  fLast 0.930   ACCEPT
+    hollow-pale sp2 v2     f0 0.873  fLast 0.753   REJECT (fLast is the outlier, and far below its own f0)
+`check-anchor-lock.mjs` runs on the KEYED kit and its 0.906-0.988 numbers belong to that domain only —
+use them after keying, never to judge a raw generation.
+
 ## Per-clip acceptance — what "better" means, numerically
 
 Judge against the PREVIOUS version's measured numbers, not against an absolute bar.
