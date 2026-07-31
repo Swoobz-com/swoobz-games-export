@@ -586,9 +586,12 @@ reference image and facing screen-right; IN THE FIRST QUARTER he draws both bone
 and SINKS his whole weight straight DOWN behind it into a deep braced crouch, both elbows tight against
 his own ribs, his crowned skull tucked down and his knees taking the load - so the leather-bound bone
 haft stands braced across the front of his own ribcage at the same angle it holds in the reference, a
-solid bar between him and the pressure. The weapon does not rotate and does not travel sideways; it drops
+solid bar held across his own body. NOTHING STRIKES HIM AND NOTHING TOUCHES HIM AT ANY POINT - no blow
+lands, nothing pushes him, and there is NO opponent, no second figure and no object of any kind anywhere
+in the frame at any time; the space around him stays completely empty green and the brace is against
+nothing at all. The weapon does not rotate and does not travel sideways; it drops
 with his body and nothing else. HE HOLDS THAT BRACE THROUGH THE WHOLE MIDDLE HALF OF THE CLIP as he
-absorbs the pressure - both taloned feet grind a fraction on the stone without either one leaving the
+holds that brace - both taloned feet grind a fraction on the stone without either one leaving the
 spot it stands on, his forearms shake under the load, his shoulders roll and reset, his bare ribcage
 judders and the torn hems of his robe shiver - but the braced haft itself does not move and nothing else
 in his body travels. IN THE FINAL QUARTER he drives one short hard shove straight UP out of his knees
@@ -600,7 +603,8 @@ EXACT same reference stance. Nothing sheds and nothing breaks. Braced, immovable
 BLOCK-COUNTER B (crown guard): he begins in the EXACT reference stance, angled to camera exactly as in
 the reference image and facing screen-right; IN THE FIRST QUARTER he drops his skull hard toward his own
 ribcage, rolls his leading shoulder up and forward and hunches his whole back over it so the spiked iron
-CROWN and the bone shoulder-guard beneath it are what meet the pressure, his weight settling back over
+CROWN and the bone shoulder-guard beneath it are what take the load, with NOTHING striking him and no
+opponent, no second figure and no object of any kind anywhere in the frame at any time, his weight settling back over
 his rear foot - and he hauls the whole scythe DOWN and still at his own side, where it hangs low, dead
 and taking no part, the chain and its bone charm swinging in against his own leg and hanging still. HE
 HOLDS THAT HUNCHED GUARD THROUGH THE WHOLE MIDDLE HALF OF THE CLIP - both taloned feet grind a fraction
