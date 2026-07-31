@@ -198,8 +198,17 @@ which is unfired.
    gate-clean, keeps the proven effect wording verbatim and fixes only the body), thorn `special_2`,
    thorn `special_3` (both hardened this session), LK `special_3`, eclipse `special_2`, oni
    `victory` v2 — then a **re-roll of oni `hit`** (§A.1), then oni's remaining 9.
-3. **MK FINAL is 4 of 6 WRITTEN** (oni, minotaur, skullrend, + `pale-choir` and `jin-goldenhand` in
-   phase 103, 13 states each, gate-clean). `raiju-naginata` stays BLOCKED on its two-tone plate.
+3. **MK FINAL is 5 of 6 WRITTEN** (oni, minotaur, skullrend, + `pale-choir` and `jin-goldenhand` in
+   phase 103, 13 states each, gate-clean). **`raiju-naginata` is NO LONGER BLOCKED** — phase 105 keyed
+   his plate with the real `key-idle-clips` math and the alpha came out a CLEAN SILHOUETTE with no
+   rectangle (99.4% of backdrop within 29 of the sampled colour, against `TIGHT=45`). The "two-tone"
+   reading was a screening flag, not a defect: it is a noisy/gradient region against a flat border,
+   and the eye sees it where the keyer cannot. **No re-plate.** His kit was dispatched in the same
+   phase — check whether `qa-boss/prompts/raiju-naginata.md` exists and is gate-clean before
+   rewriting it. Carry ONE residual: that test was on the STILL, so **check his FIRST keyed clip for
+   a rectangular alpha edge** before trusting the other twelve. He is also the most laterally
+   constrained plate in the set (L202/R200, subject 1134w, max spanPeak **1.35x**) — every beat must
+   be DOWN, IN or rotational-in-place, and the bound goes on the PROP TIP, not the hands.
    Model new kits on `minotaur-axe.md` or `skullrend-orcus.md`, **never `oni-tetsubo.md`**.
    **pale-choir MUST fire off the MAGENTA plate** (`qa-boss/anchors/mk/pale-choir-anchor-magenta.png`)
    — his front fangs are ACID GREEN (92 subject px pass the keyer's own isGreen predicate, dead centre

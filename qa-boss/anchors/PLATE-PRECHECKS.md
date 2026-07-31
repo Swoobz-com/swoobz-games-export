@@ -50,7 +50,7 @@ visible. A number that disagrees with the picture is the tell, again.
 |---|---|---|---|
 | jin-goldenhand | 0/248/0 | **99.2%** | single-tone — clean |
 | minotaur-axe | 0/216/0 | 76.3% | two near-identical tones (216 vs 208) — mild gradient, fine |
-| raiju-naginata | 0/160/16 | **62.7%** | **TWO-TONE — the rectangle.** Also much darker overall (g~160-176 vs 208-248 elsewhere) |
+| raiju-naginata | 0/160/16 | **62.7%** | ~~TWO-TONE — the rectangle~~ **SCREENING FLAG ONLY — the plate KEYS CLEAN. See the RAIJU box below.** Genuinely darker overall (g~160-176 vs 208-248 elsewhere), and genuinely noisy, but the spread never reaches the keyer's threshold |
 
 Rule of thumb: **top-bin share below ~70% means suspect a two-tone plate — go and look.**
 
@@ -59,6 +59,30 @@ two-tone plate the border is the OUTER tone, so the INNER tone sits further from
 and may survive the tight global key — leaving a rectangular alpha edge exactly where the two tones
 meet. `check-plate-retention.mjs` would see it as retained plate.
 
-**raiju action:** either re-plate to a single flat green with `replate-chroma.mjs`, or generate ONE
-clip first and key it before writing the other twelve — the handoff's standing WATCH item. Do not
-write his 13 acting lines until that is settled.
+### ★ RAIJU IS NOT BLOCKED — SETTLED 2026-07-31 (phase 105) BY KEYING THE PLATE, NOT BY ARGUING
+
+The action above said "re-plate, or generate ONE clip first, and do not write his 13 acting lines
+until that is settled". **It is settled, and no re-plate is needed.** There is a third option nobody
+had taken: the plate is a still, so you can just RUN THE REAL KEYER ON IT and look at the alpha.
+
+Measured with `key-idle-clips.mjs`'s own math — border-ring screen sample `2.0/164.0/21.0`,
+`TIGHT=45`, `LOOSE=70`, border-seeded flood over the candidate set:
+- **The alpha is a CLEAN SILHOUETTE. No rectangle.** 279,926 opaque px = 11.86% of frame, which is the
+  figure plus the naginata and nothing else. Rendered to `qa-boss/frames/raiju/alpha-mask.png`.
+- **The tone spread is far smaller than "two-tone" implies.** Distance from the sampled colour, over
+  every backdrop pixel the border flood reaches: **81.6% within 9 · 92.9% within 19 · 99.4% within
+  29** — all comfortably inside `TIGHT=45`. Border samples read `2/164/21` on all eight probes; the
+  "inner tone" samples read `0/160/17`..`0/173/26`.
+- So the real defect is a **NOISY / GRADIENT region against a flat border** (11,445 distinct green
+  bins, top bin only 56.7% by this predicate), not two separated tones. The eye sees the rectangle
+  because it is very sensitive to a flat-vs-noisy boundary; the KEYER does not, because the colour
+  delta is ~18-29 against a 45 threshold.
+
+**So: top-bin share is a SCREENING metric, not a verdict.** Below ~70% still means go and look — but
+"look" now means key the plate and view the alpha, which is decisive, local and free. Do not re-plate
+a character on the strength of the bin share alone.
+
+**Residual risk, unchanged and worth carrying:** this was measured on the STILL. A generated clip adds
+compression and motion blur that can widen the spread. **Check raiju's FIRST keyed clip for a
+rectangular alpha edge** before trusting the other twelve. That is a first-clip check, not a blocker
+on writing the kit.
