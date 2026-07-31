@@ -2,254 +2,270 @@
 
 ## ★★★★★★★★★★ SESSION 19 — START HERE (2026-07-31) ★★★★★★★★★★
 
-HEAD **`8df334e`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · tracked tree clean ·
-`node qa-boss/check-prompt-sections.mjs` **245 clean / 0 problems** (and this time the number means
-it — see §C). 4 commits, `6af437e`..`8df334e` (phases 96-99).
-**2 clips fired, BOTH REJECTED, zero credits. 6 accepted raws keyed + wired. 1 clip un-accepted.**
+HEAD **`81958c2`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · tracked tree clean ·
+`node qa-boss/check-prompt-sections.mjs` **284 clean / 0 problems + 1 BLOCKED kit** · 28 prompt files.
+**17 commits**, `6af437e`..`81958c2` (phases 96-109, some with a `b` follow-up that corrects this
+handoff — a handoff that describes shipped work as pending is worse than none, because the next
+session re-does it).
+**2 clips fired, BOTH REJECTED, zero credits · 6 accepted raws keyed + wired · 1 clip un-accepted ·
+4 roster-wide tool defects fixed · 4 new 13-state kits written · MK FINAL is 6 of 6.**
 
-Session 18's block below is still correct on the transport. **Read §A first — it overturns four
-things the roster believed**, then §B, which is the one technique this session proved.
+> **FIRING IS PAUSED.** Partway through, Tim asked me to stop using Higgsfield. Every cycle after that
+> honoured the pause and spent itself on local work, which is where most of this block comes from.
+> **Nothing is blocking a resumption but that word.** The fire queue in §F is prepared and gate-clean.
+
+Sessions 18 and 17 are below and still correct on the transport. **Read §A first — it corrects five
+things the roster believed** — then §B, the technique this session proved twice.
 
 ---
 
-### A. FOUR THINGS THAT WERE WRONG. CHECK THESE BEFORE YOU TRUST ANY LEDGER ENTRY.
+### A. FIVE THINGS THAT WERE WRONG. CHECK THESE BEFORE YOU TRUST ANY LEDGER ENTRY.
 
 **1. oni `hit` IS NOT ACCEPTED. IT HAS A PHANTOM WEAPON.** Session 18 recorded "oni `hit` and `ko`
 each need a RIGHT-edge feather (prop, not body)". For `hit` that is inverted.
-`node qa-boss/check-extra-objects.mjs qa-boss/raw/oni-tetsubo-hit-v1.mp4` -> *"max simultaneous blobs
->= 400px : 2 @f8 — EXTRA OBJECT PRESENT"*. VIEW f6-f16: a dark spherical mace/flail head flies in from
-the top right, arcs **past his head** across mid-frame and exits, while his own tetsubo stays in his
-hands throughout. It is the IR-48 invented-visible-attacker class.
+`node qa-boss/check-extra-objects.mjs qa-boss/raw/oni-tetsubo-hit-v1.mp4` → *"2 simultaneous blobs
+@f8 — EXTRA OBJECT PRESENT"*. VIEW f6-f16: a dark spherical mace/flail head flies in from the top
+right, arcs **past his head** across mid-frame and exits, while his own tetsubo stays in his hands.
+It is the IR-48 invented-visible-attacker class.
 The right-edge contact at f8/f14 that read as "his prop tip grazing the border" was the **INTRUDER**
 touching the border on its way in and out — which is exactly why every edge-based measure looked
 benign. **We were measuring the wrong object.** At f10-f12 it sits ~400px from any edge, so it is not
-feather-fixable. `hit` needs a RE-ROLL. Evidence webm left at `qa-boss/oni/webm/hit.webm`; it is NOT
-in `public/`. **LESSON: "prop, not body" is only a feather licence once you have confirmed WHOSE prop.**
+feather-fixable. It needs a RE-ROLL; the evidence webm is at `qa-boss/oni/webm/hit.webm`, not in
+`public/`. **LESSON: "prop, not body" is only a feather licence once you have confirmed WHOSE prop.**
 
-**2. THE LOOP PROMPT'S FIRE QUEUE IS 6/6 STALE, not 4/6.** Session 18 said 4 of its 6 items were
-stale. All six are: eclipse `attack_strike`, ir37 `attack_strike_b`, hollow-pale `special_2`,
-hollow-pale `special_3`, eclipse `special_1`, ir37 `special_3` are every one of them already keyed and
-wired. Firing from that queue regenerates finished work. **Check `qa-boss/<char>-clipdata.json` before
-firing anything — and note its keys are WIRE names (`strike_a`, `special_1_ofuda_flick`), not the
-prompt state names, so a naive lookup returns "missing" for clips that are actually shipped.**
+**2. THE LOOP PROMPT'S FIRE QUEUE IS 6/6 STALE, not 4/6.** eclipse `attack_strike`, ir37
+`attack_strike_b`, hollow-pale `special_2`, hollow-pale `special_3`, eclipse `special_1`, ir37
+`special_3` are every one of them already keyed and wired. Firing from that queue regenerates
+finished work. **Check `qa-boss/<char>-clipdata.json` before firing — and note its keys are WIRE
+names (`strike_a`, `special_1_ofuda_flick`), not prompt state names**, so a naive lookup returns
+"missing" for clips that are actually shipped. Use §F's queue instead.
 
-**3. oni's PLATE IS PARTLY OPEN, and that partly invalidates the phase-87 rejection.** Every acting
-line in `oni-tetsubo.md` says "strict side profile facing screen-right". The plate is not: his torso
-is ~3/4 open with both pectorals partly visible. Phase 87 rejected oni `victory` v1 citing "at f42 he
-is square to camera with both pectorals visible" — but the anchor already shows that. **The rejection
-still stands on its other half** (the tetsubo held fully vertical above his own horns, unambiguous),
-but oni must be judged on **turn delta from f0**, never on absolute chest exposure. This makes oni the
-THIRD partly-open plate after minotaur and skullrend — §E's three-way facing verdict is the norm for
-MK FINAL, not the exception.
+**3. `check-prompt-sections.mjs` PRINTING `problems=0` DID NOT MEAN THE PROMPTS WERE CLEAN.** Four
+states were shipping editorial text to the model and the gate never saw it (§C). A gate's silence is
+only as good as the class it was built to detect.
 
-**4. `check-prompt-sections.mjs` PRINTING `problems=0` DID NOT MEAN THE PROMPTS WERE CLEAN.** Four
-states were shipping editorial text to the model and the gate never saw it. Fixed in the tool and the
-files — §C. A gate's silence is only as good as the class it was built to detect.
+**4. ir41-kasa-oni's PLATE IS FRONT-FACING and its kit was fireable anyway.** The block was written
+down in prose at line 111 of the kit — and all 13 acting lines still demanded "side profile facing
+screen-right", it assembled cleanly at LEN=3990, and the gate counted it among the clean. Now fixed
+structurally (§C). **A warning a tool cannot read is a warning that gets fired anyway.**
+
+**5. TWO PLATES WERE JUDGED ON BAD METRICS — in opposite directions.**
+- **raiju was NOT blocked.** Its "two-tone rectangle" is a noisy/gradient region against a flat
+  border; 99.4% of backdrop pixels sit within 29 of the sampled colour against `TIGHT=45`. The plate
+  keys to a clean silhouette. **No re-plate.** 15 phases of block, settled by keying the still.
+- **my own emissive screen was hue-biased.** It tested near-white + WARM only, so it scored a violet
+  flame at 0.00% and promoted `drake-glaive` (actually 5.26% emissive) into a shortlist tier.
+Both are fixed in tools now, but the pairing is the real lesson — see §B.
 
 ---
 
-### B. THE ONE TECHNIQUE THIS SESSION PROVED — USE IT ON EVERY EFFECT YOU EVER WRITE
+### B. THE TECHNIQUES THIS SESSION PROVED
 
-**RESTATING A BOUND NEVER WORKS. NARROWING THE OBJECT DOES.**
-
+**1. RESTATING A BOUND NEVER WORKS. NARROWING THE OBJECT DOES.**
 thorn `special_1` v1 said *"carves a row of solid woody THORNS"* and bounded them **four separate
-times** ("rising no higher than his own knee" twice, "no wider than one body-width", "They stay at
-GROUND LEVEL"). It rendered a palisade at **SHOULDER height, ~4x the bound**, spreading past one body
-width and reaching the frame edge. ir37 `special_3` v2 had failed identically with *"a wave of
-petals"*. Two characters, two effects, one cause: **an open-ended effect noun renders at whatever
-scale the model likes, and every additional constraint sentence is ignored with the first.**
+times** ("no higher than his own knee" ×2, "no wider than one body-width", "stay at GROUND LEVEL").
+It rendered a palisade at **SHOULDER height, ~4× the bound**, into the frame edge. ir37 `special_3`
+v2 had failed identically with *"a wave of petals"*. Two characters, two effects, one cause: **an
+open-ended effect noun renders at whatever scale the model likes, and every extra constraint sentence
+is ignored along with the first.**
 
 **The formula that works has THREE legs, all tied to the character's OWN body:**
-1. an exact **COUNT** — "EXACTLY THREE thorns", "exactly TWO petals". Never "a row/wave/shower/burst of".
+1. an exact **COUNT** — "EXACTLY THREE". Never "a row/wave/shower/burst of".
 2. per-object **SIZE** vs one of their own body parts — "each no longer than HIS OWN FOREARM".
 3. **SPAN** vs their own **STANDING** footprint — "never past his front foot, never past his back heel".
 
-Measured: ir37 spanPeak 1.76 -> 1.15 on the narrowing alone, then ACCEPTED. thorn v1 -> v2 turned a
+Measured: ir37 spanPeak 1.76 → 1.15 on the narrowing alone, then ACCEPTED. thorn v1 → v2 turned a
 shoulder-high palisade into three shin-high cones **with no new bound sentence, only a narrower
-object.** Leg 3 must use the STANDING footprint: "the gap between his own two feet" is ELASTIC,
-because a low sweep widens the stance, and nothing locks it unless you add a feet-flat clause.
+object.** Leg 3 must use the STANDING footprint — "the gap between his two feet" is ELASTIC, because
+a low sweep widens the stance unless a feet-flat clause locks it.
 
-**COROLLARY, and it cost the second clip: AN UNNAMED DIRECTION IS THE SAME DEFECT.** v2's body broke
-because I wrote the club *"travels DOWNWARD and sideways only"* without naming WHICH side. It swung
-through to screen-LEFT, behind him, dragging his torso square to camera and melting his arms and face
-into the antler mass. **A constraint that sounds total while specifying nothing is the bug.** Name the
-side: "THE CLUB STAYS ON THE SCREEN-RIGHT SIDE OF HIS BODY FOR THE WHOLE CLIP."
+**2. AN UNNAMED DIRECTION IS THE SAME DEFECT.** thorn v2's body broke because I wrote the club
+*"travels DOWNWARD and sideways only"* without naming WHICH side. It swung through to screen-LEFT,
+behind him, dragging his torso square to camera and melting his arms and face into the antler mass.
+**A constraint that sounds total while specifying nothing is the bug.** Name the side.
 
-**And §B of session 18 held again, twice.** thorn v1 passed containment CLEAR on every edge,
+**3. THE GATES CANNOT SEE EITHER OF THOSE.** thorn v1 passed containment CLEAR on every edge,
 body-commitment "ok", and anchor-lock f0/fLast **0.002 apart — the best agreement in its kit** — and
-is unusable. `check-frontturn` flagged both v1 (66/97) and v2 (59/97); on v1 that was the documented
+is unusable. `check-frontturn` flagged v1 (66/97) and v2 (59/97); on v1 that was the documented
 crouch false-positive, on v2 it was REAL. **The gate cannot tell you which. Only looking can.**
+
+**4. MEASURE AGAINST THE THING YOU ARE REPLACING.** Nobody had run anchor-lock against the take each
+new clip supersedes. Doing it caught both a win and a regression in one pass: eclipse `attack-strike`
+went **0.729 "START POSE BROKEN, will SNAP on crossfade" → 0.918 ok**, while eclipse `special` slipped
+**0.919 → 0.893**, which the maker's own report had not surfaced.
+
+**5. WHEN THE METRIC AND THE EYE DISAGREE, FIND OUT WHY — DO NOT PICK.** This session has one of each:
+raiju's metric cried wolf and the eye was right that it did not matter; wight-spear's cyan glow was
+obvious by eye while the metric read 0.00%. Neither channel is authoritative alone.
 
 ---
 
-### C. FOUR PROMPTS WERE SHIPPING EDITORIAL TEXT TO THE MODEL (fixed, phase 99)
+### C. FOUR ROSTER-WIDE TOOL DEFECTS, ALL FIXED
 
-A third instance of the family `build-prompt.mjs`'s own header documents twice. A section body ran
-from its `^## <state>` heading to the next `^## `, so editorial blocks sitting below the last
-version-history section and above the first live state got swallowed into whichever state preceded
-them. **Found by READING an assembled prompt end to end** — never by a gate.
+Each was found by **READING an assembled prompt end to end** — never by a gate.
+
+**1. FOUR PROMPTS WERE SHIPPING EDITORIAL TEXT TO THE MODEL (phase 99).** A section body ran from its
+`^## <state>` heading to the next `^## `, so editorial blocks sitting below the last version-history
+section and above the first live state got swallowed into whichever state preceded them.
 
 | state | LEN | what was being sent as prompt text |
 |---|---|---|
-| ir37 `strike_b` | 4523->2102 | the ENTIRE Shared prefix AND suffix **a second time**, blockquote markers and the suffix's own QA prose included, plus the SPECIAL add-on |
-| eclipse `victory` | 2503->1745 | `★ ECLIPSE ONE-ACTION LOCK … APPEND to EVERY remaining v2/v3 acting line before firing:` + 6 literal `>` + the add-on, on a non-special |
-| thorn `victory` | 2323->1594 | the SPECIAL add-on + its full debris rule, on a non-special |
-| eclipse `special_3` | 2115->2111 | a literal `---` |
+| ir37 `strike_b` | 4523→2102 | the ENTIRE shared prefix AND suffix **a second time**, blockquote markers and QA prose included |
+| eclipse `victory` | 2503→1745 | `★ ECLIPSE ONE-ACTION LOCK … APPEND to EVERY remaining v2/v3 acting line before firing:` + 6 literal `>` + the add-on, on a non-special |
+| thorn `victory` | 2323→1594 | the SPECIAL add-on + its debris rule, on a non-special |
+| eclipse `special_3` | 2115→2111 | a literal `---` |
 
-`build-prompt.mjs` now ends a section at the first editorial-block line (blockquote, `★` note, shared
-prefix/suffix label, add-on label, horizontal rule), FAILS LOUD with `WARN: TRIMMED trailing
-editorial` naming every dropped line, and THROWS if trimming would leave no acting prose.
-`check-prompt-sections.mjs` gained a `LEAKED` kind detected two independent ways (the builder's stderr
-AND its own marker scan, deliberately not sharing the builder's list). Regression evidence: **528
-(file,state) pairs, 524 BYTE-IDENTICAL, 4 changed, zero text added.**
-The FILES were fixed too — each editorial run now has its own `## ☰ SHARED BLOCKS` heading — because
-the tool otherwise only papers over a file that is still wrong. Verified per state, not in aggregate:
-prefix 1 / suffix 1 on EVERY state, add-on 1 on specials and **0** on non-specials.
+`build-prompt.mjs` now ends a section at the first editorial-block line and FAILS LOUD naming every
+dropped line. `check-prompt-sections.mjs` gained a `LEAKED` kind detected **two independent ways**.
+Regression evidence: **528 (file,state) pairs, 524 BYTE-IDENTICAL, 4 changed, zero text added.** The
+FILES were fixed too (each editorial run now has its own `## ☰ SHARED BLOCKS` heading), because the
+tool otherwise papers over a file that is still wrong.
 
-**DONE IN PHASE 102.** eclipse's ONE-ACTION LOCK said *"APPEND to EVERY remaining v2/v3 acting line
-before firing"* with no mechanism to append it, so **it had never shipped on any eclipse clip** —
-measured, 0 of 13 states contained "repeat" or "spin". That gap is not cosmetic: the lock exists
-because `strike_a` v2 rendered as a SPINNING MULTI-ATTACK KATA, and the shared suffix bans ROTATION
-but says nothing about REPEATING the beat, so nothing in any eclipse prompt ever forbade what
-actually happened. `build-prompt.mjs` now has an `ACTION add-on:` block mirroring the SPECIAL add-on
-(same reader, and REGISTERED IN THE EDITORIAL MARKER LIST so it cannot itself leak — the §C bug would
-have been trivial to reintroduce). Opt-in and silent when absent.
-**It skips `idle` deliberately** — the payload is "ONE single action ... does NOT repeat the move",
-and an idle is a LOOP, so appending it there would be the ko-contradiction class again. Verified per
-state: eclipse idle 0, all twelve others 1, seven other kits 0. The assembled `ko` was read end to
-end before committing, since the lock now lands on it.
+**2. ECLIPSE'S ONE-ACTION LOCK HAD NEVER SHIPPED (phase 102).** Its kit said "APPEND to EVERY
+remaining v2/v3 acting line before firing" and there was no mechanism to append anything — measured,
+**0 of 13 eclipse states contained "repeat" or "spin"**. The lock exists because `strike_a` v2
+rendered as a SPINNING MULTI-ATTACK KATA, and the shared suffix bans ROTATION but says nothing about
+REPEATING the beat. `build-prompt.mjs` now has an `ACTION add-on:` block mirroring the SPECIAL add-on
+— **and registered in the editorial-marker list so it cannot itself leak.** It **skips `idle`**
+deliberately: an idle is a LOOP, so "does NOT repeat the move" cannot apply to it.
+
+**3. TWO `koSuffix` DEFECTS (phase 103).** The rewrite DOUBLED its own scope on any kit that had
+already scoped the clause (measured on skullrend: *"WHILE HE IS ON HIS FEET WHILE ON HIS FEET he keeps
+his stance narrow"*), and it HARDCODED MALE PRONOUNS, so a female fighter would have had "he/his"
+injected into her ko. **No current kit was affected** — I checked rather than assumed — but every new
+female kit written to the canonical wording would have hit it. 26 kos rebuilt: **19 byte-identical**,
+6 gained the grammatical "HE IS", skullrend lost its duplicate.
+
+**4. A BLOCKED KIT COULD STILL BE FIRED (phase 108).** Any line beginning **`BLOCKED:`** now makes
+`build-prompt.mjs` refuse and exit **3** (distinct from a build failure), and the gate reports it in
+its own bucket — **not clean** (or it reads as fireable) and **not a problem** (a permanently red gate
+is one people stop reading). ir41-kasa-oni carries the first marker. **This is the right home for the
+other standing blocks** — kitsune's baked tanto glow, and the prop-EXTENDED trio — whenever you want
+them enforced rather than remembered.
 
 ---
 
 ### D. WHAT SHIPPED
 
-**6 of the 7 accepted raws are keyed + wired** (worklist item 3 of session 18, which was untouched).
-Every number below was RE-MEASURED by me, not taken from the makers' reports:
-eclipse `attack-strike` v5 · eclipse `special` v2 · ir37 `attack-strike-b` v4 · ir37 `special-c` v3 ·
-oni `idle` · oni `ko`. All containment CLEAN; oni plate 0.00% / olive 0.00%.
-
-**Anchor-lock measured against the take each clip REPLACED** — nobody had done that comparison:
-- eclipse `attack-strike` **0.729 *** START POSE BROKEN, will SNAP on crossfade *** -> 0.918 ok**
-- eclipse `special` 0.919 ok -> **0.893 "start drifts"** — a REGRESSION, recorded not buried. I
-  composited f0 of idle / old take / new take side by side: all three are the same reference stance,
-  so the 0.026 is a fuller ponytail and hat silhouette moving the normalised bbox, not a broken pose.
-  It lands in the same band eclipse already ships (`hit` 0.899, `special-b` 0.822). Net: clear win.
-- ir37: **13/13 `kit anchor-locked`.**
+**6 of the 7 accepted raws are keyed + wired**, every number RE-MEASURED by me rather than taken from
+the makers' reports: eclipse `attack-strike` v5 · eclipse `special` v2 · ir37 `attack-strike-b` v4 ·
+ir37 `special-c` v3 · oni `idle` · oni `ko`. All containment CLEAN; oni plate 0.00% / olive 0.00%.
+ir37 is **13/13 `kit anchor-locked`**.
 
 **CONTACTS were re-measured on all four re-keys** — old values belong to superseded takes and would
 fire the hitspark during the walk-back. **Two motion-energy argmaxes were FALSE PICKS** (eclipse
 `special` f8, ir37 `special_3` f11 — both just the crouch-drop, i.e. the LAUNCH); those use the
-effect-strength peak instead, frame-verified. Frame-inspect every argmax.
+effect-strength peak instead. **Frame-inspect every argmax.**
 
-`src/characters/oni-tetsubo.ts` is written and deliberately **NOT registered** in `FIGHTERS`: 11 of 13
-states missing, `still` points at a cutout that does not exist, portrait provisional. Shipping a stub
-fighter into the roster is Tim's call. `fightCampaign.ts` untouched (MK FINAL are playables).
+**VERIFIED IN THE RUNNING GAME (phase 104)**, because nothing else covers a cal or a contact and the
+last whole-game QA evidence was 9 days old. Two drivers are COMMITTED so the method outlives the
+session — `qa-boss/phase104-drive.mjs` (mounts + cal) and `qa-boss/phase104-contacts.mjs` (spark
+timing):
+- all four swapped clips actually MOUNT AND PLAY (eclipse 12/13, ir37 13/13)
+- **no pop at the clip switch** — cropped eclipse's feet across idle→strike, the boot soles hold the
+  same ground line
+- **the hitspark fires on the hit**: 641 vs wired 667 · 907 vs 875 · 827 vs 833, all inside the 55ms
+  sampling resolution. That third one confirms the effect-strength method against the live engine.
+- NOT verified: eclipse `special` never fired in either run (no qualifying beat), so its contacts 875
+  is unconfirmed in-engine.
 
-**FLAGGED, shipped anyway:** eclipse `attack-strike` f_017 renders no katana for one frame (42ms) at
-the apex of a ~180° swing — hand still closed in grip, no detached fragment, so motion blur rather
-than the phantom class. Recorded so it is not rediscovered as new.
+**4 NEW 13-STATE KITS** — `pale-choir`, `jin-goldenhand` (phase 103), `raiju-naginata` (106),
+`lich-scythe` (109). **MK FINAL is 6 of 6 written and NO MK plate is blocked.**
+
+**3 NEW TOOLS.**
+| tool | what it answers |
+|---|---|
+| `qa-boss/check-plate-key.mjs` | keys a STILL plate with the real keyer math, renders the alpha, and reports a hue-agnostic `emis%`. The decisive pre-kit plate test, and free |
+| `qa-boss/phase104-drive.mjs` | do the shipped clips mount, and does cal hold across a clip switch, in the real game |
+| `qa-boss/phase104-contacts.mjs` | does the hitspark fire at the wired contact, measured in clip-time ms |
 
 ---
 
-### E. THE PROMPT BACKLOG — 25 RANKED FINDINGS, NOT YET APPLIED
+### E. MK FINAL — THE FULL PICTURE
 
-Two adversarial audits read the assembled prompts of the live fire queue end to end. thorn's three
-specials were rewritten from theirs (phases 96-97). **The five fire-blockers below were APPLIED in
-phase 101** (eclipse `special_2`, LK `special_3`, oni `victory`, plus both add-on leaks); the
-lower-ranked items are still open. What was applied, and the one thing deliberately refused:
-1. **oni `victory`**: the acting line plants the tetsubo head on the ground beside his front foot with
-   his hands on the haft — that is FULLY VERTICAL, which the same prompt's suffix bans outright, and
-   it is one of the three locks v1 already broke. Use ir05's shape: `rolls … sets its head just in
-   front of his leading foot, haft raking back and UP at about forty-five degrees`.
-2. **LK `special_3`**: its "three solid CRIMSON METAL RINGS along the blade" are visually identical to
-   rings ALREADY ON the anchor plate — the model can satisfy it by rendering the plate unchanged,
-   which is exactly how her `special_1` v1 failed. They also REST on the guard at fLast, against three
-   separate vanish/identity laws and the pinned `end_image`.
-3. **eclipse `special_2`**: asserts "a narrow strip of white paper ofuda wrapped along the flat of her
-   blade" as part of the reference — the plate shows a BARE blade, and f0/fLast are pinned to it.
-4. eclipse `special_2`: unbounded "torn white paper scraps" + a floor destination retracted in the
-   same clause.
-5. oni `victory`: unbounded "low puff of dust", and `victory` gets NO SPECIAL add-on, so nothing
-   backstops it.
-Also applied: eclipse's add-on prescribed "curling burning paper and dark ash" in a sentence ending
-"NEVER light or energy of any kind" (a combustion cue banned by its own sentence — and it is
-`special_1`'s material leaking into the other two via the shared block; `special_1` carries its own
-burning-paper wording in its acting line, verified still present after removal). LK's add-on
-introduced "hot-pink shards" her acting line never creates. Both are the phase-77 class recurring.
+**WAVE 1 — 6 of 6 written**, 13 states each, gate-clean, none blocked.
+- **pale-choir MUST fire off the MAGENTA plate** (`qa-boss/anchors/mk/pale-choir-anchor-magenta.png`).
+  His front fangs are ACID GREEN — 92 subject px pass the keyer's own `isGreen` predicate, dead centre
+  of his snarl — so on green the keyer punches a hole through his teeth. Backdrop swap only; subject
+  pixels bit-identical. It was NOT despilled, so a 1px green rim shows against magenta.
+- **raiju is the most laterally constrained plate**: L202/R200 with a 1134w subject, max spanPeak
+  **1.35×**. His anchor sits on BOTH lateral bounds at once (grip (850,781), 514px blade forward /
+  686px shaft back, 19.2° → tip x1335 and spike x202, the exact bbox edges), so **flattening the shaft
+  pushes BOTH ends out of frame simultaneously** — it may only ever get STEEPER. Bound the PROP TIP.
+- **ALL SIX wave-1 plates are PARTLY OPEN** — minotaur, skullrend, oni, pale-choir, jin, raiju: heads
+  in clean profile, torsos and hips not. **That is not the exception for this set, it is the rule**,
+  and earlier blocks that call it "three of" or "five of" are simply counts taken before the later
+  plates were checked. None of the kits says "strict side profile"; they all lock the anchor's own
+  angle, because demanding strict profile would re-pose the character mid-clip. On pale-choir and jin
+  the DECISIVE crop was the FEET — both feet showing their full tops is impossible in true profile.
+  `lich-scythe` (wave 2) goes further still: the first plate whose HEAD is 3/4 rather than profile.
 
-**REFUSED, and it needs Tim: the audit wants LK's shared suffix "STRICTLY IN SIDE PROFILE FACING
-SCREEN-RIGHT" rewritten**, because her plate is plainly three-quarter/near-frontal — both pauldrons,
-the full cuirass and both feet square to camera. The finding is CORRECT (I verified it at full size).
-But that suffix is load-bearing for **12 already-shipped clips that all came back on-model**, so the
-inaccurate wording is doing real anti-spin work. Chasing accuracy there risks a working kit. Same
-shape as oni's "strict side profile" (§A.3) — in BOTH cases fix the JUDGING, not the lock: score turn
-delta from f0, never absolute chest exposure. I changed it only in oni `victory`'s own acting line,
-which is unfired.
+**WAVE 2 — screened, `qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md`.** 23 candidates → 3 TIER A picks,
+all padded, all keying clean, all facing screen-right natively:
+`lich-scythe` (kit WRITTEN) · **`hydra-flail`** and **`gargoyle-spear`** (plates ready, kits NOT written).
+- **TIER C — `nurikabe-shield` and `golem-mace` are PROP-EXTENDED.** Padding them to 200px margins
+  costs fill 0.55 and 0.50. **Fill is a RESOLUTION BUDGET**: it is height on the plate, and the engine
+  scales the clip back up to the fighter box, so a low fill is spent as UPSCALING. At 0.50 a 720p
+  render yields ~360px of actual character. Same structural bind as satoshi/sora/ir56 — **they wait
+  on the same ruling.**
+- REJECTED for baked emissive: Godflame_Liu · Emberpaw Kage · **drake-glaive** · Horned Ruin Vex ·
+  Ashrune Belakor · Warlord_Kharos · Lira_Astraea · (Wight Spear 1.98%, left out).
+- REJECTED as duplicate archetype: Sol Ofuda (=eclipse) · Antler_Mire (=thorn) · Azure_Ling (=ir37) ·
+  Tengu Naginata (=raiju) · Horned Ruin Vex (=oni).
 
 ---
 
 ### F. WHAT TO DO NEXT, IN ORDER
 
-1. **§E IS FULLY APPLIED** — the five fire-blockers in phase 101, and the lower-ranked tail in phase
-   102 (eclipse's ONE-ACTION LOCK now ships via the new `ACTION add-on:` mechanism; eclipse
-   `special_2`'s wind-up is named and bounded below the hat brim; LK's shoulder bound moved from the
-   whole prop onto the BLADE TIP). The prompt backlog is clear — the queue below is ready to fire.
-2. **THE REAL FIRE QUEUE** (NOT the loop prompt's): thorn `special_1` **v3** (written this session,
-   gate-clean, keeps the proven effect wording verbatim and fixes only the body), thorn `special_2`,
-   thorn `special_3` (both hardened this session), LK `special_3`, eclipse `special_2`, oni
-   `victory` v2 — then a **re-roll of oni `hit`** (§A.1), then oni's remaining 9.
-3. **MK FINAL IS 6 OF 6 WRITTEN.** oni, minotaur, skullrend, `pale-choir` + `jin-goldenhand` (phase
-   103), `raiju-naginata` (phase 106). 13 states each, gate 284 clean / 0 problems. **No MK plate is
-   blocked.** raiju's block was overturned in phase 105 by keying his plate with the real
-   `key-idle-clips` math — the alpha is a CLEAN SILHOUETTE, no rectangle, 99.4% of backdrop within 29
-   of the sampled colour against `TIGHT=45`. The "two-tone" reading was a screening flag, not a
-   defect. **No re-plate was needed.**
-   Two things to carry when you fire him:
-   - **Check his FIRST keyed clip for a rectangular alpha edge.** Phase 105 tested the STILL; a clip
-     adds compression and motion blur that can widen the spread. It is a first-clip check, not a
-     blocker (written into his file as budget item 10).
-   - **He is the most laterally constrained plate in the set** — L202/R200 with a 1134w subject, max
-     spanPeak **1.35x**. His anchor sits on BOTH lateral bounds at once (grip (850,781), 514px blade
-     forward / 686px shaft back, 19.2 degrees -> tip x1335 and spike x202, the exact bbox edges), so
-     **flattening the shaft pushes BOTH ends out of frame simultaneously** — it may only ever get
-     STEEPER. His own footprint is just x224..x777: HE is not the containment risk, the 1200px pole
-     is. Bound the PROP TIP, never the hands.
-   Model any further kit on `minotaur-axe.md`, `skullrend-orcus.md`, `pale-choir.md`,
-   `jin-goldenhand.md` or `raiju-naginata.md` — **never `oni-tetsubo.md`**.
-   **pale-choir MUST fire off the MAGENTA plate** (`qa-boss/anchors/mk/pale-choir-anchor-magenta.png`)
-   — his front fangs are ACID GREEN (92 subject px pass the keyer's own isGreen predicate, dead centre
-   of his snarl), so on green the keyer punches a hole through his teeth. Backdrop swap only; subject
-   pixels bit-identical. It was NOT despilled, so a 1px green rim shows against magenta — if a clip
-   returns with a green edge, that is the source, and the fix is a despilling re-plate.
-   **FIVE of the six MK plates are PARTLY OPEN** (minotaur, skullrend, oni, pale-choir, jin, raiju —
-   heads in clean profile, torsos and hips not). That is the NORM for this set. None of the new kits
-   says "strict side profile"; they lock the anchor's own angle.
-   Model new kits on `minotaur-axe.md` or `skullrend-orcus.md`, **never `oni-tetsubo.md`**.
-   **pale-choir MUST fire off the MAGENTA plate** (`qa-boss/anchors/mk/pale-choir-anchor-magenta.png`)
-   — his front fangs are ACID GREEN (92 subject px pass the keyer's own isGreen predicate, dead centre
-   of his snarl), so on the green plate the keyer punches a hole through his teeth. His magenta plate
-   is a backdrop swap only; subject pixels are bit-identical. It was NOT despilled, so a 1px green rim
-   is now visible against magenta — if a clip returns with a green edge, that is the source, and the
-   fix is a despilling re-plate, not a prompt change.
-   **FOUR of the six MK plates are PARTLY OPEN** (minotaur, skullrend, oni, pale-choir, jin — heads in
-   clean profile, torsos and hips not). That is the NORM for this set. None of the new kits say
-   "strict side profile"; they lock the anchor's own angle instead.
-4. XGundam: 42 unwritten, each needing its own full-size facing check first.
+0. **ASK TIM TO LIFT THE HIGGSFIELD PAUSE** (or check whether he already has). Everything below that
+   involves generation is blocked only on that. The prompt backlog is EMPTY — there is no
+   prompt-writing work standing between you and firing.
+1. **THE REAL FIRE QUEUE** (NOT the loop prompt's, which is 6/6 stale — §A.2). All gate-clean:
+   **thorn `special_1` v3** (written this session; keeps the proven effect wording verbatim and fixes
+   only the body) → **thorn `special_2`** → **thorn `special_3`** (both hardened this session) →
+   **LK `special_3`** → **eclipse `special_2`** → **oni `victory` v2** → **an oni `hit` RE-ROLL**
+   (§A.1) → oni's remaining 9.
+   Re-read §A of SESSION 18 before the first fire: **re-upload the plate**, media_ids expire.
+2. **FIRST-CLIP WATCHES**, both written into their own kits, both cheap and both easy to forget:
+   - **raiju**: his plate was cleared on the STILL. A clip adds compression and motion blur, so check
+     his FIRST keyed clip for a **rectangular alpha edge**.
+   - **lich-scythe**: his chain keys as a beaded, near-broken strand and his violet crown flame's top
+     rows sit ~52 from the plate against `TIGHT=45`. Both marginal on a still.
+3. **TWO KITS READY TO WRITE**, plates already padded and verified: `hydra-flail` and
+   `gargoyle-spear`. Brief them exactly like `raiju-naginata` / `lich-scythe` — the briefs that
+   produced those two are the current standard. Model on `minotaur-axe.md`, `skullrend-orcus.md`,
+   `pale-choir.md`, `jin-goldenhand.md`, `raiju-naginata.md` or `lich-scythe.md` — **never
+   `oni-tetsubo.md`**, which still carries residuals.
+4. **eclipse `special`'s contacts (875) is unverified in-engine** — it never fired in two runs.
+   `node qa-boss/phase104-contacts.mjs` will confirm it the first time the RNG produces a qualifying
+   beat.
+5. **XGundam: 42 unwritten.** Run `qa-boss/check-plate-key.mjs` on each plate FIRST — it now reports
+   both key-cleanliness and a hue-agnostic emissive fraction, which is exactly the pair of screens
+   that would have saved ir41's wasted kit.
 
 ---
 
-### G. STILL GATED ON TIM (unchanged — do not decide unilaterally)
+### G. STILL GATED ON TIM — DO NOT DECIDE UNILATERALLY
 
-kitsune node 2 (13 clips, baked tanto glow) · re-plating the prop-EXTENDED trio satoshi/sora/ir56
-(33 shipped clips at risk) · re-plating hollow-pale (12 clips) · **registering oni-tetsubo into
-`FIGHTERS` as a 2-of-13 stub** · **thorn's shared prefix calls his antler blossoms "pink" where the
-plate shows dark crimson** — 10 shipped clips came back on-model with that wording, so I bound
-`special_3`'s petal colour RELATIVE to his own blossoms rather than touch a prefix all 13 states
-depend on.
+- **The Higgsfield pause** (§F.0).
+- kitsune node 2 — 13 clips blocked on the baked tanto glow.
+- Re-plating the prop-EXTENDED trio **satoshi / sora / ir56** — 33 shipped clips at risk. **Now joined
+  by `nurikabe-shield` and `golem-mace`** (§E), which have the identical bind.
+- Re-plating **hollow-pale** — 12 clips.
+- **Registering `oni-tetsubo` into `FIGHTERS`** as a 2-of-13 stub. `src/characters/oni-tetsubo.ts` is
+  written and deliberately NOT registered: 11 states missing, `still` points at a cutout that does not
+  exist, portrait provisional.
+- **LK's shared suffix says "STRICTLY IN SIDE PROFILE"** and her plate is plainly three-quarter — I
+  verified it. The audit is right that it is inaccurate, but that suffix is load-bearing for **12
+  shipped clips that all came back on-model**, so I refused to change it. Same shape as oni's plate:
+  **fix the JUDGING, not the lock** — score turn delta from f0, never absolute chest exposure.
+- **thorn's shared prefix calls his antler blossoms "pink"** where the plate shows dark crimson. Ten
+  shipped clips came back on-model with that wording, so I bound `special_3`'s petal colour RELATIVE
+  to his own blossoms rather than touch a prefix all 13 states depend on.
 
 ---
 
-## ★★★ (SUPERSEDED by SESSION 19 — §A above corrects four of its entries) SESSION 18 (2026-07-31) ★★★
+## ★★★ (SUPERSEDED by SESSION 19 — §A above corrects five of its entries) SESSION 18 (2026-07-31) ★★★
 
 HEAD **`b7d8c08`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · tracked tree clean ·
 `node qa-boss/check-prompt-sections.mjs` **245 clean / 0 problems** · 24 prompt files.
