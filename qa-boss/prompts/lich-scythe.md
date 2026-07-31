@@ -618,8 +618,9 @@ compact, immovable.
 
 ## hit  (heavy stagger, quick recover)
 HIT (stagger): he begins in the EXACT reference stance, angled to camera exactly as in the reference
-image and facing screen-right; his crowned skull and both shoulders snap back and to screen-LEFT, his jaw
-flying up, his spine folding and his knees buckling under his own weight - but BOTH FEET STAY EXACTLY
+image and facing screen-right; his crowned skull and both shoulders snap back and to screen-LEFT, his chin driven up as that skull
+snaps back - his JAWS STAYING LOCKED SHUT in the same fixed lipless grin the whole way, never opening,
+never dropping and never chattering - his spine folding and his knees buckling under his own weight - but BOTH FEET STAY EXACTLY
 WHERE THEY STAND, he does not step back and he does not skid, and every bit of the recoil is absorbed in
 his knees, hips and trunk instead. Both bone hands clamp harder on the haft and the whole scythe is
 jolted straight DOWN with his body, holding the angle it has in the reference the whole way - it never
