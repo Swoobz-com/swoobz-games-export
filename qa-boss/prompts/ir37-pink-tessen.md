@@ -123,6 +123,43 @@ SPECIAL FINISHER (petal flurry): a SMALL tight swirl of hot-pink lotus petals an
 around her own body, no bigger than her torso, then fades, then she settles back. The petals are HOT PINK
 and WHITE, NEVER green, small and tight against her body in the CENTER with a wide green margin all around.
 
+## special_3 v3 (ACTING LINE, phase 89) - LOW PETAL SWEEP, narrowed to TWO petals
+# WHY v3, and what NOT to change. v2's POSE WAS EXCELLENT — f0 0.930 / fLast 0.930, and dropPct 40.4%
+# against v1's 15% duty, so the deep crouch finally gave this beat real commitment. KEEP THE CROUCH.
+# It failed on ONE thing: the lotus PETALS crossed both side edges at ~48-62px. Rejected to the same
+# standard as her strike_b v3 (one petal at 44px). Not feather-class — the documented feather test is
+# "the body is well inside AND only a PROP TIP crosses", and detached debris is not a prop tip.
+#
+# THE FIX IS TO NARROW THE THING, NOT TO RESTATE THE BOUND. v2 already told the petals four separate
+# times to stay near her — "stay at GROUND LEVEL within one body-width", "never travel sideways away
+# from her", "never come near the left, right or top edge", plus the suffix — and they crossed anyway.
+# A fifth sentence would not have worked either. So the OBJECT changes: v2 kicked up "a WAVE" of
+# petals, and a wave is inherently wide. v3 makes it TWO petals, tears them loose from the fan itself
+# rather than from the ground, and shortens the sweep so it never passes her own standing footprint.
+#
+# ALSO FIXED: a contradiction inside v2's own sentence. It said the petals "run along the GROUND at
+# her feet" AND "crumble away to nothing in mid-air before any of it reaches the floor" — the same
+# material both touching the floor and never touching it. That is the debris-vanish contradiction
+# class, now on its fifth appearance, and here it lived inside a single sentence that wrapped a line
+# break. v3 removes the ground-wave imagery entirely, which fixes the contradiction and the width in
+# one move. The redundant standalone fan-bound sentence is also cut: the action clause and the shared
+# suffix already carry it, and three statements of one bound is the documented anti-pattern.
+SPECIAL FINISHER (low petal sweep): she begins in the EXACT reference stance in strict side profile
+facing screen-right, the war-fan held OPEN beside her exactly as in the reference image. She sinks into
+a LOW braced crouch over her own feet and draws the open war-fan in one SHORT arc low across her own
+shins, keeping the fan CLOSE to her body and BELOW HER OWN WAIST for the whole arc, and exactly TWO
+solid hot-pink lotus petals tear loose from the fan's own edge as it passes. The two petals stay
+BEHIND HER OWN STANDING FOOTPRINT - they never drift past her front foot or her back heel, never rise
+above her own knee, and they curl, darken and crumble to nothing well before the arc finishes. They
+are SOLID lotus petals with visible edges - never a glow, never light, never a trail, never mist.
+HER FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - she never jumps, never leaps, never hops and
+never lunges out into a wide stance; she keeps her stance narrow and never spreads wider than about
+one and a half times her standing width. The entire arc is COMPLETE by the halfway point of the clip;
+the whole second half is her slow rise back into the EXACT same reference stance, war-fan open beside
+her again, still facing screen-right, so that she is already standing still in the reference pose well
+before the clip ends. The first frame and the last frame are the EXACT same reference stance. Fast,
+precise, lethal.
+
 ## special_3 v2 (ACTING LINE, phase 66) - LOW PETAL SWEEP, ground-hugging, crouch for commitment
 # WIRE NAME: ships as `special-c.webm` (3rd `special` take). Build as `special_3`.
 # WHY v2: measured 0.429 minIoU / 56px travel / 15% duty — the worst-scoring of her specials.

@@ -68,7 +68,7 @@ VICTORY TAUNT: he plants the butt of the thorn-club on the ground, straightens t
 antlered head proudly, blossoms shivering, then settles back to the starting stance. Alone, no opponent.
 
 SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
-APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, rising no higher than his own waist, withering or crumbling away to nothing in mid-air before any of it reaches the floor, and never coming near the left, right or top edge of the frame.
+APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, and all of it withers or crumbles away to nothing before the final frame, never coming near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
 
 ## ★ THORN FRAME BUDGET (measured, phase 68 — node 3)
 Plate 1536x1536. Subject 814w x 1317h (fills 85.7%), bbox x360..x1173.
