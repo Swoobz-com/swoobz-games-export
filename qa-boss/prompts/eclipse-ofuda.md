@@ -250,7 +250,7 @@ facing screen-right, katana held point-down in front of her exactly as in the re
 weight into a LOW braced crouch over her own feet and sweeps her free hand DOWNWARD and ACROSS in front
 of her own chest, and a tight burst of the white paper ofuda talismans tears loose from her own hat brim
 and CATCHES FIRE as solid BURNING PAPER - each talisman curling, browning and crumbling into dark ash
-that falls DOWNWARD to the ground at her feet and settles there within a beat. They are SOLID BURNING
+that falls DOWNWARD and crumbles away to nothing before any of it reaches the floor. They are SOLID BURNING
 PAPER: curling, opaque, edged with ember - never a flame, never a glow, never a flare, never light,
 never mist. The burning talismans stay within one body-width of her at ALL times, never fly forward,
 never spray outward, never rise above her own shoulder, and never come near the left, right or top edge

@@ -33,12 +33,18 @@ function quoted(afterLabel) {
 // were assembled with NO add-on at all and Tim's explicit contain-in-frame rule was silently
 // dropped from every special they ever fired. satoshi carries 5 containment BLOCKs on record.
 // A silent '' return is exactly the failure mode that hides this, so the caller now asserts.
+// The add-on is normally a plain paragraph, but eclipse-ofuda.md and satoshi-odachi.md write theirs as
+// a markdown BLOCKQUOTE. This used to keep the '>' markers, so the literal characters were shipped to
+// the model as prompt text — "curling burning paper and dark ash, opaque with visible edges > NEVER a
+// glow". That has been true of EVERY special those two characters ever fired. Strip the markers here
+// rather than reformatting the files, so any future blockquote add-on is handled too.
 function paragraphAfter(re) {
   const m = src.match(re);
   if (!m) return '';
   const rest = src.slice(m.index + m[0].length);
   const end = rest.search(/\n\s*\n/);
-  return (end < 0 ? rest : rest.slice(0, end)).replace(/\s+/g, ' ').trim();
+  const seg = end < 0 ? rest : rest.slice(0, end);
+  return seg.split('\n').map((l) => l.replace(/^\s*>\s?/, '')).join(' ').replace(/\s+/g, ' ').trim();
 }
 
 // "## <state> ..." heading, then the body until the next heading. '#' comment lines are DROPPED —
