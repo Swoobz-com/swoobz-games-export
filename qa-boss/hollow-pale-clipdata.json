@@ -106,8 +106,14 @@
       "raw": "qa-boss/raw/hollow-pale-throw-a-v2.mp4",
       "webm": "public/assets/characters/hollow-pale/attack-throw.webm",
       "keyed": "qa-boss/keyed/hollow-pale-attack-throw-v2",
-      "cal": { "h": 100.08, "bottom": 0, "left": 46.93 },
-      "contacts": [1833],
+      "cal": {
+        "h": 100.08,
+        "bottom": 0,
+        "left": 46.93
+      },
+      "contacts": [
+        1833
+      ],
       "contact_verification": "argmax f44 (44.77). Centroid/reach trace: cy 443.9 -> 473.1 and subject top 30 -> 76px between f42 and f44 = the violent wrench DOWN; held f46-52 (cy 483-485); the f60 secondary peak is the monotone return to anchor. f44 is the action beat.",
       "containment": "TOP 0px / LEFT 0px / RIGHT 0px (--min 1). Clean.",
       "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f24/f44/f50): no halo, no chewed matte, ink-rib stains and pale body intact, claw OPEN AND EMPTY (no phantom object), no opponent.",
@@ -119,8 +125,14 @@
       "raw": "qa-boss/raw/hollow-pale-block-b-v2.mp4",
       "webm": "public/assets/characters/hollow-pale/attack-block-b.webm",
       "keyed": "qa-boss/keyed/hollow-pale-attack-block-b-v2",
-      "cal": { "h": 100.75, "bottom": 0, "left": 42.65 },
-      "contacts": [500],
+      "cal": {
+        "h": 100.75,
+        "bottom": 0,
+        "left": 42.65
+      },
+      "contacts": [
+        500
+      ],
       "contact_verification": "argmax f12 (22.45) = the guard-CATCH, not the counter. Reach trace: scythe tip retracts maxX 909 -> 531 between f8 and f16 (the blade snatched in across the chest to absorb) with the argmax mid-pull; brace held f22-f40; the counter is f42-46 and the later peaks f76/f80 are the return to anchor.",
       "containment": "TOP 0px / LEFT 0px / RIGHT 16px @f46 (over the 6px threshold).",
       "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f12/f30/f50): no halo, no chewed matte, crimson/ink trim intact, no phantom.",
@@ -132,8 +144,14 @@
       "raw": "qa-boss/raw/hollow-pale-special-1-v2.mp4",
       "webm": "public/assets/characters/hollow-pale/special.webm",
       "keyed": "qa-boss/keyed/hollow-pale-special-v2",
-      "cal": { "h": 100.08, "bottom": 0, "left": 40.4 },
-      "contacts": [1917],
+      "cal": {
+        "h": 100.08,
+        "bottom": 0,
+        "left": 40.4
+      },
+      "contacts": [
+        1917
+      ],
       "contact_verification": "argmax f46 (70.48). Alpha-pixel count spikes 137k (rest) -> 218k at f46 as the reaping fan opens, and the warm-effect pixel count also argmaxes at f46; f80-f90 (the return) carries zero effect pixels. f46 is the effect/action beat.",
       "containment": "TOP 0px / RIGHT 0px / LEFT 18px @f38 (over the 6px threshold).",
       "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f30/f46/f56): no halo, crimson speckle trim and pale-gold fire both survive the pink-safe key, no chewed matte.",
@@ -145,8 +163,14 @@
       "raw": "qa-boss/raw/hollow-pale-special-3-v2.mp4",
       "webm": "public/assets/characters/hollow-pale/special-c.webm",
       "keyed": "qa-boss/keyed/hollow-pale-special_3-v2",
-      "cal": { "h": 100.08, "bottom": 0, "left": 48.16 },
-      "contacts": [1833],
+      "cal": {
+        "h": 100.08,
+        "bottom": 0,
+        "left": 48.16
+      },
+      "contacts": [
+        1833
+      ],
       "contact_verification": "argmax f44 (48.72). Centroid trace: subject top 6 -> 42px and cy 434 -> 447 between f42 and f44 as he hunches/arches into the ignition; glow held f46-f58; f60-f64 is the rise back to anchor. f44 is the action beat.",
       "containment": "TOP 0px / LEFT 0px / RIGHT 0px (--min 1). Clean.",
       "matte": "0 green-dominant px over all 97 frames. Black+white composites viewed (f44/f50/f56): no halo, no chewed matte, head and antlers clear on every frame, smoke silhouette clean, no detached blob.",
@@ -156,5 +180,38 @@
     }
   },
   "phase26_dropins": "Four v2 re-rolls keyed + wired 2026-07-27 with the proven pink-safe recipe (key-clips-green-pinksafe --still qa-boss/proc/hollow-pale-anchor-still.png -> green-despill -> green-neutralize 32 -> VP9 yuva420p crf30). All four keyed at 0 despilled px / 0 neutralized px / 0 green-dominant px. attack_throw and attack_block now resolve to 2 takes each and special to 3. No clip was feathered.",
-  "moderation": "BOTH GATES PASSED 2026-07-25: upload content-check clean (where onryo hard-blocked) + idle generated with no nsfw flag. The sanitized redesign works."
+  "moderation": "BOTH GATES PASSED 2026-07-25: upload content-check clean (where onryo hard-blocked) + idle generated with no nsfw flag. The sanitized redesign works.",
+  "phase79_special_2_rerolls_2026_07_31": {
+    "_doc": "special_2 (ships as special-b.webm) re-roll attempts. Added WITHOUT touching existing keys.",
+    "verdict": "BOTH REJECTED — and the ceiling looks STRUCTURAL (his plate), not a wording problem. STOPPED at 2 rolls.",
+    "v2": {
+      "job": "a7d74ec1-5521-4041-99da-bf709e0125d4",
+      "raw": "qa-boss/raw/hollow-pale-special-2-v2.mp4",
+      "measured": {
+        "f0_all": 0.873,
+        "f0_body": 0.739,
+        "fLast_all": 0.753,
+        "fLast_body": 0.675,
+        "dropPct": "23.2%",
+        "containment": "LEFT 2px only"
+      },
+      "defect": "finisher rendered as an ORANGE EMBER BURST. Cause: his legacy SPECIAL add-on prescribed an ENERGY in PALE-GOLD/WHITE/CRIMSON (a fire palette), which fought the solid-material acting line in the same prompt. Add-on corrected in phase 77."
+    },
+    "v3": {
+      "job": "4c844f90-29a4-43cb-afd6-0751515f00dd",
+      "raw": "qa-boss/raw/hollow-pale-special-2-v3.mp4",
+      "measured": {
+        "f0_all": 0.805,
+        "f0_body": 0.699,
+        "fLast_all": 0.684,
+        "fLast_body": 0.683,
+        "dropPct": "31.1%",
+        "containment": "LEFT 2px only"
+      },
+      "note": "WORSE than v2 on f0 and fLast-all despite the corrected add-on, a SHORTER-dip instruction and a commanded full final second of stillness. The model also went the OPPOSITE way on the crouch (23.2% -> 31.1% drop)."
+    },
+    "structural_diagnosis": "start_image PINS frame 0, so f0 should nearly EQUAL the plate. eclipse reaches f0 0.924-0.927 that way; hollow-pale cannot beat 0.873 across two rolls, and f0 is the frame the TRANSPORT controls rather than the acting. His plate is the only 720x720 in the roster (all others are 1536x1536) AND the tightest framing in it (L131 / R29 / T37, subject fills 91.9% of frame height). The generator emits 960x960 and re-frames him, so his silhouette never matches the plate — a systematic offset no wording can close.",
+    "recommendation": "RE-PLATE via qa-boss/pad-anchor-plate.mjs to a padded 1536x1536 with >=200px margins, exactly like the 6 MK FINAL plates. This is TIM CALL, not an agent call: it changes his kit anchor, so his 12 shipped clips would stop anchor-locking against it and would need re-rolling. Same shape as the prop-EXTENDED ruling already pending in qa-boss/ANCHOR-BUDGETS.md, but a DIFFERENT cause (tight + non-standard plate resolution, not an extended prop).",
+    "measurement_caveat": "All numbers above are raw-mp4-vs-PLATE. Do NOT compare them to check-anchor-lock kit numbers (keyed-webm vs idle.webm), which read ~0.15 higher for an identical clip — see FIRE-PLAN phase 78."
+  }
 }
