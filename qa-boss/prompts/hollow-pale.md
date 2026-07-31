@@ -186,7 +186,7 @@ weight straight DOWN into a low braced crouch over his own feet and drives the b
 and slightly BACK toward screen-LEFT in one compact heavy sweep, and as it passes his ribs a tight
 burst of solid material tears loose from him - a handful of bone-white feather flakes shearing off the
 blade serration together with dry black ink flecks off the stains on his ribs - no wider than his own
-torso, falling DOWNWARD to the ground at his feet and settling there within a beat. The shed material
+torso, falling DOWNWARD to the ground at his feet and crumbling away to nothing before any of it reaches the floor. The shed material
 stays within one body-width of him at ALL times, never sprays outward, never rises above his own
 shoulder, and never comes near the left, right or top edge of the frame. HIS FEET STAY FLAT ON THE
 GROUND FOR THE ENTIRE CLIP - he never jumps, never leaps, never hops and never lunges out into a wide

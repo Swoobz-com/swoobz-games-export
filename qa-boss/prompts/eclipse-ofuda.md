@@ -287,7 +287,7 @@ facing screen-right, katana held point-down in front of her exactly as in the re
 of white paper ofuda is wrapped along the flat of her blade. She sinks into a low braced crouch and
 carves one short committed DIAGONAL cut DOWNWARD and ACROSS the front of her own body, and as the blade
 travels the wrapped paper SHREDS along the edge - solid torn white paper scraps peeling off the flat of
-the blade and fluttering DOWNWARD to the floor at her feet, settling within a beat. The scraps are SOLID
+the blade and fluttering DOWNWARD to the floor at her feet, crumbling away to nothing before it reaches the floor. The scraps are SOLID
 TORN PAPER: opaque, curled, edged with ink - never a glow, never light, never a ring, never a trail
 hanging in the air. Every scrap begins ATTACHED to her own blade and falls straight DOWN from it; none
 ever hangs in the air, none travels sideways away from her, and none comes near the left, right or top

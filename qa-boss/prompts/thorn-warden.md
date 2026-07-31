@@ -68,7 +68,7 @@ VICTORY TAUNT: he plants the butt of the thorn-club on the ground, straightens t
 antlered head proudly, blossoms shivering, then settles back to the starting stance. Alone, no opponent.
 
 SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
-APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, rising no higher than his own waist, withering or settling back to the floor within a beat, and never coming near the left, right or top edge of the frame.
+APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, rising no higher than his own waist, withering or crumbling away to nothing in mid-air before any of it reaches the floor, and never coming near the left, right or top edge of the frame.
 
 ## ★ THORN FRAME BUDGET (measured, phase 68 — node 3)
 Plate 1536x1536. Subject 814w x 1317h (fills 85.7%), bbox x360..x1173.
@@ -96,7 +96,7 @@ SPECIAL FINISHER (barksplit): he begins in the EXACT reference stance facing scr
 his feet, hauls the thorn-club IN TIGHT across his own chest and BRACES, his bark-textured forearms
 flexing hard against it, and the strain SPLITS his own bark - a tight burst of solid bark chips and
 woody splinters shears off his forearms and off the club's shaft, no wider than his own torso, and
-falls DOWNWARD to the ground at his feet, settling within a beat. The chips are SOLID BARK: dry,
+falls DOWNWARD to the ground at his feet, crumbling away to nothing before it reaches the floor. The chips are SOLID BARK: dry,
 opaque, sharp-edged - never a glow, never a flare, never light. They stay within one body-width of him
 at ALL times, never spray outward, never rise above his own shoulder, and never come near the left,
 right or top edge of the frame. The brace and the split are COMPLETE by the halfway point of the clip;
@@ -107,7 +107,7 @@ brutal.
 SPECIAL FINISHER (blossom fall): he begins in the EXACT reference stance facing screen-right; he drops
 his antlered head forward and DOWN into a low braced crouch and SHAKES it hard once, and a shower of
 solid pale-pink cherry-blossom petals tears loose from his antlers and falls DOWNWARD past his
-shoulders to the ground around his own feet, settling on the floor within a beat while he holds the
+shoulders to the ground around his own feet, crumbling away to nothing before any of it reaches the floor while he holds the
 crouch. The petals are SOLID FLOWER: opaque, individual, never a glow, never a flare, never light,
 never a swirl of sparkles. They fall STRAIGHT DOWN, stay within one body-width of him, never drift
 sideways away from him, and never come near the left, right or top edge of the frame. His antlers NEVER

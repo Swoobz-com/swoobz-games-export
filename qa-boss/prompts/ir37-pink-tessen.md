@@ -140,7 +140,7 @@ facing screen-right, the war-fan held OPEN beside her exactly as in the referenc
 a LOW braced crouch over her own feet and sweeps the open war-fan LOW across the ground in front of her
 own feet, keeping the fan CLOSE to her body and BELOW HER OWN WAIST for the entire sweep, and the sweep
 kicks up a wave of solid hot-pink lotus petals that runs along the GROUND at her feet, rising no higher
-than her own knee and settling back onto the floor within a beat. The petals are SOLID lotus petals -
+than her own knee and crumbling away to nothing in mid-air before any of it reaches the floor. The petals are SOLID lotus petals -
 never a glow, never light, never a trail, never mist. They stay at GROUND LEVEL within one body-width
 of her, never rise above her own knee, never travel sideways away from her, and never come near the
 left, right or top edge of the frame. HER FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - she never

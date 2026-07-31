@@ -67,7 +67,7 @@ as its own sentence) is carried per-state instead: every non-ko action line ends
 same reference stance".
 
 SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
-APART FROM HIS OWN KICKED GRIT, STONE CHIPS AND DUST the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his iron tetsubo and HIS OWN debris. Every piece of debris is SOLID MATERIAL - real chips of stone and grit and clods of earth, opaque and lit like rock - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, rising no higher than his own waist, settling back to the floor within a beat, and never coming near the left, right or top edge of the frame.
+APART FROM HIS OWN KICKED GRIT, STONE CHIPS AND DUST the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his iron tetsubo and HIS OWN debris. Every piece of debris is SOLID MATERIAL - real chips of stone and grit and clods of earth, opaque and lit like rock - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, rising no higher than his own waist, crumbling away to nothing in mid-air before any of it reaches the floor, and never coming near the left, right or top edge of the frame.
 
 ## idle
 IDLE COMBAT-READY LOOP: a heavy grounded brute stance, breathing slow and deep, his shoulders rising
@@ -80,7 +80,7 @@ STRIKE (downward slam): he begins in the EXACT reference stance in strict side p
 screen-right; he coils his weight down onto his back leg, draws the tetsubo back and slightly DOWN, then
 drives it in one heavy committed slam DOWNWARD into the ground in front of his own feet, and the impact
 kicks up a burst of solid grit and stone chips that leaps up around the club head no higher than his own
-knee and falls back to the floor within a beat. The whole slam is COMPLETE by the halfway point of the
+knee and crumbles away to nothing before it reaches the floor. The whole slam is COMPLETE by the halfway point of the
 clip; the whole second half is his slow heavy settle back up into the EXACT same reference stance. Heavy,
 brutal, final.
 
@@ -88,7 +88,7 @@ brutal, final.
 STRIKE (low sweep): he begins in the EXACT reference stance in strict side profile facing screen-right;
 he drops his weight and sweeps the tetsubo LOW across the front of his own body at shin height, keeping
 the club head BELOW HIS OWN WAIST for the entire sweep and pulling it IN toward his body rather than out,
-and the sweep drags a low wave of grit and dust along the ground at his feet that settles within a beat.
+and the sweep drags a low wave of grit and dust along the ground at his feet that crumbles away to nothing before it reaches the floor.
 The sweep is COMPLETE by the halfway point of the clip; the whole second half is his settle back into the
 EXACT same reference stance. Fast for his size, heavy, brutal.
 
@@ -152,7 +152,7 @@ screen-right; he raises the tetsubo only to CHEST height, coils his whole body d
 crouch, then drives the club DOWN into the ground in front of his own feet with everything he has, and
 the impact BLASTS a ring of solid stone chips, grit and broken earth outward ALONG THE GROUND around his
 feet - rising no higher than his own waist, spreading no wider than one body-width to either side, and
-raining back down to the floor within a beat while he holds the low crouch. The debris is SOLID ROCK AND
+crumbling away to nothing in mid-air before any of it reaches the floor while he holds the low crouch. The debris is SOLID ROCK AND
 GRIT: opaque, chipped, lit like stone - never a glow, never a flame, never a shockwave of light. The
 whole slam is COMPLETE by the halfway point of the clip; the whole second half is his slow heavy rise
 back into the EXACT same reference stance. Heavy, brutal, final.
@@ -162,7 +162,7 @@ SPECIAL FINISHER (spike driver): he begins in the EXACT reference stance in stri
 screen-right; he draws the tetsubo BACK toward his own body and DOWN, then drives it forward in one
 short brutal thrust at CHEST height, keeping the club head CLOSER to his body than it sits in the
 reference at every moment of the thrust, and on the drive a tight burst of solid stone chips and grit
-shears off the spikes of the club head and falls DOWNWARD to the floor, settling within a beat. The chips
+shears off the spikes of the club head and falls DOWNWARD to the floor, crumbling away to nothing before it reaches the floor. The chips
 are SOLID STONE: opaque, sharp-edged - never a glow, never a flare. They stay within one body-width of
 him, never spray outward, and never come near the left, right or top edge of the frame. The thrust is
 COMPLETE by the halfway point; the second half is his settle back into the EXACT same reference stance.
@@ -172,7 +172,7 @@ SPECIAL FINISHER (ogre stomp): he begins in the EXACT reference stance in strict
 screen-right, the tetsubo held LOW and CLOSE at his side throughout; he hauls one knee up only to hip
 height and STAMPS his bare heel down into the ground beside his other foot with his full weight, and the
 floor CRACKS - solid clods of broken earth and stone shards jump up around his own feet, rising no higher
-than his own knee, spreading no wider than one body-width, and dropping back to the floor within a beat
+than his own knee, spreading no wider than one body-width, and crumbling away to nothing before any of it reaches the floor
 while he holds the braced landing. The debris is SOLID EARTH AND STONE: opaque, chunky, lit like rock -
 never a glow, never a flame, never a ring of light. Both feet are back FLAT on the ground the instant the
 stomp lands and stay flat for the rest of the clip. The stomp is COMPLETE by the halfway point; the
