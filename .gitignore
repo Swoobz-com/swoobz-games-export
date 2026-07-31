@@ -5,3 +5,6 @@ _*.mjs
 shots*/
 qa-boss/frames/
 qa-boss/raw/
+
+# editor/agent backups — never tracked (swept in once by a directory add, phase 137)
+*.bak
