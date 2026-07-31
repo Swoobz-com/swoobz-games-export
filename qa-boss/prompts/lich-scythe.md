@@ -473,6 +473,35 @@ locked haft while the last chips crumble away, and only in the final second does
 settle back into the EXACT same reference stance, so that he is already standing completely still in the
 reference pose well before the clip ends. Fast for his size, heavy, silent.
 
+## ★ attack_strike_b v3 — ACCEPTED (fired 2026-08-01, job 73796ba3). THE BEAT REDESIGN WORKED.
+
+                      v1            v2            v3 (ACCEPTED)
+  containment         CLEAN         LEFT 100px    **CLEAN**
+  extra-objects       2 blobs       5 blobs       2 blobs (see below — not a defect)
+  frontturn run       25/97         19/97         **11/97**  (sym 0.349, drop 18% CONFOUNDED)
+  raw-anchor f0/fLast .900/.904     .901/.904     **.903/.901** ALL
+
+v1 hazed, v2 threw the weapon out of frame and made boulders. v3 stopped rewording and moved the
+BEAT into the only envelope this character has ever passed in — no rise, no fling — using rule 6 of
+his own budget (the shaft roll moves NEITHER end, at zero lateral and zero vertical cost). Containment
+went from a 100px break to clean, and the frontturn run more than halved.
+
+**THE "2 BLOBS" IS NOT A DEFECT, AND I NEARLY REJECTED ON IT.** At f27 the second component is
+12195px at x604..823 — the crescent BLADE, heavily motion-blurred by the roll. It is still attached
+(the haft runs down to his hands) and it separates only under a CRUDE green threshold: both
+`check-extra-objects` (which works at scale 480) and a full-res labeller see blurred semi-transparent
+pixels as background. The REAL keyer does not. `check-plate-key` on that exact frame returns
+**keys with margin** (opaque 12.61%, p99 24.9 against LOOSE=70) and the rendered alpha is a **solid,
+crisp, connected crescent** — no ghosting, no fringe, no olive halo.
+
+Measured for scale before deciding: the separation appears in **5 of 97 frames**, against **0** for the
+ACCEPTED strike_a v3 under the same measure. That is what made it worth checking rather than waving
+through — but the mask is the verdict, and the mask is clean.
+
+**Standing rule this confirms for the second time on this character** (the first was his chain): when
+the crude key and the real keyer disagree, the REAL KEYER is the one that ships. Do not re-roll a clip
+on a blob count without rendering the alpha first.
+
 ## ★ attack_strike_b v1+v2 BOTH REJECTED — the beat is the problem, not the wording (phase 151)
 
   v1 (7b061621)  containment CLEAN · extra-objects 2 blobs @f27 · translucent HAZE at the feet
