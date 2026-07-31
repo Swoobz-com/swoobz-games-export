@@ -125,8 +125,10 @@ second half is his slow rise back into the EXACT same reference stance, so that 
 completely still in the reference pose well before the clip ends. Rooted, straining, brutal.
 
 ## special_3  (BLOSSOM FALL) — petals shake loose from his antlers
-SPECIAL FINISHER (blossom fall): he begins in the EXACT reference stance facing screen-right; he drops
-his antlered head forward and DOWN into a low braced crouch and SNAPS it once, hard, straight DOWN and
+SPECIAL FINISHER (blossom fall): he begins in the EXACT reference stance facing screen-right; he COILS
+his weight DOWN into a deep low braced crouch, bending at the knees with both feet staying exactly
+where they already stand, dropping his antlered head forward and DOWN with it, and SNAPS it once,
+hard, straight DOWN and
 back - the movement is purely up-and-down in the vertical plane, never side to side, and his head never
 turns toward the camera. EXACTLY FOUR solid cherry-blossom petals, the same dark pink-red as the
 blossoms on his own antlers and each no bigger than his own thumbnail, tear loose from those blossoms.
