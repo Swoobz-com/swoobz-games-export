@@ -23,6 +23,7 @@ Shared suffix (facing lock + BLADE-CONTAINMENT, Tim rule "sword never leaves the
 > to face the camera. The camera is absolutely locked, no zoom, no pan, her full body always fully in
 > frame, she is the ONLY figure in frame at all times, nothing else added. She begins and ends on the
 > EXACT same reference stance. 24fps.
+> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
 NOTE: idle/strike_a/strike_b/throw_a were generated BEFORE this blade lock. strike_a PASS, strike_b PASS
 (blade tip approached top with margin). All clips from block_a onward carry the blade lock. Re-QA every

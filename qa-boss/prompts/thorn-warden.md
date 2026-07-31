@@ -20,6 +20,7 @@ Shared suffix (FACING LOCK added — first idle rotated to frontal + broke the l
 > face the camera; his body orientation never changes. The camera is absolutely locked, no zoom, no
 > pan, his full body always fully in frame, he is the ONLY figure in frame at all times, nothing else
 > added. He begins and ends on the EXACT same reference stance (final frame identical to first). 24fps.
+> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
 ## idle
 IDLE COMBAT-READY LOOP: a grounded heavy fighting stance, breathing slowly, the thorn-club held

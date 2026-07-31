@@ -18,6 +18,7 @@ Shared suffix (facing lock):
 > FACING SCREEN-RIGHT the entire clip and NEVER rotates or turns to face the camera. The camera is
 > absolutely locked, no zoom, no pan, his full body always fully in frame, he is the ONLY figure in
 > frame at all times, nothing else added. He begins and ends on the EXACT same reference stance. 24fps.
+> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
 SPECIAL suffix add-on (the 3 specials only; Tim's contain-in-frame rule):
 > The steel arc / energy of the finisher stays FULLY INSIDE the frame and NEVER extends past the edges.
