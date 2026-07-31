@@ -109,8 +109,9 @@ the clip ends. Heavy, rooted, brutal.
 
 ## special_2  (BARKSPLIT) — bark chips shear off his own forearms and club
 SPECIAL FINISHER (barksplit): he begins in the EXACT reference stance facing screen-right; he plants
-his feet and sinks his weight DOWN into a low braced crouch, driving the thorn-club DOWN and forward at
-arm's length in front of his leading shoulder and BRACING against it with both hands, his bark-textured
+his feet and COILS his weight DOWN into a deep low braced crouch, bending at the knees with both feet
+staying exactly where they already stand, driving the thorn-club DOWN and forward TOWARD SCREEN-RIGHT
+at arm's length in front of his leading shoulder and BRACING against it with both hands, his bark-textured
 forearms flexing hard against the shaft; his shoulders and hips stay exactly as they are in the
 reference stance throughout the brace. The strain SPLITS his own bark - EXACTLY FIVE bark chips, each
 no bigger than his own thumb, shear off the backs of his forearms and off the club's shaft. All five
