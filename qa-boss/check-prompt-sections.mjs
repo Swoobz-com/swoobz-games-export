@@ -80,6 +80,7 @@ const files = arg
 let clean = 0;
 const problems = [];
 const skipped = [];
+const blocked = new Map();   // kit -> reason (BLOCKED: marker; intentional, never a 'problem')
 
 for (const f of files) {
   // Not every .md in prompts/ is a fireable prompt file. Some are FRAGMENTS (re-roll scratch, notes)
@@ -95,6 +96,14 @@ for (const f of files) {
     const r = spawnSync('node', ['qa-boss/build-prompt.mjs', f, st], { encoding: 'utf8' });
     if (r.error) { problems.push({ f, st, kind: 'REFUSED', detail: String(r.error.message) }); continue; }
     const err = r.stderr || '';
+    // Exit 3 = the kit carries a BLOCKED: marker. That is INTENTIONAL, so it must not turn the gate
+    // red — a permanently red gate is a gate people stop reading. But it must not count as clean
+    // either, or the kit reads as fireable. Report it in its own bucket and move on.
+    if (r.status === 3) {
+      const why = (err.match(/^BLOCKED:\s*(.+)$/m) || [, '(no reason given)'])[1];
+      blocked.set(path.basename(f), why.trim());
+      break;   // kit-level, so the other 12 states would report the same thing
+    }
     if (r.status !== 0) {
       // "no state section" just means this character does not have that state — not a failure.
       if (/no state section/.test(err)) continue;
@@ -144,6 +153,12 @@ for (const p of problems) {
   console.log(`${p.kind.padEnd(9)} ${path.basename(p.f)} [${p.st}]\n      ${p.detail}`);
 }
 if (skipped.length) console.log(`skipped (fragment, no "Shared prefix:"): ${skipped.join(', ')}`);
+if (blocked.size) {
+  console.log(`
+BLOCKED kits (${blocked.size}) — these CANNOT be fired and are deliberately not counted as clean:`);
+  for (const [k, why] of blocked) console.log(`  ${k}
+      ${why}`);
+}
 console.log(`\nclean=${clean}  problems=${problems.length}`);
 if (problems.length) {
   console.log('\nA REFUSED state has no live acting line written yet — write one into a section whose');

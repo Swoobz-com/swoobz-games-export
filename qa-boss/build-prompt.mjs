@@ -10,7 +10,44 @@
 import fs from 'node:fs';
 
 const [file, state] = process.argv.slice(2);
+// ############################################################################################
+// # KIT-LEVEL BLOCK MARKER (phase 108). A kit whose PLATE cannot support its acting lines must #
+// # be impossible to fire BY ACCIDENT, not merely documented.                                  #
+// #                                                                                            #
+// # ir41-kasa-oni is the case that forced this. Its plate is FRONT-FACING — legs planted wide   #
+// # and symmetric, shoulders and hips square — which the handoff calls unusable, because "a     #
+// # frontal stance has no side, so it cannot be mirrored into agreement with the rest of the    #
+// # kit". That WAS written down, in prose, at line 111 of the kit. And it changed nothing:      #
+// # every acting line still demanded "side profile facing screen-right", the shared suffix      #
+// # still added "NEVER rotates or turns to face the camera", and the file ASSEMBLED CLEANLY at  #
+// # LEN=3990. check-prompt-sections reported it among the clean. A session working the queue    #
+// # would have fired it and forced the model to break either the anchor lock (start_image pins  #
+// # the frontal plate at f0) or the facing lock. There is no third option.                      #
+// #                                                                                            #
+// # A warning a tool cannot read is a warning that gets fired anyway. So: any line beginning    #
+// # "BLOCKED:" makes the builder REFUSE and print the reason. Deliberately kit-level, not       #
+// # state-level — a plate that cannot carry one acting line cannot carry thirteen.              #
+// ############################################################################################
+const BLOCK_MARKER = /^\s*(?:⛔\s*)?BLOCKED:\s*(.+)$/m;
+
 const src = fs.readFileSync(file, 'utf8');
+
+// Refuse a BLOCKED kit before any assembly work. Exit 3 so callers can tell "deliberately blocked"
+// apart from a real build failure (exit 1) — check-prompt-sections.mjs relies on that distinction to
+// keep the gate green while still refusing to let the kit fire.
+{
+  const m = src.match(BLOCK_MARKER);
+  if (m) {
+    process.stderr.write(
+      'BLOCKED: ' + m[1].trim() + '\n' +
+      '  file  : ' + file + '\n' +
+      '  This kit cannot be fired. The block is a property of the PLATE or the ruling, not of the\n' +
+      '  acting line, so rewording a state will not clear it — fix the plate or get the ruling,\n' +
+      '  then delete the BLOCKED: line.\n',
+    );
+    process.exit(3);
+  }
+}
 
 // Blockquote sections: "Shared prefix:" / "Shared suffix ...:" followed by "> " lines.
 function quoted(afterLabel) {

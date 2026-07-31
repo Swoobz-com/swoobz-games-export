@@ -1,5 +1,21 @@
 # IR-41 KASA ONI — XGundam roster. Full 13-clip kit. Phase 88.
 
+BLOCKED: the plate is FRONT-FACING, so every acting line here is unfireable as written. Re-plate to a side/three-quarter pose, or re-pose the character, then delete this line.
+
+> The block was already documented in prose further down this file (§ "This plate is not — IR-41
+> stands square to camera..."), and it changed nothing: all 13 states still demanded "side profile
+> facing screen-right", the shared suffix still added "NEVER rotates or turns to face the camera",
+> and the kit ASSEMBLED CLEANLY at LEN=3990 while `check-prompt-sections.mjs` counted it among the
+> clean. Firing it forces the model to break either the anchor lock (`start_image` pins the frontal
+> plate at f0) or the facing lock — there is no third option.
+> Verified phase 108 by rendering the alpha (`node qa-boss/check-plate-key.mjs
+> qa-boss/anchors/xg/ir41-kasa-oni-anchor-green.png`): legs planted wide and symmetric, both feet
+> splayed outward, shoulders and hips square, one arm raised overhead and the other extended open.
+> Unmistakably frontal. The `BLOCKED:` line above is machine-read by `build-prompt.mjs`, which now
+> REFUSES with exit 3 — a warning a tool cannot read is a warning that gets fired anyway.
+> The acting lines are KEPT, not deleted: they are good work and become usable the moment the plate
+> does. **They just must not be fireable against this plate.**
+
 Written against the PADDED plate `qa-boss/anchors/xg/ir41-kasa-oni-anchor-green.png`, never the raw
 `input/MK FINAL/XGundam not sorted/IR-41 Kasa Oni.png`. The raw art measures **L186 / R436 / HEADROOM
 58** — his already-raised katana runs to within 58px of the top of its own frame, the tightest ceiling
