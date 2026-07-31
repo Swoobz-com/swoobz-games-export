@@ -3,6 +3,48 @@
 All four build clean through `node qa-boss/check-prompt-sections.mjs` (108 clean / 0 problems).
 **Nothing here has been fired** — the browser was never logged in to Higgsfield this session.
 
+## ★ TRANSPORT OF RECORD (phase 67, learned from a working sibling session)
+
+Fire through the Higgsfield **MCP** (`mcp__claude_ai_higgsfield__generate_video`), not the browser.
+The MCP path returns job ids and direct mp4 URLs, so harvesting is a download — no DOM scraping, and
+none of the polling bugs that cost session 15.
+
+**Pass the anchor plate in THREE roles at once, all the same media_id:**
+```
+medias: [ {role:'start_image', value:<id>}, {role:'end_image', value:<id>}, {role:'image', value:<id>} ]
+```
+`end_image` is the important one and was missed at first: it pins the LAST frame to the plate, which is
+precisely what `check-anchor-lock` measures as `fLast`. Passing start+end == the anchor is a structural
+fix for the `first frame == last frame == the anchor` law — it stops being a thing we ask the prose to
+do and becomes a thing the transport enforces. Expect fLast to improve for free.
+
+**Settings that are PROVEN to work on this path** (observed on a concurrent session's completed jobs):
+`mode:'std'`, `bitrate_mode:'standard'`, `generate_audio:false`, PNG input accepted.
+
+**What FAILED, and the corrected diagnosis.** Three jobs failed with `start_image` ALONE plus
+`bitrate_mode:'high'`. I first blamed the account, then the PNG format — both wrong: the same PNG +
+`start_image` succeeds for a sibling session, and the failure reproduced identically across two
+accounts. The untested-but-likely cause is `bitrate_mode:'high'` combined with a media input (a
+text-only job with `high` and no media DID complete). **So: use `bitrate_mode:'standard'`, and if a
+job fails, drop the extra roles before you touch anything else.** A failed job costs NOTHING — the
+balance did not move across three failures — so bisecting here is free.
+
+**Renders take ~90 seconds**, not the 20-60 minutes the browser Unlimited path took. Budget the 24h
+window accordingly: it is worth hundreds of clips, and the bottleneck is now QA, not generation.
+
+**`use_unlim: true` on every call, never credits.** A request that cannot be served free is REJECTED,
+never silently charged.
+
+## NON-INTERFERENCE (standing, Tim 2026-07-31)
+
+Another terminal generates on a DIFFERENT account against the same rate limit. Before ANY fire, call
+`show_generations(type:'video', size:5)`:
+- any job `pending`/`in_progress` -> the other session is working. **Do not fire, do not retry.**
+- the newest job completed **less than ~10 minutes ago** -> it is still mid-session. **Hold.**
+- otherwise -> clear to fire, one clip at a time.
+A 429 `rate_limit_reached` means the same thing: back off, do not hammer. Three rapid retries produced
+three 429s and helped nobody.
+
 ## Before the first fire of a session
 
 ```
