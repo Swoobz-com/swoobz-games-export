@@ -329,6 +329,46 @@ faintly at the low end while the torn hems of his robe and the long tabard panel
 stay fixed in the same lipless grin and do not move at all. Feet planted, silent and patient. Returns to
 the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 
+## ★ attack_strike v2 — REJECTED, but the wind-up fix WORKED (fired 2026-07-31, job 069c7e51)
+
+                        v1                          v2
+  check-frontturn       sym 0.436 · aspect 1.40 · 69/97   sym 0.373 · aspect 1.50 · 66/97
+  extra-objects         2 blobs @f36                      **1 blob — CLEAN**
+  containment           CLEAN                             CLEAN
+  raw-anchor f0/fLast   0.904 / 0.905 ALL                 0.900 / 0.902 ALL
+
+TWO OF THE THREE v1 FIXES LANDED, and the frames prove it:
+  · **NO OVERHEAD RAISE.** v1's f020 had the scythe fully above his crown with both arms
+    extended. v2 never lifts it at all. Removing the wind-up and the named start height worked.
+  · **NO DUST CLOUD.** Renaming the debris to solid floor-STONE chips cleared extra-objects to
+    a single blob.
+
+WHY THE GATE NUMBER BARELY MOVED — AND WHY IT IS CONFOUNDED HERE. `check-frontturn` derives
+selfSym and aspect from the BBOX. This beat is a DEEP FORWARD FOLD ("hips folding deep, ribcage
+coming down over his leading knee"), and a folded body reads as a compact, more symmetric blob,
+which raises selfSym on its own. The horizontal scythe then pushes aspect to 1.50. **The metric
+cannot tell a FOLD from a TURN, so it cannot adjudicate this clip.** Do not read 0.373 as a
+measured front-turn; read it as "not measurable by this tool on a crouch beat". Same family as
+the recorded lesson that minIoU bbox-NORMALISES and therefore cannot see a sink.
+
+THE DEFECT THAT IS UNAMBIGUOUS, AND IT WAS A CONTRADICTION I WROTE. v2 said:
+
+> hauls the whole scythe DOWN with him **at the exact angle it holds in the reference** … so the
+> edge shears downward … **to below his own knee** … The weapon **does not rotate**
+
+Those fight. Rule 3 of his own FRAME BUDGET computes it: getting the blade down to the stone
+needs a **~60-degree rotation** about the lower hand. A pure sink cannot lower the blade to knee
+height — only a rotation can. Told to do both, the model rotated the scythe to HORIZONTAL and
+reached it OUT toward screen-right, which also breaks "NEVER thrust or reached out ahead of him"
+and is what put aspect at 1.50.
+
+v3 stops forbidding the rotation and instead DIRECTS it, using his kit's own geometry: the LOWER
+hand locks at his waist as the fulcrum, the LEADING hand drives, and the weapon rotates
+BLADE-DOWN AND INWARD so the point finishes beside his own leading foot inside his standing
+footprint — which rule 3 proves NARROWS him (subject 804px vs the anchor's 910px). Beat and
+bound now point the same way, and "never carried level, never carried horizontal" is stated
+because horizontal is the failure mode actually observed.
+
 ## ★ attack_strike v1 — REJECTED, FIVE defects, all from the WIND-UP (fired 2026-07-31, job fadf6b83)
 
   check-frontturn   sym 0.068 -> **0.436**, aspect 0.88 -> **1.40**, run **69/97** @f12
@@ -368,11 +408,15 @@ and NO PART of the weapon travels UPWARD at ANY moment in the clip. The cut star
 the blade ALREADY SITS in the reference image and only ever goes DOWN. IN THE FIRST QUARTER OF THE CLIP
 his knees simply fold and he DROPS his
 entire mass straight DOWN over both planted feet in one committed sink, his hips folding deep and his
-ribcage coming down over his leading knee, and he hauls the whole scythe DOWN with him at the exact
-angle it holds in the reference so the honed inner edge of the crescent shears downward through empty air from the
-height it ALREADY HAS to below his own knee. The weapon does not rotate, does not travel sideways and
-NEVER RISES; it falls only because HE falls, and both bone hands stay exactly where they are on the
-haft. BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT - neither heel ever lifts, he never comes up
+ribcage coming down over his leading knee. His LOWER bone hand stays LOCKED on the haft and held in
+close at his own waist, never travelling out away from his own body, and it is his LEADING bone hand
+that drives: it hauls the haft DOWN and BACK IN toward his own body so that the whole scythe ROTATES
+BLADE-DOWN AND INWARD about that locked lower hand, and the honed inner edge of the crescent shears
+downward through empty air until the blade POINT is down beside his own leading foot and INSIDE his own
+standing footprint. THE BLADE TRAVELS DOWN AND IN, NEVER OUT: it is NEVER carried level, NEVER carried
+horizontal, is NEVER thrust or reached out ahead of him toward screen-right, and its point NEVER travels
+further toward screen-right than it does in the reference image - the deeper it drops the CLOSER to his
+own body it comes. NO PART of the weapon ever RISES. BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT - neither heel ever lifts, he never comes up
 onto his toes, and he never rises out of the sink until the recovery. THE LINE OF HIS
 TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE
 IMAGE IN EVERY SINGLE FRAME - his near shoulder never comes forward, his far shoulder never swings
