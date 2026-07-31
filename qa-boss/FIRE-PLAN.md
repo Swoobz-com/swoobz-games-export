@@ -9,6 +9,24 @@ Fire through the Higgsfield **MCP** (`mcp__claude_ai_higgsfield__generate_video`
 The MCP path returns job ids and direct mp4 URLs, so harvesting is a download — no DOM scraping, and
 none of the polling bugs that cost session 15.
 
+## ★ THE ACCOUNT FLIPS. RE-UPLOAD THE PLATE, DO NOT REUSE A media_id ACROSS A GAP (phase 112)
+
+**Check `balance` before every fire session — it is the cheapest account fingerprint you have.**
+Observed on 2026-07-31 alone, in one day: `user_3HFAtp47…` (session 17) → `user_3DR1OB2c…`
+(10 → 0.9 credits, morning) → **back to `user_3HFAtp47…` (10 credits, afternoon)**. It flips both
+ways, not just forward.
+
+**Every `media_id` belongs to the account that uploaded it.** After a flip, a plate id recorded in any
+clipdata returns `Media input not found`. **The fix is a RE-UPLOAD, not a retry** — and it costs
+nothing, so just do it rather than testing whether the old id still lives:
+```
+media_upload → curl -X PUT --data-binary @<plate>.png '<upload_url>'   (expect HTTP 200)
+             → media_confirm {media_id, type:'image'}
+```
+The failure is loud and free (`use_unlim` is REJECTED, never silently charged), so a wrong account
+costs a round-trip and nothing else. The CDN path also carries the user id, which is how you tell
+whose job is whose in `show_generations` without reading the prompt.
+
 **Pass the anchor plate in THREE roles at once, all the same media_id:**
 ```
 medias: [ {role:'start_image', value:<id>}, {role:'end_image', value:<id>}, {role:'image', value:<id>} ]
