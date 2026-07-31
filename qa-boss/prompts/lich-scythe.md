@@ -473,31 +473,66 @@ locked haft while the last chips crumble away, and only in the final second does
 settle back into the EXACT same reference stance, so that he is already standing completely still in the
 reference pose well before the clip ends. Fast for his size, heavy, silent.
 
-## attack_strike_b  (rising hook, the bone spur pulled back)
-STRIKE B (rising hook): he begins in the EXACT reference stance, angled to camera exactly as in the
-reference image and facing screen-right; IN THE FIRST QUARTER he sinks his hips into a low braced crouch
-over both planted feet and draws his shoulders straight BACK toward screen-LEFT with neither one coming
-forward and neither one swinging round, gathering the haft in tight. THE LINE OF HIS TWO SHOULDERS AND
-THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE
-FRAME - he may SINK, DRAW BACK and RISE, but he never TURNS. Then
-he drives up out of his knees and SNAPS the whole scythe head a short way UP and IN toward his own leading
-shoulder in one savage hooking pull, the head staying out in front of him toward screen-right the whole
-way, the hooked bone BACK-SPUR leading and the weapon turning about his own LOWER bone hand, which stays
-locked on the haft close in at his own waist and never travels out away from his own body, while the
-LEADING hand hauls DOWN toward his own hip. No part of the head rises above the height his own crown spikes have in the
-reference image, and at the far end the knobbed BONE BUTT swings DOWN and IN toward his own rear foot
-with the chain and its bone charm whipping down after it, never further toward screen-left than they
-hang in the reference image. His hips and shoulders drive the pull and his whole trunk rises out of the
-crouch behind it. His rear foot's talons screw down as he drives and knock EXACTLY THREE chips of split
-grey floor-stone UPWARD beside that foot, each chip no bigger than one of his own foot-talons and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
-never smoke and never haze - rising no
-higher than his own knee and spreading no wider than his own standing footprint - never past his leading
-foot toward screen-right and never past his rear heel toward screen-left - every chip crumbling away to
-nothing in mid-air as it falls. THE HOOK IS COMPLETE BY THE HALFWAY POINT; he HOLDS the finish through
-the third quarter while the last chips crumble away, and only in the final second does he let the whole
-weapon settle back to the EXACT angle and height it has in the reference image and flow into the EXACT
-same reference stance, so that he is already standing completely still in the reference pose well before
-the clip ends. Fast, rising, vicious.
+## ★ attack_strike_b v1+v2 BOTH REJECTED — the beat is the problem, not the wording (phase 151)
+
+  v1 (7b061621)  containment CLEAN · extra-objects 2 blobs @f27 · translucent HAZE at the feet
+  v2 (0d82bf79)  containment **LEFT 100px @f54** · extra-objects **5 blobs** [27210,2134,1047,1005,619]
+
+v2 added ONLY the inline debris-solidity clause. That cannot cause what f054 shows: the SCYTHE IS
+RELEASED and thrown out of frame to screen-LEFT with both hands open and empty — which is the LEFT
+100px containment break — and the debris has become BOULDERS, six-plus of them, against a beat that
+says EXACTLY THREE chips "no bigger than one of his own foot-talons". Count and size bounds both
+failed, and the never-released weapon lock failed.
+
+DIAGNOSIS: the beat is UNSTABLE, and it is the only RISING beat on this character. Both of his
+ACCEPTED clips (idle, attack_strike v3) are SINKS with no rise anywhere. A "savage hooking PULL"
+that "SNAPS" the head while he "drives UP out of his knees" reads as a fling, and once the model
+commits to a fling the weapon leaves the hands. Two takes of the same beat produced two different
+catastrophes, which is the signature of a beat outside the character's stable envelope rather than
+a wording defect. Per doctrine: when a beat and its bounds keep fighting, change the BEAT.
+
+v3 rebuilds it inside the envelope that has actually passed twice, using rule 6 of his own budget:
+THE SHAFT ROLL IS FREE — turning the scythe about its own long axis moves NEITHER end, at no lateral
+and no vertical cost. So strike_b becomes a ROLL + SINK: he rolls the crescent edge-down (free), then
+drives a SHORT sharp sink. It stays distinct from strike_a v3 by being fast and shallow where that one
+is deep and committed, and it never rises, never flings and never releases.
+
+## attack_strike_b  (edge-roll press — short, fast, no rise)
+STRIKE B (edge-roll press): he begins in the EXACT reference stance, angled to camera exactly as in the
+reference image and facing screen-right, the scythe held across his body exactly where it sits in the
+reference. THERE IS NO WIND-UP AND NO RISE OF ANY KIND: he does NOT raise the scythe, does NOT draw it
+back, does NOT lift it, his shoulders do NOT rise, he never drives upward out of his knees, and NO PART
+of the weapon travels UPWARD at ANY moment in the clip. IN THE FIRST QUARTER both bone hands turn
+together on the haft and ROLL the whole scythe a quarter-turn about its OWN LONG SHAFT AXIS, so the
+honed inner edge of the crescent comes round to face DOWN toward the stone. THE WEAPON TURNS IN PLACE:
+neither the BLADE nor the knobbed BONE BUTT travels at all during the roll, both ends hold the exact
+height and the exact lateral position they have in the reference image, and the whole scythe keeps the
+exact angle it has in the reference throughout.
+THEN he presses: his knees fold and he DROPS his mass straight DOWN in one short sharp sink over both
+planted feet, and the whole scythe rides DOWN with him a hand's width and no further, edge leading, so
+the honed edge shears a short way downward through EMPTY AIR. It is a SHORT, FAST press - not a deep
+reap - and the blade never travels further toward screen-right than it does in the reference image, is
+NEVER carried level or horizontal, is NEVER thrust or reached out ahead of him, and NEVER passes behind
+him. THE SCYTHE STAYS GRIPPED IN BOTH SKELETAL HANDS IN EVERY SINGLE FRAME - it is never released,
+never let go, never thrown, never flung and never leaves his hands, and both hands stay closed on the
+haft throughout.
+BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT - neither heel ever lifts and he never comes up onto
+his toes. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY
+HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - his near shoulder never comes forward, his far
+shoulder never swings round, and his chest and his bare ribcage never square up toward the camera; he
+may FOLD and SINK, but he never TURNS.
+As his weight settles, his rear foot's talons grind DOWN into the stone and break EXACTLY THREE small
+chips of hard grey floor-stone up off the flagstones, each chip NO BIGGER THAN ONE OF HIS OWN FINGER
+BONES and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke
+and never haze, and never a slab, never a boulder, never a rock larger than his own finger bone -
+rising no higher than his own ankle and spreading no wider than his own standing footprint, never past
+his leading foot toward screen-right and never past his rear heel toward screen-left, every chip
+crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES OF DEBRIS IN
+THE FRAME AT ONCE.
+THE PRESS IS COMPLETE BY THE HALFWAY POINT; he HOLDS the low finish through the third quarter while the
+last chips crumble away, and only in the final second does he roll the crescent back to the EXACT face,
+angle and height it has in the reference image and rise into the EXACT same reference stance, so that he
+is already standing completely still in the reference pose well before the clip ends. Short, fast, final.
 
 ## attack_throw A  (haft clamp and drive-down, solo-safe)
 THROW A (haft clamp): he begins in the EXACT reference stance, angled to camera exactly as in the
@@ -526,9 +561,11 @@ standing completely still in the reference pose well before the clip ends. Groun
 THROW B (bone-hand seize): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST THIRD he opens his LOWER bone hand off the haft -
 his LEADING hand keeping the whole scythe locked at the exact angle it holds in the reference, where it
-hangs still and takes no part in this beat - and CLOSES those bare finger bones on an unseen weight at
-his own hip height in EMPTY AIR, never reaching further toward screen-right than that lower hand sits in
-the reference image, with NO opponent, no second figure and nothing else in the frame at any time. Then
+hangs still and takes no part in this beat - and CLOSES those bare finger bones on NOTHING at his own hip
+height in EMPTY AIR, never reaching further toward screen-right than that lower hand sits in the
+reference image. THAT HAND CLOSES ON EMPTY AIR AND STAYS EMPTY IN EVERY SINGLE FRAME - nothing is held,
+caught, seized, dragged or carried, there is NO opponent, no second figure and no object of any kind
+anywhere in the frame at any time, and the space around him stays completely empty green. Then
 he drops his hips under it and folds his whole mass straight DOWN, hauling that closed bone hand down and
 IN across the front of his own thighs toward his own rear hip, travelling toward screen-LEFT and staying
 in front of his own body the whole way, never swinging behind him and stopping well short of that rear
