@@ -141,13 +141,20 @@ rising from the floor where he lands and drifting away to nothing. He is ALONE i
 enters, crosses or appears in the frame at any time. Only his own body moves. He does NOT get back up.
 
 ## victory  (club planted, roar)
-VICTORY (planted club): he begins in the EXACT reference stance in strict side profile facing
-screen-right. IN THE FIRST QUARTER OF THE CLIP he swings the tetsubo DOWN and plants its head heavily on
-the ground beside his own front foot, a low puff of dust kicking up and drifting away to nothing, and
-leans his weight down onto the haft. FOR THE WHOLE MIDDLE HALF OF THE CLIP HE HOLDS THAT LEANING POSE and
-only his head and chest move - his jaw opens wide in a slow roar and his chin lifts no higher than his own
-horns while his chest heaves; his shoulders, hips and both feet stay exactly where they are, he does not
-step, does not pivot and does not straighten up, and the club head stays ON THE GROUND that entire time.
+VICTORY (planted club): he begins in the EXACT reference stance, his body angled toward screen-right
+exactly as it is in the reference image. IN THE FIRST QUARTER OF THE CLIP he ROLLS the tetsubo DOWN and
+SETS its head heavily on the ground just in front of his own leading foot, the haft raking back and UP
+toward screen-LEFT at about forty-five degrees with the butt end level with his own shoulder, never
+travelling further toward screen-right than it does in the reference image, and he leans his weight down
+onto the haft. The plant knocks UP a low burst of solid grit and stone chips around the club head,
+rising no higher than his own ankle and staying inside his own standing footprint, crumbling away to
+nothing IN MID-AIR AS IT FALLS so that none of it reaches the floor. FOR THE WHOLE MIDDLE HALF OF THE
+CLIP HE HOLDS THAT LEANING POSE and only his head and chest move - his jaw opens wide in a slow roar and
+his chin lifts no higher than his own EYE LINE, never past it, while his chest heaves THREE times, his
+shoulders rolling once between the second and the third, and the coiled rope over his shoulder and the
+ragged kilt swinging heavily and settling; his shoulders, hips and both feet stay exactly where they
+are, he does not step, does not pivot and does not straighten up, and the club head stays ON THE GROUND
+that entire time.
 IN THE FINAL QUARTER he draws the club head back up off the ground to the EXACT height and angle it has in
 the reference image - never higher, never vertical - and settles into the EXACT same reference stance. The
 club head goes DOWN to the floor, never up. Proud, heavy, brutal.

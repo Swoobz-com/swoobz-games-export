@@ -145,8 +145,9 @@ than the phantom class. Recorded so it is not rediscovered as new.
 ### E. THE PROMPT BACKLOG — 25 RANKED FINDINGS, NOT YET APPLIED
 
 Two adversarial audits read the assembled prompts of the live fire queue end to end. thorn's three
-specials were rewritten from theirs (phases 96-97). **The eclipse / LK / oni findings are NOT applied
-yet — all three clips are unfired, so this is pure gain.** The five that block a fire:
+specials were rewritten from theirs (phases 96-97). **The five fire-blockers below were APPLIED in
+phase 101** (eclipse `special_2`, LK `special_3`, oni `victory`, plus both add-on leaks); the
+lower-ranked items are still open. What was applied, and the one thing deliberately refused:
 1. **oni `victory`**: the acting line plants the tetsubo head on the ground beside his front foot with
    his hands on the haft — that is FULLY VERTICAL, which the same prompt's suffix bans outright, and
    it is one of the three locks v1 already broke. Use ir05's shape: `rolls … sets its head just in
@@ -161,16 +162,29 @@ yet — all three clips are unfired, so this is pure gain.** The five that block
    same clause.
 5. oni `victory`: unbounded "low puff of dust", and `victory` gets NO SPECIAL add-on, so nothing
    backstops it.
-Also: eclipse's add-on prescribes "curling burning paper and dark ash" in a sentence ending "NEVER
-light or energy of any kind"; LK's add-on introduces "hot-pink shards" her acting line never creates.
-Both are the phase-77 add-on-override class recurring.
+Also applied: eclipse's add-on prescribed "curling burning paper and dark ash" in a sentence ending
+"NEVER light or energy of any kind" (a combustion cue banned by its own sentence — and it is
+`special_1`'s material leaking into the other two via the shared block; `special_1` carries its own
+burning-paper wording in its acting line, verified still present after removal). LK's add-on
+introduced "hot-pink shards" her acting line never creates. Both are the phase-77 class recurring.
+
+**REFUSED, and it needs Tim: the audit wants LK's shared suffix "STRICTLY IN SIDE PROFILE FACING
+SCREEN-RIGHT" rewritten**, because her plate is plainly three-quarter/near-frontal — both pauldrons,
+the full cuirass and both feet square to camera. The finding is CORRECT (I verified it at full size).
+But that suffix is load-bearing for **12 already-shipped clips that all came back on-model**, so the
+inaccurate wording is doing real anti-spin work. Chasing accuracy there risks a working kit. Same
+shape as oni's "strict side profile" (§A.3) — in BOTH cases fix the JUDGING, not the lock: score turn
+delta from f0, never absolute chest exposure. I changed it only in oni `victory`'s own acting line,
+which is unfired.
 
 ---
 
 ### F. WHAT TO DO NEXT, IN ORDER
 
-1. **Apply §E's ranked fixes** to `eclipse-ofuda.md`, `lady-kurotachi.md`, `oni-tetsubo.md`. Unfired,
-   so free.
+1. **§E's five fire-blockers are DONE (phase 101).** What remains there is the lower-ranked tail:
+   eclipse's ONE-ACTION LOCK still never ships (§C), eclipse `special_2`'s wind-up is still unstated,
+   and LK's `Her sword NEVER rises above her own shoulder` bounds the whole prop rather than the TIP
+   (she has 138px of headroom — use eclipse's `the BLADE TIP never rises above her own shoulder`).
 2. **THE REAL FIRE QUEUE** (NOT the loop prompt's): thorn `special_1` **v3** (written this session,
    gate-clean, keeps the proven effect wording verbatim and fixes only the body), thorn `special_2`,
    thorn `special_3` (both hardened this session), LK `special_3`, eclipse `special_2`, oni

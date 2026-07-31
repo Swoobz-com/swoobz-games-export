@@ -34,10 +34,10 @@ Shared suffix (strict-profile anti-spin + weapon lock + containment):
 > Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
 SPECIAL add-on:
-Whatever the finisher produces is SOLID MATERIAL in her own palette - hard lacquered crimson rings and
-hot-pink shards, opaque with visible edges - NEVER a glow, NEVER a flash, NEVER a flare, NEVER light or
-energy of any kind, and NEVER green. It stays small and compact in the CENTER of the frame with a wide
-empty green margin on all four edges, and it is NOT a beam, NOT a ring of light, NOT a jet.
+Whatever the finisher produces is SOLID MATERIAL in her own palette - hard lacquered crimson bands,
+opaque with visible edges - NEVER a glow, NEVER a flash, NEVER a flare, NEVER light or energy of any
+kind, and NEVER green. It stays small and compact in the CENTER of the frame with a wide empty green
+margin on all four edges, and it is NOT a beam, NOT a ring of light, NOT a jet.
 
 ## idle  [v1 sway + v2 near-static SUPERSEDED by v3 — Tim 2026-07-24: "map 9 super boring and static".
 The near-static lock fixed the loop hitch but killed the life; v3 = coiled duelist menace, loop-sealed.]
@@ -190,14 +190,19 @@ margin all around, NOT a ring that orbits, just a tight compact flurry.
 SPECIAL FINISHER (crimson rings): she begins in the EXACT reference stance in strict side profile facing
 screen-right, the black-bladed sword held point-down exactly as in the reference. She sinks into a low
 braced crouch and draws the sword up only to CHEST height, then snaps it back down in one short compact
-central cut, and as the blade stops, three solid CRIMSON METAL RINGS ring out along the blade itself -
-hard, opaque, lacquered crimson bands, each one a real object with a visible edge - and they slide down
-the blade and contract tight onto it, coming to rest against the guard within a beat. The rings are
-SOLID METAL: never a glow, never a flash, never light, never a beam. At NO moment is any ring not
-physically touching her own blade - they never detach, never float free, never hang in the air, and they
-never travel further from her body than the blade's own length. Her sword NEVER rises above her own
-shoulder at any moment. The whole cut and ring-slide are COMPLETE by the halfway point of the clip; the
-whole second half is her slow rise back into the EXACT same reference stance. Precise, cold, final.
+central cut, and as the blade stops, EXACTLY THREE solid crimson lacquered bands TEAR FREE of the
+blade's own crimson rings - hard, opaque, each one a real object with a visible edge and none of them
+wider than her own gauntlet - and are knocked UP and forward to no higher than her own knee, then split,
+darken and crumble away to nothing IN MID-AIR AS THEY FALL, gone before any piece touches the floor.
+They stay INSIDE HER OWN STANDING FOOTPRINT the whole time - never past her front foot, never past her
+back heel - and nothing is left lying on the ground. The bands are SOLID METAL: never a glow, never a
+flash, never light, never a beam. By the halfway point her blade carries its crimson rings spaced
+EXACTLY as they are in the reference image, with nothing added to it and nothing resting on the guard.
+Her sword NEVER rises above her own shoulder at any moment, and HER FEET STAY FLAT ON THE GROUND FOR
+THE ENTIRE CLIP - she never jumps, never hops and never lunges into a wider stance than the reference.
+The whole cut and the crumble are COMPLETE by the halfway point of the clip; the whole second half is
+her slow rise back into the EXACT same reference stance, so that she is already standing completely
+still in the reference pose well before the clip ends. Precise, cold, final.
 
 ## special_3 v2 (KATANA FLASH, anchored + no-arc)  [SUPERSEDED by v3 above — v1 FAILED 2026-07-24: 'snaps the katana down' made
 f0 START at the top of the downstroke (off-anchor), and the flash rendered as a huge crescent arc off the

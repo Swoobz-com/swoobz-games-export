@@ -163,8 +163,8 @@ acting line before firing:
 > her back NEVER faces the camera, and she keeps facing the SAME direction the entire clip.
 
 SPECIAL suffix add-on (the 3 specials only; Tim's contain-in-frame rule):
-> Whatever the finisher produces is SOLID MATERIAL in her own palette - white paper ofuda, torn paper
-> scraps, curling burning paper and dark ash, opaque with visible edges - NEVER a glow, NEVER a flare,
+> Whatever the finisher produces is SOLID MATERIAL in her own palette - white paper ofuda and torn
+> paper scraps, opaque with visible edges - NEVER a glow, NEVER a flare,
 > NEVER a ring or trail of light, NEVER light or energy of any kind, and NEVER green. It stays FULLY
 > INSIDE the frame and NEVER extends past the edges.
 
@@ -291,15 +291,19 @@ starting stance. The talismans stay FULLY INSIDE the frame and NEVER extend past
 #   special_2 v2 = paper wards ON THE BLADE shredding as she cuts   <- this one
 #   special_3    = talismans spiralling around the katana
 SPECIAL FINISHER (shredding ward): she begins in the EXACT reference stance in strict side profile
-facing screen-right, katana held point-down in front of her exactly as in the reference; a narrow strip
-of white paper ofuda is wrapped along the flat of her blade. She sinks into a low braced crouch and
-carves one short committed DIAGONAL cut DOWNWARD and ACROSS the front of her own body, and as the blade
-travels the wrapped paper SHREDS along the edge - solid torn white paper scraps peeling off the flat of
-the blade and fluttering DOWNWARD to the floor at her feet, crumbling away to nothing before it reaches the floor. The scraps are SOLID
-TORN PAPER: opaque, curled, edged with ink - never a glow, never light, never a ring, never a trail
-hanging in the air. Every scrap begins ATTACHED to her own blade and falls straight DOWN from it; none
-ever hangs in the air, none travels sideways away from her, and none comes near the left, right or top
-edge of the frame. The katana is NEVER held vertical or pointing upward at any moment; the blade stays
+facing screen-right, katana held point-down in front of her exactly as in the reference, the blade BARE
+black-and-gold steel exactly as it is in the reference image. She sinks into a low braced crouch, snaps
+ONE of the white paper ofuda from her OWN HAT BRIM down flat along the flat of her blade, and carves one
+short committed DIAGONAL cut DOWNWARD and ACROSS the front of her own body; as the blade travels that
+paper SHREDS along the edge - EXACTLY FOUR solid torn white scraps, each one no longer than her own
+hand, peeling off the flat of the blade and falling DOWNWARD inside her own standing footprint, never
+past her front foot and never past her back heel, curling and crumbling away to nothing IN MID-AIR AS
+THEY FALL so that not one scrap ever reaches the floor. By the halfway point the blade is BARE
+black-and-gold steel again, exactly as it is in the reference image. The scraps are SOLID TORN PAPER:
+opaque, curled, edged with ink - never a glow, never light, never a ring, never a trail hanging in the
+air. Every scrap begins ATTACHED to her own blade and falls straight DOWN from it; none ever hangs in
+the air, none travels sideways away from her, and none comes near the left, right or top edge of the
+frame. The katana is NEVER held vertical or pointing upward at any moment; the blade stays
 HORIZONTAL or angled DOWNWARD for the entire clip, and the BLADE TIP never rises above her own shoulder.
 The whole cut is COMPLETE by the halfway point of the clip; the whole second half is her slow rise back
 into the EXACT same reference stance, katana point-down again. Fast, precise, lethal.
