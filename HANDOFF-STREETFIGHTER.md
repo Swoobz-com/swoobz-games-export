@@ -239,9 +239,15 @@ all padded, all keying clean, all facing screen-right natively:
 4. **eclipse `special`'s contacts (875) is unverified in-engine** — it never fired in two runs.
    `node qa-boss/phase104-contacts.mjs` will confirm it the first time the RNG produces a qualifying
    beat.
-5. **XGundam: 42 unwritten.** Run `qa-boss/check-plate-key.mjs` on each plate FIRST — it now reports
-   both key-cleanliness and a hue-agnostic emissive fraction, which is exactly the pair of screens
-   that would have saved ir41's wasted kit.
+5. **XGundam: 42 unwritten — NOW SCREENED, `qa-boss/anchors/XGUNDAM-SCREEN.md` (phase 111).**
+   12 REJECTED outright on baked emissive (XGundam is a NEON design language, so a warm-biased test
+   would have been near-useless here), 15 borderline, 15 clean. Seven shortlisted on clean-emissive +
+   facing + distinct archetype, led by **IR-12 Rose Lance** (lance + SHIELD — an archetype the roster
+   does not have at all), **IR-13 Junkyard King** and **IR-08 Bonepipe Grunt**.
+   **The screen also corrected a standing rule**: a thumbnail cannot be trusted even for the FRONTAL
+   call. I read IR-13 as frontal off the contact sheet and was about to reject it; at full size he is
+   PARTLY OPEN and viable. View every candidate at FULL SIZE before ANY facing verdict, including a
+   rejection. Pad → `check-plate-key.mjs` → full-size facing, in that order, before a kit is written.
 
 ---
 
