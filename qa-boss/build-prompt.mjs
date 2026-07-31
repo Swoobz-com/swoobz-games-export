@@ -30,6 +30,22 @@ function quoted(afterLabel) {
 // same label be swallowed into an acting line), so the two can never drift apart.
 const ADDON_LABEL = /SPECIAL[^:\n]*add-on[^:\n]*:/i;
 
+// ACTION add-on — appended to every state EXCEPT idle. Opt-in per kit: absent from most files, and
+// silently skipped when absent (unlike the SPECIAL add-on, whose absence on a special is a WARN).
+//
+// WHY IT EXISTS (phase 102). eclipse-ofuda.md carried, since session 5, a ★ note reading "ECLIPSE
+// ONE-ACTION LOCK ... APPEND to EVERY remaining v2/v3 acting line before firing". There was no
+// mechanism to append anything, so it never shipped on ANY of eclipse's 13 states — measured:
+// 0/13 contained the word "repeat" or "spin". The lock exists because strike_a v2 rendered as a
+// SPINNING MULTI-ATTACK KATA, and the shared suffix bans rotation but says nothing about REPEATING
+// the beat, so nothing in any eclipse prompt ever forbade the thing that actually happened.
+//
+// WHY IT SKIPS idle. The lock's payload is "ONE single action and nothing else ... does NOT repeat
+// the move". An idle is a LOOP: repetition is its entire job. Appending it there would be the same
+// acting-line-vs-law contradiction class as the five ko defects (phases 93-94). Every other state
+// is a one-shot, so every other state takes it.
+const ACTION_LABEL = /ACTION add-on[^:\n]*:/i;
+
 // "SPECIAL add-on:" is a plain paragraph, not a blockquote.
 // Matches the add-on heading by REGEX, not by an exact literal.
 // BUG FOUND 2026-07-29: this used src.indexOf('SPECIAL add-on:'). satoshi-odachi.md and
@@ -139,6 +155,7 @@ const EDITORIAL_BLOCK = [
   ['a ★-marked operator note', /^\s*[★☆]/],
   ['a "Shared prefix/suffix" block label', /^\s*Shared\s+(?:prefix|suffix)\b/i],
   ['a "SPECIAL ... add-on:" block label', new RegExp('^\\s*(?:' + ADDON_LABEL.source + ')', 'i')],
+  ['an "ACTION add-on:" block label', new RegExp('^\\s*(?:' + ACTION_LABEL.source + ')', 'i')],
   ['a markdown horizontal rule', /^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/],
 ];
 
@@ -300,6 +317,12 @@ if (state.startsWith('special')) {
   else process.stderr.write(
     'WARN: no SPECIAL add-on paragraph found in ' + file + ' — the contain-in-frame rule is NOT ' +
     'in this prompt. Add a "SPECIAL add-on:" paragraph before firing a special.\n');
+}
+if (state !== 'idle') {
+  // Opt-in and silent when absent — only kits that declare an ACTION add-on get one. See the
+  // ACTION_LABEL comment for why idle is the one state excluded.
+  const action = paragraphAfter(ACTION_LABEL);
+  if (action) parts.push(action);
 }
 const suffix = quoted('Shared suffix');
 parts.push(state === 'ko' ? koSuffix(suffix) : suffix);

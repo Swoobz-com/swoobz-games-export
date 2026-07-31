@@ -157,10 +157,14 @@ them. Before it was added, `victory` shipped the ★ operator note verbatim — 
 "APPEND to EVERY remaining v2/v3 acting line before firing" and a description of a past failure —
 plus six literal blockquote markers, straight to the model. Do not remove it.
 
-★ ECLIPSE ONE-ACTION LOCK (session 5, after strike_a v2's spin-kata): APPEND to EVERY remaining v2/v3
-acting line before firing:
-> It is ONE single action and nothing else: she does NOT spin, does NOT turn, does NOT repeat the move,
-> her back NEVER faces the camera, and she keeps facing the SAME direction the entire clip.
+The ECLIPSE ONE-ACTION LOCK, added session 5 after strike_a v2 rendered as a spinning multi-attack
+kata. From phase 102 build-prompt.mjs appends it automatically to every state EXCEPT idle (an idle is
+a loop, so "does NOT repeat the move" cannot apply to it) — it is no longer a manual step, and the
+label line below must stay ONE line ending in a colon or the tool will not find it.
+
+ACTION add-on (every state except idle):
+It is ONE single action and nothing else: she does NOT spin, does NOT turn, does NOT repeat the move,
+her back NEVER faces the camera, and she keeps facing the SAME direction the entire clip.
 
 SPECIAL suffix add-on (the 3 specials only; Tim's contain-in-frame rule):
 > Whatever the finisher produces is SOLID MATERIAL in her own palette - white paper ofuda and torn
@@ -294,7 +298,9 @@ SPECIAL FINISHER (shredding ward): she begins in the EXACT reference stance in s
 facing screen-right, katana held point-down in front of her exactly as in the reference, the blade BARE
 black-and-gold steel exactly as it is in the reference image. She sinks into a low braced crouch, snaps
 ONE of the white paper ofuda from her OWN HAT BRIM down flat along the flat of her blade, and carves one
-short committed DIAGONAL cut DOWNWARD and ACROSS the front of her own body; as the blade travels that
+short committed DIAGONAL cut DOWNWARD and ACROSS the front of her own body — during the wind-up she
+draws the katana back LOW beside her own hip, the blade staying BELOW the brim of her hat at ALL
+times, never rising into a raise; as the blade travels that
 paper SHREDS along the edge - EXACTLY FOUR solid torn white scraps, each one no longer than her own
 hand, peeling off the flat of the blade and falling DOWNWARD inside her own standing footprint, never
 past her front foot and never past her back heel, curling and crumbling away to nothing IN MID-AIR AS

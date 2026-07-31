@@ -198,7 +198,7 @@ They stay INSIDE HER OWN STANDING FOOTPRINT the whole time - never past her fron
 back heel - and nothing is left lying on the ground. The bands are SOLID METAL: never a glow, never a
 flash, never light, never a beam. By the halfway point her blade carries its crimson rings spaced
 EXACTLY as they are in the reference image, with nothing added to it and nothing resting on the guard.
-Her sword NEVER rises above her own shoulder at any moment, and HER FEET STAY FLAT ON THE GROUND FOR
+The BLADE TIP never rises above her own shoulder at any moment, and HER FEET STAY FLAT ON THE GROUND FOR
 THE ENTIRE CLIP - she never jumps, never hops and never lunges into a wider stance than the reference.
 The whole cut and the crumble are COMPLETE by the halfway point of the clip; the whole second half is
 her slow rise back into the EXACT same reference stance, so that she is already standing completely
