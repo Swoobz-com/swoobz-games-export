@@ -65,3 +65,51 @@ on the ground and holds there (does NOT return to standing).
 ## victory  (plant club, antlers raised)
 VICTORY TAUNT: he plants the butt of the thorn-club on the ground, straightens tall and raises his
 antlered head proudly, blossoms shivering, then settles back to the starting stance. Alone, no opponent.
+
+SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
+APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, rising no higher than his own waist, withering or settling back to the floor within a beat, and never coming near the left, right or top edge of the frame.
+
+## ★ THORN FRAME BUDGET (measured, phase 68 — node 3)
+Plate 1536x1536. Subject 814w x 1317h (fills 85.7%), bbox x360..x1173.
+  LEFT **360px** · RIGHT **362px** · HEADROOM **141px** · bottom free (feet on the floor line).
+He is a CLASS-A / prop-TUCKED character: 360px+ each side, only 415px of prop hanging off the body
+mass. Generous laterally, but the ceiling is only 141px — so like eclipse and ir37 his beats must be
+LATERAL or DIAGONAL-DOWNWARD, never a raise. The bottom edge is free
+(`check-containment.mjs` never counts feet-on-floor contact), which is exactly where his signature
+beat lives: THORNS ERUPTING FROM THE GROUND along the club's swing path, then withering.
+
+## special_1  (THORNBREAK) — ground thorns erupt along the swing path
+SPECIAL FINISHER (thornbreak): he begins in the EXACT reference stance facing screen-right; he coils
+his weight down into a low braced crouch and sweeps the thorn-club LOW across the ground in front of
+his own feet, keeping the club head BELOW HIS OWN WAIST for the entire sweep, and along the path it
+carves a row of solid woody THORNS ERUPTS UP OUT OF THE GROUND at his feet - dark bark-brown, sharp,
+opaque, rising no higher than his own knee and spreading no wider than one body-width to either side -
+then they wither, curl and crumble back down into the floor within a beat while he holds the crouch.
+The thorns are SOLID WOOD: never a glow, never a flare, never light. They stay at GROUND LEVEL, never
+rise above his knee, and never come near the left, right or top edge of the frame. The whole sweep and
+eruption are COMPLETE by the halfway point of the clip; the whole second half is his slow rise back
+into the EXACT same reference stance. Heavy, rooted, brutal.
+
+## special_2  (BARKSPLIT) — bark chips shear off his own forearms and club
+SPECIAL FINISHER (barksplit): he begins in the EXACT reference stance facing screen-right; he plants
+his feet, hauls the thorn-club IN TIGHT across his own chest and BRACES, his bark-textured forearms
+flexing hard against it, and the strain SPLITS his own bark - a tight burst of solid bark chips and
+woody splinters shears off his forearms and off the club's shaft, no wider than his own torso, and
+falls DOWNWARD to the ground at his feet, settling within a beat. The chips are SOLID BARK: dry,
+opaque, sharp-edged - never a glow, never a flare, never light. They stay within one body-width of him
+at ALL times, never spray outward, never rise above his own shoulder, and never come near the left,
+right or top edge of the frame. The brace and the split are COMPLETE by the halfway point of the clip;
+the whole second half is his slow settle back into the EXACT same reference stance. Rooted, straining,
+brutal.
+
+## special_3  (BLOSSOM FALL) — petals shake loose from his antlers
+SPECIAL FINISHER (blossom fall): he begins in the EXACT reference stance facing screen-right; he drops
+his antlered head forward and DOWN into a low braced crouch and SHAKES it hard once, and a shower of
+solid pale-pink cherry-blossom petals tears loose from his antlers and falls DOWNWARD past his
+shoulders to the ground around his own feet, settling on the floor within a beat while he holds the
+crouch. The petals are SOLID FLOWER: opaque, individual, never a glow, never a flare, never light,
+never a swirl of sparkles. They fall STRAIGHT DOWN, stay within one body-width of him, never drift
+sideways away from him, and never come near the left, right or top edge of the frame. His antlers NEVER
+rise above their reference height at any moment. The shake is COMPLETE by the halfway point of the
+clip; the whole second half is his slow rise back into the EXACT same reference stance. Quiet, heavy,
+final.

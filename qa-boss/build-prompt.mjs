@@ -79,8 +79,23 @@ const TELEMETRY_TELL = [
   /\brgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)/, /@f\d+/, /\bqa-boss\//, /\bre-roll\b/i,
 ];
 
+// THE B-TAKE NAMING RULE (phase 68). The canonical state name for a second take is `<base>_b`
+// (`attack_strike_b`), which is what the engine manifests and every gate use. But the prompt files
+// spell their second take `## attack_strike B` — a space and a capital letter. `^## attack_strike_b\b`
+// does not match that, so EVERY B-take in the project was unbuildable by its own state name: 24
+// headings across 8 characters silently returned "no state section".
+// This is the same silent-miss class as the phase-63 poisoned sections, and it is why a caller could
+// ask for `attack_strike_b` and get nothing at all rather than an error they would notice.
+// Fixed here rather than by renaming 24 headings: one change, backwards-compatible, and the A/B
+// wording in the files stays readable. `<base>_b` now also matches `## <base> B`.
+function headingPattern(st) {
+  const m = st.match(/^(.*)_b$/);
+  if (!m) return '^## ' + st + '\\b.*$';
+  return '^## (?:' + st + '|' + m[1] + ' B)\\b.*$';
+}
+
 function sectionsFor(st) {
-  const re = new RegExp('^## ' + st + '\\b.*$', 'gm');
+  const re = new RegExp(headingPattern(st), 'gm');
   const found = [];
   for (const m of src.matchAll(re)) {
     const rest = src.slice(m.index + m[0].length);
