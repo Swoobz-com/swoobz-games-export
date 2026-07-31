@@ -1,6 +1,194 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 17 — START HERE (2026-07-31) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 18 — START HERE (2026-07-31) ★★★★★★★★★★
+
+HEAD **`b7d8c08`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · tracked tree clean ·
+`node qa-boss/check-prompt-sections.mjs` **245 clean / 0 problems** · 24 prompt files.
+8 commits, `8452997`..`b7d8c08` (phases 87-94). **2 clips fired, 1 ACCEPTED, 1 REJECTED, ZERO credits.**
+
+Session 17's block below is still correct on the pipeline and the defect classes. **Read §A and §B
+here first — they overturn two things it tells you**, then use it as reference.
+
+---
+
+### A. THE TRANSPORT CHANGED UNDER ME. READ THIS BEFORE YOU FIRE.
+
+**1. THE ACCOUNT CHANGED MID-SESSION AND EVERY media_id IN THE LEDGER IS DEAD.**
+Session 17 worked on `user_3HFAtp47rDRPDwG2FFOzR2CP7fn`. Partway through this session everything
+moved to **`user_3DR1OB2c62Ghi1YCNFHJiNCXXAc`** (balance went 10 -> 0.9 credits, and the generation
+history switched user id). Every plate `media_id` recorded in any clipdata — oni's
+`07bb4e3f…`, ir37's `7ff1a2c0…` — now returns **404 "Media input not found"**.
+**The fix is a RE-UPLOAD, not a retry.** `media_upload` -> `curl -X PUT` the bytes (expect HTTP 200)
+-> `media_confirm`. It failed loudly and cost nothing, which is the system working as designed.
+Fresh ids uploaded this session: ir37 `e3219982-7936-4244-a41c-4e3ed5ccf030`, thorn
+`7617f92a-866b-45f6-816a-bb6918cac7ec`. Assume these expire too — **re-upload per session.**
+
+**2. THE OTHER TERMINAL IS NOW ON THE SAME ACCOUNT.** Session 17 said it was a different account on
+a shared limit. It is now the *same* account, so you are sharing one rate limit directly. Its work is
+a ghostly-oiran kit (9:16, 1080p, 5s) — instantly recognisable in `show_generations`, so you can
+always tell whose job is whose.
+
+**3. THE ~10-MINUTE GAP RULE IS NECESSARY BUT NOT SUFFICIENT.** I fired at a 13.7-minute gap and got
+a **429**. Their cadence is not stable: observed 39 min, then 8, 11, 19 min. **The 429 IS the signal**
+— back off, never retry. Observed clear windows: 19+ min. Three roles (`start_image`, `end_image`,
+`image`) work; the backend silently remaps role `image` -> `image_references`, which is fine.
+
+---
+
+### B. THE ACCEPTANCE RULE THAT SESSION 17 GOT WRONG — THIS IS THE BIG ONE
+
+**`end_image` PINS the last frame to the plate, so `fLast` IS VERY NEARLY FREE and carries almost no
+information about the acting.** The transport now buys the number the old browser path made the prose
+earn. Combined with anchor-lock only ever reading f0 and fLast, **f0 + fLast + containment are blind
+to 95 of 97 frames.**
+
+Proof, and it cost a clip: **oni `victory` v1 scored f0 0.995 / fLast 0.995** — the project's second
+best anchor-lock — **containment CLEAN on every edge, and body-commitment "ok"** with real motion
+(minIoU 0.217, travel 200, 70% strong). THREE GATES GREEN. And it is unusable: at f42 he is square to
+camera with both pectorals visible, at f70 he is square to camera *and* holding the tetsubo fully
+vertical above his own horns — breaking three locks that were already in its own prompt verbatim.
+Only `check-frontturn` caught it, and only VIEWING frames confirmed it.
+
+**NEVER ACCEPT A CLIP ON ANCHOR-LOCK + CONTAINMENT. Composite the middle of the clip and LOOK.**
+
+**And judge the RIGHT anchor number.** ir37 `special_3` v3 read fLast 0.876 against v2's 0.919 and
+that is NOT a regression: anchor-lock needs **f0 == fLast**, and v3 landed them **0.003 apart**
+(0.879 / 0.876) — it returns to where it began. v2's own start and end disagreed by 0.038, i.e. it
+ended somewhere else. **f0-vs-fLast agreement is the criterion; the absolute value is not.**
+
+---
+
+### C. WHAT I DID
+
+**FIRED 2, both zero credits.**
+- **ir37 `special_3` v3 — ACCEPTED** (job `bcfd2eb3`, raw `qa-boss/raw/ir37-special-3-v3.mp4`).
+  Containment **CLEAN** — v2's entire reject cause (petals crossing LEFT 29px / RIGHT 62px) is gone.
+  dropPct 39 vs v2's 40, so the deep crouch survived. `spanPeak 1.76 -> 1.15` is the measurable proof
+  of *why*: **narrowing the OBJECT** (a "wave" of petals -> exactly TWO, torn from the fan's own edge,
+  bounded by her standing footprint) bought it. Restating the bound could not have — v2 already told
+  those petals to stay near her four separate times. **node 8 is now 13/13 on prompts.**
+- **oni `victory` v1 — REJECTED** (see §B). v2 is written and gate-clean, NOT fired. Root cause was
+  an **INVERTED TIME BUDGET**: eclipse's strike ran OUT of clip, this ran out of ACTION. Three modest
+  beats did not fill 4s so the model invented a turn and a vertical raise on the unbounded verb
+  "lifts". v2 SPENDS the time: quarter plant / middle half HELD lean with a head-only roar whose chin
+  is bounded by his own horns / quarter return bounded to the reference image's height.
+- **IN FLIGHT: thorn `special_1` (THORNBREAK), job `77812eaf-b81f-496b-a638-c291ca2a4c89`.** Fired at
+  the very end of the session, NOT harvested. **This is your first job — see §F.**
+
+**9 KITS WRITTEN, all gate-clean, 13 states each.** 6 XGundam (`ir41-kasa-oni`, `ir60-tiger-mantis`,
+`ir52-umbra-pinions`, `ir05-fullbarge-titan`, `ir21-shirogiri-ace`, `ir22-akayari-vanguard`) + 2 MK
+FINAL (`minotaur-axe`, `skullrend-orcus`). All written by sub-agents against
+**`qa-boss/xg/KIT-WRITING-BRIEF.md`** — the shared law, so N kits are written to ONE standard.
+
+**2 NEW TOOLS.**
+| tool | what it answers |
+|---|---|
+| `qa-boss/check-raw-anchor.mjs` | anchor-lock for a **RAW** mp4 before keying. Session 17 judged every clip with an inline script that was never committed, so its own measurement-reference rule was unenforceable the moment that session ended. Ships `--selftest` that reproduces the ledger's oni numbers and says loudly if the port is wrong. |
+| `qa-boss/xg/prep-plates.mjs` | adaptive-fill padding + chroma-detail scan for a new plate. |
+| `qa-boss/anchors/PLATE-PRECHECKS.md` | the two checks that must run BEFORE a kit is written (§E). |
+
+---
+
+### D. FIVE ko CONTRADICTIONS WERE SHIPPING. ALL FIXED IN `build-prompt.mjs`.
+
+Four were found by **kit-writing agents reading an assembled `ko` end to end** — no gate shows any of
+them — and three agents converged independently before I changed code.
+
+1. **The identity lock was DELETED AS COLLATERAL.** `koSuffix`'s weapon-lock pattern opened with
+   `[^.]*`, which backtracks to the previous full stop and ate the WHOLE SENTENCE — and most files
+   weld identity + weapon lock into one (`"...stay EXACTLY the same the entire clip, and he keeps the
+   tetsubo..."`). **Measured on oni's ACCEPTED ko: ZERO occurrences of the identity lock.** Every ko in
+   the roster fired with no instruction to keep the character on-model. It came back on-model anyway,
+   which is exactly why nobody caught it.
+2. **The feet lock contradicted the collapse** — "FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP"
+   sat beside "crumples forward and down ... fully prone". Reworded, not deleted, so the anti-jump
+   content the other 12 clips rely on survives.
+3. **Rule 1b was fragile** — it required the literal `in (his|her|their) hands`. minotaur's writer
+   nearly wrote "keeps the axe in BOTH hands", which would not match, shipping a ko ordered to hold a
+   weapon it drops. Now keys on `never drops or swaps`; grip phrasing is free text.
+4. **The debris tail** — "the last frame shows ONLY the fighter and what the fighter holds" is, on a
+   ko, an order to make his own dropped weapon vanish. **This was flagged and knowingly accepted twice
+   before I fixed it centrally. Fix roster-wide defects in the TOOL the first time they are raised.**
+5. **The stance-width clause** — a prone body is ~1.66x standing width, so the one state the ko
+   rewrite protects was the one state that clause broke. Scoped to standing.
+
+Regression-verified across oni / ir37 / minotaur / skullrend: every ko now reads identity=1 with
+weapon, anchor, feet-flat, holds-tail and stance-width all 0. **Non-ko states verified UNAFFECTED.**
+
+Also fixed **oni-tetsubo.md's own** debris contradictions (`attack_throw` grit "and settles";
+`special_1` blasting "ALONG THE GROUND ... crumbling before any of it reaches the floor") — the 6th
+and 7th occurrences of that class, sitting in the file agents were told to copy. **One formula now:
+knocked UP, bounded by a body landmark, crumbling in mid-air AS IT FALLS.**
+
+---
+
+### E. TWO PLATE PRE-CHECKS — RUN BEFORE WRITING A KIT (`qa-boss/anchors/PLATE-PRECHECKS.md`)
+
+**1. FACING IS A THREE-WAY VERDICT, and a thumbnail only separates the first from the other two.**
+IR-41 Kasa Oni's 13 acting lines were written IN FULL before anyone noticed **his plate is
+front-facing** — unusable, since a frontal stance "has no side, so it cannot be mirrored into
+agreement with the rest of the kit". Then minotaur turned out **PARTLY OPEN** (hips and chest ~a
+third of a turn to camera) even though my contact sheet read it as profile — so its kit locks *the
+anchor's own angle* rather than demanding strict profile, which would have re-posed him mid-clip.
+skullrend is partly open too. **Check at FULL SIZE.**
+
+**2. "dominant plate %" CANNOT SEE A TWO-TONE PLATE.** It counts pixels passing an `isGreen`
+predicate, and both tones pass. raiju scores 88.3% dominant plate and still carries a plainly visible
+darker rectangle over the left two-thirds. (The handoff's old "56.7%" figure is stale; the DEFECT is
+real.) **The metric that works is top-green-bin share:** jin 99.2% clean · minotaur 76.3% fine ·
+**raiju 62.7% two-tone**. Below ~70%, go look. It matters because `key-idle-clips` samples the screen
+colour from the BORDER RING, so the inner tone can survive the key and leave a rectangular alpha edge.
+
+**My own chroma-detail scan had a false-positive mode I had to fix**: "green the border flood cannot
+reach" is NOT "green on the character" — a bat wing's finger-gaps or the triangle between a spear and
+a torso enclose ordinary BACKDROP. IR-52 scored 34,726px "on the character" and IR-22 26,583px, both
+pure backdrop, confirmed by painting them red and LOOKING. Acting on it would have re-plated two clean
+characters, and for IR-52 the suggested magenta plate would have been actively wrong — **she IS
+magenta.** Discriminator is component SIZE, not count.
+
+**`check-frontturn` has a false-positive mode too** (documented in its header): selfSym rises whenever
+a silhouette becomes COMPACT with no rotation at all — a crouch, a lunge, a prone ko, an opening fan.
+Four accepted clips trip it and all four are correct. **A flag is a reason to LOOK, never a verdict.**
+
+---
+
+### F. WHAT TO DO NEXT, IN ORDER
+
+1. **HARVEST `77812eaf-b81f-496b-a638-c291ca2a4c89`** (thorn `special_1`, fired ~10:36Z, unharvested).
+   Acceptance: containment clean on LEFT/RIGHT/TOP — **thorn's ceiling is only 141px**, so the
+   club-below-waist bound is load-bearing; `dropPct >= 30%` for the crouch; f0 ~= fLast via
+   `node qa-boss/check-raw-anchor.mjs <raw.mp4> --anchor qa-boss/anchors/thorn-warden-anchor-green.png`.
+   **Re-measure any peer with the SAME tool before comparing** — the older ledger numbers are in a
+   different reference and run ~0.05 off (proof: v2 is "0.930/0.930" in the handoff and 0.881/0.919
+   measured against the plate).
+2. **THE REAL FIRE QUEUE** (all gate-clean; the queue in the loop prompt is session 16's and 4 of its
+   6 items are STALE — eclipse `attack_strike`, ir37 `attack_strike_b` and eclipse `special_1` are
+   already ACCEPTED, and hollow-pale `special_2` is REJECTED-structural behind Tim's re-plate ruling):
+   **thorn `special_2`, thorn `special_3`, LK `special_3`, eclipse `special_2`, oni `victory` v2**,
+   then oni's remaining 9.
+3. **KEY + WIRE THE ACCEPTED RAWS — none of this is done yet.** 7 accepted raws sit in `qa-boss/raw/`
+   with no keying: eclipse `attack-strike-v5`, ir37 `attack-strike-b-v4`, eclipse `special-1-v2`, oni
+   `idle`/`hit`/`ko`, ir37 `special-3-v3`. I keyed oni `idle` as a pipeline proof —
+   **plate retention 2.02% -> 0.00%, zero green excess on 383,179 visible pixels, alpha silhouette
+   clean with NO rectangle** — so the MK green plate keys correctly. Its cal DRIFTED as designed
+   (`{"h":102.77,"bottom":-0.62,"left":50.15}`); always use `rederive-cal.mjs`, never the emitted one.
+   oni `hit` and `ko` each need a RIGHT-edge feather (prop, not body).
+4. **CONTINUE THE KITS.** MK FINAL remaining: `pale-choir`, `jin-goldenhand` (both clean plates,
+   verified facing) — **`raiju-naginata` is BLOCKED on its two-tone plate** (re-plate, or generate and
+   key ONE clip first). XGundam: 42 unwritten, each needing its own facing check first.
+   **Model the new kits on `minotaur-axe.md` or `skullrend-orcus.md`, NOT oni-tetsubo.md** — oni still
+   carries residuals and was the source of two of the debris contradictions above.
+
+---
+
+### G. THINGS STILL GATED ON TIM (unchanged, do not decide unilaterally)
+
+kitsune node 2 (13 clips, baked tanto glow) · re-plating the prop-EXTENDED trio satoshi/sora/ir56
+(33 shipped clips at risk) · re-plating hollow-pale (12 clips). See session 17 §8 below.
+
+---
+
+## ★★★ (SUPERSEDED by SESSION 18 — §A/§B above replace its transport and acceptance advice) SESSION 17 (2026-07-31) ★★★
 
 HEAD **`9bcb9da`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · working tree clean ·
 `node qa-boss/check-prompt-sections.mjs` **141 clean / 0 problems**.
