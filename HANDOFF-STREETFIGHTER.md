@@ -198,10 +198,18 @@ which is unfired.
    gate-clean, keeps the proven effect wording verbatim and fixes only the body), thorn `special_2`,
    thorn `special_3` (both hardened this session), LK `special_3`, eclipse `special_2`, oni
    `victory` v2 — then a **re-roll of oni `hit`** (§A.1), then oni's remaining 9.
-3. **MK FINAL kits**: `pale-choir` and `jin-goldenhand` were dispatched this session — check whether
-   `qa-boss/prompts/pale-choir.md` and `jin-goldenhand.md` exist and are gate-clean before rewriting
-   them. `raiju-naginata` stays BLOCKED on its two-tone plate. Model new kits on `minotaur-axe.md` or
-   `skullrend-orcus.md`, **never `oni-tetsubo.md`**.
+3. **MK FINAL is 4 of 6 WRITTEN** (oni, minotaur, skullrend, + `pale-choir` and `jin-goldenhand` in
+   phase 103, 13 states each, gate-clean). `raiju-naginata` stays BLOCKED on its two-tone plate.
+   Model new kits on `minotaur-axe.md` or `skullrend-orcus.md`, **never `oni-tetsubo.md`**.
+   **pale-choir MUST fire off the MAGENTA plate** (`qa-boss/anchors/mk/pale-choir-anchor-magenta.png`)
+   — his front fangs are ACID GREEN (92 subject px pass the keyer's own isGreen predicate, dead centre
+   of his snarl), so on the green plate the keyer punches a hole through his teeth. His magenta plate
+   is a backdrop swap only; subject pixels are bit-identical. It was NOT despilled, so a 1px green rim
+   is now visible against magenta — if a clip returns with a green edge, that is the source, and the
+   fix is a despilling re-plate, not a prompt change.
+   **FOUR of the six MK plates are PARTLY OPEN** (minotaur, skullrend, oni, pale-choir, jin — heads in
+   clean profile, torsos and hips not). That is the NORM for this set. None of the new kits say
+   "strict side profile"; they lock the anchor's own angle instead.
 4. XGundam: 42 unwritten, each needing its own full-size facing check first.
 
 ---
