@@ -90,6 +90,8 @@ for (const f of files) {
     skipped.push(path.basename(f));
     continue;
   }
+  // Per-kit tail record, for the ko-contamination check after the state loop (see below).
+  const tails = new Map();
   for (const st of STATES) {
     // spawnSync, not execFileSync: stderr is needed on SUCCESS too, because the builder announces a
     // trailing-editorial cut there while still exiting 0.
@@ -111,6 +113,7 @@ for (const f of files) {
       continue;
     }
     const out = r.stdout || '';
+    tails.set(st, out.trim());
     let bad = false;
 
     // 1. the builder had to CUT a trailing editorial block out of this section. The prompt that came
@@ -146,6 +149,38 @@ for (const f of files) {
       problems.push({ f, st, kind: 'POISONED', detail: 'telemetry in built prompt: ' + tells.slice(0, 4).map(String).join(' ') });
     }
     if (!bad) clean++;
+  }
+
+  // ##########################################################################################
+  // # KO-CONTAMINATED SHARED SUFFIX (phase 133). build-prompt.mjs does NOT emit the Shared    #
+  // # suffix verbatim for `ko` — koSuffix() rewrites it in four places. The one that bites is #
+  // # the debris tail: "...the last frame shows ONLY the fighter and what the fighter holds,  #
+  // # exactly as the first frame does." becomes "...anywhere in the shot." (a collapsed       #
+  // # fighter holds nothing and does not return to the anchor).                               #
+  // #                                                                                         #
+  // # A kit author who READS an assembled `ko` and copies that tail back into `Shared suffix` #
+  // # silently strips "exactly as the first frame does" — the anchor re-assertion — from       #
+  // # EVERY standing state. This landed in FIVE kits at once (lich-scythe, hydra-flail,       #
+  // # ir12-rose-lance, raiju-naginata, pale-choir) and no existing check saw it: the prompt   #
+  // # still builds clean, exits 0, and the clause count is still exactly 1.                   #
+  // #                                                                                         #
+  // # Assert directly on the standing tail rather than diffing idle-vs-ko, so a kit that has  #
+  // # no `ko` section is still covered.                                                       #
+  // ##########################################################################################
+  const STANDING_TAIL = /the last frame shows ONLY the fighter and what the fighter holds/i;
+  const KO_TAIL = /at the end there is no shed, torn, broken or kicked-up material anywhere in the shot/i;
+  for (const [st, out] of tails) {
+    if (st === 'ko') continue;
+    if (STANDING_TAIL.test(out)) continue;
+    if (!KO_TAIL.test(out)) continue;   // no debris tail at all is a different (older) shape — not this defect
+    problems.push({
+      f, st, kind: 'KO-CONTAMINATED',
+      detail: 'the Shared suffix carries the KO variant of the debris tail. build-prompt.mjs ' +
+        'rewrites that tail for `ko` only — copying the rewritten wording back into the kit strips ' +
+        '"exactly as the first frame does" (the anchor re-assertion) from every standing state.\n      ' +
+        'FIX: restore the standing tail in `Shared suffix`:\n      ' +
+        '"; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does."',
+    });
   }
 }
 

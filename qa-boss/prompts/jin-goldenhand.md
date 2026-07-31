@@ -106,7 +106,7 @@ Shared suffix (carries the prompt laws — every state inherits these):
 > figure in frame at all times - there is no second person and no other body, the twin golden hands
 > are her own chained weapon and belong to nobody else, and nothing else is added.
 > She begins and ends on the EXACT same reference stance. 24fps.
-> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; at the end there is no shed, torn, broken or kicked-up material anywhere in the shot.
+> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
 NB, deliberately OUTSIDE the blockquote: `quoted()` in build-prompt.mjs concatenates EVERY `>` line
 into the fired prompt, so an operator note written inside the blockquote is sent to the model as an
@@ -132,10 +132,14 @@ Verified: this kit's ko builds "WHILE SHE IS ON HER FEET she keeps her stance na
 builds it once. **So the canonical wording is now safe for a female fighter** — this phrasing is kept
 because it is equivalent and already verified, not because the canonical one is dangerous.
 
-(c) THE DEBRIS TAIL FOLLOWS SKULLREND, NOT MINOTAUR. It ends "at the end there is no shed, torn,
-broken or kicked-up material anywhere in the shot" instead of "the last frame shows ONLY the fighter
-and what the fighter holds". Jin HOLDS nothing — the hands hang on chains and on a ko they lie on the
-stone beside her — so the old tail would be a literal order to make her own weapon disappear.
+(c) THE DEBRIS TAIL — REVERTED TO CANONICAL, phase 133. This kit used to follow skullrend's
+divergence, ending "at the end there is no shed, torn, broken or kicked-up material anywhere in the
+shot" instead of the canonical "the last frame shows ONLY the fighter and what the fighter holds,
+exactly as the first frame does", on the grounds that Jin HOLDS nothing on a `ko`. **Skullrend's
+divergence was itself a mistake and this kit inherited it.** `koSuffix()` rule 3 already performs
+that exact rewrite for `ko` ONLY, so hardcoding it changed the `ko` prompt by nothing and stripped
+the anti-phantom-object clause from all twelve standing states. See the fuller note in
+skullrend-orcus.md; caught by the KO-CONTAMINATED check in `check-prompt-sections.mjs`.
 Law 7 (first==last as its own sentence) is carried per-state as well: every non-ko action line ends
 "back into the EXACT same reference stance".
 

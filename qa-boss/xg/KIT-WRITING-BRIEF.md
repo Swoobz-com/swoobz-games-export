@@ -114,6 +114,34 @@ MEANING, not for a phrase list.**
 Equally: do not write an effect that both "runs along the ground" and "vanishes before reaching the
 floor" — that is the same contradiction inside one sentence.
 
+### 5b. THE ASSEMBLED `ko` IS REWRITTEN BY THE TOOL — never copy its wording back into the kit
+
+`build-prompt.mjs` does not emit your Shared suffix verbatim for `ko`. It runs `koSuffix()`, which
+**silently rewrites it in FOUR places** — the weapon-lock clause is deleted, `FEET STAY FLAT ON THE
+GROUND` becomes `FEET NEVER LEAVE THE GROUND`, the `begins and ends on the EXACT same reference
+stance` sentence is stripped, and the debris tail
+
+> ; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
+
+is replaced by
+
+> ; at the end there is no shed, torn, broken or kicked-up material anywhere in the shot.
+
+All four rewrites are CORRECT for a ko and WRONG for every other state — a collapsed fighter holds
+nothing and does not return to the anchor.
+
+**So: read the assembled `ko` to check it, never to source text from.** If you copy the rewritten
+tail back into `Shared suffix`, every standing state silently loses `exactly as the first frame
+does` — the anchor re-assertion — and no gate sees it, because the prompt still builds clean and
+the clause count is still 1.
+
+This is not hypothetical: it landed in **five kits at once** (lich-scythe, hydra-flail,
+ir12-rose-lance, raiju-naginata, pale-choir) and was caught only by a pre-fire read.
+
+**Check per kit, not per repo:** build BOTH `idle` and `ko` and confirm they differ at the tail —
+`idle` must end `...exactly as the first frame does.` and `ko` must end `...anywhere in the shot.`
+If both end the same way, the suffix is contaminated.
+
 ## 6. THE TIME BUDGET — a 4-second clip, and BOTH ways to get it wrong
 
 Clips are 4s / 97 frames at 24fps. Budget the beat explicitly in the prose.

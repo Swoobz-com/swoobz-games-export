@@ -92,7 +92,7 @@ Shared suffix (carries the prompt laws — every state inherits these):
 > reference image - he never talks, never shouts, never roars and his jaw never chatters. The camera is
 > absolutely locked, no zoom, no pan, his full body always fully in frame, he is the ONLY figure in
 > frame at all times, nothing else added. He begins and ends on the EXACT same reference stance. 24fps.
-> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; at the end there is no shed, torn, broken or kicked-up material anywhere in the shot.
+> Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
 NB, deliberately OUTSIDE the blockquote: `quoted()` in build-prompt.mjs concatenates EVERY `>` line into
 the fired prompt, so an operator note written inside the blockquote is sent to the model as an
@@ -102,11 +102,19 @@ it is written as its OWN sentence so the strip cannot take the identity lock wit
 (b) the anchor lock, matched on `begins and ends on the EXACT same reference stance`; and it REWORDS
 (c) `HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP` — spelled "BOOTS" that rewrite silently
 misses and a prone collapse ships with its feet locked flat, so it says FEET.
-DELIBERATE DIVERGENCE from the minotaur suffix: the debris law here ends "there is no shed, torn,
-broken or kicked-up material anywhere in the shot" instead of "the last frame shows ONLY the fighter
-and what the fighter holds". On a `ko` the fighter no longer HOLDS the cleaver — it is lying on the
-stone beside him — so the old tail is a literal order to make his own weapon disappear. Same meaning,
-one less contradiction.
+REVERTED, phase 133. This kit used to diverge from the canonical suffix: its debris law ended "there
+is no shed, torn, broken or kicked-up material anywhere in the shot" instead of "the last frame shows
+ONLY the fighter and what the fighter holds, exactly as the first frame does". The stated reason was
+that on a `ko` the fighter no longer HOLDS the cleaver, so the canonical tail orders his own weapon to
+disappear. **That reason was already handled and the divergence was a net loss.** `koSuffix()` rule 3
+in build-prompt.mjs rewrites the canonical tail into *exactly* this wording — for `ko` ONLY. So
+hardcoding it changed the `ko` prompt by nothing at all, while stripping from all TWELVE standing
+states the "ONLY the fighter and what the fighter holds" clause, which is the anti-phantom-object
+clause `check-extra-objects.mjs` exists to police, plus the first==last binding on frame CONTENT.
+It was NOT "same meaning": the per-state "back into the EXACT same reference stance" carried below
+binds POSE, not the CONTENT of the frame, so nothing else forbade a phantom third object.
+Caught by the new KO-CONTAMINATED check in `check-prompt-sections.mjs`; jin-goldenhand had copied
+this same divergence and was reverted with it. **Do not re-derive it — read `koSuffix()` first.**
 Law 7 (first==last as its own sentence) is carried per-state as well: every non-ko action line ends
 "back into the EXACT same reference stance".
 FACING, judgement call: **PARTLY OPEN, not strict profile.** His HEAD is a clean strict profile facing
