@@ -266,7 +266,36 @@ SPECIAL FINISHER (ofuda storm): she sweeps her free hand and flings a tight fan 
 talismans forward that flare bright and burn away in the air in front of her, then snaps back to the
 starting stance. The talismans stay FULLY INSIDE the frame and NEVER extend past the edges.
 
-## special_2  (ECLIPSE SLASH) — effect contained in frame
+## special_2 v2 (ACTING LINE, phase 70) - SHREDDING WARD, solid paper off the BLADE, attached origin
+# WIRE NAME: ships as `special-b.webm`. Build as `special_2`.
+# WHY v2: `special-b` is on disk but UNWIRED (the manifest references only special.webm and
+# special-c.webm), so eclipse is 12/13 and this beat has never played in the game. Fresh generation.
+# WHAT CHANGES. v1 is "one blindingly fast crescent slash leaving a contained dark-edged RING OF LIGHT
+# along the blade path". Three defects: (a) RING OF LIGHT is emissive — it lights the chroma plate and
+# keys out as an olive halo (session-14 bloom-lit-plate); (b) "along the blade PATH" is a TRAIL, which
+# is a detached shape hanging in air, and the phase-33 lesson is that only an ATTACHMENT requirement
+# stops detachment, never a size or trajectory bound; (c) a crescent slash's path IS a long arc, which
+# fights her 140px ceiling exactly as the phase-58 vertical-blade defect did.
+# THE FIX uses her own material. Paper is already SOLID (HARD CONSTRAINT 3 satisfied as-is), and the
+# origin is the BLADE, which keeps all three of her specials distinct:
+#   special_1 v2 = burning ofuda shed from her HAT, falling to the floor
+#   special_2 v2 = paper wards ON THE BLADE shredding as she cuts   <- this one
+#   special_3    = talismans spiralling around the katana
+SPECIAL FINISHER (shredding ward): she begins in the EXACT reference stance in strict side profile
+facing screen-right, katana held point-down in front of her exactly as in the reference; a narrow strip
+of white paper ofuda is wrapped along the flat of her blade. She sinks into a low braced crouch and
+carves one short committed DIAGONAL cut DOWNWARD and ACROSS the front of her own body, and as the blade
+travels the wrapped paper SHREDS along the edge - solid torn white paper scraps peeling off the flat of
+the blade and fluttering DOWNWARD to the floor at her feet, settling within a beat. The scraps are SOLID
+TORN PAPER: opaque, curled, edged with ink - never a glow, never light, never a ring, never a trail
+hanging in the air. Every scrap begins ATTACHED to her own blade and falls straight DOWN from it; none
+ever hangs in the air, none travels sideways away from her, and none comes near the left, right or top
+edge of the frame. The katana is NEVER held vertical or pointing upward at any moment; the blade stays
+HORIZONTAL or angled DOWNWARD for the entire clip, and the BLADE TIP never rises above her own shoulder.
+The whole cut is COMPLETE by the halfway point of the clip; the whole second half is her slow rise back
+into the EXACT same reference stance, katana point-down again. Fast, precise, lethal.
+
+## special_2  (ECLIPSE SLASH) — effect contained in frame  [v1 - superseded by v2 above]
 SPECIAL FINISHER (eclipse slash): she drops into a draw stance then unleashes one blindingly fast
 crescent slash leaving a contained dark-edged ring of light along the blade path, then snaps back to the
 starting stance. The crescent stays FULLY INSIDE the frame and NEVER extends past the edges.

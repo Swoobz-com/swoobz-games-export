@@ -167,7 +167,36 @@ close around her own body, no bigger than her torso, then fades, then she settle
 PINK and CRIMSON and WHITE, NEVER green, small and tight against her body in the CENTER with a wide green
 margin all around, NOT a ring that orbits, just a tight compact flurry.
 
-## special_3 v2 (KATANA FLASH, anchored + no-arc)  [v1 FAILED 2026-07-24: 'snaps the katana down' made
+## special_3 v3 (ACTING LINE, phase 70) - CRIMSON RINGS, solid + attached, replaces the emissive flash
+# WIRE NAME: ships as `special-c.webm` (3rd `special` take). Build as `special_3`.
+# WHY v3: `special-c` is MISSING from her manifest (12/13) — this clip has never shipped, so it is a
+# fresh generation, not a re-roll of something live.
+# WHAT CHANGES FROM v2, and why. v2's beat is "a SMALL bright FLASH bursts right at the blade edge".
+# That is EMISSIVE, and an emissive effect LIGHTS THE CHROMA PLATE around it: those brightened pixels
+# sit far from the sampled green, so the distance key KEEPS them and neutralize lands them at r==g — a
+# wide olive halo wrapped around the effect (session 14, 3.04% of visible pixels on IR-48 special_3,
+# invisible in a downscaled composite). v2 also spends five clauses NEGATING what the flash must not be
+# (not a ring, not a crescent, not an arc, not a halo, not a beam, no trail) — and a negative block does
+# not remove a baked effect, it only moves it (the phase-12 KO PROMPT LAW).
+# THE FIX is to give her a SOLID prop to do it with, which she already has: SIGNATURE-BEAT-PLAN names
+# the CRIMSON RINGS as her unique arsenal, "rings spin out along the blade and contract onto it
+# (attached, not detached)". ATTACHED is the operative word — size and trajectory bounds never stopped
+# an effect detaching; only an attachment requirement did (phase 33).
+# Budget L458 / R455 / HEADROOM 138 — generous laterally, almost no ceiling, so the blade stays at
+# chest height and never rises.
+SPECIAL FINISHER (crimson rings): she begins in the EXACT reference stance in strict side profile facing
+screen-right, the black-bladed sword held point-down exactly as in the reference. She sinks into a low
+braced crouch and draws the sword up only to CHEST height, then snaps it back down in one short compact
+central cut, and as the blade stops, three solid CRIMSON METAL RINGS ring out along the blade itself -
+hard, opaque, lacquered crimson bands, each one a real object with a visible edge - and they slide down
+the blade and contract tight onto it, coming to rest against the guard within a beat. The rings are
+SOLID METAL: never a glow, never a flash, never light, never a beam. At NO moment is any ring not
+physically touching her own blade - they never detach, never float free, never hang in the air, and they
+never travel further from her body than the blade's own length. Her sword NEVER rises above her own
+shoulder at any moment. The whole cut and ring-slide are COMPLETE by the halfway point of the clip; the
+whole second half is her slow rise back into the EXACT same reference stance. Precise, cold, final.
+
+## special_3 v2 (KATANA FLASH, anchored + no-arc)  [SUPERSEDED by v3 above — v1 FAILED 2026-07-24: 'snaps the katana down' made
 f0 START at the top of the downstroke (off-anchor), and the flash rendered as a huge crescent arc off the
 top/right edges. v2: the raise happens INSIDE the clip and stays low; explicit arc/trail ban.]
 SPECIAL FINISHER (katana flash): beginning in the EXACT reference stance with the katana point-down, she
