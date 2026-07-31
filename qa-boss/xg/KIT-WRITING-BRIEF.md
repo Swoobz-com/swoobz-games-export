@@ -65,8 +65,50 @@ is not hypothetical — it fired on a live heading this session and blocked the 
 Start every one with the state in caps and a parenthetical, then the anchor:
 `STRIKE A (rising helm-split): he begins in the EXACT reference stance in strict side profile facing screen-right; ...`
 
-- **Facing:** always strict side profile facing **screen-right**, never rotating to camera. The
-  suffix enforces it, but the ACTING must not ask for anything that needs a turn.
+- **Facing:** always **screen-right**, never rotating to camera. But **"strict side profile" is a
+  per-plate JUDGEMENT, not a default — do not write it unless the plate really is one.** Ordering
+  strict profile on a plate that is actually three-quarter open makes every line fight the anchor:
+  it cost nine states on oni-tetsubo, all fixed by replacing `"in strict side profile facing
+  screen-right"` with `"his body angled toward screen-right exactly as it is in the reference
+  image"`. Read the plate at FULL SIZE and call it. The decisive test is the FEET: if both feet show
+  their tops or insteps, it is not a profile. State your verdict in an operator note with evidence.
+- **The suffix enforces facing, but the ACTING must not ask for anything that needs a turn — and
+  this is stronger than it sounds. See §2b.**
+
+### 2b. ROTATIONAL LICENCE — the beat grants what the bound forbids
+
+**Gated:** `check-prompt-sections.mjs` now reports `ROTATIONAL-LICENCE` on `idle`,
+`attack_strike` and `attack_strike_b`.
+
+lich `idle` v1 stated the facing lock TWICE and was ignored — `check-frontturn` sym 0.075 → 0.239,
+an 11-frame run where the torso AND the skull opened to camera. The bound was not missing. The BEAT
+granted the rotation:
+
+> his shoulders **ROLL** up under the pauldron … his weight **ROLLS** slowly from his rear foot onto
+> his leading foot and back
+
+A foot-to-foot weight transfer squares the hips in a three-quarter stance, and a shoulder *roll* is
+a rotation by definition. v2 added **no new facing sentence**; it removed both licences and bound
+the OBJECT instead. Result: **0/97 frames**, peak sym 0.105.
+
+Write settling and wind-ups as PURELY VERTICAL:
+
+> his shoulders **lift STRAIGHT up** … with neither one coming forward and neither one going back
+> his whole weight **sinks a fraction STRAIGHT DOWN through BOTH of his planted feet at once** and
+> rises again, and it NEVER transfers from one to the other
+
+and bind the object, phrased so the beat still fits — a falling reap must FOLD, so permit folding
+and forbid only turning:
+
+> THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE
+> IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME — his near shoulder never comes forward, his far
+> shoulder never swings round, and his chest never squares up toward the camera; he may FOLD and
+> SINK, but he never TURNS.
+
+This phrase class was templated through **41 sites across 12 kits** before it was caught. It took
+three cleanup passes, because these files HARD-WRAP and a phrase grep cannot see across a line
+break — the same reason the §5 debris contradiction survived a targeted search five times. **Read
+your finished line for MEANING; when you must search, search whitespace-tolerantly.**
 - **Anchor return:** every clip except `ko` begins AND ends on the exact reference stance.
 - **`ko` is the exception:** it ends PRONE on the ground and does not return. Its acting line must
   not promise to keep hold of the weapon or to end on the anchor.
