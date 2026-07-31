@@ -109,7 +109,7 @@ that `check-anchor-lock` and the span cap will not.**
  11. **EFFECTS ARE SOLID GRAVE-MATTER, NEVER SOUL-FIRE — THIS IS THE ONE THAT BITES ON A LICH.** Told to
      show an undead king's power, the model reaches for wisps, spectral light, soul-flame and ghost-glow
      unprompted, and every one of those keys out to nothing AND reads as the banned energy class. So
-     every effect in this kit is **opaque broken grey floor-stone and hard grey grave-dust grit, matte,
+     every effect in this kit is **opaque broken grey floor-stone and hard grey grave-stone grit, matte,
      sharp-edged and lit like rock**, and each one carries all THREE legs: an exact **COUNT**, a
      per-object **SIZE** tied to one of his own parts (his own skeletal hand, one of his own foot-talons)
      and a **SPAN** tied to his **410px STANDING FOOTPRINT** — never past his leading foot toward
@@ -245,7 +245,7 @@ NO SPEECH, NO SCREAM AND NO LAUGH ANYWHERE, on purpose: his jaw is a fixed liple
 and the suffix freezes it there, so a scream or a laugh would contradict a law he already carries.
 
 SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
-APART FROM HIS OWN SPLIT FLOOR-STONE AND GRAVE-DUST GRIT the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his scythe and HIS OWN debris. Every piece of debris is SOLID MATERIAL - real slabs, chunks, chips and grains of broken grey floor-stone and hard grey grave-dust grit, opaque, sharp-edged, matte and lit like rock - never a glow, never a flame, never a spark of light, never a wisp, never a spirit, never an aura, never mist or smoke, and never a whole intact object. NOTHING anywhere in the shot ever lights up, flashes or crackles, and NO SECOND FLAME ever appears - the only fire in the shot is the violet flame already burning in his crown and eye socket in the reference image, and it never grows and never spreads. All of it is knocked UPWARD and stays low and close to him, rising no higher than his own ribcage and spreading no wider than HIS OWN STANDING FOOTPRINT - never past his leading foot toward screen-right, never past his rear heel toward screen-left - and every piece crumbles away to nothing in mid-air as it falls, so none of it ever reaches the floor and none of it ever comes near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES ITS EXACT COUNT AND HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
+APART FROM HIS OWN SPLIT FLOOR-STONE AND GRAVE-STONE GRIT the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his scythe and HIS OWN debris. Every piece of debris is SOLID MATERIAL - real slabs, chunks, chips and grains of broken grey floor-stone and hard grey grave-stone grit, opaque, sharp-edged, matte and lit like rock - never a glow, never a flame, never a spark of light, never a wisp, never a spirit, never an aura, never mist or smoke, and never a whole intact object. NOTHING anywhere in the shot ever lights up, flashes or crackles, and NO SECOND FLAME ever appears - the only fire in the shot is the violet flame already burning in his crown and eye socket in the reference image, and it never grows and never spreads. All of it is knocked UPWARD and stays low and close to him, rising no higher than his own ribcage and spreading no wider than HIS OWN STANDING FOOTPRINT - never past his leading foot toward screen-right, never past his rear heel toward screen-left - and every piece crumbles away to nothing in mid-air as it falls, so none of it ever reaches the floor and none of it ever comes near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES ITS EXACT COUNT AND HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
 
 ## ★ IDLE v2 — ACCEPTED (fired 2026-07-31, job 7f3a626e). THIS IS HIS KIT ANCHOR.
 
@@ -598,7 +598,7 @@ across his own fallen body, its knobbed bone butt and its chain down on the ston
 its blade end tipped up over his own back toward screen-right, so that BOTH ends finish NEARER his own
 fallen body than they sit in the reference image and neither of them is anywhere near an edge of the
 frame. ONE thin scuff
-of hard grey grave-dust grit is knocked UPWARD off the floor where he comes down, the grains no bigger
+of hard grey grave-stone grit is knocked UPWARD off the floor where he comes down, the grains no bigger
 than one of his own foot-talons, rising no higher than his own fallen shoulder and staying within one
 body-width of where he lands, every chip crumbling away to nothing in mid-air as it falls. FOR THE WHOLE
 SECOND HALF OF THE CLIP HE LIES COMPLETELY STILL - he does not stir, does not lift his skull, does not
@@ -628,8 +628,10 @@ sheds and nothing breaks. Composed, patient, spent.
 ## special_1  (GRAVE FURROW) — the blade's point bitten into the flagstone and reaped back toward his rear heel
 SPECIAL FINISHER (grave furrow): he begins in the EXACT reference stance, angled to camera exactly as in
 the reference image and facing screen-right; IN THE FIRST QUARTER he coils his whole body back and DOWN
-over his rear foot, his knees folding, his shoulders rolling up and his crowned skull dropping between
-them. Then he releases all of it at once: he drives his entire dead mass straight DOWN into a deep sunk
+over his rear foot, his knees folding, his shoulders drawing IN and DOWN with neither one coming forward
+and neither one going back, and his crowned skull dropping between them. THE LINE OF HIS TWO SHOULDERS
+AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY
+SINGLE FRAME - he may COIL, FOLD and SINK, but he never TURNS. Then he releases all of it at once: he drives his entire dead mass straight DOWN into a deep sunk
 stance and at the same moment hauls the LEADING bone hand DOWN past his own hip, turning the whole scythe
 blade-first toward the floor about his own LOWER bone hand, which stays locked on the haft close in at his
 own waist and never travels out away from his own body. The far end travels the other way - the knobbed
@@ -658,7 +660,10 @@ reference image and facing screen-right; IN THE FIRST QUARTER he ROLLS the entir
 about its own long shaft, both bone hands turning together on the haft so the honed inner edge of the
 crescent comes round and faces DOWN toward the stone - the weapon turns in place and NEITHER end travels,
 neither rises, and it holds the exact angle it has in the reference image throughout the roll - while he
-gathers his weight back over his rear foot and his shoulders roll up. THEN AT THE THIRTY PERCENT MARK he
+gathers his weight back over his rear foot and his shoulders draw IN and DOWN with neither one coming
+forward and neither one going back. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE
+SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - he may COIL, FOLD and
+SINK, but he never TURNS. THEN AT THE THIRTY PERCENT MARK he
 drives his entire dead mass straight DOWN in one committed sink, hips folding deep, ribcage coming down
 over his knees and both arms driving the haft down with him, and the knobbed BONE BUTT strikes the
 flagstone beside his own rear foot with the lower length of the bone haft slamming down across the stone
