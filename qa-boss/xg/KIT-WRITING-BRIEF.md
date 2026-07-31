@@ -109,6 +109,29 @@ This phrase class was templated through **41 sites across 12 kits** before it wa
 three cleanup passes, because these files HARD-WRAP and a phrase grep cannot see across a line
 break — the same reason the §5 debris contradiction survived a targeted search five times. **Read
 your finished line for MEANING; when you must search, search whitespace-tolerantly.**
+
+### 2c. DE-ROTATING IS NOT DE-RAISING — and never name a start height above the reference
+
+lich `attack_strike` v1 was fired AFTER the §2b sweep, with its shoulder roll already replaced by
+`"shoulders LIFTING STRAIGHT up"`. It failed harder than the idle ever did: **sym 0.436, aspect
+1.40, 69/97 frames**, and frame f020 shows the scythe **fully overhead**, the body **square to
+camera**, and a **heel off the ground** — five bounds broken at once, on a character whose ceiling
+is bounded four separate ways in his own suffix.
+
+Two things caused it, and both are general:
+
+1. **Straightening a wind-up is not removing it.** `"shoulders lifting STRAIGHT up"` still grants an
+   upward move. For a DOWNWARD beat, the wind-up must be **removed**, not tidied. Say so explicitly
+   and in the positive-free form: *"THERE IS NO WIND-UP OF ANY KIND: he does NOT raise it, does NOT
+   draw it back, does NOT lift it even slightly, and NO PART of the weapon travels UPWARD at ANY
+   moment in the clip."*
+2. **Never name a START HEIGHT above where the prop already sits.** The line said the edge *"shears
+   down from his own SHOULDER HEIGHT"*, but the reference holds the scythe on a low diagonal — so
+   reaching shoulder height REQUIRES a raise, and the model built an overhead one to get there. For
+   a downward beat the only safe start is **"from the height it ALREADY HAS"**. A height you name is
+   a height the model will travel to, whether or not you meant it as a starting point.
+
+Compare his `idle`, which passed: it has no wind-up at all and every motion is a sink.
 - **Anchor return:** every clip except `ko` begins AND ends on the exact reference stance.
 - **`ko` is the exception:** it ends PRONE on the ground and does not return. Its acting line must
   not promise to keep hold of the weapon or to end on the anchor.
@@ -140,6 +163,24 @@ off steel. **NEVER** a glow, flare, aura, mist, beam, trail, ring of light, or "
 Two reasons: a glow blooms onto the chroma plate and keys out as an olive halo, and Tim rejects it
 on sight. If the character's art has emissive trim, that trim may stay lit — but the EFFECT it
 throws is still solid material.
+
+### 4b. A POSITIVE NOUN IN THE BEAT DEFEATS A NEGATIVE IN THE SUFFIX
+
+lich's suffix bans `mist, smoke, haze` by name. His `attack_strike` v1 still rendered a translucent
+**dust cloud** — because the acting line called its own debris *"three grains of hard grey
+**GRAVE-DUST** grit"*. The beat named DUST, so dust is what it got; the suffix's ban never had a
+chance, because the beat is the thing being performed and the suffix is only the thing being
+obeyed.
+
+**So the ban list is not protection. Audit your own NOUNS.** Never name the banned class even as a
+modifier — not "dust", "smoke", "ash-cloud", "spray", "mist", "vapour", "steam", "sparks", "glow",
+"flash". Name the solid object instead and assert its solidity inline:
+
+> break EXACTLY THREE small chips of hard grey floor-**STONE** up off the flagstones … each one
+> SOLID, OPAQUE and sharp-edged — never a puff, never a cloud, never dust, never smoke, never haze
+
+This is the same shape as §5: a contradiction between the beat and a global rule always resolves in
+the BEAT's favour. Fix the beat.
 
 ## 5. THE DEBRIS-VANISH LAW — the contradiction that has recurred five times
 

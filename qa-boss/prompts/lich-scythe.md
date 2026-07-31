@@ -329,28 +329,64 @@ faintly at the low end while the torn hems of his robe and the long tabard panel
 stay fixed in the same lipless grin and do not move at all. Feet planted, silent and patient. Returns to
 the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 
-## attack_strike A  (falling reap, a clean cut through air)
+## ★ attack_strike v1 — REJECTED, FIVE defects, all from the WIND-UP (fired 2026-07-31, job fadf6b83)
+
+  check-frontturn   sym 0.068 -> **0.436**, aspect 0.88 -> **1.40**, run **69/97** @f12
+  containment       CLEAN
+  extra-objects     2 blobs @f36 (592px)
+  raw-anchor        f0 0.904 / fLast 0.905 ALL — starts and ends correctly on the anchor
+
+The anchor numbers are fine and the failure is entirely in the middle. Frame f020 shows all of
+it at once: the scythe **FULLY OVERHEAD** with both arms extended and the blade well above his
+crown, his body **SQUARE TO CAMERA**, and his near **HEEL OFF THE GROUND**. Five bounds broken:
+the crown-spike ceiling, never-vertical/never-overhead, the leading-hand height, the facing lock,
+and feet-flat. At f036 a translucent **DUST CLOUD** — a banned effect class.
+
+ROOT CAUSE: THE WIND-UP, exactly as oni taught it. Two licences did the damage.
+
+1. **The line named a START HEIGHT above the reference.** "shears down through the air FROM HIS
+   OWN SHOULDER HEIGHT to below his own knee" — the scythe sits on a LOW DIAGONAL in the
+   reference, so to shear from shoulder height the model must first RAISE it there, and it
+   overshot into a full overhead raise that took the facing and the feet with it. **Never name a
+   starting height for a downward beat other than "where it already is".**
+2. **My own phase-137 de-rotation fix was incomplete.** I replaced "shoulders ROLLING up" with
+   "shoulders LIFTING STRAIGHT up" — which removes the rotation but LEAVES AN UPWARD LIFT in the
+   wind-up. De-rotating is not the same as de-raising. For a downward beat, the wind-up must be
+   removed, not merely straightened.
+3. **The acting line's own noun licensed the banned effect.** "three grains of hard grey
+   GRAVE-DUST grit" — the suffix bans mist and smoke, but the beat said DUST, and dust is what it
+   got. A negative in the suffix does not survive a positive noun in the beat.
+
+Compare his idle, which passed: it has NO wind-up at all, and every motion is a sink.
+
+## attack_strike A  (falling reap, a clean cut through air) — v2
 STRIKE A (falling reap): he begins in the EXACT reference stance, angled to camera exactly as in the
-reference image and facing screen-right; IN THE FIRST QUARTER OF THE CLIP he loads his weight back over
-his rear foot, his knees folding and his shoulders lifting STRAIGHT up under the pauldron with neither
-one coming forward and neither one going back; then he DROPS his
+reference image and facing screen-right, the scythe held across his body on the low diagonal it has in
+the reference with its blade already high toward screen-right. THERE IS NO WIND-UP OF ANY KIND: he does
+NOT raise the scythe, does NOT draw it back, does NOT lift it even slightly, his shoulders do NOT rise,
+and NO PART of the weapon travels UPWARD at ANY moment in the clip. The cut starts from exactly where
+the blade ALREADY SITS in the reference image and only ever goes DOWN. IN THE FIRST QUARTER OF THE CLIP
+his knees simply fold and he DROPS his
 entire mass straight DOWN over both planted feet in one committed sink, his hips folding deep and his
 ribcage coming down over his leading knee, and he hauls the whole scythe DOWN with him at the exact
-angle it holds in the reference so the honed inner edge of the crescent shears down through the air from
-his own shoulder height to below his own knee. The weapon does not rotate and does not travel sideways;
-it falls because HE falls, and both bone hands stay exactly where they are on the haft. THE LINE OF HIS
+angle it holds in the reference so the honed inner edge of the crescent shears downward through empty air from the
+height it ALREADY HAS to below his own knee. The weapon does not rotate, does not travel sideways and
+NEVER RISES; it falls only because HE falls, and both bone hands stay exactly where they are on the
+haft. BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT - neither heel ever lifts, he never comes up
+onto his toes, and he never rises out of the sink until the recovery. THE LINE OF HIS
 TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE
 IMAGE IN EVERY SINGLE FRAME - his near shoulder never comes forward, his far shoulder never swings
 round, and his chest and his bare ribcage never square up toward the camera; he may FOLD and SINK, but
 he never TURNS. As his weight
-lands, his rear foot's talons grind hard DOWN into the stone on his screen-LEFT side and rip EXACTLY
-THREE grains of hard grey grave-dust grit UP off the floor, each grain no bigger than one of his own
-foot-talons, rising no higher than his own ankle and spreading no wider than his own standing footprint
+lands, his rear foot's talons grind hard DOWN into the stone on his screen-LEFT side and break EXACTLY
+THREE small chips of hard grey floor-STONE up off the flagstones, each chip no bigger than one of his
+own foot-talons and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no higher than his own ankle and spreading no wider than his own standing footprint
 - never past his leading foot toward screen-right and never past his rear heel toward screen-left -
-every grain crumbling away to nothing in mid-air as it falls; nothing else sheds and nothing else
+every chip crumbling away to nothing in mid-air as it falls; nothing else sheds and nothing else
 breaks, this is a clean edge and the blade never touches the ground. THE CUT HAS LANDED BY THE HALFWAY
 POINT OF THE CLIP; he HOLDS the sunk stance through the third quarter, his ribcage heaving over the
-locked haft while the last grains crumble away, and only in the final second does he rise slowly and
+locked haft while the last chips crumble away, and only in the final second does he rise slowly and
 settle back into the EXACT same reference stance, so that he is already standing completely still in the
 reference pose well before the clip ends. Fast for his size, heavy, silent.
 
@@ -481,7 +517,7 @@ fallen body than they sit in the reference image and neither of them is anywhere
 frame. ONE thin scuff
 of hard grey grave-dust grit is knocked UPWARD off the floor where he comes down, the grains no bigger
 than one of his own foot-talons, rising no higher than his own fallen shoulder and staying within one
-body-width of where he lands, every grain crumbling away to nothing in mid-air as it falls. FOR THE WHOLE
+body-width of where he lands, every chip crumbling away to nothing in mid-air as it falls. FOR THE WHOLE
 SECOND HALF OF THE CLIP HE LIES COMPLETELY STILL - he does not stir, does not lift his skull, does not
 push up on an arm and he does NOT get back up - and the fallen scythe lies exactly where it came to rest
 and does not move again. He is ALONE in an empty frame - nothing whatsoever enters, crosses or appears in
