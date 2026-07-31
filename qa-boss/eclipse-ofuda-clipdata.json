@@ -577,5 +577,37 @@
     "gates": "node scripts/check-facing.mjs eclipse-ofuda --still -> 0/13 mirrored (was 13/13), unanimous across all 5 sampled frames, as-is ~0.93 vs mirror ~0.25. alpha_mode=1 on all 13. h/bottom unmoved on every clip. contacts untouched. tsc clean, vitest 157/157. src/engine, src/ui, src/characters/index.ts byte-untouched.",
     "followup": "CONTAINMENT DATA IS NOW WRONG-HANDED for these 9 clips: a flip swaps every left/right pixel result, so qa-boss/CONTAINMENT-TRIAGE.md per-clip border instructions for eclipse must be re-run before they are acted on (per the standoff-clip-facing skill: normalise facing FIRST, then containment/feather/edge QA)."
   },
-  "phase31_2026_07_27": "FINISHERS RESTORED. eclipse special: [] -> 2 takes (special.webm OFUDA RITE + special-c.webm JUDGEMENT PLUNGE), both from session-9 browser re-rolls, both keyed with NO hflip (the base anchor plate faces RIGHT — see each entry). special_2 stays pulled pending a v3. Before phase 31 every round-ending win against node 6 fell back to a plain attack."
+  "phase31_2026_07_27": "FINISHERS RESTORED. eclipse special: [] -> 2 takes (special.webm OFUDA RITE + special-c.webm JUDGEMENT PLUNGE), both from session-9 browser re-rolls, both keyed with NO hflip (the base anchor plate faces RIGHT — see each entry). special_2 stays pulled pending a v3. Before phase 31 every round-ending win against node 6 fell back to a plain attack.",
+  "phase73_strike_a_reroll_2026_07_31": {
+    "_doc": "RE-ROLL of strike_a (ships as attack-strike.webm). Supersedes the live take once keyed. Added WITHOUT touching any existing key.",
+    "accepted": "v5",
+    "job": "6e938363-43ce-4349-8df8-1acd0de8f08c",
+    "raw": "qa-boss/raw/eclipse-ofuda-attack-strike-v5.mp4",
+    "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_023721_6e938363-43ce-4349-8df8-1acd0de8f08c.mp4",
+    "spec": "seedance_2_0, 4s, 720p, mode std, bitrate standard, 1:1, audio off, plate as start_image + end_image, use_unlim (0 credits)",
+    "measured": {
+      "f0_all": 0.924,
+      "f0_body": 0.927,
+      "fLast_all": 0.925,
+      "fLast_body": 0.928,
+      "fLast_bbox": "64,18,135,189 (anchor 65,18,135,189)",
+      "containment_proxy200": "TOP 4px @f13, LEFT 4px @f10, RIGHT 1px @f18",
+      "frames": 97,
+      "size": "960x960",
+      "fps": 24
+    },
+    "verdict": "ACCEPT",
+    "qa": "PASS. fLast 0.925 — the gate that failed THREE times before (v2 0.502, v3 0.467, v4 0.415-all). The v4->v5 delta is ONE change: the DEBRIS-VANISH law. v4 pose was already correct (body 0.930) but it ended with shed ofuda on the floor, dragging the frame bbox to x0=42 and collapsing the bbox-normalised score. v5 fLast bbox is 64 vs anchor 65, and body/all agree (0.928/0.925) = clean final frame. Viewed at full size: f0 and f96 both show the katana point-down at the reference angle, no litter on the ground.",
+    "feather_note": "Marginal grazes, FEATHER not re-roll: TOP/LEFT ~19px real on 3 isolated frames (f10-f19); sampled rgb(66,74,67)/(42,25,28) = her BLACK HAT BRIM during the coil, not an effect. Body well inside the band throughout.",
+    "v4_superseded": {
+      "job": "c9b44292-5f8b-4ef2-aa59-bf81157543f8",
+      "raw": "qa-boss/raw/eclipse-ofuda-attack-strike-v4.mp4",
+      "measured": {
+        "f0_all": 0.927,
+        "fLast_all": 0.415,
+        "fLast_body": 0.93
+      },
+      "note": "Pose CORRECT; rejected only for debris on screen at the end. This clip is the evidence for the phase-72 gate fix (body-vs-all reporting) and the phase-73 DEBRIS-VANISH law."
+    }
+  }
 }
