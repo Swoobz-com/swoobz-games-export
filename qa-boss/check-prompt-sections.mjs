@@ -148,6 +148,46 @@ for (const f of files) {
       bad = true;
       problems.push({ f, st, kind: 'POISONED', detail: 'telemetry in built prompt: ' + tells.slice(0, 4).map(String).join(' ') });
     }
+
+    // ##########################################################################################
+    // # ROTATIONAL LICENCE in a facing-locked state (phase 137). PROVEN on lich idle v1: the    #
+    // # facing bound was stated TWICE in the prompt and ignored, and the torso plus skull       #
+    // # opened to camera for 11 frames (check-frontturn sym 0.075 -> 0.239). The cause was not  #
+    // # a missing bound, it was the BEAT granting rotation:                                     #
+    // #     "his shoulders ROLL up under the pauldron"                                          #
+    // #     "his weight ROLLS slowly from his rear foot onto his leading foot"                  #
+    // # A foot-to-foot weight transfer squares the hips in a 3/4 stance. v2 removed both, kept  #
+    // # every facing sentence unchanged, and the defect went to 0/97 frames.                    #
+    // #                                                                                         #
+    // # Scoped to idle + the two strikes: those are the states where the construction was found #
+    // # and fixed, and a strike's WIND-UP is the same shape as the idle's settling. Deliberately #
+    // # NOT applied to hit/block/victory — "weight rolling BACK over his rear foot" in a recoil #
+    // # is sagittal, not a lateral transfer, and there is no evidence against it yet. Do not     #
+    // # widen this without a measured case; a gate red for unproven reasons stops being read.   #
+    // #                                                                                         #
+    // # Patterns are WHITESPACE-TOLERANT on purpose. These kits hard-wrap their prose, and three #
+    // # separate cleanup passes each missed sites that a phrase grep could not see across a      #
+    // # line break — the same way the debris contradiction survived a targeted search five times.#
+    // ##########################################################################################
+    if (st === 'idle' || st === 'attack_strike' || st === 'attack_strike_b') {
+      const ROT = [
+        ['shoulder roll', /shoulders\s+roll(?:ing|s)?\s+(?:up|forward|back)/i],
+        ['foot-to-foot weight transfer', /weight\s+rolls?\s+(?:slowly\s+)?from\s+(?:his|her|the|their)\s+rear\s+[a-z-]+\s+onto/i],
+      ];
+      const rot = ROT.filter(([, re]) => re.test(out));
+      if (rot.length) {
+        bad = true;
+        problems.push({
+          f, st, kind: 'ROTATIONAL-LICENCE',
+          detail: 'the BEAT grants a rotation the facing lock forbids: ' + rot.map(([n]) => n).join(' | ') +
+            '\n      Proven on lich idle v1 — facing bound stated twice, ignored, 11-frame front-turn.\n' +
+            '      FIX THE BEAT, not the bound: "shoulders LIFT STRAIGHT up ... with neither one coming\n' +
+            '      forward and neither one going back", and replace the foot-to-foot transfer with\n' +
+            '      "whole weight sinks STRAIGHT DOWN through BOTH planted feet at once ... and it NEVER\n' +
+            '      transfers from one to the other". Adding another facing sentence does NOT work.',
+        });
+      }
+    }
     if (!bad) clean++;
   }
 

@@ -102,7 +102,7 @@ hooves, the axe held steady in both hands exactly as in the reference. ONE full 
 first half of the clip and a second fills the second half: on each one his ribs and shoulders swell and
 sink, his nostrils flare and he blows out, his ears twitch back and then forward, his head settles a
 fraction lower on his thick neck the way a bull sizes up the ground in front of it and rises again, and
-his weight rolls slowly from his rear hoof onto his front hoof and back. The ragged cloth of his kilt
+his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted hooves at once and rises again, and it NEVER transfers from one to the other. The ragged cloth of his kilt
 and the loose straps of his harness sway faintly with him and the brass ring at his chest swings a
 little. Hooves planted, heavy and menacing. Returns to the exact start pose so it loops seamlessly.
 Slow, controlled, subtle motion.

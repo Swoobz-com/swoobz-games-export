@@ -164,8 +164,7 @@ IDLE COMBAT-READY LOOP: a rooted martial-arts guard, her weight low and even bet
 slippers, both fists up exactly as in the reference and the twin golden hands hanging steady on their
 chains behind her toward screen-left. ONE full slow breath fills the first half of the clip and a
 second fills the second half: on each one her ribs and shoulders rise and settle, her chin dips a
-fraction and lifts again, her fists roll and re-close, and her weight rolls slowly from her rear
-slipper onto her leading slipper and back. The two brass chains at her lower back swing gently with
+fraction and lifts again, her fists roll and re-close, and her whole weight sinks a fraction STRAIGHT DOWN through BOTH of her planted slippers at once and rises again, and it NEVER transfers from one to the other. The two brass chains at her lower back swing gently with
 her and the twin golden hands ride a little DOWN and back on them and turn a finger's width in the
 air, never rising above the height they have in the reference image and never drifting further toward
 screen-left than they sit there. The long centre panel of her skirt and the loose ends of her sash

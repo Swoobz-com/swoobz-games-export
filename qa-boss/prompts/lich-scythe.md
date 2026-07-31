@@ -332,12 +332,17 @@ the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 ## attack_strike A  (falling reap, a clean cut through air)
 STRIKE A (falling reap): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST QUARTER OF THE CLIP he loads his weight back over
-his rear foot, his knees folding and his shoulders rolling up under the pauldron; then he DROPS his
+his rear foot, his knees folding and his shoulders lifting STRAIGHT up under the pauldron with neither
+one coming forward and neither one going back; then he DROPS his
 entire mass straight DOWN over both planted feet in one committed sink, his hips folding deep and his
 ribcage coming down over his leading knee, and he hauls the whole scythe DOWN with him at the exact
 angle it holds in the reference so the honed inner edge of the crescent shears down through the air from
 his own shoulder height to below his own knee. The weapon does not rotate and does not travel sideways;
-it falls because HE falls, and both bone hands stay exactly where they are on the haft. As his weight
+it falls because HE falls, and both bone hands stay exactly where they are on the haft. THE LINE OF HIS
+TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE
+IMAGE IN EVERY SINGLE FRAME - his near shoulder never comes forward, his far shoulder never swings
+round, and his chest and his bare ribcage never square up toward the camera; he may FOLD and SINK, but
+he never TURNS. As his weight
 lands, his rear foot's talons grind hard DOWN into the stone on his screen-LEFT side and rip EXACTLY
 THREE grains of hard grey grave-dust grit UP off the floor, each grain no bigger than one of his own
 foot-talons, rising no higher than his own ankle and spreading no wider than his own standing footprint

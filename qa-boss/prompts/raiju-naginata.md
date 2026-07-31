@@ -198,10 +198,9 @@ IDLE COMBAT-READY LOOP: a heavy rooted predator stance, his weight sunk and even
 paws, the naginata held steady across his body on the low diagonal it has in the reference. ONE full slow
 breath fills the first half of the clip and a second fills the second half: on each one his slabbed chest
 and ribs swell and sink, the stripes over his shoulders and flanks shift with the muscle beneath, his
-shoulders roll up and settle back down, his broad head lowers a fraction on his thick neck the way a
+shoulders lift STRAIGHT up and settle back down, his broad head lowers a fraction on his thick neck the way a
 hunting cat sizes up the ground in front of it and rises again, his ears swivel back and prick forward,
-the claws of his free trailing paw flex open and close, and his weight rolls slowly from his rear paw
-onto his leading paw and back. The whole naginata rides DOWN with him a finger's width and back up on
+the claws of his free trailing paw flex open and close, and his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted paws at once and rises again, and it NEVER transfers from one to the other. The whole naginata rides DOWN with him a finger's width and back up on
 every breath, holding the same angle throughout, and the spiked crest along his neck and his long
 cheek-ruffs ripple faintly as he moves. His jaws stay fixed in the same open snarl and do not move at
 all. Paws planted, silent and coiled. Returns to the exact start pose so it loops seamlessly. Slow,
@@ -210,7 +209,7 @@ controlled, subtle motion.
 ## attack_strike A  (falling edge)
 STRIKE A (falling edge): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST QUARTER OF THE CLIP he loads his weight back over
-his rear paw, his hind legs coiling and his shoulders rolling up; then he DROPS his entire mass straight
+his rear paw, his hind legs coiling and his shoulders lifting STRAIGHT up; then he DROPS his entire mass straight
 DOWN over both planted paws in one committed sink, his hips folding deep and his chest coming down over
 his leading knee, and he hauls the whole naginata DOWN with him at the exact angle it holds in the
 reference so the honed edge shears down through the air from his own chest height to below his own knee.
@@ -368,7 +367,7 @@ Composed, coiled, spent.
 ## special_1  (STORM ANCHOR) — the butt-spike driven through the flagstone, his whole weight on it
 SPECIAL FINISHER (storm anchor): he begins in the EXACT reference stance, angled to camera exactly as in
 the reference image and facing screen-right; IN THE FIRST QUARTER he coils his whole body back and DOWN
-over his rear paw, his hind legs folding, his shoulders rolling up and his head dropping between them.
+over his rear paw, his hind legs folding, his shoulders lifting STRAIGHT up and his head dropping between them.
 Then he releases all of it at once: he drives his entire mass straight DOWN into a deep sunk stance and
 at the same moment rolls the shaft STEEPER about his own gripping paw - the blade end rising a short way
 and drawing IN closer to his own body, no higher than the height his own ear-tips have in the reference

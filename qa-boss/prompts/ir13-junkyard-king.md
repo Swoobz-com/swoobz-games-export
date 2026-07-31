@@ -240,7 +240,7 @@ IDLE COMBAT-READY LOOP: a heavy dead-still machine guard, weight sunk and even o
 feet, the scrap cleaver resting shouldered at the exact angle it has in the reference and his rear
 hand closed on the wrapped handle. He does not breathe - instead ONE full slow mechanical SETTLING
 of his whole frame fills the first half of the clip and a second fills the second half: on each one
-his weight rolls slowly from the rear boot onto the leading claw-foot and back while the pistons at
+his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted feet at once and rises again, and it NEVER transfers from one to the other while the pistons at
 his waist and knees compress a fraction and re-extend, his pauldrons ride up a fraction and settle,
 his helmet dips a touch toward screen-right the way a scrapper sizes up a load and lifts again, his
 rear hand hitches the shouldered cleaver a thumb's width up off the pauldron and re-seats it with a

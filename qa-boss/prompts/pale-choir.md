@@ -186,11 +186,10 @@ IDLE COMBAT-READY LOOP: a low coiled predator stance, his weight sunk and even o
 taloned feet, both bone gauntlets carried out ready exactly as in the reference. ONE full slow breath
 fills the first half of the clip and a second fills the second half: on each one his ribs and his
 slabbed chest swell and sink, the heavy vein and tendon relief on his arms and thighs tightens and
-eases, his shoulders roll up and settle back down, his long bone skull lowers a fraction on his thick
+eases, his shoulders lift STRAIGHT up and settle back down, his long bone skull lowers a fraction on his thick
 neck the way a hunting animal sizes up the ground in front of it and rises again, the jointed
 finger-bones of the skeletal hand spread a fraction wider and close again, the ivory claws of the
-other gauntlet flex in toward their own knuckle-cage and out, and his weight rolls slowly from his
-rear foot onto his leading foot and back. The long pale strap-tongue at his belt sways faintly with
+other gauntlet flex in toward their own knuckle-cage and out, and his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted feet at once and rises again, and it NEVER transfers from one to the other. The long pale strap-tongue at his belt sways faintly with
 him and the gold harness shifts across his chest. His jaw stays shut and does not move at all. Feet
 planted, silent and menacing. Returns to the exact start pose so it loops seamlessly. Slow,
 controlled, subtle motion.

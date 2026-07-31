@@ -278,9 +278,7 @@ APART FROM HIS OWN BROKEN FLOOR-STONE AND GREY GRIT the green stays completely e
 IDLE COMBAT-READY LOOP: a heavy rooted guard, his weight sunk and even over both planted taloned feet, the
 chain flail held steady out ahead of him toward screen-right at exactly the angle it has in the reference
 and his scaled fist closed on the handle. ONE full slow breath fills the first half of the clip and a
-second fills the second half: on each one his scaled chest and ribs swell and settle, his shoulders roll
-up under the bronze harness and drop back down, and his weight rolls slowly from his rear foot onto his
-leading foot and back. His THREE serpent necks do not move together - on the first breath the tallest neck
+second fills the second half: on each one his scaled chest and ribs swell and settle, his shoulders lift STRAIGHT up under the bronze harness and drop back down, and his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted feet at once and rises again, and it NEVER transfers from one to the other. His THREE serpent necks do not move together - on the first breath the tallest neck
 sinks a fraction and its S-curve tightens while the lowest head slides forward a finger's width and
 settles, and on the second the middle neck rolls once along its own length and the tallest lifts back to
 exactly the height it has in the reference image, all three heads staying turned toward screen-right the
@@ -293,7 +291,7 @@ start pose so it loops seamlessly. Slow, controlled, subtle motion.
 ## attack_strike A  (dead drop, the three skulls hammered into the stone)
 STRIKE A (dead drop): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST QUARTER OF THE CLIP he loads his weight back over
-his rear foot, his knees folding and his shoulders rolling up under the bronze harness, and the three
+his rear foot, his knees folding and his shoulders lifting STRAIGHT up under the bronze harness, and the three
 chains draw BAR-TAUT along their fan. Then he DROPS his entire mass straight DOWN over both planted feet
 in one committed sink, his hips folding deep, his scaled chest coming down over his leading knee and all
 three serpent necks sinking with him, and he hauls his gripping fist DOWN past his own hip so the whole
@@ -316,7 +314,7 @@ falling, brutal.
 STRIKE B (triple fang): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST QUARTER all THREE serpent necks SINK and their
 S-curves tighten and gather in low over his own shoulders - coiling DOWNWARD, never rearing up and never
-drawing back - while his knees bend, his weight loads over his rear foot and his shoulders roll forward.
+drawing back - while his knees bend, his weight loads over his rear foot and his shoulders lift STRAIGHT up.
 Then all three heads STRIKE DOWN together in one committed snap, fangs leading, driving from his own
 shoulder height to a point in the air just above his own leading foot, his whole trunk folding forward and
 down behind them and his hips dropping into a low braced stance - a clean strike through EMPTY AIR that
@@ -504,7 +502,7 @@ Coiling, shortening, crushing.
 ## special_2  (THE THREE ANVILS) — one sink, three staggered impacts walking back across his own footprint
 SPECIAL FINISHER (the three anvils): he begins in the EXACT reference stance, angled to camera exactly as
 in the reference image and facing screen-right; IN THE FIRST FIFTH he coils his whole body back and DOWN
-over his rear foot, his knees folding, his shoulders rolling up and all three serpent necks sinking low
+over his rear foot, his knees folding, his shoulders lifting STRAIGHT up and all three serpent necks sinking low
 between them, and the three chains draw BAR-TAUT along their fan. Then he releases it all in ONE committed
 downward sink - his entire mass dropping over both planted feet, his hips folding deep and his gripping
 fist hauling DOWN past his own hip - and because his three chains hang at three different lengths and

@@ -274,7 +274,7 @@ sabatons, the rose lance held in his near fist at exactly the angle it has in th
 point riding up and back over his near shoulder, and the rose shield hanging steady on its bracket at his far
 hip. ONE full slow breath fills the first half of the clip and a second fills the second half: on each one
 his breastplate lifts and settles inside the gorget, his near shoulder rolls up under the layered rose-petal
-pauldron and drops back down, and his weight rolls slowly from his rear boot onto his leading boot and back.
+pauldron and drops back down, and his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted boots at once and rises again, and it NEVER transfers from one to the other.
 His TWO props do not move together - on the first breath the lance rides DOWN a finger's width with his fist
 and the thorned haft turns a few degrees in his grip while the shield hangs dead and still; on the second the
 shield sways a hair on its black bracket and comes back to rest while the lance holds absolutely still. His

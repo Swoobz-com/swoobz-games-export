@@ -133,10 +133,9 @@ APART FROM HIS OWN KICKED GRIT, SPLINTERED BONE SHARDS AND BROKEN FLOOR-STONE th
 IDLE COMBAT-READY LOOP: a heavy grounded brute stance, his weight low and even over both planted
 boots, the cleaver held out steady in his one hand exactly as in the reference. ONE full slow breath
 fills the first half of the clip and a second fills the second half: on each one his ribs and his
-slabbed chest swell and sink, his shoulders roll up and settle back down, his head lowers a fraction
+slabbed chest swell and sink, his shoulders lift STRAIGHT up and settle back down, his head lowers a fraction
 on his thick neck the way a bull sizes up the ground in front of it and rises again, his nostrils
-flare and he blows out through them, his free fist closes tight and eases open again, and his weight
-rolls slowly from his rear boot onto his leading boot and back. The long leather tasset at his hip
+flare and he blows out through them, his free fist closes tight and eases open again, and his whole weight sinks a fraction STRAIGHT DOWN through BOTH of his planted boots at once and rises again, and it NEVER transfers from one to the other. The long leather tasset at his hip
 sways faintly with him, the steel skull on his belt swings a little, and the cleaver rides a fraction
 up and down in his fist without ever leaving the height it has in the reference image. Boots planted,
 heavy and menacing. Returns to the exact start pose so it loops seamlessly. Slow, controlled, subtle
@@ -263,7 +262,7 @@ sinks his weight into a heavy settled stance over both planted boots, his should
 chest already heaving. FOR THE WHOLE MIDDLE HALF OF THE CLIP HE HOLDS THAT LOW SETTLED POSE and gives
 two slow heavy contemptuous knuckle-blows with his bare free fist against the polished steel skull
 mounted on his own belt - on each one his whole trunk folds down into it from the hips and both
-shoulders roll forward, then he draws the fist back IN to his own ribs and his ribs swell and sink with
+shoulders lift STRAIGHT up, then he draws the fist back IN to his own ribs and his ribs swell and sink with
 one deep breath before the next. His skull lowers and rises with each blow but his ram horns never rise
 above the height they have in the reference image, his mouth stays exactly as it is in the reference
 image and his jaw stays shut, never opens, never chatters and never moves to speak. His boots, hips
