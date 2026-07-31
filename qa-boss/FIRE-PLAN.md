@@ -53,6 +53,23 @@ window accordingly: it is worth hundreds of clips, and the bottleneck is now QA,
 **`use_unlim: true` on every call, never credits.** A request that cannot be served free is REJECTED,
 never silently charged.
 
+## ★ THE PRESET RECOMMENDER KEYS ON THE PROMPT, NOT THE CHARACTER (corrected phase 119)
+
+Session 17 recorded it as character-consistent — *"eclipse always suggests DROWN IN MUSIC,
+ir37/hollow-pale/oni always IN THE DARK"*. **That is wrong.** Same character, same plate, same
+session, three consecutive fires:
+
+| clip | preset offered |
+|---|---|
+| thorn `special_1` | IN THE DARK · `24bae836-2c4a-48e0-89b6-49fcc0b21612` |
+| thorn `special_2` | IN THE DARK · `24bae836-…` |
+| thorn `special_3` | **DROWN IN MUSIC** · `f1821f84-945b-4cd1-9085-1f479db0028e` |
+
+So it cannot be cached per character. Declining the WRONG id does nothing — the notice simply comes
+back. **Read the id out of the response you just got and echo THAT back as `declined_preset_id`.**
+The recommendation notice is not a job: it costs nothing and burns no rate-limit window, so the extra
+round-trip when the preset changes is free.
+
 ## NON-INTERFERENCE (standing, Tim 2026-07-31)
 
 Another terminal generates on a DIFFERENT account against the same rate limit. Before ANY fire, call
