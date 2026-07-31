@@ -94,7 +94,8 @@ than HIS OWN STANDING FOOTPRINT in the reference stance, never past his front fo
 back heel. NOT ONE of the three ever rises higher than his own shin at ANY moment - they do not grow,
 do not lengthen and are never thrown upward. Then the same low sweep SHATTERS all three at the base
 into small woody splinters no bigger than his own thumb, and every splinter curls, darkens and
-crumbles away to nothing IN MID-AIR AS IT FALLS, gone before any piece touches the floor, leaving the
+crumbles away to nothing IN MID-AIR AS IT FALLS, gone before any piece touches the floor. NO SPLINTER
+EVER RISES ABOVE HIS OWN KNEE and none travels past his front foot or his back heel, leaving the
 floor completely bare - no stump, no root, nothing left standing or lying anywhere. The thorns are
 SOLID WOOD: never a glow, never a flare, never light. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE
 CLIP and NEITHER FOOT EVER SLIDES OUT WIDER than it stands in the reference image - his rear foot in
