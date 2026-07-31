@@ -106,9 +106,18 @@ The FILES were fixed too — each editorial run now has its own `## ☰ SHARED B
 the tool otherwise only papers over a file that is still wrong. Verified per state, not in aggregate:
 prefix 1 / suffix 1 on EVERY state, add-on 1 on specials and **0** on non-specials.
 
-**STILL NOT DONE:** eclipse's ONE-ACTION LOCK says *"APPEND to EVERY remaining v2/v3 acting line
-before firing"* and there is no mechanism to append it, so **it has never shipped on any eclipse
-clip**. Stopping the leak and adding an append feature are two decisions; only the first was made.
+**DONE IN PHASE 102.** eclipse's ONE-ACTION LOCK said *"APPEND to EVERY remaining v2/v3 acting line
+before firing"* with no mechanism to append it, so **it had never shipped on any eclipse clip** —
+measured, 0 of 13 states contained "repeat" or "spin". That gap is not cosmetic: the lock exists
+because `strike_a` v2 rendered as a SPINNING MULTI-ATTACK KATA, and the shared suffix bans ROTATION
+but says nothing about REPEATING the beat, so nothing in any eclipse prompt ever forbade what
+actually happened. `build-prompt.mjs` now has an `ACTION add-on:` block mirroring the SPECIAL add-on
+(same reader, and REGISTERED IN THE EDITORIAL MARKER LIST so it cannot itself leak — the §C bug would
+have been trivial to reintroduce). Opt-in and silent when absent.
+**It skips `idle` deliberately** — the payload is "ONE single action ... does NOT repeat the move",
+and an idle is a LOOP, so appending it there would be the ko-contradiction class again. Verified per
+state: eclipse idle 0, all twelve others 1, seven other kits 0. The assembled `ko` was read end to
+end before committing, since the lock now lands on it.
 
 ---
 
@@ -181,10 +190,10 @@ which is unfired.
 
 ### F. WHAT TO DO NEXT, IN ORDER
 
-1. **§E's five fire-blockers are DONE (phase 101).** What remains there is the lower-ranked tail:
-   eclipse's ONE-ACTION LOCK still never ships (§C), eclipse `special_2`'s wind-up is still unstated,
-   and LK's `Her sword NEVER rises above her own shoulder` bounds the whole prop rather than the TIP
-   (she has 138px of headroom — use eclipse's `the BLADE TIP never rises above her own shoulder`).
+1. **§E IS FULLY APPLIED** — the five fire-blockers in phase 101, and the lower-ranked tail in phase
+   102 (eclipse's ONE-ACTION LOCK now ships via the new `ACTION add-on:` mechanism; eclipse
+   `special_2`'s wind-up is named and bounded below the hat brim; LK's shoulder bound moved from the
+   whole prop onto the BLADE TIP). The prompt backlog is clear — the queue below is ready to fire.
 2. **THE REAL FIRE QUEUE** (NOT the loop prompt's): thorn `special_1` **v3** (written this session,
    gate-clean, keeps the proven effect wording verbatim and fixes only the body), thorn `special_2`,
    thorn `special_3` (both hardened this session), LK `special_3`, eclipse `special_2`, oni
