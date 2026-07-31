@@ -80,19 +80,28 @@ LATERAL or DIAGONAL-DOWNWARD, never a raise. The bottom edge is free
 beat lives: THORNS ERUPTING FROM THE GROUND along the club's swing path, then withering.
 
 ## special_1  (THORNBREAK) — ground thorns erupt along the swing path
-SPECIAL FINISHER (thornbreak): he begins in the EXACT reference stance facing screen-right; he coils
-his weight down into a low braced crouch and sweeps the thorn-club LOW across the ground in front of
-his own feet. He NEVER lifts the club HIGHER than it already sits in the reference stance - there is
-no wind-up, no backswing, no overhead raise; from the reference position it travels DOWNWARD and
-sideways only, and the club head stays BELOW HIS OWN WAIST for the whole sweep. Directly under
-the club's path, EXACTLY THREE thorns tear up out of the floor - dark bark-brown, sharp, opaque, each
-one no longer than HIS OWN FOREARM so that not one of them stands taller than his own shin, and all
-three crowded into a strip of floor no wider than the gap between his own two feet. Then all three
-snap off at the root and crumble away to nothing IN MID-AIR AS THEY FALL, gone before any piece
-touches the floor, leaving the ground completely bare while he holds the crouch. The thorns are SOLID
-WOOD: never a glow, never a flare, never light. The whole sweep and eruption are COMPLETE by the
-halfway point of the clip; the whole second half is his slow rise back into the EXACT same reference
-stance. Heavy, rooted, brutal.
+SPECIAL FINISHER (thornbreak): he begins in the EXACT reference stance facing screen-right; he sinks
+his weight straight DOWN into a low braced crouch, his chest and both shoulders staying angled toward
+screen-right exactly as they are in the reference image, and sweeps the thorn-club LOW across the
+ground in front of his own feet. THE CLUB STAYS ON THE SCREEN-RIGHT SIDE OF HIS BODY FOR THE WHOLE
+CLIP - it never swings behind him, never crosses to his screen-left side, and he never lifts it HIGHER
+than it already sits in the reference stance: no wind-up, no backswing, no overhead raise. The club
+head stays BELOW HIS OWN WAIST for the whole sweep. Where the club passes, EXACTLY THREE thorns tear
+up out of the floor - dark bark-brown, sharp, opaque, each one no longer than HIS OWN FOREARM so that
+not one of them stands taller than his own shin, and all three crowded into a strip of floor no wider
+than HIS OWN STANDING FOOTPRINT in the reference stance, never past his front foot, never past his
+back heel. Then the same low sweep SHEARS all three off at the base and knocks them UP to no higher
+than his own knee, and all three curl, darken and crumble away to nothing IN MID-AIR AS THEY FALL,
+gone before any piece touches the floor, leaving the floor completely bare - no stump, no root,
+nothing left standing or lying anywhere. The thorns are SOLID WOOD: never a glow, never a flare, never
+light. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never jumps, never hops and never
+lunges out into a wider stance than the reference stance. He has exactly TWO arms and TWO hands, both
+on the club, in every single frame, and his face, antlers and blossoms stay separate and fully
+readable and never merge into one another. The coil, the sweep and the eruption are COMPLETE by the
+halfway point of the clip; he then HOLDS the low crouch, motionless, while the last of the thorn
+material crumbles away, and only in the final second does he rise slowly back into the EXACT same
+reference stance, so that he is already standing completely still in the reference pose well before
+the clip ends. Heavy, rooted, brutal.
 
 ## special_2  (BARKSPLIT) — bark chips shear off his own forearms and club
 SPECIAL FINISHER (barksplit): he begins in the EXACT reference stance facing screen-right; he plants
