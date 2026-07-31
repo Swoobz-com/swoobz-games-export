@@ -3,3 +3,5 @@ dist/
 vite-*.log
 _*.mjs
 shots*/
+qa-boss/frames/
+qa-boss/raw/
