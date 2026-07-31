@@ -302,8 +302,25 @@ function koSuffix(s) {
     //    and a half times his standing width" also survives, and a PRONE body measures ~1.66x its
     //    standing width — so the one state the ko rewrite exists to protect is the one state that
     //    clause contradicts. Scoped to standing: vacuous once he is down, unchanged for the other 12.
-    .replace(/(?:and )?(?:he|she|they) keeps? (?:his|her|their) stance narrow and never spreads wider than[^.;]*/gi,
-      'WHILE ON HIS FEET he keeps his stance narrow')
+    //    TWO DEFECTS IN THIS REWRITE, both fixed in phase 103 and both found by a kit-writing agent
+    //    READING an assembled ko — never by a gate:
+    //    (a) IT DOUBLED ITS OWN SCOPE. A kit that had already scoped the clause itself ("WHILE HE IS
+    //        ON HIS FEET he keeps his stance narrow and never spreads wider than ...") kept that
+    //        prefix, because the match started at "he keeps", and then got a second one bolted on.
+    //        MEASURED on skullrend-orcus's shipping ko: "WHILE HE IS ON HIS FEET WHILE ON HIS FEET he
+    //        keeps his stance narrow". The optional leading group now swallows a pre-existing scope.
+    //    (b) IT HARDCODED MALE PRONOUNS. The replacement was a fixed string, so a female fighter whose
+    //        suffix reads "she keeps her stance narrow ..." would have had "he/his" injected into her
+    //        ko. NO CURRENT KIT WAS AFFECTED — verified: eclipse, hollow-pale, ir37 and lady-kurotachi
+    //        carry no stance clause in their ko at all — but every new female kit written to the
+    //        canonical wording would have been. The pronouns are now CAPTURED and carried through.
+    .replace(
+      /(?:WHILE\s+(?:he|she|they)\s+(?:is|are)\s+ON\s+(?:his|her|their)\s+FEET\s+)?(?:and )?(he|she|they) keeps? (his|her|their) stance narrow and never spreads wider than[^.;]*/gi,
+      (_m, subj, poss) => {
+        const s = subj.toLowerCase(), p = poss.toLowerCase();
+        return `WHILE ${s.toUpperCase()} ${s === 'they' ? 'ARE' : 'IS'} ON ${p.toUpperCase()} FEET ` +
+               `${s} keeps ${p} stance narrow`;
+      })
     .replace(/\s+/g, ' ')
     .trim();
 }
