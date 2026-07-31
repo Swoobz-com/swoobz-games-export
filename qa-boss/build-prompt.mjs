@@ -182,7 +182,12 @@ function koSuffix(s) {
     //     the identity lock that shares it).
     .replace(/\s*[,;]\s*(?:and\s+)?(?:he|she|they)\s+keeps?\s+the[^.]*never drops? or swaps?[^.]*(?=\.)/gi, '')
     // 1b. weapon lock as a STANDALONE SENTENCE — remove the whole sentence, as before.
-    .replace(/(?:^|(?<=\.))[^.]*keeps? the [^.]*in (?:his|her|their) hands?[^.]*never drops? or swaps?[^.]*\.\s*/gi, ' ')
+    //     The "in his/her/their hands" phrase is OPTIONAL. It used to be required, which made the
+    //     rule silently fragile: minotaur-axe's writer nearly shipped "keeps the axe in BOTH hands",
+    //     which does not match `in (his|her|their) hands` and would have produced a ko ordering him
+    //     to keep hold of an axe the same prompt tells him to drop. The load-bearing literal is
+    //     "never drops or swaps" — key on that, and treat the grip phrasing as free text.
+    .replace(/(?:^|(?<=\.))[^.]*keeps? the [^.]*never drops? or swaps?[^.]*\.\s*/gi, ' ')
     // 2. the feet lock: keep the anti-jump meaning, drop the "flat for the ENTIRE clip" clause
     //    that a prone collapse necessarily breaks.
     .replace(/(HIS|HER|THEIR) FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP/gi,

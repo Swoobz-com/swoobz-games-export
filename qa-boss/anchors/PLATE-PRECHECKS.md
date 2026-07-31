@@ -16,8 +16,23 @@ Verdicts so far, taken by building a contact sheet and LOOKING:
 
 | set | facing |
 |---|---|
-| `qa-boss/anchors/mk/` — raiju, minotaur, skullrend, pale-choir, jin | **ALL side-profile facing screen-right.** Curated for it. |
+| `qa-boss/anchors/mk/` — raiju, minotaur, skullrend, pale-choir, jin | All face screen-RIGHT; none is frontal. But see the caveat below — "side profile" is not binary. |
 | `input/MK FINAL/XGundam not sorted/` | **NOT uniform.** IR-41 Kasa Oni is front-facing. The other 47 are unverified — check each one before writing its kit. |
+
+**CAVEAT — CHECK FACING AT FULL SIZE, NOT ON A CONTACT SHEET.** I first read these five off a
+400px-per-plate contact sheet and recorded them as "all natively side-profile facing screen-right".
+minotaur-axe's kit writer then opened the plate properly and found his **hips and chest sit about a
+third of a turn open to camera** — both pectorals and both legs visible — with only his head, axe and
+intent committed to screen-right. That is not a blocker the way a frontal plate is, but it changes
+the acting lines: writing the roster-standard *"in strict side profile facing screen-right"* would
+have ordered the model to RE-POSE him toward pure profile mid-clip, fighting his own anchor. His kit
+says *"angled to camera exactly as in the reference image and facing screen-right"* instead, and bans
+the turn in BOTH directions (never opens further toward the viewer, never turns away).
+
+So facing is a THREE-way verdict, not two: **frontal** (unusable, re-pose the plate) ·
+**partly open** (usable, but the acting lines must lock the anchor's own angle rather than demand
+strict profile) · **strict profile** (roster-standard wording applies). A thumbnail can only reliably
+separate the first from the other two.
 
 ## 2. PLATE UNIFORMITY — is the backdrop ONE green, or two?
 
