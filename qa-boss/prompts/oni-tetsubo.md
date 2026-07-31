@@ -76,8 +76,7 @@ ragged kilt swaying faintly with his breath, small weight shifts from foot to fo
 and menacing. Returns to the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 
 ## attack_strike A  (downward club slam)
-STRIKE (downward slam): he begins in the EXACT reference stance in strict side profile facing
-screen-right; he coils his weight down onto his back leg, draws the tetsubo back and slightly DOWN, then
+STRIKE (downward slam): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; he coils his weight down onto his back leg, draws the tetsubo back and slightly DOWN, then
 drives it in one heavy committed slam DOWNWARD into the ground in front of his own feet, and the impact
 kicks up a burst of solid grit and stone chips that leaps up around the club head no higher than his own
 knee and crumbles away to nothing before it reaches the floor. The whole slam is COMPLETE by the halfway point of the
@@ -85,7 +84,7 @@ clip; the whole second half is his slow heavy settle back up into the EXACT same
 brutal, final.
 
 ## attack_strike_b  (low horizontal sweep)
-STRIKE (low sweep): he begins in the EXACT reference stance in strict side profile facing screen-right;
+STRIKE (low sweep): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image;
 he drops his weight and sweeps the tetsubo LOW across the front of his own body at shin height, keeping
 the club head BELOW HIS OWN WAIST for the entire sweep and pulling it IN toward his body rather than out,
 and the sweep drags a low wave of grit and dust along the ground at his feet that crumbles away to nothing before it reaches the floor.
@@ -93,8 +92,7 @@ The sweep is COMPLETE by the halfway point of the clip; the whole second half is
 EXACT same reference stance. Fast for his size, heavy, brutal.
 
 ## attack_throw A  (collar seize and slam, solo-safe)
-THROW (seize and slam): he begins in the EXACT reference stance in strict side profile facing
-screen-right; keeping the tetsubo gripped in one hand and held LOW and CLOSE to his body, he reaches
+THROW (seize and slam): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; keeping the tetsubo gripped in one hand and held LOW and CLOSE to his body, he reaches
 forward with his free hand through EMPTY AIR, clamps as if seizing an unseen foe at chest height, then
 wrenches down and back toward his own body, driving the seized weight into the ground at his feet, and a
 small burst of grit jumps UP from the floor and crumbles away to nothing in mid-air as it falls. NO
@@ -103,8 +101,7 @@ The throw is COMPLETE by the halfway point; the second half is his settle back i
 reference stance.
 
 ## attack_throw_b  (shoulder barge, solo-safe)
-THROW (shoulder barge): he begins in the EXACT reference stance in strict side profile facing
-screen-right; he drops his shoulder, drives a short heavy barge forward from the hips WITHOUT stepping
+THROW (shoulder barge): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; he drops his shoulder, drives a short heavy barge forward from the hips WITHOUT stepping
 his feet apart, the tetsubo tucked DOWN and IN against his own body throughout, and dust scuffs up from
 the floor under his planted feet. He barges through empty air only - NO opponent, no second figure. The
 barge is COMPLETE by the halfway point; the second half is his settle back into the EXACT same reference
@@ -118,8 +115,7 @@ he absorbs the pressure; then he drives back with one short heavy counter slam D
 flows in one eased motion back into the EXACT same reference stance. Braced, immovable, brutal.
 
 ## attack_block_b  (forearm bracer guard into rising elbow)
-BLOCK-COUNTER (bracer guard): he begins in the EXACT reference stance in strict side profile facing
-screen-right; he snaps his free forearm up across his face in a hard leather-bracer guard, the tetsubo
+BLOCK-COUNTER (bracer guard): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; he snaps his free forearm up across his face in a hard leather-bracer guard, the tetsubo
 held LOW and CLOSE at his side, his weight settling back as he absorbs the pressure; then he drives a
 short elbow strike forward at chest height and flows in one eased motion back into the EXACT same
 reference stance. The tetsubo never rises and never swings during this clip. Braced, compact, brutal.
@@ -136,7 +132,7 @@ frame - nothing whatsoever enters, crosses or appears in the frame at any time, 
 flare and no streak anywhere in the shot. Only his own body moves.
 
 ## ko  (cause-free collapse, ends on ground)
-KO (collapse): he begins in the EXACT reference stance in strict side profile facing screen-right; his
+KO (collapse): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; his
 legs give way beneath him, the tetsubo drops from his grip to the floor beside him, and he crumples
 heavily forward and down onto the ground, coming to rest fully prone and motionless, a small puff of dust
 rising from the floor where he lands and drifting away to nothing. He is ALONE in an empty frame - nothing whatsoever
@@ -188,8 +184,7 @@ club head goes DOWN to the floor, never up. Proud, heavy, brutal.
 # PLUS CONTAINMENT AGAIN; the middle of the clip must be LOOKED AT, every time.
 
 ## special_1  (EARTHSHAKER) — ground slam shockwave, solid debris
-SPECIAL FINISHER (earthshaker): he begins in the EXACT reference stance in strict side profile facing
-screen-right; he raises the tetsubo only to CHEST height, coils his whole body down into a deep braced
+SPECIAL FINISHER (earthshaker): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; he raises the tetsubo only to CHEST height, coils his whole body down into a deep braced
 crouch, then drives the club DOWN into the ground in front of his own feet with everything he has, and
 the impact BLASTS a ring of solid stone chips, grit and broken earth UPWARD and OUTWARD around his
 feet - rising no higher than his own waist, spreading no wider than one body-width to either side, and
@@ -199,8 +194,7 @@ whole slam is COMPLETE by the halfway point of the clip; the whole second half i
 back into the EXACT same reference stance. Heavy, brutal, final.
 
 ## special_2  (SPIKE DRIVER) — forward thrust, chips off the club head
-SPECIAL FINISHER (spike driver): he begins in the EXACT reference stance in strict side profile facing
-screen-right; he draws the tetsubo BACK toward his own body and DOWN, then drives it forward in one
+SPECIAL FINISHER (spike driver): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; he draws the tetsubo BACK toward his own body and DOWN, then drives it forward in one
 short brutal thrust at CHEST height, keeping the club head CLOSER to his body than it sits in the
 reference at every moment of the thrust, and on the drive a tight burst of solid stone chips and grit
 shears off the spikes of the club head and falls DOWNWARD to the floor, crumbling away to nothing before it reaches the floor. The chips
@@ -209,8 +203,7 @@ him, never spray outward, and never come near the left, right or top edge of the
 COMPLETE by the halfway point; the second half is his settle back into the EXACT same reference stance.
 
 ## special_3  (OGRE STOMP) — heel stomp, cracked earth
-SPECIAL FINISHER (ogre stomp): he begins in the EXACT reference stance in strict side profile facing
-screen-right, the tetsubo held LOW and CLOSE at his side throughout; he hauls one knee up only to hip
+SPECIAL FINISHER (ogre stomp): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image, the tetsubo held LOW and CLOSE at his side throughout; he hauls one knee up only to hip
 height and STAMPS his bare heel down into the ground beside his other foot with his full weight, and the
 floor CRACKS - solid clods of broken earth and stone shards jump up around his own feet, rising no higher
 than his own knee, spreading no wider than one body-width, and crumbling away to nothing before any of it reaches the floor
