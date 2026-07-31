@@ -41,6 +41,17 @@ const dir=path.join(process.env.TEMP,`bl_${process.pid}`);
 fs.rmSync(dir,{recursive:true,force:true});fs.mkdirSync(dir,{recursive:true});
 spawnSync('ffmpeg',['-y','-v','error','-i',process.argv[2],'-vf','scale=480:-1','-vsync','0',path.join(dir,'f_%04d.png')]);
 const fl=fs.readdirSync(dir).filter(x=>x.endsWith('.png')).sort();
+// FAIL LOUD ON A VACUOUS RUN (phase 133). `worst` starts at 0 and the verdict is `worst<=1`, so a run
+// that decoded NOTHING printed "CLEAN — never more than one object in frame" off zero measurements.
+// Hit for real: this tool takes an MP4, and passing it a FRAMES DIRECTORY makes ffmpeg fail silently,
+// after which the gate reports a clean pass. A gate that says CLEAN when it measured nothing is worse
+// than no gate. Exit 2 (distinct from the verdict path) so it can never be mistaken for a pass.
+if(!fl.length){
+ console.error(`ERROR: decoded 0 frames from ${JSON.stringify(process.argv[2])} — nothing was measured.`);
+ console.error('       This tool takes the MP4 itself, not a frames directory: check-extra-objects.mjs <file.mp4> [minPx]');
+ fs.rmSync(dir,{recursive:true,force:true});
+ process.exit(2);
+}
 let worst=0,worstF=-1,worstSizes=null;
 fl.forEach((x,fi)=>{
  const p=PNG.sync.read(fs.readFileSync(path.join(dir,x)));

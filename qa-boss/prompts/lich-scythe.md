@@ -247,20 +247,58 @@ and the suffix freezes it there, so a scream or a laugh would contradict a law h
 SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
 APART FROM HIS OWN SPLIT FLOOR-STONE AND GRAVE-DUST GRIT the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his scythe and HIS OWN debris. Every piece of debris is SOLID MATERIAL - real slabs, chunks, chips and grains of broken grey floor-stone and hard grey grave-dust grit, opaque, sharp-edged, matte and lit like rock - never a glow, never a flame, never a spark of light, never a wisp, never a spirit, never an aura, never mist or smoke, and never a whole intact object. NOTHING anywhere in the shot ever lights up, flashes or crackles, and NO SECOND FLAME ever appears - the only fire in the shot is the violet flame already burning in his crown and eye socket in the reference image, and it never grows and never spreads. All of it is knocked UPWARD and stays low and close to him, rising no higher than his own ribcage and spreading no wider than HIS OWN STANDING FOOTPRINT - never past his leading foot toward screen-right, never past his rear heel toward screen-left - and every piece crumbles away to nothing in mid-air as it falls, so none of it ever reaches the floor and none of it ever comes near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES ITS EXACT COUNT AND HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
 
+## ★ IDLE v1 — REJECTED, front-turn (fired 2026-07-31, job aa5212eb)
+
+Measured: containment CLEAN · extra-objects 1 body blob (see chain caveat below) · raw-anchor vs plate
+f0 0.905 / fLast 0.902 ALL, 0.860 / 0.862 BODY — no drift, f0 and fLast agree · **check-frontturn
+FLAGGED: sym 0.075 -> 0.239, aspect 0.88 -> 0.99, an 11-frame run from f45.**
+
+Confirmed by eye, not just by the number: at f0 the ribcage reads at a clear 3/4 angle with the
+sternum diagonal and the screen-left shoulder set back; by f50 the ribs are near-symmetric, the
+sternum is centred, both shoulders sit equally forward, and the skull's teeth spread from a side row
+to a frontal spread. The torso AND the skull open toward camera. Not a bbox artifact of the detached
+charm either — during f45-f56 the charm reads CONNECTED, so that bbox is body-only.
+
+DIAGNOSIS: the BEAT licensed the rotation; the bound was already stated twice and was ignored, which
+is the standing rule (restating a bound never works). Three rotational licences in the v1 acting line:
+(a) "his shoulders ROLL up under the pauldron", (b) "his weight ROLLS slowly from his rear foot onto
+his leading foot" — a foot-to-foot transfer squares the hips in a 3/4 stance, and (c) "the way a
+headsman MEASURES THE GROUND IN FRONT OF HIM", which invites a look. The flag begins at f45, exactly
+where settling #2 starts, which is what accumulated rotation across two cycles looks like.
+v2 changes the BEAT to purely vertical motion and narrows the OBJECT (the shoulder line, the hip line)
+instead of adding a third facing sentence.
+
+NOT defects, both checked and cleared:
+- **The crown flame is FINE.** It looked like it was billowing; measured against the plate its peak
+  violet area is 1.09x and its peak height 0.99x, and its top row never rises above the plate's
+  (plate top y296, clip highest y296). The plate's flame is in fact the TALLER one — 272px vs f000's
+  153px — so what reads as growth is flicker inside the reference envelope. Do not "fix" this.
+- **The beaded chain is INHERENT, not a generation defect.** The clip's chain keys as a broken strand
+  with the bone charm floating — but so does the PLATE's. An open-link chain has holes, the holes are
+  full of green, and the keyer takes them; only the link metal survives, as beads. The clip is
+  marginally worse because its chain also picked up green spill (it renders green-tinted). No prompt
+  wording can fix this. It is a character-level caveat and a candidate for Tim's re-plate list (a
+  magenta plate would not spill green onto dark metal) — do NOT burn re-rolls on it.
+
 ## idle
 IDLE COMBAT-READY LOOP: a tall dead-still guard, his weight sunk and even over both planted taloned
 feet, the scythe held steady across his body on the low diagonal it has in the reference and both bone
 hands closed on the haft. He does not breathe - instead ONE full slow SETTLING of his whole dead frame
-fills the first half of the clip and a second fills the second half: on each one his bare ribcage lifts
-and sinks a fraction as though remembering a breath it no longer takes, his shoulders roll up under the
-pauldron and settle back down, his crowned skull lowers a fraction on his neck the way a headsman
-measures the ground in front of him and rises again, the finger bones of his lower hand flex once on the
-haft and re-close, and his weight rolls slowly from his rear foot onto his leading foot and back. The
-whole scythe rides DOWN with him a finger's width and back up on every settling, holding the same angle
-throughout, and the hanging chain and its bone charm swing faintly at the low end while the torn hems of
-his robe and the long tabard panel sway with him. His jaws stay fixed in the same lipless grin and do
-not move at all. Feet planted, silent and patient. Returns to the exact start pose so it loops
-seamlessly. Slow, controlled, subtle motion.
+fills the first half of the clip and a second fills the second half, and EVERY PART of that settling is
+STRAIGHT UP AND DOWN IN THE VERTICAL PLANE ONLY: on each one his bare ribcage lifts and sinks a fraction
+as though remembering a breath it no longer takes, his shoulders lift a fraction under the pauldron and
+settle STRAIGHT back down with neither one coming forward and neither one going back, his crowned skull
+lowers a fraction STRAIGHT DOWN on his neck and rises again without ever turning left or right, the
+finger bones of his lower hand flex once on the haft and re-close, and his whole weight sinks a fraction
+STRAIGHT DOWN through BOTH planted feet at once and rises again - his weight NEVER transfers from one
+foot to the other and neither foot ever carries more of it than the other. THE LINE OF HIS TWO SHOULDERS
+AND THE LINE OF HIS TWO HIPS STAY EXACTLY AS THEY ARE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - his
+near shoulder never comes forward, his far shoulder never swings round, and his chest and his bare
+ribcage never square up toward the camera. The whole scythe rides DOWN with him a finger's width and back
+up on every settling, holding the same angle throughout, and the hanging chain and its bone charm swing
+faintly at the low end while the torn hems of his robe and the long tabard panel sway with him. His jaws
+stay fixed in the same lipless grin and do not move at all. Feet planted, silent and patient. Returns to
+the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 
 ## attack_strike A  (falling reap, a clean cut through air)
 STRIKE A (falling reap): he begins in the EXACT reference stance, angled to camera exactly as in the
