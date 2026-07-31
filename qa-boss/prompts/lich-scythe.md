@@ -576,11 +576,12 @@ going down behind it into a deep sunk stance, and it is HIS OWN TALONED FEET tha
 just inside his own leading foot, so THE SLAM HAS LANDED BY THE HALFWAY POINT. The scythe rides straight
 DOWN with his body at the exact angle it holds in the reference and does not rotate - it stays clamped
 to his ribs and travels only as far as HIS BODY travels, never reaching for the floor. EXACTLY FIVE chips of
-split grey floor-stone and hard grit are knocked UPWARD where his talons come down, each chip no bigger
-than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+split grey floor-stone and hard grit are knocked UPWARD where his talons come down, each chip no bigger than one of his own FINGER BONES, never a slab and never a
+boulder, and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
 never smoke and never haze - rising no higher than his own knee and spreading no wider than his
 own standing footprint - never past his leading foot toward screen-right and never past his rear heel
-toward screen-left - every piece crumbling away to nothing in mid-air as it falls. He HOLDS the low
+toward screen-left - every piece crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. He HOLDS the low
 finish through the third quarter while the last chips crumble away, and only in the final second does he
 rise, letting both hands slide back out along the haft and the scythe ride back to the EXACT angle and
 height it has in the reference image, into the EXACT same reference stance, so that he is already
@@ -600,11 +601,11 @@ IN across the front of his own thighs toward his own rear hip, travelling toward
 in front of his own body the whole way, never swinging behind him and stopping well short of that rear
 hip - his knees collapsing into a deep crouch and his shoulders driving down behind the pull - so THE
 THROW HAS LANDED BY THE HALFWAY POINT. EXACTLY FIVE chips of split grey floor-stone are knocked UPWARD
-where the weight comes down, each chip no bigger than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+where the weight comes down, each  no bigger than one of his own FINGER BONES, never a slab and never a boulder, and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
 never smoke and never haze - rising no higher
 than his own knee and spreading no wider than his own standing footprint - never past his leading foot
-toward screen-right and never past his rear heel toward screen-left - every piece crumbling away to
-nothing in mid-air as it falls. He HOLDS the low finish through the third quarter while the last chips
+toward screen-right and never past his rear heel toward screen-left - every piece crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. He HOLDS the low finish through the third quarter while the last chips
 crumble away, and only in the final second does he close that bone hand back onto the haft where it
 grips in the reference image and rise into the EXACT same reference stance, so that he is already
 standing completely still in the reference pose well before the clip ends. Fast, rooted, savage.
@@ -722,8 +723,7 @@ foot. AT THE FORTY PERCENT
 MARK it is in the stone, and he REAPS it back and IN across the floor toward his own rear heel, travelling
 toward screen-LEFT in one short savage drag, the hook staying inside his own standing footprint the whole
 way and stopping well short of that rear heel. EXACTLY SIX slabs of solid broken grey floor-stone are torn
-UPWARD out of the furrow behind the point as it comes, each slab no bigger than one of his own skeletal
-hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+UPWARD out of the furrow behind the point as it comes, each  no bigger than one of his own FINGER BONES, never a slab and never a boulder, and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
 never smoke and never haze - rising no higher than his own knee and spreading no wider than his own standing footprint - never
 past his leading foot toward screen-right and never past his rear heel toward screen-left - every slab
 cracking apart and crumbling away to nothing in mid-air as it falls. The debris is SOLID BROKEN ROCK:
@@ -750,8 +750,8 @@ over his knees and both arms driving the haft down with him, and the knobbed BON
 flagstone beside his own rear foot with the lower length of the bone haft slamming down across the stone
 after it as one bar, the chain whipping down and the bone charm cracking against the flagstone beside the
 butt. AT THE HALFWAY POINT the floor gives way under that bar: EXACTLY SEVEN chips of solid broken grey
-floor-stone burst UPWARD from under the length of haft that lies between his own two feet, each chip no
-bigger than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+floor-stone burst UPWARD from under the length of haft that lies between his own two feet, each chip no bigger than one of his own FINGER BONES, never a slab and never a
+boulder, and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
 never smoke and never haze - rising
 no higher than his own knee and spreading no wider than his own standing footprint - never past his
 leading foot toward screen-right and never past his rear heel toward screen-left - every chip cracking
@@ -778,7 +778,7 @@ throughout. THE DAMAGE COMES FROM HIS OWN FEET, NOT FROM THE WEAPON: through tha
 long ivory TALONS on each foot SCREW DOWN into the flagstone without either foot leaving the spot it
 stands on, and the floor crazes and gives way under them in stages - EXACTLY SIX chunks of solid broken
 grey floor-stone break loose in ones and twos, spread out across the length of the hold rather than in one
-burst, each chunk no bigger than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+burst, each  no bigger than one of his own FINGER BONES, never a slab and never a boulder, and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
 never smoke and never haze - knocked UPWARD to no higher than his own
 knee and spreading no wider than his own standing footprint - never past his leading foot toward
 screen-right and never past his rear heel toward screen-left - every chunk cracking apart and crumbling
