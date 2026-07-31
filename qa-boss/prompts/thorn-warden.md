@@ -124,25 +124,53 @@ reference stance. The brace and the split are COMPLETE by the halfway point of t
 second half is his slow rise back into the EXACT same reference stance, so that he is already standing
 completely still in the reference pose well before the clip ends. Rooted, straining, brutal.
 
-## special_3  (BLOSSOM FALL) — petals shake loose from his antlers
-SPECIAL FINISHER (blossom fall): he begins in the EXACT reference stance facing screen-right; he COILS
-his weight DOWN into a deep low braced crouch, bending at the knees with both feet staying exactly
-where they already stand, dropping his antlered head forward and DOWN with it, and SNAPS it once,
-hard, straight DOWN and
-back - the movement is purely up-and-down in the vertical plane, never side to side, and his head never
-turns toward the camera. EXACTLY FOUR solid cherry-blossom petals, the same dark pink-red as the
-blossoms on his own antlers and each no bigger than his own thumbnail, tear loose from those blossoms.
-All four fall STRAIGHT DOWN and NEVER rise above the antler tips they came from; they stay INSIDE HIS
-OWN STANDING FOOTPRINT - never past his front foot or his back heel - and all four curl, darken and
-crumble to nothing IN MID-AIR AS THEY FALL, well before the crouch finishes and long before any of them
-reaches the floor. WHAT COMES LOOSE IS FOUR SINGLE PETALS, NEVER A WHOLE FLOWER. Each
-blossom has many petals and gives up only one, so EVERY BLOSSOM STAYS FIXED ON HIS ANTLERS AND
-CLEARLY VISIBLE IN EVERY SINGLE FRAME - not one flower ever detaches, and the FINAL FRAME shows
-exactly as many dark pink-red blossoms on his antlers as the FIRST FRAME does. His antlers are NEVER
-bare, never stripped, never thinned.
-The petals are SOLID FLOWER: opaque, individual, never a glow, never a flare, never light, never a
-swirl of sparkles. His antlers NEVER rise above their reference height at any moment. HIS FEET STAY
-FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never jumps, never hops and never lunges out into a wider
-stance than the reference stance. The snap is COMPLETE by the halfway point of the clip; the whole
-second half is his slow rise back into the EXACT same reference stance, so that he is already standing
-completely still in the reference pose well before the clip ends. Quiet, heavy, final.
+## ★ special_3 REDESIGNED — why BLOSSOM FALL was abandoned (phase 135)
+
+BLOSSOM FALL was not badly worded; it was structurally unwinnable, and SEVEN restatements failed on
+it. Its beat sheds petals FROM the blossoms on his antlers — removal from a finite, COUNTABLE identity
+feature — while its bound insists that feature must not diminish. Beat and bound point in opposite
+directions, and you cannot out-assert a contradiction, only remove it. Every accepted special in this
+roster (thorn special_2's brace, oni's victory plant) has beat and bound pointing the SAME way.
+
+So the beat changed, not the wording. ROOTFALL sources its debris from DRY EARTH — a continuous
+surface that cannot visibly deplete, however much of it bursts — and the blossoms now SHIVER without
+shedding, which keeps his signature read while making beat and bound agree. It is also distinct from
+his other two finishers by silhouette and by material: special_1 is club-driven and lateral along a
+sweep path throwing THORNS; special_2 is a forward brace throwing BARK CHIPS off his own forearms;
+special_3 is body-driven, symmetric, centred on his own footprint, throwing EARTH.
+
+It obeys his budget for free. His ceiling is only 141px, which killed every raise — ROOTFALL raises
+nothing, and its no-wind-up clause ("he never lifts either foot off the ground to do it") is explicit
+because the WIND-UP is part of the beat and is where containment normally dies.
+
+The old BLOSSOM FALL text is deliberately NOT kept below: an abandoned acting line left in the file
+attaches to whichever state precedes it and ships to the model.
+
+## special_3  (ROOTFALL) — both heels driven down, the floor bursting in dry earth
+SPECIAL FINISHER (rootfall): he begins in the EXACT reference stance facing screen-right; he COILS his
+weight DOWN into a deep low braced crouch, bending at the knees with both feet staying exactly where
+they already stand, his chest and both shoulders staying angled toward screen-right exactly as they are
+in the reference image, and DRIVES BOTH HEELS DOWN into the floor beneath his own feet. He never lifts
+either foot off the ground to do it - there is no stamp, no hop, no raised knee and no backswing of any
+kind; the drive is a downward press of his whole sunk weight and nothing about it travels upward. Where
+his heels bite, EXACTLY SIX clods of dry dark earth burst up out of the floor, each one no bigger than
+HIS OWN FIST, and all six stay crowded inside HIS OWN STANDING FOOTPRINT in the reference stance -
+never past his front foot, never past his back heel. NOT ONE of the six ever rises higher than his own
+ANKLE at ANY moment - they do not grow, do not lengthen and are never thrown upward. All six darken,
+dry and crumble away to nothing IN MID-AIR AS THEY FALL, gone before any piece touches the floor,
+leaving the floor completely bare - no crater, no clod, nothing left lying anywhere. The earth is SOLID
+MATTER: dry, dark, opaque and crumbling - never a glow, never a flare, never light. The impact SHIVERS
+his whole frame: his antlers shake hard and EVERY ONE of the small pink blossoms on them shivers with
+them, but NOT ONE blossom and NOT ONE petal ever comes loose - every blossom stays fixed on his antlers
+and clearly visible in every single frame, and the FINAL FRAME shows exactly as many pink blossoms on
+his antlers as the FIRST FRAME does. His antlers are NEVER bare, never stripped, never thinned, and
+they NEVER rise above their reference height at any moment. HIS FEET STAY FLAT ON THE GROUND FOR THE
+ENTIRE CLIP and NEITHER FOOT EVER SLIDES OUT WIDER than it stands in the reference image - his rear
+foot in particular stays exactly where it starts; he never jumps, never hops and never lunges. He has
+exactly TWO arms and TWO hands, both on the club, in every single frame, the club stays BELOW HIS OWN
+WAIST throughout and never rises higher than it already sits in the reference stance, and his face,
+antlers and blossoms stay separate and fully readable and never merge into one another. The coil and
+the drive are COMPLETE by the halfway point of the clip; he then HOLDS the low crouch, motionless,
+while the last of the earth crumbles away, and only in the final second does he rise slowly back into
+the EXACT same reference stance, so that he is already standing completely still in the reference pose
+well before the clip ends. Heavy, rooted, final.
