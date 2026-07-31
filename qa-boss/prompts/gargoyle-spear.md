@@ -32,6 +32,25 @@
 # shaft's wing-vanes smearing into a disc in special_1; and `hit`'s backward lean carrying the wing
 # crest toward the left margin — if hit fails containment LEFT, shrink the lean, not the bound.
 
+# ★ idle — ACCEPTED FIRST TAKE (fired 2026-08-01, job 34c40d86). HIS KIT ANCHOR.
+#   check-frontturn      [ok] run 0/97 · sym 0.187->0.194 · aspect 1.10->1.14 — no confound label
+#   containment          CLEAN — on 206/209px margins with the WINGS owning LEFT and TOP
+#   check-extra-objects  1 blob — CLEAN
+#   raw-anchor           f0 0.875 / fLast 0.876 (BODY == ALL: no debris in this state)
+#   check-plate-key      keys with margin
+#   subject bbox         plate w701 h634 · f000 w698 h632 · f096 w699 h632 — matches within 3px
+#   motion               mean 3340 changed px/frame (lich's ACCEPTED idle: 1408) — alive, not static
+#
+#   THE WING WATCH IS CLOSED NUMERICALLY: bbox WIDTH spread across all 97 frames is **1px**
+#   (698..699). A spread, flare or beat would widen the box by hundreds. They never opened.
+#   The only shape change all clip is HEIGHT, 632 -> 618 -> 632: the settling sink, as designed.
+#
+#   MY EYE SAID THIS CLIP HAD SCALE DRIFT AND MY EYE WAS WRONG — the apparent size difference was
+#   an artifact of comparing panels with different pad columns. Third time today the eye and the
+#   measurement disagreed (lich's flame, lich's blurred blade, this) and all three times the
+#   measurement was right. Measure the bbox before calling scale or zoom.
+
+
 Generated OFF THE PADDED PLATE `qa-boss/anchors/mk/gargoyle-spear-anchor-green.png`, pre-screened
 before this kit was written: `node qa-boss/check-plate-key.mjs` returns opaque **17.45%**, emissive
 **0.38%** (all specular on stone — NO baked glow anywhere on him), white 0.00%, p99 backdrop distance
