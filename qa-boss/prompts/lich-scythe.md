@@ -329,6 +329,45 @@ faintly at the low end while the torn hems of his robe and the long tabard panel
 stay fixed in the same lipless grin and do not move at all. Feet planted, silent and patient. Returns to
 the exact start pose so it loops seamlessly. Slow, controlled, subtle motion.
 
+## ★ attack_strike v3 — ACCEPTED (fired 2026-07-31, job c5772ae3)
+
+                        v1              v2              v3 (ACCEPTED)
+  aspect                1.40            1.50            **1.14**   (baseline 0.89)
+  extra-objects         2 blobs         1 blob          1 blob
+  containment           CLEAN           CLEAN           CLEAN
+  raw-anchor f0/fLast   .904/.905       .900/.902       **.902/.905** ALL
+  anchor return IoU     -               -               **0.9913**
+  check-frontturn sym   0.436           0.373           0.496 (CONFOUNDED, drop 19%)
+
+DIRECTING THE ROTATION IS WHAT FIXED IT. v2 forbade rotation and demanded the blade reach knee
+height — impossible together, so the model rotated the scythe HORIZONTAL and reached it OUT
+(aspect 1.50). v3 tells it which way to rotate, using rule 3 of his own budget: lower hand locked
+as fulcrum, leading hand driving, weapon rotating BLADE-DOWN AND INWARD. Aspect fell to 1.14 and
+frame f040 shows exactly the intended beat — blade down, point near the stone, pulled in tight
+against his body. The deep reap NARROWS him, as rule 3 predicted.
+
+It also returns to the anchor better than his accepted idle does: **IoU 0.9913 vs 0.9758.**
+
+WHY THE sym 0.496 IS NOT A DEFECT, settled by discrimination rather than assertion. The new
+dropPct label flags this clip CONFOUNDED (19% height drop), so the number cannot adjudicate. I
+cropped the torso and compared f040 against lich idle v1 f050 — the one front-turn on this
+character that was CONFIRMED by eye. They are different pose classes:
+  idle v1 f050 (real turn)  ribs SYMMETRIC, sternum CENTRED, jaw spreading FRONTALLY
+  strike v3 f040            skull still in clean PROFILE (one jaw line, side-on socket),
+                            ribcage ANGLED, body FOLDED forward over the leading knee
+A fold reads as a compact symmetric blob to a mirror-IoU metric; pulling the weapon IN makes it
+more compact still, which is why sym ROSE while aspect FELL. That combination — sym up, aspect
+down — is the signature of the fix working, not of a turn.
+
+FEET: planted. The bottom subject row never rises above f0's (941 vs 943 — noise). A first pass
+of mine mislabelled an 18px spread as "feet leave the floor"; it is DOWNWARD, the blade tip
+descending past the foot line at f030. A lifted heel moves that row UP, not down.
+
+Watch on the next lich clip: at f030 the blade point reaches ~16px below the foot line, i.e.
+marginally through the floor plane. Containment does not count the bottom edge so it costs
+nothing, but "the blade never touches the ground" is in the acting line and is very slightly
+overstepped.
+
 ## ★ attack_strike v2 — REJECTED, but the wind-up fix WORKED (fired 2026-07-31, job 069c7e51)
 
                         v1                          v2
