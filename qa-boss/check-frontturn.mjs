@@ -164,7 +164,12 @@ function scan(file, tmpDir) {
     const b = bbox(m, w, h);
     if (b.x1 < 0) { rows.push({ sym: 0, aspect: 0, empty: true }); continue; }
     const n = norm(m, w, h, b);
-    rows.push({ sym: iou(n, mirror(n)), aspect: (b.x1 - b.x0 + 1) / (b.y1 - b.y0 + 1), empty: false });
+    rows.push({
+      sym: iou(n, mirror(n)),
+      aspect: (b.x1 - b.x0 + 1) / (b.y1 - b.y0 + 1),
+      height: b.y1 - b.y0 + 1,
+      empty: false,
+    });
   }
   fs.rmSync(tmpDir, { recursive: true, force: true });
 
@@ -181,9 +186,28 @@ function scan(file, tmpDir) {
   // front-turn whose widest frame is not its most symmetric one.
   const peakSym = Math.max(...rows.filter((r) => !r.empty).map((r) => r.sym));
   const peakAspect = Math.max(...rows.filter((r) => !r.empty).map((r) => r.aspect));
+
+  // #########################################################################################
+  // # dropPct — THE CONFOUND SIGNAL (phase 142). The header above already says a crouch, a  #
+  // # lunge and a prone pose all raise selfSym with no turn at all, and that you must tell   #
+  // # them apart BY EYE. That is correct but it gives no signal for WHEN to distrust the     #
+  // # number, so the reading has to be re-derived by hand every time — it cost a verdict on  #
+  // # lich attack_strike v2, whose beat is a deep forward fold ("hips folding deep, ribcage  #
+  // # coming down over his leading knee"): sym read 0.373 with the body arguably never       #
+  // # turning at all.                                                                        #
+  // #                                                                                         #
+  // # A fold/crouch/prone collapses the bbox HEIGHT. A genuine turn to camera does not — the #
+  // # fighter stays upright and the box gets WIDER, not shorter. So the height drop separates #
+  // # the two confounds cheaply, and it is the same quantity already trusted elsewhere as     #
+  // # dropPct for judging sinking beats. This does NOT decide the verdict; it labels the      #
+  // # reading so a flag on a crouch cannot be mistaken for a measured front-turn.             #
+  // #########################################################################################
+  const heights = rows.filter((r) => !r.empty).map((r) => r.height);
+  const dropPct = heights.length ? (1 - Math.min(...heights) / base.height) * 100 : 0;
+
   return {
     file, frames: rows.length, baseSym: base.sym, baseAspect: base.aspect,
-    peakSym, peakAspect,
+    peakSym, peakAspect, dropPct,
     run: best, runStart: bestStart, flagged: flags.filter(Boolean).length,
   };
 }
@@ -206,7 +230,12 @@ for (const f of files) {
   const isBad = r.run >= MIN_RUN;
   if (isBad) bad++;
   const tag = isBad ? '[FRONT]' : '[ ok  ]';
-  console.log(`  ${tag} ${path.basename(r.file).padEnd(44)} sym ${r.baseSym.toFixed(3)}->${r.peakSym.toFixed(3)}  aspect ${r.baseAspect.toFixed(2)}->${r.peakAspect.toFixed(2)}  run ${r.run}/${r.frames}${isBad ? ` @f${r.runStart}` : ''}`);
+  // A fold/crouch/prone collapses bbox HEIGHT; a genuine turn to camera does not. So a big drop
+  // means the sym/aspect reading is confounded and must be settled by eye, not by the number.
+  const confound = r.dropPct >= 15
+    ? `  drop ${r.dropPct.toFixed(0)}% <- SINK/FOLD: sym+aspect CONFOUNDED, judge by eye`
+    : '';
+  console.log(`  ${tag} ${path.basename(r.file).padEnd(44)} sym ${r.baseSym.toFixed(3)}->${r.peakSym.toFixed(3)}  aspect ${r.baseAspect.toFixed(2)}->${r.peakAspect.toFixed(2)}  run ${r.run}/${r.frames}${isBad ? ` @f${r.runStart}` : ''}${confound}`);
 }
 console.log(`\nscanned ${files.length}  |  front-turns ${bad}`);
 process.exit(bad ? 1 : 0);
