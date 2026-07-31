@@ -204,6 +204,32 @@ assertion, next to the count and the size bound:
 The haze also matters beyond taste: a translucent pale cloud over the chroma plate keys badly and
 leaves an olive fringe, which is the session-14 bloom-lit-plate defect arriving by another route.
 
+### 4c. NEVER NAME THE THING THAT ISN'T THERE — the legacy `unseen foe` / `unseen weight` phrasing
+
+A solo throw has to mime a grab. The tempting way to write that is *"clamps as if seizing an **unseen
+foe**"* or *"closes on an **unseen weight**"*, guarded by "NO opponent, no second figure". That is
+§4b again with the stakes raised: the beat NAMES a person or an object, and a negation sits beside
+it. It is also exactly the **IR-48 invented-attacker** class, which cost FOUR cycles when the model
+kept inventing a visible attacker to justify an unseen impact.
+
+**Name nothing. Say the hand closes on NOTHING, and assert it stays empty:**
+
+> CLOSES those bare finger bones on **NOTHING** at his own hip height in EMPTY AIR … THAT HAND CLOSES
+> ON EMPTY AIR AND STAYS EMPTY IN EVERY SINGLE FRAME — nothing is held, caught, seized, dragged or
+> carried, there is NO opponent, no second figure and no object of any kind anywhere in the frame
+
+And bind the debris to a REAL contact point. `"chips knocked up where the weight comes down"` sources
+an effect from a phantom — there is no weight, so there is no impact site. Use his own feet, his own
+weapon butt, his own knee: something that actually reaches the floor.
+
+**STATUS, so nobody re-derives this.** Swept 2026-08-01: the phrasing survives in **25 legacy kits**
+(`unseen foe` in most, `unseen weight` in hydra, ir12, jin, minotaur, pale-choir, raiju, skullrend).
+No throw clip has yet been *measured* failing this way, so it is a latent risk, not a confirmed
+defect — it is being fixed **per kit as each comes up for firing**, not mass-edited across files
+nobody is about to fire. lich's two throws are already done. **gargoyle-spear, written under this
+brief, never used the phrasing at all** — which is the evidence that the doctrine now produces the
+right pattern on its own.
+
 ## 5. THE DEBRIS-VANISH LAW — the contradiction that has recurred five times
 
 A global suffix is appended to every prompt ending: *"Anything that sheds, tears loose, breaks off
