@@ -70,6 +70,18 @@ back. **Read the id out of the response you just got and echo THAT back as `decl
 The recommendation notice is not a job: it costs nothing and burns no rate-limit window, so the extra
 round-trip when the preset changes is free.
 
+**Confirmed again phase 134, and this is the tightest evidence available.** The earlier table varies
+three things at once (three different states). This pair varies exactly ONE:
+
+| clip | preset offered |
+|---|---|
+| lich `idle` **v1** | IN THE DARK · `24bae836-2c4a-48e0-89b6-49fcc0b21612` |
+| lich `idle` **v2** | **DROWN IN MUSIC** · `f1821f84-945b-4cd1-9085-1f479db0028e` |
+
+Same character, same plate, same media_id, same state, same settings, minutes apart — only the acting
+sentence was rewritten, and the preset flipped. It keys on prompt TEXT. Do not cache it by character,
+by state, or by session; read it fresh out of every response.
+
 ## NON-INTERFERENCE (standing, Tim 2026-07-31)
 
 Another terminal generates on a DIFFERENT account against the same rate limit. Before ANY fire, call
