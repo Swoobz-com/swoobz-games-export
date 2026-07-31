@@ -25,6 +25,11 @@ function quoted(afterLabel) {
   return out.join(' ');
 }
 
+// The add-on's LABEL, matched by REGEX and never by an exact literal — see the BUG FOUND note below.
+// Shared by paragraphAfter() (which reads the add-on) and EDITORIAL_BLOCK (which refuses to let that
+// same label be swallowed into an acting line), so the two can never drift apart.
+const ADDON_LABEL = /SPECIAL[^:\n]*add-on[^:\n]*:/i;
+
 // "SPECIAL add-on:" is a plain paragraph, not a blockquote.
 // Matches the add-on heading by REGEX, not by an exact literal.
 // BUG FOUND 2026-07-29: this used src.indexOf('SPECIAL add-on:'). satoshi-odachi.md and
@@ -100,6 +105,51 @@ function headingPattern(st) {
   return '^## (?:' + st + '|' + m[1] + ' B)\\b.*$';
 }
 
+// ############################################################################################
+// # THE TRAILING-EDITORIAL RULE (phase 96). THIRD INSTANCE OF THE SAME FAMILY.                #
+// #                                                                                            #
+// # A section used to be "everything from '^## <state>' until the NEXT '^## '". But these      #
+// # files also carry EDITORIAL blocks that are NOT '##'-headed — the shared prefix/suffix      #
+// # blockquotes, the "SPECIAL add-on:" block, ★-marked operator notes, bare '---' rules. When  #
+// # such a block trails the LAST state section before the next heading, the old rule swallowed #
+// # it whole and shipped it to the video model AS PROMPT TEXT. MEASURED, 4 of 245 assembled    #
+// # prompts, all of them shipping:                                                             #
+// #   eclipse-ofuda  victory   -> the "★ ECLIPSE ONE-ACTION LOCK ... APPEND to EVERY remaining #
+// #                               v2/v3 acting line before firing:" note (an instruction ABOUT #
+// #                               the prompt, naming a PAST FAILURE), six literal '>' markers, #
+// #                               AND the whole SPECIAL add-on — on a state that is not a      #
+// #                               special.                                                      #
+// #   ir37-pink-tessen strike_b -> the ENTIRE "Shared prefix:" block, the ENTIRE "Shared        #
+// #                               suffix ...:" block (including its "NOTE: v1 idle FAILED" QA  #
+// #                               prose) and the SPECIAL add-on, all with their '>' markers —  #
+// #                               so that prompt carried the prefix twice, the suffix twice,   #
+// #                               and ran 4523 chars against a ~2000 norm.                     #
+// #   thorn-warden  victory     -> the SPECIAL add-on debris rule, on a non-special.           #
+// #   eclipse-ofuda special_3   -> a literal '---'.                                            #
+// #                                                                                            #
+// # FIX: the body ENDS at the first editorial-block line, and the cut is announced on stderr   #
+// # naming file, state, heading, what it hit and every line it dropped. It is a WARN, not a    #
+// # throw, so a fire is never blocked by a prompt file's layout — but check-prompt-sections    #
+// # turns the same condition into a hard gate failure, so it cannot ship silently.             #
+// # GENERIC ON PURPOSE: keyed on markdown/editorial STRUCTURE, no character is special-cased.  #
+// ############################################################################################
+const EDITORIAL_BLOCK = [
+  ['a markdown BLOCKQUOTE (in these files a "> " block is always shared prefix/suffix/add-on ' +
+   'material, never acting prose)', /^\s*>/],
+  ['a ★-marked operator note', /^\s*[★☆]/],
+  ['a "Shared prefix/suffix" block label', /^\s*Shared\s+(?:prefix|suffix)\b/i],
+  ['a "SPECIAL ... add-on:" block label', new RegExp('^\\s*(?:' + ADDON_LABEL.source + ')', 'i')],
+  ['a markdown horizontal rule', /^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/],
+];
+
+// Index of the first line that opens an editorial block, or null if the section is all acting prose.
+function firstEditorialLine(lines) {
+  for (let i = 0; i < lines.length; i++) {
+    for (const [what, re] of EDITORIAL_BLOCK) if (re.test(lines[i])) return { at: i, what };
+  }
+  return null;
+}
+
 function sectionsFor(st) {
   const re = new RegExp(headingPattern(st), 'gm');
   const found = [];
@@ -107,14 +157,25 @@ function sectionsFor(st) {
     const rest = src.slice(m.index + m[0].length);
     const nextH = rest.search(/^## /m);
     const seg = nextH < 0 ? rest : rest.slice(0, nextH);
-    const body = seg.split('\n').filter((l) => !l.trimStart().startsWith('#')).join(' ')
-      .replace(/\s+/g, ' ').trim();
+    const lines = seg.split('\n').filter((l) => !l.trimStart().startsWith('#'));
+    const flat = (ls) => ls.join(' ').replace(/\s+/g, ' ').trim();
+    // The FULL body — editorial tail included — is what the history/analysis disqualification below
+    // still judges, exactly as before. Keeping the trim OUT of that decision is deliberate: it
+    // guarantees the trailing-editorial rule can never change WHICH section gets picked, only what
+    // is emitted from the section already picked.
+    const body = flat(lines);
     const heading = m[0].trim();
     const tells = TELEMETRY_TELL.filter((r) => r.test(body));
     const deadHead = DEAD_HEADING.test(heading);
     // Version rank from the heading: "## attack_strike_b v4 (...)" -> 4; a bare heading -> 1.
     const vm = heading.match(/\bv(\d+)\b/);
-    found.push({ heading, body, tells, deadHead, v: vm ? Number(vm[1]) : 1 });
+    const cut = firstEditorialLine(lines);
+    found.push({
+      heading, body, tells, deadHead, v: vm ? Number(vm[1]) : 1,
+      acting: cut ? flat(lines.slice(0, cut.at)) : body,
+      dropped: cut ? lines.slice(cut.at).filter((l) => l.trim()) : [],
+      droppedWhat: cut ? cut.what : null,
+    });
   }
   return found;
 }
@@ -140,7 +201,26 @@ function stateBody(st) {
     process.stderr.write('SECTION: ' + chosen.heading + '  (of ' + all.length + ' matching "' + st +
       '"; ' + (all.length - live.length) + ' disqualified as history/analysis)\n');
   }
-  return chosen.body;
+  if (chosen.dropped.length) {
+    // A section that is editorial from its FIRST line has no acting prose at all. Emitting '' there
+    // would hand the model a prefix+suffix with no action in between — silent, and worse than the
+    // leak. Refuse instead.
+    if (!chosen.acting) {
+      throw new Error(
+        'REFUSING to build "' + st + '" from ' + file + ': ' + chosen.heading + ' has NO acting prose ' +
+        'before its first editorial block (' + chosen.droppedWhat + '), so there is nothing to fire.\n' +
+        chosen.dropped.slice(0, 6).map((l) => '    | ' + l.trimEnd()).join('\n'));
+    }
+    process.stderr.write(
+      'WARN: TRIMMED trailing editorial — ' + file + ' [' + st + '] ' + chosen.heading + '\n' +
+      '  This section runs on past its acting line into ' + chosen.droppedWhat + '. The ' +
+      chosen.dropped.length + ' line(s) below were about to be sent to the model AS PROMPT TEXT and ' +
+      'were CUT:\n' +
+      chosen.dropped.map((l) => '    | ' + l.trimEnd()).join('\n') + '\n' +
+      '  FIX THE FILE: that block belongs above the first "## " state heading, or under a "## " ' +
+      'heading of its own — otherwise it keeps attaching itself to whichever state precedes it.\n');
+  }
+  return chosen.acting;
 }
 
 // THE KO-SUFFIX RULE. `ko` is the ONE off-anchor state: the fighter DROPS the weapon and ENDS
@@ -213,8 +293,9 @@ function koSuffix(s) {
 
 const parts = [quoted('Shared prefix:'), stateBody(state)];
 if (state.startsWith('special')) {
-  // Accepts "SPECIAL add-on:" and "SPECIAL suffix add-on (...):" alike.
-  const addon = paragraphAfter(/SPECIAL[^:\n]*add-on[^:\n]*:/i);
+  // Accepts "SPECIAL add-on:" and "SPECIAL suffix add-on (...):" alike. Same regex the
+  // trailing-editorial rule uses, so what is APPENDED here and what is REFUSED there stay identical.
+  const addon = paragraphAfter(ADDON_LABEL);
   if (addon) parts.push(addon);
   else process.stderr.write(
     'WARN: no SPECIAL add-on paragraph found in ' + file + ' — the contain-in-frame rule is NOT ' +

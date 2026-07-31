@@ -151,6 +151,12 @@ VICTORY TAUNT: she whips the katana through one crisp fierce flourish arc in fro
 whipping with it, and snaps the blade down to her side in a proud stance, her chest staying in profile
 facing screen-right the whole time, then settles back to the starting stance. Alone, no opponent.
 
+## ☰ SHARED BLOCKS — one-action lock / SPECIAL add-on (NOT a state; never fired on its own)
+This heading exists so these blocks stop attaching themselves to whichever state section precedes
+them. Before it was added, `victory` shipped the ★ operator note verbatim — including the words
+"APPEND to EVERY remaining v2/v3 acting line before firing" and a description of a past failure —
+plus six literal blockquote markers, straight to the model. Do not remove it.
+
 ★ ECLIPSE ONE-ACTION LOCK (session 5, after strike_a v2's spin-kata): APPEND to EVERY remaining v2/v3
 acting line before firing:
 > It is ONE single action and nothing else: she does NOT spin, does NOT turn, does NOT repeat the move,
@@ -307,8 +313,6 @@ starting stance. The crescent stays FULLY INSIDE the frame and NEVER extends pas
 SPECIAL FINISHER (talisman bind): glowing paper talismans spiral tight around her katana as she raises it
 then drives a contained thrust forward, the talisman-light fading within frame, then she lands back in the
 starting stance. The spiralling talismans stay FULLY INSIDE the frame and NEVER extend past the edges.
-
----
 
 ## ★ ECLIPSE FRAME BUDGET (measured on qa-boss/anchors/eclipse-ofuda-anchor-green.png, phase 53)
 Plate 1536x1536. Content **557w x 1319h**, so: LEFT **495px** · RIGHT **484px** · HEADROOM **140px**

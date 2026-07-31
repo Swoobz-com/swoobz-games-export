@@ -22,6 +22,9 @@ Shared suffix (FACING LOCK added — first idle rotated to frontal + broke the l
 > added. He begins and ends on the EXACT same reference stance (final frame identical to first). 24fps.
 > Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
+SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
+APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, and all of it withers or crumbles away to nothing before the final frame, never coming near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
+
 ## idle
 IDLE COMBAT-READY LOOP: a grounded heavy fighting stance, breathing slowly, the thorn-club held
 ready, antlers and blossoms trembling faintly, subtle weight shifts foot to foot. Feet planted, red
@@ -66,9 +69,6 @@ on the ground and holds there (does NOT return to standing).
 ## victory  (plant club, antlers raised)
 VICTORY TAUNT: he plants the butt of the thorn-club on the ground, straightens tall and raises his
 antlered head proudly, blossoms shivering, then settles back to the starting stance. Alone, no opponent.
-
-SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
-APART FROM HIS OWN ERUPTING THORNS, BARK CHIPS AND BLOSSOM PETALS the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his thorn-club and HIS OWN debris. Every effect is SOLID MATERIAL - real woody thorns, real bark splinters, real petals, opaque and lit like wood and flower - never a glow, never a flame, never an aura, never mist or smoke. All of it stays low and close to him, and all of it withers or crumbles away to nothing before the final frame, never coming near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
 
 ## ★ THORN FRAME BUDGET (measured, phase 68 — node 3)
 Plate 1536x1536. Subject 814w x 1317h (fills 85.7%), bbox x360..x1173.

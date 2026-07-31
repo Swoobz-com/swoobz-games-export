@@ -42,6 +42,11 @@ arcing cleave down through the air in front of her, her whole body weight commit
 open fan slicing like a blade with follow-through, then she snaps the fan shut and flows back to the
 starting stance. Big, fast, theatrical violence.
 
+## ☰ SHARED BLOCKS — prefix / suffix / SPECIAL add-on (NOT a state; never fired on its own)
+This heading exists so these blocks stop attaching themselves to whichever state section precedes
+them. Before it was added, `strike_b` shipped the ENTIRE prefix and suffix a SECOND time, blockquote
+markers and QA prose included. Do not remove it, and do not put an acting line under it.
+
 Shared prefix:
 > The EXACT SAME black-armored pink-neon kunoichi from the reference image (identical glossy black armored
 > bodysuit with glowing hot-pink neon trim and edge-lighting, a black visored helmet with a pink
