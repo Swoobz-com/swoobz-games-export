@@ -44,6 +44,28 @@ const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
 
 const TIGHT = 45, LOOSE = 70;          // must match scripts/key-idle-clips.mjs
+
+// ############################################################################################
+// # BAKED-EMISSIVE SCREEN — AND WHY IT IS HUE-AGNOSTIC (phase 109).                            #
+// # A character with baked flame/lightning is unusable (the "kitsune blocker"), so this is the  #
+// # cheapest thing worth measuring on a plate. My first version of this screen tested for       #
+// # NEAR-WHITE and for WARM emissives (r>=235, g>=200, b<160) — and it was WRONG, in a way that #
+// # a whole 23-candidate screen was built on top of before a kit-writing agent caught it:       #
+// #                                                                                            #
+// #   lich-scythe carries a VIOLET crown flame, brightest rgb(214,157,255). Blue-dominant, so   #
+// #   it fails the warm test AND the near-white test. Measured 0.00% warm — actually 0.77%.     #
+// #   drake-glaive scored 0.49% "clean" on the warm test and 5.26% here: a clear REJECT that    #
+// #   had already been promoted into a shortlist tier on the strength of the bad number.        #
+// #   wight-spear scored 0.00% warm while its cyan glow was plainly visible in a contact sheet. #
+// #                                                                                            #
+// # A flame can be any colour. Test the two properties that make a pixel READ as emissive       #
+// # regardless of hue: it is BRIGHT and it is SATURATED. Warm, violet, cyan and acid-green all  #
+// # satisfy that; ordinary lit material does not, because lit material desaturates as it        #
+// # brightens. Near-white is kept as a separate column because a white-hot CORE is often the    #
+// # only part of a flame that is not saturated at all.                                          #
+// ############################################################################################
+const EM_BRIGHT = 215;   // max channel
+const EM_SAT = 70;       // max - min
 const argv = process.argv.slice(2);
 const oi = argv.indexOf('--out-dir');
 const OUT = oi >= 0 ? argv[oi + 1] : 'qa-boss/frames/platekey';
@@ -59,7 +81,7 @@ const dist2 = (r, g, b, c) => {
   return a * a + e * e + f * f;
 };
 
-console.log('plate'.padEnd(32) + 'opaque%   p99dist  max   verdict');
+console.log('plate'.padEnd(30) + 'opaque%  emis%  white%  p99  max   verdict');
 console.log('-'.repeat(78));
 let worst = 0;
 for (const file of files) {
@@ -101,20 +123,35 @@ for (const file of files) {
   const p99 = dists.length ? dists[Math.floor(dists.length * 0.99)] : 0;
   const max = dists.length ? dists[dists.length - 1] : 0;
 
-  let opaque = 0;
-  for (let q = 0; q < W * H; q++) if (alpha[q]) opaque++;
+  let opaque = 0, emis = 0, white = 0;
+  for (let q = 0; q < W * H; q++) {
+    if (!alpha[q]) continue;
+    opaque++;
+    const i = q * 4, r = d[i], g = d[i + 1], b = d[i + 2];
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    if (mx >= EM_BRIGHT && (mx - mn) >= EM_SAT) emis++;
+    if (r >= 250 && g >= 250 && b >= 250) white++;
+  }
   const op = 100 * opaque / (W * H);
+  const emp = 100 * emis / (opaque || 1);
+  const whp = 100 * white / (opaque || 1);
 
   const out = new PNG({ width: W, height: H });
   for (let q = 0; q < W * H; q++) { const i = q * 4; const v = alpha[q] ? 255 : 0; out.data[i] = v; out.data[i + 1] = v; out.data[i + 2] = v; out.data[i + 3] = 255; }
   const maskPath = path.join(OUT, path.basename(file).replace(/\.png$/i, '') + '-alpha.png');
   fs.writeFileSync(maskPath, PNG.sync.write(out));
 
-  const verdict = p99 < TIGHT ? 'keys with margin — OPEN THE MASK' : 'p99 >= TIGHT — LOOK, backdrop may survive';
-  if (p99 >= TIGHT) worst = 1;
+  const keyOk = p99 < TIGHT;
+  // Emissive is reported ALONGSIDE the key result, never folded into it: a plate can key
+  // perfectly and still be unusable because a flame is baked into the character.
+  const emVerdict = emp >= 3 ? 'BAKED EMISSIVE — REJECT' : emp >= 1 ? 'emissive feature — LOOK' : '';
+  const verdict = [keyOk ? 'keys with margin' : 'p99 >= TIGHT — backdrop may survive', emVerdict]
+    .filter(Boolean).join(' · ');
+  if (!keyOk || emp >= 3) worst = 1;
   console.log(
-    path.basename(file).replace(/\.png$/i, '').padEnd(32) +
-    op.toFixed(2).padStart(7) + '   ' + p99.toFixed(1).padStart(6) + '  ' + max.toFixed(0).padStart(4) + '   ' + verdict,
+    path.basename(file).replace(/\.png$/i, '').padEnd(30) +
+    op.toFixed(2).padStart(6) + '  ' + emp.toFixed(2).padStart(5) + '  ' + whp.toFixed(2).padStart(6) + '  ' +
+    p99.toFixed(1).padStart(4) + ' ' + max.toFixed(0).padStart(4) + '   ' + verdict,
   );
 }
 console.log('-'.repeat(78));

@@ -41,10 +41,7 @@ ruling, so wave 2 does not decide it either.
 | **hydra-flail** | 0.68 | L222 R220 T468 | 13.29 | 5.4 | CHAIN FLAIL, three skull heads. The fine chain links keyed cleanly, which is the thing to worry about with a thin prop |
 | **gargoyle-spear** | 0.66 | L206 R209 T498 | 17.45 | 5.0 | WINGED stone. First winged silhouette; wings dominate the left of the mask |
 
-### TIER B — usable, at a stated cost.
-| character | fill | margins | note |
-|---|---|---|---|
-| **drake-glaive** | 0.58 | L208 R208 T620 | Dragon + long glaive. 58% fill = a real resolution cost. Worth it only if a dragon is wanted |
+### ~~TIER B~~ — **EMPTY. `drake-glaive` was REJECTED in phase 109. See the correction below.**
 
 ### TIER C — PROP-EXTENDED. Do NOT write kits without Tim's ruling.
 | character | fill needed | why |
@@ -52,6 +49,40 @@ ruling, so wave 2 does not decide it either.
 | **nurikabe-shield** | 0.55 | The shield IS the silhouette — a huge mass |
 | **golem-mace** | 0.50 | Half the frame height spent to fit the mace. Worst in the set |
 Same class as satoshi / sora / ir56. Consistent treatment: they wait for the same ruling.
+
+---
+
+## ★ CORRECTION, PHASE 109 — THE EMISSIVE SCREEN ABOVE WAS HUE-BIASED AND WRONG
+
+The first screen tested for NEAR-WHITE and for **WARM** emissives (`r>=235, g>=200, b<160`). **A flame
+can be any colour.** A kit-writing agent caught it on lich-scythe: he carries a **VIOLET crown flame**,
+brightest `rgb(214,157,255)` — blue-dominant, so it fails the warm test *and* the near-white test. It
+scored **0.00% warm** and is actually ~0.8-1.0%.
+
+Re-measured hue-agnostically — **BRIGHT (max channel >= 215) AND SATURATED (max-min >= 70)**, which
+catches warm, violet, cyan and acid-green alike, because ordinary lit material DESATURATES as it
+brightens while a flame does not:
+
+| character | warm% (old, wrong) | any-hue% | outcome |
+|---|---|---|---|
+| **drake-glaive** | 0.49 "clean" | **5.26** | **REJECTED — it was in TIER B on the strength of the bad number** |
+| Horned Ruin Vex | 0.00 | 4.65 | already rejected (duplicate archetype); metric now agrees |
+| Sol Ofuda | 0.14 | 2.12 | already rejected (duplicate); has an emissive feature too |
+| Wight Spear | 0.00 | 1.98 | the cyan glow was PLAINLY VISIBLE in the contact sheet while the metric said 0.00 |
+| Lira_Astraea | 0.05 | 2.02 | already rejected |
+| hydra-flail | 0.03 | **0.87** | TIER A HOLDS — minor, must be pinned in its kit |
+| lich-scythe | 0.00 | **0.77** | TIER A HOLDS — the violet crown flame; pinned in its kit |
+| gargoyle-spear | 0.00 | **0.00** | TIER A HOLDS — genuinely clean |
+
+**Two lessons, and the second is the general one:**
+1. The corrected test is now IN `check-plate-key.mjs` as an `emis%` column with its own verdict, so
+   this cannot regress into a one-off script again.
+2. **The visual read caught what the metric missed** — wight-spear's cyan glow was noted by eye and
+   scored 0.00%. That is the same shape as raiju, where the metric cried wolf and the eye was right,
+   only inverted. Neither channel is authoritative alone. **Run both, and when they disagree, go and
+   find out WHY rather than picking the one you prefer.**
+
+---
 
 ### REJECTED — BAKED EMISSIVE (measured, then confirmed at full size)
 | character | hot% | what is baked in |
