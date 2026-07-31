@@ -102,8 +102,12 @@ reference stance.
 
 ## attack_throw_b  (shoulder barge, solo-safe)
 THROW (shoulder barge): he begins in the EXACT reference stance, his body angled toward screen-right exactly as it is in the reference image; he drops his shoulder, drives a short heavy barge forward from the hips WITHOUT stepping
-his feet apart, the tetsubo tucked DOWN and IN against his own body throughout, and dust scuffs up from
-the floor under his planted feet. He barges through empty air only - NO opponent, no second figure. The
+his feet apart, the tetsubo tucked DOWN and IN against his own body throughout, and EXACTLY FOUR small
+chips of dry grey floor-stone scuff up from under his own planted feet, each chip no bigger than his own
+thumb and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke
+and never haze - rising no higher than his own ankle, staying inside his own standing footprint and
+never past his front foot or his back heel, and every chip crumbling away to nothing in mid-air as it
+falls, gone before any piece touches the floor. He barges through empty air only - NO opponent, no second figure. The
 barge is COMPLETE by the halfway point; the second half is his settle back into the EXACT same reference
 stance.
 

@@ -30,13 +30,61 @@ IDLE COMBAT-READY LOOP: a grounded heavy fighting stance, breathing slowly, the 
 ready, antlers and blossoms trembling faintly, subtle weight shifts foot to foot. Feet planted, red
 eyes alert. Returns to the exact start pose so it loops seamlessly. Slow, heavy, subtle motion.
 
-## attack_strike A  (overhead club smash)
-STRIKE (overhead smash): he raises the thorn-club high overhead with both hands and brings it down in
-a heavy vertical smash, then recovers to the starting stance. One committed downward blow.
+## ★ attack_strike A/B REWRITTEN — the old lines contradicted his own frame budget (phase 139)
 
-## attack_strike B  (horizontal club sweep)
-STRIKE (horizontal sweep): he winds back and swings the thorn-club in a wide horizontal arc across
-the front, then recovers to the starting stance. One heavy sweeping blow.
+Both were original one-liners, written before the containment discipline existed. His specials were
+rewritten and his basic states were not, so they still said:
+
+> A: "he **raises the thorn-club high overhead** with both hands and brings it down in a heavy
+>    vertical smash"
+> B: "he **winds back** and swings the thorn-club in a wide horizontal arc"
+
+A is a flat contradiction of the FRAME BUDGET recorded further down this same file — **HEADROOM
+141px … his beats must be LATERAL or DIAGONAL-DOWNWARD, never a raise.** An overhead smash is the one
+shape his plate cannot hold. B's "winds back" is an unbounded wind-up in the same family.
+
+Neither was caught by a numeric gate because neither has ever been fired in this form. Found by
+sweeping the roster for wind-up raises after lich `attack_strike` v1 burned a render on exactly this
+(scythe fully overhead, five bounds broken, all from a wind-up). Rewritten to the shape that PASSED
+on lich's idle: no wind-up at all, everything starts from where the prop already sits, and the
+shoulder/hip line is bound so the beat may FOLD but not TURN.
+
+## attack_strike A  (falling club chop, no wind-up)
+STRIKE A (falling chop): he begins in the EXACT reference stance facing screen-right, the thorn-club
+held exactly where it sits in the reference image. THERE IS NO WIND-UP OF ANY KIND: he does NOT raise
+the club, does NOT draw it back, does NOT lift it even slightly, his shoulders do NOT rise, and NO PART
+of the club travels UPWARD at ANY moment in the clip - the blow starts from exactly where the club
+ALREADY SITS and only ever goes DOWN. He COILS his weight DOWN into a deep braced crouch with both feet
+staying exactly where they already stand, and drives the club DOWN and slightly forward toward
+screen-right in one committed chop, the club head finishing BELOW HIS OWN WAIST and never rising again
+until the recovery. THE CLUB STAYS ON THE SCREEN-RIGHT SIDE OF HIS BODY FOR THE WHOLE CLIP - it never
+swings behind him and never crosses to his screen-left side. His chest and both shoulders stay angled
+toward screen-right exactly as they are in the reference image, and THE LINE OF HIS TWO SHOULDERS AND
+THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE
+FRAME - he may FOLD and SINK, but he never TURNS. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP
+and NEITHER FOOT EVER SLIDES OUT WIDER than it stands in the reference image; he never jumps, never hops
+and never lunges. He has exactly TWO arms and TWO hands, both on the club, in every single frame. The
+chop is COMPLETE by the halfway point of the clip; he then HOLDS the low braced stance, and only in the
+final second does he rise slowly back into the EXACT same reference stance, so that he is already
+standing completely still in the reference pose well before the clip ends. Heavy, rooted, brutal.
+
+## attack_strike B  (low lateral sweep, no wind-up)
+STRIKE B (low sweep): he begins in the EXACT reference stance facing screen-right, the thorn-club held
+exactly where it sits in the reference image. THERE IS NO WIND-UP OF ANY KIND: he does NOT wind back,
+does NOT draw the club behind him, does NOT raise it, and NO PART of the club travels UPWARD at ANY
+moment in the clip. He COILS his weight DOWN into a braced crouch with both feet staying exactly where
+they already stand, and sweeps the thorn-club LOW and LATERALLY across the front of his own body from
+screen-left to screen-right in one heavy committed pass, the club head staying BELOW HIS OWN WAIST for
+the whole sweep and never travelling further toward screen-right than his own leading foot. THE CLUB
+NEVER SWINGS BEHIND HIM and never crosses past his own rear heel toward screen-left. His chest and both
+shoulders stay angled toward screen-right exactly as they are in the reference image, and THE LINE OF
+HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE
+IMAGE IN EVERY SINGLE FRAME - he may FOLD and SINK, but he never TURNS. HIS FEET STAY FLAT ON THE GROUND
+FOR THE ENTIRE CLIP and NEITHER FOOT EVER SLIDES OUT WIDER than it stands in the reference image; he
+never jumps, never hops and never lunges. He has exactly TWO arms and TWO hands, both on the club, in
+every single frame. The sweep is COMPLETE by the halfway point of the clip; he then HOLDS the low
+braced stance, and only in the final second does he rise slowly back into the EXACT same reference
+stance. Heavy, rooted, brutal.
 
 ## attack_throw A  (root grab-slam, solo-safe)
 THROW (grab and slam): he reaches forward low with his free hand through EMPTY AIR, clamps as if
