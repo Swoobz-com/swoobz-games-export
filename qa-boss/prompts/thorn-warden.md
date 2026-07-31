@@ -135,10 +135,11 @@ blossoms on his own antlers and each no bigger than his own thumbnail, tear loos
 All four fall STRAIGHT DOWN and NEVER rise above the antler tips they came from; they stay INSIDE HIS
 OWN STANDING FOOTPRINT - never past his front foot or his back heel - and all four curl, darken and
 crumble to nothing IN MID-AIR AS THEY FALL, well before the crouch finishes and long before any of them
-reaches the floor. HIS ANTLERS KEEP THEIR FULL CROWN OF BLOSSOMS THE ENTIRE CLIP: the four that tear
-loose are the ONLY ones that ever leave, EVERY OTHER BLOSSOM STAYS FIXED ON HIS ANTLERS AND CLEARLY
-VISIBLE in every single frame, and in the FINAL FRAME his antlers carry exactly as many dark pink-red
-blossoms as they do in the FIRST FRAME. His antlers are NEVER bare, never stripped, never thinned.
+reaches the floor. WHAT COMES LOOSE IS FOUR SINGLE PETALS, NEVER A WHOLE FLOWER. Each
+blossom has many petals and gives up only one, so EVERY BLOSSOM STAYS FIXED ON HIS ANTLERS AND
+CLEARLY VISIBLE IN EVERY SINGLE FRAME - not one flower ever detaches, and the FINAL FRAME shows
+exactly as many dark pink-red blossoms on his antlers as the FIRST FRAME does. His antlers are NEVER
+bare, never stripped, never thinned.
 The petals are SOLID FLOWER: opaque, individual, never a glow, never a flare, never light, never a
 swirl of sparkles. His antlers NEVER rise above their reference height at any moment. HIS FEET STAY
 FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never jumps, never hops and never lunges out into a wider
