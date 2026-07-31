@@ -82,35 +82,47 @@ beat lives: THORNS ERUPTING FROM THE GROUND along the club's swing path, then wi
 ## special_1  (THORNBREAK) — ground thorns erupt along the swing path
 SPECIAL FINISHER (thornbreak): he begins in the EXACT reference stance facing screen-right; he coils
 his weight down into a low braced crouch and sweeps the thorn-club LOW across the ground in front of
-his own feet, keeping the club head BELOW HIS OWN WAIST for the entire sweep, and along the path it
-carves a row of solid woody THORNS ERUPTS UP OUT OF THE GROUND at his feet - dark bark-brown, sharp,
-opaque, rising no higher than his own knee and spreading no wider than one body-width to either side -
-then they wither, curl and crumble back down into the floor within a beat while he holds the crouch.
-The thorns are SOLID WOOD: never a glow, never a flare, never light. They stay at GROUND LEVEL, never
-rise above his knee, and never come near the left, right or top edge of the frame. The whole sweep and
-eruption are COMPLETE by the halfway point of the clip; the whole second half is his slow rise back
-into the EXACT same reference stance. Heavy, rooted, brutal.
+his own feet. He NEVER lifts the club HIGHER than it already sits in the reference stance - there is
+no wind-up, no backswing, no overhead raise; from the reference position it travels DOWNWARD and
+sideways only, and the club head stays BELOW HIS OWN WAIST for the whole sweep. Directly under
+the club's path, EXACTLY THREE thorns tear up out of the floor - dark bark-brown, sharp, opaque, each
+one no longer than HIS OWN FOREARM so that not one of them stands taller than his own shin, and all
+three crowded into a strip of floor no wider than the gap between his own two feet. Then all three
+snap off at the root and crumble away to nothing IN MID-AIR AS THEY FALL, gone before any piece
+touches the floor, leaving the ground completely bare while he holds the crouch. The thorns are SOLID
+WOOD: never a glow, never a flare, never light. The whole sweep and eruption are COMPLETE by the
+halfway point of the clip; the whole second half is his slow rise back into the EXACT same reference
+stance. Heavy, rooted, brutal.
 
 ## special_2  (BARKSPLIT) — bark chips shear off his own forearms and club
 SPECIAL FINISHER (barksplit): he begins in the EXACT reference stance facing screen-right; he plants
-his feet, hauls the thorn-club IN TIGHT across his own chest and BRACES, his bark-textured forearms
-flexing hard against it, and the strain SPLITS his own bark - a tight burst of solid bark chips and
-woody splinters shears off his forearms and off the club's shaft, no wider than his own torso, and
-falls DOWNWARD to the ground at his feet, crumbling away to nothing before it reaches the floor. The chips are SOLID BARK: dry,
-opaque, sharp-edged - never a glow, never a flare, never light. They stay within one body-width of him
-at ALL times, never spray outward, never rise above his own shoulder, and never come near the left,
-right or top edge of the frame. The brace and the split are COMPLETE by the halfway point of the clip;
-the whole second half is his slow settle back into the EXACT same reference stance. Rooted, straining,
-brutal.
+his feet and sinks his weight DOWN into a low braced crouch, driving the thorn-club DOWN and forward at
+arm's length in front of his leading shoulder and BRACING against it with both hands, his bark-textured
+forearms flexing hard against the shaft; his shoulders and hips stay exactly as they are in the
+reference stance throughout the brace. The strain SPLITS his own bark - EXACTLY FIVE bark chips, each
+no bigger than his own thumb, shear off the backs of his forearms and off the club's shaft. All five
+stay INSIDE HIS OWN STANDING FOOTPRINT - they never drift past his front foot or his back heel, never
+rise above his own shoulder, and they curl, darken and crumble to nothing IN MID-AIR AS THEY FALL, well
+before the brace finishes and long before any piece reaches the floor. The chips are SOLID BARK: dry,
+opaque, sharp-edged - never a glow, never a flare, never light. HIS FEET STAY FLAT ON THE GROUND FOR
+THE ENTIRE CLIP - he never jumps, never hops and never lunges out into a wider stance than the
+reference stance. The brace and the split are COMPLETE by the halfway point of the clip; the whole
+second half is his slow rise back into the EXACT same reference stance, so that he is already standing
+completely still in the reference pose well before the clip ends. Rooted, straining, brutal.
 
 ## special_3  (BLOSSOM FALL) — petals shake loose from his antlers
 SPECIAL FINISHER (blossom fall): he begins in the EXACT reference stance facing screen-right; he drops
-his antlered head forward and DOWN into a low braced crouch and SHAKES it hard once, and a shower of
-solid pale-pink cherry-blossom petals tears loose from his antlers and falls DOWNWARD past his
-shoulders to the ground around his own feet, crumbling away to nothing before any of it reaches the floor while he holds the
-crouch. The petals are SOLID FLOWER: opaque, individual, never a glow, never a flare, never light,
-never a swirl of sparkles. They fall STRAIGHT DOWN, stay within one body-width of him, never drift
-sideways away from him, and never come near the left, right or top edge of the frame. His antlers NEVER
-rise above their reference height at any moment. The shake is COMPLETE by the halfway point of the
-clip; the whole second half is his slow rise back into the EXACT same reference stance. Quiet, heavy,
-final.
+his antlered head forward and DOWN into a low braced crouch and SNAPS it once, hard, straight DOWN and
+back - the movement is purely up-and-down in the vertical plane, never side to side, and his head never
+turns toward the camera. EXACTLY FOUR solid cherry-blossom petals, the same dark pink-red as the
+blossoms on his own antlers and each no bigger than his own thumbnail, tear loose from those blossoms.
+All four fall STRAIGHT DOWN and NEVER rise above the antler tips they came from; they stay INSIDE HIS
+OWN STANDING FOOTPRINT - never past his front foot or his back heel - and all four curl, darken and
+crumble to nothing IN MID-AIR AS THEY FALL, well before the crouch finishes and long before any of them
+reaches the floor. The blossoms still on his antlers are visibly untouched and unchanged at the end.
+The petals are SOLID FLOWER: opaque, individual, never a glow, never a flare, never light, never a
+swirl of sparkles. His antlers NEVER rise above their reference height at any moment. HIS FEET STAY
+FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never jumps, never hops and never lunges out into a wider
+stance than the reference stance. The snap is COMPLETE by the halfway point of the clip; the whole
+second half is his slow rise back into the EXACT same reference stance, so that he is already standing
+completely still in the reference pose well before the clip ends. Quiet, heavy, final.
