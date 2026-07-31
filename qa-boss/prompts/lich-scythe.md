@@ -247,6 +247,35 @@ and the suffix freezes it there, so a scream or a laugh would contradict a law h
 SPECIAL add-on (the 3 specials only; Tim's contain-in-frame rule):
 APART FROM HIS OWN SPLIT FLOOR-STONE AND GRAVE-DUST GRIT the green stays completely empty and unbroken; the ONLY things visible are HIS OWN body, his scythe and HIS OWN debris. Every piece of debris is SOLID MATERIAL - real slabs, chunks, chips and grains of broken grey floor-stone and hard grey grave-dust grit, opaque, sharp-edged, matte and lit like rock - never a glow, never a flame, never a spark of light, never a wisp, never a spirit, never an aura, never mist or smoke, and never a whole intact object. NOTHING anywhere in the shot ever lights up, flashes or crackles, and NO SECOND FLAME ever appears - the only fire in the shot is the violet flame already burning in his crown and eye socket in the reference image, and it never grows and never spreads. All of it is knocked UPWARD and stays low and close to him, rising no higher than his own ribcage and spreading no wider than HIS OWN STANDING FOOTPRINT - never past his leading foot toward screen-right, never past his rear heel toward screen-left - and every piece crumbles away to nothing in mid-air as it falls, so none of it ever reaches the floor and none of it ever comes near the left, right or top edge of the frame. EACH FINISHER'S OWN ACTING LINE STATES ITS EXACT COUNT AND HOW HIGH ITS DEBRIS MAY GO, and that per-beat bound is the one to obey.
 
+## ★ IDLE v2 — ACCEPTED (fired 2026-07-31, job 7f3a626e). THIS IS HIS KIT ANCHOR.
+
+|                          | v1 (rejected)        | v2 (ACCEPTED)        |
+|--------------------------|----------------------|----------------------|
+| check-frontturn          | sym 0.075->**0.239**, run **11/97** @f45 | sym 0.071->**0.105**, run **0/97** |
+| containment              | CLEAN                | CLEAN                |
+| check-extra-objects      | 2 blobs @f64         | **1 blob**           |
+| raw-anchor f0   ALL/BODY | 0.905 / 0.860        | 0.902 / 0.776        |
+| raw-anchor fLast ALL/BODY| 0.902 / 0.862        | **0.933 / 0.899**    |
+| loop seam f0-vs-fLast IoU| 0.9892               | **0.9758**           |
+| head-top travel          | 10px                 | 10px                 |
+| mean changed px/frame    | 3729                 | 1408                 |
+
+The front-turn is GONE (peak sym 0.105 against a 0.191 threshold) and fLast 0.933 now exceeds
+both accepted peers on this scale (eclipse strike_a 0.924, ir37 strike_b 0.930). Keys with margin
+on f0/f44/f96 (opaque 12.00-12.05%, emis 0.58-0.78%, white 0.00%); mask inspected — solid
+silhouette, NO rectangular alpha edge, the violet crown flame survives as solid alpha, the
+inter-leg negative space is preserved and there are no body holes.
+
+**DO NOT read the f0 BODY drop (0.860 -> 0.776) as a pose regression.** v1 f000 and v2 f000 are
+IoU **0.9898** — the same start pose. BODY re-crops to the body bbox, and this character's charm
+detaches or connects depending on the frame, which moves that bbox and swings the number hard.
+The ALL figures (0.905 vs 0.902) correctly report the two frames as near-identical. On this
+character, judge f0 on ALL; BODY is unstable by construction.
+
+The motion drop (3729 -> 1408 mean changed px) is the DEFECT leaving, not the beat weakening:
+head-top travel is 10px in BOTH versions, so the intended vertical settle is preserved at
+identical amplitude and what left the budget is the rotation.
+
 ## ★ IDLE v1 — REJECTED, front-turn (fired 2026-07-31, job aa5212eb)
 
 Measured: containment CLEAN · extra-objects 1 body blob (see chain caveat below) · raw-anchor vs plate
