@@ -489,7 +489,8 @@ reference image, and at the far end the knobbed BONE BUTT swings DOWN and IN tow
 with the chain and its bone charm whipping down after it, never further toward screen-left than they
 hang in the reference image. His hips and shoulders drive the pull and his whole trunk rises out of the
 crouch behind it. His rear foot's talons screw down as he drives and knock EXACTLY THREE chips of split
-grey floor-stone UPWARD beside that foot, each chip no bigger than one of his own foot-talons, rising no
+grey floor-stone UPWARD beside that foot, each chip no bigger than one of his own foot-talons and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no
 higher than his own knee and spreading no wider than his own standing footprint - never past his leading
 foot toward screen-right and never past his rear heel toward screen-left - every chip crumbling away to
 nothing in mid-air as it falls. THE HOOK IS COMPLETE BY THE HALFWAY POINT; he HOLDS the finish through
@@ -509,7 +510,8 @@ deep and his whole dead mass going down behind it, and the clamped weight is dri
 inside his own leading foot, so THE SLAM HAS LANDED BY THE HALFWAY POINT. The scythe rides straight DOWN
 with his body at the exact angle it holds in the reference and does not rotate. EXACTLY FIVE chips of
 split grey floor-stone and hard grit are knocked UPWARD where the weight comes down, each chip no bigger
-than one of his own skeletal hands, rising no higher than his own knee and spreading no wider than his
+than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no higher than his own knee and spreading no wider than his
 own standing footprint - never past his leading foot toward screen-right and never past his rear heel
 toward screen-left - every piece crumbling away to nothing in mid-air as it falls. He HOLDS the low
 finish through the third quarter while the last chips crumble away, and only in the final second does he
@@ -529,7 +531,8 @@ IN across the front of his own thighs toward his own rear hip, travelling toward
 in front of his own body the whole way, never swinging behind him and stopping well short of that rear
 hip - his knees collapsing into a deep crouch and his shoulders driving down behind the pull - so THE
 THROW HAS LANDED BY THE HALFWAY POINT. EXACTLY FIVE chips of split grey floor-stone are knocked UPWARD
-where the weight comes down, each chip no bigger than one of his own skeletal hands, rising no higher
+where the weight comes down, each chip no bigger than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no higher
 than his own knee and spreading no wider than his own standing footprint - never past his leading foot
 toward screen-right and never past his rear heel toward screen-left - every piece crumbling away to
 nothing in mid-air as it falls. He HOLDS the low finish through the third quarter while the last chips
@@ -646,7 +649,8 @@ MARK it is in the stone, and he REAPS it back and IN across the floor toward his
 toward screen-LEFT in one short savage drag, the hook staying inside his own standing footprint the whole
 way and stopping well short of that rear heel. EXACTLY SIX slabs of solid broken grey floor-stone are torn
 UPWARD out of the furrow behind the point as it comes, each slab no bigger than one of his own skeletal
-hands, rising no higher than his own knee and spreading no wider than his own standing footprint - never
+hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no higher than his own knee and spreading no wider than his own standing footprint - never
 past his leading foot toward screen-right and never past his rear heel toward screen-left - every slab
 cracking apart and crumbling away to nothing in mid-air as it falls. The debris is SOLID BROKEN ROCK:
 opaque, flat, sharp-edged, matte and lit like stone - never a glow, never a flame, never a spark of light,
@@ -673,7 +677,8 @@ flagstone beside his own rear foot with the lower length of the bone haft slammi
 after it as one bar, the chain whipping down and the bone charm cracking against the flagstone beside the
 butt. AT THE HALFWAY POINT the floor gives way under that bar: EXACTLY SEVEN chips of solid broken grey
 floor-stone burst UPWARD from under the length of haft that lies between his own two feet, each chip no
-bigger than one of his own skeletal hands, rising
+bigger than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising
 no higher than his own knee and spreading no wider than his own standing footprint - never past his
 leading foot toward screen-right and never past his rear heel toward screen-left - every chip cracking
 apart and crumbling away to nothing in mid-air as it falls. The debris is SOLID BROKEN ROCK: opaque,
@@ -699,7 +704,8 @@ throughout. THE DAMAGE COMES FROM HIS OWN FEET, NOT FROM THE WEAPON: through tha
 long ivory TALONS on each foot SCREW DOWN into the flagstone without either foot leaving the spot it
 stands on, and the floor crazes and gives way under them in stages - EXACTLY SIX chunks of solid broken
 grey floor-stone break loose in ones and twos, spread out across the length of the hold rather than in one
-burst, each chunk no bigger than one of his own skeletal hands, knocked UPWARD to no higher than his own
+burst, each chunk no bigger than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - knocked UPWARD to no higher than his own
 knee and spreading no wider than his own standing footprint - never past his leading foot toward
 screen-right and never past his rear heel toward screen-left - every chunk cracking apart and crumbling
 away to nothing in mid-air as it falls. The debris is SOLID BROKEN ROCK: opaque, chunky, sharp-edged,

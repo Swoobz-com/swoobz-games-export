@@ -182,6 +182,28 @@ modifier — not "dust", "smoke", "ash-cloud", "spray", "mist", "vapour", "steam
 This is the same shape as §5: a contradiction between the beat and a global rule always resolves in
 the BEAT's favour. Fix the beat.
 
+**AND THE STRONGER FORM, proven by a controlled pair (phase 149).** It is not enough to avoid the
+banned noun — you must **positively assert solidity INLINE, at the point of use**. Two lich clips,
+same character, same plate, same session, same suffix (which bans mist, smoke and haze by name),
+differing in exactly one thing:
+
+| clip | inline solidity clause | result |
+|---|---|---|
+| `attack_strike` v3 | `each one SOLID, OPAQUE and sharp-edged — never a puff, never a cloud, never dust, never smoke and never haze` | solid chips, background **perfectly clean** |
+| `attack_strike_b` | *absent* (count/size/span bounds only) | same solid chips **plus a milky pale haze** across the feet |
+
+Neither line used a banned noun. The suffix ban was identical in both and **did not prevent the
+haze**. So the suffix is not protection — it is background the model treats as satisfiable, while
+the acting line is the thing being performed. Every debris beat needs its own inline solidity
+assertion, next to the count and the size bound:
+
+> knock EXACTLY THREE chips of split grey floor-stone UPWARD beside that foot, each chip no bigger
+> than one of his own foot-talons **and each one SOLID, OPAQUE and sharp-edged — never a puff,
+> never a cloud, never dust, never smoke and never haze** — rising no higher than his own knee …
+
+The haze also matters beyond taste: a translucent pale cloud over the chroma plate keys badly and
+leaves an olive fringe, which is the session-14 bloom-lit-plate defect arriving by another route.
+
 ## 5. THE DEBRIS-VANISH LAW — the contradiction that has recurred five times
 
 A global suffix is appended to every prompt ending: *"Anything that sheds, tears loose, breaks off
