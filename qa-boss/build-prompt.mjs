@@ -193,6 +193,20 @@ function koSuffix(s) {
     .replace(/(HIS|HER|THEIR) FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP/gi,
       (_m, p) => `${p.toUpperCase()} FEET NEVER LEAVE THE GROUND AT ANY POINT IN THE CLIP`)
     .replace(/[^.]*begins and ends on the EXACT same reference stance\.\s*/gi, ' ')
+    // 3. THE DEBRIS-LAW TAIL. The global suffix ends "...the last frame shows ONLY the fighter and
+    //    what the fighter holds, exactly as the first frame does." On a ko the fighter HOLDS NOTHING
+    //    — the weapon is on the ground beside him by spec — so that clause is a literal order to
+    //    make his own dropped weapon disappear, and "exactly as the first frame does" re-asserts the
+    //    anchor that rule 2 just stripped. Rewritten to keep the part that matters (no shed material
+    //    left in frame) and drop the part that only makes sense for a standing return.
+    .replace(/;?\s*the last frame shows ONLY the fighter and what the fighter holds[^.]*\./gi,
+      '; at the end there is no shed, torn, broken or kicked-up material anywhere in the shot.')
+    // 4. THE STANCE-WIDTH CLAUSE. "he keeps his stance narrow and never spreads wider than about one
+    //    and a half times his standing width" also survives, and a PRONE body measures ~1.66x its
+    //    standing width — so the one state the ko rewrite exists to protect is the one state that
+    //    clause contradicts. Scoped to standing: vacuous once he is down, unchanged for the other 12.
+    .replace(/(?:and )?(?:he|she|they) keeps? (?:his|her|their) stance narrow and never spreads wider than[^.;]*/gi,
+      'WHILE ON HIS FEET he keeps his stance narrow')
     .replace(/\s+/g, ' ')
     .trim();
 }
