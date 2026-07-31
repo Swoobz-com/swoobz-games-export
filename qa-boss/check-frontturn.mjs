@@ -28,6 +28,32 @@
 //   f84-f96  aspect 0.59  selfSym 0.237   recovered to anchor
 //
 // ############################################################################################
+// # THE FALSE-POSITIVE MODE — A FLAG IS A REASON TO LOOK, NEVER A VERDICT (phase 87)          #
+// # selfSym rises whenever the silhouette becomes COMPACT, and a body can become compact       #
+// # without rotating one degree. Every one of these tripped the gate while being CORRECT:      #
+// #                                                                                            #
+// #   oni ko v1          sym 0.117->0.789  aspect 1.02->4.14   he is PRONE. The aspect IS the  #
+// #                      proof he collapsed properly (the ledger cites 4.10 as the pass        #
+// #                      criterion). A ko can never pass this gate — treat ko as EXEMPT, the   #
+// #                      same way check-anchor-lock exempts its END.                           #
+// #   eclipse special_1  sym 0.251->0.411  aspect 0.42->0.75   a deep CROUCH. Verified frame   #
+// #     v2               by frame across the whole clip: strict side profile throughout, and   #
+// #                      the katana hangs POINT-DOWN in every frame.                           #
+// #   eclipse strike_a   sym 0.244->0.652  aspect 0.42->1.12   a committed LUNGE; the aspect   #
+// #     v5               rise is the extended blade, not a torso.                              #
+// #   ir37 strike_b v4   sym 0.147->0.415  aspect 0.66->0.67   the box BARELY MOVED; the sym   #
+// #                      rise is the war-fan OPENING - a fan is a symmetric object.            #
+// #                                                                                            #
+// # So: crouch, lunge, prone, and any opening symmetric prop all raise selfSym with no          #
+// # rotation. A clip is only front-turned once you have SEEN both shoulders square to camera.   #
+// # Tell them apart by eye, not by threshold — composite the flagged frame and LOOK.            #
+// #                                                                                            #
+// # The gate is still worth its keep: it is the ONLY gate that caught oni victory v1, which     #
+// # scored 0.995/0.995 anchor-lock, clean containment and an ok body-commitment while being     #
+// # square to camera at f42 and holding its club fully vertical overhead at f70.                #
+// ############################################################################################
+//
+// ############################################################################################
 // # CALIBRATION STATUS: VALIDATED WITHIN ONE KIT. **NOT CALIBRATED TO CONVICT ACROSS THE      #
 // # ROSTER.** Do not read a flag from this tool as a defect without viewing the frames.       #
 // ############################################################################################

@@ -141,10 +141,41 @@ enters, crosses or appears in the frame at any time. Only his own body moves. He
 
 ## victory  (club planted, roar)
 VICTORY (planted club): he begins in the EXACT reference stance in strict side profile facing
-screen-right; he swings the tetsubo DOWN and plants its head heavily on the ground beside his own foot,
-leans his weight onto it, throws his head back and roars in triumph, his chest heaving, then he lifts the
-club back to his grip and settles in one eased motion into the EXACT same reference stance. The club head
-goes DOWN to the floor, never up. Proud, heavy, brutal.
+screen-right. IN THE FIRST QUARTER OF THE CLIP he swings the tetsubo DOWN and plants its head heavily on
+the ground beside his own front foot, a low puff of dust kicking up and drifting away to nothing, and
+leans his weight down onto the haft. FOR THE WHOLE MIDDLE HALF OF THE CLIP HE HOLDS THAT LEANING POSE and
+only his head and chest move - his jaw opens wide in a slow roar and his chin lifts no higher than his own
+horns while his chest heaves; his shoulders, hips and both feet stay exactly where they are, he does not
+step, does not pivot and does not straighten up, and the club head stays ON THE GROUND that entire time.
+IN THE FINAL QUARTER he draws the club head back up off the ground to the EXACT height and angle it has in
+the reference image - never higher, never vertical - and settles into the EXACT same reference stance. The
+club head goes DOWN to the floor, never up. Proud, heavy, brutal.
+
+## ★ WHY VICTORY v1 WAS REJECTED — EMPTY TIME IS AN INVITATION (phase 87, 2026-07-31)
+# v1 measured f0 0.995 / fLast 0.995 against the kit anchor — the project's SECOND-BEST anchor-lock —
+# with containment CLEAN on every edge and body-commitment "ok" (minIoU 0.217, travel 200, 70% strong).
+# THREE GATES GREEN, AND THE CLIP IS UNUSABLE. At f42 he is square to camera with both pectorals
+# visible; at f70 he is square to camera AND holding the tetsubo FULLY VERTICAL above his own horns.
+# That single frame violates three separate locks that were already in its own prompt: "the CLUB HEAD is
+# NEVER raised above his own head", "the club is NEVER swung fully vertical or overhead at any moment",
+# and the acting line's own "the club head goes DOWN to the floor, never up".
+#
+# ROOT CAUSE — A TIME BUDGET, INVERTED. The eclipse attack_strike lesson was that a committed cut RUNS
+# OUT of clip. This is the mirror image: v1's three beats (plant / lean+roar / lift back) did not FILL
+# four seconds, so the model invented a full theatrical turn to sell the roar to camera and a vertical
+# club raise on the word "lifts". Two trigger words did the damage: "throws his head back and roars in
+# triumph" invites rotating the body to present the roar to the viewer, and "lifts" is an unbounded UP
+# verb. RESTATING THE BANS COULD NOT HAVE HELPED — both bans were already in the suffix, verbatim, and
+# were ignored. The fix NARROWS the thing: the roar becomes head-only with the chin bounded by his own
+# horns, the return is bounded to the reference image's height rather than by another "never" sentence,
+# and — the actual repair — the middle half of the clip is explicitly SPENT on a held pose, so there is
+# no empty time left to fill.
+#
+# THE MEASUREMENT LESSON, AND IT IS THE BIG ONE. `end_image` pins the last frame to the plate. That is
+# why fLast is 0.995 here. It means that ON THIS TRANSPORT fLast IS VERY NEARLY FREE AND CARRIES ALMOST
+# NO INFORMATION ABOUT THE ACTING — the transport buys the number that the old browser path made the
+# prose earn. f0 and fLast together are blind to 95 of 97 frames. NEVER ACCEPT A CLIP ON ANCHOR-LOCK
+# PLUS CONTAINMENT AGAIN; the middle of the clip must be LOOKED AT, every time.
 
 ## special_1  (EARTHSHAKER) — ground slam shockwave, solid debris
 SPECIAL FINISHER (earthshaker): he begins in the EXACT reference stance in strict side profile facing

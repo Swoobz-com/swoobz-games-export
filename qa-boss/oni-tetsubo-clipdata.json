@@ -4,7 +4,7 @@
   "source": "input/MK FINAL/ (mythic). PLAYABLE character — wires into the charSelect roster like gorvak/volta, NOT a campaign node. Do not touch fightCampaign.ts.",
   "anchor": "qa-boss/anchors/mk/oni-tetsubo-anchor-green.png (PADDED via pad-anchor-plate.mjs; raw art was L51/R28/T71)",
   "frame_budget": "L234 / R234 / HEADROOM 468. PROP-EXTENDED: body mass only 401px wide (x279..x679), tetsubo hangs 622px past the body. Workable only because padding gives 234px past the club tip vs satoshi's 48px.",
-  "KIT_STATUS": "3/13. idle (kit anchor) + hit + ko ACCEPTED.",
+  "KIT_STATUS": "3/13 accepted. victory v1 REJECTED (front turn + vertical club); v2 written and gate-clean, NOT yet fired.",
   "clips": {
     "idle": {
       "accepted": "v1",
@@ -72,7 +72,34 @@
       "ko_suffix_verified": "build-prompt stripped BOTH contradictions for ko: the weapon-lock (\"keeps the tetsubo in his hands ... never drops or swaps\") and the anchor-lock (\"begins and ends on the EXACT same reference stance\"). Verified 0 occurrences of each in the built prompt before firing. Without that the prompt would order him to keep AND drop the club, and to end on the anchor AND end prone.",
       "feather_note": "FEATHER not re-roll: RIGHT ~58px is the DROPPED TETSUBO lying on the floor. Prop, not body, and the body is well inside.",
       "debris_fix": "The acting line originally said the landing dust \"settles\", contradicting the vanish law (which is NOT stripped for ko). Changed to \"drifting away to nothing\" before firing. Fourth instance of that contradiction class this session — phrase-list sweeps only find the phrasings you thought of, and this one wrapped across a line break so even a targeted sed missed it on the first try."
+    },
+    "victory": {
+      "accepted": null,
+      "rejected": "v1",
+      "job": "5423b700-fe7b-4934-859b-2cf27fa42811",
+      "raw": "qa-boss/raw/oni-tetsubo-victory-v1.mp4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_075924_5423b700-fe7b-4934-859b-2cf27fa42811.mp4",
+      "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, plate as start_image + end_image, use_unlim (0 credits)",
+      "measured": {
+        "reference": "THE KIT ANCHOR = idle v1 f0 (not the plate), via the NEW qa-boss/check-raw-anchor.mjs",
+        "f0_body": 0.995,
+        "f0_all": 0.995,
+        "fLast_body": 0.995,
+        "fLast_all": 0.995,
+        "fLast_bbox_aspect": "1.04 — a standing return, correct for victory",
+        "body_commitment": "minIoU 0.217, travel 200, strong 70%, spanPeak 1.00, drop 16% — verdict ok",
+        "containment_proxy200": "TOP 0, LEFT 0, RIGHT 0 — CLEAN, no feather needed",
+        "frontturn": "*** FRONT TURN: sym 0.115->0.596, run 62/97 frames from f11 — CONFIRMED BY EYE, not a false positive ***",
+        "extra_objects": "2 blobs @f26 sizes [30380,411] — the dust puff from the club plant",
+        "frames": 97,
+        "size": "960x960",
+        "fps": 24
+      },
+      "verdict": "REJECT v1 — front turn + club fully vertical overhead",
+      "qa": "REJECTED, and the way it fails is the finding. f42: he is SQUARE TO CAMERA with both pectorals visible. f70: square to camera AND holding the tetsubo FULLY VERTICAL above his own horns. That one frame breaks three locks already present verbatim in its own prompt (club head never above his head / never fully vertical or overhead / the club head goes DOWN, never up). Proof frames: qa-boss/oni/proof/victory-sheet.png and victory-worst.png.",
+      "why_the_gates_missed_it": "THREE GATES WERE GREEN. Anchor-lock 0.995/0.995 was the project second-best; containment was clean on every edge; body-commitment said ok. Only check-frontturn caught it. anchor-lock reads ONLY f0 and fLast, so it is blind to 95 of 97 frames — and because end_image PINS the last frame to the plate, fLast is now very nearly free on this transport and carries almost no information about the acting. NEVER ACCEPT ON ANCHOR-LOCK + CONTAINMENT AGAIN.",
+      "v2_fix": "Written and gate-clean in qa-boss/prompts/oni-tetsubo.md. Root cause is an INVERTED TIME BUDGET: three beats did not fill 4s, so the model invented a theatrical turn and a vertical club raise on the unbounded up-verb lifts. v2 explicitly spends the time (first quarter plant / middle half HELD lean + head-only roar with the chin bounded by his own horns / final quarter return bounded to the reference images height). Restating the bans was NOT an option — both were already in the suffix verbatim and were ignored."
     }
   },
-  "next": "hit / ko / victory, then strikes / throws / blocks, then the 3 specials (EARTHSHAKER / SPIKE DRIVER / OGRE STOMP). All 13 acting lines are already written and gate-clean in qa-boss/prompts/oni-tetsubo.md."
+  "next": "victory v2 (rewritten), then strikes / throws / blocks, then the 3 specials (EARTHSHAKER / SPIKE DRIVER / OGRE STOMP)."
 }
