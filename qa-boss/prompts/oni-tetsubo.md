@@ -97,7 +97,8 @@ THROW (seize and slam): he begins in the EXACT reference stance in strict side p
 screen-right; keeping the tetsubo gripped in one hand and held LOW and CLOSE to his body, he reaches
 forward with his free hand through EMPTY AIR, clamps as if seizing an unseen foe at chest height, then
 wrenches down and back toward his own body, driving the seized weight into the ground at his feet, and a
-small burst of grit jumps up from the floor and settles. NO opponent, no second figure, empty air only.
+small burst of grit jumps UP from the floor and crumbles away to nothing in mid-air as it falls. NO
+opponent, no second figure, empty air only.
 The throw is COMPLETE by the halfway point; the second half is his settle back into the EXACT same
 reference stance.
 
@@ -181,9 +182,9 @@ club head goes DOWN to the floor, never up. Proud, heavy, brutal.
 SPECIAL FINISHER (earthshaker): he begins in the EXACT reference stance in strict side profile facing
 screen-right; he raises the tetsubo only to CHEST height, coils his whole body down into a deep braced
 crouch, then drives the club DOWN into the ground in front of his own feet with everything he has, and
-the impact BLASTS a ring of solid stone chips, grit and broken earth outward ALONG THE GROUND around his
+the impact BLASTS a ring of solid stone chips, grit and broken earth UPWARD and OUTWARD around his
 feet - rising no higher than his own waist, spreading no wider than one body-width to either side, and
-crumbling away to nothing in mid-air before any of it reaches the floor while he holds the low crouch. The debris is SOLID ROCK AND
+crumbling away to nothing in mid-air as it falls, while he holds the low crouch. The debris is SOLID ROCK AND
 GRIT: opaque, chipped, lit like stone - never a glow, never a flame, never a shockwave of light. The
 whole slam is COMPLETE by the halfway point of the clip; the whole second half is his slow heavy rise
 back into the EXACT same reference stance. Heavy, brutal, final.

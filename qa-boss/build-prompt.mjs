@@ -150,9 +150,43 @@ function stateBody(st) {
 // two mutually exclusive orders and it will obey the wrong one. lady-kurotachi.md carries this as a
 // hand-written operator note ("[Use ko-suffix: drop the ... lines]"); ir48-hex-paper-lord.md does
 // NOT, so the rule is enforced HERE instead of relying on whoever fires remembering it.
+// ############################################################################################
+// # TWO MORE ko CONTRADICTIONS, FOUND phase 90 — and both were SHIPPING.                      #
+// #                                                                                            #
+// # 1. THE IDENTITY LOCK WAS BEING DELETED AS COLLATERAL. The weapon-lock rule below matched   #
+// #    `[^.]*` back to the previous full stop, i.e. the WHOLE SENTENCE. But most files weld    #
+// #    the identity lock and the weapon lock into ONE sentence:                                #
+// #      oni : "His skin, horns, rope ... stay EXACTLY the same the entire clip, AND he keeps  #
+// #             the tetsubo in his hands ... and never drops or swaps it."                     #
+// #      ir37: "Her glossy black armor ... stay EXACTLY the same the entire clip; SHE keeps    #
+// #             the war-fan in her right hand ... and never drops or swaps them."              #
+// #    So every ko in the roster lost its "stay EXACTLY the same" instruction entirely.        #
+// #    MEASURED on oni's ACCEPTED ko: 0 occurrences of the identity lock in the built prompt.  #
+// #    The clip happened to come back on-model, which is precisely why nobody caught it.       #
+// #    FIX: strip only the weapon-lock CLAUSE when it trails a separator, and fall back to     #
+// #    whole-sentence removal only when the weapon lock stands alone.                          #
+// #                                                                                            #
+// # 2. THE FEET LOCK CONTRADICTS A COLLAPSE. "HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE  #
+// #    CLIP" survived the strip and sat in the same prompt as "he crumples forward and down    #
+// #    onto the ground, coming to rest fully prone". A ko cannot keep its feet flat for the    #
+// #    entire clip. The anti-jump content is still wanted, so this REWORDS rather than         #
+// #    deletes: feet never LEAVE the ground (true through a collapse) instead of staying FLAT  #
+// #    for the whole clip (false the moment he goes down).                                     #
+// #                                                                                            #
+// # Both were found by a kit-writing agent reading an assembled ko end to end — no gate shows  #
+// # either, which is the fifth time that has been the only thing that worked.                  #
+// ############################################################################################
 function koSuffix(s) {
   return s
-    .replace(/[^.]*keeps? the [^.]*in (?:his|her|their) hands?[^.]*never drops? or swaps?[^.]*\.\s*/gi, ' ')
+    // 1a. weapon lock as a TRAILING CLAUSE — remove the clause, keep the sentence (and with it
+    //     the identity lock that shares it).
+    .replace(/\s*[,;]\s*(?:and\s+)?(?:he|she|they)\s+keeps?\s+the[^.]*never drops? or swaps?[^.]*(?=\.)/gi, '')
+    // 1b. weapon lock as a STANDALONE SENTENCE — remove the whole sentence, as before.
+    .replace(/(?:^|(?<=\.))[^.]*keeps? the [^.]*in (?:his|her|their) hands?[^.]*never drops? or swaps?[^.]*\.\s*/gi, ' ')
+    // 2. the feet lock: keep the anti-jump meaning, drop the "flat for the ENTIRE clip" clause
+    //    that a prone collapse necessarily breaks.
+    .replace(/(HIS|HER|THEIR) FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP/gi,
+      (_m, p) => `${p.toUpperCase()} FEET NEVER LEAVE THE GROUND AT ANY POINT IN THE CLIP`)
     .replace(/[^.]*begins and ends on the EXACT same reference stance\.\s*/gi, ' ')
     .replace(/\s+/g, ' ')
     .trim();
