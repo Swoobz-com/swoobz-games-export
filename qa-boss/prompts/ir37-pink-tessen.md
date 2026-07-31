@@ -119,6 +119,39 @@ SPECIAL FINISHER (petal flurry): a SMALL tight swirl of hot-pink lotus petals an
 around her own body, no bigger than her torso, then fades, then she settles back. The petals are HOT PINK
 and WHITE, NEVER green, small and tight against her body in the CENTER with a wide green margin all around.
 
+## special_3 v2 (ACTING LINE, phase 66) - LOW PETAL SWEEP, ground-hugging, crouch for commitment
+# WIRE NAME: ships as `special-c.webm` (3rd `special` take). Build as `special_3`.
+# WHY v2: measured 0.429 minIoU / 56px travel / 15% duty — the worst-scoring of her specials.
+# THREE FIXES:
+#  1. v1 asks for "a SHORT thin hot-pink-and-white crescent TRAIL" — a trail of LIGHT. That is
+#     emissive, violating HARD CONSTRAINT 3, and an emissive effect LIGHTS THE PLATE around it, which
+#     the distance key then keeps as an olive halo (the session-14 bloom-lit-plate class). Recast to
+#     SOLID lotus petals, which is her own material and does not bloom the plate.
+#  2. v1's cut is VERTICAL. Her ceiling is 88px at 960 (140px on the 1536 plate) against a ~250px open
+#     fan — a vertical cut is the same geometry that killed victory v3 (TOP 216px). Re-aimed LOW, into
+#     the free bottom edge (check-containment never counts feet-on-floor contact).
+#  3. 15% duty is a near-static clip. The deep crouch is the commitment — judge on dropPct, NOT minIoU,
+#     which bbox-normalises and cannot see a sink.
+# DIFFERENTIATION: strike_b is a diagonal cleave ACROSS the body, special_2 is a swirl AT the body,
+# special_3 is now a sweep along the GROUND. Three origins, three silhouettes.
+SPECIAL FINISHER (low petal sweep): she begins in the EXACT reference stance in strict side profile
+facing screen-right, the war-fan held OPEN beside her exactly as in the reference image. She sinks into
+a LOW braced crouch over her own feet and sweeps the open war-fan LOW across the ground in front of her
+own feet, keeping the fan CLOSE to her body and BELOW HER OWN WAIST for the entire sweep, and the sweep
+kicks up a wave of solid hot-pink lotus petals that runs along the GROUND at her feet, rising no higher
+than her own knee and settling back onto the floor within a beat. The petals are SOLID lotus petals -
+never a glow, never light, never a trail, never mist. They stay at GROUND LEVEL within one body-width
+of her, never rise above her own knee, never travel sideways away from her, and never come near the
+left, right or top edge of the frame. HER FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - she never
+jumps, never leaps, never hops and never lunges out into a wide stance; she keeps her stance narrow and
+never spreads wider than about one and a half times her standing width. THROUGHOUT THE WHOLE CLIP the
+war-fan stays CLOSE TO HER BODY, is NEVER extended out to arm's length in any direction, and is NEVER
+raised above her own waist. The entire sweep is COMPLETE by the halfway point of the clip; the whole
+second half of the clip is her slow rise back into the EXACT same reference stance, war-fan open beside
+her again, still facing screen-right, so that she is already standing still in the reference pose well
+before the clip ends. The first frame and the last frame are the EXACT same reference stance. Fast,
+precise, lethal.
+
 ## special_3  (CRESCENT FAN CUT) — pink/white, contained
 SPECIAL FINISHER (crescent fan cut): she makes one fast compact vertical cut with the war-fan kept close
 and central, leaving a SHORT thin hot-pink-and-white crescent trail that stays vertical and central and

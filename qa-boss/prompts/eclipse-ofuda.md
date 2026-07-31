@@ -225,6 +225,42 @@ then settles back to the starting stance. Alone, no opponent.
 
 ## SPECIALS — INCLUDED for Eclipse (map 6). Tim final ruling: all bosses (maps 5-10) get the 3 specials for consistency. 13 clips total. Specials carry the blade-containment lock (effect + blade fully in frame).
 
+## special_1 v2 (ACTING LINE, phase 66) - BURNING OFUDA SHED, solid material, crouch for commitment
+# WIRE NAME: ships as `special.webm` (1st `special` take). Build as `special_1`.
+# WHY v2: v1 asks her to "fling a tight fan of GLOWING white paper talismans that FLARE BRIGHT and
+# burn away IN THE AIR". Three separate problems in one sentence:
+#  1. GLOWING + FLARE BRIGHT is emissive. An emissive effect LIGHTS THE CHROMA PLATE around it; those
+#     brightened pixels sit far from the sampled green so the distance key KEEPS them, and neutralize
+#     lands them at r==g — a wide olive halo wrapped around the effect (session-14, 3.04% of visible
+#     pixels on IR-48 special_3). It is invisible in a downscaled composite.
+#  2. FLINGS ... IN THE AIR is a DETACHED effect. Size and trajectory bounds do not stop detachment —
+#     only ATTACHMENT does (the phase-33 special_3 lesson: "at NO moment is there any glowing shape not
+#     physically touching his own sword").
+#  3. Talismans flung FORWARD travel toward screen-right; her katana already reaches that way.
+# FIX: the proven recast is BURNING PAPER — a solid material, which is exactly what rescued IR-48
+# special_2 (translucent gas flame 10.45% retained plate -> burning paper 3.30% raw / 0.69% olive with
+# the effect intact). The ofuda tear off her HAT (attached origin) and fall DOWNWARD to the floor,
+# using the free bottom edge rather than the air in front of her.
+# Budget: L495 / R484 / T140 — generous sides, almost no ceiling. Keep it low, never raise the blade.
+SPECIAL FINISHER (burning ofuda): she begins in the EXACT reference stance in strict side profile
+facing screen-right, katana held point-down in front of her exactly as in the reference. She drops her
+weight into a LOW braced crouch over her own feet and sweeps her free hand DOWNWARD and ACROSS in front
+of her own chest, and a tight burst of the white paper ofuda talismans tears loose from her own hat brim
+and CATCHES FIRE as solid BURNING PAPER - each talisman curling, browning and crumbling into dark ash
+that falls DOWNWARD to the ground at her feet and settles there within a beat. They are SOLID BURNING
+PAPER: curling, opaque, edged with ember - never a flame, never a glow, never a flare, never light,
+never mist. The burning talismans stay within one body-width of her at ALL times, never fly forward,
+never spray outward, never rise above her own shoulder, and never come near the left, right or top edge
+of the frame. HER FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - she never jumps, never leaps,
+never hops and never lunges out into a wide stance; she keeps her stance narrow and never spreads wider
+than about one and a half times her standing width. The katana is NEVER held vertical or pointing
+upward at any moment; the blade stays HORIZONTAL or angled DOWNWARD for the entire clip, and the BLADE
+TIP never rises above her own shoulder. The entire burst is COMPLETE by the halfway point of the clip;
+the whole second half of the clip is her slow rise back into the EXACT same reference stance, katana
+point-down again, still facing screen-right, so that she is already standing still in the reference pose
+well before the clip ends. The first frame and the last frame are the EXACT same reference stance.
+Fast, precise, lethal.
+
 ## special_1  (OFUDA STORM) — effect contained in frame
 SPECIAL FINISHER (ofuda storm): she sweeps her free hand and flings a tight fan of glowing white paper
 talismans forward that flare bright and burn away in the air in front of her, then snaps back to the
