@@ -50,6 +50,22 @@ ruling, so wave 2 does not decide it either.
 | **golem-mace** | 0.50 | Half the frame height spent to fit the mace. Worst in the set |
 Same class as satoshi / sora / ir56. Consistent treatment: they wait for the same ruling.
 
+> **⚠ PHASE 143 — I ALMOST WROTE THE NURIKABE KIT ANYWAY. READ THIS BEFORE RE-SCREENING.**
+> Looking for the next character to build, I re-ran `check-plate-key` and `measure-anchor-budget` on
+> the padded plates that had no kit, got `KEYS WITH MARGIN · emis 0.20% · L208 R210 T666` for
+> nurikabe-shield, judged it viable and dispatched an agent to write its 13 states. It was stopped
+> before it wrote anything, but only because I then opened THIS FILE.
+>
+> **A fresh measurement is not a fresh decision.** Every number I got was correct and none of them
+> was the reason this character is held — the reason is the FILL (0.55), which is a resolution
+> budget, not a key or a margin problem, and it is Tim's call and no one else's. The loop prompt
+> already says to skip this class; I re-derived a "yes" from the two screens that happen to pass and
+> never checked the tier.
+>
+> **So: before briefing ANY kit, check this table first.** A plate having a padded anchor on disk is
+> not permission — three of the padded plates here (nurikabe, golem-mace, drake-glaive) are held or
+> rejected, and a kit-writing agent has no way to know that.
+
 ---
 
 ## ★ CORRECTION, PHASE 109 — THE EMISSIVE SCREEN ABOVE WAS HUE-BIASED AND WRONG
