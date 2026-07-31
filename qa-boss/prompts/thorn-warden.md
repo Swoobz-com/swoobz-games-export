@@ -87,9 +87,21 @@ braced stance, and only in the final second does he rise slowly back into the EX
 stance. Heavy, rooted, brutal.
 
 ## attack_throw A  (root grab-slam, solo-safe)
-THROW (grab and slam): he reaches forward low with his free hand through EMPTY AIR, clamps as if
-seizing an unseen foe, then wrenches down and around in a heavy slamming heave, then returns to the
-starting stance. NO opponent, no second figure, empty air only.
+THROW A (root heave): he begins in the EXACT reference stance facing screen-right, his chest and both
+shoulders angled toward screen-right exactly as they are in the reference image. He reaches forward and
+LOW with his free hand through EMPTY AIR, closes it on nothing at about his own knee height, and wrenches
+it STRAIGHT DOWN toward the floor in one heavy committed heave, coiling his weight down into a braced
+crouch behind it with both feet staying exactly where they already stand. THE WRENCH IS PURELY DOWNWARD -
+it never travels AROUND, never sweeps sideways, never circles and never carries his body with it, and his
+free hand never rises above the height it starts at. NO opponent, no second figure, nothing is ever held,
+seized or dragged - the hand closes on EMPTY AIR and stays empty in every frame. THE LINE OF HIS TWO
+SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN
+EVERY SINGLE FRAME - he may FOLD and SINK, but he never TURNS. His antlers NEVER rise above the height
+they have in the reference image, and the thorn-club stays in his other hand at or below the height it
+already sits at, never raised. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP and NEITHER FOOT EVER
+SLIDES OUT WIDER than it stands in the reference image; he never jumps, never hops and never lunges. The
+heave is COMPLETE by the halfway point of the clip; he then HOLDS the crouch, and only in the final second
+does he rise slowly back into the EXACT same reference stance. Heavy, rooted, brutal.
 
 ## attack_throw B  (shoulder barge, solo-safe)
 THROW (shoulder barge): he lowers his shoulder and drives forward in a heavy two-step barging shove
@@ -100,8 +112,21 @@ BLOCK-COUNTER: he raises the club haft horizontally into a hard deflecting guard
 thorny head of the club forward in a short counter, then returns to the starting stance.
 
 ## attack_block B  (bark-forearm guard into rising club)
-BLOCK-COUNTER: he sweeps his bark-plated forearm across in a deflecting guard to the side, then
-swings a short rising club uppercut, then recovers to the starting stance.
+BLOCK-COUNTER B (forearm guard into low club jab): he begins in the EXACT reference stance facing
+screen-right, his chest and both shoulders angled toward screen-right exactly as they are in the
+reference image. He sweeps his bark-plated forearm ACROSS the front of his own chest into a hard
+deflecting guard, holding it there braced; then he drives the thorny head of the club forward toward
+screen-right in one short LOW counter-jab at about his own waist height, and pulls it straight back in.
+THERE IS NO UPPERCUT AND NO RISE OF ANY KIND: the club head NEVER travels upward, is NEVER swung up
+from below, and stays BELOW HIS OWN WAIST for the entire clip; his antlers NEVER rise above the height
+they have in the reference image and he never straightens taller than he stands in the reference. The
+jab never reaches further toward screen-right than his own leading foot, and the club NEVER swings
+behind him or crosses to his screen-left side. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO
+HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - he may
+FOLD and SINK, but he never TURNS. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP and NEITHER
+FOOT EVER SLIDES OUT WIDER than it stands in the reference image; he never jumps, never hops and never
+lunges. The guard and the jab are COMPLETE by the halfway point of the clip; the whole second half is
+his settle back into the EXACT same reference stance. Fast, short, brutal.
 
 ## hit  (heavy woody stagger)
 HIT REACTION: his head and torso jolt sharply backward as he takes a blow, a heavy woody stagger that
@@ -115,8 +140,25 @@ flash, no opponent, only his own collapse. Begins on the reference stance but en
 on the ground and holds there (does NOT return to standing).
 
 ## victory  (plant club, antlers raised)
-VICTORY TAUNT: he plants the butt of the thorn-club on the ground, straightens tall and raises his
-antlered head proudly, blossoms shivering, then settles back to the starting stance. Alone, no opponent.
+VICTORY TAUNT (rooted plant): he begins in the EXACT reference stance facing screen-right, his chest
+and both shoulders angled toward screen-right exactly as they are in the reference image. IN THE FIRST
+QUARTER OF THE CLIP he ROLLS the thorn-club DOWN and SETS its butt heavily on the ground just in front
+of his own leading foot, the haft raking back and up toward screen-LEFT at about forty-five degrees,
+and leans his weight down onto it. THERE IS NO RAISE OF ANY KIND: he does NOT straighten tall, he does
+NOT lift his antlered head, his ANTLERS NEVER rise above the height they have in the reference image,
+and NO PART of the thorn-club is EVER raised above the height it already sits at in the reference. FOR
+THE WHOLE MIDDLE HALF OF THE CLIP HE HOLDS THAT LEANING POSE and only his chest and his antlers move:
+his chest heaves THREE slow times and the small pink blossoms on his antlers shiver with each heave -
+but NOT ONE blossom and NOT ONE petal ever comes loose, every blossom stays fixed on his antlers and
+clearly visible in every single frame, and the FINAL FRAME shows exactly as many pink blossoms on his
+antlers as the FIRST FRAME does. His shoulders, his hips and both feet stay exactly where they are; he
+does not step, does not pivot and does not straighten up, and the club butt stays ON THE GROUND that
+entire time. IN THE FINAL QUARTER he draws the club butt back up off the ground to the EXACT height and
+angle it has in the reference image - never higher - and settles into the EXACT same reference stance.
+THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN
+THE REFERENCE IMAGE IN EVERY SINGLE FRAME - he may LEAN and SINK, but he never TURNS. HIS FEET STAY FLAT
+ON THE GROUND FOR THE ENTIRE CLIP and NEITHER FOOT EVER SLIDES OUT WIDER than it stands in the reference
+image. Alone, no opponent. Proud, heavy, rooted.
 
 ## ★ THORN FRAME BUDGET (measured, phase 68 — node 3)
 Plate 1536x1536. Subject 814w x 1317h (fills 85.7%), bbox x360..x1173.
