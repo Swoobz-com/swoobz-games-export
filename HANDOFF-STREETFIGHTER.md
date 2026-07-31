@@ -1,6 +1,237 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★ SESSION 16 (2026-07-30) — CORRECTIONS TO §6A AND §6C BELOW. READ BEFORE FIRING ANYTHING ★★★★★★
+## ★★★★★★★★★★ SESSION 17 — START HERE (2026-07-31) ★★★★★★★★★★
+
+HEAD **`9bcb9da`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · working tree clean ·
+`node qa-boss/check-prompt-sections.mjs` **141 clean / 0 problems**.
+25 commits, `a6c539f`..`9bcb9da` (phases 63-85). **10 clips generated, 6 accepted, ZERO credits.**
+
+**YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation now runs through
+the **Higgsfield MCP** (not the browser). Re-run every gate yourself, VIEW frames at full size, never
+accept a self-report — including your own numbers. That discipline earned its keep five times this
+session; see §3.
+
+---
+
+### 1. THE FASTEST PATH TO PRODUCTIVE WORK (do this in order)
+
+1. `node qa-boss/check-prompt-sections.mjs` — must print `problems=0`. This is the pre-fire gate.
+2. Read **`qa-boss/FIRE-PLAN.md`** in full. It holds the transport of record, the non-interference
+   rule, the measurement-reference rule and the per-clip numeric acceptance. It is short and current.
+3. Continue **Oni Tetsubo's kit at 3/13** (§5). His 10 remaining acting lines are written and
+   gate-clean; nothing is blocked and no ruling is needed. Fire `victory` next.
+
+---
+
+### 2. THE TRANSPORT OF RECORD (this is new and it WORKS — do not re-derive it)
+
+Fire via `mcp__claude_ai_higgsfield__generate_video`. Renders take **90s-6min**, not the browser's
+20-60 min, and results come back as a direct mp4 URL — harvesting is a download, not DOM scraping.
+
+```
+model seedance_2_0 · duration 4 · resolution 720p · mode std · bitrate_mode standard
+aspect_ratio 1:1 · generate_audio FALSE · use_unlim TRUE (never credits)
+medias: the character's own plate as BOTH start_image AND end_image (same media_id)
+```
+
+- **`bitrate_mode: 'high'` + a media input FAILS.** Three jobs died instantly on it. `standard` works.
+  Failed jobs cost nothing, so bisecting is free — but do not repeat this one.
+- **`end_image` is load-bearing.** It pins the last frame, which is what `fLast` measures. Omit it
+  ONLY for `ko`, which must end prone (see §5).
+- **The preset recommender fires on most prompts** and is character-consistent: eclipse always
+  suggests `DROWN IN MUSIC` (`f1821f84-945b-4cd1-9085-1f479db0028e`), ir37/hollow-pale/oni always
+  `IN THE DARK` (`24bae836-2c4a-48e0-89b6-49fcc0b21612`). Echo the id back as `declined_preset_id`.
+  It is not a hard-codeable constant — read it from the response.
+- **Upload:** `media_upload` -> `curl -X PUT` the bytes -> `media_confirm`. PNG is fine.
+- **ACCOUNTS:** at least five distinct account ids appeared this session. The one that worked is
+  `user_3HFAtp47rDRPDwG2FFOzR2CP7fn` (shared with another terminal). `use_unlim` is REJECTED, never
+  silently charged, so a wrong account fails loudly and costs nothing. Verify with `balance` first.
+- **NON-INTERFERENCE:** another terminal generates on the same rate limit. Before firing, call
+  `show_generations(type:'video', size:5)`; if anything is pending/in_progress OR the newest
+  completion is under ~10 min old, HOLD. A 429 means the same — back off, never hammer.
+
+---
+
+### 3. THE FIVE DEFECTS THAT WERE CORRUPTING PROMPTS BEFORE THEY REACHED THE MODEL
+
+This is the session's real deliverable. **Four of five failures were prompt-ASSEMBLY defects, not
+model failures.** All were found by READING THE ASSEMBLED PROMPT before firing; no gate shows them.
+**Budget that read on every fire.**
+
+1. **`build-prompt.mjs` fired the WRONG SECTION for 14 of 109 states** (phase 63). It took the FIRST
+   `^## <state>` heading, and these files stack analysis blocks and dead concepts ABOVE the live
+   acting line. Two clips would have fired **raw QA telemetry as the prompt**; satoshi would have
+   re-fired a concept Tim rejected as "looks bad". Fixed fail-loud + `check-prompt-sections.mjs`.
+2. **The SPECIAL add-ons prescribed "ENERGY"** (phase 77), silently overriding SIX solid-material
+   recasts. hollow-pale's said *"the ENERGY of the finisher is PALE-GOLD and CRIMSON"* — a fire
+   palette — and the clip duly rendered an orange ember burst against an acting line demanding bone
+   flakes. All four legacy add-ons rewritten to demand SOLID MATERIAL.
+3. **Literal markdown `>` was being sent to the model** (phase 80) in EVERY eclipse and satoshi
+   special, pre-dating this session. Their add-ons are blockquotes and `paragraphAfter()` kept the
+   markers. Fixed in the tool.
+4. **A global suffix law contradicted 11 acting lines** (phases 76, 80, 85). I added the
+   DEBRIS-VANISH law, then found eleven lines still saying the debris "settles". **A suffix change is
+   not local** — it invalidates every acting line written against the old assumption. And phrase-list
+   sweeps only find the phrasings you thought of: this recurred FOUR times, the last one wrapped
+   across a line break so even a targeted `sed` missed it.
+5. **B-take headings were unbuildable** (phase 68): files spell them `## attack_strike B` but the
+   canonical state name is `attack_strike_b`, so 24 headings across 8 characters silently returned
+   "no state section". Fixed in the tool; 17 states became buildable.
+
+---
+
+### 4. THE MEASUREMENT LESSONS (these changed verdicts, not just numbers)
+
+**4.1 The anchor-lock gate was scoring LITTER as a pose failure.** eclipse `attack_strike` v4 read
+`fLast 0.415` — a hard fail — but **0.930 over the BODY only**. Her pose was perfect; shed ofuda on
+the floor dragged the frame bbox 23px, and because the gate bbox-NORMALISES, every cell of the
+comparison grid then sampled a different part of her. **v2 (0.502) and v3 (0.467) of the same state
+also shed ofuda, so those "failures" are suspect too — a re-roll was likely spent on a pose that was
+never broken.** `check-anchor-lock.mjs` now reports BODY and ALL columns; a large gap is itself the
+signal that the clip ends with debris on screen.
+
+**4.2 Three measurement references exist and they are NOT interchangeable.** I rejected a clip
+against a "0.906 kit floor" measured `keyed webm vs idle.webm` while the clip was measured
+`raw mp4 vs plate`. Proof: the same shipped clip scores **0.988** one way and **0.832** the other.
+**Judge a fresh clip only against clips measured the same way.** For a live kit, the anchor is
+`idle.webm` f0 — for a NEW kit, the anchor is that kit's own `idle` f0, NOT the plate.
+
+**4.3 A number that disagrees with the picture is the tell.** Both of the above surfaced because a
+composite looked *identical* while the score said 0.739. This project's recurring failure is "a
+number that did not mean what it looked like". Composite the frame and LOOK; it is not optional.
+
+**4.4 Judge sinking beats on `dropPct`, never `minIoU`** — minIoU bbox-normalises, which divides out
+scale, so it cannot see a crouch. Reference: idle 1.0% · a static "finisher" 1.9% · a REAL crouch
+30-43%.
+
+---
+
+### 5. WHERE THE WORK IS (Oni is unblocked — go here first)
+
+**ONI TETSUBO — MK FINAL playable #1, kit 3/13 ACCEPTED.** Ledger:
+`qa-boss/oni-tetsubo-clipdata.json`. All 13 acting lines written and gate-clean in
+`qa-boss/prompts/oni-tetsubo.md`. Plate: `qa-boss/anchors/mk/oni-tetsubo-anchor-green.png`
+(media_id `07bb4e3f-2bf4-4e08-9f2d-db12349251fa` on the working account).
+
+| clip | f0 | fLast | note |
+|---|---|---|---|
+| `idle` | 0.926 vs plate | — | **DEFINES THE KIT ANCHOR.** Loop 0.917 — small residual pop, v2 later |
+| `hit` | **0.997** | **0.995** | best anchor-lock in the project; minIoU 0.318 = a real stagger |
+| `ko` | 0.994 | 0.249 | correctly OFF-anchor; bbox aspect 4.10 = genuinely prone; tail 0.998 |
+
+**NEXT: `victory`, then strikes/throws/blocks, then the 3 specials.** Two Oni-specific rules:
+- **The kit anchor is `idle` f0, not the plate.** Measure his other clips against that.
+- **`ko` omits `end_image`** — pinning the last frame to a standing plate fights a prone ending. The
+  transport twin of build-prompt's KO-SUFFIX rule (which strips the weapon-lock and anchor-lock
+  sentences; verify 0 occurrences of each before firing a ko).
+- He is **PROP-EXTENDED** (body 401px, tetsubo hangs 622px past it) and still scored ZERO containment
+  overrun — **the padded plate is what makes that possible.** Expect the other 5 MK plates to behave.
+
+**Remaining MK FINAL picks** (per `qa-boss/BRIEF-mk-final-playables.md`): raiju-naginata,
+minotaur-axe, skullrend-orcus, pale-choir, jin-goldenhand. Plates already padded and verified in
+`qa-boss/anchors/mk/`. Two watch items:
+- **Pale_Choir's TEETH ARE GREEN** (`rgb(20,189,12)`; 25.6% of his mouth keys out as plate). A green
+  plate deletes his mouth. Use `qa-boss/anchors/mk/pale-choir-anchor-magenta.png`, built with the new
+  `qa-boss/replate-chroma.mjs`. **Pixel-check every remaining plate for chroma-coloured character
+  detail before writing its kit.**
+- **raiju's padded plate retains a faint rectangle** (dominant green only 56.7%). Check its FIRST
+  keyed clip for a rectangular alpha edge before generating the other 12.
+
+---
+
+### 6. THE 25 MISSING CLIPS ACROSS MAPS 1-10 (re-verified this session)
+
+Only nodes 7 and 10 are complete. **I was wrong earlier that sora/thorn having no specials was "by
+design" — they are simply incomplete.** Audit the MANIFESTS, never infer from a remembered ruling.
+
+```
+node  1 sora-yari        10/13  special, special-b, special-c      BLOCKED (prop-EXTENDED)
+node  2 kitsune-tanto     0/13  NO MANIFEST                        BLOCKED (baked tanto glow)
+node  3 thorn-warden     10/13  special, special-b, special-c      READY — 3 acting lines composed
+node  4 hollow-pale      12/13  attack-throw                       BLOCKED (Tim's take-A ruling)
+node  5 satoshi-odachi   11/13  attack-throw, special-c            BLOCKED (prop-EXTENDED)
+node  6 eclipse-ofuda    12/13  special-b                          READY — special_2 v2 composed
+node  8 ir56             12/13  attack-throw-b                     plain re-roll, not blocked
+node  9 lady-kurotachi   12/13  special-c                          READY — special_3 v3 composed
+```
+
+**Fire-ready right now, no ruling needed:** thorn ×3 specials, eclipse `special_2`, LK `special_3`,
+ir37 `special_3` v3 (see §7). Plus Oni's 10.
+
+`kitsune-tanto.md` and `sora-yari.md` are **FRAGMENTS** with no `Shared prefix:` — their clips cannot
+be built at all until those files are completed.
+
+---
+
+### 7. CLIPS ACCEPTED AND REJECTED THIS SESSION
+
+**ACCEPTED (6)** — all keyed/encoded/wired work is still TO DO; these are accepted RAWS in
+`qa-boss/raw/`, recorded in each character's clipdata under a `phase*` key:
+- eclipse `strike_a` v5 — 0.924/0.925, feather TOP/LEFT ~19px (hat brim)
+- ir37 `strike_b` v4 — 0.930/0.930, containment 0/0/0
+- eclipse `special_1` v2 — 0.927/0.926, clean on every axis, bloom only 0.16%
+- oni `idle` / `hit` / `ko` — see §5
+
+**REJECTED (2), both with a diagnosed cause:**
+- **ir37 `special_3` v2** — pose EXCELLENT (0.930/0.930, dropPct 40.4% vs a 15%-duty v1) but lotus
+  PETALS cross both edges at ~48-62px. **v3 fix: narrow the thing, do not restate the bound** — two
+  petals total, kept behind her own standing footprint, shorter sweep. Keep the crouch, it is proven.
+  Rejected to the same standard as her `strike_b` v3 (one petal at 44px). Not feather-class: the
+  documented test is "body well inside AND only a PROP TIP crosses", and detached debris is not a tip.
+- **hollow-pale `special_2` v2+v3** — STRUCTURAL, stop re-rolling. See §8.
+
+---
+
+### 8. THREE DECISIONS THAT ARE TIM'S, NOT YOURS (~58 clips gated)
+
+Do NOT decide these unilaterally. Each invalidates shipped work.
+
+1. **kitsune node 2 — 13 clips, a dead node, open since session 8.** Blocked on the baked-in tanto
+   glow: a baked effect that cannot be keyed or art-directed. **Biggest single unlock in the game.**
+2. **RE-PLATE the prop-EXTENDED trio (satoshi / sora / ir56) — 33 shipped clips at risk.** Their
+   anchors already touch the frame edge: satoshi's odachi extends 699px past his body with the tip
+   48px from the edge IN THE ANCHOR. "Bound the PROP TIP" cannot help — there is no legal position
+   left, and every wording that passed containment did so by DELETING the motion, which is why his
+   finisher measures 0% duty. Evidence: `qa-boss/ANCHOR-BUDGETS.md`.
+3. **RE-PLATE hollow-pale — 12 shipped clips at risk. NEW this session.** Different cause: his is the
+   only **720x720** plate (all others 1536x1536) and the tightest framing (L131/R29/T37, 91.9% fill).
+   `start_image` PINS f0, yet his f0 cannot beat 0.873 across two rolls while eclipse reaches 0.927.
+   The gap is the plate, not the acting. Fix = `pad-anchor-plate.mjs` to 1536x1536, >=200px margins.
+
+---
+
+### 9. TOOLING ADDED THIS SESSION (all committed, all self-documenting in their headers)
+
+| tool | what it answers |
+|---|---|
+| `qa-boss/check-prompt-sections.mjs` | *does every state build a REAL acting line?* Exit 1 on any poisoned/refused state. **Run before every fire.** |
+| `qa-boss/measure-anchor-budget.mjs` | the frame budget for any plate, INCLUDING body-vs-prop split. REFUSES rather than emitting a meaningless bbox. |
+| `qa-boss/replate-chroma.mjs` | swaps a plate's backdrop colour WITHOUT destroying chroma-coloured character detail (flood-fills from the border only; `--keep-box` whitelists real features). |
+| `qa-boss/ANCHOR-BUDGETS.md` | the whole-roster budget table + the prop-TUCKED vs prop-EXTENDED finding. |
+| `qa-boss/FIRE-PLAN.md` | transport of record, non-interference rule, measurement-reference rule, per-clip acceptance. |
+| `qa-boss/fire-unlimited.js` | browser fallback only. Its RULES are grounded; its DOM SELECTORS are UNVERIFIED. Prefer MCP. |
+
+---
+
+### 10. STANDING CONSTRAINTS (unchanged, still binding)
+
+- Skip **everything** RONIN ZERO VENDING MACHINE — `pack-machine/` stays untracked and unworked.
+- `input/progressivemap.jpg` is ANOTHER GAME'S map — reference only, never ship or commit.
+- Raws stay untracked in `qa-boss/raw/`; keyed webms in `qa-boss/webm/` are committed.
+- MK FINAL characters are **PLAYABLE** — they wire into the charSelect roster like gorvak/volta.
+  **Do not touch `fightCampaign.ts` for them.**
+- Effects are **SOLID MATERIAL** (burning paper, petals, bone shards, stone chips), never
+  flame/glow/mist/aura. Solid material also does not bloom the plate. The real test is measurable:
+  bloom-lit plate % (0.16% is fine; the 3.04% that shipped in session 14 was an olive halo).
+- **Every clip gets a signature beat** (Tim's standing rule) — a plain effect-free swing is not
+  acceptable output.
+- Ledger discipline: **READ the clipdata before writing it.** I clobbered
+  `eclipse-ofuda-clipdata.json` this session by heredoc-ing over 13 shipped records; `git checkout --`
+  saved it. Merge one new key, then verify existing keys survived BY COUNT.
+
+---
+
+## ★★★ (SUPERSEDED by SESSION 17 — §2/§3/§4 above replace its firing advice) SESSION 16 (2026-07-30) ★★★
 
 HEAD **`8870cc8`**. `npx tsc --noEmit` clean, `npx vitest run` **157/157**. **Zero clips fired this
 session — Chrome was never logged in to Higgsfield.** Everything below is desk work, all committed.
@@ -53,15 +284,16 @@ get Tim's re-plate ruling → then the MK FINAL playables (§6B, unchanged).
 
 ---
 
-> **READ THIS FIRST — everything below the SESSION 15 block is PROVENANCE, most of it STALE.**
-> Current state as of **session 15, 2026-07-30**: HEAD **`3263321`**, `npx vitest run` = **157/157**,
-> `npx tsc --noEmit` clean. Session 15 fixed **Tim's node-7 bug** (ir37 `hit` + `victory` re-rolled and
-> shipped), restored eclipse `attack_block` Take A, built the **TURN GATE**, and scoped + unblocked the
-> **6 MK FINAL playables**. **Jump to "★★★★ OPUS 5 — START HERE (SESSION 15)" immediately below.**
-> The SESSION 14 and 13 blocks are retained under it (their defect classes and §3 "verify the verifier"
-> still bind); everything below THOSE is history.
+> **STALE PREAMBLE, kept as provenance. Do NOT start here — the SESSION 17 block at the top of this
+> file is the entry point.** Written at session 15 (HEAD `3263321`), before sessions 16-17 corrected
+> its next-steps. Session 15 did fix **Tim's node-7 bug** (ir37 `hit` + `victory` re-rolled and
+> shipped), restore eclipse `attack_block` Take A, build the **TURN GATE**, and scope the **6 MK FINAL
+> playables** — all of that still stands. But its §6A/§6C worklist is WRONG (see session 16 §1-§4:
+> none of the three queued prompts were fireable, and one §6C target is UNWIRED). Its §2 PROMPT LAWS
+> and the "measure the MANIFEST, not the disk" rule still bind.
 
-## ★★★★★★★★★★ OPUS 5 — START HERE (SESSION 15, written 2026-07-30) ★★★★★★★★★★
+## ★★★ (SUPERSEDED by SESSION 17 — its §6A/§6C next-steps are WRONG, see session 16 §1-§4; but its
+## PROMPT LAWS in §2 and the "measure the MANIFEST not the disk" rule STILL BIND) SESSION 15 ★★★
 
 **YOU are the ORCHESTRATOR: plan / brief / verify / review / commit.** Generation runs in the
 BROWSER on Higgsfield Unlimited = **ZERO CREDITS**. Re-run every gate yourself, VIEW the frames at
