@@ -564,28 +564,34 @@ angle and height it has in the reference image and rise into the EXACT same refe
 is already standing completely still in the reference pose well before the clip ends. Short, fast, final.
 
 ## attack_throw A  (haft clamp and drive-down, solo-safe)
-THROW A (haft clamp): he begins in the EXACT reference stance, angled to camera exactly as in the
-reference image and facing screen-right; IN THE FIRST THIRD he draws both bone hands IN along the haft
-so the bone shaft is held hard across the front of his own ribcage, and CLAMPS THE SHAFT ITSELF tight
-against his own ribs with both bone hands. NOTHING IS HELD, CAUGHT, SEIZED OR CARRIED between the shaft
-and his ribs - the shaft closes on his OWN RIBCAGE and on nothing else, there is NO opponent, no second
-figure and no object of any kind anywhere in the frame at any time, and the space around him stays
-completely empty green. THE CLAMP IS SET BY THE END OF THE FIRST THIRD; then he wrenches his shoulders,
-spine and hips straight DOWN in one committed drive, his knees folding deep and his whole dead mass
-going down behind it into a deep sunk stance, and it is HIS OWN TALONED FEET that drive into the stone
-just inside his own leading foot, so THE SLAM HAS LANDED BY THE HALFWAY POINT. The scythe rides straight
-DOWN with his body at the exact angle it holds in the reference and does not rotate - it stays clamped
-to his ribs and travels only as far as HIS BODY travels, never reaching for the floor. EXACTLY FIVE chips of
-split grey floor-stone and hard grit are knocked UPWARD where his talons come down, each chip no bigger than one of his own FINGER BONES, never a slab and never a
-boulder, and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
-never smoke and never haze - rising no higher than his own knee and spreading no wider than his
-own standing footprint - never past his leading foot toward screen-right and never past his rear heel
-toward screen-left - every piece crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES
-OF DEBRIS IN THE FRAME AT ONCE. He HOLDS the low
-finish through the third quarter while the last chips crumble away, and only in the final second does he
-rise, letting both hands slide back out along the haft and the scythe ride back to the EXACT angle and
-height it has in the reference image, into the EXACT same reference stance, so that he is already
-standing completely still in the reference pose well before the clip ends. Grounded, crushing, final.
+THROW A (dead-weight drive): he begins in the EXACT reference stance, angled to camera exactly as in
+the reference image and facing screen-right. HE NEVER CHANGES HIS GRIP: his LOWER bone hand stays
+locked on the haft held in close at his own waist and his LEADING bone hand stays exactly where it
+grips in the reference image - he does NOT slide either hand along the haft, does NOT draw his hands
+together, and does NOT bring the shaft up across his chest. The whole scythe holds the EXACT low
+diagonal angle it has in the reference image for the entire clip.
+IN THE FIRST THIRD he simply loads: his knees fold and his weight sinks. THEN he wrenches his
+shoulders, spine and hips straight DOWN in one committed drive, his knees folding deep and his whole
+dead mass going down behind it into a deep sunk stance, and it is HIS OWN TALONED FEET that drive into
+the stone, so THE SLAM HAS LANDED BY THE HALFWAY POINT. THE SCYTHE ONLY EVER FALLS WITH HIM: it rides
+straight DOWN at the reference angle, it does NOT rotate, it is NEVER carried level or horizontal, it
+is NEVER thrust, pushed or reached out ahead of him toward screen-right, and the BLADE NEVER travels
+further toward screen-right than it does in the reference image. Nothing is held, caught, seized or
+carried at any point - there is NO opponent, no second figure and no object of any kind anywhere in
+the frame at any time, and the space around him stays completely empty green.
+EXACTLY FIVE chips of split grey floor-stone are knocked UPWARD where his talons come down, each chip
+no bigger than one of his own FINGER BONES, never a slab and never a boulder, and each one SOLID,
+OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke and never haze - rising
+no higher than his own knee and spreading no wider than his own standing footprint, never past his
+leading foot toward screen-right and never past his rear heel toward screen-left, every piece crumbling
+away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES OF DEBRIS IN THE FRAME
+AT ONCE.
+BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT - neither heel ever lifts. THE LINE OF HIS TWO
+SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE
+IN EVERY SINGLE FRAME - he may FOLD and SINK, but he never TURNS. He HOLDS the low finish through the
+third quarter while the last chips crumble away, and only in the final second does he rise into the
+EXACT same reference stance, so that he is already standing completely still in the reference pose well
+before the clip ends. Grounded, crushing, final.
 
 ## attack_throw_b  (bone-hand seize and haul-down, solo-safe)
 THROW B (bone-hand seize): he begins in the EXACT reference stance, angled to camera exactly as in the
