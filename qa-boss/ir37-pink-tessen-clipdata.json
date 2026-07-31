@@ -189,6 +189,44 @@
         1167
       ],
       "webm": "qa-boss/webm/ir37-pink-tessen-special-3-fan-flash.webm"
+    },
+    "special_3_v3": {
+      "accepted": "v3",
+      "job": "bcfd2eb3-8d5a-47a5-9734-fd0509d630b2",
+      "raw": "qa-boss/raw/ir37-special-3-v3.mp4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3DR1OB2c62Ghi1YCNFHJiNCXXAc/hf_20260731_093403_bcfd2eb3-8d5a-47a5-9734-fd0509d630b2.mp4",
+      "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, plate in THREE roles (start+end+image), use_unlim (0 credits)",
+      "measured": {
+        "reference": "raw mp4 vs the ANCHOR PLATE, via qa-boss/check-raw-anchor.mjs. v2 RE-MEASURED THE SAME WAY for a valid comparison.",
+        "v3": {
+          "f0_body": 0.879,
+          "fLast_body": 0.876,
+          "containment": "CLEAN 0 on TOP/LEFT/RIGHT",
+          "dropPct": 39,
+          "travel": 48,
+          "minIoU": 0.243,
+          "spanPeak": 1.15,
+          "strongPct": 57
+        },
+        "v2": {
+          "f0_body": 0.881,
+          "fLast_body": 0.919,
+          "containment": "OVER — LEFT 29px @f54, RIGHT 62px @f43",
+          "dropPct": 40,
+          "travel": 76,
+          "minIoU": 0.141,
+          "spanPeak": 1.76,
+          "strongPct": 69
+        }
+      },
+      "verdict": "ACCEPT v3 — the reject cause is fixed and the proven crouch survived",
+      "qa": "Containment CLEAN, which was the entire reason v2 was rejected (petals crossing both edges at 48-62px). dropPct 39 vs v2 40 — the deep braced crouch is intact, so the beat keeps the commitment that took v1->v2 to earn. spanPeak tightened 1.76 -> 1.15, which is the measurable proof that NARROWING THE OBJECT (a wave of petals -> exactly two, torn from the fan edge, bounded by her standing footprint) is what bought the containment, not another restatement of the bound. Frames viewed at full size: two petals only, held at her feet, gone by the rise.",
+      "anchor_note": "fLast 0.876 looks like a regression against v2 0.919 and is NOT one. What anchor-lock needs is f0 == fLast, and v3 lands them 0.003 apart (0.879/0.876) — it returns to the pose it started from. v2 START and END disagreed by 0.038 (0.881 -> 0.919), i.e. it ended somewhere other than where it began. v3 is the more self-consistent clip.",
+      "measurement_note": "THE HANDOFF QUOTED v2 AS 0.930/0.930. Measured here with a persisted tool against the plate it reads 0.881/0.919. Same clip, different method, ~0.05 apart — a live instance of the three-references rule (FIRE-PLAN phase 78). This is exactly why check-raw-anchor.mjs was written: without it the v2 baseline could not be reproduced, so v3 could not be judged against it.",
+      "residuals": [
+        "A faint pink crescent smear trails the fan at the sweep peak (~f24). It is her OWN glowing fan edge motion-smearing, not an added effect, but the prompt does say never a trail — check for bloom onto the plate at keying (check-plate-retention BEFORE neutralize).",
+        "travel 48px trips the body-commitment gate (<90px). Expected and intended: v3 deliberately narrowed the beat to a crouch-in-place, and this is a SINKING beat, judged on dropPct (39) per the standing rule, not on horizontal travel."
+      ]
     }
   },
   "energy_rerolls": {
