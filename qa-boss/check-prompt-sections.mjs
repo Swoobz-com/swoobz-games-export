@@ -170,8 +170,19 @@ for (const f of files) {
     // # line break — the same way the debris contradiction survived a targeted search five times.#
     // ##########################################################################################
     if (st === 'idle' || st === 'attack_strike' || st === 'attack_strike_b') {
+      // Both word orders, because the roster uses both and a one-order pattern missed a live site.
+      // "rolls his shoulders back toward screen-LEFT" (lich attack_strike_b) survived THREE hand
+      // sweeps that all matched only "shoulders roll...". It was caught by reading the acting line
+      // before firing, which is the fourth distinct under-match this session after hyphens, hard
+      // line wraps and the "roll ONCE" variant. Encoded here so the next one cannot be a surprise.
+      //
+      // Deliberately NOT matched: "rolling OVER/DOWN" (ir22, ir60) — those are directional FOLDS,
+      // read in full and cleared. And "roll once" is left out because oni's ACCEPTED victory
+      // contains it while pinning shoulders, hips and feet in the same sentence, which is measured
+      // evidence that a BOUNDED roll is safe. This gate is scoped to idle + the two strikes anyway.
       const ROT = [
         ['shoulder roll', /shoulders\s+roll(?:ing|s)?\s+(?:up|forward|back)/i],
+        ['shoulder roll (reversed order)', /roll(?:s|ing)?\s+(?:his|her|their|the)\s+shoulders/i],
         ['foot-to-foot weight transfer', /weight\s+rolls?\s+(?:slowly\s+)?from\s+(?:his|her|the|their)\s+rear\s+[a-z-]+\s+onto/i],
       ];
       const rot = ROT.filter(([, re]) => re.test(out));
