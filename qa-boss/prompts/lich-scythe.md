@@ -476,7 +476,10 @@ reference pose well before the clip ends. Fast for his size, heavy, silent.
 ## attack_strike_b  (rising hook, the bone spur pulled back)
 STRIKE B (rising hook): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST QUARTER he sinks his hips into a low braced crouch
-over both planted feet and rolls his shoulders back toward screen-LEFT, gathering the haft in tight; then
+over both planted feet and draws his shoulders straight BACK toward screen-LEFT with neither one coming
+forward and neither one swinging round, gathering the haft in tight. THE LINE OF HIS TWO SHOULDERS AND
+THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE
+FRAME - he may SINK, DRAW BACK and RISE, but he never TURNS. Then
 he drives up out of his knees and SNAPS the whole scythe head a short way UP and IN toward his own leading
 shoulder in one savage hooking pull, the head staying out in front of him toward screen-right the whole
 way, the hooked bone BACK-SPUR leading and the weapon turning about his own LOWER bone hand, which stays
