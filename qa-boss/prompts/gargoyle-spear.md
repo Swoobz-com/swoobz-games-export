@@ -257,8 +257,8 @@ claws grind hard DOWN into the stone and break EXACTLY THREE small chips of soli
 off the floor beside that foot, each chip no bigger than one of his own toe-claws and each one SOLID,
 OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke, never haze - rising no
 higher than his own ankle and spreading no wider than his own standing footprint - never past his
-leading foot's claws toward screen-right, never past his rear heel toward screen-left - every chip
-crumbling away to nothing in mid-air as it falls. BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT -
+leading foot's claws toward screen-right, never past his rear heel toward screen-left - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. BOTH OF HIS FEET STAY FLAT ON THE STONE THROUGHOUT -
 neither heel ever lifts. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME
 ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - his near shoulder never
 comes forward, his far shoulder never swings round, and his chest never squares up toward the camera;
@@ -286,8 +286,8 @@ in the reference image. THE BITE HAS LANDED BY THE HALFWAY POINT: the spike crac
 strikes and EXACTLY THREE chips of solid grey flagstone burst UPWARD around the buried spike, each
 chip no bigger than one of his own toe-claws and each one SOLID, OPAQUE and sharp-edged - never a
 puff, never a cloud, never dust, never smoke, never haze - rising no higher than his own knee,
-staying within one hand's-breadth of the bite and never past his rear heel toward screen-left - every
-chip crumbling away to nothing in mid-air as it falls. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF
+staying within one hand's-breadth of the bite and never past his rear heel toward screen-left - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF
 HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME -
 his near shoulder never comes forward, his far shoulder never swings round, and his chest never
 squares up toward the camera; he may FOLD and SINK, but he never TURNS. He HOLDS the sunk finish with
@@ -314,8 +314,8 @@ POINT - the point biting deep into the floor-stone, and EXACTLY FIVE chips of so
 burst UPWARD around the buried head, each chip no bigger than one of his own toe-claws and each one
 SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke, never haze -
 rising no higher than his own knee, staying within one hand's-breadth of the impact point and never
-further toward screen-right than the barbed head sits in the reference image - every chip crumbling
-away to nothing in mid-air as it falls. He may FOLD and SINK, but he never TURNS - his chest never
+further toward screen-right than the barbed head sits in the reference image - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. He may FOLD and SINK, but he never TURNS - his chest never
 squares up toward the camera. He HOLDS the low finish through the third quarter, his whole weight
 bearing down the shaft onto the buried point, his stone shoulders juddering under his own load,
 while the last chips crumble away. Only in the final quarter does he draw the point back up out of
@@ -342,7 +342,8 @@ solid grey flagstone burst UPWARD from under his own feet, each chip no bigger t
 toe-claws and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never
 smoke, never haze - rising no higher than his own knee and spreading no wider than his own standing
 footprint - never past his leading foot's claws toward screen-right, never past his rear heel toward
-screen-left - every chip crumbling away to nothing in mid-air as it falls. THROUGH THE THIRD QUARTER
+screen-left - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. THROUGH THE THIRD QUARTER
 he settles his horned head back down onto his thick neck while the last chips crumble away, the spear
 riding back up with him to the EXACT angle and height it has in the reference image, and in the final
 quarter he settles into the EXACT same reference stance, so that he is already standing completely
@@ -422,8 +423,8 @@ folded on top of him where he rests - they never open, never spread and never sp
 ground. EXACTLY THREE small chips of solid grey flagstone are knocked UPWARD where his knees strike,
 each chip no bigger than one of his own toe-claws and each one SOLID, OPAQUE and sharp-edged - never
 a puff, never a cloud, never dust, never smoke, never haze - rising no higher than his own fallen
-shoulder and staying within one body-width of where he lands, every chip crumbling away to nothing in
-mid-air as it falls. FOR THE WHOLE SECOND HALF OF THE CLIP HE LIES COMPLETELY STILL - he does not
+shoulder and staying within one body-width of where he lands, every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+OF DEBRIS IN THE FRAME AT ONCE. FOR THE WHOLE SECOND HALF OF THE CLIP HE LIES COMPLETELY STILL - he does not
 stir, does not lift his head, does not push up on an arm and he does NOT get back up - and the fallen
 spear lies exactly where it came to rest and does not move again. He is ALONE in an empty frame -
 nothing whatsoever enters, crosses or appears in the frame at any time. Only his own body and his own
@@ -467,10 +468,11 @@ light, and never leaving the shaft. AT THE SIXTY PERCENT MARK he brakes the spin
 the wing-vanes landing EXACTLY back in the position they hold in the reference image - and in the
 same instant drives his whole stone tonnage straight DOWN through his bent legs so his foot-claws
 GRIND into the floor: EXACTLY FOUR chips of solid grey flagstone break UPWARD out of the floor from
-under his grinding feet, each chip no bigger than one of his own toe-claws, rising no higher than his
+under his grinding feet, each chip no bigger than one of his own toe-claws and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no higher than his
 own knee and spreading no wider than his own standing footprint - never past his leading foot's claws
 toward screen-right, never past his rear heel toward screen-left - every chip cracking apart and
-crumbling away to nothing in mid-air as it falls. The debris is SOLID BROKEN ROCK: opaque,
+crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FOUR PIECES OF DEBRIS IN THE FRAME AT ONCE. The debris is SOLID BROKEN ROCK: opaque,
 sharp-edged, matte and lit like stone - never a glow, never a flame, never a spark of light, never a
 wisp. HE HOLDS THE BRAKED CROUCH THROUGH THE THIRD QUARTER, thighs and shoulders shuddering under the
 load straight up and down, the spear dead-still at its reference angle with the vanes at their
@@ -492,10 +494,11 @@ striking the stone directly below its own reference position and never further t
 the butt-spike directly below its own and never further toward screen-left, both stone hands still
 closed on the shaft at the floor. THE FLOOR GIVES WAY UNDER THE BAR: EXACTLY SEVEN chips of solid
 grey flagstone burst UPWARD from under the stretch of shaft that lies between his own two feet, each
-chip no bigger than one of his own hands, rising no higher than his own knee and spreading no wider
+chip no bigger than one of his own hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
+never smoke and never haze - rising no higher than his own knee and spreading no wider
 than his own standing footprint - never past his leading foot's claws toward screen-right, never past
 his rear heel toward screen-left - every chip cracking apart and crumbling away to nothing in mid-air
-as it falls. The debris is SOLID BROKEN ROCK: opaque, chipped, sharp-edged, matte and lit like
+as it falls. THERE ARE NEVER MORE THAN FOUR PIECES OF DEBRIS IN THE FRAME AT ONCE. The debris is SOLID BROKEN ROCK: opaque, chipped, sharp-edged, matte and lit like
 stone - never a glow, never a flame, never a spark of light, never a wisp. He may FOLD and SINK, but
 he never TURNS - his chest never squares up toward the camera and both feet stay flat and planted.
 HE HOLDS THE LANDED BAR THROUGH THE THIRD QUARTER, folded double with his whole weight bearing down
@@ -519,10 +522,11 @@ the shaft, and THE DAMAGE COMES FROM HIS OWN FEET, NOT FROM THE WEAPON - through
 long talons of both feet SCREW DOWN into the flagstone without either foot leaving the spot it stands
 on, and the floor GIVES WAY under them in stages: EXACTLY SIX chunks of solid grey flagstone break
 loose in ones and twos, spread out across the length of the hold rather than in one burst, each chunk
-no bigger than one of his own hands, knocked UPWARD to no higher than his own knee and spreading no
+no bigger than one of his own hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud,
+never dust, never smoke and never haze - knocked UPWARD to no higher than his own knee and spreading no
 wider than his own standing footprint - never past his leading foot's claws toward screen-right,
 never past his rear heel toward screen-left - every chunk cracking apart and crumbling away to
-nothing in mid-air as it falls. The debris is SOLID BROKEN ROCK: opaque, chunky, sharp-edged, matte
+nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES OF DEBRIS IN THE FRAME AT ONCE. The debris is SOLID BROKEN ROCK: opaque, chunky, sharp-edged, matte
 and lit like stone - never a glow, never a flame, never a spark of light, never a wisp. AT THE
 SIXTY-FIVE PERCENT MARK he drives one short heavy press of his whole mass straight DOWN and the perch
 bottoms out, the spear riding down with him at its reference angle and taking no other part - it does
