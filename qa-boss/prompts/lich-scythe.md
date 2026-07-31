@@ -502,14 +502,17 @@ the clip ends. Fast, rising, vicious.
 ## attack_throw A  (haft clamp and drive-down, solo-safe)
 THROW A (haft clamp): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right; IN THE FIRST THIRD he draws both bone hands IN along the haft
-so the bone shaft is held hard across the front of his own ribcage, and CLAMPS an unseen weight between
-that shaft and his own ribs at his own chest height in EMPTY AIR - there is NO opponent and no second
-figure, and nothing else is in the frame at any time. THE CLAMP IS SET BY THE END OF THE FIRST THIRD;
-then he wrenches his shoulders, spine and hips straight DOWN in one committed drive, his knees folding
-deep and his whole dead mass going down behind it, and the clamped weight is driven into the stone just
-inside his own leading foot, so THE SLAM HAS LANDED BY THE HALFWAY POINT. The scythe rides straight DOWN
-with his body at the exact angle it holds in the reference and does not rotate. EXACTLY FIVE chips of
-split grey floor-stone and hard grit are knocked UPWARD where the weight comes down, each chip no bigger
+so the bone shaft is held hard across the front of his own ribcage, and CLAMPS THE SHAFT ITSELF tight
+against his own ribs with both bone hands. NOTHING IS HELD, CAUGHT, SEIZED OR CARRIED between the shaft
+and his ribs - the shaft closes on his OWN RIBCAGE and on nothing else, there is NO opponent, no second
+figure and no object of any kind anywhere in the frame at any time, and the space around him stays
+completely empty green. THE CLAMP IS SET BY THE END OF THE FIRST THIRD; then he wrenches his shoulders,
+spine and hips straight DOWN in one committed drive, his knees folding deep and his whole dead mass
+going down behind it into a deep sunk stance, and it is HIS OWN TALONED FEET that drive into the stone
+just inside his own leading foot, so THE SLAM HAS LANDED BY THE HALFWAY POINT. The scythe rides straight
+DOWN with his body at the exact angle it holds in the reference and does not rotate - it stays clamped
+to his ribs and travels only as far as HIS BODY travels, never reaching for the floor. EXACTLY FIVE chips of
+split grey floor-stone and hard grit are knocked UPWARD where his talons come down, each chip no bigger
 than one of his own skeletal hands and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust,
 never smoke and never haze - rising no higher than his own knee and spreading no wider than his
 own standing footprint - never past his leading foot toward screen-right and never past his rear heel
