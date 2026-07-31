@@ -609,5 +609,29 @@
       },
       "note": "Pose CORRECT; rejected only for debris on screen at the end. This clip is the evidence for the phase-72 gate fix (body-vs-all reporting) and the phase-73 DEBRIS-VANISH law."
     }
+  },
+  "phase81_special_1_reroll_2026_07_31": {
+    "_doc": "RE-ROLL of special_1 (ships as special.webm). Added WITHOUT touching existing keys.",
+    "accepted": "v2",
+    "job": "a30fd0f7-e1a5-45db-b1ff-caf0d529962a",
+    "raw": "qa-boss/raw/eclipse-special-1-v2.mp4",
+    "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_043728_a30fd0f7-e1a5-45db-b1ff-caf0d529962a.mp4",
+    "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, plate as start_image + end_image, use_unlim (0 credits)",
+    "measured": {
+      "f0_all": 0.927,
+      "f0_body": 0.929,
+      "fLast_all": 0.926,
+      "fLast_body": 0.928,
+      "dropPct": "26.2% @f24",
+      "containment_proxy200": "TOP 0, LEFT 0, RIGHT 0 — CLEAN on every counted edge",
+      "bloom_lit_plate": "0.16% of plate (session-14 shipped defect was 3.04%) — negligible",
+      "frames": 97,
+      "size": "960x960",
+      "fps": 24
+    },
+    "verdict": "ACCEPT — best clip of the session on every axis",
+    "qa": "PASS. Anchor-lock 0.927/0.926 with body and all in agreement (no debris left at the last frame). Containment clean on all counted edges. dropPct 26.2% is real body commitment, not a static hold — the v1 defect class for this beat. Viewed at full size: f0 and f96 both hold the katana point-down at the reference angle, ofuda tear from the hat brim and burn at f20-f32, and the ground is clear by f96.",
+    "effect_note": "The beat renders with visible FLAME despite the acting line saying \"never a flame\". Accepted deliberately: the material still reads as BURNING PAPER (curling, opaque, ash), which is the proven IR-48 recast, and the risk that mattered was measured directly — bloom-lit plate is 0.16%, versus the 3.04% that actually shipped as an olive halo in session 14. Run cut-bloom-plate.mjs at keying as cheap insurance.",
+    "v1_superseded": "v1 was EMISSIVE and DETACHED: \"fling a tight fan of GLOWING white paper talismans that FLARE BRIGHT ... in the air\". Recast to burning paper shed from her own HAT BRIM (attached origin) falling downward."
   }
 }
