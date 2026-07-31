@@ -33,9 +33,11 @@ Shared suffix (strict-profile anti-spin + weapon lock + containment):
 > stance. 24fps.
 > Anything that sheds, tears loose, breaks off or is kicked up during the clip has COMPLETELY VANISHED before the final frame - it burns away, crumbles to nothing or falls out of sight, and NONE of it is left lying on the ground or visible anywhere in the frame at the end; the last frame shows ONLY the fighter and what the fighter holds, exactly as the first frame does.
 
-SPECIAL add-on: The energy of the finisher is HOT PINK and CRIMSON and WHITE, NEVER green, small and
-compact, staying in the CENTER of the frame with a wide empty green margin on all four edges, NOT a beam,
-NOT a ring, NOT a jet.
+SPECIAL add-on:
+Whatever the finisher produces is SOLID MATERIAL in her own palette - hard lacquered crimson rings and
+hot-pink shards, opaque with visible edges - NEVER a glow, NEVER a flash, NEVER a flare, NEVER light or
+energy of any kind, and NEVER green. It stays small and compact in the CENTER of the frame with a wide
+empty green margin on all four edges, and it is NOT a beam, NOT a ring of light, NOT a jet.
 
 ## idle  [v1 sway + v2 near-static SUPERSEDED by v3 — Tim 2026-07-24: "map 9 super boring and static".
 The near-static lock fixed the loop hitch but killed the life; v3 = coiled duelist menace, loop-sealed.]

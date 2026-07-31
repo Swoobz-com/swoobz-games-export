@@ -157,8 +157,10 @@ acting line before firing:
 > her back NEVER faces the camera, and she keeps facing the SAME direction the entire clip.
 
 SPECIAL suffix add-on (the 3 specials only; Tim's contain-in-frame rule):
-> The talisman-light / steel energy of the finisher stays FULLY INSIDE the frame and NEVER extends past
-> the edges.
+> Whatever the finisher produces is SOLID MATERIAL in her own palette - white paper ofuda, torn paper
+> scraps, curling burning paper and dark ash, opaque with visible edges - NEVER a glow, NEVER a flare,
+> NEVER a ring or trail of light, NEVER light or energy of any kind, and NEVER green. It stays FULLY
+> INSIDE the frame and NEVER extends past the edges.
 
 ## idle
 IDLE COMBAT-READY LOOP: a poised grounded kenjutsu stance, breathing steadily, the katana held ready, her
