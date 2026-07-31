@@ -1,0 +1,30 @@
+{
+  "_doc": "ONI TETSUBO — MK FINAL playable #1. New character, no prior ledger. Raws untracked in qa-boss/raw/.",
+  "character": "oni-tetsubo",
+  "source": "input/MK FINAL/ (mythic). PLAYABLE character — wires into the charSelect roster like gorvak/volta, NOT a campaign node. Do not touch fightCampaign.ts.",
+  "anchor": "qa-boss/anchors/mk/oni-tetsubo-anchor-green.png (PADDED via pad-anchor-plate.mjs; raw art was L51/R28/T71)",
+  "frame_budget": "L234 / R234 / HEADROOM 468. PROP-EXTENDED: body mass only 401px wide (x279..x679), tetsubo hangs 622px past the body. Workable only because padding gives 234px past the club tip vs satoshi's 48px.",
+  "KIT_STATUS": "1/13. idle ACCEPTED as the kit anchor.",
+  "clips": {
+    "idle": {
+      "accepted": "v1",
+      "job": "75dfd873-0010-4124-9b8d-8bde513f3479",
+      "raw": "qa-boss/raw/oni-tetsubo-idle-v1.mp4",
+      "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_060637_75dfd873-0010-4124-9b8d-8bde513f3479.mp4",
+      "spec": "seedance_2_0, 4s, 720p, std, bitrate standard, 1:1, audio off, plate as start_image + end_image, use_unlim (0 credits)",
+      "measured": {
+        "f0_vs_plate": 0.926,
+        "fLast_vs_plate": 0.876,
+        "loop_f0_vs_fLast": 0.917,
+        "minIoU_vs_f0": "0.916 @f95 (real subtle motion — a frozen clip reads ~1.000)",
+        "containment_proxy200": "TOP 0, LEFT 0, RIGHT 0 — CLEAN",
+        "frames": 97, "size": "960x960", "fps": 24
+      },
+      "verdict": "ACCEPT — this clip DEFINES the kit anchor",
+      "qa": "PASS. On-model, strict side profile facing screen-right, tetsubo held at the reference angle, containment clean on every counted edge. minIoU 0.916 confirms real subtle idle motion rather than a frozen frame — the defect-gates-converge-on-boring failure. The padded plate is doing its job: zero containment overrun on a PROP-EXTENDED character, which is exactly what the raw art could never have achieved.",
+      "anchor_note": "The kit anchor IS this clip's f0, not the plate. So its 0.926-vs-plate is informational; what matters for the other 12 clips is that they return to THIS f0.",
+      "residual": "Loop f0-vs-fLast 0.917 — a small pop each time the idle repeats. Accepted for now because it does not block building the kit. A v2 should add an explicit final-second-motionless beat. Compare: session peers hit 0.925-0.930 on anchor-lock."
+    }
+  },
+  "next": "hit / ko / victory, then strikes / throws / blocks, then the 3 specials (EARTHSHAKER / SPIKE DRIVER / OGRE STOMP). All 13 acting lines are already written and gate-clean in qa-boss/prompts/oni-tetsubo.md."
+}
