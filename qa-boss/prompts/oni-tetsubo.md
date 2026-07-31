@@ -125,11 +125,13 @@ short elbow strike forward at chest height and flows in one eased motion back in
 reference stance. The tetsubo never rises and never swings during this clip. Braced, compact, brutal.
 
 ## hit  (heavy stagger, quick recover)
-HIT (stagger): he begins in the EXACT reference stance in strict side profile facing screen-right; his
-head and shoulders snap back and to screen-LEFT, his front foot skids a SHORT half-step back and his
-knees buckle under the weight, and he pulls the tetsubo IN TIGHT against his own body as his arm is
-jarred; he catches his balance, plants his feet and flows in one eased recovery back into the EXACT same
-reference stance. His chest and face lead the recoil; his back is never shown. He is ALONE in an empty
+HIT (stagger): he begins in the EXACT reference stance, his body angled toward screen-right exactly as
+it is in the reference image; his head and shoulders snap back and to screen-LEFT, his front foot skids
+a SHORT half-step back and his knees buckle under the weight, and he pulls the tetsubo IN TIGHT against
+his own body; he catches his balance, plants his feet and flows in one eased recovery back into the
+EXACT same reference stance. NO blow, no impact, no opponent, no second weapon - nothing ever strikes
+him and nothing is ever seen to; the whole stagger is his OWN body recoiling, and his own tetsubo is the
+ONLY weapon that exists in the shot. His chest and face lead the recoil; his back is never shown. He is ALONE in an empty
 frame - nothing whatsoever enters, crosses or appears in the frame at any time, and there is no light, no
 flare and no streak anywhere in the shot. Only his own body moves.
 
