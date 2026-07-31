@@ -266,5 +266,28 @@
     "qa": "PASS. The re-roll target is MET: v3 carried RIGHT 44px @f57-58 (one lotus petal past the edge); v4 is 0/0/0, fully clean. body==all (0.929/0.930) means NO debris at the last frame — second independent confirmation of the DEBRIS-VANISH law, on a different character and a different shed material (petals vs paper). Viewed at full size: f0 and f96 both show the fan OPEN beside her at the reference angle, petals shear at f20-f60 and are GONE by f96.",
     "regression_note": "f0/fLast dropped 0.993 -> 0.930. This is EXPECTED and is MY WORDING, not the acting: v3 exact text was never persisted anywhere, so this line was reconstructed from v3 measurements and labelled as such in the prompt file. 0.930 still clears the 0.90 bar comfortably. Trade accepted: v3 scored higher on anchor-lock but BROKE containment; v4 is clean on containment, which is why it was re-rolled.",
     "green_fan_note": "Her FAN INNER SECTOR renders near-chroma green — v4 f0 has 1202 enclosed green px inside the silhouette (0.130% of frame). NOT introduced by this clip: the ANCHOR PLATE itself has 3318 px (0.141%), i.e. the same property at a comparable rate, so every ir37 clip ever generated carries it. Her 13 shipped clips are evidence the keyer tolerates it. Flagged for the keying stage, not a blocker."
+  },
+  "phase82_special_3_reroll_2026_07_31": {
+    "_doc": "RE-ROLL of special_3 (ships as special-c.webm). Added WITHOUT touching existing keys.",
+    "attempted": "v2",
+    "job": "14e2ecff-ee7d-42ce-97f9-f520b3ae8e77",
+    "raw": "qa-boss/raw/ir37-special-3-v2.mp4",
+    "rawUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3HFAtp47rDRPDwG2FFOzR2CP7fn/hf_20260731_053630_14e2ecff-ee7d-42ce-97f9-f520b3ae8e77.mp4",
+    "measured": {
+      "f0_all": 0.93,
+      "f0_body": 0.929,
+      "fLast_all": 0.93,
+      "fLast_body": 0.929,
+      "dropPct": "40.4% @f47",
+      "containment_proxy200": "TOP 0, LEFT 10 @f48, RIGHT 13 @f43  (~48px / ~62px real)",
+      "frames": 97,
+      "size": "960x960",
+      "fps": 24
+    },
+    "verdict": "REJECT — containment only. ONE narrow fix away.",
+    "what_worked": "Anchor-lock 0.930/0.930, matching her accepted strike_b v4 exactly. dropPct 40.4% is a REAL crouch (reference: idle 1%, static finisher 1.9%, real crouch 30-43%) against v1 which was a 15%-duty near-static clip — so the commitment problem this re-roll existed to fix is SOLVED. body==all, so no debris at the last frame. The emissive->solid recast held: no glow, no trail.",
+    "defect": "Lotus PETALS cross both side edges. Sampled at the worst frames: rgb(237,161,221) / rgb(222,145,203) / rgb(218,139,198) = pink petals, NOT the fan and NOT her body. The prompt already bounds them (\"stay within one body-width of her, never travel sideways away from her, never come near the left, right or top edge\") and they crossed anyway — a prose bound on scatter width did not hold at this crouch depth.",
+    "consistency_note": "Rejected to the SAME standard already applied to her strike_b v3, which was re-rolled for a single petal at RIGHT 44px. This is petals on BOTH edges at ~48-62px. Not feather-class: the documented feather test is \"body well inside AND only a PROP TIP crosses\" — detached debris crossing an edge is not a prop tip.",
+    "v3_fix": "Narrow the scatter, do not restate the bound: cut to TWO petals total, require them to stay BEHIND her own standing silhouette (never outside her own footprint), and shorten the sweep travel. The deep crouch is proven and should be kept as-is."
   }
 }
