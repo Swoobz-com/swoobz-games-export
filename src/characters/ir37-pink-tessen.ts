@@ -34,11 +34,30 @@ export const IR37_PINK_TESSEN: FighterDef = {
         contacts: [2167],
       },
       {
-        // Take B: fan SNAPS open mid-swing into a big glowing pink arc cleave (distinct action,
-        // same strike family). Arc grazes the top frame edge (~f23-38) -> 48px top feather.
+        // Take B: the fan rides up overhead, then SNAPS down across the body in a glowing hot-pink
+        // arc cleave that sheds solid lotus petals (distinct action, same strike family).
+        //
+        // RE-ROLLED (phase 96, v4) from qa-boss/raw/ir37-attack-strike-b-v4.mp4 (97 frames, bbox
+        // 606x946). SUPERSEDES the phase-23 file, and fixes its top-edge graze: v4 measures
+        // containment CLEAN on TOP/LEFT/RIGHT with NO feather at all (the old take needed a 48px top
+        // feather because the arc grazed the top edge ~f23-38).
+        // KEYER: scripts/key-clips-green-pinksafe.mjs — NOT key-idle-clips.mjs. The stock keyer is
+        // magenta-tuned and pink IS magenta-family, so it crushes her hot-pink trim to mauve and
+        // destroys the character. The pink-safe fork left the plate so clean that the mandatory
+        // green-neutralize HARD=4 pass removed ZERO pixels and cut-bloom-plate cut zero.
+        // Measures: plate retention BEFORE neutralize 0.00% (clean — not a post-neutralize
+        // tautology, this is the real reading on the keyed frames); matte-proof 0 green-dominant px
+        // over black AND white. VIEWED at full size over white: the trim is still saturated neon
+        // fuchsia, the fan ribs read individually and the silhouette is not chewed.
+        // cal is the keyer-emitted value AND the re-derived value — they agree exactly, drift 0.00,
+        // which follows from neutralize having deleted nothing that could move the alpha bbox.
+        // contacts: motion-energy argmax f21 (875ms), FRAME-CHECKED — f_017-f_019 hold the fan high,
+        // f_020-f_023 are the downward cleave, and f_022 (index 21) is the fan at the bottom of its
+        // sweep with the arc at peak brightness and the petals bursting. That is the impact, not the
+        // recovery. The old 1417ms belonged to the superseded take and now lands in the petal drift.
         url: 'assets/characters/ir37-pink-tessen/attack-strike-b.webm',
-        cal: { h: 111.44, bottom: -0.49, left: 54.26 },
-        contacts: [1417],
+        cal: { h: 115.09, bottom: -5.84, left: 48.66 },
+        contacts: [875],
       },
     ],
     attack_throw: [
@@ -118,10 +137,30 @@ export const IR37_PINK_TESSEN: FighterDef = {
         contacts: [1375],
       },
       {
-        // Fan flash: compact hot-pink + white star-flash at the fan.
+        // Take C — CRESCENT SWEEP: she drops into a deep braced crouch and sweeps the fan through a
+        // long hot-pink crescent arc that wraps under her, shedding solid lotus petals, then rises
+        // back to the anchor.
+        //
+        // RE-ROLLED (phase 96, v3) from qa-boss/raw/ir37-special-3-v3.mp4 (97 frames, bbox 712x832).
+        // SUPERSEDES the phase-23 "fan flash" file — the acting is now a sweeping crescent rather
+        // than a compact star-flash, hence the renamed description. The v3 roll is the one that
+        // fixed containment while KEEPING the crouch (v2 lost it): the arc reaches wide on both
+        // sides but measures CLEAN on TOP/LEFT/RIGHT, no feather needed.
+        // KEYER: scripts/key-clips-green-pinksafe.mjs — see the attack_strike take B note above for
+        // why the stock magenta-tuned keyer must never touch this character. Same result here: the
+        // green-neutralize HARD=4 pass removed ZERO pixels and cut-bloom-plate cut zero.
+        // Measures: plate retention BEFORE neutralize 0.00% (a real reading on the keyed frames, not
+        // a post-neutralize tautology); matte-proof 0 green-dominant px over black AND white.
+        // VIEWED at full size over white: the crescent is a clean pink/white gradient with no olive
+        // or chartreuse anywhere in it, and the trim stays saturated fuchsia.
+        // cal RE-DERIVED from the final frames; drift 0.12 vs the keyer-emitted
+        // { h: 101.22, bottom: -0.49, left: 50 } = a match, and the re-derived value is wired.
+        // contacts: the motion-energy argmax is f11 (458ms) and it is largely the crouch-drop, i.e.
+        // the launch — so contacts is the effect-strength peak instead, 3.37pp @f20 = 833ms
+        // (sustained 9 frames), frame-checked as the arc at full extension and peak brightness.
         url: 'assets/characters/ir37-pink-tessen/special-c.webm',
-        cal: { h: 101.95, bottom: -0.49, left: 53.89 },
-        contacts: [1167],
+        cal: { h: 101.22, bottom: -0.49, left: 50.12 },
+        contacts: [833],
       },
     ],
     // ko is the ONE off-anchor clip: weapons drop, crumples prone, holds motionless on the ground

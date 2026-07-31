@@ -62,15 +62,34 @@ export const ECLIPSE_OFUDA: FighterDef = {
     // Contract §10: two interchangeable takes per non-idle state (own cal + measured contacts each).
     attack_strike: [
       {
-        // Take A: coiled hat-tilted iai crouch -> committed diagonal draw-cut with left follow-through.
-        // FACING (phase 29): this take was ALREADY right-facing as originally shipped. Phase 26/28
-        // flipped it to LEFT to match the then-left kit; the phase-29 ruling made 'right' the roster
-        // convention, so the FILE was RESTORED bit-exact from 3a894ef rather than flipped a second
-        // time (a re-key would have cost a needless VP9 generation), and this cal is reverted with it:
-        // left 55.04 -> 44.96. h/bottom/contacts never moved.
+        // Take A: coiled hat-tilted iai crouch -> committed overhead-to-low diagonal draw-cut,
+        // ofuda tag streaming from the blade tip, then a settle back to the anchor.
+        //
+        // RE-ROLLED (phase 96, v5) from qa-boss/raw/eclipse-ofuda-attack-strike-v5.mp4 (97 frames,
+        // 960x960). SUPERSEDES the phase-29 file. Keyed with the NO-HFLIP recipe of record
+        // (qa-boss/key-eclipse-specials-v2.mjs): stock key-idle-clips.mjs --still the '-r' plate,
+        // then green-neutralize HARD=4 (NOT the default 32) + cut-bloom-plate. The raw was fired
+        // right-facing, so nothing is mirrored — nose, hat brim and boot-toes point RIGHT, matching
+        // faces:'right'.
+        // Measures: plate retention BEFORE neutralize 2.56% (WATCH band, cleared by the neutralize
+        // pass -> 1,066,879 px removed + 38,875 px bloom-plate cut); containment after feather CLEAN
+        // on TOP/LEFT/RIGHT; matte-proof 0 green-dominant px over black AND white.
+        // FEATHER: the union bbox came back as the FULL 960x960 frame and containment measured
+        // TOP 14px @f13 / LEFT 12px @f10 — the black hat brim at the top of the wind-up. Feathered
+        // --top 48 --left 48, which touched only 7/97 frames (so it is a true edge dissolve, not a
+        // whole-clip over-feather) and took containment to clean.
+        // cal RE-DERIVED from the final frames (drift 0.57 vs the keyer-emitted
+        // { h: 116.5, bottom: -5.83, left: 49.94 }) — neutralize deleted real plate pixels and moved
+        // the alpha bbox, so per the pipeline the re-derived value is the one wired.
+        // contacts: motion-energy argmax f16 (667ms), FRAME-CHECKED: f_013-f_016 hold the katana
+        // overhead, f_017 is the swing-through (the blade motion-blurs out for exactly one frame at
+        // the apex — hand still closed in grip, no detached fragment anywhere, so this is blur and
+        // NOT the phantom-object class that pulled block take A), f_018 has it extended low-right.
+        // So the argmax is the CUT, not the recovery. The old 1875ms belonged to the superseded take
+        // and would now fire the hitspark during the walk-back.
         url: 'assets/characters/eclipse-ofuda/attack-strike.webm',
-        cal: { h: 111.27, bottom: -2.14, left: 44.96 },
-        contacts: [1875],
+        cal: { h: 117.07, bottom: -6.1, left: 49.63 },
+        contacts: [667],
       },
       {
         // Take B: wide waist-height horizontal smear cut (distinct action, same strike family).
@@ -177,19 +196,31 @@ export const ECLIPSE_OFUDA: FighterDef = {
     // [2250]; its feather is whole-clip (--top 48, 46/97 frames), unlike block_a's frame-subset one.
     special: [
       {
-        // Take A — OFUDA RITE: she draws a talisman across the blade and it burns tip-to-tsuba.
-        // Re-rolled from qa-boss/raw/eclipse-ofuda-special-1-v2.mp4 (bbox 528x882, 97 frames).
-        // Fixes the v1 pull: the talisman is now FUSED TO THE BLADE, not floating — the measured
-        // ~60px palm air-gap is gone — and the lime/yellow-green fringe is gone with it (0 pixels
-        // where G > max(R,B) anywhere in the clip, so what reads as gold IS gold: R≈G, low B).
-        // KNOWN COSMETIC RESIDUAL: f62-f70 (~0.33s) small white paper scraps detach from the
-        // burning ofuda and drift off the blade. Judged authored ash debris — causally originated
-        // at the talisman, adjacent to it, fully cleared by f72 — not the detached/hovering ban,
-        // which is for effects with no source (see special-c's v1: 10 talismans in open air 2.2s).
-        // Flagged for the operator rather than buried.
+        // Take A — OFUDA RITE: she plants the katana point-down, drops into a low braced crouch and
+        // the hat-brim talisman IGNITES in a warm amber flame at her face, which burns down and
+        // dissipates before she rises back to the anchor.
+        //
+        // RE-ROLLED (phase 96, v2) from qa-boss/raw/eclipse-special-1-v2.mp4 (97 frames, bbox
+        // 498x852). *** NOTE THE FILENAME: this is `eclipse-special-1-v2.mp4` (1,776,201 bytes,
+        // Jul 31), NOT `eclipse-ofuda-special-1-v2.mp4` — BOTH exist in qa-boss/raw/ and the latter
+        // is the older, already-keyed phase-31 clip this one supersedes. Check the byte size. ***
+        // Keyed with the same NO-HFLIP recipe as attack_strike take A above: key-idle-clips.mjs
+        // --still the '-r' plate, green-neutralize HARD=4, cut-bloom-plate. No feather needed.
+        // Measures: plate retention BEFORE neutralize 3.71% (WATCH band, cleared by the pass ->
+        // 1,185,035 px removed + 30,045 px bloom-plate cut); containment CLEAN on TOP/LEFT/RIGHT;
+        // matte-proof 0 green-dominant px over black AND white. VIEWED at full size over both: the
+        // flame is warm amber/orange fused to the hat talisman with no lime fringe, and the matte is
+        // clean enough that individual ponytail strands survive over white.
+        // cal RE-DERIVED from the final frames (drift 0.50 vs the keyer-emitted
+        // { h: 103.4, bottom: -2.67, left: 47.03 }) — neutralize moved the alpha bbox, so the
+        // re-derived value is wired.
+        // contacts: the motion-energy argmax is f8 (333ms) and it is a FALSE PICK — frame-checked,
+        // f_006-f_011 are just her stride dropping into the crouch, i.e. the LAUNCH. The effect beat
+        // is what this finisher lands on, so contacts is the effect-strength peak instead: ignition
+        // at f_016, flame at full size f19-f25, peak excess 1.65pp @f21 = 875ms, sustained 11 frames.
         url: 'assets/characters/eclipse-ofuda/special.webm',
-        cal: { h: 106.91, bottom: -4.12, left: 46.18 },
-        contacts: [2667],
+        cal: { h: 103.9, bottom: -2.93, left: 46.95 },
+        contacts: [875],
       },
       {
         // Take B — JUDGEMENT PLUNGE: two-hand drive of the katana down into the ground, solid
