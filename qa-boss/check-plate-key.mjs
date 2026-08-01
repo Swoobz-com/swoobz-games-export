@@ -144,7 +144,17 @@ for (const file of files) {
   const keyOk = p99 < TIGHT;
   // Emissive is reported ALONGSIDE the key result, never folded into it: a plate can key
   // perfectly and still be unusable because a flame is baked into the character.
-  // THIS SCREEN CANNOT TELL RIM LIGHT FROM FLAME — both are bright+saturated, and only the eye can
+  // THE p99 WARNING CAN BE BACKWARDS — read it as "subject and backdrop are hard to separate", never
+// as "the backdrop survives" (phase 200). ir52-umbra-pinions returned p99 404.6 against max 424 with
+// the verdict "p99 >= TIGHT — backdrop may survive". Rendering the mask showed the OPPOSITE failure:
+// the backdrop is removed perfectly, and part of the SUBJECT is what disappears — every bright
+// magenta GLOW MEMBRANE between its wing blades keys away, because a semi-transparent glow over the
+// plate blends into the backdrop. The character keeps its black wing frame and loses its signature
+// feature entirely, which for a character named Umbra PINIONS is an identity kill.
+// So a high p99 means the separation is unreliable IN EITHER DIRECTION. ALWAYS render the mask and
+// compare it against the plate: the number cannot tell you which side lost.
+//
+// THIS SCREEN CANNOT TELL RIM LIGHT FROM FLAME — both are bright+saturated, and only the eye can
   // separate them. It used to auto-REJECT at >=3%, which over-claimed: drake-glaive trips this band
   // (4.63% on his keyed plate) and inspection showed BAKED ORANGE RIM LIGHT tracing his wings, scales
   // and limbs — the same class as raiju's pale blue-white fur rim (1.97%) and lich's violet crown
