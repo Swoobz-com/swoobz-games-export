@@ -224,3 +224,37 @@ collision — lich carries a scythe but reads nothing like this, and lady-kurota
 right, head in profile). The open question for the kit author is the **CLOAK**: it owns the left
 edge and, unlike gargoyle's stone wings, cloth may legitimately sway — so it cannot simply be
 frozen, it needs a bounded sway.
+
+### WAVE 3 BATCH INTAKE — seven more `rare` plates padded + keyed (phase 163)
+
+| plate | fill | margins | opaque% | emis% | p99 | verdict |
+|---|---|---|---|---|---|---|
+| **hector-warhammer** | **0.68** | **L400 R399 T468** | 12.12 | 0.01 | 5.4 | **BEST PLATE FOUND THIS SESSION** |
+| **umbra-jelly** | 0.68 | **L420 R421 T468** | 10.69 | 0.04 | 4.6 | roomiest margins in the whole set |
+| **iron-vow** | 0.68 | L362 R362 T468 | 12.70 | 0.05 | 5.1 | roomier than lich |
+| shiro-gale | 0.68 | L230 R230 T468 | 14.03 | 0.07 | 6.5 | standard fill, tighter sides |
+| ningara-silk | 0.68 | L226 R226 T468 | 8.57 | 0.29 | 6.6 | standard fill, tighter sides |
+| elara-frostplate | 0.60 | L212 R214 T590 | 7.90 | 0.21 | 5.4 | needed a lower fill |
+| ~~captain-nyra~~ | — | — | — | — | — | **REFUSED even at 0.58 — too wide, Tier C class** |
+
+**FIVE PAD AT THE FULL 0.68 STANDARD**, and three of those (umbra-jelly 420, hector 400, iron-vow
+362) are **ROOMIER THAN LICH (312)** — the plate wave 2 called "the roomiest in the whole MK set".
+The `rare` tier is better proportioned than `mythic`/`legendary` were.
+
+#### ★ hector-warhammer — the strongest candidate found so far
+Viewed at full size: a human knight in white-and-silver plate over brown leather, **near-STRICT
+PROFILE facing screen-right**, two-handed WARHAMMER carried across the body with the head toward
+screen-right and a spiked butt toward screen-left.
+
+What makes him the best plate in the set is what he does NOT have: **no wings, no cloak, no chains,
+no hanging tags, no membrane.** Every hard clip this session was hard because of an appendage —
+lich's beading chain, gargoyle's wings owning two edges at once, violet-contract's swaying cloak,
+nurikabe's shield mass. Hector is a body and a hammer. He is also prop-TUCKED and sits at the full
+0.68 fill with 400px margins.
+
+**ARCHETYPE IS DISTINCT ON BOTH AXES.** Weapon: the roster already has scythe, spear, axe, flail,
+katana, club/tetsubo, naginata, cleaver and gauntlets — no warhammer. Character: the roster is
+almost entirely monsters, demons and undead; a clean HUMAN KNIGHT reads unlike anything in it.
+
+**RECOMMENDED AS THE NEXT KIT** once firing is unblocked — and as the lowest-risk first clip of any
+plate currently on disk.
