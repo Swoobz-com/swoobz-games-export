@@ -1,0 +1,179 @@
+{
+  "_README": [
+    "MACHINE-READABLE ROSTER VERDICTS (phase 179). The screening verdicts used to live ONLY as prose",
+    "in qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md, so no tool could read them and every filesystem-based",
+    "survey missed them. That failed FOUR times: nurikabe-shield (caught mid-write), kira-foxflare (a",
+    "full kit was written and committed for a REJECTED character), umbra-jelly (agent stopped), and",
+    "drake-glaive (agent stopped). The prose ledger even carried a warning about this exact failure.",
+    "",
+    "The prose file remains the reasoning of record. THIS file is the machine-readable index of it,",
+    "and qa-boss/may-i-write-kit.mjs is the guard that reads it. Keep them in sync: when you add a",
+    "verdict to the prose, add it here in the same commit.",
+    "",
+    "status: OK          = screened, viewed, cleared to write a kit",
+    "        REJECTED    = do not write a kit; reopening is a DECISION, not a fresh measurement",
+    "        TIM         = gated on Tim's ruling; do not write a kit unilaterally",
+    "        UNVIEWED    = numbers are clean but nobody has LOOKED. 50% of numerically-clean plates",
+    "                      fail the view, so this is NOT permission — view it first.",
+    "Anything absent from this file is treated as REFUSED by the guard, deliberately: 'not in the",
+    "reject list' must never be readable as 'approved'."
+  ],
+  "verdicts": {
+    "hector-warhammer": {
+      "status": "OK",
+      "why": "BEST IN SET — chosen on the view, not the numbers (phase 165)"
+    },
+    "reef-maw": {
+      "status": "OK",
+      "why": "viewed + kit written and verified phase 177"
+    },
+    "shiro-gale": {
+      "status": "OK",
+      "why": "viewed + kit written and verified phase 176"
+    },
+    "elara-frostplate": {
+      "status": "OK",
+      "why": "was on the unviewed list; kit in progress phase 177"
+    },
+    "kira-foxflare": {
+      "status": "REJECTED",
+      "why": "DUPLICATE ARCHETYPE — kitsune samurai with dual tanto, collides with kitsune-tanto (phase 169). A full kit was written for it anyway in phase 175b before this index existed; the kit is retained but MUST NOT be fired unless Tim overrules the duplication call."
+    },
+    "umbra-jelly": {
+      "status": "REJECTED",
+      "why": "view reject — the roomiest plate in the entire set and unusable (phase 165)"
+    },
+    "drake-glaive": {
+      "status": "REJECTED",
+      "why": "BAKED EMISSIVE 5.26%, rejected phase 109. NOTE: phase 173c re-inspected it and argued the emission is baked RIM LIGHT, not flame, and that rim light ships when pinned inline (raiju 1.97%, lich 0.77%). That argument was made WITHOUT knowing a rejection existed. Overturning it is a DECISION to be taken explicitly, not a side effect of a survey."
+    },
+    "iron-vow": {
+      "status": "TIM",
+      "why": "duplicate WEAPON class (collides with oni-tetsubo); recorded as a Tim call rather than an auto-reject"
+    },
+    "violet-contract": {
+      "status": "TIM",
+      "why": "viable, best p99 on disk, but fill 0.62 — Tim call; cloak also needs a bounded sway"
+    },
+    "golem-mace": {
+      "status": "TIM",
+      "why": "VIABLE WITH FILL FLAGGED — not silently promoted to Tier A"
+    },
+    "nurikabe-shield": {
+      "status": "TIM",
+      "why": "TIER C fill; an agent was already stopped mid-write on this once"
+    },
+    "satoshi-odachi": {
+      "status": "TIM",
+      "why": "prop-EXTENDED — anchor touches the frame edge, specials cannot pass containment without a re-plate"
+    },
+    "sora-yari": {
+      "status": "TIM",
+      "why": "prop-EXTENDED — same as satoshi"
+    },
+    "ir56-lion-serpent": {
+      "status": "TIM",
+      "why": "prop-EXTENDED — same as satoshi"
+    },
+    "kira-frostveil": {
+      "status": "UNVIEWED",
+      "why": "numbers clean (transl 11.49 will fringe); never viewed at full size"
+    },
+    "skeleton-nodachi": {
+      "status": "UNVIEWED",
+      "why": "numbers clean, p99 13.2 — watch fringing; never viewed"
+    },
+    "ningara-silk": {
+      "status": "UNVIEWED",
+      "why": "numbers clean (transl 7.67 will fringe); never viewed"
+    },
+    "Godflame_Liu": {
+      "status": "REJECTED",
+      "why": "baked emissive 2.74 — head is on fire, flame-bladed weapon"
+    },
+    "Emberpaw Kage": {
+      "status": "REJECTED",
+      "why": "baked emissive 1.80 — sword is a burning flame blade"
+    },
+    "Lira_Astraea": {
+      "status": "REJECTED",
+      "why": "baked emissive 1.88 — glowing white/silver figure"
+    },
+    "Ashrune Belakor": {
+      "status": "REJECTED",
+      "why": "baked emissive 0.89 — flaming horns + magma-lit mace"
+    },
+    "Warlord_Kharos": {
+      "status": "REJECTED",
+      "why": "baked emissive 0.62 — flaming crown"
+    },
+    "Sol Ofuda": {
+      "status": "REJECTED",
+      "why": "duplicate archetype — same hat + hanging ofuda + katana as eclipse-ofuda"
+    },
+    "Antler_Mire": {
+      "status": "REJECTED",
+      "why": "duplicate archetype — antlered figure, collides with thorn-warden"
+    },
+    "Azure_Ling": {
+      "status": "REJECTED",
+      "why": "duplicate archetype — war-fan, collides with ir37-pink-tessen"
+    },
+    "Tengu Naginata": {
+      "status": "REJECTED",
+      "why": "duplicate weapon — same as raiju-naginata"
+    },
+    "Horned Ruin Vex": {
+      "status": "REJECTED",
+      "why": "duplicate archetype — red horned demon, collides with oni-tetsubo"
+    },
+    "Lilith_Palehorn": {
+      "status": "REJECTED",
+      "why": "no clear arsenal — ribbons/cloth, no weapon"
+    },
+    "Symbiote_Vex": {
+      "status": "REJECTED",
+      "why": "no clear arsenal — bare claws, and pale-choir already owns the claw archetype"
+    },
+    "Ghast Flail": {
+      "status": "REJECTED",
+      "why": "baked smoke/mist around the base — the banned effect class rendered into the character"
+    },
+    "ir41-kasa-oni": {
+      "status": "REJECTED",
+      "why": "FRONTAL plate — no side to mirror; carries a BLOCKED: marker so build-prompt refuses it (exit 3)"
+    },
+    "oni-tetsubo": {
+      "status": "OK",
+      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates (BRIEF-mk-final-playables.md)"
+    },
+    "raiju-naginata": {
+      "status": "OK",
+      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates. WATCH: padded plate retains a faint rectangle; check the first keyed clip for a rectangular alpha edge (plate alpha itself was inspected clean, phase 172)"
+    },
+    "minotaur-axe": {
+      "status": "OK",
+      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+    },
+    "skullrend-orcus": {
+      "status": "OK",
+      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+    },
+    "pale-choir": {
+      "status": "OK",
+      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+    },
+    "jin-goldenhand": {
+      "status": "OK",
+      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+    },
+    "lich-scythe": {
+      "status": "OK",
+      "why": "empirically cleared — 3 clips fired and ACCEPTED (idle v2, strike v3, strike_b v3), parked unwired in qa-boss/raw/"
+    },
+    "gargoyle-spear": {
+      "status": "OK",
+      "why": "empirically cleared — idle ACCEPTED on the first take, parked unwired in qa-boss/raw/"
+    }
+  }
+}
