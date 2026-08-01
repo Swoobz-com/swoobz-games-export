@@ -4,6 +4,32 @@ You are writing ONE character's clip-kit prompt file. Everything here is a hard 
 from a shipped defect. Read `qa-boss/prompts/oni-tetsubo.md` first — it is the MODEL to copy in
 structure, tone and level of specificity.
 
+## ⚠ BUDGET CHECK BEFORE YOU WRITE A SINGLE BOUND (phase 175)
+
+**Every kit that has ever produced an ACCEPTED, WIRED clip assembles to 1027–2493 characters, with a
+shared suffix of 309–1438. Every kit written recently assembles to 3453–8892, with a suffix of
+1708–4829. Not one long kit has ever shipped a clip.** Measured across all 29 buildable kits; the
+separation has no exception in either direction.
+
+The acting BODY roughly doubling is fine — richer beats are the point. **The SHARED SUFFIX TRIPLED,
+and that is the bounds block.** It is appended to all 13 states, so every bound added there is paid
+thirteen times. This brief is what drove that growth: every agent followed it faithfully, so the
+drift is HERE, not in the agents.
+
+**This is correlation, not proven cause** — the shipped kits are also the oldest. So the rule is not
+"write short kits", it is:
+
+1. **Do not grow the shared suffix.** Target ≤1400 characters, the top of the shipped range. If you
+   want to add a bound there, first check whether an existing one already covers it — they overlap
+   heavily by now.
+2. **Prefer fixing the BEAT over adding a bound.** This is already the doctrine (*a bound never beats
+   a beat*); the suffix length is the measurement proving it has been ignored in practice.
+3. **Put a bound that matters to ONE state in that state**, not in the suffix. The suffix is for laws
+   that genuinely apply to all thirteen.
+4. **Do NOT delete existing suffix bounds to hit the budget.** Each was added for an observed defect;
+   removing them on a correlation would throw away hard-won fixes. Cap the growth, do not reverse it,
+   until the hector-idle length test in FIRE-PLAN.md has actually been run.
+
 ## 0. THE TWO RULES TIM GAVE FOR THIS BATCH — these override any instinct
 
 **A. "Review their picture so samurais don't shoot bullets."** Every single beat must be derived
