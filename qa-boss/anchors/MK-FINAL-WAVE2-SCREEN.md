@@ -597,3 +597,40 @@ differences, both decisive:
 So the test is not "does it have a flexible weapon". It is: **strip away every beat that gains
 reach — is there still a kit left?** If the answer is no, the plate is unusable however good it
 looks, and both of these look very good.
+
+### ⚑ SCREENING SHORTCUT: THE SOURCE ART REPEATS MOTIFS, SO COLLISIONS COME IN FAMILIES (phase 194)
+
+`input/MK FINAL/` is not a set of independent designs — it is generated art with recurring motifs, so
+a motif that collides once will collide repeatedly. The **wide straw conical hat with hanging paper
+ofuda talismans** has now cost three separate rejections against the SHIPPED `eclipse-ofuda`:
+
+| plate | tier | what it wore |
+|---|---|---|
+| Sol Ofuda | mythic | the same hat + hanging ofuda + katana idea |
+| Ink Sovereign | Epic | hat + hanging ofuda + tassels, talisman in hand, naginata |
+| Charm Ronin | rare | hat + hanging paper charms, over a modern bomber jacket |
+
+**Check the motif before opening the plate.** Any candidate whose thumbnail or name suggests these
+carries a near-certain collision with something already shipped:
+
+| motif | collides with (SHIPPED unless noted) |
+|---|---|
+| wide straw hat + hanging paper ofuda | `eclipse-ofuda` |
+| antlered figure | `thorn-warden` |
+| war-fan | `ir37-pink-tessen` |
+| katana / tachi / odachi / nodachi | `onryo-katana`, `lady-kurotachi`, `satoshi-odachi` |
+| spear / yari | `sora-yari` |
+| naginata | `raiju-naginata` (kit) |
+| kanabo / tetsubo studded club | `oni-tetsubo` |
+| flail / chain-and-weight | `hydra-flail` (kit) |
+| sickle / kama / chain-sickle | `jorogumo-kusarigama` (kit) |
+| skeletal undead | `lich-scythe` (kit) |
+| armoured elf woman + blade | `elara-frostplate` (kit) |
+| claw archetype | `pale-choir` (kit) |
+
+**AND TWO NON-WEAPON GROUNDS THAT KEEP RECURRING**, both invisible to every metric:
+- **Modern military dress** (uniforms, squadron patches, medal ribbons, bomber jackets, cargo pants)
+  appears NOWHERE in a feudal-Japanese / dark-fantasy roster. Cost `Captain_Nyra` and contributed to
+  `Charm Ronin`. This is NOT a "too anime" rule — `ir37-pink-tessen` is anime-styled and shipped.
+- **High heels** give no stable ground contact for the feet-flat beats every kit requires. Cost
+  `ningara-silk` and contributed to `Ink Sovereign`.
