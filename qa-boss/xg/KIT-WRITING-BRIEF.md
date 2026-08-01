@@ -4,7 +4,7 @@ You are writing ONE character's clip-kit prompt file. Everything here is a hard 
 from a shipped defect. Read `qa-boss/prompts/oni-tetsubo.md` first — it is the MODEL to copy in
 structure, tone and level of specificity.
 
-## ⚠ BUDGET CHECK BEFORE YOU WRITE A SINGLE BOUND (phase 175)
+## SUFFIX BUDGET — KEEP IT TIDY, BUT THIS IS NOT A BLOCKER (phase 175, CORRECTED 176)
 
 **Every kit that has ever produced an ACCEPTED, WIRED clip assembles to 1027–2493 characters, with a
 shared suffix of 309–1438. Every kit written recently assembles to 3453–8892, with a suffix of
@@ -16,8 +16,16 @@ and that is the bounds block.** It is appended to all 13 states, so every bound 
 thirteen times. This brief is what drove that growth: every agent followed it faithfully, so the
 drift is HERE, not in the agents.
 
-**This is correlation, not proven cause** — the shipped kits are also the oldest. So the rule is not
-"write short kits", it is:
+**⚠ CORRECTED (phase 176): I FIRST CALLED THIS A TOP RISK AND IT IS NOT.** Checked every kit's
+creation date: all five kits with shipped clips were written 2026-07-24; every long kit was written
+2026-07-31 or later. **The shipped/never-fired split is just the before/after-the-account-broke
+split** — no kit written after 07-24 has shipped anything regardless of length. So the length data
+carries almost no signal, and there is a mechanism pointing the OTHER way: satoshi (the oldest,
+778) has no containment clause at all, and every later kit has one because containment defects were
+found and fixed by adding it. **A long suffix is largely a record of accumulated defect fixes.**
+
+So: keep the suffix tidy for its own sake, but **do NOT block on this, do NOT strip bounds, and do
+NOT let it override writing a correct kit.** The rules below are hygiene, not a gate:
 
 1. **Do not grow the shared suffix.** Target ≤1400 characters, the top of the shipped range. If you
    want to add a bound there, first check whether an existing one already covers it — they overlap

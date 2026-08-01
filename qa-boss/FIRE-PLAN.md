@@ -247,7 +247,7 @@ because neutralize deletes pixels after the cal is computed.
 - **Composite the frame and LOOK.** Every one of the three session-15 mistakes, and the session-14
   fabricated bloom, was invisible in the numbers and caught only by viewing a peak frame at >=2x.
 
-## ⚠ THE #1 RISK TO THE QUEUE: EVERY UNFIRED KIT IS 1.5–4x LONGER THAN ANYTHING THAT EVER SHIPPED (phase 175)
+## PROMPT LENGTH — AN OPEN QUESTION, **NOT** THE RISK I FIRST CALLED IT (phase 175, CORRECTED phase 176)
 
 Measured across all 29 buildable kits — assembled `idle` length, and the SHARED SUFFIX inside it —
 sorted, with wired-clip status beside each. **The separation is perfect and has no exception:**
@@ -287,7 +287,34 @@ established. Two things ARE established, and they are enough to act on:
 (Note: "never wired" is not "never generated" — onryo-katana has fired clips in the account history
 that were never wired. The claim above is specifically about clips that survived QA and shipped.)
 
-**WHAT TO DO, THE MOMENT FIRING UNBLOCKS — BEFORE BURNING THE QUEUE:**
+### ⚠ I OVERSTATED THIS. THE CONFOUND IS NEARLY TOTAL — READ THIS BEFORE ACTING ON THE TABLE ABOVE.
+
+I labelled the section above "THE #1 RISK TO THE QUEUE". **That was wrong, and acting on it as a top
+risk would waste a cycle.** I checked the creation date of every kit:
+
+| group | created | suffix |
+|---|---|---|
+| all 5 kits with shipped clips | **2026-07-24** | 778 – 1188 |
+| oni-tetsubo (2 clips) | 2026-07-31 | 1438 |
+| lich, hector, kira-foxflare, shiro-gale … | **2026-07-31 / 08-01** | 3449 – 4139 |
+
+**The "shipped vs never-fired" split IS the "written before vs after the account broke" split.**
+No kit written after 2026-07-24 has shipped anything — REGARDLESS OF LENGTH — because firing has
+been blocked since. Length is a third variable that also grew with date. The table above therefore
+carries almost NO information about whether length affects adherence.
+
+**And there is a mechanism pointing the other way.** The bounds accrued for real, observed defects:
+satoshi (778, the oldest) has NO containment clause at all; every kit from eclipse onward has one,
+because containment defects were found and fixed by adding it. So a long suffix is largely a record
+of accumulated defect fixes — which means **trimming would be actively harmful**, not merely neutral.
+The "do not delete existing bounds" instruction stands, and now has a real reason behind it rather
+than caution.
+
+**REVISED POSITION:** length is a genuinely open question worth ONE cheap experiment, and nothing
+more. It is not a queue-wide risk, it does not block writing kits, and it must not be used to
+justify stripping bounds from anything.
+
+**THE EXPERIMENT, WHENEVER IT IS CONVENIENT (both arms are already written and build):**
 1. Fire **hector-warhammer `idle`** (6990) as the deliberate test of the long form. It is gate-clean,
    fully verified, and its plate is comfortable (58% fill, 620px headroom) — so if it fails, length
    is the leading suspect rather than the plate.
@@ -296,8 +323,8 @@ that were never wired. The claim above is specifically about clips that survived
 3. If adherence is poor, **trim the SUFFIX first, never the body.** The body is the beat; the suffix
    is the accumulation. A trimmed suffix at ~1200 chars matching the shipped kits is the obvious
    A/B, and it is one clip to find out.
-4. **Do not write more kits at 8–9k until this is tested.** Three were written this session under
-   the current brief; that is enough exposure to a single untested assumption.
+4. Both arms are prepared: `qa-boss/ab/hector-warhammer-SHORT.md` (4740) and the live kit (6990),
+   same plate, same state, same settings. **Do NOT block kit-writing on this.**
 
 **AND FIX THE SOURCE:** `qa-boss/xg/KIT-WRITING-BRIEF.md` is what drives agents to write these
 suffixes. Every agent followed it faithfully — the drift is in the brief, not in the agents.
