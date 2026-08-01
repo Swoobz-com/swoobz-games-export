@@ -59,6 +59,23 @@ bound, the model must break either the bound or the anchor lock — there is no 
 `start_image`/`end_image` pin the anchor, so the bound is what loses. Then it renders a plausible
 clip that fails QA for reasons that have nothing to do with the acting.
 
+**APPLY THE TEST PER OBJECT, NOT PER KIT** (phase 187, from the jorogumo-kusarigama kit). A kit with
+two props usually needs TWO DIFFERENT CEILINGS, because they sit at different heights in the
+reference. jorogumo carries both in a single suffix:
+
+| object | where it sits in frame 0 | its ceiling |
+|---|---|---|
+| the four spider legs | joints already at JAW height | "never rises above the CROWN OF HER OWN HEAD" |
+| the kusarigama | rides at her WAIST | "never rises above the height of her own SHOULDERS" |
+
+One shared ceiling would have been wrong for one of them whichever value was picked. Ask the
+question separately for every prop, appendage and effect the character owns.
+
+**AND IT APPLIES TO BOUNDS YOU INHERIT FROM THE MODEL KIT.** The reef-maw suffix says "her back is
+NEVER shown to the camera". jorogumo is a BACK three-quarter — her back IS the reference view — so
+copying that clause would have made every clip fight frame 0. It was correctly dropped. Copying a
+model kit is right; copying its bounds without re-asking this question is not.
+
 Bounds that most often fail this test: prop height caps, "feet stay flat" on a plate mid-stride,
 "stance never spreads wider than N" on an already-wide plate, and "strict side profile".
 
