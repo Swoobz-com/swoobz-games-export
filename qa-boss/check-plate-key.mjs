@@ -43,6 +43,32 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
 
+// ############################################################################################
+// # ⚠ THE MAGENTA-FAMILY ESCAPE DESTROYS MAGENTA CHARACTERS (phase 203, proven by measurement) #
+// #                                                                                          #
+// # The candidate rule is  dist2 < LOOSE^2  OR  min(r-g, b-g) > 45. That second clause exists #
+// # so MAGENTA PLATES key (onryo-katana uses one). But it is a HUE rule with no distance      #
+// # term, so it fires on magenta ANYWHERE IN THE FRAME — including on the character.          #
+// #                                                                                          #
+// # ir52-umbra-pinions is the case. Its wing membranes are rgb(254,0,249): pure saturated     #
+// # magenta, sitting a DISTANCE OF 420 from the plate colour when LOOSE is 70. They are       #
+// # nowhere near the backdrop. They trip the escape at min(r-g,b-g)=249 and 51,252 subject    #
+// # pixels are flooded away, gutting the character of its signature feature.                  #
+// #                                                                                          #
+// # MEASURED BOTH WAYS on that plate:                                                          #
+// #     escape ON   glow survival  42.8%   backdrop pixels left opaque 376                    #
+// #     escape OFF  glow survival 100.0%   backdrop pixels left opaque 381                    #
+// # Backdrop removal is UNAFFECTED, because a GREEN plate is removed by the DISTANCE test.    #
+// # The escape contributes nothing on a green plate and costs everything on a magenta subject.#
+// #                                                                                          #
+// # THE RULE, and it must be PER-CHARACTER because a global change would break magenta plates:#
+// #     green plate + magenta identity colour  ->  escape OFF                                  #
+// #     magenta plate                          ->  escape ON (it is what removes the plate)    #
+// #                                                                                          #
+// # Nothing else in the roster trips this: the glow-survival sweep put every other plate at    #
+// # 94.7% or above. But screen ANY new magenta-accented character with                         #
+// # qa-boss/screen-glow-survival.mjs before writing its kit.                                   #
+// ############################################################################################
 const TIGHT = 45, LOOSE = 70;          // must match scripts/key-idle-clips.mjs
 
 // ############################################################################################
