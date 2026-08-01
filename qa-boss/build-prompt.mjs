@@ -50,10 +50,22 @@ const src = fs.readFileSync(file, 'utf8');
 }
 
 // Blockquote sections: "Shared prefix:" / "Shared suffix ...:" followed by "> " lines.
-function quoted(afterLabel) {
-  const i = src.indexOf(afterLabel);
-  if (i < 0) throw new Error('no section: ' + afterLabel);
-  const lines = src.slice(i).split('\n').slice(1);
+//
+// THE LABEL IS MATCHED BY REGEX, NEVER BY AN EXACT LITERAL (phase 173) — the same rule ADDON_LABEL
+// already states below, which was applied to the add-on and NOT to the two shared blocks. The call
+// sites were asymmetric: the suffix was looked up as the loose 'Shared suffix' (so a parenthetical
+// after it was tolerated) while the prefix was looked up as the strict literal 'Shared prefix:'.
+// Kits that write "Shared prefix (identity + magenta chroma, every prompt):" therefore threw
+// `no section: Shared prefix:` and COULD NOT BUILD A SINGLE STATE — while passing
+// check-prompt-sections completely clean, because that gate never tries to build them.
+// Found by fire-queue.mjs: kitsune-tanto, sora-yari and ir41-kasa-oni built nothing, and sora-yari
+// has 10 clips already wired, i.e. it was fired through some earlier path and then quietly became
+// unbuildable by its own name. Silent, and it hides an entire character from the queue.
+function quoted(label) {
+  const re = label instanceof RegExp ? label : new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const m = src.match(re);
+  if (!m) throw new Error('no section: ' + label);
+  const lines = src.slice(m.index).split('\n').slice(1);
   const out = [];
   for (const l of lines) {
     if (l.startsWith('>')) out.push(l.replace(/^>\s?/, '').trim());
@@ -362,7 +374,7 @@ function koSuffix(s) {
     .trim();
 }
 
-const parts = [quoted('Shared prefix:'), stateBody(state)];
+const parts = [quoted(/^Shared prefix[^:\n]*:/mi), stateBody(state)];
 if (state.startsWith('special')) {
   // Accepts "SPECIAL add-on:" and "SPECIAL suffix add-on (...):" alike. Same regex the
   // trailing-editorial rule uses, so what is APPENDED here and what is REFUSED there stay identical.
@@ -378,7 +390,7 @@ if (state !== 'idle') {
   const action = paragraphAfter(ACTION_LABEL);
   if (action) parts.push(action);
 }
-const suffix = quoted('Shared suffix');
+const suffix = quoted(/^Shared suffix[^:\n]*:/mi);
 parts.push(state === 'ko' ? koSuffix(suffix) : suffix);
 
 const prompt = parts.join(' ').replace(/\s+/g, ' ').trim();
