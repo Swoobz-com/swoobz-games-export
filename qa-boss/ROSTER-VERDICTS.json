@@ -254,6 +254,42 @@
     "wolfmark-hild": {
       "status": "OK",
       "why": "Viewed, padded and fully screened phase 195. THE BEST PLATE SCREENED THIS SESSION. Norse SHIELDMAIDEN — blonde braids, wolf face-paint, grey fur mantle, leather armour, ROUND WOODEN SHIELD and a runed arming sword. DISTINCT ARCHETYPE: nothing in the roster is Norse. NEW WEAPON CLASS: nothing shipped or kitted uses a SHIELD, which also supplies naturally containable block states — the hardest state class to write. PADDED BUDGET IS THE ROOMIEST IN THE ROSTER: fill 68%, L476 R476 T468, span ceiling 2.63x (jorogumo 1.38x, umbra-jelly 2.21x) because she is a compact upright figure, 584w on a 1536 plate. KEYING IS THE CLEANEST TOO: opaque 13.23, emis 0.14, transl 3.12 with grnDom only 6.5, p99 5.7. SETTING: the roster is NOT purely Japanese — it already holds a European knight (hector), an elf (elara), a gargoyle, a minotaur and an orc — so Norse fits that mix. This is materially different from Captain_Nyra, whose MODERN MILITARY dress has no analogue anywhere. KIT MUST: treat the FUR MANTLE with the shiro-gale treatment (rides with the body, never billows, no wind); pin the wolf thigh tattoo and the runed blade as identity details; and build the blocks around the shield, which is the signature."
+    },
+    "hydra-flail": {
+      "status": "OK",
+      "why": "Backfilled phase 199 FROM THE KIT HEADER ITSELF, not invented. The kit states it was written off a PADDED plate that was \"pre-screened before this kit was written\", with the numbers recorded inline (phase 112): opaque 13.29%, p99 backdrop distance 5.4, against the keyer TIGHT=45 / LOOSE=70. That is a documented clearance from the XG/MK wave that simply predates this machine-readable ledger."
+    },
+    "ir12-rose-lance": {
+      "status": "OK",
+      "why": "Backfilled phase 199 FROM THE KIT HEADER ITSELF, not invented. The kit states it was written off a PADDED plate that was \"pre-screened before this kit was written\", with the numbers recorded inline (phase 96): opaque 8.42%, p99 backdrop distance 5.2, emissive 0.82%, against the keyer TIGHT=45 / LOOSE=70. That is a documented clearance from the XG/MK wave that simply predates this machine-readable ledger."
+    },
+    "ir05-fullbarge-titan": {
+      "status": "OK",
+      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 17.41, emis 1.16, p99 8.1 — keys with margin, with a lit feature to PIN."
+    },
+    "ir08-bonepipe-grunt": {
+      "status": "OK",
+      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 17.87, emis 0.29, p99 7.9 — keys with margin, clean."
+    },
+    "ir13-junkyard-king": {
+      "status": "OK",
+      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 9.74, emis 0.45, p99 7.3 — keys with margin, clean."
+    },
+    "ir21-shirogiri-ace": {
+      "status": "OK",
+      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 12.45, emis 2.57, p99 5.1 — keys with margin, with a lit feature to PIN."
+    },
+    "ir22-akayari-vanguard": {
+      "status": "OK",
+      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 5.20, emis 0.04, p99 5.7 — keys with margin, clean. NB opaque 5.20 is the thinnest subject of the XG set."
+    },
+    "ir60-tiger-mantis": {
+      "status": "OK",
+      "why": "Backfilled phase 199 by re-measuring. ⚠ ITS 15.26% EMISSIVE IS THE HIGHEST NUMBER IN THE PROJECT AND IT IS MOSTLY A FALSE POSITIVE. Viewed: a tiger-striped mech whose whole body is bright saturated ORANGE, plus two curved blades with molten-orange lit EDGES. Tested body-paint pixels directly against the emissive rule (max>=215 AND max-min>=70): torso rgb(225,132,25) TRIPS, chest rgb(251,189,108) TRIPS. So bright saturated BODY PAINT satisfies the test, and most of the 15.26% is bodywork rather than emission. THE REAL LIT FEATURE IS THE BLADE EDGES — a fixed material property, the drake-glaive rim-light class, so PIN them inline (\"stay exactly as bright as in the reference image\") and separately ban flame/fire/ember by name. Keys with margin otherwise: opaque 12.93, p99 5.2."
+    },
+    "ir52-umbra-pinions": {
+      "status": "TIM",
+      "why": "⚠ FLAGGED phase 199 — the ONLY kit in the roster whose plate carries a KEYING WARNING, and it was invisible until this backfill re-measured it. check-plate-key returns p99 backdrop distance 404.6 against max 424: \"p99 >= TIGHT — backdrop may survive\". That is not an emissive nit, it is the keyer possibly failing to remove the backdrop. It also measures 8.94% emissive (STRONG). Its kit is written and gate-clean and sits in the QUEUE as fire-ready, so it could be fired blind. DO NOT FIRE IT until the plate is inspected: render its alpha (check-plate-key writes masks to qa-boss/frames/platekey) and decide whether it needs a re-plate or a magenta plate. Recorded as a TIM call rather than an auto-reject because the kit already exists and a re-plate is a decision."
     }
   }
 }

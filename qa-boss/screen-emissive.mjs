@@ -31,6 +31,15 @@ const require = createRequire(import.meta.url); const { PNG } = require('pngjs')
 // # SHIPPED CHARACTER, and a screen that cries wolf on the roster is a screen people stop       #
 // # reading. So no threshold was added.                                                        #
 // #                                                                                            #
+// # IT ERRS IN BOTH DIRECTIONS — the false POSITIVE found phase 199.                            #
+// # emis% is "bright AND saturated", which BRIGHT SATURATED BODY PAINT also satisfies.          #
+// # ir60-tiger-mantis measures 15.26%, the highest number in the project — and it is mostly a   #
+// # tiger-striped mech whose bodywork is simply bright orange. Tested its body pixels against   #
+// # the rule directly: torso rgb(225,132,25) TRIPS, chest rgb(251,189,108) TRIPS. Its only real #
+// # lit feature is two molten blade EDGES, the drake-glaive rim-light class.                    #
+// # So the screen UNDER-reads thin/sparse emission AND OVER-reads saturated colour. A high      #
+// # number is not a reject and a low one is not a pass; only the eye separates them.            #
+// #                                                                                            #
 // # THE OPERATIONAL CONSEQUENCE: for THIN bright features — lightning, filaments, edge arcs —   #
 // # THE VIEW IS THE ONLY RELIABLE DETECTOR. That is not a gap to be patched later; it is the    #
 // # reason screens 1-3 are a CHEAP FILTER AND NOT A SHORTLIST, and why ~50% of numerically-     #
