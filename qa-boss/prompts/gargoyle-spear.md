@@ -333,7 +333,7 @@ POINT - the point biting deep into the floor-stone, and EXACTLY FIVE chips of so
 burst UPWARD around the buried head, each chip no bigger than one of his own toe-claws and each one
 SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke, never haze -
 rising no higher than his own knee, staying within one hand's-breadth of the impact point and never
-further toward screen-right than the barbed head sits in the reference image - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+further toward screen-right than the barbed head sits in the reference image - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES
 OF DEBRIS IN THE FRAME AT ONCE. He may FOLD and SINK, but he never TURNS - his chest never
 squares up toward the camera. He HOLDS the low finish through the third quarter, his whole weight
 bearing down the shaft onto the buried point, his stone shoulders juddering under his own load,
@@ -361,7 +361,7 @@ solid grey flagstone burst UPWARD from under his own feet, each chip no bigger t
 toe-claws and each one SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never
 smoke, never haze - rising no higher than his own knee and spreading no wider than his own standing
 footprint - never past his leading foot's claws toward screen-right, never past his rear heel toward
-screen-left - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN THREE PIECES
+screen-left - every chip crumbling away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES
 OF DEBRIS IN THE FRAME AT ONCE. THROUGH THE THIRD QUARTER
 he settles his horned head back down onto his thick neck while the last chips crumble away, the spear
 riding back up with him to the EXACT angle and height it has in the reference image, and in the final
@@ -517,7 +517,7 @@ chip no bigger than one of his own hands and each one SOLID, OPAQUE and sharp-ed
 never smoke and never haze - rising no higher than his own knee and spreading no wider
 than his own standing footprint - never past his leading foot's claws toward screen-right, never past
 his rear heel toward screen-left - every chip cracking apart and crumbling away to nothing in mid-air
-as it falls. THERE ARE NEVER MORE THAN FOUR PIECES OF DEBRIS IN THE FRAME AT ONCE. The debris is SOLID BROKEN ROCK: opaque, chipped, sharp-edged, matte and lit like
+as it falls. THERE ARE NEVER MORE THAN SEVEN PIECES OF DEBRIS IN THE FRAME AT ONCE. The debris is SOLID BROKEN ROCK: opaque, chipped, sharp-edged, matte and lit like
 stone - never a glow, never a flame, never a spark of light, never a wisp. He may FOLD and SINK, but
 he never TURNS - his chest never squares up toward the camera and both feet stay flat and planted.
 HE HOLDS THE LANDED BAR THROUGH THE THIRD QUARTER, folded double with his whole weight bearing down
