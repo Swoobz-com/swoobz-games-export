@@ -377,3 +377,31 @@ for treating the emissive/pad/key screens as a CHEAP FILTER rather than a shortl
 
 **Still unviewed (5):** kira-frostveil · skeleton-nodachi (p99 13.2, watch fringing) · shiro-gale ·
 ningara-silk · reef-maw · elara-frostplate.
+
+### CONTACT-SHEET FIRST PASS on the last five (phase 170)
+
+Read from a 700px contact sheet, **not** full size. That is deliberate but limited: a thumbnail is
+good enough to spot heels, a missing weapon or an archetype collision, and it is NOT good enough for
+a facing call — IR-13 was called "frontal" off a contact sheet and is PARTLY OPEN at full size.
+**Anything below that survives gets a full-size view before a kit is briefed.**
+
+| plate | first-pass verdict |
+|---|---|
+| **ningara-silk** | **REJECT.** Black lace bodysuit, stockings, **HIGH HEELS** — the umbra-jelly class exactly (heels contradict the feet-flat law in every kit; lace is semi-transparent over chroma). Her naginata also duplicates raiju-naginata. |
+| **kira-frostveil** | **RISK — baked VAPOUR.** Her blades trail a white frost/vapour effect. Emissive scored only 0.26% because vapour is TRANSPARENT, not bright. |
+| **elara-frostplate** | **BEST OF THE REMAINING.** Ornate silver plate, longsword extended screen-right, armoured boots, **no cloak, no wings, no danglers** — the hector profile. Weaker on budget: fill 0.60, L212/R214. |
+| **reef-maw** | Genuinely DISTINCT archetype (crustacean humanoid — nothing like it in the roster), but its weapon is a **flexible barbed whip-tail**: thin, floppy, hard to contain and hard to key. |
+| **skeleton-nodachi** | Clean silhouette, faces screen-right, but the nodachi collides with satoshi-odachi. Also carries the p99 13.2 fringing watch. |
+| **shiro-gale** | Clean samurai silhouette, but the katana collides with lady-kurotachi, and he stands on GETA. |
+
+### ⚠⚠ THE EMISSIVE SCREEN IS BLIND TO TRANSPARENCY — SECOND INSTANCE, SO IT IS A PATTERN
+
+`umbra-jelly` passed at 0.04% with **sheer lace panels**. `kira-frostveil` passes at 0.26% with a
+**baked vapour effect on her blades**. The test is BRIGHT (max >= 215) AND SATURATED (max-min >= 70)
+— it is built to catch FLAME, and a translucent white wisp is neither bright nor saturated.
+
+Both are the same shipping hazard as a baked flame: **semi-transparent pixels over chroma key to an
+olive fringe** (the session-14 bloom-lit-plate defect). So the screen has a known hole, and until
+something measures alpha-ish translucency, **the VIEW is the only thing that catches it.** Add
+"translucent vapour / sheer fabric / smoke baked into the plate" to what you are looking for when
+viewing, alongside heels and missing weapons.
