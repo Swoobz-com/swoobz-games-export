@@ -102,6 +102,12 @@ if (!files.length) {
 }
 fs.mkdirSync(OUT, { recursive: true });
 
+// --no-magenta: model the keying that scripts/key-idle-clips.mjs will ACTUALLY use for a character
+// whose own identity colour is magenta (see the escape note above). Without this the screen keeps
+// reporting a SOLVED case as an alarm, and an alarm that stays lit after the fix is how a screen
+// gets ignored.
+const noMagenta = process.argv.includes("--no-magenta");
+
 const dist2 = (r, g, b, c) => {
   const a = r - c[0], e = g - c[1], f = b - c[2];
   return a * a + e * e + f * f;
@@ -125,7 +131,7 @@ for (const file of files) {
   for (let q = 0, i = 0; q < W * H; q++, i += 4) {
     const r = d[i], g = d[i + 1], b = d[i + 2];
     const dd = dist2(r, g, b, screen);
-    if (dd < l2 || Math.min(r - g, b - g) > 45) cand[q] = 1;
+    if (dd < l2 || (!noMagenta && Math.min(r - g, b - g) > 45)) cand[q] = 1;
     if (dd < t2) alpha[q] = 0;
   }
   const stack = [];
