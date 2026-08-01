@@ -144,7 +144,15 @@ for (const file of files) {
   const keyOk = p99 < TIGHT;
   // Emissive is reported ALONGSIDE the key result, never folded into it: a plate can key
   // perfectly and still be unusable because a flame is baked into the character.
-  const emVerdict = emp >= 3 ? 'BAKED EMISSIVE — REJECT' : emp >= 1 ? 'emissive feature — LOOK' : '';
+  // THIS SCREEN CANNOT TELL RIM LIGHT FROM FLAME — both are bright+saturated, and only the eye can
+  // separate them. It used to auto-REJECT at >=3%, which over-claimed: drake-glaive trips this band
+  // (4.63% on his keyed plate) and inspection showed BAKED ORANGE RIM LIGHT tracing his wings, scales
+  // and limbs — the same class as raiju's pale blue-white fur rim (1.97%) and lich's violet crown
+  // flame (0.77%), both of which SHIPPED by pinning the feature inline. So the high band routes to a
+  // LOOK with the two outcomes named, and the reject stays a human call.
+  const emVerdict = emp >= 3
+    ? 'STRONG emissive — LOOK: rim light → PIN it inline ("stays exactly as bright as in the reference"); live flame/lightning → reject'
+    : emp >= 1 ? 'emissive feature — LOOK' : '';
   const verdict = [keyOk ? 'keys with margin' : 'p99 >= TIGHT — backdrop may survive', emVerdict]
     .filter(Boolean).join(' · ');
   if (!keyOk || emp >= 3) worst = 1;

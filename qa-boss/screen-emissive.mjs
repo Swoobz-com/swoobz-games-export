@@ -13,13 +13,18 @@ import { createRequire } from 'node:module'; import fs from 'node:fs'; import pa
 const require = createRequire(import.meta.url); const { PNG } = require('pngjs');
 
 const dir = process.argv[2];
-const files = fs.readdirSync(dir)
+if (!dir) { console.error('ERROR: no directory given — nothing was measured.'); process.exit(2); }
+let entries; try { entries = fs.readdirSync(dir); }
+catch (e) { console.error(`ERROR: cannot read directory ${JSON.stringify(dir)} (${e.code || e.message}) — nothing was measured.`); process.exit(2); }
+const files = entries
   .filter((f) => /\.png$/i.test(f) && !/ (PFP|TCG)\.png$/i.test(f))   // base plate only
   .sort();
+if (!files.length) { console.error(`ERROR: no base plates in ${JSON.stringify(dir)} (${entries.length} entries, all filtered out) — nothing was measured.`); process.exit(2); }
 
-const rows = [];
+const rows = [], failed = [];
 for (const f of files) {
-  let p; try { p = PNG.sync.read(fs.readFileSync(path.join(dir, f))); } catch { continue; }
+  // Never skip silently — an unreadable plate must not be indistinguishable from a clean one.
+  let p; try { p = PNG.sync.read(fs.readFileSync(path.join(dir, f))); } catch (e) { failed.push([f, e.code || e.message]); continue; }
   const { width: W, height: H, data: d } = p;
   const at = (x, y) => { const i = (y * W + x) * 4; return [d[i], d[i+1], d[i+2], d[i+3]]; };
   const corners = [at(0,0), at(W-1,0), at(0,H-1), at(W-1,H-1)];
@@ -34,14 +39,25 @@ for (const f of files) {
     if (mx >= 215 && (mx - mn) >= 70) emis++;
     if (r >= 250 && g >= 250 && b >= 250) white++;
   }
-  if (!sub) continue;
+  if (!sub) { failed.push([f, 'no subject pixels — plate is entirely background?']); continue; }
   rows.push({ f, sub, e: (emis/sub)*100, w: (white/sub)*100, fill: sub/(W*H)*100 });
 }
 rows.sort((a,b) => a.e - b.e);
-console.log(`${rows.length} base plates in ${dir}\n`);
+console.log(`${rows.length} of ${files.length} base plates measured in ${dir}\n`);
 console.log('  emis%   white%  subj%   plate');
 console.log('  ' + '-'.repeat(74));
 for (const r of rows) {
-  const flag = r.e >= 1.5 ? '  <- BAKED EMISSIVE, reject' : (r.e >= 0.8 ? '  <- has a lit feature, pin it' : '');
+  // This screen cannot tell BAKED RIM LIGHT from a live flame — both are bright+saturated. It used to
+  // say "reject" outright, which over-claimed: drake-glaive trips the top band on baked orange rim
+  // light, and rim light SHIPS by pinning it inline (raiju, lich). The reject stays a human call.
+  const flag = r.e >= 1.5 ? '  <- STRONG emissive, LOOK: rim light → pin it inline; live flame → reject'
+             : (r.e >= 0.8 ? '  <- has a lit feature, pin it' : '');
   console.log(`  ${r.e.toFixed(2).padStart(5)}   ${r.w.toFixed(2).padStart(5)}  ${r.fill.toFixed(1).padStart(5)}   ${r.f.replace(/\.png$/,'')}${flag}`);
+}
+// Say plainly what was NOT measured — silence is indistinguishable from a clean result.
+if (failed.length) {
+  console.error(`\nERROR: ${failed.length} of ${files.length} plate(s) could NOT be measured:`);
+  for (const [f, why] of failed) console.error(`  ${f}  (${why})`);
+  console.error('The table above is INCOMPLETE. Do not read it as a verdict on the missing plates.');
+  process.exit(2);
 }

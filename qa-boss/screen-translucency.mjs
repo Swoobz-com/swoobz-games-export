@@ -38,9 +38,17 @@
 // hydra-flail scored 36.15% and is not translucent at all — he is a green scaled hydra
 // (mean subject rgb(74,83,54), 49.6% of his pixels green-dominant). raiju-naginata, 8.27%, is the
 // same story at 29.2%.
-// That is NOT a null result. A green character on a GREEN plate is the documented ALPHA-HOLES
-// hazard: the keyer removes green and can eat parts of him. So the tool prints grnDom% alongside,
-// and when grnDom% >= 25 it reports THAT risk instead of a translucency verdict.
+// grnDom% IS NOT A KEYING VERDICT — that claim was TESTED AND KILLED (phase 172).
+// This header used to say a green character on a green plate "risks ALPHA HOLES", and on that basis
+// recommended re-plating hydra-flail on magenta. Both green-dominant plates were then keyed and their
+// alpha inspected: hydra-flail (49.6% grnDom) CLEAN, raiju-naginata (29.2%) CLEAN. No holes in either.
+// THE REASON IS STRUCTURAL: the keyer is a BORDER-SEEDED FLOOD. It removes only green REACHABLE FROM
+// THE FRAME EDGE, so an interior greenish body pixel is never a candidate however green it is. The
+// real hazard would be green that CONNECTS to the border through a gap in the silhouette — which is a
+// property of the SILHOUETTE, not of how green the character is, and this number cannot see it.
+// So grnDom% is reported for ONE reason only: it explains an inflated transl%. It never suppresses
+// the translucency verdict (doing so once hid elara-frostplate's real 6.01 "inspect" reading behind
+// a confound warning); the verdict is printed alongside and marked as an upper bound.
 //
 // usage: node qa-boss/screen-translucency.mjs <plate.png> [...]
 import { createRequire } from 'node:module'; import fs from 'node:fs';
@@ -49,9 +57,14 @@ const require = createRequire(import.meta.url); const { PNG } = require('pngjs')
 const LO = 18, HI = 130;
 console.log('  transl%  grnDom%   subj px    plate');
 console.log('  ' + '-'.repeat(74));
-const rows = [];
-for (const f of process.argv.slice(2)) {
-  let p; try { p = PNG.sync.read(fs.readFileSync(f)); } catch { continue; }
+const rows = [], failed = [];
+const asked = process.argv.slice(2);
+if (!asked.length) { console.error('ERROR: no plates given — nothing was measured.'); process.exit(2); }
+for (const f of asked) {
+  // NEVER skip silently. A mistyped path used to `continue` here, so a screen over a bad path list
+  // printed a short clean table and READ AS "all clean" — the vacuous-pass bug, the same one that
+  // made check-extra-objects report CLEAN off zero frames. Collect failures and fail loudly below.
+  let p; try { p = PNG.sync.read(fs.readFileSync(f)); } catch (e) { failed.push([f, e.code || e.message]); continue; }
   const { width: W, height: H, data: d } = p;
   const bi = 0, bg = [d[bi], d[bi+1], d[bi+2]];
   const isBg = (r,g,b,a) => a < 24 || (Math.abs(r-bg[0])<26 && Math.abs(g-bg[1])<26 && Math.abs(b-bg[2])<26);
@@ -68,11 +81,22 @@ for (const f of process.argv.slice(2)) {
 }
 rows.sort((a,b) => a.t - b.t);
 for (const r of rows) {
-  // A GREEN-COLOURED CHARACTER inflates transl% — report it so the confound is visible here rather
-  // than needing a separate investigation, and flag it as its own (real, different) hazard.
+  // A GREEN-COLOURED CHARACTER inflates transl%. Report the confound, but NEVER let it suppress the
+  // verdict — grnDom% says the reading is an UPPER BOUND, not that the plate has a keying problem.
   const green = r.g >= 25;
+  const verdict = r.t >= 7 ? 'TRANSLUCENT, will fringe' : (r.t >= 5 ? 'some see-through, inspect' : '');
   const flag = green
-    ? `  <- ${r.g.toFixed(0)}% GREEN-DOMINANT SUBJECT: transl% is CONFOUNDED, and a green character on a green plate risks ALPHA HOLES`
-    : (r.t >= 7 ? '  <- TRANSLUCENT, will fringe' : (r.t >= 5 ? '  <- some see-through, inspect' : ''));
+    ? `  <- ${r.g.toFixed(0)}% green-dominant: transl% is an UPPER BOUND (the character is green, not see-through)`
+      + (verdict ? ` · at face value: ${verdict}` : '')
+      + ` · NOT an alpha-holes signal — see header`
+    : (verdict ? `  <- ${verdict}` : '');
   console.log(`  ${r.t.toFixed(2).padStart(6)}  ${r.g.toFixed(1).padStart(6)}   ${String(r.sub).padStart(8)}   ${r.f}${flag}`);
 }
+// Say plainly what was NOT measured. Silence here is indistinguishable from a clean result.
+if (failed.length) {
+  console.error(`\nERROR: ${failed.length} of ${asked.length} plate(s) could NOT be read — they were NOT measured:`);
+  for (const [f, why] of failed) console.error(`  ${f}  (${why})`);
+  console.error('The table above is INCOMPLETE. Do not read it as a verdict on the missing plates.');
+  process.exit(2);
+}
+if (!rows.length) { console.error('ERROR: 0 plates measured.'); process.exit(2); }
