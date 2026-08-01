@@ -446,3 +446,36 @@ first clip, either key a still and inspect the alpha for holes, or re-plate him 
 `pale-choir-anchor-magenta.png` already on disk is the precedent, and it scores the cleanest
 translucency of the whole set (1.35%). raiju-naginata carries the same question at 29.2%, on top of
 his existing faint-rectangle watch.
+
+### ✔ THE ALPHA-HOLES CONCERN IS DISPROVEN — I TESTED MY OWN RECOMMENDATION AND IT WAS WRONG (phase 172)
+
+Last phase I recommended keying a still or re-plating `hydra-flail` on MAGENTA, because 49.6% of his
+pixels are green-dominant on a green plate. **I keyed both green-dominant plates and inspected the
+alpha. Neither has holes.**
+
+| plate | grnDom% | key verdict | alpha mask |
+|---|---|---|---|
+| hydra-flail | 49.6% | keys with margin (opaque 13.29, p99 5.4) | **CLEAN** — solid body, three necks solid, chains connected, no interior holes |
+| raiju-naginata | 29.2% | keys with margin (opaque 11.86, p99 28.7) | **CLEAN** — solid body, naginata crisp, no interior holes |
+
+**AND THE REASON IS PRINCIPLED, NOT LUCK: the keyer is a BORDER-SEEDED FLOOD.** It removes only green
+that is REACHABLE FROM THE FRAME EDGE. An interior greenish body pixel is never a candidate, however
+green it is. So "the character is green" is NOT the alpha-holes hazard on this keyer — the hazard
+would be green that CONNECTS to the border through a gap in the silhouette.
+
+**NO MAGENTA RE-PLATE IS NEEDED for either.** `grnDom%` stays in the tool as the explanation for an
+inflated `transl%`, but it should NOT be read as a keying verdict on its own. Corrected here so the
+recommendation does not outlive the test that killed it.
+
+**RAIJU'S FAINT-RECTANGLE WATCH, closed at plate level.** The standing loop instruction is "raiju's
+padded plate retains a faint rectangle — check its first keyed clip for a rectangular alpha edge."
+The plate's rendered alpha shows **no rectangle at all**. That closes the PLATE question; the
+clip-level check still stands when he is first fired, since compression can introduce what a still
+does not show.
+
+**ONE REAL ITEM RAIJU'S SCREEN DID RAISE:** `emis 1.97%` with the verdict `emissive feature — LOOK`,
+more than double lich's 0.77%. His kit already pins it ("the pale honed edge of the blade, its wavy
+temper line, the polished steel rings, the brass ferrule and the pale blue-white RIM LIGHT along his
+fur all stay exactly as bright as they are in the reference image"), which is the correct treatment
+— the same one that let lich ship three clips with a real violet flame. No action, recorded so the
+number is not re-investigated later.
