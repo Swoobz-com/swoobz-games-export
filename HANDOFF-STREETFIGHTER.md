@@ -167,6 +167,23 @@ sides (ir52 42.8% gutted; ir37-pink-tessen 94.7% with 13 ACCEPTED CLIPS; everyth
 **Swept the roster: ir52 is the only plate that trips it.** It is now in PLATE-PRECHECKS.md as a
 mandatory pre-kit step, and KIT-WRITING-BRIEF.md asks agents to name magenta identity colours.
 
+### ✔ STALE-WORK SWEEP — THE RECORD WAS VERIFIED, NOT ASSUMED (phase 210)
+
+Two separate items in this handoff turned out to present FINISHED work as outstanding
+(`ir52-umbra-pinions` "do not fire"; `eclipse special_2` "needs v3"). Twice is a pattern, so the
+whole document was swept rather than patched a third time.
+
+**Swept for:** `needs vN` · `REJECT` · `still owed` · `OWED` · `TODO` · `outstanding`.
+**Result: CLEAN.** The only surviving matches are the eclipse `special_2` rejection row and the
+correction note directly above it, which is deliberate — the reasoning stays readable while the
+"done" marker prevents it being mistaken for a live task.
+
+So every remaining item in this document that reads as outstanding **is** outstanding. Trust it.
+
+**The failure mode this guards against:** a record that says work is owed costs a future session a
+whole cycle to rediscover it is not — and the second time, that session may just do the work again.
+Checking cost one `build-prompt` run.
+
 ### WHAT I WOULD DO NEXT
 1. **When firing returns: `hector-warhammer idle` first** — safest beat, best plate, and the long arm
    of the length A/B. Then `wolfmark-hild idle` (roomiest budget, and it carries an untested
