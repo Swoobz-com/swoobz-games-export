@@ -1,6 +1,150 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 21 — START HERE (2026-08-01) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 22 — START HERE (2026-08-01) ★★★★★★★★★★
+
+**40 prompt files · 428 buildable states · 98 shipped · QUEUE 330 · 79 commits.**
+**Zero clips fired — the account was blocked the entire session.** Everything below came out of
+blocked cycles.
+
+> ### ⛔ 1. FIRING IS BLOCKED ON TRIAL ELIGIBILITY. WAITING WILL NOT FIX IT.
+> `use_unlim:true` returns *"Unlimited generations are part of the Higgsfield free trial."*
+> **TESTED ACROSS THE DAY BOUNDARY with a real, fully-formed fire — identical rejection.** The
+> day-rollover theory is dead; do not re-probe it. Only Tim starting the trial, or the session
+> landing on a different account, will clear this.
+>
+> **`balance` IS NOT AN ACCOUNT FINGERPRINT** — it drifted 1162 → 1146 mid-session from four
+> `Nano Banana Pro` image generations. The stable fingerprint is the **user id** in every CDN url
+> (`.../user_3FzP62OkeSn8OYHW3kjt3xDrWKK/hf_...`), read from `show_generations`.
+>
+> **STEP 1 AS WRITTEN HAS A HOLE:** `show_generations(type:'video')` showed *nothing new* while a
+> human was actively working on the account, because the spend was on IMAGES. **Call
+> `transactions` too.** Treat any balance movement the loop did not cause as a pending job.
+
+> ### ⛔ 2. RUN THE GUARD BEFORE DISPATCHING ANY KIT AGENT
+> ```
+> node qa-boss/may-i-write-kit.mjs <character>      # --all to audit what exists
+> ```
+> I briefed kits for **three already-REJECTED characters** because I surveyed the filesystem instead
+> of the verdicts, which lived only as prose. The guard reads `qa-boss/ROSTER-VERDICTS.json`,
+> **defaults to REFUSE**, grandfathers anything with wired clips, and refuses outright on duplicate
+> normalised keys (two spellings of one character silently collapse, and could turn a REJECTED
+> verdict into a cleared one). Keep the JSON and the prose ledger in sync in the same commit.
+
+### THE CANDIDATE HUNT IS FINISHED — `UNVIEWED 0`
+**23 plates viewed across mythic / legendary / rare / Epic. 2 cleared, 1 held, 20 rejected.**
+Ledger: 59 entries — OK 14, REJECTED 36, TIM 9, UNVIEWED 0.
+
+| cleared | why it was worth it |
+|---|---|
+| **jorogumo-kusarigama** | spider-woman + chain-sickle. No roster collision. Kit written + verified. |
+| **wolfmark-hild** | Norse shieldmaiden — the roster's **first SHIELD**, and the roomiest budget on disk (L476 R476, span **2.63x**). Kit written + verified. |
+
+`Hexlun Veil` is **held as a Tim call** (violet-contract precedent): viable, rigid blade, but the
+highest-risk cloth in the pool — a large *geometrically patterned* cloak. Nothing with one has ever
+shipped a clip, so the mitigation is unvalidated.
+
+**THE POOL IS EXHAUSTED.** Further characters need a genuinely new source, or a deliberate re-plate
+of something rejected on grounds a re-plate fixes (fill/padding) — a decision, not a re-screen.
+
+### FIVE RULES LEARNED THIS SESSION, all in `qa-boss/xg/KIT-WRITING-BRIEF.md` or the screen doc
+1. **Check every bound against the anchor — PER OBJECT.** If the reference frame already violates a
+   bound, the bound loses (start/end_image pin the anchor) and you get a plausible clip failing QA
+   for unrelated reasons. This is why `ir41-kasa-oni` is BLOCKED. jorogumo needed **two different
+   ceilings in one suffix** (spider legs at crown-of-head, kusarigama at shoulders). It also applies
+   to bounds INHERITED from a model kit — jorogumo correctly dropped reef-maw's "her back is never
+   shown", because her back *is* the reference view.
+2. **Name hands by FUNCTION** (sword/free, leading/rear), never left/right — plates get h-flipped and
+   anatomical names silently invert. **Preventive only:** two kits with 13 accepted clips each use
+   anatomical naming, so do NOT rewrite shipped kits.
+3. **Some weapons cannot pass containment at all.** A LASH whose only vocabulary is *gaining reach*,
+   plus a large flowing cloak, owns both frame edges. Killed `Null Mire` and `Bone Ledger`. The test:
+   **strip every beat that gains reach — is there still a kit left?** jorogumo survived it because
+   her chain hangs in a loop AND she has legs + sickle to build beats from.
+4. **`emis%` under-reads thin, sparse and filament bright features** — confirmed THREE times
+   (Zephiron 1.11 with both staves electrified, Dragon_Emperor 1.44 with floating embers, Kenji
+   Ashblade 0.90 with an ember-veined blade). **The VIEW is the only reliable detector.** I tried a
+   hot-core statistic and it FAILED validation (it cannot separate Zephiron 52 from shipped
+   oni-tetsubo 48) — recorded in the tool so it is not re-attempted.
+5. **The source art repeats MOTIFS, so collisions come in families.** The straw-hat-plus-hanging-ofuda
+   motif alone cost three rejections against shipped `eclipse-ofuda`. A collision-family table is in
+   the screen doc — check the motif *before* opening the plate.
+
+### WHAT ACTUALLY MOVED: 4 accepted clips keyed and placed
+lich-scythe 0/13 → **3/13**, gargoyle-spear 0/13 → **1/13**, SHIPPED 94 → 98. They had been sitting
+as raw mp4 since earlier phases, invisible to every count.
+**Which raw was the accepted take was MEASURED, not guessed** — the acceptance commits record
+per-version `raw-anchor f0/fLast`, which is a fingerprint; all matched to four decimals. Wiring the
+wrong take fails silently, so do this rather than trusting filenames.
+**Recipe** (`qa-boss/key-parked-accepted.mjs` is the working model):
+```
+ffmpeg -i raw.mp4 frames/f_%03d.png
+node scripts/key-idle-clips.mjs <framesdir> <keyeddir> --still <plate>
+node scripts/green-neutralize.mjs <keyeddir> 32
+ffmpeg -framerate 24 -i keyed/f_%03d.png -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 30 -an out.webm
+```
+Two decisions the recipe does NOT make for you: **hflip** (VIEW frame 0 — both characters faced
+screen-right, so none) and **despill** (the keyer's edge-band despill is built in; eclipse's family
+skips the separate despill script). Wired filenames use HYPHENS; specials map
+`special_1→special`, `special_2→special-b`, `special_3→special-c`.
+
+**WIRING IS NOT AVAILABLE for partial characters.** `src/characters/` registers each fighter as a
+CAMPAIGN BOSS bound to a campaign node. `oni-tetsubo` has 2 webm and no registration — that is the
+state a partial character sits in. lich at 3/13 cannot be wired until its kit is complete AND a
+campaign slot exists, and the latter is a design decision.
+
+**Still parked: `kitsune-tanto`, 13 raws.** Recorded as a **Tim call**, and the reason is interesting:
+its PLATE carries a live yellow-green blade glow (5.28% emissive, the highest in the roster, and the
+character the "kitsune blocker" is named after) — **but the raws do not reproduce it.** They show
+plain steel before any keying, key cleanly (fur tails crisp, greenExcess p99 0), and anchor BETTER
+than accepted clips (idle .920/.917 vs lich strike_a v3 at .902/.905). So they are technically
+shippable and the only open question is which look is canonical. NB they predate the 3-role
+start/end/image transport, so a re-fire today would pin the glowing plate at f0.
+
+### ⚠ A CORRECTION TO MY OWN EARLIER FINDING — do not act on the loud version
+I flagged prompt LENGTH as "the #1 risk to the queue". **That was overstated.** All five kits with
+shipped clips were written 2026-07-24; every long kit was written 07-31 or later — the
+shipped/never-fired split **is** the before/after-the-account-broke split, so the data carries almost
+no signal. And the mechanism runs the other way: satoshi (778, oldest) has NO containment clause;
+every later kit has one *because containment defects were found and fixed by adding it*. **A long
+suffix is largely a record of accumulated defect fixes, so trimming would be actively harmful.**
+Both A/B arms are built in `qa-boss/ab/` if anyone wants to settle it cheaply — an open question,
+never a licence to strip bounds.
+
+### TOOLING
+| tool | purpose |
+|---|---|
+| `qa-boss/fire-queue.mjs` | derives SUPPLY/SHIPPED/QUEUE from what BUILDS and what is WIRED; separates deliberately BLOCKED from broken; surfaces fired-but-not-wired |
+| `qa-boss/may-i-write-kit.mjs` + `ROSTER-VERDICTS.json` | dispatch guard; defaults to REFUSE |
+| `qa-boss/key-parked-accepted.mjs` | the keying recipe, working |
+| `qa-boss/ab/` | prompt-length A/B, both arms |
+
+### PIPELINE BUGS FIXED
+- **`build-prompt.mjs` matched the shared-prefix label as an EXACT LITERAL** — kits heading theirs
+  `Shared prefix (identity + …):` could not build a single state. Fixed to regex; **proved
+  behaviour-preserving: 0 of 335 existing builds changed, +20 newly buildable.**
+- **The same literal was in `check-prompt-sections.mjs`**, silently reclassifying two complete kits
+  as scratch FRAGMENTS and skipping them for their whole lives. A sweep reported "34 kits, 0
+  problems" while only 32 were measured.
+- **Three vacuous passes killed** — two screens `catch{continue}`d a bad path and printed short,
+  clean tables. They now exit 2 naming every unmeasured plate and print `N of M`.
+- **`grnDom` no longer claims alpha-holes risk** (tested: both green-dominant plates key CLEAN — the
+  keyer is a border-seeded flood, so interior green is never a candidate) and no longer suppresses
+  the translucency verdict. A better metric (subject pixels near the PLATE colour) is recorded
+  **uncalibrated** in the tool — one ground truth cannot set a threshold.
+
+### WHAT I WOULD DO NEXT
+1. **When firing returns: `hector-warhammer idle` first** — safest beat, best plate, and the long arm
+   of the length A/B. Then `wolfmark-hild idle` (roomiest budget, and it carries an untested
+   departure: her sword is licensed **one forearm-length beyond** the reference extreme rather than
+   frozen at it — watch the right edge, and if it overshoots shrink the forearm-length, not the cap).
+2. `node qa-boss/may-i-write-kit.mjs --all` — **16 kits are flagged "verdict not recorded"**
+   (hydra-flail, the ir-series, onryo-katana …). I did NOT invent verdicts to clear them. Backfill
+   from the earlier XG-wave records.
+3. `Hexlun Veil` and `kitsune-tanto` both need a **Tim ruling**, not more measurement.
+
+---
+
+## SESSION 21 — superseded by the above, kept for provenance (2026-08-01)
 
 **38 prompt files · 434 clean states · 0 problems · 78 commits.** Zero clips fired — the account was
 blocked the entire session. Everything below came out of blocked cycles.
