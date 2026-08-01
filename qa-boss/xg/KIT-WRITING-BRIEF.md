@@ -30,6 +30,33 @@ drift is HERE, not in the agents.
    removing them on a correlation would throw away hard-won fixes. Cap the growth, do not reverse it,
    until the hector-idle length test in FIRE-PLAN.md has actually been run.
 
+## ⚑ NAME HANDS BY FUNCTION, NEVER BY ANATOMY (phase 176, contributed by the shiro-gale kit)
+
+Write **SWORD hand / FREE hand**, **LEADING hand / REAR hand**, **shield arm** — never "his left
+hand", never "her right hand".
+
+**Why: this roster H-FLIPS plates.** A character has to face screen-right, so a plate drawn facing
+left gets mirrored — and the moment it does, every anatomical reference in the kit silently inverts
+and now describes the wrong hand. Nothing catches it: the prompt still reads fluently, the gate still
+passes, and the model dutifully animates the wrong arm. Most plates are also mirror-ambiguous to
+begin with, so getting it right originally is a coin-flip.
+
+A functional name survives the flip because it is defined by what the hand DOES, which the mirror
+does not change. Verified on shiro-gale: 0 anatomical references, 8 functional ones.
+
+Same logic applies to anything else the mirror moves — prefer "the scabbard side" over "his left
+hip", and "toward screen-right" (frame-relative, which is what containment actually measures) over
+"forward".
+
+**THIS IS PREVENTIVE, NOT CORRECTIVE — DO NOT GO REWRITE THE OLD KITS.** Audited the whole roster:
+only three kits use anatomical naming at all, and two of them (`hollow-pale`, `ir37-pink-tessen`)
+have **shipped 13 accepted clips each** with it. The hazard needs a FLIPPED plate to bite, and those
+plates were never flipped, so it never fired. Rewriting kits that have 26 accepted clips between
+them, to fix a defect that has not occurred, would risk a real regression for a theoretical gain.
+Apply the rule to NEW kits; leave shipped kits alone. (`kitsune-tanto` carries two anatomical
+references and has never been fired — fix them there whenever it is next touched, not as its own
+task.)
+
 ## 0. THE TWO RULES TIM GAVE FOR THIS BATCH — these override any instinct
 
 **A. "Review their picture so samurais don't shoot bullets."** Every single beat must be derived
