@@ -86,7 +86,14 @@ for (const f of files) {
   // Not every .md in prompts/ is a fireable prompt file. Some are FRAGMENTS (re-roll scratch, notes)
   // with no "Shared prefix:" blockquote, so build-prompt.mjs cannot assemble them at all. Those are
   // not defects — report them as skipped rather than drowning the real findings in stack traces.
-  if (!/^Shared prefix:/m.test(fs.readFileSync(f, 'utf8'))) {
+  // ⚠ THE LABEL IS MATCHED BY REGEX, NEVER BY AN EXACT LITERAL (phase 174). This test used
+  // /^Shared prefix:/ — the strict literal — so any COMPLETE kit that heads its block
+  // "Shared prefix (identity + magenta chroma, every prompt):" was misfiled as a scratch FRAGMENT
+  // and SKIPPED ENTIRELY. kitsune-tanto and sora-yari were both silently unchecked for their whole
+  // lives, and sora-yari has 10 clips wired. A roster sweep then reported "34 kits, 0 problems"
+  // while two of those kits had never been measured at all — the vacuous pass again, this time
+  // dressed as a deliberate skip. Kept in sync with build-prompt.mjs's own quoted() label regex.
+  if (!/^Shared prefix[^:\n]*:/mi.test(fs.readFileSync(f, 'utf8'))) {
     skipped.push(path.basename(f));
     continue;
   }
