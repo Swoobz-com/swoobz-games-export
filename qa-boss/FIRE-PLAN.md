@@ -246,3 +246,58 @@ because neutralize deletes pixels after the cal is computed.
   of a sustained effect, not the blow.
 - **Composite the frame and LOOK.** Every one of the three session-15 mistakes, and the session-14
   fabricated bloom, was invisible in the numbers and caught only by viewing a peak frame at >=2x.
+
+## ⚠ THE #1 RISK TO THE QUEUE: EVERY UNFIRED KIT IS 1.5–4x LONGER THAN ANYTHING THAT EVER SHIPPED (phase 175)
+
+Measured across all 29 buildable kits — assembled `idle` length, and the SHARED SUFFIX inside it —
+sorted, with wired-clip status beside each. **The separation is perfect and has no exception:**
+
+| group | shared suffix | assembled idle | kits |
+|---|---|---|---|
+| **has ACCEPTED, WIRED clips** | 309 – **1438** | 1027 – **2493** | 10 kits, 113 wired clips |
+| **never wired** | **1708** – 4829 | **3453** – 8892 | 19 kits, 256 queued states |
+
+The boundary sits between `oni-tetsubo` (1438 / 2493, shipped) and `ir05-fullbarge-titan`
+(1708 / 3453, never wired). Nothing crosses it in either direction.
+
+**WHERE THE GROWTH IS: the SHARED SUFFIX, which is the BOUNDS block.**
+
+| kit | prefix | suffix | body |
+|---|---|---|---|
+| satoshi-odachi (13 wired) | 450 | **778** | 259 |
+| eclipse-ofuda (13 wired) | 546 | **925** | 885 |
+| ir37-pink-tessen (13 wired) | 587 | **1188** | 446 |
+| hector-warhammer (0 wired) | 1589 | **3449** | 1952 |
+| kira-foxflare (0 wired) | 1939 | **4004** | 1984 |
+
+The acting BODY roughly doubled (legitimate — richer beats). **The suffix TRIPLED.** That block is
+appended to all 13 states, so every bound added there is paid 13 times per character. This is
+literal, measurable **bound accumulation** — the exact anti-pattern the doctrine names when it says
+*a bound never beats a beat* — and it accumulated in the one place where it compounds hardest.
+
+**⚠ STATE THE CONFOUND HONESTLY — THIS IS CORRELATION, NOT A PROVEN CAUSE.** The shipped kits are
+also the OLDEST kits. Kits grew over time AND older kits had more chances to be fired, so
+"long → the model ignores the bounds" is NOT established by this table and must not be reported as
+established. Two things ARE established, and they are enough to act on:
+
+1. **No clip has ever been ACCEPTED and WIRED from a prompt longer than ~2500 characters.** That is
+   a fact about the entire evidence base, not an inference.
+2. **All 256 queued states sit outside that envelope**, most of them far outside.
+
+(Note: "never wired" is not "never generated" — onryo-katana has fired clips in the account history
+that were never wired. The claim above is specifically about clips that survived QA and shipped.)
+
+**WHAT TO DO, THE MOMENT FIRING UNBLOCKS — BEFORE BURNING THE QUEUE:**
+1. Fire **hector-warhammer `idle`** (6990) as the deliberate test of the long form. It is gate-clean,
+   fully verified, and its plate is comfortable (58% fill, 620px headroom) — so if it fails, length
+   is the leading suspect rather than the plate.
+2. Judge it on **bound ADHERENCE specifically** — facing, containment, debris count, no-new-objects
+   — not on whether the acting looks nice. Dilution shows up as bounds being ignored, not as bad art.
+3. If adherence is poor, **trim the SUFFIX first, never the body.** The body is the beat; the suffix
+   is the accumulation. A trimmed suffix at ~1200 chars matching the shipped kits is the obvious
+   A/B, and it is one clip to find out.
+4. **Do not write more kits at 8–9k until this is tested.** Three were written this session under
+   the current brief; that is enough exposure to a single untested assumption.
+
+**AND FIX THE SOURCE:** `qa-boss/xg/KIT-WRITING-BRIEF.md` is what drives agents to write these
+suffixes. Every agent followed it faithfully — the drift is in the brief, not in the agents.
