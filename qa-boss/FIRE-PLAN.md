@@ -33,13 +33,36 @@ charged — which is exactly why `use_unlim` is mandatory on every call. Had it 
 would have silently spent credits on a clip.
 
 **WHAT TO DO WHEN YOU LAND HERE:**
-1. `balance` is the tell. **1162 credits / `plus` = the un-fireable account.** ~10 credits = the
-   one that works. Check it before uploading anything.
+1. `balance` is a HINT, **NOT a fingerprint** — corrected phase 190. This used to read "1162
+   credits / `plus` = the un-fireable account", and then the balance MOVED: 1162 → 1146 on
+   2026-08-01, from four `Nano Banana Pro` IMAGE generations at 4 credits each between 10:15 and
+   10:25 UTC. **This is Tim's working account and he spends on it.** A session that keys off the
+   literal number 1162 will mis-identify the account the moment it drifts.
+   **The stable fingerprint is the USER ID**, which every CDN url carries:
+   `https://d8j0ntlcm91z4.cloudfront.net/<user_id>/hf_...` — read it out of `show_generations`.
+   `user_3FzP62OkeSn8OYHW3kjt3xDrWKK` = the account with credits and NO unlim entitlement.
+   (~10 credits = the account that works.) Balance is still useful as a cheap CHANGE signal — see
+   below — just never as identity.
 2. Do NOT fire. Do NOT "just this once" drop `use_unlim`.
 3. The plate re-upload is still wasted work on this account — check `balance` FIRST, then upload.
 4. Use the cycle for kit work instead: reads, sweeps, gates, new kits. That is where most of this
    session's value came from anyway.
 5. Starting the trial, or authorising credit spend, is **Tim's call, not the loop's.**
+
+### ⚠ A BALANCE CHANGE IS A NON-INTERFERENCE SIGNAL (phase 190)
+
+The balance sat at exactly 1162 for **twenty-two consecutive cycles**, then dropped to 1146.
+`transactions` named the cause in one call: four `Nano Banana Pro` image generations, 4 credits
+each, 10:15–10:25 UTC on 2026-08-01 — the newest 11 minutes before the check.
+
+**So the account is in ACTIVE HUMAN USE, and `transactions` is the tool that tells you by whom and
+for what.** `show_generations(type:'video')` showed NOTHING new — correctly, because the spend was
+on IMAGES. **The video history alone would have reported "all clear" while someone was working on
+the account.** That is a real hole in the STEP 1 check as written.
+
+**WHAT TO DO:** treat any balance movement the loop did not cause as equivalent to a pending job.
+Call `transactions` (not just `show_generations`), see what actually happened, and do not fire that
+cycle. The loop is a guest on this account.
 
 ### Hypotheses TESTED AND DEAD — do not re-probe these (phase 173, 2026-08-01)
 
