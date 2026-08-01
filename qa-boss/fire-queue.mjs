@@ -143,6 +143,13 @@ if (done.length && !full) console.log(`\n  (${done.length} complete, hidden: ${d
 // Raw filenames are far too inconsistent to map onto states (lich-strike-v3, eclipse-ofuda-strike_a,
 // ir37-pink-tessen-strike-b-v3 ...), so this deliberately reports a per-character COUNT only — a
 // robust signal that work is parked, not a per-state claim it cannot honestly make.
+// qa-boss/webm WAS CHECKED FOR PARKED FINISHED WORK AND IT IS NOT THERE (phase 208) — recorded as a
+// NEGATIVE result so nobody repeats the search. It holds 137 keyed webm, but they belong to
+// characters that are ALREADY WIRED (hollow-pale, ir37, satoshi, eclipse, lady-kurotachi, ir56,
+// ir48, thorn-warden, sora-yari): intermediate working output, not shippable work sitting idle.
+// The only exception is kitsune-tanto (idle + victory), and those have NO .cal.json alongside, so
+// they cannot be placed correctly anyway — and that character is gated on a canonical-look ruling.
+// The real parked work was in qa-boss/raw/ and is surfaced below.
 const RAW = 'qa-boss/raw';
 let raws = [];
 try { raws = fs.readdirSync(RAW).filter((f) => /\.mp4$/i.test(f)); } catch { /* no raw dir */ }
