@@ -203,17 +203,13 @@
       "status": "REJECTED",
       "why": "Viewed phase 192. STRUCTURAL: a LASH weapon whose only vocabulary is GAINING REACH, plus a large flowing cloak — so BOTH frame edges are owned by things that must move. Padding fixes absolute margins but not this: containment forbids gaining reach, and a lash that may never extend has no beats left. That is a BEAT-LEVEL impossibility, the same class as a projectile character, not a tight budget. Contrast jorogumo-kusarigama, which survived the same shape because her chain HANGS IN A LOOP close to the body and she has spider legs and a sickle to build beats from — the chain is not her only vocabulary. His SEGMENTED SPINE-FLAIL ending in twin skulls is thrown wide across the right half and the chain-embroidered cloak sweeps the left third. Secondary: the flail collides with hydra-flail (kit written), and a gaunt undead spellcaster reads close to lich-scythe. Clean emissive 0.51 and a good side profile otherwise."
     },
-    "Wolfmark_Hild": {
-      "status": "UNVIEWED",
-      "why": "rare tier, emis 0.80 — passed the emissive screen but NEVER individually verdicted: the rare/Epic pass took only six candidates forward and these were left without a verdict. Surfaced phase 188 by cross-referencing every screened plate against this ledger. NOT permission — view at full size first, and check archetype/weapon collision against the shipped roster."
-    },
     "Yokai Kama": {
       "status": "REJECTED",
       "why": "Viewed phase 188. DOUBLE COLLISION. (1) ANTLERED FIGURE — an antlered wood/forest yokai, colliding with the SHIPPED thorn-warden. That is the exact recorded ground on which Antler_Mire was rejected. (2) TWIN KAMA — a kama IS a sickle, colliding with jorogumo-kusarigama (chain-sickle), cleared and kitted phase 185-187. Setting fit is otherwise excellent. TECHNICAL NOTE, and it is a narrower claim than the disproven alpha-holes one: he is green-dominant on a GREEN plate, which by itself is harmless (the keyer is a border-seeded flood, so interior green is never a candidate) — but the THIN GREEN LEAF SPROUTS off his vine-wrapped blades are protrusions SURROUNDED BY BACKGROUND, so they ARE reachable by the flood and would key away. That is the real shape of the green-on-green hazard."
     },
     "Kenji Ashblade": {
-      "status": "UNVIEWED",
-      "why": "rare tier, emis 0.90 — passed the emissive screen but NEVER individually verdicted: the rare/Epic pass took only six candidates forward and these were left without a verdict. Surfaced phase 188 by cross-referencing every screened plate against this ledger. NOT permission — view at full size first, and check archetype/weapon collision against the shipped roster."
+      "status": "REJECTED",
+      "why": "Viewed phase 197. WEAPON COLLISION — a katana against three shipped katana wielders (onryo-katana, lady-kurotachi, satoshi-odachi). Secondary: his blade carries BAKED EMBER/FIRE VEINING along its length. ⚠ THIRD CONFIRMATION OF THE THIN-FEATURE BLIND SPOT: it measured 0.90 emissive, squarely in the clean band, because the veining is thin filaments on a blade — after Zephiron (1.11, both staves fully electrified) and Dragon_Emperor (1.44, floating embers). Thin, sparse and filament bright features all under-read on a percentage-of-subject statistic."
     },
     "Charm Ronin": {
       "status": "REJECTED",
@@ -232,8 +228,8 @@
       "why": "Viewed phase 193. VIABLE, HELD ON THE violet-contract PRECEDENT (recorded there as \"viable; cloak needs a bounded sway\"). Dark-armoured warlock/assassin, long black hair, hex-patterned cloak, wielding a rigid CRESCENT HOOKED BLADE with an eye motif. Good side profile facing screen-right, emis 1.18. CRUCIALLY IT PASSES THE LASH TEST that killed Null Mire and Bone Ledger: the weapon is a rigid blade held close in, so plenty of contained beats exist that never gain reach. THE RISK IS THE CLOAK, and it is the highest-risk cloth in the pool: it is the dominant visual mass AND it is GEOMETRICALLY PATTERNED (hex/cube lattice). Pattern consistency across 97 frames is materially harder than plain cloth — a lattice on flowing fabric morphs visibly where plain cloth does not, and the identity lock demands the same pattern every frame. Long streaming hair is a second flowing element. NOTE satoshi-odachi shipped 13 clips with a straw cape, so a cape is not disqualifying; but nothing with a LARGE PATTERNED flowing cloak has ever shipped a clip, so the mitigation is unvalidated. Tim rules."
     },
     "Ash Choir": {
-      "status": "UNVIEWED",
-      "why": "rare tier, emis 1.22 — passed the emissive screen but NEVER individually verdicted: the rare/Epic pass took only six candidates forward and these were left without a verdict. Surfaced phase 188 by cross-referencing every screened plate against this ledger. NOT permission — view at full size first, and check archetype/weapon collision against the shipped roster."
+      "status": "REJECTED",
+      "why": "Viewed phase 197. WEAPON COLLISION — a naginata/glaive, the exact weapon that rejected Tengu Naginata (same weapon as raiju-naginata, which has a kit). Secondary: a large flowing cloak PATTERNED with purple eye-sigils (the Hexlun Veil hazard class), and the glaive spans nearly the full frame width (prop-EXTENDED). NAME IS A RED HERRING: pale-choir owns the CLAW archetype, so despite the shared word there is no creature collision — the reject is on the weapon."
     },
     "Null Mire": {
       "status": "REJECTED",

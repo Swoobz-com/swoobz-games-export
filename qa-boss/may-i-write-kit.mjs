@@ -36,6 +36,23 @@ const V = ledger.verdicts || {};
 // Match case/separator-insensitively: the ledger mixes "Sol Ofuda" and "kira-foxflare" because the
 // prose does, and a lookup miss here would silently read as "unknown" and refuse a cleared char.
 const norm = (s) => s.toLowerCase().replace(/[\s_]+/g, '-');
+// DUPLICATE NORMALISED KEYS ARE A SILENT DEFEAT OF THIS GUARD, so refuse instead of collapsing
+// (phase 197). Two spellings of one character normalise to the same key — it happened immediately:
+// "Wolfmark_Hild" (the raw plate name, recorded UNVIEWED) and "wolfmark-hild" (the padded slug,
+// later recorded OK). A plain Map silently keeps the LAST one. Harmless in that direction, but
+// invert it and a REJECTED character recorded under one spelling reads as CLEARED under another —
+// exactly the failure this whole tool exists to prevent, reintroduced through the back door.
+const seen = new Map();
+for (const [k] of Object.entries(V)) {
+  const n = norm(k);
+  if (seen.has(n)) {
+    console.error(`ERROR: two verdict keys normalise to the same character: ${JSON.stringify(seen.get(n))} and ${JSON.stringify(k)}.`);
+    console.error('One silently overrides the other, which could turn a REJECTED verdict into a cleared one.');
+    console.error(`Merge them in ${LEDGER} and re-run. Refusing to answer until then.`);
+    process.exit(2);
+  }
+  seen.set(n, k);
+}
 const INDEX = new Map(Object.entries(V).map(([k, v]) => [norm(k), { name: k, ...v }]));
 
 const args = process.argv.slice(2);
