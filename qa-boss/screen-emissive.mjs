@@ -12,6 +12,30 @@
 import { createRequire } from 'node:module'; import fs from 'node:fs'; import path from 'node:path';
 const require = createRequire(import.meta.url); const { PNG } = require('pngjs');
 
+// ############################################################################################
+// # KNOWN LIMITATION, MEASURED phase 186: THIS SCREEN UNDER-DETECTS THIN EMISSIVE FEATURES.    #
+// # emis% is a PERCENTAGE OF SUBJECT AREA, so a defect made of thin filaments scores low even  #
+// # when it is visually dominant and functionally disqualifying:                               #
+// #     Zephiron       1.11%  -> filed as "has a lit feature, pin it"  ... BOTH staves are      #
+// #                              wrapped in brilliant baked LIGHTNING. A hard reject, missed.   #
+// #     Godflame_Liu  14.09%  -> a head that is simply on fire. Large area, easy catch.         #
+// # Same defect class, an order of magnitude apart in the statistic, purely from stroke width.  #
+// #                                                                                            #
+// # I TRIED TO FIX IT AND THE FIX DOES NOT WORK — recorded so it is not naively re-attempted.   #
+// # Candidate: a HOT-CORE count (near-clipped AND strongly saturated: max>=248, max-min>=90),   #
+// # reported per 100k subject px. It separates the obvious cases but NOT the one that matters:  #
+// #     Stormlord_Rex (lightning)  984      Wight Spear (frost rime)   1                        #
+// #     Zephiron      (lightning)   52      Hector        (clean)      0                        #
+// #     oni-tetsubo   (SHIPPED)     48      Jorogumo (cyan web)        3                        #
+// # Zephiron 52 vs oni-tetsubo 48. Any threshold that catches the lightning FALSE-ALARMS ON A   #
+// # SHIPPED CHARACTER, and a screen that cries wolf on the roster is a screen people stop       #
+// # reading. So no threshold was added.                                                        #
+// #                                                                                            #
+// # THE OPERATIONAL CONSEQUENCE: for THIN bright features — lightning, filaments, edge arcs —   #
+// # THE VIEW IS THE ONLY RELIABLE DETECTOR. That is not a gap to be patched later; it is the    #
+// # reason screens 1-3 are a CHEAP FILTER AND NOT A SHORTLIST, and why ~50% of numerically-     #
+// # clean plates still die on sight. Never promote a plate on emis% alone.                      #
+// ############################################################################################
 const dir = process.argv[2];
 if (!dir) { console.error('ERROR: no directory given — nothing was measured.'); process.exit(2); }
 let entries; try { entries = fs.readdirSync(dir); }

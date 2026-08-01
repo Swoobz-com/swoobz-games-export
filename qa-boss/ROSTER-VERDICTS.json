@@ -184,16 +184,16 @@
       "why": "NEW CANDIDATE from the previously-unscreened MYTHIC tier, screened + viewed + padded phase 185. Distinct archetype (jorogumo spider-woman, four extra spider legs, kusarigama chain-sickle) with NO roster collision — nothing shipped is a spider or wields a chain-sickle. Raw art was 96% fill / 34px margins (unusable, normal for input/MK FINAL/); PADDED to 1536 gives fill 68%, L212 R212 T468, all margins >=200px. Keys with margin (opaque 12.56, emis 0.25, p99 5.9). Translucency 5.98 inspect-band with grnDom only 8.9 — so it is REAL mild see-through from the cyan web membranes between arm and torso, not a green confound. KIT MUST: bound the four spider legs (they own the LEFT edge) and the sickle tip (owns the RIGHT edge, and the chain is a long extending prop — the classic containment hazard); pin the cyan web membranes and cyan limb rim-light as fixed-brightness, fixed-opacity features. Span ceiling 1.38x is tight, same class as elara-frostplate. WATCH: hydra-flail is also a chain weapon, but sickle-vs-weight and spider-vs-hydra are distinct enough that this is a watch, not a collision — and hydra has never shipped."
     },
     "Zephiron": {
-      "status": "UNVIEWED",
-      "why": "legendary tier, emis 1.11, fill 17.1%. The wave-2 doc noted it keys clean and is archetype-viable, simply below the six taken forward — that is NOT a rejection. Never viewed at full size."
+      "status": "REJECTED",
+      "why": "Viewed phase 186. BAKED LIGHTNING — brilliant blue arcs crackle around BOTH staves, plus glowing eyes. Kitsune-blocker class. ⚠ THE SCREEN MISSED THIS: it measured only 1.11% emissive and filed it in the mild \"has a lit feature, pin it\" band, because lightning is THIN FILAMENTS and a percentage-of-subject measure under-weights thin bright features badly (compare Godflame_Liu at 14.09% for a head that is simply on fire). The number is not wrong, it is the wrong statistic for this shape of defect."
     },
     "Wight Spear": {
-      "status": "UNVIEWED",
-      "why": "legendary tier, emis 3.36. Same note as Zephiron: keys clean, archetype-viable, below the six taken forward. Never viewed. NB a spear collides with the SHIPPED sora-yari — check that before briefing."
+      "status": "REJECTED",
+      "why": "Viewed phase 186. DOUBLE COLLISION, the same pattern that rejected skeleton-nodachi: the spear collides with the SHIPPED sora-yari (the Tengu Naginata ground), and undead/wight collides with lich-scythe. NOT a baked-emissive reject — its 3.36% is pale blue FROST RIME on the armour, correctly rim-light class, so the screen was right to route it to a look. Secondary: the spear is fully extended across the frame (prop-EXTENDED, would need padding), and the art reads noticeably lower-fidelity than the rest of the roster."
     },
     "Stormlord_Rex": {
-      "status": "UNVIEWED",
-      "why": "mythic tier, emis 4.46 STRONG — never screened before phase 185, never viewed. The name promises lightning; if that is baked in it is the blocker class."
+      "status": "REJECTED",
+      "why": "Viewed phase 186. TRIPLE REJECT. (1) BAKED LIGHTNING — bright yellow electrical arcs crawl the full length of his spear. That is literally the kitsune-blocker class the standing loop prompt names as disqualifying. (2) FRONTAL plate — chest square to camera, both feet forward: no side to mirror, the ir41-kasa-oni failure. (3) spear collides with the SHIPPED sora-yari."
     }
   }
 }
