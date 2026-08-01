@@ -1,0 +1,58 @@
+[
+  {
+    "char": "gargoyle-spear",
+    "out": "idle",
+    "raw": "gargoyle-idle.mp4",
+    "frames": 97,
+    "kept": 97,
+    "bbox": "710x654",
+    "bytes": 705087,
+    "cal": {
+      "h": 102.83,
+      "bottom": -0.63,
+      "left": 50.16
+    }
+  },
+  {
+    "char": "lich-scythe",
+    "out": "idle",
+    "raw": "lich-idle-v2.mp4",
+    "frames": 97,
+    "kept": 97,
+    "bbox": "586x660",
+    "bytes": 718469,
+    "cal": {
+      "h": 101.23,
+      "bottom": -0.61,
+      "left": 49.39
+    }
+  },
+  {
+    "char": "lich-scythe",
+    "out": "attack-strike",
+    "raw": "lich-strike-v3.mp4",
+    "frames": 97,
+    "kept": 97,
+    "bbox": "682x672",
+    "bytes": 683928,
+    "cal": {
+      "h": 103.38,
+      "bottom": -2.46,
+      "left": 43.77
+    }
+  },
+  {
+    "char": "lich-scythe",
+    "out": "attack-strike-b",
+    "raw": "lich-strike-b3.mp4",
+    "frames": 97,
+    "kept": 97,
+    "bbox": "742x952",
+    "bytes": 937768,
+    "cal": {
+      "h": 146.01,
+      "bottom": -2.15,
+      "left": 51.23
+    }
+  }
+]
