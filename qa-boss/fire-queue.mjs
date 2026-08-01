@@ -150,6 +150,16 @@ if (done.length && !full) console.log(`\n  (${done.length} complete, hidden: ${d
 // The only exception is kitsune-tanto (idle + victory), and those have NO .cal.json alongside, so
 // they cannot be placed correctly anyway — and that character is gated on a canonical-look ruling.
 // The real parked work was in qa-boss/raw/ and is surfaced below.
+// THE PARKED-ACCEPT SWEEP IS EXHAUSTIVE AS OF phase 213 — closed from THREE directions, so do not
+// redo it without a reason. Two clips were recovered this session that had been accepted and left
+// unkeyed for ~90 phases (thorn special_2 from phase 118; oni victory v2 from phase 125).
+//   1. every ACCEPTED in commit SUBJECTS, cross-referenced against wired files
+//   2. every **ACCEPTED in commit BODIES — only 3 lines exist, all already recovered
+//   3. raws on disk vs wired, which is what the block below reports
+// ONE TRAP WORTH KNOWING: an accept can be RETRACTED LATER. "ONI hit ACCEPTED" was reversed two
+// phases on ("it has a phantom weapon" — an invented attacker mace). Never trust an accept line
+// without reading FORWARD for a correction.
+// Only kitsune-tanto remains parked, and it is gated on a canonical-look ruling, not on work.
 const RAW = 'qa-boss/raw';
 let raws = [];
 try { raws = fs.readdirSync(RAW).filter((f) => /\.mp4$/i.test(f)); } catch { /* no raw dir */ }
