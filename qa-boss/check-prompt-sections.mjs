@@ -199,6 +199,46 @@ for (const f of files) {
         });
       }
     }
+    // ##########################################################################################
+    // # DEBRIS-COUNT CONTRADICTION (phase 167). A debris beat states a SPAWN count ("EXACTLY   #
+    // # FIVE chips") and, since phase 158, a POPULATION bound ("THERE ARE NEVER MORE THAN N    #
+    // # PIECES OF DEBRIS IN THE FRAME AT ONCE"). They must agree, and the rule is not equality: #
+    // #                                                                                        #
+    // #   BURST beat   -> population == spawn                                                  #
+    // #   STAGED beat  -> population <  spawn, AND the staging must be stated in the beat      #
+    // #                   ("in stages", "in ones and twos", "never in one burst")              #
+    // #   population > spawn is always wrong — it bounds nothing.                              #
+    // #                                                                                        #
+    // # I CREATED FOUR OF THESE MYSELF in phase 158, adding population bounds to gargoyle with #
+    // # a blanket insert that used a fixed word per sentence-pattern instead of each beat's    #
+    // # own count (FIVE/THREE, FIVE/THREE, SEVEN/FOUR, SIX/THREE). Neither this gate nor my    #
+    // # own re-reads caught it — a kit-writing agent reading the exemplar did. Then my first   #
+    // # repair over-corrected and forced equality everywhere, destroying a legitimate STAGED   #
+    // # bound. Both mistakes are now mechanically impossible.                                  #
+    // ##########################################################################################
+    {
+      const NUM = { ONE:1, TWO:2, THREE:3, FOUR:4, FIVE:5, SIX:6, SEVEN:7, EIGHT:8, NINE:9, TEN:10 };
+      const spawnM = out.match(/EXACTLY\s+(ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN)\s+(?:small\s+)?(?:chips?|chunks?|shards?|splinters?|grains?|slabs?|pieces?|petals?|clods?)/i);
+      const popM   = out.match(/NEVER\s+MORE\s+THAN\s+(ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN)\s+PIECES/i);
+      if (spawnM && popM) {
+        const spawn = NUM[spawnM[1].toUpperCase()], pop = NUM[popM[1].toUpperCase()];
+        const staged = /in\s+stages|IN\s+STAGES|in\s+ones\s+and\s+twos|never\s+in\s+one\s+burst|rather\s+than\s+in\s+one\s+burst/i.test(out);
+        if (pop > spawn) {
+          bad = true;
+          problems.push({ f, st, kind: 'DEBRIS-COUNT',
+            detail: `population bound (${pop}) EXCEEDS the spawn count (${spawn}) — it bounds nothing. ` +
+              `Set the population equal to the spawn for a burst beat.` });
+        } else if (pop < spawn && !staged) {
+          bad = true;
+          problems.push({ f, st, kind: 'DEBRIS-COUNT',
+            detail: `spawn ${spawn} but population ${pop}, and the beat never says the debris is STAGED.\n      ` +
+              `A burst beat cannot show fewer pieces than it spawns — that is a contradiction inside one\n      ` +
+              `acting line, and a beat always beats a bound. Either set population == ${spawn}, or state the\n      ` +
+              `staging in the same sentence ("breaks loose in ones and twos ... never in one burst").` });
+        }
+      }
+    }
+
     if (!bad) clean++;
   }
 
