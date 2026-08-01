@@ -38,6 +38,30 @@ NOT let it override writing a correct kit.** The rules below are hygiene, not a 
    removing them on a correlation would throw away hard-won fixes. Cap the growth, do not reverse it,
    until the hector-idle length test in FIRE-PLAN.md has actually been run.
 
+## ⚠ EVERY BOUND MUST BE CHECKED AGAINST THE ANCHOR ITSELF (phase 177)
+
+`ir41-kasa-oni` is permanently BLOCKED because its acting lines demanded "strict side profile" on a
+FRONTAL plate — a bound the anchor frame itself violates. **That failure class is not about facing.
+It is about ANY bound whose own reference frame breaks it**, and height caps are the commonest case.
+
+Worked example, two kits written the same day, opposite verdicts, both correct:
+
+| kit | reference position of the prop | correct ceiling |
+|---|---|---|
+| hector-warhammer | warhammer carried at CHEST height, below the shoulders | "never raised above the height of his own shoulders" — **valid** |
+| reef-maw | whip tip and mid-curve already ride AT the shoulder line | a shoulder cap would **contradict frame 0** — ceiling is his EYE instead |
+
+Verified in the built prompts: reef-maw carries zero shoulder-cap clauses, hector carries one.
+
+**THE TEST, before you write any "never above / never past / never wider than" clause:**
+look at the plate and ask *"is this already true in the reference image?"* If the anchor violates the
+bound, the model must break either the bound or the anchor lock — there is no third option, and
+`start_image`/`end_image` pin the anchor, so the bound is what loses. Then it renders a plausible
+clip that fails QA for reasons that have nothing to do with the acting.
+
+Bounds that most often fail this test: prop height caps, "feet stay flat" on a plate mid-stride,
+"stance never spreads wider than N" on an already-wide plate, and "strict side profile".
+
 ## ⚑ NAME HANDS BY FUNCTION, NEVER BY ANATOMY (phase 176, contributed by the shiro-gale kit)
 
 Write **SWORD hand / FREE hand**, **LEADING hand / REAR hand**, **shield arm** — never "his left
