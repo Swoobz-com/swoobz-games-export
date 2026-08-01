@@ -86,3 +86,46 @@ a character on the strength of the bin share alone.
 compression and motion blur that can widen the spread. **Check raiju's FIRST keyed clip for a
 rectangular alpha edge** before trusting the other twelve. That is a first-clip check, not a blocker
 on writing the kit.
+
+## ★ MAGENTA IDENTITY COLOUR — RUN THE GLOW-SURVIVAL SCREEN BEFORE WRITING ANY KIT (phase 206)
+
+**The keyer will silently delete a character's own MAGENTA.** `scripts/key-idle-clips.mjs` carries a
+magenta-family escape (`min(r-g, b-g) > 45`) plus an interior magenta suppress. Both exist so
+**magenta PLATES** can key — onryo-katana uses one — and both are **hue rules with no distance
+term**, so they fire on magenta *anywhere in the frame*, including on the character.
+
+`ir52-umbra-pinions` is the case, and it was found by ACCIDENT after its kit was already written:
+its wing membranes are `rgb(254,0,249)`, sitting a distance of **420** from the plate colour when
+LOOSE is 70 — nowhere near the backdrop — and 51,252 subject pixels were flooded away. The character
+keyed as a skeletal wing frame with holes where its signature feature belongs.
+
+**RUN THIS ON EVERY NEW PLATE, before the kit is written:**
+```
+node qa-boss/screen-glow-survival.mjs <plate.png>
+```
+It asks the one question no other screen answers: **of the pixels that read as emissive on the
+plate, how many are still OPAQUE after keying?**
+
+| reading | meaning |
+|---|---|
+| **100%** | opaque lit feature (rim light, lit material). Ships fine — just PIN it inline. |
+| **95–100%** | fine. `ir37-pink-tessen` sits at 94.7% and has 13 ACCEPTED CLIPS. |
+| **under 80%** | **the feature will be DELETED.** Render the mask and look before writing anything. |
+
+**IF IT IS LOW AND THE CHARACTER IS MAGENTA, THE FIX IS A FLAG, NOT A RE-PLATE:**
+```
+node scripts/key-idle-clips.mjs <frames> <keyed> --still <plate> --no-magenta
+```
+Both screens accept `--no-magenta` too, so the fixed configuration can be modelled with no
+generation spend. Measured on ir52: survival 42.8% → 100%, and `check-plate-key`'s p99 drops
+404.6 → 6.4, because the same escape was inflating that statistic as well.
+
+**DO NOT make the flag global.** It is what lets magenta PLATES key at all. The rule is per-character:
+
+| plate | character identity colour | flag |
+|---|---|---|
+| green | magenta | `--no-magenta` **ON** |
+| magenta | anything | **OFF** — the escape is removing the plate |
+
+**Swept the whole roster:** ir52 is the only plate that trips this. Every other plate reads 94.7% or
+above, so a low reading is a genuine alarm and not routine noise.

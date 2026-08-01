@@ -106,6 +106,22 @@ Apply the rule to NEW kits; leave shipped kits alone. (`kitsune-tanto` carries t
 references and has never been fired — fix them there whenever it is next touched, not as its own
 task.)
 
+## ⚠ IF THE CHARACTER IS MAGENTA, SAY SO IN YOUR REPORT (phase 206)
+
+The keyer contains a magenta-family escape and an interior magenta suppress. Both exist so magenta
+PLATES can key, and both are HUE rules with no distance term — so they fire on magenta anywhere in
+the frame, INCLUDING ON THE CHARACTER, and silently delete it.
+
+`ir52-umbra-pinions` lost 51,252 pixels of glowing magenta wing membrane this way, and it was found
+only by accident AFTER its kit was written. The fix is a per-character flag
+(`--no-magenta`, see qa-boss/anchors/PLATE-PRECHECKS.md), not a re-plate — but somebody has to KNOW
+to use it.
+
+**So: if the plate you are reading has magenta, pink or violet as an IDENTITY colour — glowing
+membranes, energy trim, circuitry, blade edges — name it explicitly in your report.** You are the
+first person to look closely at that plate, and the screens cannot tell magenta identity colour from
+magenta backdrop spill. Do not change your acting lines for it; just flag it.
+
 ## 0. THE TWO RULES TIM GAVE FOR THIS BATCH — these override any instinct
 
 **A. "Review their picture so samurais don't shoot bullets."** Every single beat must be derived
