@@ -138,3 +138,50 @@ was the FEET, because both feet showing their full tops is impossible in true pr
 ## WHAT SHIPPED FROM THIS SCREEN
 Six padded plates in `qa-boss/anchors/mk/`, all verified >=200px margins and all keying clean.
 `lich-scythe` went to a kit writer in the same phase.
+
+---
+
+## WAVE 3 — THE `rare` TIER, EMISSIVE PRE-SCREEN (phase 161, 2026-08-01)
+
+Wave 2 covered `mythic` + `legendary` only. Tier A from it is now EXHAUSTED (lich, hydra and
+gargoyle are all kitted), so the pool needed extending — which is what STEP 4 of the loop asks for.
+
+`input/MK FINAL/rare` holds 114 files = **38 base plates** (each character also has a ` PFP` and a
+` TCG` crop, which the screen skips). Screened with `node qa-boss/screen-emissive.mjs`, using the
+HUE-AGNOSTIC test from the phase-109 correction: BRIGHT (max channel >= 215) AND SATURATED
+(max-min >= 70).
+
+**23 of 38 rejected on baked emissive — 61%, in seconds.** That is the cheapest screen there is and
+it belongs first, exactly as this file already argues.
+
+**IT SELF-VALIDATES:** `Satoshi Odachi` is in the tier and scores **0.22%** — a known roster
+character landing exactly where a clean plate should. The screen is not just discriminating, it is
+calibrated against something we already know.
+
+### CLEAN — emissive under 0.8%, worth the next screen
+| plate | emis% | subject % of frame | note |
+|---|---|---|---|
+| **Violet Contract** | **0.00** | 38.1 | ALREADY ON GREEN CHROMA. Faces screen-right. Crescent war-axe + 3 hanging talisman tags. Big flowing CLOAK owns the left edge; the tags are thin danglers (lich-chain class). |
+| **Iron Vow** | 0.01 | 31.4 | |
+| **Hector Warhammer** | 0.01 | 31.1 | |
+| **Captain_Nyra** | 0.08 | 31.2 | |
+| **Umbra_Jelly** | 0.09 | 29.0 | |
+| **Shiro_Gale** | 0.03 | 24.1 | |
+| **Elara_Frostplate** | 0.02 | 15.9 | low subject fraction |
+| **Ningara_Silk** | 0.18 | 15.3 | low subject fraction |
+| ~~Satoshi Odachi~~ | 0.22 | 25.5 | already in the roster; SKIP-listed for prop-extension, not for emissive |
+
+### HAS A LIT FEATURE — usable but must be PINNED in its kit, like lich's violet crown flame
+`Wolfmark_Hild` 0.80 · `Kenji Ashblade` 0.90 · `Charm Ronin` 0.93 · `Ash Choir` 1.22 ·
+`Null Mire` 1.26 · `Thalyss_Nox` 1.40
+
+### REJECTED — BAKED EMISSIVE (23)
+Tigerstripe_Ona 1.58 · Violet_Tanuki 1.82 · Kasumi_Moonveil 1.85 · Nekomata Kama 2.04 ·
+Sister_Vespera 2.35 · Prism_Hex 2.72 · Cedric Flailmark 2.74 · Yuki Kama 2.92 · Balance_Jin 3.22 ·
+Scalewing Mira 3.29 · Theobald Spear 3.33 · Seris_Bandage 3.42 · Shiro_Umbral 3.66 · Mei_Rosa 4.54 ·
+Pyra_Korr 4.70 · Ghostveil_Han 4.72 · Mei_Phantom 5.72 · Scale_Saki 6.83 · Inferna Cinder 7.28 ·
+Rina_Coilspin 7.97 · Varrick_Ember 8.40 · Nova_Aether 11.12 · Cinderfang Nox 12.97
+
+**STILL TO DO on the clean eight:** view each at FULL SIZE for facing and arsenal, pad with
+`pad-anchor-plate.mjs`, verify >=200px margins, then `check-plate-key` + inspect the alpha mask.
+Emissive is only screen #1 of three. `Epic` (84 files) is still entirely unscreened.
