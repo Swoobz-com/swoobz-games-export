@@ -17,11 +17,26 @@ const { PNG } = require('pngjs');
 // Parse positional args + the optional --still flag (order-independent).
 const argv = process.argv.slice(2);
 let stillPath = null;
+// --no-magenta: THE PER-CHARACTER GATE THIS FILE ALREADY ASKED FOR (implemented phase 204).
+// Both magenta-family mechanisms below carry the caveat "SAFE ONLY while no character wears
+// magenta - gate per character then". ir52-umbra-pinions is that character, and nobody gated it:
+// its wing membranes are rgb(254,0,249), pure saturated magenta sitting a DISTANCE OF 420 from the
+// plate colour when LOOSE is 70 — nowhere near the backdrop — and they trip the flood escape at
+// min(r-g,b-g)=249. 51,252 subject pixels were flooded away, gutting the character.
+// MEASURED on that plate: escape ON -> 42.8% of its lit feature survives; escape OFF -> 100.0%,
+// with backdrop removal UNCHANGED (376 vs 381 backdrop px left opaque), because a GREEN plate is
+// removed by the DISTANCE test and the escape contributes nothing there.
+// USE IT when the plate is green AND the character's own identity colour is magenta.
+// DO NOT make it the default: the escape is what lets MAGENTA PLATES key at all (onryo-katana
+// uses one), so switching it off globally would break those.
+let noMagenta = false;
 const positional = [];
 for (let i = 0; i < argv.length; i += 1) {
   if (argv[i] === '--still') {
     stillPath = argv[i + 1];
     i += 1;
+  } else if (argv[i] === '--no-magenta') {
+    noMagenta = true;
   } else {
     positional.push(argv[i]);
   }
@@ -82,7 +97,7 @@ for (const f of files) {
   for (let p = 0, i = 0; p < W * H; p++, i += 4) {
     const r = d[i], g = d[i + 1], b = d[i + 2];
     const q = dist2(r, g, b, screen);
-    if (q < l2 || Math.min(r - g, b - g) > 45) cand[p] = 1;
+    if (q < l2 || (!noMagenta && Math.min(r - g, b - g) > 45)) cand[p] = 1;
     if (q < t2) alpha[p] = 0;
   }
   const stack = [];
@@ -138,7 +153,7 @@ for (const f of files) {
     } else {
       // Interior: the global magenta-family suppress (see consts above).
       const r = d[i], g = d[i + 1], b = d[i + 2];
-      if (Math.min(r - g, b - g) > SUPPRESS_MIN) {
+      if (!noMagenta && Math.min(r - g, b - g) > SUPPRESS_MIN) {
         d[i] = Math.round(g + (r - g) * SUPPRESS_KEEP);
         d[i + 2] = Math.round(g + (b - g) * SUPPRESS_KEEP);
       }
