@@ -405,3 +405,44 @@ olive fringe** (the session-14 bloom-lit-plate defect). So the screen has a know
 something measures alpha-ish translucency, **the VIEW is the only thing that catches it.** Add
 "translucent vapour / sheer fabric / smoke baked into the plate" to what you are looking for when
 viewing, alongside heels and missing weapons.
+
+## ★ SCREEN #4 — TRANSLUCENCY, and an unflagged risk on an already-written kit (phase 171)
+
+`qa-boss/screen-translucency.mjs`. Built because the emissive screen's blind spot bit TWICE
+(umbra-jelly's sheer lace at 0.04% emissive, kira-frostveil's baked blade vapour at 0.26%). A
+semi-transparent pixel over chroma is a BLEND of backdrop and material, so it carries green excess
+that opaque material does not: `greenExcess = g - max(r,b)`, counted in a 18..130 band.
+
+**CALIBRATED against plates whose truth was established BY EYE first**, which is the only reason the
+thresholds mean anything:
+
+| plate | transl% | known truth |
+|---|---|---|
+| hector-warhammer | 3.01 | opaque — best plate in the set |
+| gargoyle-spear | 3.28 | opaque — idle passed FIRST take |
+| lich-scythe | 4.93 | opaque + a SMALL pinned violet flame; 3 accepted clips |
+| umbra-jelly | 7.30 | sheer lace — rejected on sight |
+| ningara-silk | 7.67 | lace + stockings — rejected on sight |
+| kira-frostveil | 11.49 | baked blade vapour — flagged on sight, scores highest |
+
+Opaque cluster 3.0-4.9, translucent cluster 7.3-11.5, clean gap between. **< 5 clean · 5-7 inspect
+· >= 7 will fringe.** lich at 4.93 is the useful calibration point: a small localised translucent
+feature is fine IF the kit pins it.
+
+### ⚠ THE CONFOUND, AND THE REAL RISK IT UNCOVERED
+
+**`hydra-flail` scored 36.15% — five times anything else — and he is not translucent at all.** He is a
+GREEN SCALED HYDRA: mean subject `rgb(74,83,54)`, **49.6% of his pixels green-dominant**. greenExcess
+cannot tell "green showing through" from "the character is green". `raiju-naginata` is the same
+story at 29.2%.
+
+**That is not a null result.** A green character on a GREEN plate is the documented **ALPHA-HOLES**
+hazard — the keyer removes green and can eat parts of him. So the tool now prints `grnDom%` beside
+`transl%` and, above 25%, reports THAT risk instead of a translucency verdict.
+
+**ACTION THIS RAISES:** `hydra-flail` is a **TIER A kit that is already written and has never been
+fired**, and nobody had flagged that half his body is green-dominant on a green plate. Before his
+first clip, either key a still and inspect the alpha for holes, or re-plate him on MAGENTA — the
+`pale-choir-anchor-magenta.png` already on disk is the precedent, and it scores the cleanest
+translucency of the whole set (1.35%). raiju-naginata carries the same question at 29.2%, on top of
+his existing faint-rectangle watch.
