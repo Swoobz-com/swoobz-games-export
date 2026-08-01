@@ -258,3 +258,54 @@ almost entirely monsters, demons and undead; a clean HUMAN KNIGHT reads unlike a
 
 **RECOMMENDED AS THE NEXT KIT** once firing is unblocked — and as the lowest-risk first clip of any
 plate currently on disk.
+
+### WAVE 3b — the `Epic` tier, screened + padded (phase 164). THE POOL IS NOW FULLY SCREENED.
+
+28 base plates. **16 REJECTED on baked emissive (57%)**, 7 carry a lit feature that must be PINNED,
+5 clean. Four of the five padded:
+
+| plate | fill | margins | opaque% | emis% | p99 |
+|---|---|---|---|---|---|
+| **kira-foxflare** | 0.68 | **L394 R396 T468** | 12.06 | 0.04 | 5.2 |
+| **kira-frostveil** | 0.68 | **L382 R384 T468** | 10.28 | 0.26 | 7.6 |
+| skeleton-nodachi | 0.68 | L244 R244 T468 | 8.51 | 0.17 | **13.2** — highest p99 yet, watch the key |
+| reef-maw | 0.66 | L208 R208 T498 | 11.29 | 0.05 | 5.7 |
+| ~~bone-ledger~~ | — | REFUSED even at 0.58 | | | |
+
+**`Kira_Foxflare` measures 0.02% emissive.** The name promises fire and the plate has none — which is
+exactly the warning at the top of this file ("a name that promises fire sometimes has none baked in,
+and a name that promises nothing sometimes has a lit weapon"). It scores cleaner than lich, who does
+carry a real flame. Screen, never assume.
+
+**`skeleton-nodachi` p99 13.2** is more than double any other plate and worth flagging: the backdrop
+distance is the margin the keyer works in. It still passes, but it is the one plate here whose first
+keyed clip should be checked for fringing.
+
+REJECTED on emissive: Hiveblade_Skara 1.79 · Frost_Nyx 2.03 · Icebrand_Vex 2.34 · Stingvolt_Bea 2.35 ·
+Mirror Tag 2.66 · Frost Empress 2.79 · Dark_Voltage 2.83 · Revenant_Ash 3.30 · Umbral_Vel 4.34 ·
+Vera_Crimsonhand 4.38 · Elder_Volt 4.51 · Kintsugi_Vey 5.40 · Myth_Pion 7.29 · Cyber_Scorch 8.39 ·
+Drakengold Kai 8.59 · Volt_Mark 15.68.
+
+LIT FEATURE, usable if pinned: Yokai Kama 0.87 · Kappa Bo 0.95 · Pyre Seal 0.96 · Hexlun Veil 1.18 ·
+Ink Sovereign 1.40 · Dragon_Emperor 1.44 · Troll Hammer 1.49.
+
+---
+
+## POOL STATUS AFTER WAVES 2 + 3 (phase 164)
+
+`mythic` and `legendary` (wave 2), `rare` (wave 3) and `Epic` (wave 3b) are now ALL screened.
+Across `rare` + `Epic`: **66 base plates → 39 rejected on baked emissive (59%)**, and 10 plates have
+been padded, keyed and are sitting ready in `qa-boss/anchors/mk/`.
+
+**Ready and unkitted, best first:**
+1. **hector-warhammer** — L400 R399, fill 0.68, emis 0.01. The simplest silhouette in the roster:
+   no wings, no cloak, no chains, no danglers. Kit commissioned phase 164.
+2. **umbra-jelly** — L420 R421, fill 0.68. Roomiest margins of any plate.
+3. **kira-foxflare** — L394 R396, fill 0.68.
+4. **kira-frostveil** — L382 R384, fill 0.68.
+5. **iron-vow** — L362 R362, fill 0.68.
+6. skeleton-nodachi · shiro-gale · ningara-silk · reef-maw · elara-frostplate · violet-contract
+
+**None of these has been VIEWED at full size except hector and violet-contract.** Emissive + padding
++ key are screens 1-3; the facing and arsenal read is still owed on the rest, and this file's own
+rule is that nothing is chosen from a filename.
