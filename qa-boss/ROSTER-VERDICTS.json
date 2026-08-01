@@ -76,16 +76,16 @@
       "why": "prop-EXTENDED — same as satoshi"
     },
     "kira-frostveil": {
-      "status": "UNVIEWED",
-      "why": "numbers clean (transl 11.49 will fringe); never viewed at full size"
+      "status": "REJECTED",
+      "why": "Viewed phase 184. BAKED MIST/VAPOUR rendered into the character — her paired sai are translucent ICE with visible vapour streaming off the blades. That is the banned effect class rendered into the plate, the exact ground that rejected Ghast Flail (baked smoke/mist around the base). It also explains her 11.49 translucency, the highest of the unviewed set: the WEAPONS themselves are see-through, so they will fringe badly and may partially key away. Body is also quite open to camera."
     },
     "skeleton-nodachi": {
-      "status": "UNVIEWED",
-      "why": "numbers clean, p99 13.2 — watch fringing; never viewed"
+      "status": "REJECTED",
+      "why": "DOUBLE COLLISION, viewed phase 184. WEAPON: nodachi and odachi are the SAME weapon (大太刀), so it collides with the SHIPPED satoshi-odachi — the exact ground that rejected Tengu Naginata (same weapon as raiju-naginata). CREATURE: skeletal undead, colliding with lich-scythe. Secondary: bare bone limbs, individual finger bones and split lower-leg bones are all thin fringe-prone struts, and p99 13.2 was already the highest of the unviewed set."
     },
     "ningara-silk": {
-      "status": "UNVIEWED",
-      "why": "numbers clean (transl 7.67 will fringe); never viewed"
+      "status": "REJECTED",
+      "why": "Viewed phase 184. COSTUME IS THE DECISIVE GROUND, and it is not technical: a sheer lace lingerie bodysuit, stockings and high heels — a pin-up render, tonally incompatible with a roster of armoured samurai, knights and creatures. Also, independently: the sheer lace is GENUINELY translucent across the whole torso (this is what the measured 7.67 will-fringe was detecting — real see-through fabric, not a green-dominant confound); high heels give no stable ground contact for the feet-flat beats every kit requires; and the spear collides with the SHIPPED sora-yari."
     },
     "Godflame_Liu": {
       "status": "REJECTED",

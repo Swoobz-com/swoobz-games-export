@@ -513,3 +513,26 @@ to route to a LOOK naming both outcomes, and the reject is a human call.
 **The tightest constraint in this batch is `reef-maw` at 1.37x span** — he is already 1120px wide
 on a 1536px plate and a lunge widens BOTH ways. His kit must favour vertical / in-place beats over
 anything that reaches laterally.
+
+### THE POOL IS NOW FULLY VIEWED — UNVIEWED = 0 (phase 184)
+
+The last three numerically-clean plates were viewed at full size. **All three rejected**, each on an
+existing precedent rather than a new opinion:
+
+| plate | numbers said | the view said |
+|---|---|---|
+| **skeleton-nodachi** | clean, p99 13.2 | **REJECT — double collision.** nodachi and odachi are the SAME weapon, colliding with the SHIPPED satoshi-odachi (the Tengu Naginata ground); and skeletal undead collides with lich-scythe. Thin bone struts are a secondary fringe risk. |
+| **ningara-silk** | transl 7.67 "will fringe" | **REJECT — costume.** Sheer lace lingerie, stockings, heels: a pin-up render, tonally incompatible with a roster of armoured samurai, knights and creatures. The 7.67 turns out to be REAL see-through fabric across the whole torso, not a confound. Heels also give no stable ground contact for feet-flat beats, and the spear collides with the shipped sora-yari. |
+| **kira-frostveil** | transl 11.49, highest | **REJECT — baked mist.** Paired sai are translucent ICE with vapour streaming off the blades: the banned effect class rendered into the plate, the Ghast Flail ground. The 11.49 is explained — the WEAPONS are see-through. |
+
+**FINAL TALLY FOR THE WAVE-2 NUMERICALLY-CLEAN SET: 11 viewed, 5 rejected on the view (45%).**
+That holds the earlier finding almost exactly: **screens 1–3 are a CHEAP FILTER, not a shortlist**,
+and roughly half of everything that passes the numbers dies on sight.
+
+**SURVIVORS — and this pool is now exhausted:**
+`hector-warhammer` · `reef-maw` · `shiro-gale` · `elara-frostplate` (all four have kits written and
+independently verified). Plus `violet-contract` and `iron-vow`, both held as Tim calls.
+
+**THERE ARE NO MORE CANDIDATES HERE.** Any further characters must come from a NEW source — a
+different tier of `input/MK FINAL/`, or a re-plate of something already rejected on grounds a
+re-plate would actually fix (fill, padding), which is a decision and not a re-screen.
