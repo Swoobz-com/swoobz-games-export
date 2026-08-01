@@ -2120,6 +2120,18 @@ wired yet** — that is the first job of the next session.
 | eclipse `special_2` ECLIPSE CRESCENT | `eclipse-ofuda-special-2-v2.mp4` | **REJECT — needs v3.** Effect correctly fused to the blade (the f74 detached fragment IS fixed) but the arc HARD-CUTS the right edge, **RIGHT 272px @f29** (+ LEFT 60px @f25), and the level blade reaches the edge at f52 |
 | eclipse `special_3` JUDGEMENT PLUNGE | `eclipse-ofuda-special-3-v2.mp4` | **PASS** — containment 0px; facing right; solid opaque gold flare along the blade into the ground; the lime chroma-bleed defect is FIXED |
 
+> **✔ UPDATE (phase 209): THE special_2 REDESIGN IS ALREADY DONE — do not redo it.** The rejection
+> below is for the **ECLIPSE CRESCENT** beat. The kit has since moved to a different beat entirely,
+> **SHREDDING WARD** (v2, phase 70), and `build-prompt.mjs` resolves `special_2` to that one —
+> verified: it emits `SPECIAL FINISHER (shredding ward)` and contains **zero** hits for the failing
+> patterns (horizontal cut / level hold / crescent). It applies the prescribed fix and more: the long
+> arc became **one short committed DIAGONAL cut downward and across**, the wind-up draws the katana
+> back LOW beside her hip instead of raising it, and three containment bounds are in place — the
+> blade stays **below the brim of her hat**, the tip **never rises above her own shoulder**, and the
+> shredded paper falls **inside her own standing footprint**.
+> **SHREDDING WARD HAS NEVER BEEN FIRED** (only `eclipse-ofuda-special-2-v2.mp4`, the crescent, is on
+> disk). So this is a QUEUED redesigned beat awaiting a fire, not an outstanding writing task.
+>
 **WHY special_2 FAILED, and how to fix it:** her own prompt file predicts it — *"the katana is nearly
 leg-length; any raised or level hold spans the frame"*. A waist-height horizontal draw-cut with a
 leg-length blade WILL span a 1:1 frame. 272px is far past a "tip kiss", so per the edge-overrun doctrine
