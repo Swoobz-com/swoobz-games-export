@@ -41,6 +41,23 @@ would have silently spent credits on a clip.
    session's value came from anyway.
 5. Starting the trial, or authorising credit spend, is **Tim's call, not the loop's.**
 
+### Hypotheses TESTED AND DEAD — do not re-probe these (phase 173, 2026-08-01)
+
+- **"The allowance resets at the day boundary."** Tested directly. The session crossed
+  2026-07-31 → 2026-08-01 and the third account was probed with a real, fully-formed fire
+  (hector-warhammer `idle`, plate freshly uploaded to that account, `use_unlim:true`). Same
+  rejection, verbatim: *"Unlimited generations are part of the Higgsfield free trial. Start the
+  trial to use them."* **This block is trial ELIGIBILITY, not a daily or monthly allowance —
+  no amount of waiting clears it.** Only Tim starting the trial, or the session landing on a
+  different account, will.
+- Probing is nevertheless SAFE and costs nothing: the tool contract guarantees a request that
+  cannot be served free is **rejected, never silently charged**. One probe per session when the
+  account may have flipped is fine. Hammering is not.
+
+**Already uploaded to the third account** (valid only while the session stays on it — media ids do
+NOT survive an account flip, that is the `Media input not found` signature):
+`hector-warhammer-anchor-green.png` → `4bf0e314-3d58-4a54-9580-50401e811b87`
+
 ## ★ THE ACCOUNT FLIPS. RE-UPLOAD THE PLATE, DO NOT REUSE A media_id ACROSS A GAP (phase 112)
 
 **Check `balance` before every fire session — it is the cheapest account fingerprint you have.**
