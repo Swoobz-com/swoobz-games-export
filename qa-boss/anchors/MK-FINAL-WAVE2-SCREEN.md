@@ -479,3 +479,37 @@ temper line, the polished steel rings, the brass ferrule and the pale blue-white
 fur all stay exactly as bright as they are in the reference image"), which is the correct treatment
 — the same one that let lich ship three clips with a real violet flame. No action, recorded so the
 number is not re-investigated later.
+
+### THE 9 PLATE-READY, KIT-LESS CHARACTERS — FULL PRE-FLIGHT (phase 173)
+
+23 green anchors exist; 30 kits exist; **13 characters are plate-ready with no kit.** Four of those
+are TIM-GATED and were NOT briefed (`golem-mace`, `nurikabe-shield`, `iron-vow`, `violet-contract`)
+— a fresh measurement is not a fresh decision. The other 9, fully screened:
+
+| char | fill | L/R margin | headroom | max span | opaque | emis | transl | grnDom | verdict |
+|---|---|---|---|---|---|---|---|---|---|
+| **kira-foxflare** | 68.0% | 394/396 | 468 | 2.06x | 12.06 | 0.04 | 3.13 | 4.6 | **cleanest on every axis** |
+| **reef-maw** | 66.0% | 208/208 | 498 | **1.37x** | 11.29 | 0.05 | 3.92 | 13.8 | clean — but the tightest span |
+| **shiro-gale** | 68.0% | 230/230 | 468 | 1.43x | 14.03 | 0.07 | 4.48 | 13.2 | clean |
+| kira-frostveil | 68.0% | 382/384 | 468 | 1.99x | 10.28 | 0.26 | 11.49 | 13.2 | will fringe |
+| skeleton-nodachi | 68.0% | 244/244 | 468 | 1.47x | 8.51 | 0.17 | 7.96 | 13.9 | will fringe · p99 13.2 |
+| ningara-silk | 68.0% | 226/226 | 468 | 1.42x | 8.57 | 0.29 | 7.67 | 11.4 | will fringe |
+| umbra-jelly | 68.0% | 420/421 | 468 | **2.21x** | 10.69 | 0.04 | 7.30 | 13.3 | will fringe (it is a jelly) |
+| elara-frostplate | 60.0% | 212/214 | 590 | 1.38x | 7.90 | 0.21 | 6.01 | 26.0 | inspect — reading is an upper bound |
+| drake-glaive | 58.1% | 208/208 | 620 | 1.37x | 14.15 | **4.63** | 3.13 | 4.6 | **rim light — PIN, do not reject** |
+
+**NONE of the 9 is prop-EXTENDED.** Every one has real lateral margin (208–421px), so unlike
+satoshi / sora / ir56 none of them needs a re-plate to pass containment. All 9 are at or under the
+0.68 standard fill — no Tier C exception is needed for any of them.
+
+**`drake-glaive` is NOT a reject.** He scored 4.63% emissive and the screen said "BAKED EMISSIVE —
+REJECT". Inspected: it is **baked orange RIM LIGHT** tracing his wings, scale margins and limb
+edges — real and extensive, so the *measurement* is right, but it is the same class as raiju's
+pale blue-white fur rim (1.97%) and lich's violet crown flame (0.77%), **both of which shipped by
+pinning the feature inline**. At 4.63% it is the strongest on record and must be pinned hard. The
+screen cannot tell rim light from flame — both are bright+saturated — so the label was corrected
+to route to a LOOK naming both outcomes, and the reject is a human call.
+
+**The tightest constraint in this batch is `reef-maw` at 1.37x span** — he is already 1120px wide
+on a 1536px plate and a lunge widens BOTH ways. His kit must favour vertical / in-place beats over
+anything that reaches laterally.
