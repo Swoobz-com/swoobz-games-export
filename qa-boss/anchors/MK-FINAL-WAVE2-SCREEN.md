@@ -185,3 +185,42 @@ Rina_Coilspin 7.97 · Varrick_Ember 8.40 · Nova_Aether 11.12 · Cinderfang Nox 
 **STILL TO DO on the clean eight:** view each at FULL SIZE for facing and arsenal, pad with
 `pad-anchor-plate.mjs`, verify >=200px margins, then `check-plate-key` + inspect the alpha mask.
 Emissive is only screen #1 of three. `Epic` (84 files) is still entirely unscreened.
+
+### WAVE 3 INTAKE — `violet-contract` COMPLETE (phase 162)
+
+Padded and screened end to end. **`qa-boss/anchors/mk/violet-contract-anchor-green.png` is ready.**
+
+```
+source  1788x1536, subject 1750x1478 (96% of height) — already GREEN, border ring rgb(3,188,3)
+padded  fill 0.62 -> subject 1128w x 952h · L204 · R204 · T560 · bottom free
+key     opaque 18.25% · emis 0.00% · white 0.00% · p99 4.0 -> KEYS WITH MARGIN
+```
+
+**p99 4.0 is the best backdrop distance of any plate measured so far** (lich 5.1, gargoyle 5.0), and
+emissive is a genuine 0.00%.
+
+**pad-anchor-plate REFUSED 0.68 and 0.64** — correctly. At 0.68 he is 1236px wide leaving 150px per
+side. It refuses rather than silently shrinking margins, which is the behaviour that makes this
+number trustworthy. 0.62 is the first fill that clears 200px.
+
+**FILL 0.62 IS THE ONE THING TO WEIGH, AND I AM FLAGGING IT RATHER THAN QUIETLY PROMOTING HIM.**
+Tier A sits at 0.66-0.68; Tier C (held) at 0.55 and 0.50. He is between. At 720p, 0.62 gives ~446px
+of actual character against gargoyle's ~475px at 0.66 — 6% less, not the 25% deficit that put
+golem-mace on hold. My read: **viable**, but the threshold between "Tier A" and "held" has never
+been set by Tim, and I promoted nurikabe on exactly this kind of reasoning three phases ago and had
+to stop an agent mid-write. So: recorded as VIABLE WITH FILL FLAGGED, not silently added to Tier A.
+
+**MASK INSPECTED — and it OVERTURNS a risk I flagged from the RGB:** solid silhouette, no
+rectangular alpha edge, cloak one clean mass, crescent axe crisp, inter-leg negative space correct.
+The three hanging TALISMAN TAGS survive as **SOLID shapes, not beads.** I had called them the
+lich-chain class off the colour image; they are solid tags on solid rings, not open links. That is
+the discriminator already recorded from lich's chain vs gargoyle's spear shaft — **holes bead,
+solid shapes do not** — and it applies to any dangler, not just chains.
+
+**ARCHETYPE:** crescent war-axe with hanging talismans and a long flowing cloak. No roster
+collision — lich carries a scythe but reads nothing like this, and lady-kurotachi is a katana.
+
+**REMAINING BEFORE A KIT:** a full-size FACING read is done (faces screen-right, body angled
+right, head in profile). The open question for the kit author is the **CLOAK**: it owns the left
+edge and, unlike gargoyle's stone wings, cloth may legitimately sway — so it cannot simply be
+frozen, it needs a bounded sway.
