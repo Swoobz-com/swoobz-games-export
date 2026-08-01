@@ -342,3 +342,38 @@ plates by how well they will KEY and CONTAIN. They are blind to heels, to sheer 
 the character even holds a weapon, and to archetype collision. **hector-warhammer was picked as the
 best plate on a full-size VIEW, not on his numbers** — and umbra-jelly, which beats him on every
 number, is unusable.
+
+#### ❌ kira-foxflare — REJECTED, DUPLICATE ARCHETYPE (phase 169)
+L394/R396 at full 0.68 fill, keys with margin, **0.02% emissive** — a fine plate by every number,
+and the emissive reading is itself useful: the NAME promises fire and there is none, cleaner than
+lich who carries a real flame.
+
+Viewed at full size she is a **KITSUNE SAMURAI** — fox ears, THREE fox tails, straw kasa, black-and-
+red kimono — wielding **DUAL TANTO**. The roster already has **`kitsune-tanto`**: same creature,
+same weapon. That is the same collision this file used to drop `Tengu Naginata` (raiju's weapon) and
+`Azure_Ling` (ir37's war-fan).
+
+Secondary risks, recorded in case Tim overrules the duplication call: three fluffy FOX TAILS are a
+large soft-edged appendage toward screen-left (fur keys worse than hard edges, and it will want to
+sway), and she stands on GETA platform sandals rather than flat soles.
+
+---
+
+### ★ RUNNING TALLY OF THE VIEW SCREEN (phase 169)
+
+Four of the numerically-clean plates have now been viewed. **Two were rejected on grounds no metric
+can see:**
+
+| plate | numbers | view verdict |
+|---|---|---|
+| hector-warhammer | good | **BEST IN SET** — chosen ON the view, not the numbers |
+| violet-contract | best p99 on disk (4.0) | viable; cloak needs a bounded sway |
+| umbra-jelly | **best margins in the set** | **REJECT** — heels, sheer lace, umbrella, no weapon |
+| iron-vow | good | duplicate WEAPON class (oni-tetsubo) — Tim call |
+| kira-foxflare | good, 0.02% emis | **REJECT** — duplicate ARCHETYPE (kitsune-tanto) |
+
+**50% of numerically-clean plates fail the view.** That is the argument for never skipping it, and
+for treating the emissive/pad/key screens as a CHEAP FILTER rather than a shortlist.
+
+**Still unviewed (5):** kira-frostveil · skeleton-nodachi (p99 13.2, watch fringing) · shiro-gale ·
+ningara-silk · reef-maw · elara-frostplate.
