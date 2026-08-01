@@ -50,6 +50,19 @@
 // the translucency verdict (doing so once hid elara-frostplate's real 6.01 "inspect" reading behind
 // a confound warning); the verdict is printed alongside and marked as an upper bound.
 //
+// A BETTER GREEN-HAZARD METRIC THAN grnDom EXISTS, and it is recorded here UNCALIBRATED rather than
+// shipped (phase 189). grnDom answers "is the character green", which phase 172 proved is not the
+// hazard. The hazard is EDGE SEPARATION: how many subject pixels sit close to the PLATE colour, since
+// that is where the keyer has to find a boundary. Measured as % of subject within L1 distance 120 of
+// the sampled plate colour:
+//     Kappa Bo      grnDom 48.0%  ->  0.72%   (deep saturated green, WELL separated from bright plate)
+//     hydra-flail   grnDom 49.6%  ->  2.20%   (keys CLEAN — verified by alpha inspection, phase 172)
+//     Yokai Kama    grnDom 37.3%  ->  3.16%   (worst; its yellow-green leaves are nearest the plate)
+// Note the RANKING INVERTS against grnDom: the greenest character is the best separated. That is the
+// point. NOT added as a column or a threshold because 3 points and ONE ground truth (hydra keys clean
+// at 2.20%) cannot calibrate one, and an uncalibrated threshold would just be the hot-core mistake in
+// screen-emissive.mjs again. Gather more keyed ground truth first, then decide.
+//
 // usage: node qa-boss/screen-translucency.mjs <plate.png> [...]
 import { createRequire } from 'node:module'; import fs from 'node:fs';
 const require = createRequire(import.meta.url); const { PNG } = require('pngjs');
