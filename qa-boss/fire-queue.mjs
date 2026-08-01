@@ -134,6 +134,36 @@ for (const r of rows) {
 const done = rows.filter((r) => !r.missing.length);
 if (done.length && !full) console.log(`\n  (${done.length} complete, hidden: ${done.map((r) => r.char).join(' ')})`);
 
+// ── FIRED-BUT-NOT-WIRED ────────────────────────────────────────────────────────────────────────
+// SHIPPED above counts WIRED webm files, which is the right measure of "done" but makes a whole
+// class of work INVISIBLE: clips that were fired, QA'd and ACCEPTED, but never keyed and wired.
+// Found phase 178 — the handoff said lich was 3/13 and gargoyle 1/13 accepted while this tool
+// reported both 0/13 NEVER FIRED. Both were true: the accepted clips sit in qa-boss/raw/ as mp4.
+// kitsune-tanto is the starkest case at 12 raws and 0 wired.
+// Raw filenames are far too inconsistent to map onto states (lich-strike-v3, eclipse-ofuda-strike_a,
+// ir37-pink-tessen-strike-b-v3 ...), so this deliberately reports a per-character COUNT only — a
+// robust signal that work is parked, not a per-state claim it cannot honestly make.
+const RAW = 'qa-boss/raw';
+let raws = [];
+try { raws = fs.readdirSync(RAW).filter((f) => /\.mp4$/i.test(f)); } catch { /* no raw dir */ }
+if (raws.length) {
+  const parked = [];
+  for (const r of rows) {
+    if (r.shipped) continue;
+    // match on the character slug and on its short form (lich-scythe -> lich, gargoyle-spear -> gargoyle)
+    const slug = r.char, short = r.char.split('-')[0];
+    const n = raws.filter((f) => f.startsWith(`${slug}-`) || f.startsWith(`${short}-`)).length;
+    if (n) parked.push({ char: r.char, n });
+  }
+  if (parked.length) {
+    parked.sort((a, b) => b.n - a.n);
+    console.log(`\n  ⓘ FIRED BUT NOT WIRED — raw mp4 exists in ${RAW}, nothing wired. This work is DONE-ISH`);
+    console.log(`     and invisible to the SHIPPED count above; it needs keying + wiring, not firing,`);
+    console.log(`     so it does NOT depend on account access:`);
+    for (const p of parked) console.log(`       ${p.char.padEnd(24)} ${String(p.n).padStart(2)} raw file(s)`);
+  }
+}
+
 const never = rows.filter((r) => r.shipped === 0).length;
 console.log(`\n  SUPPLY ${supplyTotal} buildable states across ${rows.length} working kits`);
 console.log(`  SHIPPED ${shippedTotal}   QUEUE ${queueTotal}   (${never} characters never fired at all)`);
