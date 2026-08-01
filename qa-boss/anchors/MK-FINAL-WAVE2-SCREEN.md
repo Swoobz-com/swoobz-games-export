@@ -568,3 +568,32 @@ Distinct archetype (spider-woman + chain-sickle) with no roster collision.
 
 **LESSON: judge a candidate from `input/MK FINAL/` only AFTER padding.** The raw art is cropped tight
 by design — 85-95% fill is normal there — so raw margins say nothing about viability.
+
+### ⚑ SOME WEAPONS ARE STRUCTURALLY INCOMPATIBLE WITH CONTAINMENT (phase 192)
+
+Two candidates rejected the same day for the same reason, which makes it a rule rather than two
+coincidences:
+
+| plate | weapon | cloth | verdict |
+|---|---|---|---|
+| Null Mire | thorned WHIP, thrown in an S-curve across the right half | tattered cloak sweeping the left third | REJECT |
+| Bone Ledger | segmented SPINE-FLAIL with twin skulls, thrown wide right | chain-embroidered cloak sweeping the left third | REJECT |
+
+**The pattern: a LASH weapon whose entire vocabulary is GAINING REACH, plus a large flowing cloak —
+so both frame edges are owned by things that must move.**
+
+Padding fixes absolute margins. It does not fix this. Containment forbids gaining reach, so a lash
+that may never extend has **no beats left**. That is a BEAT-LEVEL impossibility — the same class as a
+projectile character on a no-projectile roster — and no amount of prompt care recovers it. Reject at
+the view; do not spend a kit agent discovering it.
+
+**THE CONTRAST THAT MAKES THE RULE PRECISE — `jorogumo-kusarigama` PASSED with a chain weapon.** Two
+differences, both decisive:
+1. **Her chain HANGS IN A LOOP close to the body** in the reference, rather than being thrown wide.
+   So "hang, fall, drag, draw IN, coil" are all reference-consistent beats.
+2. **The chain is not her only vocabulary.** She has four spider legs and a sickle, so the kit can
+   build strikes, throws, blocks and specials that never involve extending the chain at all.
+
+So the test is not "does it have a flexible weapon". It is: **strip away every beat that gains
+reach — is there still a kit left?** If the answer is no, the plate is unusable however good it
+looks, and both of these look very good.
