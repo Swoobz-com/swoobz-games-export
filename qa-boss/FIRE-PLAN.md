@@ -9,6 +9,38 @@ Fire through the Higgsfield **MCP** (`mcp__claude_ai_higgsfield__generate_video`
 The MCP path returns job ids and direct mp4 URLs, so harvesting is a download — no DOM scraping, and
 none of the polling bugs that cost session 15.
 
+## ⛔ THERE IS A THIRD ACCOUNT, AND IT CANNOT FIRE FOR FREE (phase 160, 2026-08-01)
+
+**Firing is BLOCKED whenever the session lands on `user_3FzP62OkeSn8OYHW3kjt3xDrWKK`.**
+
+The flip is not between two accounts, as recorded below — there are at least THREE:
+
+| account | balance seen | `use_unlim` |
+|---|---|---|
+| `user_3HFAtp47rDRPDwG2FFOzR2CP7fn` | ~10 credits | **works** — every clip this session fired here |
+| `user_3DR1OB2c…` | 10 → 0.9 credits | worked (session 17) |
+| **`user_3FzP62OkeSn8OYHW3kjt3xDrWKK`** | **1162 credits, plan `plus`** | **REJECTED** |
+
+On the third account `use_unlim: true` returns:
+
+> Unlimited generations are part of the Higgsfield free trial. Start the trial to use them.
+
+So it has a big credit balance and NO unlimited entitlement. Firing there would spend Tim's
+credits, which the loop protocol forbids outright ("use_unlim:true, never credits").
+
+**THE PROTECTION WORKED AND THAT IS THE POINT.** The request was rejected loudly and nothing was
+charged — which is exactly why `use_unlim` is mandatory on every call. Had it been omitted, this
+would have silently spent credits on a clip.
+
+**WHAT TO DO WHEN YOU LAND HERE:**
+1. `balance` is the tell. **1162 credits / `plus` = the un-fireable account.** ~10 credits = the
+   one that works. Check it before uploading anything.
+2. Do NOT fire. Do NOT "just this once" drop `use_unlim`.
+3. The plate re-upload is still wasted work on this account — check `balance` FIRST, then upload.
+4. Use the cycle for kit work instead: reads, sweeps, gates, new kits. That is where most of this
+   session's value came from anyway.
+5. Starting the trial, or authorising credit spend, is **Tim's call, not the loop's.**
+
 ## ★ THE ACCOUNT FLIPS. RE-UPLOAD THE PLATE, DO NOT REUSE A media_id ACROSS A GAP (phase 112)
 
 **Check `balance` before every fire session — it is the cheapest account fingerprint you have.**
