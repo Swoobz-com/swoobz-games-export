@@ -1,6 +1,119 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 20 — START HERE (2026-08-01) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 21 — START HERE (2026-08-01) ★★★★★★★★★★
+
+**38 prompt files · 434 clean states · 0 problems · 78 commits.** Zero clips fired — the account was
+blocked the entire session. Everything below came out of blocked cycles.
+
+> ### ⛔ 1. FIRING IS STILL BLOCKED, AND WAITING WILL NOT FIX IT
+> `balance` = **1162 credits / plan `plus`** = the third account, which has NO unlimited entitlement.
+> `use_unlim:true` returns *"Unlimited generations are part of the Higgsfield free trial."*
+> **TESTED THIS SESSION AND SETTLED: this is trial ELIGIBILITY, not a daily or monthly allowance.**
+> The session crossed the 07-31 → 08-01 boundary and probed with a real, fully-formed fire; identical
+> rejection. **Do not re-probe on the day-rollover theory — it is dead.** One probe per session if the
+> account may have flipped is fine (a request that cannot be served free is REJECTED, never charged);
+> hammering is not. Starting the trial or authorising credit spend is **Tim's call**.
+
+> ### ⛔ 2. RUN THE GUARD BEFORE YOU DISPATCH ANY KIT-WRITING AGENT
+> ```
+> node qa-boss/may-i-write-kit.mjs <character>      # or --all to audit what exists
+> ```
+> **I briefed kits for THREE ALREADY-REJECTED characters this session** (kira-foxflare — a full kit
+> was written and committed; umbra-jelly and drake-glaive — agents stopped). Cause: I surveyed
+> "plate-ready and kit-less" **from the filesystem**, which is structurally blind to verdicts stored
+> as prose. It was the FOURTH instance of that failure, and the prose ledger contains a warning about
+> it that I appended to twice without reading. **Prose warnings do not stop dispatches.**
+> The guard reads `qa-boss/ROSTER-VERDICTS.json` and **defaults to REFUSE** — absent almost always
+> means never screened, and 50% of numerically-clean plates fail the view. Keep the JSON and the
+> prose ledger in sync in the same commit.
+
+### THE QUEUE, DERIVED — `node qa-boss/fire-queue.mjs`
+**SUPPLY 402 buildable states · SHIPPED 94 · QUEUE 308 · 23 characters never fired.**
+The kits are not the bottleneck and have not been for a while.
+
+**AND 23 RAW FILES ARE PARKED, NEEDING ONLY KEYING + WIRING — NO ACCOUNT ACCESS REQUIRED:**
+`kitsune-tanto` 13 · `lich-scythe` 9 · `gargoyle-spear` 1. lich's 3 accepted takes (idle v2,
+strike v3, strike_b v3) and gargoyle's accepted idle are in there. **This is the highest-value work
+available while firing is blocked.** Recipe of record, traced and confirmed present:
+```
+ffmpeg -i raw.mp4 frames/f_%03d.png
+node scripts/key-idle-clips.mjs --still <plate> <framesdir> <keyeddir>   # emits the .cal
+node scripts/green-neutralize.mjs <keyeddir> 32
+ffmpeg -framerate 24 -i keyed/f_%03d.png -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 30 -an out.webm
+```
+Model: `qa-boss/key-eclipse-specials-v2.mjs`. **Two per-character decisions the recipe does NOT make
+for you: whether an hflip is needed (VIEW the clip — eclipse needed none), and whether despill is on
+(eclipse's specials family is keyed WITHOUT it).** Wired filenames use HYPHENS and the specials map
+`special_1→special`, `special_2→special-b`, `special_3→special-c`.
+**I did not run it:** lich has `strike-b`, `strike-b2`, `strike-b3` on disk and the handoff records
+only "v3" — confirm the accepted take before wiring, because wiring the wrong one is silent.
+
+### 4 KITS WRITTEN AND INDEPENDENTLY VERIFIED (gate run by me, not self-reported)
+`shiro-gale` · `reef-maw` · `elara-frostplate` — all `clean=13 problems=0`, 13/13 build, plate reads
+checked by eye. `kira-foxflare` is also written and clean **but its character is REJECTED** — do not
+fire it unless Tim overrules the duplication call.
+All four sub-agents had no shell, and **all four refused to fabricate a gate line** and said so.
+That is the behaviour to keep asking for.
+
+### THREE NEW RULES IN `qa-boss/xg/KIT-WRITING-BRIEF.md`
+1. **Check every bound against the anchor itself.** Before any "never above / never past / never
+   wider than", ask whether it is ALREADY TRUE in the reference. If the anchor violates the bound,
+   the bound loses (start_image/end_image pin the anchor) and you get a plausible clip failing QA for
+   reasons unrelated to the acting — the ir41 failure class, generalised beyond facing. Working
+   example: hector's shoulder cap is valid (hammer at chest height); reef-maw's and elara's would
+   contradict frame 0. **Verified propagating**: elara's agent independently rejected two inherited
+   bounds on this rule, unprompted.
+2. **Name hands by FUNCTION** (sword/free, leading/rear), never left/right — the roster h-flips
+   plates and anatomical names silently invert. **Preventive, not corrective**: two kits with 13
+   accepted clips each use anatomical naming, so do NOT rewrite shipped kits for this.
+3. **Suffix hygiene (~1400)** — and read the correction attached to it before acting on it.
+
+### ⚠ A CORRECTION TO MY OWN FINDING, so you do not act on the wrong version
+I flagged "every unfired kit is 1.5–4x longer than anything that ever shipped" as **the #1 risk to
+the queue**. That was **overstated**. All 5 kits with shipped clips were written 2026-07-24; every
+long kit was written 07-31 or later — **the shipped/never-fired split IS the
+before/after-the-account-broke split**, so the data carries almost no signal about length. And the
+mechanism runs the other way: satoshi (778, oldest) has NO containment clause; every later kit has
+one because containment defects were found and fixed by adding it. **A long suffix is largely a
+record of accumulated defect fixes, so trimming would be actively harmful.** Both A/B arms are built
+in `qa-boss/ab/` if anyone wants to settle it cheaply — but it is an open question, not a blocker,
+and never a licence to strip bounds.
+
+### TOOLING BUILT THIS SESSION
+| tool | what it is for |
+|---|---|
+| `qa-boss/fire-queue.mjs` | derives SUPPLY/SHIPPED/QUEUE from what BUILDS and what is WIRED; separates deliberately BLOCKED from broken; surfaces fired-but-not-wired |
+| `qa-boss/may-i-write-kit.mjs` + `ROSTER-VERDICTS.json` | the dispatch guard; defaults to REFUSE |
+| `qa-boss/ab/` | the prompt-length A/B, both arms, parked where no gate or sweep sees them |
+
+### BUGS FIXED IN THE PIPELINE ITSELF
+- **`build-prompt.mjs` matched the shared-prefix label as an EXACT LITERAL.** Kits heading theirs
+  `Shared prefix (identity + magenta chroma, every prompt):` could not build a single state. Fixed to
+  regex; **proved behaviour-preserving — 0 of 335 existing builds changed, +20 newly buildable**
+  (kitsune-tanto, sora-yari).
+- **The same literal was in `check-prompt-sections.mjs`**, where it silently reclassified those two
+  complete kits as scratch FRAGMENTS and SKIPPED them for their whole lives. A roster sweep reported
+  "34 kits, 0 problems" while only 32 were measured.
+- **Three vacuous passes killed.** Two screens `catch{continue}`d a bad path and printed short, clean,
+  well-formed tables — I fell into this myself. They now exit 2 naming every unmeasured plate, and
+  print `N of M`.
+- **`grnDom` no longer claims alpha-holes risk** (tested: both green-dominant plates key CLEAN — the
+  keyer is a border-seeded flood, so interior green is never a candidate), and it no longer
+  SUPPRESSES the translucency verdict.
+- **`BAKED EMISSIVE — REJECT` demoted to a LOOK** in both screens: neither can tell rim light from
+  flame, and rim light ships when pinned inline.
+
+### WHAT I WOULD DO NEXT
+1. `node qa-boss/may-i-write-kit.mjs --all` — 11 kits are flagged **"verdict not recorded"**
+   (hydra-flail, the ir-series, kitsune-tanto, onryo-katana). I did NOT invent verdicts to clear
+   them. Backfill from the earlier XG-wave records.
+2. Key + wire the 23 parked raws — the only substantial work that does not need the account.
+3. `kira-frostveil`, `skeleton-nodachi`, `ningara-silk` are UNVIEWED. **View before briefing.**
+4. When firing returns: hector `idle` first (safest beat, best plate, and the A/B's long arm).
+
+---
+
+## SESSION 20 — superseded by the above, kept for provenance (2026-08-01)
 
 `node qa-boss/check-prompt-sections.mjs` → **362 clean / 0 problems + 1 BLOCKED kit** · 34 prompt
 files · 24 padded MK plates. **35 commits, phases 133-167.**
