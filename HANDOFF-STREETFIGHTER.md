@@ -132,6 +132,41 @@ never a licence to strip bounds.
   the translucency verdict. A better metric (subject pixels near the PLATE colour) is recorded
   **uncalibrated** in the tool — one ground truth cannot set a threshold.
 
+### ✔ ir52-umbra-pinions — SOLVED SINCE THIS BLOCK WAS WRITTEN (phases 199–206)
+
+It was flagged DO NOT FIRE on a keying warning. **It is now OK and has a runnable recipe.** The whole
+chain, because the middle of it was my own error:
+
+1. `check-plate-key` warned `p99 404.6 — backdrop may survive`. Rendering the mask showed the
+   OPPOSITE: backdrop removed perfectly, and every magenta wing MEMBRANE gone.
+2. I diagnosed "semi-transparent glow blends with the backdrop" and recorded three options —
+   re-plate, accept the gutted look, or drop the character. **All three were wrong.**
+3. Reading the keyer source: the membranes are `rgb(254,0,249)`, a distance of **420** from the plate
+   colour when LOOSE is 70. They are nowhere near the backdrop. They trip a **hardcoded
+   magenta-family escape**, `min(r-g, b-g) > 45`, at 249. 51,252 subject pixels flooded away.
+4. The keyer had **already predicted this in its own comments** — *"SAFE ONLY while no character
+   wears magenta - gate per character then"* — and nobody had built the gate.
+5. Built it: `scripts/key-idle-clips.mjs --no-magenta`, gating BOTH magenta mechanisms (the flood
+   escape and the interior pocket suppress — stopping at one would have been a half-fix).
+
+**KEY IT WITH:**
+```
+node scripts/key-idle-clips.mjs <frames> <keyed> --still qa-boss/anchors/xg/ir52-umbra-pinions-anchor-green.png --no-magenta
+```
+Validated both directions: gargoyle (no magenta) is BYTE-IDENTICAL with and without the flag;
+ir52 recovers magenta 14,087 → 65,937 surviving pixels. And the original alarm resolves too —
+p99 404.6 → 6.4, verdict "keys with margin". **The warning and the gutted membranes were one defect
+seen from two angles.**
+
+**DO NOT make the flag global** — the escape is what lets MAGENTA PLATES key at all (onryo-katana
+uses one, and its p99 0.0 depends on it). Green plate + magenta identity colour → flag ON.
+
+**NEW SCREEN + PREVENTION:** `qa-boss/screen-glow-survival.mjs` answers the question no other screen
+could — of the pixels reading emissive on the plate, how many survive keying? Calibrated on both
+sides (ir52 42.8% gutted; ir37-pink-tessen 94.7% with 13 ACCEPTED CLIPS; everything else 100%).
+**Swept the roster: ir52 is the only plate that trips it.** It is now in PLATE-PRECHECKS.md as a
+mandatory pre-kit step, and KIT-WRITING-BRIEF.md asks agents to name magenta identity colours.
+
 ### WHAT I WOULD DO NEXT
 1. **When firing returns: `hector-warhammer idle` first** — safest beat, best plate, and the long arm
    of the length A/B. Then `wolfmark-hild idle` (roomiest budget, and it carries an untested
@@ -140,7 +175,9 @@ never a licence to strip bounds.
 2. `node qa-boss/may-i-write-kit.mjs --all` — **16 kits are flagged "verdict not recorded"**
    (hydra-flail, the ir-series, onryo-katana …). I did NOT invent verdicts to clear them. Backfill
    from the earlier XG-wave records.
-3. `Hexlun Veil` and `kitsune-tanto` both need a **Tim ruling**, not more measurement.
+3. `Hexlun Veil` and `kitsune-tanto` need a **Tim ruling**, not more measurement — and kitsune is now
+   purely a canonical-look question, since glow-survival puts its blade glow at 100% (never a
+   keying risk). ir52 no longer needs a ruling at all; see above.
 
 ---
 
