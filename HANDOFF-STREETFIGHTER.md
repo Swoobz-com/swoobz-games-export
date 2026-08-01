@@ -1,6 +1,89 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 19 — START HERE (2026-07-31) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 20 — START HERE (2026-08-01) ★★★★★★★★★★
+
+`node qa-boss/check-prompt-sections.mjs` → **362 clean / 0 problems + 1 BLOCKED kit** · 34 prompt
+files · 24 padded MK plates. **35 commits, phases 133-167.**
+**13 clips fired, 4 ACCEPTED, zero credits spent** · 3 new kits written+verified · 3 new gates ·
+5 new doctrine sections · the whole MK FINAL pool screened.
+
+> ### ⛔ READ THIS FIRST: FIRING IS BLOCKED, AND IT IS NOT A BUG YOU CAN FIX
+> The session flipped onto a **THIRD Higgsfield account**, `user_3FzP62OkeSn8OYHW3kjt3xDrWKK`,
+> which has **1162 credits / plan `plus` and NO unlimited entitlement**. `use_unlim: true` returns
+> *"Unlimited generations are part of the Higgsfield free trial."*
+> **`balance` is the tell: 1162 / `plus` = cannot fire. ~10 credits = the account that works.**
+> Check balance BEFORE uploading a plate — the upload is wasted work on the wrong account.
+> Do NOT drop `use_unlim` to get around it. That flag is the only thing standing between this loop
+> and silently spending Tim's credits, and today was the first time it was actually load-bearing.
+> Starting the trial or authorising spend is **Tim's call**. Full detail at the top of FIRE-PLAN.md.
+
+### WHAT SHIPPED (4 accepted clips, all verified by measurement + eye)
+| clip | takes | what finally worked |
+|---|---|---|
+| **lich `idle`** | v2 | removed the rotational LICENCES; added no new facing sentence |
+| **lich `attack_strike`** | v3 | DIRECTED the rotation instead of forbidding it |
+| **lich `attack_strike_b`** | v3 | rebuilt the BEAT into his sink-only envelope |
+| **gargoyle `idle`** | **v1** | first-take pass — the kit was written against the updated brief |
+
+lich is **3/13**, gargoyle **1/13**. Nine rejections produced everything below, so they were not waste.
+
+### THE FIVE RULES THAT COST A RENDER EACH (all now in `qa-boss/xg/KIT-WRITING-BRIEF.md`)
+1. **§2b ROTATIONAL LICENCE.** The facing bound was stated TWICE and ignored; the BEAT granted the
+   turn ("shoulders ROLL", "weight ROLLS from rear foot onto leading foot" — a foot-to-foot transfer
+   squares the hips). Fix the beat, bind the OBJECT (shoulder line, hip line). **Gated.**
+2. **§2c DE-ROTATING IS NOT DE-RAISING, and never name a start height above the reference.**
+   "shears down from his own SHOULDER HEIGHT" made the model raise the weapon overhead first.
+3. **§4b A POSITIVE NOUN IN THE BEAT DEFEATS A NEGATIVE IN THE SUFFIX — proven by a controlled
+   pair.** Same character, same suffix banning mist/smoke; the clip with the solidity clause INLINE
+   in the debris sentence had a clean plate, the one relying on the suffix rendered a haze.
+   **The suffix is not protection.**
+4. **§4c NEVER NAME THE THING THAT ISN'T THERE.** "an unseen foe" / "an unseen weight" in a solo
+   throw is the IR-48 invented-attacker class. Close on NOTHING. Bind debris to a REAL contact point.
+5. **A RE-GRIP IS A CONTAINMENT EVENT.** Drawing both hands IN to the middle of a long haft
+   MAXIMISES the projection of both ends — it produced the widest frame of the session.
+
+### THE META-LESSON, learned six ways
+**The eye and the metric each lie, in opposite directions, and the fix is always to run both.**
+- I called a flame "billowing" — measured 0.99x the plate. I nearly re-rolled a good clip over a
+  blob count — the alpha was solid (motion blur; the gate works at scale 480, the real keyer does
+  not). I called scale drift — the bbox matched within 3px.
+- **Standing rules:** render the ALPHA before calling a keying defect · measure the BBOX before
+  calling scale · read the DENOMINATOR before trusting a pass · keep a KNOWN-REAL positive per
+  character to discriminate against.
+- **And a regex over hard-wrapped prose under-matches in a NEW way every time** — hyphens, line
+  wraps (x3), "roll ONCE", reversed word order. Seven misses. The durable answers were the gates.
+
+### THREE NEW GATES (each proven with a negative control, not just observed quiet)
+`ROTATIONAL-LICENCE` (both word orders) · `KO-CONTAMINATED` (caught 2 kits on its first run) ·
+`DEBRIS-COUNT` (burst: population == spawn; STAGED: population < spawn WITH the staging stated).
+Plus `check-extra-objects` now **fails loud on zero measurements** — it used to print CLEAN after
+ffmpeg silently failed.
+
+### THE POOL IS NOW FULLY SCREENED — 24 plates ready in `qa-boss/anchors/mk/`
+`rare` + `Epic` screened with the new `qa-boss/screen-emissive.mjs`: **66 base plates → 39 rejected
+on baked emissive (59%)**. **NEXT KIT / NEXT FIRE: `hector-warhammer`** — written, verified, gate
+clean. He is the best plate on disk *because of what he lacks*: no wings, no cloak, no chains, no
+danglers. Every hard clip this session was hard because of an appendage.
+
+> **BUT: NOTHING IS CHOSEN FROM A METRIC EITHER.** `umbra-jelly` has the roomiest margins in the
+> whole set (L420/R421), keys with margin, 0.04% emissive — and is **unusable**: stiletto heels
+> (every kit's core law is "feet stay flat"), sheer lace (semi-transparent over chroma → olive
+> fringe, and **the emissive screen cannot see transparency**), an open umbrella, and no weapon.
+> Screens 1-3 measure KEYABILITY and CONTAINMENT, never suitability. **View at full size.**
+
+### WHAT TO DO FIRST IN SESSION 21
+1. `balance`. If it is not ~10 credits, firing is still blocked — do kit work and say so.
+2. If clear: fire **hector-warhammer `idle`** (safest beat, best plate). Then lich `attack_throw` v2
+   (re-grip removed) and gargoyle `attack_strike`.
+3. `check-prompt-sections.mjs` must print **362 clean / 0 problems** before anything is fired.
+4. Still Tim-gated: the account · nurikabe/golem-mace/satoshi/sora/ir56 (fill, not keying) ·
+   `iron-vow` (studded club duplicates oni-tetsubo, but the characters read nothing alike) ·
+   `violet-contract` at fill 0.62 (between Tier A 0.66 and held 0.55).
+5. Eight ready plates have NOT been viewed at full size yet. Do that before briefing any kit.
+
+---
+
+## SESSION 19 (2026-07-31) — superseded by the SESSION 20 block above, kept for provenance
 
 HEAD **`81958c2`** · `npx tsc --noEmit` clean · `npx vitest run` **157/157** · tracked tree clean ·
 `node qa-boss/check-prompt-sections.mjs` **284 clean / 0 problems + 1 BLOCKED kit** · 28 prompt files.
