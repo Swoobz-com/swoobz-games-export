@@ -309,3 +309,36 @@ been padded, keyed and are sitting ready in `qa-boss/anchors/mk/`.
 **None of these has been VIEWED at full size except hector and violet-contract.** Emissive + padding
 + key are screens 1-3; the facing and arsenal read is still owed on the rest, and this file's own
 rule is that nothing is chosen from a filename.
+
+### WAVE 3c — THE VIEW SCREEN, and why it cannot be skipped (phase 165)
+
+Screens 1-3 (emissive, padding, key) measure **KEYABILITY and CONTAINMENT**. They do NOT measure
+**FIGHTER SUITABILITY**. Two plates that passed all three numerically:
+
+#### ❌ umbra-jelly — REJECTED. The ROOMIEST plate in the entire set, and unusable.
+L420/R421 at full 0.68 fill, keys with margin, emis 0.04% — the best numbers on disk. Viewed at full
+size she is a gothic woman with:
+  · a large **OPEN UMBRELLA** with a starfield print over her shoulder — a wings-class appendage that
+    owns the left and top edges AND can close, so it is higher variance than gargoyle's stone wings
+  · **STILETTO HEELS.** Every kit in this roster carries "HIS FEET STAY FLAT ON THE GROUND FOR THE
+    ENTIRE CLIP" as a core law. A stiletto is structurally not flat. The law and the plate contradict.
+  · **SHEER LACE PANELS.** Semi-transparent fabric over chroma keys badly and leaves an olive fringe
+    — the bloom-lit-plate class. **The emissive screen cannot see transparency at all.**
+  · **no clear weapon** — a folded fan at best, and the brief requires an arsenal to build a
+    signature beat from.
+
+#### ⚠ iron-vow — STRUCTURALLY FINE, DUPLICATE WEAPON CLASS
+L362/R362, full fill, keys with margin. Bald scarred brute, metal jaw-guard, dark mantle with white
+crescent sigils, **near-strict profile facing screen-right, feet flat in boots, no sheer fabric.**
+Everything structural is right. But his weapon is a **huge STUDDED CLUB**, which is the same weapon
+class as **oni-tetsubo** ("massive dark iron tetsubo war-club studded with pale bone-coloured
+spikes"). This file already rejected `Tengu Naginata` for exactly that — same weapon as raiju.
+**Difference worth noting before deciding:** the CHARACTERS read nothing alike (oni is a huge red
+demon; iron-vow is a human brute in a hooded cape), so this is a weaker collision than tengu/raiju
+was. Recorded as a Tim call rather than an auto-reject.
+
+**THE LESSON, and it cost nothing to learn because the view is free:** the numeric screens rank
+plates by how well they will KEY and CONTAIN. They are blind to heels, to sheer fabric, to whether
+the character even holds a weapon, and to archetype collision. **hector-warhammer was picked as the
+best plate on a full-size VIEW, not on his numbers** — and umbra-jelly, which beats him on every
+number, is unusable.
