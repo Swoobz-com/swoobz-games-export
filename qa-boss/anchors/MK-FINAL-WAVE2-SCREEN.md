@@ -536,3 +536,35 @@ independently verified). Plus `violet-contract` and `iron-vow`, both held as Tim
 **THERE ARE NO MORE CANDIDATES HERE.** Any further characters must come from a NEW source — a
 different tier of `input/MK FINAL/`, or a re-plate of something already rejected on grounds a
 re-plate would actually fix (fill, padding), which is a decision and not a re-screen.
+
+### ⚠ THE POOL WAS NOT EXHAUSTED — MYTHIC AND LEGENDARY HAD NEVER BEEN SCREENED (phase 185)
+
+Phase 184 concluded the wave-2 pool was exhausted and that further characters needed a NEW source.
+That was correct as far as it went — so I went to the new source, and it was not empty.
+
+**Only `rare` (38) + `Epic` (28) had ever been screened. `mythic` (21) and `legendary` (13) never
+had.** Screened both this cycle. Most of their contents turn out to BE the existing roster — mythic
+is the tier oni-tetsubo, lich-scythe, gargoyle-spear, raiju-naginata, minotaur-axe, skullrend-orcus,
+pale-choir, jin-goldenhand, thorn-warden and eclipse-ofuda all came from — which is why nobody
+re-screened it. But four names were NOT accounted for:
+
+| candidate | tier | emis | status |
+|---|---|---|---|
+| **Jorogumo Kusarigama** | mythic | 0.23 | **CLEARED — kit dispatched** |
+| Zephiron | legendary | 1.11 | unviewed; "keys clean, archetype-viable, below the six taken forward" |
+| Wight Spear | legendary | 3.36 | unviewed; same note. NB spear collides with SHIPPED sora-yari |
+| Stormlord_Rex | mythic | 4.46 | unviewed; name promises lightning — check for the blocker class |
+
+**`Zephiron` and `Wight Spear` were never rejected** — the doc says they key clean and are
+archetype-viable and were simply below the six taken forward. That is a queue position, not a
+verdict, and it should not have read as one.
+
+**JOROGUMO KUSARIGAMA — CLEARED, and it proves the padding step matters.** Raw art measured 96% fill
+with 34/51px margins and a 1.05x span ceiling: unusable, and a snap judgement on the raw plate would
+have rejected it. `pad-anchor-plate.mjs` rebuilt it to fill 68%, L212 R212 T468, span 1.38x — all
+margins >=200px. Then: keys with margin (opaque 12.56, emis 0.25, p99 5.9); translucency 5.98 with
+grnDom only 8.9, so REAL mild see-through from the cyan web membranes rather than a green confound.
+Distinct archetype (spider-woman + chain-sickle) with no roster collision.
+
+**LESSON: judge a candidate from `input/MK FINAL/` only AFTER padding.** The raw art is cropped tight
+by design — 85-95% fill is normal there — so raw margins say nothing about viability.

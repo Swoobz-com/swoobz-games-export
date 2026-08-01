@@ -178,6 +178,22 @@
     "kitsune-tanto": {
       "status": "TIM",
       "why": "THE BLOCKER DID NOT MATERIALISE — needs a canonical-look ruling, not a re-screen. Its PLATE carries a live yellow-green blade glow (5.28% emissive, the highest in the roster, and the character the \"kitsune blocker\" class is named after). But the 13 RAWS ON DISK DO NOT REPRODUCE IT: the raw frames show plain steel before any keying, so the model never rendered the glow. Consequence, all measured phase 183: the clips key CLEANLY (soft fur tails crisp, blade intact and not carved into, residual greenExcess mean -35, p99 0, 0.00% hot), and they agree with their own plate BETTER than accepted clips do (idle .920/.917, strike_a .937/.938 vs lich strike_a v3 ACCEPTED at .902/.905; ko .370/.347 is expected since he collapses). So they are technically shippable. THE ONLY OPEN QUESTION IS A DESIGN ONE: the plate shows a glowing blade and every clip shows plain steel, so the canonical look is inconsistent between the still and the animation. Tim rules on which is canonical. NOTE these raws predate the 3-role start/end/image transport, so a RE-FIRE today would pin the glowing plate at f0 and might reintroduce the hazard the existing raws happen to dodge."
+    },
+    "jorogumo-kusarigama": {
+      "status": "OK",
+      "why": "NEW CANDIDATE from the previously-unscreened MYTHIC tier, screened + viewed + padded phase 185. Distinct archetype (jorogumo spider-woman, four extra spider legs, kusarigama chain-sickle) with NO roster collision — nothing shipped is a spider or wields a chain-sickle. Raw art was 96% fill / 34px margins (unusable, normal for input/MK FINAL/); PADDED to 1536 gives fill 68%, L212 R212 T468, all margins >=200px. Keys with margin (opaque 12.56, emis 0.25, p99 5.9). Translucency 5.98 inspect-band with grnDom only 8.9 — so it is REAL mild see-through from the cyan web membranes between arm and torso, not a green confound. KIT MUST: bound the four spider legs (they own the LEFT edge) and the sickle tip (owns the RIGHT edge, and the chain is a long extending prop — the classic containment hazard); pin the cyan web membranes and cyan limb rim-light as fixed-brightness, fixed-opacity features. Span ceiling 1.38x is tight, same class as elara-frostplate. WATCH: hydra-flail is also a chain weapon, but sickle-vs-weight and spider-vs-hydra are distinct enough that this is a watch, not a collision — and hydra has never shipped."
+    },
+    "Zephiron": {
+      "status": "UNVIEWED",
+      "why": "legendary tier, emis 1.11, fill 17.1%. The wave-2 doc noted it keys clean and is archetype-viable, simply below the six taken forward — that is NOT a rejection. Never viewed at full size."
+    },
+    "Wight Spear": {
+      "status": "UNVIEWED",
+      "why": "legendary tier, emis 3.36. Same note as Zephiron: keys clean, archetype-viable, below the six taken forward. Never viewed. NB a spear collides with the SHIPPED sora-yari — check that before briefing."
+    },
+    "Stormlord_Rex": {
+      "status": "UNVIEWED",
+      "why": "mythic tier, emis 4.46 STRONG — never screened before phase 185, never viewed. The name promises lightning; if that is baked in it is the blocker class."
     }
   }
 }
