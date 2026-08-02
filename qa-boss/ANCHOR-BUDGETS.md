@@ -84,3 +84,46 @@ His raw plate is 720px, giving L131 / R29 / T37 — the tightest character in th
 different reason: he is simply large in a small frame. His beats work if they are ground-hugging and
 aimed DOWNWARD and slightly BACK toward screen-LEFT, which is the only free direction he has
 (the bottom edge is free — `check-containment` never counts feet-on-floor contact).
+
+### ⚠ TWO TRAPS FOUND JUDGING ir56 `attack_throw_b` (phase 214)
+
+**1. `check-containment.mjs` DEFAULTS TO `--plate green`, AND ON A MAGENTA PLATE IT RETURNS GARBAGE
+THAT LOOKS LIKE A CATASTROPHIC FAILURE.**
+
+Its subject test is `isGreen`. On a magenta plate with a GREEN character the test inverts — the
+character reads as background, the plate reads as subject — and it reports the full frame as overrun:
+
+```
+ir56 throw_b, no flag        TOP 960px @f0 | LEFT 960px @f0 | RIGHT 960px @f0   (frame is 960x960)
+ir56 throw_b, --plate magenta   LEFT 198px @f48 | RIGHT 134px @f46
+```
+
+The flag is documented in the tool's own usage line; the default is simply wrong for this roster's
+magenta characters. **ALWAYS pass `--plate magenta` for ir56, onryo-katana, and anything whose kit
+commands "solid saturated MAGENTA".** Check the kit if unsure:
+`node qa-boss/build-prompt.mjs <kit> idle | grep -oiE "solid saturated [A-Z]+"`.
+
+`check-frontturn` shows the same signature on the wrong plate — `sym 0.999 aspect 1.00` constant
+means it measured the whole frame, not a subject. **A metric pinned at a perfect value is an
+instrument error, not a perfect clip.**
+
+**2. ir56 BREAKS CONTAINMENT ON CLIPS THAT ARE ALREADY WIRED AND SHIPPED — so a containment number
+alone cannot judge this character.**
+
+```
+throw_b  (unjudged)      LEFT 198px @f48 | RIGHT 134px @f46
+throw_a  (WIRED, shipped) TOP 28px @f19 | LEFT 116px @f39 | RIGHT 94px @f34
+```
+
+That is what prop-EXTENDED means in practice: his anchor already touches the frame edge, so **there
+is no version of this character that does not overrun** without a re-plate. His 12 wired clips were
+accepted WITH overruns.
+
+**CONSEQUENCE FOR THE ONE MISSING CLIP.** `attack_throw_b` is not a QA failure — it is the same
+defect class already shipped twelve times, at a larger magnitude (198px vs throw_a's 116px). Whether
+to wire it is **Tim's call**, and it is the same decision as the pending prop-EXTENDED re-plate
+ruling. The raw is on disk: `qa-boss/raw/ir56-lion-serpent-throw_b.mp4`.
+
+**AND CORRECT THE HANDOFF LINE THAT SAYS OTHERWISE:** node 8 is annotated
+*"ir56 12/13 attack-throw-b — plain re-roll, not blocked"*. The measurement contradicts it. A re-roll
+will not fix a character whose ANCHOR is the problem.

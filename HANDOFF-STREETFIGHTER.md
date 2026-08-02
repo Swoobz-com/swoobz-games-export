@@ -1004,7 +1004,7 @@ node  3 thorn-warden     10/13  special, special-b, special-c      READY — 3 a
 node  4 hollow-pale      12/13  attack-throw                       BLOCKED (Tim's take-A ruling)
 node  5 satoshi-odachi   11/13  attack-throw, special-c            BLOCKED (prop-EXTENDED)
 node  6 eclipse-ofuda    12/13  special-b                          READY — special_2 v2 composed
-node  8 ir56             12/13  attack-throw-b                     plain re-roll, not blocked
+node  8 ir56             12/13  attack-throw-b                     ⚠ NOT a plain re-roll — see phase 214
 node  9 lady-kurotachi   12/13  special-c                          READY — special_3 v3 composed
 ```
 
