@@ -160,6 +160,12 @@ if (done.length && !full) console.log(`\n  (${done.length} complete, hidden: ${d
 // phases on ("it has a phantom weapon" — an invented attacker mace). Never trust an accept line
 // without reading FORWARD for a correction.
 // Only kitsune-tanto remains parked, and it is gated on a canonical-look ruling, not on work.
+// AND THE ACCOUNT HOLDS NO UNHARVESTED CLIPS EITHER (checked phase 215). A fired clip that was never
+// DOWNLOADED would be parked work invisible to every local check, so the account video history was
+// read directly: it holds exactly 8 generations, all from 2026-07-29 — five eclipse-ofuda and three
+// ir37-pink-tessen — and BOTH of those characters are already 13/13 wired. Nothing to harvest.
+// (I had guessed these were onryo-katana clips. They are not: onryo has 0 raws AND 0 generations —
+// it was never fired. pale-choir likewise. sora-yari has 10 raws matching its 10 wired clips.)
 const RAW = 'qa-boss/raw';
 let raws = [];
 try { raws = fs.readdirSync(RAW).filter((f) => /\.mp4$/i.test(f)); } catch { /* no raw dir */ }
