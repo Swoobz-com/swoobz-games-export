@@ -662,8 +662,19 @@ measurement is not a fresh decision.** Nothing below promotes anyone. What was m
 3. **On-screen the character is ~600px.** `.fr-stage` is `height: min(100vh, 100vw/1.83333)` = 1047px
    at 1920x1080; `CAL.fighterP1.h = 58` makes the square fighter box ~607px; the still is
    `object-fit: contain` in that box, so the character occupies ~600px of it.
-4. **So headroom = `fill x 960 / 600`.** Note `cal.h` does NOT rescue a low fill — it is ~100 for
-   BOTH a 0.92-fill character (hollow-pale 100.08) and a 0.68-fill one (oni-tetsubo 102.77).
+4. **So headroom = `fill x 960 / 600`.**
+
+   **`cal.h` cannot rescue a low fill — and the reason is the opposite of "cal ignores fill"
+   (corrected phase 219).** `cal.h` DOES compensate for framing, precisely and automatically: it is
+   ~100 for both hollow-pale (0.92 fill, 100.08) and oni-tetsubo (0.68 fill, 102.77) only because
+   the keyer CROPS both webms to the subject, so the padding is already gone by then. Where a clip
+   is left uncropped the cal absorbs that too — `eclipse-ofuda/attack-strike.webm` ships as a full
+   960x960 frame and carries `cal.h 117.07`, which lands its character at ~611px on screen against
+   idle's ~614px. The comment in `types.ts` is accurate: the anchor frame lands pixel-on-pixel.
+
+   That is exactly WHY fill costs resolution rather than apparent size: **`cal.h` normalises every
+   character to the same ~600px on-screen height, so a low-fill character arrives with fewer real
+   pixels and is scaled UP to match.** The cal cannot invent the pixels the plate never spent.
 
 ### What that prices
 

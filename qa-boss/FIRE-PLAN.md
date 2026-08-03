@@ -390,3 +390,39 @@ justify stripping bounds from anything.
 
 **AND FIX THE SOURCE:** `qa-boss/xg/KIT-WRITING-BRIEF.md` is what drives agents to write these
 suffixes. Every agent followed it faithfully — the drift is in the brief, not in the agents.
+
+## ⚠ TWO STANDING ITEMS IN THE LOOP PROMPT ARE ALREADY CLOSED (phase 219, 2026-08-03)
+
+The autonomous loop prompt fires every cycle carrying instructions that were satisfied phases ago.
+Re-deriving that each cycle is pure waste, so both are recorded here — **check this section before
+acting on the prompt's QUEUE or its WATCH line.**
+
+**1. THE 6-CLIP QUEUE IS 100% SHIPPED.** Verified file-by-file:
+
+| queue item | wired file | dims |
+|---|---|---|
+| eclipse `attack_strike` | `eclipse-ofuda/attack-strike.webm` | 960x960 |
+| ir37 `attack_strike_b` | `ir37-pink-tessen/attack-strike-b.webm` | 606x946 |
+| hollow-pale `special_2` | `hollow-pale/special-b.webm` | 590x904 |
+| hollow-pale `special_3` | `hollow-pale/special-c.webm` | 776x890 |
+| eclipse `special_1` | `eclipse-ofuda/special.webm` | 498x852 |
+| ir37 `special_3` | `ir37-pink-tessen/special-c.webm` | 712x832 |
+
+Both characters are 13/13. Firing any of these would re-roll a shipped clip. **When the account
+unblocks, fire from `qa-boss/fire-queue.mjs` (which derives the real gap), not from the prompt.**
+
+**2. THE RAIJU RECTANGLE IS DISPROVEN — TWICE.** The prompt says *"raiju's padded plate retains a
+faint rectangle — check its first keyed clip for a rectangular alpha edge."* No clip is needed: the
+plate is a STILL, so the keyer runs on it for free. Phase 107 did this and found a clean silhouette;
+re-run in phase 219 on the padded plate:
+
+```
+check-plate-key      opaque 11.86% · emis 1.97% · p99 28.7 · max 70 · keys with margin
+screen-glow-survival 5514 emissive px -> 5514 survive = 100.0%  (OPAQUE lit feature)
+mask VIEWED at full size -> crisp silhouette; blade, mane spikes and individual toes all resolve;
+                            background uniformly black; NO rectangular alpha edge anywhere
+```
+
+The eye sees a rectangle because it is sensitive to a FLAT-vs-NOISY boundary; the keyer only measures
+distance, and 99.4% of backdrop pixels sit within 29 of the border colour against TIGHT=45. Both
+facts are true at once. **raiju-naginata is clear to fire — no re-plate, no first-clip caution.**
