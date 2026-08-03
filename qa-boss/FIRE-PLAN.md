@@ -507,6 +507,17 @@ and update the manifest url so no browser cache serves the old clip.
 - **`ffmpeg drawtext` needs an explicit `fontfile=` on this machine.** Fontconfig has no default
   config; without it drawtext fails and a tiling step silently produces an empty directory. Use
   `fontfile='C\:/Windows/Fonts/consola.ttf'`.
+- **You can SEE the game without the Chrome extension.** `puppeteer-core` is installed and Chrome is
+  at the default path, so two committed tools cover it — use them instead of writing a throwaway
+  driver (this session wrote the same one four times before making it real):
+  - `scripts/render-hud-element.mjs` — a static HUD element against the real `fight.css` at real
+    `--sw`/`--sh` and real stage proportions. For judging craft.
+  - `scripts/drive-game.mjs` — drives the RUNNING app (`?dev` → CONQUER ALL → a named node) and can
+    **PLAY until a page condition is true**, e.g. until a boss actually spends a shield. Exits **1**
+    with "inconclusive, NOT a pass" if the condition never fires, so the check can fail.
+  **A HUD defect that survives code review is the kind only the eye finds** — the shipped shield mark
+  had a "crack" that rendered as a red minus sign because it was drawn diagonal on a rotated element,
+  and no amount of reading the CSS would have surfaced it.
 
 ## PROMPT LENGTH — AN OPEN QUESTION, **NOT** THE RISK I FIRST CALLED IT (phase 175, CORRECTED phase 176)
 
