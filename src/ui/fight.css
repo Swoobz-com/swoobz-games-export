@@ -2521,7 +2521,7 @@
   width: calc(var(--sw) * 0.72);
   height: calc(var(--sh) * 1.45);
   /* Same lean as the p2 HP plates (clip-path 0 0, 86% 0, 100% 100%, 14% 100%). */
-  transform: skewX(10deg);
+  transform: skewX(-33.7deg);
   border-radius: calc(var(--sw) * 0.04);
   /* SPENT: an empty socket — opaque void, hard shadow under the top rim, a lit steel lip at the
      bottom. Light from above hitting the BOTTOM of a shape is what makes it read as a hole. */
@@ -2583,11 +2583,11 @@
 /* The one motion: at round start each restored lame drops back into its socket. */
 @keyframes fr-shieldpip-seat {
   0% {
-    transform: skewX(10deg) translateY(calc(var(--sh) * -0.5));
+    transform: skewX(-33.7deg) translateY(calc(var(--sh) * -0.5));
     opacity: 0;
   }
   100% {
-    transform: skewX(10deg) translateY(0);
+    transform: skewX(-33.7deg) translateY(0);
     opacity: 1;
   }
 }
