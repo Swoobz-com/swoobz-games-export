@@ -1,7 +1,37 @@
-# FIRE PLAN — the 4 clips queued and verified fire-ready (phase 64, 2026-07-30)
+# FIRE PLAN
 
-All four build clean through `node qa-boss/check-prompt-sections.mjs` (108 clean / 0 problems).
-**Nothing here has been fired** — the browser was never logged in to Higgsfield this session.
+## ⛔⛔⛔ STOP — DO NOT FIRE. TIM RULED THIS ON 2026-08-03. ⛔⛔⛔
+
+**Tim's words, asked directly and answered directly: _"let's wait with generating."_**
+No trial, no credit spend, no clips. This is a HUMAN HOLD, not a technical blocker, and it
+**outranks the autonomous loop prompt**, which is a standing automated message that keeps re-issuing
+the old instructions every cycle. A standing prompt does not override a live decision.
+
+**Three independent reasons a fire is wrong right now — any one of them is sufficient:**
+
+1. **Tim's hold** (above). He also ruled: generate the prop-EXTENDED characters later; leave
+   `kitsune-tanto`'s raws unkeyed; leave the shipped kitsune green halo; leave the stills cap at 900.
+2. **The account is blocked anyway.** `use_unlim:true` on `user_3FzP62OkeSn8OYHW3kjt3xDrWKK` returns
+   *"Unlimited generations aren't supported for seedance_2_0"* — account-level, not model-level (see
+   §THIRD ACCOUNT below). Probed across four day boundaries, same answer. **Tim has said stop
+   probing.** `balance` held at 710 throughout, so a refused request is still never charged.
+3. **The loop prompt's own 6-clip QUEUE is 100% SHIPPED** — eclipse `attack_strike`, ir37
+   `attack_strike_b`, hollow-pale `special_2`/`special_3`, eclipse `special_1`, ir37 `special_3` all
+   exist as wired `.webm`. Firing any of them would RE-ROLL a shipped clip. Its STEP 4 is stale too:
+   all six MK FINAL kits already exist and need clips, not authoring.
+
+**WHAT TO DO INSTEAD**, in order: read the SESSION block at the top of `HANDOFF-STREETFIGHTER.md`
+(it holds Tim's six rulings and four corrections), then take read-only work — measurement, gates,
+sweeps — that touches nothing under `public/assets/`.
+
+**WHEN THE HOLD LIFTS:** derive the real gap with `node qa-boss/fire-queue.mjs` (it REPORTS, it does
+not fire), never from the loop prompt's list. Then follow the procedure below.
+
+---
+
+## (historical header, kept for provenance — its 4 clips have ALL since shipped)
+*"the 4 clips queued and verified fire-ready (phase 64, 2026-07-30). All four build clean through
+`node qa-boss/check-prompt-sections.mjs`. Nothing here has been fired."*
 
 ## ★ TRANSPORT OF RECORD (phase 67, learned from a working sibling session)
 

@@ -164,6 +164,14 @@ function anchorFor(id) {
     [`qa-boss/proc/${id}-anchor-still.png`, 'alpha'],
     [`qa-boss/anchors/${id}-anchor-green.png`, 'green'],
     [`qa-boss/anchors/${id}-anchor.png`, 'green'],
+    // The PADDED MK plates live in a subdirectory (added by pad-anchor-plate.mjs, phase 60) and this
+    // resolver never learned about it — so every MK character was silently unevaluable. Caught by
+    // `--all` reporting NOT EVALUATED for gargoyle-spear / lich-scythe / oni-tetsubo, all three of
+    // which HAVE shipped clips. Today that is 3 characters; the moment the MK FINAL kits fire it
+    // would have been all of them. No id exists in both directories, so this fallback is
+    // unambiguous; the unpadded location stays FIRST so an original plate always wins.
+    [`qa-boss/anchors/mk/${id}-anchor-green.png`, 'green'],
+    [`qa-boss/anchors/mk/${id}-anchor.png`, 'green'],
   ];
   for (const [rel, mode] of cands) {
     const p = path.join(ROOT, rel);
