@@ -1,6 +1,219 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 24 — START HERE (2026-08-03, late) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 25 — START HERE (2026-08-03, later) ★★★★★★★★★★
+
+**TIM WAS IN THE ROOM AND RULED ON SIX OPEN ITEMS. Five of them are HOLDS. The asset pipeline is
+deliberately parked; do not restart it on your own initiative.** One commit landed (phase 235,
+`7ae744e`); zero clips fired; the account is still blocked.
+
+> **Read `qa-boss/FIRE-PLAN.md` for procedure, and the SESSION 24 block below for state.** This
+> block records what Tim DECIDED and four corrections to things SESSION 24 asserted. Where they
+> disagree, this block wins — every correction here was re-verified by hand, and the specific
+> commands are quoted so you can re-run them rather than trust me.
+
+### ⛔ 1. TIM'S RULINGS — ALL SIX. DO NOT RE-ASK, DO NOT QUIETLY REVERSE.
+
+| # | question | **Tim's ruling** |
+|---|---|---|
+| 1 | The blocked Higgsfield account | **"let's wait with generating"** — no trial, no credit spend, no firing. |
+| 2 | `onryo-katana` idle feet | **"Hover in idle only"** — APPLIED, phase 235. |
+| 3 | prop-EXTENDED re-plate (satoshi/sora/ir56) | **"we will generate the characters later"** — deferred, no re-plate. |
+| 4 | `kitsune-tanto` — key+wire the raws? | **"Leave until generating resumes"** — do NOT key, do NOT wire. |
+| 5 | Shipped `kitsune-tanto.webp` green halo | **"Leave it"** — logged as a known defect, not fixed. |
+| 6 | The stills resolution cap | **"Leave it at 900"** — `key-enemies.mjs:390` stays as-is. |
+
+**Consequence: rulings 4, 5 and 6 close the entire no-account asset queue.** SESSION 24 §6 and §7
+described these as the free wins; they are now Tim-parked, not available work. **Do not re-open them
+by re-deriving the same evidence — it is already rendered (see §6) and it did not change his mind.**
+
+### ⚠ 2. THE ON-SCREEN FIGURE IS **NOT 560px**. §4 OF SESSION 24 IS PRICED ON A WRONG NUMBER.
+
+This is the correction with the widest blast radius, because the whole FILL analysis
+(`MK-FINAL-WAVE2-SCREEN.md`, SESSION 24 §4/§5) divides by it. Verified in source, by me:
+
+```
+FightExperience.tsx:1081-1082   the fighter box is height:`${cfg.h}%` + aspectRatio:'1 / 1'  -> SQUARE
+FightExperience.tsx:153-154     cfg.h = 58   (fighterP1/fighterP2)
+fight.css:125                   object-fit: contain   on the still
+fight.css:48                    --stage-ar: 1.83333   <- a FALLBACK ONLY (2816/1536, the cathedral)
+FightExperience.tsx:2111        ['--stage-ar']: effectiveArena.width/height   <- ALWAYS overrides it
+arenas.ts:33-43                 cathedral 2816x1536; ALL TEN campaign arenas 2752x1536 = 1.79167
+```
+
+So at a 1920x1080 viewport on a **campaign** node:
+`stage height = min(1080, 1920/1.79167) = 1071.6` → **fighter box = 58% = 621.5px, square.**
+
+**TWO THINGS FOLLOW, AND BOTH BREAK EXISTING CONCLUSIONS:**
+
+1. **621.5px, not 560px.** Every headroom ratio in the fill work is ~11% off.
+2. **`object-fit: contain` on a SQUARE box means a character WIDER THAN TALL is WIDTH-limited,
+   not height-limited.** Its height never reaches the box. Measured consequences: `ir56-lion-serpent`
+   (still 1350x900) renders at **0.92x — a DOWNSCALE**, and `sora-yari` (1221x900) at 1.02x. **2 of 10
+   characters gain nothing from a HEIGHT cap at all**, which is why "just raise 900 to 1440" was the
+   wrong shape of fix even before Tim declined it. Any future cap belongs on the
+   **contain-limiting edge**, per character.
+
+⚠ **Two independent verifiers disagreed on this and I checked it myself rather than picking one.**
+One used the 1.8333 fallback (→607px box), one traced the runtime override (→621.5px). The second is
+right; `FightExperience.tsx:2111` is unconditional. **A CSS custom-property fallback is not the live
+value — find the override before you compute anything on it.**
+
+### ⚠ 3. `ir56-lion-serpent` — THE THROW LABELS ARE SWAPPED IN THE LEDGER AND IN `fire-queue.mjs`
+
+SESSION 24 §10.7 says ir56's missing clip is `attack_throw_b` and that "the raw is already on disk",
+implying a wire-it-or-not call. **Both halves are wrong.** Proven by hash:
+
+```
+md5  33d686fec586328dc977b590990271be  public/assets/characters/ir56-lion-serpent/attack-throw.webm
+md5  33d686fec586328dc977b590990271be  qa-boss/webm/ir56-lion-serpent-throw_b.webm     <- BYTE-IDENTICAL
+qa-boss/webm/  contains NO throw_a.webm at all
+```
+
+`attack-throw.webm` **IS** the throw_b raw. The clip that failed is **throw_a** —
+`ir56-lion-serpent-clipdata.json:16` states it outright: *"VERDICT 11 PASS + 1 PASS(off-anchor, ko) +
+1 FAIL (throw_a) … sustained full-front torso rotation ~frames 16-32 … AND off-spec acting (overhead
+cleaver raise, not the prompted grab-slam) -> NOT keyed/encoded, needs re-roll … 12 webms shipped
+(throw_a excluded)."*
+
+**So the one raw sitting on disk for the missing state is the raw that FAILED QA.** It is not a
+containment ruling and it is not Tim's call — containment was never its blocker. It needs a
+torso-locked, arm-only **re-roll**, which is blocked with everything else. Its containment would pass
+as-is with a routine 48px top feather.
+
+⚠ **A cycle was spent this session chasing the wire-it-or-not question that this mislabel invented.**
+`fire-queue.mjs` still prints `ir56-lion-serpent → attack_throw_b`. **Fixing that label mapping is a
+real, no-account tooling task and it is the single highest-value thing left on the board.**
+
+### ⚠ 4. `kitsune-tanto` — THE FRAMING IS INVERTED. THE PLATE IS NOT THE ODD ONE OUT.
+
+Phase 234 corrected this once and got it backwards a second time. Viewed at full size, by me:
+
+| clip | blade | evidence |
+|---|---|---|
+| **plate** | **GLOWING** | molten orange-gold along the cutting edge + bloom into the green |
+| **ko** | **GLOWING** | hot amber edge, blade body ivory-white, warm light spilling onto the armour |
+| strike-a / strike-b / throw-a / throw-b / block-a / block-b / hit | **GLOWING** | |
+| **idle** | **plain steel** | flat pale silver over OPEN green, **zero halo** — the strongest control |
+| **victory** | **plain steel** | |
+
+**The canonical look is GLOWING and the deviation is idle + victory** — the opposite of what the
+ledger records. ko in particular was filed as PLAIN STEEL and is unambiguously glowing.
+
+**WHY THE LEDGER GOT IT WRONG, AND THIS IS THE TRANSFERABLE PART. The "bright saturated yellow-green
+pixel" metric does not measure glow.** The blade's emission is **warm gold** (hue 25-45). It only
+reads yellow-green where a semi-transparent glow is composited **over the green screen**. So the
+metric is a *glow-over-backdrop* detector and its output tracks **POSE** — whether the blade happens
+to be swung through empty backdrop — not whether the blade is lit. **ko scores 0-1 while glowing
+brightly, purely because the blade is held across the body.** Any future split drawn from that column
+is drawing on pose.
+
+Two more facts, both hash-verified:
+- **There are 11 distinct raws, not 12.** `kitsune-tanto-idle.mp4` and `-idle-v3.mp4` are
+  byte-identical (`22c8a40239322e66f4c2e4e3f28666e4`). `idle-v2` is off-model.
+- `fire-queue.mjs` reports "13 raw file(s)" — it is counting `kitsune-matte-test.mp4` too.
+
+### 📌 5. TWO LIVE DEFECTS ON SHIPPED ASSETS — LOGGED, AND TIM SAID LEAVE THEM
+
+Recorded so they are not rediscovered as news. **Both are real; neither is to be fixed without a new
+ruling.**
+
+1. **`public/assets/enemies/kitsune-tanto.webp`** — a thick yellow-green corona hugs the blade.
+   Keying residue from the semi-transparent glow, not art. I viewed it. It is the node-2 boss card,
+   and `.fr-reduced .fr-state-video { display: none }` (`src/ui/fight.css`) makes that still the
+   ENTIRE character for a prefers-reduced-motion player. ⚠ An earlier "1.01% of opaque subject"
+   figure is not reproducible (thresholds unstated); an independent band gives 2.97%. **Use the
+   picture, not either number.**
+2. **`public/assets/characters/ir56-lion-serpent/attack-throw.webm`** — the fire-breath is cut by a
+   razor-straight vertical line in open air. The clip border is not the screen border, so at true
+   deploy size it floats mid-stage as a hard-edged orange slab. **23 of 97 frames** carry an edge run
+   >=20px (cleaver f18-33, flame f45-49, tail f72-73). Visible without zooming. ⚠ Only the throw pair
+   of ir56's 12 clips was scanned — **the other 11 have not been checked and may share it.**
+
+### ✔ 6. THE ACCOUNT — PROBED AGAIN, SAME ANSWER, AND THE GUARANTEE HELD A THIRD TIME
+
+Full real fire, per FIRE-PLAN: plate re-uploaded (`media_upload` → PUT → HTTP 200 → `media_confirm`),
+`thorn-warden special_1` (LEN=4590), 3-role plate, `use_unlim:true`, preset declined and re-sent
+literally. Result:
+
+> `Error starting generation: Unlimited generations aren't supported for seedance_2_0.`
+
+Same account `user_3FzP62OkeSn8OYHW3kjt3xDrWKK`, **4th day boundary crossed, same refusal.**
+`balance` **710 before and 710 after** — a refused request is still not charged (3rd confirmation).
+Non-interference was clean (newest video job 2026-07-29, balance unmoved).
+**Tim has ruled: do not probe again for now.**
+
+### ✔ 7. "12 BOSSES" — RECONCILED. IT WAS NEVER A CONTRADICTION.
+
+SESSION 24 §10.8 logged this as unreconciled and miscounted it as 9 slots. The answer is in the spec:
+
+**12 = 10 campaign nodes + 2 locked bonus isles.** `CAMPAIGN-SPEC.md:66` — *"The map (10 nodes + 2
+locked bonus isles)"* — with `B1 (locked NW isle)` and `B2 (locked SE isle)` both "COMING SOON" at
+lines 90-91, drawn by `MAP_ISLES` in `FightExperience.tsx:197`.
+
+**And there are 10 named bosses, not 9.** The earlier count read `fighterId`; the boss identity lives
+in `enemy`. All ten nodes carry a distinct enemy. **Only node 2 (ASHEN TORII / KITSUNE TANTO) still
+has `fighterId: 'volta'`** — the in-fight stand-in — because kitsune-tanto has no wired clips. So:
+**9 of 10 campaign bosses are fought as themselves; node 2 is the last placeholder**, and per §1
+ruling 4 it stays that way for now.
+
+Minor, unactioned: `LOCKED_ISLE_COUNT` (`fightCampaign.ts:110`) is exported and **never consumed** —
+the UI hardcodes `MAP_ISLES` instead. And `rosterGating.ts`'s comment says *"VOLTA fills many node
+fighterId slots"*; it is now exactly one.
+
+### 🔧 8. HOW THE EVIDENCE WAS BUILT — AND WHY EVERY PACK CAME BACK **PARTIAL**
+
+Six agents: three rendered decision evidence, three adversarially verified them (default verdict
+REFUTED, each required to open the pack's own images). **All three packs: PARTIAL.** No constraint
+violations — `git status` clean, HEAD unmoved, nothing written outside `qa-boss/decisions/`.
+
+**The verification earned its keep — it caught things that survived the maker's own reasoning:**
+- A pack published a flat **"0 backdrop pixels accepted"** while its OWN output file carried a
+  contradicting nonzero column on 9 of 12 clips. It even invoked the project's "a perfect value is an
+  instrument error" law and then defended the 0 with positive controls instead of reading its own data.
+- A pack **discarded its only working instrument** on a probe bug (a corner-sampling window hardcoded
+  to 160px regardless of scan resolution, so at half-res it covered 44% of the frame and necessarily
+  sampled the character). That discarded instrument's numbers **agreed with the pack's own eye**.
+- A pack reported two "**contradictions with the project's own docs**" that were **already written, with
+  the same numbers, later in the same chronological log** — it quoted a superseded phase-107 section.
+  **Reading a phase log top-down manufactures contradictions; check whether a later phase corrects it.**
+- Headline sharpness gains of +75/+84/+97% were measured on crops **containing the silhouette edge**,
+  which the same report had ruled inadmissible. Strictly-interior gains are +56/+56/+94%.
+
+`qa-boss/decisions/` (122MB, 313 files) is now **gitignored** — regenerable from raws + plates; the
+findings live here.
+
+### 🧠 9. TRANSFERABLE LEARNINGS (saved to `~/.claude/memory/`)
+
+- **`$?` after a pipeline is the LAST command's status.** `node gate.mjs | tail` reported exit 0 for
+  every gate I ran, including one printing *"This is NOT a pass"*. Re-measured without the pipe:
+  2 / 0 / 0 / 2, all correct. **I nearly recorded a clean bill of health produced by reading `tail`.**
+  Same defect class as the vacuous-pass holes phase 230 closed — a gate that cannot fail cannot gate,
+  and neither can one whose exit code you never actually read.
+- **A CSS custom-property fallback is not the live value.** `--stage-ar: 1.83333` sat in the
+  stylesheet while `FightExperience.tsx:2111` unconditionally overrode it.
+- **A metric can measure the right thing on the wrong axis.** The yellow-green counter tracked pose,
+  not glow, and produced a clean-looking split that was pure artifact.
+- **Check the ANCHOR PLATE before encoding an acting ruling.** onryo's plate has both feet planted;
+  "feet hovering" contradicted the very image `start_image`/`end_image` pin.
+- **When a chronological phase log seems to contradict itself, the later phase usually already fixed
+  it.** Two of three "discoveries" this session were re-findings of the doc's own corrections.
+
+### ▶ 10. WHAT TO DO NEXT, IN ORDER
+
+1. **Do not fire, do not key, do not touch `public/assets/`.** Six rulings in §1 say so.
+2. **Fix the `ir56` throw label mapping in `fire-queue.mjs`** (§3). No account, and it is currently
+   sending every session after a clip that failed QA. Highest-value item on the board.
+3. **Fix `fire-queue.mjs`'s kitsune raw count** — it counts `kitsune-matte-test.mp4` and the
+   byte-identical `idle-v3`, reporting 13 where there are 11 distinct (§4).
+4. **Re-price the fill work against 621.5px + contain** (§2) if and when the plate holds re-open.
+   `MK-FINAL-WAVE2-SCREEN.md`'s ratios are all computed on 560.
+5. **Scan ir56's other 11 shipped clips** for the flame-amputation edge-run defect (§5.2) — only the
+   throw pair was checked, and it is a read-only measurement.
+6. When Tim restarts generating: SESSION 24 §11 is still the right fire order.
+
+---
+
+## ★★★★★★★★★★ SESSION 24 (2026-08-03, late) — superseded by the block above ★★★★★★★★★★
 
 **40 prompt files · 428 buildable states · SHIPPED 100 · QUEUE 328 · ledger 69 (OK 24 · REJECTED 36 ·
 TIM 9) · 19 commits, phases 216-232 (`8206f54`..`d0686d2`).**

@@ -5,6 +5,10 @@ _*.mjs
 shots*/
 qa-boss/frames/
 qa-boss/raw/
+# decision-evidence renders (phase 236): contact sheets + crops built to let Tim rule by eye.
+# 122MB / 313 files and fully regenerable from the raws + plates — the FINDINGS go in the
+# handoff, the pixels stay local.
+qa-boss/decisions/
 
 # editor/agent backups — never tracked (swept in once by a directory add, phase 137)
 *.bak
