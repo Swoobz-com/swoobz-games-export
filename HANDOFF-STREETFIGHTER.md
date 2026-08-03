@@ -58,7 +58,16 @@ One used the 1.8333 fallback (→607px box), one traced the runtime override (�
 right; `FightExperience.tsx:2111` is unconditional. **A CSS custom-property fallback is not the live
 value — find the override before you compute anything on it.**
 
-### ⚠ 3. `ir56-lion-serpent` — THE THROW LABELS ARE SWAPPED IN THE LEDGER AND IN `fire-queue.mjs`
+### ⚠ 3. `ir56-lion-serpent` — A RAW-vs-ENGINE NAMING COLLISION (and I first wrote this up wrong)
+
+> **CORRECTION, made before acting on it.** I first published this section as *"the throw labels are
+> swapped in the ledger AND in `fire-queue.mjs`"* and made "fix the label mapping" the top item in
+> §10. **`fire-queue.mjs` is correct and must not be changed.** Its `STATES` table maps ENGINE state
+> names to wired webm basenames (`attack_throw`→`attack-throw`, `attack_throw_b`→`attack-throw-b`).
+> `public/assets/characters/ir56-lion-serpent/` has no `attack-throw-b.webm`, so reporting
+> `attack_throw_b` as missing is exactly right. **The collision is between two naming schemes, not a
+> bug**, and I nearly "fixed" a working tool — the same manufacture-a-contradiction failure §8
+> catches the agents doing. The substance below stands; only the blame moved.
 
 SESSION 24 §10.7 says ir56's missing clip is `attack_throw_b` and that "the raw is already on disk",
 implying a wire-it-or-not call. **Both halves are wrong.** Proven by hash:
@@ -80,9 +89,20 @@ containment ruling and it is not Tim's call — containment was never its blocke
 torso-locked, arm-only **re-roll**, which is blocked with everything else. Its containment would pass
 as-is with a routine 48px top feather.
 
-⚠ **A cycle was spent this session chasing the wire-it-or-not question that this mislabel invented.**
-`fire-queue.mjs` still prints `ir56-lion-serpent → attack_throw_b`. **Fixing that label mapping is a
-real, no-account tooling task and it is the single highest-value thing left on the board.**
+**THE COLLISION, STATED ONCE SO NOBODY RE-DERIVES IT.** The raw suffixes `_a`/`_b` do **not** map
+positionally onto the engine's `attack_throw`/`attack_throw_b` for this character:
+
+```
+raw throw_b.mp4  --keyed-->  attack-throw.webm    ->  engine attack_throw     SHIPPED
+raw throw_a.mp4  --FAILED QA, never keyed-->          engine attack_throw_b   MISSING
+```
+
+`src/characters/ir56-lion-serpent.ts:28` says so in the source: *"`attack_throw` ships a SINGLE take
+(the shoulder-barge, source throw_b)."* **Read that line before touching ir56's throws.**
+
+⚠ **A cycle was spent this session on a wire-it-or-not question that SESSION 24 §10.7 invented** by
+writing "ir56's last clip, `attack_throw_b`, whose raw is already on disk". A raw IS on disk; it is
+the wrong one, and it is the one that failed. **The fix is this paragraph, not a code change.**
 
 ### ⚠ 4. `kitsune-tanto` — THE FRAMING IS INVERTED. THE PLATE IS NOT THE ODD ONE OUT.
 
@@ -201,15 +221,23 @@ findings live here.
 ### ▶ 10. WHAT TO DO NEXT, IN ORDER
 
 1. **Do not fire, do not key, do not touch `public/assets/`.** Six rulings in §1 say so.
-2. **Fix the `ir56` throw label mapping in `fire-queue.mjs`** (§3). No account, and it is currently
-   sending every session after a clip that failed QA. Highest-value item on the board.
-3. **Fix `fire-queue.mjs`'s kitsune raw count** — it counts `kitsune-matte-test.mp4` and the
-   byte-identical `idle-v3`, reporting 13 where there are 11 distinct (§4).
+2. **Do NOT "fix" `fire-queue.mjs`.** It is correct on both counts I suspected. See the correction
+   box in §3. Its only real inaccuracy is cosmetic: the parked-raw count matches on the short slug
+   (`kitsune-`), so it counts `kitsune-matte-test.mp4` and reports **13** where there are 12 files
+   and **11 distinct** clips. The loose match is deliberate (it is what makes `lich-scythe` find
+   `lich-*`), so tightening it risks the matches it exists for. **Low value, real risk — left alone
+   on purpose.**
+3. **Scan ir56's other 11 shipped clips** for the flame-amputation edge-run defect (§5.2). Only the
+   throw pair was checked, it is a read-only measurement, and it needs no account. **This is now the
+   highest-value available item.**
 4. **Re-price the fill work against 621.5px + contain** (§2) if and when the plate holds re-open.
    `MK-FINAL-WAVE2-SCREEN.md`'s ratios are all computed on 560.
-5. **Scan ir56's other 11 shipped clips** for the flame-amputation edge-run defect (§5.2) — only the
-   throw pair was checked, and it is a read-only measurement.
-6. When Tim restarts generating: SESSION 24 §11 is still the right fire order.
+5. When Tim restarts generating: SESSION 24 §11 is still the right fire order.
+
+⚠ **A note on items 2 and 3: I wrote the first version of this list with item 2 as "fix the label
+mapping, highest-value item on the board." It was wrong, and I found it by opening the tool instead
+of trusting my own write-up from twenty minutes earlier.** Whatever this list says next session,
+verify it against the code before you spend a cycle on it.
 
 ---
 
