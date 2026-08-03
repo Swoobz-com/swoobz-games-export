@@ -839,3 +839,45 @@ points to a designed rule rather than a coincidence. One 1080p render still conf
   comes from the existing tight-crop still convention (all are 900px tall, varying widths).
 - **This changes no verdict.** golem-mace / nurikabe-shield / violet-contract remain TIM in
   ROSTER-VERDICTS.json, and `may-i-write-kit.mjs` still refuses them.
+
+---
+
+## ★ `iron-vow` — THE WEAPON-CLASH RULING, MADE CHEAP (phase 223, 2026-08-03)
+
+`iron-vow` is held as *"duplicate WEAPON class (collides with oni-tetsubo); recorded as a Tim call
+rather than an auto-reject"*. It is the ONLY held character whose blocker is not fill, so nothing in
+phases 217-222 touched it. Both plates were rendered side by side at size and compared.
+
+**The collision is real, and it is weapon-family ONLY:** both carry a two-handed blunt club of
+similar length, held forward. That is exactly what the verdict says.
+
+**Everything else is maximally distinct — this is the roster's WEAKEST collision, not its strongest:**
+
+| | oni-tetsubo | iron-vow |
+|---|---|---|
+| body | bare-chested horned oni, rope harness, plated loincloth, **barefoot** | bald scarred human, **metal jaw-guard**, layered black plate, boots |
+| back | nothing | **hooded mantle/cape** with a white crescent sigil |
+| palette | saturated warm **RED** | desaturated **BLACK/GREY** |
+| weapon detail | tapering wooden shaft, pale **organic tusk-spikes** | straight iron cylinder, regular **blunt metal studs** |
+| angle held | low across the body, angled down-forward | raised diagonally up-forward |
+
+At 560px deploy size the two read apart instantly — horns + red skin versus cape + bald head. Compare
+the collisions that WERE auto-rejected: `Tengu Naginata` (same weapon **and** same archetype as raiju)
+and `Horned Ruin Vex` (same red horned demon as oni). Those share the creature idea. iron-vow shares
+only the weapon family with an entirely different creature — which is precisely why it was recorded
+as a Tim call instead of an auto-reject. That instinct looks right.
+
+**AND IT HAS NO OTHER BLOCKER.** Re-measured this phase:
+
+```
+check-plate-key        opaque 12.70% · emis 0.05% · p99 5.1 · max 70 · KEYS WITH MARGIN
+measure-anchor-budget  1536x1536 · subject 812w x 1044h · fills 68.0%  (STANDARD fill, no Tier C)
+screen-glow-survival   136/136 emissive px survive = 100%  (no meaningful lit feature)
+```
+
+Standard 0.68 fill, roomy L362/R362 margins, cleanest p99 of the held set, no emissive risk. **If the
+ruling is "distinct enough", iron-vow is kit-ready the same day with nothing else to fix** — unlike
+golem-mace and nurikabe-shield, which would still carry their fill question.
+
+Unchanged: **this is ruling INPUT, not a ruling.** `iron-vow` stays TIM in ROSTER-VERDICTS.json and
+`may-i-write-kit.mjs` still refuses it.
