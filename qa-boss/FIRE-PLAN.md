@@ -503,8 +503,15 @@ Regression-checked: nonexistent -> exit 2, real character -> exit 0, both unchan
 **RESIDUAL NOISE — NAMED, NOT TUNED.** Reading all 19 surviving detached-effect findings, some are
 still false. Left alone deliberately: each needs a judgement call, and over-narrowing this gate buys
 a false NEGATIVE, which is far worse than noise. The families:
-1. **Negation under-reach.** *"none ever hangs **in the air**, none travels sideways away from her"* is
-   the prompt FORBIDDING the thing; `negated()` did not catch it.
+1. ~~**Negation under-reach.**~~ **FIXED (phase 230c).** *"none ever hangs **in the air**, none travels
+   sideways away from her"* is the prompt FORBIDDING the thing, and it was reported as the offence.
+   Cause was one missing word: the negation vocabulary was `not|never|no|nothing|does not|doesn't|
+   without` and **"none" was absent** — `no` cannot match "none". Added the universal negators
+   (`none|neither|nor|cannot|can't`); each is unambiguously negative so none can suppress an
+   AFFIRMATIVE placement, and the tight 40-char no-period-crossing window is unchanged.
+   **31 -> 30 BLOCK, exactly one finding removed, none added.** The control that proves it did not
+   over-reach: the AFFIRMATIVE finding in the SAME character, same kind, adjacent state — *"talismans
+   forward that flare bright and burn away in the air in front of her"* — is still correctly flagged.
 2. **Body-anchored without the word "own".** *"beside her **planted foot**"*, *"in front of her
    **front talon**"* — anchored to the fighter, but the "own" test misses them.
 3. **Held-weapon cues outside the HELD_CUE list.** *"war-fan **open** beside her again"* — "open" is

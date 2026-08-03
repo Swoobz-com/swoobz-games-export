@@ -68,9 +68,15 @@ function checkCharacter(id) {
     const low = body.toLowerCase();
     // NOTE: a prompt may legitimately NEGATE a banned word ("NOT a beam", "no projectile").
     // Only flag an occurrence that is NOT inside a negation window.
+    // "none" was MISSING from this list (phase 230c) and `\bno\b` cannot match it, so
+    // "none ever hangs IN THE AIR, none travels sideways away from her" — the prompt explicitly
+    // FORBIDDING the detached effect — was read as affirmative and reported as a violation. A gate
+    // that flags a prohibition as the offence is backwards. Added the universal negators only
+    // (none/neither/nor/cannot/can't): each is unambiguously negative, so none of them can suppress
+    // an AFFIRMATIVE placement, and the tight 40-char, no-period-crossing window is unchanged.
     const negated = (idx) => {
       const win = low.slice(Math.max(0, idx - 40), idx);
-      return /\b(not|never|no|nothing|does not|doesn't|without)\b[^.]*$/.test(win);
+      return /\b(not|never|no|none|neither|nor|nothing|cannot|can't|does not|doesn't|without)\b[^.]*$/.test(win);
     };
 
     // WORD-BOUNDARY match (plain indexOf gave false positives: "absorbs" -> "orb",
