@@ -194,6 +194,37 @@ window accordingly: it is worth hundreds of clips, and the bottleneck is now QA,
 **`use_unlim: true` on every call, never credits.** A request that cannot be served free is REJECTED,
 never silently charged.
 
+## ✔ HARVEST IS VERIFIED END-TO-END AGAINST A REAL JOB (phase 249)
+
+`qa-boss/harvest.mjs` is the FIRST tool that runs after a successful fire, it was patched in phase
+229, and the patch had never been exercised. Tested now against a real completed generation on the
+account (an existing job — no credits, no new render):
+
+```
+node qa-boss/harvest.mjs bdfd5379-2faf-4305-985d-5289670185e7 out.mp4 \
+     --at 1785363083 --back 5 --fwd 5 --tries 2 --user user_3FzP62OkeSn8OYHW3kjt3xDrWKK
+  -> READY  ts=1785363083  3119369 bytes  round 1  (6 URLs tried)   exit 0
+  -> ffprobe: h264 960x960 97 packets      (a genuine 4s/24fps clip, not an error page)
+```
+
+**All four paths verified:**
+- **The phase-229 `--user` fix works.** `--user` parses correctly BOTH before and after the
+  positionals — the old parser would have swallowed `--user user_ABC` as the jobId.
+- **URL derivation is correct** — jobId + `createdAt` + user prefix resolves to the real CDN object.
+- **Guards exit 2**: bad uuid · missing outFile · nonsensical scan window.
+- **The wrong-account trap fires as designed.** Run WITHOUT `--user` (i.e. on the default) against a
+  job that lives on the other account and every URL 404s — and the timeout names the ACCOUNT as
+  suspect #1, which is the whole point: a 404 is this poll's normal case, so "wrong prefix" and
+  "not finished yet" are otherwise indistinguishable.
+
+⚠ **`DEFAULT_USER` is `user_3HFAtp47…`, which is NOT the account this session keeps landing on**
+(`user_3FzP62O…`). That default is the account FIRE-PLAN records as the one where unlim works, so it
+is not wrong — but **pass `--user` explicitly unless you have just confirmed the prefix**, and read
+the id out of the path segment after the host in any `show_generations` CDN url.
+
+(Incidental cross-check: the harvested clip is **960x960**, independently confirming SESSION 24 §3 —
+`resolution` is a PIXEL BUDGET and a 1:1 "720p" is 960x960, not 720.)
+
 ## ★ THE PRESET RECOMMENDER KEYS ON THE PROMPT, NOT THE CHARACTER (corrected phase 119)
 
 Session 17 recorded it as character-consistent — *"eclipse always suggests DROWN IN MUSIC,
