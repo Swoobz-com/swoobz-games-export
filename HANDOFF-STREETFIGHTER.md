@@ -3573,8 +3573,33 @@ ENTIRE character presentation**, permanently. On a 1920x1080 viewport the curren
 on a high-DPI display sees a soft character for the whole match, with the sharper pixels sitting
 unused on disk.
 
-**THE FIX IS FREE — no generation, no account.** Re-export each still from its existing anchor plate
-at the plate's native subject height instead of ~830px. hollow-pale is excluded (nothing to gain).
+**THE FIX IS FREE — no generation, no account.**
+
+**⚠ CORRECTED (phase 225): the first version of this entry named the wrong source and the wrong
+remedy.** It said "re-export each still from its existing anchor plate". The stills do not come from
+the anchor plates at all — they come from **Tim's supplied green-screen art** in
+`input/characters/playable characters/npc boss/`, via `scripts/key-enemies.mjs`. Re-exporting from a
+plate would also bypass that script's green-despill and inward-feather passes, which is how the soft
+matte edge is kept clean.
+
+**The real cause is ONE HARDCODED CONSTANT**, `scripts/key-enemies.mjs:390`:
+
+```js
+ffmpeg([... '-vf', 'scale=-1:900:flags=lanczos', ...])   // and the header documents "height 900"
+```
+
+The supplied source art is **1536px tall** (`IR-48 Hex Paper Lord.png` 1124x1536, `Sora Yari.png`
+2084x1536, `Kitsune Tanto.png` 1468x1536, `Thorn_Warden.png` 1536x1536). Scaling to 900 is a factor
+of **0.586 — so the stills discard 41% of the source's linear resolution**, slightly worse than the
+plate-based estimate in the table above.
+
+**THE FIX:** raise that one constant (1440 keeps the full source detail without exceeding it), then
+re-run `node scripts/key-enemies.mjs`. Deterministic, local, no account. It regenerates the QA sheets
+in `qa-phase20/shots/` too, so the despill/halo result stays verifiable.
+
+**Left unchanged on purpose.** Editing the constant without running it would make code and shipped
+assets disagree, and running it rewrites 12 accepted webps — so both halves are one atomic yes from
+Tim, not a loop action. hollow-pale still gains nothing (its own source is the 720² outlier).
 
 Related: the viewport analysis this depends on is in `qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md`
 (phases 217-222) — the same measurement showing the CLIPS also upscale above 1080p, which is a
