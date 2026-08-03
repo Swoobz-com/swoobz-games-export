@@ -22,6 +22,11 @@
 //                    or odds change is verified.
 //   --until <js>     PLAY (cycling STRIKE/THROW/BLOCK) until this page expression is truthy.
 //   --picks <n>      how many picks to try before giving up (default 40).
+//   --burst <n>      after --until fires, grab n frames back-to-back as out-01.png..out-NN.png and
+//                    print each one's video currentTime. For judging a MOTION defect: a hard edge
+//                    that is obvious frozen may be invisible sweeping past in 5 frames. Screenshots
+//                    are ~100-300ms apart, NOT 24fps — the printed timestamps say what was actually
+//                    sampled, so never claim frame-accurate coverage from this.
 //   --clip x,y,w,h   crop region in CSS px. Omitted = full viewport.
 //   --dpr <n>        deviceScaleFactor (default 2 — you are inspecting ~20px HUD marks).
 //   --keep           leave the browser open (debugging).
@@ -109,14 +114,40 @@ if (untilExpr) {
 }
 
 const clip = opt('clip', null);
+let shotOpts = {};
 if (clip) {
   const [x, y, w, h] = clip.split(',').map(Number);
   if ([x, y, w, h].some((v) => !Number.isFinite(v)) || w <= 0 || h <= 0) {
     console.error('ERROR: --clip must be x,y,w,h with w,h > 0'); await browser.close(); process.exit(2);
   }
-  await page.screenshot({ path: out, clip: { x, y, width: w, height: h } });
+  shotOpts = { clip: { x, y, width: w, height: h } };
+}
+
+const burst = opt('burst', null);
+if (burst) {
+  const n = Number(burst);
+  if (!Number.isFinite(n) || n < 2 || n > 40) {
+    console.error('ERROR: --burst must be 2..40'); await browser.close(); process.exit(2);
+  }
+  // Report the PLAYING clip's currentTime beside each frame, so the real temporal spacing is
+  // visible and nobody mistakes this for frame-accurate capture.
+  // MUST filter to /characters/ — the arena ambient loop (assets/arenas/<id>-loop.mp4) is also a
+  // visible, playing <video>, and a naive "first playing video" probe reports ITS currentTime.
+  // First run of this did exactly that and printed gorge-loop.mp4 timestamps for a character beat.
+  const t = () => page.evaluate(() => {
+    const v = [...document.querySelectorAll('video')]
+      .filter((x) => (x.currentSrc || '').includes('/characters/'))
+      .find((x) => Number(getComputedStyle(x).opacity) > 0.5 && !x.paused && x.currentTime > 0);
+    return v ? { t: +v.currentTime.toFixed(3), src: (v.currentSrc || '').split('/').pop() } : null;
+  });
+  for (let i = 1; i <= n; i++) {
+    const f = out.replace(/\.png$/i, `-${String(i).padStart(2, '0')}.png`);
+    const before = await t();
+    await page.screenshot({ path: f, ...shotOpts });
+    console.log(`  ${String(i).padStart(2)}  t=${before ? before.t.toFixed(3) + 's' : '—'}  ${before ? before.src : '(no clip playing)'}`);
+  }
 } else {
-  await page.screenshot({ path: out });
+  await page.screenshot({ path: out, ...shotOpts });
 }
 if (!has('keep')) await browser.close();
 console.log(`wrote ${out}  (dpr ${dpr}${clip ? `, clip ${clip}` : ''})`);
