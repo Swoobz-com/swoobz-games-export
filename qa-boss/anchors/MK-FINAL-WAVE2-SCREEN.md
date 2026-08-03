@@ -716,6 +716,40 @@ Seedance `mode:'std'` supports 1080p, which gives a 1440 square (see the pixel-b
 | nurikabe-shield | 0.55 | 792 | 1.41x | just under eclipse's 1.47x |
 | golem-mace | 0.50 | 720 | 1.29x | still lowest, but above today's 0.68@720p |
 
+### ✔ AND THE EYE SAYS THE 0.68 GAP DOES NOT SHOW (phase 221)
+
+The table above is arithmetic. Arithmetic is not the decision, so the gap was rendered and LOOKED at:
+a shipped boss and a shipped MK character, each scaled to its true 560px on-screen height, side by
+side at full size.
+
+```
+hollow-pale idle.webm  890px character -> 560px   headroom 1.58x   (boss, accepted)
+lich-scythe idle.webm  660px character -> 560px   headroom 1.17x   (MK, standard 0.68 fill)
+```
+
+**No visible resolution deficit in the MK character.** At deploy size the lich's chain links,
+individual toes, robe tatters, crown filigree and scythe-blade edge all read crisply — fully
+competitive with the boss beside it. Both are DOWNSCALES (>1.0x), so nothing is being upscaled at
+standard fill; 1.17x simply spends less of its surplus than 1.58x does.
+
+**This narrows the question rather than answering it.** The fill concern is arithmetically real and
+visually absent AT 0.68. So:
+- **standard 0.68 MK needs no rescue** — a 1080p re-render of the whole wave buys headroom nobody
+  can see, and its unlim coverage is unknown anyway.
+- the live question is only the two that fall BELOW 1.0x and are genuinely upscaled on screen:
+  **nurikabe-shield (0.94x)** and **golem-mace (0.86x)**. violet-contract at 1.06x is a downscale
+  and by this evidence is very likely fine.
+- **Still Tim's call** — this changes no verdict and the guard still refuses all three.
+
+Caveat kept honest: one character pair, one frame, one viewport. It is strong evidence that 1.17x is
+safe, not proof that 0.86x is not. The two upscaled plates were NOT tested this way, because neither
+has a clip to test.
+
+Incidental, recorded but not investigated: at FULL size hollow-pale's idle shows faint coloured
+speckling along the thin bone spurs of the wing arm (chroma fringe on high-frequency structure). It
+is not visible at 560px deploy size. Its black lower body was checked and is ART, not a key artifact
+— tufted silhouette, internal value variation, legs emerging correctly beneath.
+
 **⚠ ONE UNRESOLVED DEPENDENCY ON THIS LEVER.** Whether `1080p` is inside the *unlim-covered configs*
 cannot be determined from this account: `models_explore` returns no "Unlim configs" list while
 `unlim.available` is false. If 1080p is not covered, the remedy costs credits and the ruling changes
