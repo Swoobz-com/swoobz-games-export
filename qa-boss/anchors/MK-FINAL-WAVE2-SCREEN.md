@@ -750,6 +750,50 @@ speckling along the thin bone spurs of the wing arm (chroma fringe on high-frequ
 is not visible at 560px deploy size. Its black lower body was checked and is ART, not a key artifact
 — tufted silhouette, internal value variation, legs emerging correctly beneath.
 
+### ✔ THE 0.86x CASE, TESTED BY SIMULATION — AND THE VIEWPORT DOMINATES IT (phase 222)
+
+Phase 221 closed 1.17x by rendering it, and stated its own limit: *"strong evidence 1.17x is safe,
+NOT proof 0.86x is not"* — because neither upscaled plate has a clip. That gap is now closed by
+SIMULATION off a clip that does exist: take the boss's 882px character, downscale to what each fill
+would have delivered (`fill x 960`), then scale back to the 560px deploy size. Same pixel budget, real
+detail to spend.
+
+```
+A  REF   fill 0.919 -> 882px -> 560   headroom 1.58x
+B        fill 0.68  -> 653px -> 560   headroom 1.17x
+C        fill 0.55  -> 528px -> 560   headroom 0.94x   (upscaled)
+D        fill 0.50  -> 480px -> 560   headroom 0.86x   (upscaled)
+```
+
+**At true deploy size all four are indistinguishable to me.** At **3x zoom** the ladder degrades
+monotonically and plainly: by C the teeth blur into a mass and the rib striations flatten, D is
+softest. So the loss is real and ordered — it simply lives below the threshold the game renders at.
+
+### AND THEN THE NUMBER THAT REFRAMES THE WHOLE HOLD
+
+On-screen character height scales with the viewport, so headroom does too:
+
+| viewport | fighter box | on-screen char | boss 0.919 | MK 0.68 | 0.55 | 0.50 |
+|---|---|---|---|---|---|---|
+| 1920x1080 | 607 | 561 | **1.57x** | 1.16x | 0.94x | 0.85x |
+| 2560x1440 | 810 | 749 | **1.18x** | 0.87x | 0.71x | 0.64x |
+| 3840x2160 | 1215 | 1123 | **0.79x** | 0.58x | 0.47x | 0.43x |
+
+**The shipped, accepted bosses are themselves upscaled on any display above 1080p** — 0.79x at 4K.
+And moving 1080p -> 4K costs a boss 0.78x of headroom, which is MORE than the entire fill gap between
+a boss and golem-mace at 1080p (0.72x).
+
+**So the display the game is played on affects delivered sharpness more than the fill choice does,**
+and "upscaled on screen" is already a shipped and accepted condition. That does not make 0.50 free —
+it makes it second-order, and it means any bar applied to fill has to be stated per-viewport or it is
+not a bar at all.
+
+**⚠ THIS IS A LOWER BOUND ON THE DAMAGE, NOT A VERDICT.** The simulation models *pixel-count* loss
+only. A real 0.50-fill generation also gives the MODEL less room to draw into, and it will very
+likely put less detail there in the first place — a loss this method cannot show. C and D are
+downscaled REF pixels, not renders. Genuine confirmation still needs one real low-fill clip.
+Unchanged: still Tim's call, no verdict moved, the guard still refuses all three.
+
 **⚠ ONE UNRESOLVED DEPENDENCY ON THIS LEVER.** Whether `1080p` is inside the *unlim-covered configs*
 cannot be determined from this account: `models_explore` returns no "Unlim configs" list while
 `unlim.available` is false. If 1080p is not covered, the remedy costs credits and the ruling changes
