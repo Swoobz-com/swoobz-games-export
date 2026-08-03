@@ -163,6 +163,11 @@ ruling.**
    > **Phase 242: all 3 checked are VISIBLE at true deploy size over their real arena** — the arena
    > makes it worse, not better (high-contrast effect on a dark backdrop, and the clip's bounding
    > box reads as a pale rectangle). So the fix IS worth doing when asset work reopens.
+   > **Phase 243 measured DWELL, and it reorders them:** ir56 `special-c` 208ms · ir56
+   > `attack-throw` 208ms · `lady-kurotachi/attack-strike` 167ms · ir56 `special-b` 125ms ·
+   > **`thorn-warden/attack-block` 42ms — ONE frame** (0→255→0, verified per-frame), so the most
+   > dramatic still in the set is probably imperceptible in play. Run length is NOT the severity
+   > order.
    > ⚠ Phase 236's "~860px from any screen edge" is wrong — the cuts land 54-97px from the right
    > screen edge; it still does not excuse them.
 

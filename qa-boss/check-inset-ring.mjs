@@ -88,12 +88,15 @@ if (!files.length) {
 function probe(file) {
   const r = spawnSync('ffprobe', [
     '-v', 'error', '-select_streams', 'v:0',
-    '-show_entries', 'stream=width,height,nb_read_packets',
+    '-show_entries', 'stream=width,height,r_frame_rate,nb_read_packets',
     '-count_packets', '-of', 'csv=p=0', file,
   ], { encoding: 'utf8' });
   if (r.status !== 0) return null;
-  const [w, h, n] = r.stdout.trim().split(',').map(Number);
-  return Number.isFinite(w) && Number.isFinite(h) ? { w, h, packets: n || 0 } : null;
+  const parts = r.stdout.trim().split(',');
+  const w = Number(parts[0]), h = Number(parts[1]);
+  const [fn, fd] = String(parts[2] || '24/1').split('/').map(Number);
+  const fps = fd ? fn / fd : 24;
+  return Number.isFinite(w) && Number.isFinite(h) ? { w, h, fps: fps || 24 } : null;
 }
 
 /** Longest run of value>=OPAQUE, and the max, over an array of alpha samples. */
@@ -138,10 +141,16 @@ for (const file of files) {
 
   // Per-inset, PER-EDGE aggregate across ALL frames: max alpha, longest opaque run, peak frame.
   // Per-edge matters because the BOTTOM edge is a legitimate special case (below).
-  const agg = INSETS.map(() => ({
-    TOP: { max: 0, run: 0, frame: -1 }, BOT: { max: 0, run: 0, frame: -1 },
-    LEFT: { max: 0, run: 0, frame: -1 }, RIGHT: { max: 0, run: 0, frame: -1 },
-  }));
+  // DWELL (phase 243) — added because the in-motion axis could not be closed in a browser.
+  // A wall on screen for 1 frame flashes past; one held for 8 is a feature of the beat.
+  //   framesOver = TOTAL frames over threshold on that edge
+  //   maxBurst   = longest CONTIGUOUS stretch  <- this is what a player actually experiences
+  //   bursts     = how many separate times it appears
+  // ⚠ Report maxBurst, not framesOver. The first cut of this metric summed non-contiguous frames
+  // and reported ir56/attack-throw as "8f/333ms" when it is really TWO events (f26-30 cleaver,
+  // f46-48 flame) whose longest stretch is 5f/208ms. Verified against a per-frame dump.
+  const mk = () => ({ max: 0, run: 0, frame: -1, framesOver: 0, cur: 0, maxBurst: 0, bursts: 0 });
+  const agg = INSETS.map(() => ({ TOP: mk(), BOT: mk(), LEFT: mk(), RIGHT: mk() }));
 
   for (let f = 0; f < frames; f++) {
     const off = f * frameSize;
@@ -159,6 +168,11 @@ for (const file of files) {
         const A = agg[ii][name];
         if (s.max > A.max) A.max = s.max;
         if (s.run > A.run) { A.run = s.run; A.frame = f; }
+        if (s.max >= OPAQUE && s.run >= CUT_RUN) {
+          A.framesOver++; A.cur++;
+          if (A.cur === 1) A.bursts++;
+          if (A.cur > A.maxBurst) A.maxBurst = A.cur;
+        } else A.cur = 0;
       }
     }
   }
@@ -173,10 +187,11 @@ for (const file of files) {
   // and gets ignored.
   const JUDGED_EDGES = ['TOP', 'LEFT', 'RIGHT'];
   const cutRing = agg[INSETS.indexOf(CUT_INSET)];
-  let worst = { edge: '-', max: 0, run: 0, frame: -1 };
+  let worst = { edge: '-', max: 0, run: 0, frame: -1, framesOver: 0 };
   for (const e of JUDGED_EDGES) {
     if (cutRing[e].run > worst.run) worst = { edge: e, ...cutRing[e] };
   }
+  worst.dwellMs = Math.round((worst.maxBurst / (meta.fps || 24)) * 1000);
   const noFeather = worst.max >= OPAQUE;              // binary: opaque AT the border
   const isCut = noFeather && worst.run >= CUT_RUN;    // and enough of it to read as a wall
   const isWatch = noFeather && !isCut;
@@ -209,7 +224,11 @@ if (JSON_OUT) {
     if (r.error) { console.log(name.padEnd(44) + `ERROR: ${r.error}`); continue; }
     const cells = r.rings.map((g) => `${g.judged.max}/${g.judged.run}`.padEnd(10)).join('');
     const b = r.rings[INSETS.indexOf(CUT_INSET)].bot;
-    const v = r.cut ? `FLAT  ${r.worst.edge} run${r.worst.run} @f${r.worst.frame}`
+    const dwell = r.worst.maxBurst
+      ? `  dwell ${r.worst.maxBurst}f/${r.worst.dwellMs}ms` +
+        (r.worst.bursts > 1 ? ` (${r.worst.bursts} bursts, ${r.worst.framesOver}f total)` : '')
+      : '';
+    const v = r.cut ? `FLAT  ${r.worst.edge} run${r.worst.run} @f${r.worst.frame}${dwell}`
       : r.watch ? `watch ${r.worst.edge} run${r.worst.run} @f${r.worst.frame}` : 'clean';
     console.log(name.padEnd(44) + `${r.w}x${r.h}`.padEnd(10) + cells + `${b.max}/${b.run}`.padEnd(11) + v);
   }

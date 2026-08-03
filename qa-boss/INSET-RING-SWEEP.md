@@ -181,14 +181,56 @@ never contain-fitted, and `cal.h` routinely exceeds 100% (110-131% across these 
 **contain-reasoning applies to the still and NOT to the clip.** Use the cal when computing anything
 about a clip on screen.
 
+## ⏱ DWELL — how long the wall is actually on screen (phase 243)
+
+The browser extension has been unavailable all session, so the in-motion axis could not be closed by
+playing the game. But most of it is answerable from the clip itself: **how many CONSECUTIVE frames
+carry the wall?** `check-inset-ring.mjs` now reports it (`dwell Nf/Nms`), at each clip's own fps.
+
+| clip | run | **dwell (longest burst)** | bursts |
+|---|---|---|---|
+| ir56-lion-serpent/special-c | 432 | **5f / 208ms** | 1 |
+| ir56-lion-serpent/attack-throw | 137 | **5f / 208ms** | 2 (8f total: f26-30 cleaver, f46-48 flame) |
+| lady-kurotachi/attack-strike | 250 | **4f / 167ms** | 1 |
+| ir56-lion-serpent/special-b | 361 | **3f / 125ms** | 1 |
+| **thorn-warden/attack-block** | 314 | **1f / 42ms** | 1 |
+
+### ⚠ RUN LENGTH AND DWELL ARE ANTI-CORRELATED — the severity order was wrong
+
+The clip with the SHORTEST run (`ir56/attack-throw`, 137px) has the LONGEST dwell, and the clip with
+the second-LONGEST run (`thorn-warden/attack-block`, 314px) is on screen for **one frame**. Ranking
+by run length — which is what every table above this section does — is **not** the order a player
+experiences.
+
+**`thorn-warden/attack-block` is a true single-frame event**, verified with a per-frame dump rather
+than inferred from a threshold: max alpha at the right border is **0 on f40-47, 255 on f48, 0 on
+f49-58**. It does not ramp in or out. At 24fps that is 42ms with nothing either side, so despite
+being the most dramatic STILL in this whole investigation it is likely **imperceptible in play**.
+The other four sit at 125-208ms, which is comfortably perceptible.
+
+**Fix priority, if it is ever partial:** ir56 `special-c` and `attack-throw` first, then
+`lady-kurotachi/attack-strike`, then ir56 `special-b`. `thorn-warden/attack-block` last, and it may
+not be worth touching at all.
+
+### ⚠ AND THE FIRST CUT OF THIS METRIC WAS ITSELF WRONG
+
+It initially summed TOTAL frames over threshold and reported `ir56/attack-throw` as **8f / 333ms**.
+That clip is really TWO separate events — a cleaver at f26-30 and a flame at f46-48 — whose longest
+continuous stretch is 5 frames. **A player experiences contiguity, not a total**, so the metric now
+reports the longest BURST and flags the burst count separately. Caught by dumping the per-frame
+profile instead of trusting the aggregate, which is the same check that caught the threshold-artifact
+question one paragraph up.
+
 ## What is still NOT established
 
 - 30 of the 47 no-feather clips remain unviewed — all WATCH tier, all run < 100, and the two lowest-
   risk of them were the two just checked. Low residual risk, but not zero.
-- ~~Nothing was checked in-arena or at device truth.~~ **DONE, phase 242** (see above) — but still
-  **STATIC peak frames only**. Nothing has been judged IN MOTION. A cut that is obvious frozen may
-  read differently when it flashes past in ~4 frames, and the browser extension was unavailable to
-  drive the real page. This is the last unclosed axis and it needs a live browser, not ffmpeg.
+- ~~Nothing was checked in-arena or at device truth.~~ **DONE, phase 242.**
+- ~~Nothing has been judged in motion.~~ **PARTLY DONE, phase 243** — dwell is now measured per clip
+  (above), which answers "does it flash past or dwell" quantitatively. **What is still missing is a
+  human watching it play**: 167ms of a hard edge sweeping across a moving stage may read differently
+  from 167ms held still, and perceptibility also depends on what the eye is tracking at that moment.
+  That needs a live browser; the Chrome extension has been disconnected for this entire session.
 - **The 32 WATCH clips are a to-look-at list, not a defect count.** Do not quote that number.
 - **The BOTTOM edge is excluded from every verdict** — these clips are union-bbox cropped, so a
   standing character's feet sit exactly on the bottom border, and judging BOT flagged every clean
