@@ -65,6 +65,13 @@ entire character. **Not actioned — it rewrites 12 accepted webps.** See §5 ba
 - **The kit queue is exhausted under the guard:** every `WRITE`-verdict plate already has a kit. The
   9 without one are 5 REJECTED + 4 TIM.
 - **All four TIM calls now have decision-ready packages** — nothing is waiting on more analysis.
+- **The shipped clip corpus is sound:** all **118** webms under `public/assets/characters/` decode
+  without error, carry `alpha_mode=1`, and have >=24 packets (97 frames @24fps = the 4s clip). Swept
+  phase 228; no need to re-run.
+  > ⚠ **Do NOT test alpha via `pix_fmt`.** A VP9 alpha webm reports `pix_fmt=yuv420p`, not
+  > `yuva420p` — the alpha rides in a separate out-of-band track. That assertion flagged **119 of 119
+  > clips as broken**, all of them fine. Probe `ffprobe -show_entries stream_tags=alpha_mode` (expect
+  > `1`). A 100% result in EITHER direction is an instrument error, not a finding.
 
 ### BOSS STATE
 6 of 9 bosses are 13/13 (hollow-pale · satoshi-odachi · eclipse-ofuda · ir37-pink-tessen ·
