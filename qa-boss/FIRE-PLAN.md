@@ -381,12 +381,56 @@ worst anchor break in the roster, not trimmable (no frame reaches 0.90).
 
 ## Keying pipeline of record (inset-ring gate added phase 240)
 
+> # ⛔⛔ THIS PIPELINE IS GREEN-ONLY AND IT WILL DESTROY A MAGENTA CHARACTER ⛔⛔
+> **(phase 250 — audited by running every step on real inputs. Full report:
+> `qa-boss/TOOLCHAIN-AUDIT.md`.)**
+>
+> Until phase 250 this file contained the word "magenta" **zero times**, while listing every step
+> below unconditionally. **THREE characters are magenta-plate** — `ir56-lion-serpent`,
+> `onryo-katana`, and **`pale-choir`, which is one of the six MK FINAL kits STEP 4 fires NEXT.**
+>
+> **`cut-bloom-plate` deleted 28.06% of ir56's visible pixels — its entire green armour — and exited
+> 0**, with `check-plate-retention --plate magenta` still reporting `0.00% clean` afterwards. Its
+> test is green-family and it has no `--plate` flag. **Do not run it on ir56 / onryo / pale-choir
+> until it is plate-aware.**
+>
+> On a magenta character you must ALSO pass `--plate magenta` to `check-plate-retention` and
+> `check-frontturn` (both silently invert and report a clean full-frame otherwise), and know that
+> `screen-translucency` is hue-locked to green and cannot measure a magenta plate at all.
+>
+> **AND THE KEYER ITSELF FAILS ON hollow-pale.** `key-idle-clips` — named below — returns a
+> full-frame bbox and **16.91% BAD** plate retention on his frames (a green ring around the whole
+> frame). `key-clips-green-pinksafe.mjs` gives `776x890` / **0.00%**, which is what
+> `BRIEF-hollow-pale-wire.md` already prescribes. The brief and this pipeline disagree; the brief is
+> right for hollow-pale. ⚠ pinksafe is NOT a general keyer either — it silently greyscales a warm
+> character (kitsune's orange fox came out black-and-white).
+
 ```
 extract -> key-idle-clips --still -> check-plate-retention (BEFORE) -> green-neutralize <dir> 4
         -> cut-bloom-plate <dir> -> edge-feather (only where an edge overruns)
         -> ffmpeg VP9 yuva420p crf30 -auto-alt-ref 0
         -> node qa-boss/check-inset-ring.mjs <clip.webm>        <-- AFTER the encode, every time
 ```
+
+⚠ **`green-neutralize <dir> 4` is DESTRUCTIVE and has a non-destructive equal this file never
+mentions.** It cost kitsune **−72% of its partial-alpha (feather)** and 624k deleted px; hollow-pale
+**−29% of visible pixels**. `scripts/green-despill.mjs` reached the **identical 0.00%** plate result
+on kitsune while deleting **0 px** and keeping the feather intact (verified through encode+decode).
+Prefer despill; reach for neutralize only if despill leaves plate residue.
+
+⚠ **Four exit-code liars in this chain** — `check-turn` prints "face the wrong way" and exits 0;
+`check-extra-objects` prints "EXTRA OBJECT PRESENT" and exits 0; `cmp-alpha` exits 0 after comparing
+nothing on a dims mismatch; `check-plate-retention` prints "all clean" and exits 0 while a clip is
+WATCH (1–5% band). **Read the rows, never the exit code, for these four.**
+
+⚠ **Five mutating tools exit 0 after processing ZERO frames** when handed an empty dir or a dir of
+mp4s (`green-neutralize`, `cut-bloom-plate`, `edge-feather`, `green-despill`, `magenta-neutralize`).
+In a `&&` chain a wrong path is a green light. Check the `frames=N/N` count on every step.
+
+⚠ **`check-plate-retention` measures ~100x weaker on a WEBM than on a frames dir** (same content:
+1.29% as frames, 0.00% as the webm — its internal `scale=240:-1` plus VP9 4:2:0 averages the fringe
+away). Its own "roster baseline ALL CLEAN 0.00%" was measured on webms and is **not comparable** to
+the frames-dir number this pipeline's BEFORE step produces.
 Then `node qa-boss/rederive-cal.mjs` — **the keyer's emitted `.cal.json` files are all STALE**,
 because neutralize deletes pixels after the cal is computed.
 
