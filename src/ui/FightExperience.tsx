@@ -2871,6 +2871,9 @@ export function FightExperience(): JSX.Element {
                 <button type="button" className="fr-btn" onClick={ctl.devConquerNext}>
                   CONQUER NEXT
                 </button>
+                <button type="button" className="fr-btn" onClick={ctl.devConquerAll}>
+                  CONQUER ALL
+                </button>
                 <button type="button" className="fr-btn" onClick={ctl.devResetCampaign}>
                   RESET PROGRESS
                 </button>

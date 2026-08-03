@@ -302,6 +302,9 @@ export interface FightController {
   /** DEV-ONLY force hook (force-state-hooks law): conquer the frontier node without a fight so
    *  map progression is inspectable. No money moves. UI gates this behind ?dev=1. */
   devConquerNext: () => void;
+  /** DEV-ONLY force hook: conquer EVERY node at once, so the whole playable-after-beaten roster
+   *  can be inspected in one click instead of stepping the frontier ten times. No money moves. */
+  devConquerAll: () => void;
   /** DEV-ONLY force hook: wipe campaign progress back to a fresh map. No money moves. */
   devResetCampaign: () => void;
   setStake: (lamports: bigint) => void;
@@ -1231,6 +1234,12 @@ export function useFightController(
     setCampaignBeaten(next);
   }, []);
 
+  const devConquerAll = useCallback(() => {
+    const all = new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(true);
+    campaignBeatenRef.current = all;
+    setCampaignBeaten(all);
+  }, []);
+
   const devResetCampaign = useCallback(() => {
     const fresh = new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(false);
     campaignBeatenRef.current = fresh;
@@ -1348,6 +1357,7 @@ export function useFightController(
     nextNode,
     backToMap,
     devConquerNext,
+    devConquerAll,
     devResetCampaign,
     setStake,
     stepStake,
