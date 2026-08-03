@@ -27,12 +27,24 @@
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
-const USER = 'user_3HFAtp47rDRPDwG2FFOzR2CP7fn';
+// THE ACCOUNT IS A SCAN PARAMETER, NOT A CONSTANT (phase 229). The derived URL embeds the USER, and
+// FIRE-PLAN records that the account FLIPS between sessions (at least three seen). Harvesting under
+// the wrong user prefix 404s on every single URL — and a 404 is this poll's NORMAL case, so the run
+// looks exactly like "not ready yet" and then reports a timeout that blames the window. That is the
+// same "not-yet and broken look identical" failure the header above says this file exists to stop;
+// it was hardened on the TIMESTAMP axis and left open on the ACCOUNT axis. So: --user overrides, the
+// prefix is PRINTED up front beside the window, and the timeout names the account as a suspect.
+const DEFAULT_USER = 'user_3HFAtp47rDRPDwG2FFOzR2CP7fn';
 const CDN = 'https://d8j0ntlcm91z4.cloudfront.net';
 
 const argv = process.argv.slice(2);
 const flag = (n, d) => { const i = argv.indexOf('--' + n); return i === -1 ? d : Number(argv[i + 1]); };
-const [jobId, outFile] = argv.filter((a) => !a.startsWith('--') && !/^\d+$/.test(a));
+const sflag = (n, d) => { const i = argv.indexOf('--' + n); return i === -1 ? d : argv[i + 1]; };
+const USER = sflag('user', DEFAULT_USER);
+// A positional is any arg that is not a --flag AND does not directly follow one. The old test
+// excluded flag VALUES by /^\d+$/, which silently breaks the moment a flag takes a non-numeric
+// value — `--user user_ABC` would have been swallowed as the jobId.
+const [jobId, outFile] = argv.filter((a, i) => !a.startsWith('--') && !(i > 0 && argv[i - 1].startsWith('--')));
 
 if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(jobId || '')) {
   console.error('ERROR: first argument must be a job uuid. got: ' + JSON.stringify(jobId));
@@ -56,6 +68,7 @@ const head = (url) => (spawnSync('curl', ['-s', '-o', '/dev/null', '-w', '%{http
 
 const lo = at - back, hi = at + fwd;
 console.log(`harvest ${jobId}`);
+console.log(`  user   ${USER}${USER === DEFAULT_USER ? '  (default — override with --user if the account flipped)' : '  (via --user)'}`);
 console.log(`  window ${lo}..${hi}  (${hi - lo + 1} timestamps)  ${stamp(lo)} .. ${stamp(hi)}`);
 console.log(`  tries  ${tries} rounds, ~15s apart`);
 
@@ -75,6 +88,10 @@ for (let round = 1; round <= tries; round++) {
   if (round < tries) spawnSync('sleep', ['15']);
 }
 console.error(`TIMEOUT after ${tries} rounds, ${tried} URLs tried, none returned 200.`);
-console.error('That means the job is not finished OR the window is wrong — it does NOT mean "not ready".');
-console.error('Widen with --back / --at, or read createdAt from job_status.');
+console.error('That means one of THREE things — it does NOT mean "not ready":');
+console.error(`  1. WRONG ACCOUNT. Every URL was built under ${USER}. If the session flipped accounts,`);
+console.error('     all of them 404 and this looks identical to "not finished". Read the user id out of');
+console.error('     a CDN url in show_generations and re-run with --user <id>. CHECK THIS FIRST.');
+console.error('  2. The window is wrong — widen with --back / --at, or read createdAt from job_status.');
+console.error('  3. The job genuinely is not finished.');
 process.exit(1);
