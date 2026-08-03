@@ -2485,7 +2485,7 @@
   display: flex;
   align-items: flex-end;
   gap: 0; /* lames OVERLAP — the pitch is set by the lame's negative margin below */
-  padding: calc(var(--sh) * 0.2) calc(var(--sw) * 0.22) calc(var(--sh) * 0.16) calc(var(--sw) * 0.26);
+  padding: calc(var(--sh) * 0.26) calc(var(--sw) * 0.26) calc(var(--sh) * 0.2) calc(var(--sw) * 0.3);
   /* .fr-hpbar's own lacquer backing + gold hairline, verbatim (still a fully OPAQUE cover plate).
      The bottom edge is left open so the bar's top hairline is the seam between the two rows. */
   background: linear-gradient(180deg, #12121a 0%, #07080c 100%);
@@ -2506,7 +2506,7 @@
   left: calc(var(--sw) * 0.12);
   right: calc(var(--sw) * 0.12);
   bottom: calc(var(--sh) * 0.16);
-  height: calc(var(--sh) * 1.45);
+  height: calc(var(--sh) * 2.2);
   border-radius: calc(var(--sw) * 0.04);
   background: linear-gradient(180deg, #04050a 0%, #0b0c13 100%);
   box-shadow: inset 0 calc(var(--sh) * 0.14) calc(var(--sh) * 0.22) rgba(0, 0, 0, 0.9);
@@ -2518,8 +2518,8 @@
   position: relative;
   z-index: 1; /* a socket always sits UNDER a plate, never over it */
   flex: 0 0 auto;
-  width: calc(var(--sw) * 0.72);
-  height: calc(var(--sh) * 1.45);
+  width: calc(var(--sw) * 1.05);
+  height: calc(var(--sh) * 2.2);
   /* Same lean as the p2 HP plates (clip-path 0 0, 86% 0, 100% 100%, 14% 100%). */
   transform: skewX(-33.7deg);
   border-radius: calc(var(--sw) * 0.04);
@@ -2532,7 +2532,7 @@
 }
 /* Lamellar overlap: every lame laps over the one before it. */
 .fr-shieldpip + .fr-shieldpip {
-  margin-left: calc(var(--sw) * -0.1);
+  margin-left: calc(var(--sw) * -0.15);
 }
 /* Layer 2 — the depth inside the shape: dark at the top for the socket, hidden on a full plate. */
 .fr-shieldpip::before {
