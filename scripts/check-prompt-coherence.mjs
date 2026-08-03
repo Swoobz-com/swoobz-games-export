@@ -131,11 +131,16 @@ const ids = only
   : readdirSync(PROMPT_DIR).filter((f) => f.endsWith('.md')).map((f) => f.replace(/\.md$/, ''));
 
 let blocks = 0;
+// A character we could not EVALUATE is not a character we cleared (phase 230). In bulk mode every id
+// comes from readdirSync so this can never fire; it fires only in SINGLE-character mode — which is
+// exactly the mode used to vet one character before firing it. A typo'd or hyphen/underscore-variant
+// name used to print "(no prompts file)" and then the all-clear "No BLOCK findings." and exit 0.
+let missing = 0;
 console.log('=== CHARACTER<->PROMPT COHERENCE GATE ===');
 console.log('    (a melee roster: nothing launches, throws or fires a separate object)\n');
 for (const id of ids) {
   const r = checkCharacter(id);
-  if (r.missing) { console.log(`${id}: (no prompts file)`); continue; }
+  if (r.missing) { console.log(`${id}: (no prompts file)`); missing++; continue; }
   const wields = (r.def.wields || []).join(' + ') || '(arsenal not declared)';
   const b = r.findings.filter((f) => f.level === 'BLOCK');
   const w = r.findings.filter((f) => f.level === 'WARN');
@@ -148,6 +153,13 @@ for (const id of ids) {
     if (f.fix) console.log(`           FIX: ${f.fix}`);
   }
   if (r.findings.length) console.log('');
+}
+if (missing) {
+  // Never print the all-clear over an input that was never read.
+  console.error(`\nNOT EVALUATED: ${missing} requested character(s) have no prompts file.`);
+  console.error('This is NOT a pass. Check the spelling and the hyphen/underscore form of the name,');
+  console.error(`and that the kit exists in ${PROMPT_DIR}.`);
+  process.exit(2);
 }
 console.log(blocks ? `\n${blocks} BLOCK finding(s) - fix the prompt BEFORE firing.` : '\nNo BLOCK findings.');
 process.exit(blocks ? 1 : 0);

@@ -257,6 +257,35 @@ if (has('--json')) {
   }
 }
 
+// ############################################################################################
+// # EXIT CODE (phase 230). This script had NO process.exit at all — it fell off the end, so it #
+// # returned 0 unconditionally: on a missing anchor, on an unreadable clip, and even when it   #
+// # printed its own alarm "KIT IS INTERNALLY INCONSISTENT". A gate that cannot fail cannot     #
+// # gate, and in a chain (`check-facing && next`) it waved everything through.                 #
+// #                                                                                            #
+// # Deliberately conservative: only the two conditions the script ALREADY treats as wrong get  #
+// # a nonzero code. Uniform mirroring vs the anchor stays informational — the manifest's        #
+// # `faces` field legitimately handles that, and inventing a failure there is a domain ruling   #
+// # this script has no business making.                                                        #
+// ############################################################################################
+const notEvaluated = results.filter((r) => r.error);
+const inconsistent = results.filter((r) => {
+  if (r.error || !r.rows) return false;
+  const ok = r.rows.filter((x) => !x.error);
+  const m = ok.filter((x) => x.verdict === 'MIRRORED').length;
+  return m > 0 && m < ok.length;
+});
+if (notEvaluated.length) {
+  console.error(`\nNOT EVALUATED: ${notEvaluated.length} character(s) — ${notEvaluated.map((r) => `${r.id} (${r.error})`).join('; ')}`);
+  console.error('This is NOT a pass.');
+  process.exit(2);
+}
+if (inconsistent.length) {
+  console.error(`\nFAIL: ${inconsistent.length} kit(s) internally inconsistent — ${inconsistent.map((r) => r.id).join(', ')}`);
+  process.exit(1);
+}
+process.exit(0);
+
 function declaredFaces(id) {
   const f = path.join(ROOT, 'src/characters', `${id}.ts`);
   if (!fs.existsSync(f)) return null;

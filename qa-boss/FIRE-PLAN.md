@@ -426,3 +426,50 @@ mask VIEWED at full size -> crisp silhouette; blade, mane spikes and individual 
 The eye sees a rectangle because it is sensitive to a FLAT-vs-NOISY boundary; the keyer only measures
 distance, and 99.4% of backdrop pixels sit within 29 of the border colour against TIGHT=45. Both
 facts are true at once. **raiju-naginata is clear to fire — no re-plate, no first-clip caution.**
+
+## ⚠ TWO GATES COULD NOT FAIL — AND ONE OF THEM CRIES WOLF (phase 230, 2026-08-03)
+
+Swept every `check-*.mjs` against a nonexistent input, asking the one question the vacuous-pass class
+turns on: **does absence of input read as absence of defects?** 10 of 12 errored correctly. Two did not.
+
+**1. `scripts/check-prompt-coherence.mjs` — FIXED. It printed the ALL-CLEAR over a file it never read.**
+A missing kit produced `(no prompts file)`, then `No BLOCK findings.`, then **exit 0**. It fires only
+in SINGLE-character mode (bulk mode takes its ids from `readdirSync`, so they always exist) — i.e.
+exactly the mode used to vet one character before firing it. A typo, or the wrong hyphen/underscore
+form of a name, returned a clean bill of health. Now counts unevaluated inputs, refuses to print the
+all-clear, and exits **2**.
+
+**2. `scripts/check-facing.mjs` — FIXED. It had NO `process.exit` at all.**
+It fell off the end, so it returned 0 unconditionally: on a missing anchor, on an unreadable clip, and
+even while printing its own alarm `KIT IS INTERNALLY INCONSISTENT`. **A gate that cannot fail cannot
+gate** — in a chain (`check-facing && next`) it waved everything through. Now exits **2** when a
+character could not be evaluated and **1** when a kit is internally inconsistent. Uniform mirroring vs
+the anchor stays informational on purpose — the manifest's `faces` field legitimately handles that,
+and inventing a failure there is a domain ruling this script has no business making.
+
+Verified on all paths: nonexistent → 2 · real character → 0 · bulk unchanged · `check-facing
+hollow-pale` (shipped, 13/13) still → 0.
+
+### ⚠ AND THE COHERENCE GATE'S OUTPUT IS CURRENTLY NOISE — 35 BLOCKs, INCLUDING 5 SHIPPED KITS
+
+Bulk mode reports **35 BLOCK findings across 15 kits, five of which are shipped 13/13**
+(eclipse-ofuda, hollow-pale, ir37-pink-tessen, lady-kurotachi, satoshi-odachi). Clips that were
+generated, gated, VIEWED, accepted and wired. So either the gate over-fires or shipped content
+violates doctrine — and per this file's own rule, that disagreement gets investigated, not resolved
+by preference.
+
+**Sampled `eclipse-ofuda`. The gate over-fires.** Two unambiguous false positives:
+
+| finding | actual context | why it is wrong |
+|---|---|---|
+| `detached-effect-placement: "in front of her"` (special_1 AND special_2) | *"katana held point-down **in front of her** exactly as in the reference"* | that is the character's own HELD WEAPON in the anchor-stance clause — no effect involved |
+| `grab-framing: "seizes an unseen"` (throw_a) | *"seizes an unseen foe **through EMPTY AIR**"* | the next three words ARE the gate's own prescribed FIX |
+
+The anchor-stance clause opens nearly every kit in the roster, which is exactly why 15 kits trip it.
+
+**NOT FIXED, deliberately.** The exit-code bugs above are unambiguous correctness. The MATCHER is a
+doctrine judgment, and a careless narrowing would create false NEGATIVES — a gate that misses a real
+phantom-object defect is far worse than one that cries wolf. The fix wants a targeted exclusion (a
+match inside the held-weapon anchor clause is not a detached effect) plus a re-run against all 35.
+**Until then, read this gate's BLOCKs by hand; do not treat its exit 1 as authoritative.**
+Scope of this check, stated honestly: ONE character sampled, not all 35 findings audited.
