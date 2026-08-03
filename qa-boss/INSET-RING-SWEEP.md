@@ -1,7 +1,21 @@
-# INSET-RING SWEEP — the effect-clip edge cut is SYSTEMIC (phase 239, 2026-08-03)
+# INSET-RING SWEEP — the effect-clip edge cut (phase 239, CORRECTED phase 240)
 
-**15 of 118 shipped clips are razor-cut at a frame border. 3 confirmed by eye. Nothing is fixed —
-this is a measurement, and the fix rewrites shipped assets, which Tim has parked.**
+> ## ⛔ READ THIS FIRST — PHASE 239'S HEADLINE WAS WRONG BY 3x
+>
+> Phase 239 reported **"15 of 118 shipped clips are razor-cut"**. Phase 240 VIEWED all fifteen.
+> **Only 5 are sliced EFFECTS. The other 10 are a big PROP or BODY crossing the frame edge** —
+> satoshi's odachi blade (5), ir56's serpent tail (2), thorn-warden's club (1), ir37's war-fan (2) —
+> which is the known, accepted overrun condition, not this defect class.
+>
+> **Acting on the uncorrected number would have re-feathered 10 clips that are working as intended**,
+> and re-encoding a healthy clip is exactly how the 48px feather got crushed to 8px last time.
+>
+> Cause: run length separates a thin weapon TIP (3-50px) from a sliced effect (134-480px), but a
+> WIDE prop produces a long run too. **The gate cannot make the EFFECT-vs-PROP call. Only the eye
+> can**, and phase 239 shipped a count before making it.
+
+**5 of 118 shipped clips carry a genuinely sliced effect. Nothing is fixed — this is a measurement,
+and the fix rewrites shipped assets, which Tim has parked.**
 
 Run it yourself: `node qa-boss/check-inset-ring.mjs --all`
 
@@ -37,49 +51,59 @@ Max alpha 2px in from the border, over every frame of all 118 clips:
 shipped corpus has no edge feather at all, and 60% has one. Whether that is VISIBLE depends on how
 much content sits on the border, which is what the contiguous RUN measures (3px to 480px).
 
-## The 15 CUTs (run >= 100px of contiguous opaque at the border)
+## All 15 flagged clips, VIEWED and classified (phase 240)
 
-| clip | edge | run | frame | eye-confirmed |
+Every one rendered at native resolution, composited over dark, crop centred on the flagged run.
+Sheets: `qa-boss/decisions/inset-ring/sheet-cuts-A.png` and `-B.png` (gitignored, regenerable).
+
+### ✅ THE REAL DEFECT — 5 sliced EFFECTS
+
+| clip | edge | run | frame | what is being cut |
 |---|---|---|---|---|
-| satoshi-odachi/special-c | LEFT | 477 | f52 | |
-| ir56-lion-serpent/special-c | RIGHT | 432 | f59 | |
-| ir56-lion-serpent/special-b | RIGHT | 361 | f29 | |
-| satoshi-odachi/special-b | TOP | 339 | f54 | |
-| **thorn-warden/attack-block** | RIGHT | 314 | f48 | **YES — impact bloom + club thorns sliced flat** |
-| satoshi-odachi/attack-strike-b | TOP | 274 | f51 | |
-| satoshi-odachi/attack-strike | TOP | 259 | f25 | |
-| **lady-kurotachi/attack-strike** | TOP | 250 | f40 | **YES — slash arc amputated by a flat horizontal line** |
-| ir56-lion-serpent/ko | LEFT | 193 | f68 | |
-| satoshi-odachi/victory | TOP | 192 | f77 | |
-| ir37-pink-tessen/attack-throw-b | RIGHT | 153 | f44 | |
-| **ir56-lion-serpent/attack-throw** | RIGHT | 137 | f46 | **YES — fire-breath cut mid-plume** |
-| thorn-warden/attack-throw | LEFT | 136 | f44 | |
-| ir37-pink-tessen/attack-strike | RIGHT | 118 | f66 | |
-| ir56-lion-serpent/attack-block-b | LEFT | 108 | f48 | |
+| **thorn-warden/attack-block** | RIGHT | 314 | f48 | impact bloom + club thorns sliced flat |
+| **lady-kurotachi/attack-strike** | TOP | 250 | f40 | slash arc amputated by a flat horizontal line |
+| **ir56-lion-serpent/special-c** | RIGHT | 432 | f59 | green/white starburst rays run to the border |
+| **ir56-lion-serpent/special-b** | RIGHT | 361 | f29 | same starburst, same slice |
+| **ir56-lion-serpent/attack-throw** | RIGHT | 137 | f46 | fire-breath plume cut mid-flame |
 
-Rendered over dark at full size in `qa-boss/decisions/inset-ring/` (gitignored, regenerable).
+**3 characters.** ir56 is prop-extended, but a fire-breath and a starburst are EFFECTS — the
+prop-extended exemption does not cover them. thorn-warden and lady-kurotachi have no exemption at all.
 
-**By character:** satoshi-odachi 5 · ir56-lion-serpent 5 · thorn-warden 2 · ir37-pink-tessen 2 ·
-lady-kurotachi 1. Clean of CUTs: eclipse-ofuda, hollow-pale, ir48-hex-paper-lord, sora-yari,
-lich-scythe, oni-tetsubo, gargoyle-spear.
+### ❌ NOT THIS DEFECT — 10 prop / body overruns (accepted, do NOT re-feather)
 
-## ⚠ THE PROP-EXTENDED CONFOUND — AND WHY IT DOES NOT EXPLAIN THIS AWAY
+| clip | edge | run | what is actually at the border |
+|---|---|---|---|
+| satoshi-odachi/special-c | LEFT | 477 | the odachi blade |
+| satoshi-odachi/special-b | TOP | 339 | the odachi blade |
+| satoshi-odachi/attack-strike-b | TOP | 274 | the odachi blade |
+| satoshi-odachi/attack-strike | TOP | 259 | the odachi blade |
+| satoshi-odachi/victory | TOP | 192 | the odachi blade |
+| ir56-lion-serpent/ko | LEFT | 193 | body + serpent tail |
+| ir56-lion-serpent/attack-block-b | LEFT | 108 | serpent tail loop |
+| ir37-pink-tessen/attack-throw-b | RIGHT | 153 | the war-fan |
+| ir37-pink-tessen/attack-strike | RIGHT | 118 | the war-fan in motion blur |
+| thorn-warden/attack-throw | LEFT | 136 | the thorn club |
 
-satoshi-odachi and ir56-lion-serpent are prop-EXTENDED: their anchor plates already touch the frame
-edge, so edge contact is a known, accepted condition for them (`qa-boss/ANCHOR-BUDGETS.md`), and
-10 of the 15 CUTs are theirs. That is the obvious objection.
+Every one is a solid object the character is holding or made of — the exact case
+`qa-boss/ANCHOR-BUDGETS.md` already accepts, and for which a straight edge-feather stays legal.
 
-**It does not cover the other five.** `thorn-warden` (2), `ir37-pink-tessen` (2) and
-`lady-kurotachi` (1) are NOT prop-extended, and two of the three eye-confirmed cuts are theirs.
-Both are EFFECTS being sliced — an impact bloom and a slash arc — not a weapon crossing the edge.
-Note also that `sora-yari` IS prop-extended and has **zero** CUTs, which breaks the correlation in
-the other direction.
+**Clean of any flag:** eclipse-ofuda, hollow-pale, ir48-hex-paper-lord, sora-yari, lich-scythe,
+oni-tetsubo, gargoyle-spear.
+
+## ⚠ WHY THE PROP-EXTENDED THEORY LOOKED RIGHT AND WAS STILL THE WRONG CUT
+
+Phase 239 noticed 10 of 15 belonged to prop-extended characters and treated that as a confound to be
+argued past. It was actually the ANSWER — but at the level of the individual CLIP, not the character.
+`sora-yari` is prop-extended with zero flags, and `ir56` has both kinds in the same kit: its tail
+clips are legitimate overruns and its special/throw clips are genuine effect cuts. **Character-level
+reasoning cannot resolve this; only looking at each clip can.**
 
 ## What is NOT established
 
-- **Only 3 of the 15 have been viewed.** The other 12 are ranked by a number, not convicted by eye.
-- **The CUT/WATCH boundary is unvalidated between run 100 and 133.** 134 is the lowest run confirmed
-  visible; 100 was chosen for margin below it, not fitted to a gap in the data.
+- **The FLAT/WATCH boundary is unvalidated between run 100 and 133.** 134 is the lowest run confirmed
+  visible; 100 was chosen for margin below it, not fitted to a gap in the data. The 3 WATCH clips
+  viewed at the boundary (thorn strike-b r95, thorn block-b r66, ir37 block r60) were ALL props, so
+  no evidence yet says the boundary is in the wrong place — but none tested a low-run EFFECT.
 - **The 32 WATCH clips are a to-look-at list, not a defect count.** Do not quote that number.
 - **The BOTTOM edge is excluded from every verdict** — these clips are union-bbox cropped, so a
   standing character's feet sit exactly on the bottom border, and judging BOT flagged every clean

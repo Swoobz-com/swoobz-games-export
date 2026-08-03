@@ -147,11 +147,13 @@ ruling.**
    razor-straight vertical line in open air. The clip border is not the screen border, so at true
    deploy size it floats mid-stage as a hard-edged orange slab. **23 of 97 frames** carry an edge run
    >=20px (cleaver f18-33, flame f45-49, tail f72-73). Visible without zooming.
-   > ⚠ **SUPERSEDED BY PHASE 239 — IT IS NOT ONE CLIP, IT IS FIFTEEN.** The whole 118-clip corpus was
-   > swept with a new gate. **15 clips are razor-cut at a border**, three confirmed by eye, across
-   > five characters — and two of the three confirmed belong to characters with no prop-extended
-   > excuse (`thorn-warden/attack-block`, `lady-kurotachi/attack-strike`). Full table, method and
-   > the honest not-established list: **`qa-boss/INSET-RING-SWEEP.md`**.
+   > ⚠ **SUPERSEDED TWICE — IT IS 5 CLIPS, NOT 1 AND NOT 15.** Phase 239 swept all 118 with a new
+   > gate (`qa-boss/check-inset-ring.mjs`) and reported 15 razor-cuts. **Phase 240 VIEWED all
+   > fifteen: only 5 are sliced EFFECTS** (`thorn-warden/attack-block`,
+   > `lady-kurotachi/attack-strike`, `ir56/special-b`, `ir56/special-c`, `ir56/attack-throw`).
+   > The other 10 are a big PROP or BODY crossing the edge — satoshi's odachi, ir56's tail,
+   > thorn's club, ir37's war-fan — the accepted overrun class. Acting on 15 would have
+   > re-feathered 10 healthy clips. Full classification: **`qa-boss/INSET-RING-SWEEP.md`**.
 
 ### ✔ 6. THE ACCOUNT — PROBED AGAIN, SAME ANSWER, AND THE GUARANTEE HELD A THIRD TIME
 
@@ -231,12 +233,11 @@ findings live here.
    and **11 distinct** clips. The loose match is deliberate (it is what makes `lich-scythe` find
    `lich-*`), so tightening it risks the matches it exists for. **Low value, real risk — left alone
    on purpose.**
-3. ~~Scan ir56's other 11 shipped clips for the flame-amputation defect.~~ **DONE, phase 239, and it
-   found far more than ir56** — the whole corpus was swept with the new `qa-boss/check-inset-ring.mjs`
-   gate: **15 CUT of 118**, across satoshi-odachi (5), ir56 (5), thorn-warden (2), ir37-pink-tessen
-   (2), lady-kurotachi (1). See `qa-boss/INSET-RING-SWEEP.md`. **Not fixed** — the fix rewrites
-   shipped assets, which is parked. The remaining read-only work there is VIEWING the 12 unconfirmed
-   CUTs, which needs no account.
+3. ~~Scan ir56's other 11 shipped clips for the flame-amputation defect.~~ **DONE and CLOSED**
+   (phases 239-240). All 118 swept with the new `qa-boss/check-inset-ring.mjs`; all 15 flagged clips
+   then VIEWED and classified. **5 are genuine sliced effects; 10 are accepted prop/body overruns.**
+   See `qa-boss/INSET-RING-SWEEP.md`. **Not fixed** — the fix rewrites shipped assets, which is
+   parked, and it must be a RADIAL feather on pre-feather frames restored from git.
 4. **Re-price the fill work against 621.5px + contain** (§2) if and when the plate holds re-open.
    `MK-FINAL-WAVE2-SCREEN.md`'s ratios are all computed on 560.
 5. When Tim restarts generating: SESSION 24 §11 is still the right fire order.

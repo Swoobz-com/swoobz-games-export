@@ -15,12 +15,17 @@
 // border: max alpha on the lines 2/10/25/49/80px in from each edge. Per the skill,
 // 255 inside ~15px = CUT; a healthy wide feather ramps ~1/30/128/236/255 across 10-130px.
 //
-// THE DISCRIMINATOR THAT MAKES THIS ACTIONABLE. Max alpha alone cannot separate the two things
-// that put opaque pixels near a border:
-//   a RAZOR CUT  = a long CONTIGUOUS run of opaque pixels along the line (content sliced flat), and
-//   a PROP TIP   = a short run (a weapon crossing the edge) — a known, accepted, feather-able case.
-// So we also report the LONGEST RUN of alpha>=250 on each inset line, and its frame. Run length is
-// what tells a sliced flame from a sword point.
+// THE DISCRIMINATOR, AND ITS PROVEN LIMIT. Max alpha alone cannot separate the things that put
+// opaque pixels near a border, so we also report the LONGEST RUN of alpha>=250 on each inset line.
+// Run length DOES separate a thin weapon TIP (3-50px) from a sliced effect (134-480px).
+//
+// ⚠ IT DOES *NOT* SEPARATE A WIDE PROP FROM A SLICED EFFECT, and phase 240 proved that by looking.
+// Of 15 clips this gate flagged, only 5 were sliced EFFECTS; the other 10 were satoshi's odachi
+// blade, ir56's serpent tail and thorn-warden's club crossing the edge — a big prop makes a long
+// run exactly like a cut effect does. So this gate's flag means "opaque content runs flat along a
+// border", NOT "razor-cut effect". The classification EFFECT-vs-PROP is a judgement only the eye
+// makes, and skipping it would have sent someone to re-feather 10 clips that are working as
+// intended. That is why the output says FLAT-EDGE, not CUT.
 //
 // This tool MEASURES ONLY. It never writes a clip. Numbers convict; the eye judges — VIEW the
 // peak frame of anything it flags before acting (that is the standing rule for this defect class).
@@ -31,7 +36,8 @@
 //   node qa-boss/check-inset-ring.mjs --all --json    # machine-readable
 //
 // EXIT CODES (a gate that cannot fail cannot gate)
-//   0 = every evaluated clip clean · 1 = at least one CUT · 2 = nothing could be evaluated
+//   0 = every evaluated clip clean · 1 = at least one FLAT-EDGE · 2 = nothing could be evaluated
+//   NOTE: exit 1 means "something needs LOOKING AT", not "something is broken" — see the limit above.
 
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -195,7 +201,7 @@ if (JSON_OUT) {
   console.log(JSON.stringify({ evaluated, cuts, watches, results }, null, 1));
 } else {
   console.log('=== INSET-RING FEATHER GATE ===');
-  console.log(`opaque>=${OPAQUE} · CUT = inset ${CUT_INSET}px reaches opaque AND runs >=${CUT_RUN}px contiguous\n`);
+  console.log(`opaque>=${OPAQUE} · FLAT-EDGE = inset ${CUT_INSET}px opaque AND run >=${CUT_RUN}px (EFFECT-vs-PROP is an EYE call)\n`);
   console.log('BOT is excluded from the verdict (feet on the floor line) — printed for context.\n');
   console.log('clip'.padEnd(44) + 'dims'.padEnd(10) + INSETS.map((d) => `i${d}`.padEnd(10)).join('') + 'bot(i10)'.padEnd(11) + 'verdict');
   for (const r of results) {
@@ -203,18 +209,20 @@ if (JSON_OUT) {
     if (r.error) { console.log(name.padEnd(44) + `ERROR: ${r.error}`); continue; }
     const cells = r.rings.map((g) => `${g.judged.max}/${g.judged.run}`.padEnd(10)).join('');
     const b = r.rings[INSETS.indexOf(CUT_INSET)].bot;
-    const v = r.cut ? `CUT   ${r.worst.edge} run${r.worst.run} @f${r.worst.frame}`
+    const v = r.cut ? `FLAT  ${r.worst.edge} run${r.worst.run} @f${r.worst.frame}`
       : r.watch ? `watch ${r.worst.edge} run${r.worst.run} @f${r.worst.frame}` : 'clean';
     console.log(name.padEnd(44) + `${r.w}x${r.h}`.padEnd(10) + cells + `${b.max}/${b.run}`.padEnd(11) + v);
   }
   const errs = results.filter((r) => r.error);
   console.log(`\ncells are MAXALPHA/LONGESTRUN on the worst JUDGED edge (TOP/LEFT/RIGHT) at that inset, over ALL frames.`);
-  console.log(`evaluated ${evaluated} of ${results.length}   CUT ${cuts}   watch ${watches}   ` +
+  console.log(`evaluated ${evaluated} of ${results.length}   FLAT-EDGE ${cuts}   watch ${watches}   ` +
     `no-feather-at-border ${cuts + watches}   errors ${errs.length}`);
   if (errs.length) for (const e of errs) console.log(`  unevaluated: ${e.file} — ${e.error}`);
-  console.log('\nA flag is not a verdict — VIEW the named frame at full size before acting.');
-  console.log('WATCH is a to-look-at list, not a defect count: the CUT boundary is eye-confirmed');
-  console.log('only down to run 134. Do not quote `watch` as a number of broken clips.');
+  console.log('\n⚠ FLAT-EDGE IS NOT A DEFECT COUNT. It means opaque content runs flat along a border.');
+  console.log('  Phase 240 viewed all 15 that this flagged: only 5 were sliced EFFECTS; the other 10');
+  console.log('  were a big PROP or BODY crossing the edge (satoshi\'s odachi, ir56\'s tail, thorn\'s');
+  console.log('  club) — accepted, not broken. Run length cannot tell a wide prop from a cut effect.');
+  console.log('  VIEW the named frame over DARK at full size and classify it before acting.');
 }
 
 if (!evaluated) process.exit(2);
