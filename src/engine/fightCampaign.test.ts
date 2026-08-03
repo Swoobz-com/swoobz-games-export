@@ -84,18 +84,34 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
   });
   it('ladder rows are exactly the agreed table (format / defense kind+amount / multBps)', () => {
     const rows = CAMPAIGN_NODES.map((n) => [n.id, n.roundsToWin, n.defense?.kind ?? 'none', defenseAmount(n), n.multBps] as const);
+    // DIFFICULTY CURVE SHIFTED LEFT BY TWO NODES (Tim, 2026-08-03): the old ladder spent FOUR of
+    // ten nodes on the easiest rung (1-4 all to2/none/50%), so the first 40% of the campaign was
+    // flat. Nodes 3-9 each moved up one rung; node 10 was already at the engine's ceiling
+    // (defense.amount is typed 1 | 2 and matchWinProbability throws on 3). Prices are UNCHANGED
+    // per-config — each rung keeps the multBps it already carried, so no new number was invented.
     expect(rows).toEqual([
       [1, 2, 'none', 0, 19200n],
       [2, 2, 'none', 0, 19200n],
-      [3, 2, 'none', 0, 19200n],
-      [4, 2, 'none', 0, 19200n],
+      [3, 2, 'bulk', 1, 35120n],
+      [4, 2, 'shield', 1, 35120n],
       [5, 2, 'bulk', 1, 35120n],
-      [6, 2, 'shield', 1, 35120n],
+      [6, 3, 'shield', 1, 42530n],
       [7, 3, 'bulk', 1, 42530n],
-      [8, 3, 'shield', 1, 42530n],
+      [8, 2, 'shield', 2, 73430n],
       [9, 2, 'bulk', 2, 73430n],
       [10, 3, 'shield', 2, 119400n],
     ]);
+  });
+  it('difficulty never goes DOWN as the map advances (monotonic curve)', () => {
+    // The property Tim actually asked for. A later node must never be EASIER than an earlier one —
+    // this is what stops a future ladder edit from silently creating a soft spot late in the run.
+    let prev = 1;
+    for (const n of CAMPAIGN_NODES) {
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin);
+      const pWin = Number(p.num) / Number(p.den);
+      expect(pWin).toBeLessThanOrEqual(prev + 1e-9);
+      prev = pWin;
+    }
   });
   it('every node is priced inside [95.00%, 96.00%] RTP exactly (multBps * P vs 9500/9600 bps)', () => {
     for (const n of CAMPAIGN_NODES) {
@@ -105,8 +121,18 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
     }
   });
   it('same-defense same-format nodes share one price (bulk vs shield is presentation only)', () => {
-    expect(CAMPAIGN_NODES[4].multBps).toBe(CAMPAIGN_NODES[5].multBps); // n5 bulk1 == n6 shield1
-    expect(CAMPAIGN_NODES[6].multBps).toBe(CAMPAIGN_NODES[7].multBps); // n7 bulk1R3 == n8 shield1R3
+    // DERIVED, NOT INDEXED. This used to assert CAMPAIGN_NODES[4] === [5] and [6] === [7] — the
+    // array positions that happened to be same-config pairs under one layout. Re-shaping the curve
+    // moved every node and it then compared a to2 price against a to3 price. Grouping by
+    // (defenseAmount, roundsToWin) states the actual invariant and cannot go stale.
+    const byConfig = new Map<string, bigint[]>();
+    for (const n of CAMPAIGN_NODES) {
+      const key = `${defenseAmount(n)}:${n.roundsToWin}`;
+      byConfig.set(key, [...(byConfig.get(key) ?? []), n.multBps]);
+    }
+    for (const [key, prices] of byConfig) {
+      expect(new Set(prices).size, `config ${key} must carry ONE price, got ${[...new Set(prices)].join('/')}`).toBe(1);
+    }
   });
   it('no node carries a bonus reward (removed for now, Tim 2026-07-21)', () => {
     expect(CAMPAIGN_NODES.filter((n) => n.reward)).toEqual([]);

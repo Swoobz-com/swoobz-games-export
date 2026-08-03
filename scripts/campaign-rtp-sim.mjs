@@ -113,17 +113,46 @@ for (const node of CAMPAIGN_NODES) {
 
 console.log('-'.repeat(76));
 
-// Presentation-pair check: bulk and shield of the SAME defense must measure the same P (the
-// absorb math is shared; only the presentation differs).
-const pairs = [
-  [5, 6],
-  [7, 8],
-];
-for (const [a, b] of pairs) {
-  const diff = Math.abs(measured.get(a) - measured.get(b));
-  const ok = diff <= PAIR_TOL;
-  if (!ok) violations += 1;
-  console.log(`pair n${a}/n${b} (bulk vs shield, same math): |dP| = ${(diff * 100).toFixed(3)}%  ${ok ? 'ok' : 'FAIL'}`);
+// Presentation-pair check: bulk and shield of the SAME defense+format must measure the same P (the
+// absorb math is shared; only the presentation differs). This is the kind-dependent-leak detector.
+//
+// DERIVED, NOT HARDCODED (phase 251). This used to be a literal [[5,6],[7,8]] — the node ids that
+// happened to be same-math pairs under one campaign layout. Re-shaping the difficulty curve moved
+// every node, and the check then compared to2+1 against to3+1 and reported a 4.7% "leak" that was
+// really two different fights. The assertion was right; its coupling to specific ids was not.
+// Grouping by (defenseAmount, roundsToWin) cannot go stale, and it covers every pair the layout
+// happens to contain rather than the two someone wrote down.
+const groups = new Map(); // "S:rounds" -> [{id, kind}]
+for (const node of CAMPAIGN_NODES) {
+  const S = defenseAmount(node);
+  if (S === 0) continue; // no defense = no kind to compare
+  const key = `${S}:${node.roundsToWin}`;
+  if (!groups.has(key)) groups.set(key, []);
+  groups.get(key).push({ id: node.id, kind: node.defense.kind });
+}
+let pairsChecked = 0;
+for (const [key, members] of groups) {
+  const bulk = members.filter((m) => m.kind === 'bulk');
+  const shield = members.filter((m) => m.kind === 'shield');
+  for (const a of bulk) {
+    for (const b of shield) {
+      const diff = Math.abs(measured.get(a.id) - measured.get(b.id));
+      const ok = diff <= PAIR_TOL;
+      if (!ok) violations += 1;
+      pairsChecked += 1;
+      const [S, r] = key.split(':');
+      console.log(
+        `pair n${a.id}/n${b.id} (bulk vs shield, defense+${S} to${r}): |dP| = ${(diff * 100).toFixed(3)}%  ${ok ? 'ok' : 'FAIL'}`,
+      );
+    }
+  }
+}
+// A same-math pair that exists but is never compared is a silently weakened gate.
+if (pairsChecked === 0) {
+  violations += 1;
+  console.log('pair check: NO bulk-vs-shield pair exists in this layout — leak detector inactive  FAIL');
+} else {
+  console.log(`pair check: ${pairsChecked} same-math bulk/shield pair(s) compared, derived from the layout`);
 }
 
 if (violations > 0) {

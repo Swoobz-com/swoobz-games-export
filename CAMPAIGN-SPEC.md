@@ -75,18 +75,32 @@ labels/nodes/fog are code-drawn on top). Generation job ids:
 chosen c60a8ea0-4ccc-4f... (candidate B), spare 655e9040-b631-4e... (candidate A,
 scratchpad map-jp-a.png). Tim's input/progressivemap.jpg stays reference-only.
 
-| node | name              | title (enemy card)           | format | defense   | pays   | fighterId |
-|------|-------------------|------------------------------|--------|-----------|--------|-----------|
-| 1    | KUROHAMA DOCKS    | Dockmaster of Kurohama       | to 2   | none      | x1.92  | volta     |
-| 2    | ASHEN TORII       | Keeper of the Ashen Torii    | to 2   | none      | x1.92  | volta     |
-| 3    | WHISPERING BAMBOO | Blade of the Bamboo Sea      | to 2   | none      | x1.92  | volta     |
-| 4    | SNOWFANG PASS     | Sentinel of Snowfang         | to 2   | none      | x1.92  | volta     |
-| 5    | KAWA CROSSING     | Duelist of the Crossing      | to 2   | bulk +1   | x3.51  | volta     |
-| 6    | HOLLOW SHRINE     | Phantom of the Hollow Shrine | to 2   | shield 1  | x3.51  | volta     |
-| 7    | BURNED PAGODA     | Ash Warden of the Pagoda     | to 3   | bulk +1   | x4.25  | volta     |
-| 8    | RED MIST GORGE    | Tyrant of the Red Mist       | to 3   | shield 1  | x4.25  | volta     |
-| 9    | CRIMSON GATES     | Warlord of the Crimson Gates | to 2   | bulk +2   | x7.34  | volta     |
-| 10   | ZERO CITADEL      | RONIN ZERO (season boss)     | to 3   | shield 2  | x11.94 | volta     |
+**LADDER RE-SHAPED (Tim, 2026-08-03).** The old curve spent FOUR of ten nodes on the easiest rung
+(1-4 all to2 / no defense / 50% win), so the first 40% of the campaign was flat. Nodes 3-9 each moved
+up one rung; node 10 was already at the engine's ceiling. **Prices are unchanged per configuration** —
+each rung kept the multiplier it already carried, so RTP stays 96% everywhere and no new number was
+invented. Verified: `npx vite-node scripts/campaign-rtp-sim.mjs`, 2,000,000 matches/node, all 10 in
+[95.85%, 96.03%].
+
+| node | name              | title (enemy card)           | format | defense   | P(win)  | pays   | fighterId |
+|------|-------------------|------------------------------|--------|-----------|---------|--------|-----------|
+| 1    | KUROHAMA DOCKS    | Dockmaster of Kurohama       | to 2   | none      | 50.00%  | x1.92  | volta     |
+| 2    | ASHEN TORII       | Keeper of the Ashen Torii    | to 2   | none      | 50.00%  | x1.92  | volta     |
+| 3    | WHISPERING BAMBOO | Blade of the Bamboo Sea      | to 2   | bulk +1   | 27.33%  | x3.51  | volta     |
+| 4    | SNOWFANG PASS     | Sentinel of Snowfang         | to 2   | shield 1  | 27.33%  | x3.51  | volta     |
+| 5    | KAWA CROSSING     | Duelist of the Crossing      | to 2   | bulk +1   | 27.33%  | x3.51  | volta     |
+| 6    | HOLLOW SHRINE     | Phantom of the Hollow Shrine | to 3   | shield 1  | 22.56%  | x4.25  | volta     |
+| 7    | BURNED PAGODA     | Ash Warden of the Pagoda     | to 3   | bulk +1   | 22.56%  | x4.25  | volta     |
+| 8    | RED MIST GORGE    | Tyrant of the Red Mist       | to 2   | shield 2  | 13.07%  | x7.34  | volta     |
+| 9    | CRIMSON GATES     | Warlord of the Crimson Gates | to 2   | bulk +2   | 13.07%  | x7.34  | volta     |
+| 10   | ZERO CITADEL      | RONIN ZERO (season boss)     | to 3   | shield 2  | 8.04%   | x11.94 | volta     |
+
+**The engine supports exactly five rungs** — defense 0/1/2 x to2/to3, giving P of 50.00 / 27.33 /
+22.56 / 13.07 / 8.04%. (`to3` with NO defense is still exactly 50%: the match is symmetric, so more
+rounds cannot help — rounds-to-win is a difficulty AMPLIFIER on an existing asymmetry, never a
+source.) `defense.amount` is typed `1 | 2` and `matchWinProbability` throws on 3, so **node 10 is the
+hardest fight the engine can currently express**; a sixth rung needs a type widen + a new `q` row +
+a battery re-run.
 | B1   | (locked NW isle)  | COMING SOON                  | -      | -         | -      | -         |
 | B2   | (locked SE isle)  | COMING SOON                  | -      | -         | -      | -         |
 
