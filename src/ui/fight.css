@@ -2464,6 +2464,13 @@
              along the TOP edge, honed dark bottom), lapping over its neighbour.
      SPENT = the plate is GONE. The empty lacing socket is left behind: a black recess, concave
              (hard shadow under the top edge, a lit steel lip at the bottom).
+   ✔ SPENT STATE VERIFIED IN THE RUNNING GAME (phase 253), not just in a harness: played node 8
+   (RED MIST GORGE, shield 2) headless until the boss actually absorbed a hit — it fired on the 3rd
+   pick, aria "Enemy shield: 1 of 2", and the screenshot shows one solid gold plate beside one black
+   empty socket. Reproduce with scripts/render-hud-element.mjs for the static case, or drive
+   localhost/?dev -> CONQUER ALL -> RED MIST GORGE and watch .fr-shieldpip-filled drop below
+   .fr-shieldpip. The old mark's spent state was a horizontal red dash reading as "disabled"; this
+   one cannot be mistaken for a toggle.
    So FULL vs SPENT is BRIGHT SOLID MASS vs DARK EMPTY HOLE — it reads in greyscale, with any
    colour vision, and on a bright arena (the bed under both states is opaque coal).
    NO rotate() anywhere: the old mark authored its detail in unrotated space and then shipped it
