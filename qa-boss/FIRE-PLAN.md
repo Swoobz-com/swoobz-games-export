@@ -233,6 +233,34 @@ Another terminal generates on a DIFFERENT account against the same rate limit. B
 A 429 `rate_limit_reached` means the same thing: back off, do not hammer. Three rapid retries produced
 three 429s and helped nobody.
 
+## ⚠ THE ARSENAL CONTRACT COVERS 10 OF 40 KITS — DECLARE YOURS BEFORE YOU FIRE IT (phase 245)
+
+`qa-boss/arsenal.json` is the CHARACTER ARSENAL CONTRACT (Tim, 2026-07-26): *"what each boss actually
+WIELDS, so a prompt can never ask a swordsman to shoot something. Every clip prompt is checked
+against this BEFORE it is fired."* It declares **exactly 10 characters** — the 10 campaign bosses.
+There are **40 kit files**. So 30 kits fire without a per-character contract, and
+`check-prompt-coherence` marks them `wields: (arsenal not declared)`.
+
+**Measured, not assumed — what that actually costs:**
+
+| still enforced on an undeclared kit | silently NOT enforced |
+|---|---|
+| the UNIVERSAL melee-roster rules — detached-effect placement, projectile wording, grab framing. These are BLOCK-level and read from the universal block, not the character def. Proof: `ir52-umbra-pinions` and `jin-goldenhand` both report **BLOCK** while showing "(arsenal not declared)". | the `def.banned` loop (`check-prompt-coherence.mjs:172`) — **it iterates `def.banned \|\| []`, so with no entry it does nothing at all.** Per-character weapon constraints ("a spearman must not do fan actions", "sword-only actions") are never checked. |
+
+So the dangerous class is still caught; what is lost is the character-specific half.
+
+**⚠ ALL SIX MK FINAL KITS ARE UNDECLARED** — `oni-tetsubo`, `raiju-naginata`, `minotaur-axe`,
+`skullrend-orcus`, `pale-choir`, `jin-goldenhand` — and they are the queue's next batch (loop STEP 4).
+
+**WHAT TO DO: add the character's entry to `arsenal.json` as the first step of firing its kit**, in
+the shape the 10 declared ones use (`node`, `wields[]`, `body[]`, `effectPalette[]`, `banned[]`).
+**Derive `wields` from the PLATE you are about to fire against — look at it — not from the character's
+name.** Half this roster's names imply a weapon (`minotaur-axe`, `raiju-naginata`) and half do not
+(`skullrend-orcus`, `pale-choir`, `jin-goldenhand`); a guessed entry silently mis-gates every prompt
+for that character, which is worse than the honest gap. **Deliberately NOT bulk-filled** for exactly
+that reason: this is a Tim-authored contract, and an entry is cheap to write correctly at the moment
+someone is already looking at the plate.
+
 ## Before the first fire of a session
 
 ```
