@@ -1,6 +1,80 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 22 — START HERE (2026-08-01) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 23 — START HERE (2026-08-03) ★★★★★★★★★★
+
+**40 prompt files · 428 buildable states · 100 shipped · QUEUE 328 · ledger 69 (OK 24 · REJECTED 36 ·
+TIM 9) · 11 commits this session.**
+**Zero clips fired — the account is still blocked.** Everything below came out of blocked cycles.
+The SESSION 22 block below is still broadly right; these are the CORRECTIONS and the new findings.
+
+> ### ⛔ 1. THE BLOCK IS THE SAME, BUT THE ERROR MESSAGE CHANGED AND IT LIES ABOUT ITS SUBJECT
+> `use_unlim:true` now returns **"Unlimited generations aren't supported for seedance_2_0"** — which
+> reads as a MODEL capability verdict and invites a model swap. **It is account-level.** Proven by
+> firing `kling3_0`, a different provider, in the same minute: identical model-shaped refusal. Both
+> advertise `supports_unlim: true`.
+> - **Diagnose model-vs-account by firing a SECOND unrelated model.** Same refusal on both = account.
+> - **Do NOT pre-check `models_explore`'s `unlim` block** — a global memory records it reading
+>   `false` while unlim jobs were succeeding. Not evidence in either direction. The fire IS the test.
+> - A model swap buys nothing: mini / kling3_0 / wan2_7 all sit behind the same zero.
+> - Third day boundary tested. `balance` held at **710** across every attempt — never charged.
+> Full detail: `qa-boss/FIRE-PLAN.md` (phase 216).
+
+> ### ⛔ 2. TWO STANDING ITEMS IN THE LOOP PROMPT ARE ALREADY DONE — CHECK BEFORE ACTING ON IT
+> - **Its 6-clip QUEUE is 100% shipped** (verified file-by-file; eclipse and ir37 are both 13/13).
+>   Firing it would re-roll shipped clips. **Fire from `node qa-boss/fire-queue.mjs`**, which derives
+>   the real gap.
+> - **The "raiju faint rectangle" warning is disproven twice.** No clip needed — the plate is a
+>   still, so the keyer runs free: keys with margin (p99 28.7 vs TIGHT 45), glow-survival 5514/5514
+>   = 100%, and the mask viewed full size is a clean silhouette. **raiju is clear to fire.**
+
+### ★ `resolution` IS A PIXEL BUDGET — a 1:1 "720p" is 960x960, not 720
+Off 278 raws: 276 are 960x960 (1:1) and 2 are 1280x720 (16:9). `960x960 = 1280x720 = 921,600` exactly.
+So the label fixes a pixel COUNT and `aspect_ratio` spends it. **A square render buys 1.33x the linear
+resolution of the same-label 16:9.** Square side = `sqrt(W16x9 * H16x9)` → 1080p square = **1440**.
+
+### ★ THE FILL HOLD IS PRICED — AND LOOKING AT IT DOWNGRADED IT
+`golem-mace` 0.50 / `nurikabe-shield` 0.55 / `violet-contract` 0.62 are held on FILL. Phase 143's rule
+still governs — **a fresh measurement is not a fresh decision** — so nothing was re-screened. What was
+missing was the price. Delivered character px = `fill x 960` (confirmed against four shipped webms
+within ~1%); on-screen figure is **560px** at 1920x1080.
+
+- Shipped bosses run **1.47-1.58x** headroom; the STANDARD 0.68 MK fill runs **1.17x** — so the whole
+  MK wave is below every accepted boss, not just the held three.
+- **Rendered and compared at true size: no visible deficit at 0.68.** Simulated 0.94x and 0.86x are
+  indistinguishable at deploy size too; they only separate at 3x zoom.
+- **The viewport outweighs the fill choice.** At 4K the ACCEPTED bosses are themselves upscaled
+  (0.79x), and 1080p→4K costs a boss more headroom than the entire boss-vs-golem-mace fill gap.
+- `iron-vow` is held on a different axis (weapon class vs oni-tetsubo) and has **no fill problem** —
+  standard 0.68, roomy L362/R362, cleanest p99 of the held set. Rendered side by side: the clash is
+  weapon-family only; body, palette and silhouette are maximally distinct. **If the ruling is
+  "distinct enough", it is kit-ready the same day.**
+Full detail + tables: `qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md` (phases 217-223).
+
+### ⬜ FREE WIN WAITING ON ONE YES — the stills discard 41% of their resolution
+`scripts/key-enemies.mjs:390` hardcodes `scale=-1:900`, but Tim's supplied source art is **1536px
+tall**. Raising that one constant (1440) and re-running recovers it — deterministic, local, **no
+account**. Verified by eye, not just arithmetic: at 4K the current stills lose interior detail
+(blossom petals, face tattoo, bark grain), which keying/despill cannot explain. Fine at 1920x1080;
+it is a high-DPI win, landing hardest on `prefers-reduced-motion` players for whom the still is the
+entire character. **Not actioned — it rewrites 12 accepted webps.** See §5 backlog.
+
+### ✔ CLEAN NEGATIVES (do not re-investigate)
+- **Asset integrity:** 138/138 referenced assets present across the 11 registered characters;
+  registration consistent with clip completeness; no complete-but-unregistered character.
+  `gorvak` / `volta` are intentional still-only stand-ins.
+- **The kit queue is exhausted under the guard:** every `WRITE`-verdict plate already has a kit. The
+  9 without one are 5 REJECTED + 4 TIM.
+- **All four TIM calls now have decision-ready packages** — nothing is waiting on more analysis.
+
+### BOSS STATE
+6 of 9 bosses are 13/13 (hollow-pale · satoshi-odachi · eclipse-ofuda · ir37-pink-tessen ·
+lady-kurotachi · ir48-hex-paper-lord). `thorn-warden` 11/13 (special_1, special_3 — kit built and
+verified, first to fire when unblocked), `ir56-lion-serpent` 12/13 (Tim call), `sora-yari` 10/13
+(SKIP list). **0 non-boss characters are ready** (lich 3/13, oni 3/13, gargoyle 1/13).
+
+---
+
+## ★★★★★★★★★★ SESSION 22 (2026-08-01) — superseded by the block above, kept for provenance ★★★★★★★★★★
 
 **40 prompt files · 428 buildable states · 98 shipped · QUEUE 330 · 79 commits.**
 **Zero clips fired — the account was blocked the entire session.** Everything below came out of
