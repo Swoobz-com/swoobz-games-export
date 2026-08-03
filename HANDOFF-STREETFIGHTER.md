@@ -46,7 +46,13 @@ So at a 1920x1080 viewport on a **campaign** node:
 **TWO THINGS FOLLOW, AND BOTH BREAK EXISTING CONCLUSIONS:**
 
 1. **621.5px, not 560px.** Every headroom ratio in the fill work is ~11% off.
-2. **`object-fit: contain` on a SQUARE box means a character WIDER THAN TALL is WIDTH-limited,
+2. ⚠ **THIS APPLIES TO THE STILL, NOT TO THE CLIPS** (refined phase 242). `.fr-fighter img` is
+   `object-fit: contain`, so the fill/headroom work — which is about `public/assets/enemies/*.webp` —
+   is governed by it. But `.fr-state-video` is `height: cal.h%` / `width: auto` / `left: cal.left%` /
+   `bottom: cal.bottom%` (`FightExperience.tsx:1116-1118`): sized by its OWN cal, never
+   contain-fitted, with `cal.h` routinely 110-131%. **Use the cal for anything about a clip on
+   screen; use contain only for the still.**
+   **`object-fit: contain` on a SQUARE box means a still WIDER THAN TALL is WIDTH-limited,
    not height-limited.** Its height never reaches the box. Measured consequences: `ir56-lion-serpent`
    (still 1350x900) renders at **0.92x — a DOWNSCALE**, and `sora-yari` (1221x900) at 1.02x. **2 of 10
    characters gain nothing from a HEIGHT cap at all**, which is why "just raise 900 to 1440" was the
@@ -154,6 +160,11 @@ ruling.**
    > The other 10 are a big PROP or BODY crossing the edge — satoshi's odachi, ir56's tail,
    > thorn's club, ir37's war-fan — the accepted overrun class. Acting on 15 would have
    > re-feathered 10 healthy clips. Full classification: **`qa-boss/INSET-RING-SWEEP.md`**.
+   > **Phase 242: all 3 checked are VISIBLE at true deploy size over their real arena** — the arena
+   > makes it worse, not better (high-contrast effect on a dark backdrop, and the clip's bounding
+   > box reads as a pale rectangle). So the fix IS worth doing when asset work reopens.
+   > ⚠ Phase 236's "~860px from any screen edge" is wrong — the cuts land 54-97px from the right
+   > screen edge; it still does not excuse them.
 
 ### ✔ 6. THE ACCOUNT — PROBED AGAIN, SAME ANSWER, AND THE GUARANTEE HELD A THIRD TIME
 

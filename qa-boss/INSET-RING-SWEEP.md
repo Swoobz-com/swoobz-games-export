@@ -138,12 +138,57 @@ EFFECT. Only two WATCH-tier clips carry effect content, and both were viewed ove
 **no sliced effect has been observed below run 137**, and all 5 confirmed cuts sit at 137+. Nothing
 argues the threshold is in the wrong place.
 
+## ✔ VISIBLE IN THE GAME — confirmed at true deploy size, in-arena (phase 242)
+
+The question that decides whether the fix is worth doing: is the cut visible to a PLAYER, or only in
+an isolated clip over dark? **It is visible, and the arena makes it WORSE, not better.**
+
+Rendered at 1920x1080 over each clip's own campaign arena, with the geometry derived from source
+(not the 560px figure, which phase 236 §2 already corrected):
+
+```
+stage   = min(1920, 1080*1.791667) x min(1080, 1920/1.791667)  = 1920 x 1071.6
+box     = 58% of stage height = 621.5px, SQUARE, centre x 76%, feet y 96%   (P2 = the enemy slot)
+clip    = height cal.h% of the box, width AUTO, left cal.left%, bottom cal.bottom%
+```
+
+| clip | arena | on-screen size | verdict |
+|---|---|---|---|
+| thorn-warden/attack-block | bamboo | 710x692 | **VISIBLE** — the clip's own bounding box reads as a pale RECTANGLE against dark bamboo; club thorns amputated flat at its right edge |
+| lady-kurotachi/attack-strike | moat | 670x687 | **VISIBLE** — the white arc is sliced flat and floats in open sky; high contrast against the dark pagoda |
+| ir56-lion-serpent/special-b | gorge | 815x815 | **VISIBLE** — starburst halo forms a discernible rectangle over the red rock, hard vertical right edge |
+
+**3 of 3 characters checked are player-visible.** (ir56 `special-c` and `attack-throw` were not
+re-rendered — same character, same edge, same failure mode as `special-b`.)
+
+### ⚠ AND THIS CORRECTS PHASE 236's "~860px FROM ANY SCREEN EDGE"
+
+That figure is wrong. With the cal-driven geometry the RIGHT-edge cuts land at screen
+x = 1823 (thorn) and x = 1866-1867 (all three ir56 clips) — i.e. **54-97px from the right screen
+edge**, not 860. lady-kurotachi's is a TOP cut at y = 347, which genuinely is mid-air.
+
+**It does not rescue them.** Being near the screen edge would only excuse the defect if the effect
+read as *leaving the screen*; it does not, because the clip's rectangular bounding box is itself
+visible as a lighter panel sitting inside the frame. A box 54px from the edge is still a box.
+
+### 📌 A GEOMETRY DISTINCTION THAT MATTERS, and phase 236 §2 stated only half of it
+
+`.fr-fighter img` (the STILL) uses `object-fit: contain` in the square box — so a still wider than
+tall is WIDTH-limited, which is what phase 236 §2 established and what the fill/headroom work needs.
+**The CLIPS do not work that way.** `.fr-state-video` is `height: cal.h%` / `width: auto` /
+`left: cal.left%` / `bottom: cal.bottom%` (`FightExperience.tsx:1116-1118`) — sized by its own cal,
+never contain-fitted, and `cal.h` routinely exceeds 100% (110-131% across these five). So
+**contain-reasoning applies to the still and NOT to the clip.** Use the cal when computing anything
+about a clip on screen.
+
 ## What is still NOT established
 
 - 30 of the 47 no-feather clips remain unviewed — all WATCH tier, all run < 100, and the two lowest-
   risk of them were the two just checked. Low residual risk, but not zero.
-- Nothing was checked **in motion, in-arena, or at device truth**. Static peak frames only. A cut can
-  read differently when it sweeps across the stage than it does frozen.
+- ~~Nothing was checked in-arena or at device truth.~~ **DONE, phase 242** (see above) — but still
+  **STATIC peak frames only**. Nothing has been judged IN MOTION. A cut that is obvious frozen may
+  read differently when it flashes past in ~4 frames, and the browser extension was unavailable to
+  drive the real page. This is the last unclosed axis and it needs a live browser, not ffmpeg.
 - **The 32 WATCH clips are a to-look-at list, not a defect count.** Do not quote that number.
 - **The BOTTOM edge is excluded from every verdict** — these clips are union-bbox cropped, so a
   standing character's feet sit exactly on the bottom border, and judging BOT flagged every clean
