@@ -659,10 +659,24 @@ measurement is not a fresh decision.** Nothing below promotes anyone. What was m
    | oni-tetsubo | 0.68 | 653 | **670** |
 
    Four for four within ~1% (the slack is motion headroom in the crop). The model is sound.
-3. **On-screen the character is ~600px.** `.fr-stage` is `height: min(100vh, 100vw/1.83333)` = 1047px
-   at 1920x1080; `CAL.fighterP1.h = 58` makes the square fighter box ~607px; the still is
-   `object-fit: contain` in that box, so the character occupies ~600px of it.
-4. **So headroom = `fill x 960 / 600`.**
+3. **On-screen the character is ~560px** *(corrected phase 220 — was published as ~600px)*.
+   `.fr-stage` is `height: min(100vh, 100vw/1.83333)` = 1047px at 1920x1080; `CAL.fighterP1.h = 58`
+   makes the square fighter box **607px**; the still is `object-fit: contain` inside it.
+   Phase 217 then assumed the still was a TIGHT crop, so the character filled the box. **It is not.**
+   Measured alpha bboxes — the check phase 217 asserted from dimensions alone and never ran:
+
+   | still | file | subject h | vFill | on-screen character |
+   |---|---|---|---|---|
+   | hollow-pale | 912x900 | 843 | 0.937 | **561px** |
+   | eclipse-ofuda | 473x900 | 835 | 0.928 | **564px** |
+   | ir37-pink-tessen | 635x900 | 828 | 0.920 | **559px** |
+   | lady-kurotachi | 900x900 | 829 | 0.921 | **560px** |
+
+   Every still carries ~6-8% transparent padding. Four characters with four DIFFERENT still aspect
+   ratios land within 5px of each other — which is itself the strongest confirmation on record that
+   the pipeline normalises on-screen character height, and it is **560px**, not 600px.
+4. **So headroom = `fill x 960 / 560`.** Every multiple below rose ~7% against what phase 217
+   published. **No ranking, and no conclusion, changes** — the correction is uniform across the table.
 
    **`cal.h` cannot rescue a low fill — and the reason is the opposite of "cal ignores fill"
    (corrected phase 219).** `cal.h` DOES compensate for framing, precisely and automatically: it is
@@ -673,34 +687,39 @@ measurement is not a fresh decision.** Nothing below promotes anyone. What was m
    idle's ~614px. The comment in `types.ts` is accurate: the anchor frame lands pixel-on-pixel.
 
    That is exactly WHY fill costs resolution rather than apparent size: **`cal.h` normalises every
-   character to the same ~600px on-screen height, so a low-fill character arrives with fewer real
+   character to the same ~560px on-screen height, so a low-fill character arrives with fewer real
    pixels and is scaled UP to match.** The cal cannot invent the pixels the plate never spent.
 
 ### What that prices
 
 | | fill | delivered px | headroom | status |
 |---|---|---|---|---|
-| hollow-pale | 0.919 | 882 | **1.47x** | SHIPPED 13/13, accepted |
-| eclipse-ofuda | 0.859 | 825 | **1.37x** | SHIPPED 13/13, accepted |
-| standard MK | 0.68 | 653 | 1.09x | below every shipped boss |
-| violet-contract | 0.62 | 595 | 0.99x | at parity — no headroom left |
-| nurikabe-shield | 0.55 | 528 | 0.88x | upscaled on screen |
-| golem-mace | 0.50 | 480 | 0.80x | upscaled 1.25x |
+| hollow-pale | 0.919 | 882 | **1.58x** | SHIPPED 13/13, accepted |
+| eclipse-ofuda | 0.859 | 825 | **1.47x** | SHIPPED 13/13, accepted |
+| standard MK | 0.68 | 653 | 1.17x | below every shipped boss |
+| violet-contract | 0.62 | 595 | 1.06x | barely above parity |
+| nurikabe-shield | 0.55 | 528 | 0.94x | upscaled on screen |
+| golem-mace | 0.50 | 480 | 0.86x | upscaled 1.17x |
 
-**The finding that outranks the held three: even the STANDARD 0.68 MK fill (1.09x) ships below every
-accepted boss (1.37-1.47x).** The held characters are the tail of a gap the whole MK wave already
+**The finding that outranks the held three: even the STANDARD 0.68 MK fill (1.17x) ships below every
+accepted boss (1.47-1.58x).** The held characters are the tail of a gap the whole MK wave already
 has — because an MK plate spends 32% of frame height on padding where an original boss spends ~8%.
 
 ### THE LEVER NOBODY COSTED: RENDER AT 1080p
 
-Seedance `mode:'std'` supports 1080p. If the 960-at-720p ratio holds, 1080p gives a 1440 square:
+Seedance `mode:'std'` supports 1080p, which gives a 1440 square (see the pixel-budget proof below):
 
 | | fill | @1080p | headroom | vs shipped bar |
 |---|---|---|---|---|
-| standard MK | 0.68 | 979 | 1.63x | **above both bosses** |
-| violet-contract | 0.62 | 893 | 1.49x | **matches hollow-pale's 1.47x** |
-| nurikabe-shield | 0.55 | 792 | 1.32x | just under eclipse's 1.37x |
-| golem-mace | 0.50 | 720 | 1.20x | still lowest, but above today's 0.68@720p |
+| standard MK | 0.68 | 979 | 1.75x | **above both bosses** |
+| violet-contract | 0.62 | 893 | 1.59x | **above eclipse's 1.47x** |
+| nurikabe-shield | 0.55 | 792 | 1.41x | just under eclipse's 1.47x |
+| golem-mace | 0.50 | 720 | 1.29x | still lowest, but above today's 0.68@720p |
+
+**⚠ ONE UNRESOLVED DEPENDENCY ON THIS LEVER.** Whether `1080p` is inside the *unlim-covered configs*
+cannot be determined from this account: `models_explore` returns no "Unlim configs" list while
+`unlim.available` is false. If 1080p is not covered, the remedy costs credits and the ruling changes
+shape. **Check the covered-config list the moment the account works, before planning the wave.**
 
 So the honest framing of Tim's call is **not** "is 0.50 acceptable" but "**do we re-render the MK wave
 at 1080p**" — which lifts every MK character above the shipped bar and moves two of the three held
@@ -738,7 +757,7 @@ points to a designed rule rather than a coincidence. One 1080p render still conf
 ### Stated limits — do not over-read this
 - Assumes a 1920x1080 viewport. A taller display shrinks every headroom figure proportionally;
   the RANKING is viewport-independent, the absolute multiples are not.
-- No MK character has a still yet, so its `cal.h` is not yet derived. The ~600px on-screen figure
+- No MK character has a still yet, so its `cal.h` is not yet derived. The ~560px on-screen figure
   comes from the existing tight-crop still convention (all are 900px tall, varying widths).
 - **This changes no verdict.** golem-mace / nurikabe-shield / violet-contract remain TIM in
   ROSTER-VERDICTS.json, and `may-i-write-kit.mjs` still refuses them.
