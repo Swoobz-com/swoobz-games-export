@@ -290,15 +290,31 @@ worst anchor break in the roster, not trimmable (no frame reaches 0.90).
 - **PASS requires `dropPct >= 30%`** plus a duty cycle materially above 15%, containment clean, and
   f0/fLast on the anchor.
 
-## Keying pipeline of record (unchanged)
+## Keying pipeline of record (inset-ring gate added phase 240)
 
 ```
 extract -> key-idle-clips --still -> check-plate-retention (BEFORE) -> green-neutralize <dir> 4
         -> cut-bloom-plate <dir> -> edge-feather (only where an edge overruns)
         -> ffmpeg VP9 yuva420p crf30 -auto-alt-ref 0
+        -> node qa-boss/check-inset-ring.mjs <clip.webm>        <-- AFTER the encode, every time
 ```
 Then `node qa-boss/rederive-cal.mjs` — **the keyer's emitted `.cal.json` files are all STALE**,
 because neutralize deletes pixels after the cal is computed.
+
+**WHY THE INSET-RING STEP IS IN THE CHAIN AND NOT OPTIONAL.** It catches an effect (flame, arc,
+impact bloom) that runs off the SOURCE frame and ships as a hard flat wall floating mid-stage — the
+clip border is not the screen border. `~/.claude/skills/character-clip-qa/SKILL.md` has mandated this
+gate for a long time and **this repo never had it**: it shipped `scripts/radial-feather.mjs` (the
+FIX) with no detector, so the class was only ever found by eye, one clip at a time, and it regressed
+twice. The first sweep that ever ran found **5 genuinely sliced effects** in the shipped corpus.
+**Re-run it after ANY re-encode** — a second decode+encode pass is what crushed a 48px feather to
+~8px last time.
+
+⚠ **ITS FLAG IS NOT A VERDICT.** `FLAT-EDGE` means "opaque content runs flat along a border". It
+cannot tell a sliced EFFECT from a big PROP crossing the edge (a greatsword blade makes a 477px run
+exactly like a cut does) — of 15 flagged clips, 10 were props and legitimately fine. **VIEW the
+named frame over DARK at full size and classify it before acting.** Full evidence and the
+classification of all 15: `qa-boss/INSET-RING-SWEEP.md`.
 
 ## Standing verification discipline
 
@@ -308,6 +324,15 @@ because neutralize deletes pixels after the cal is computed.
   of a sustained effect, not the blow.
 - **Composite the frame and LOOK.** Every one of the three session-15 mistakes, and the session-14
   fabricated bloom, was invisible in the numbers and caught only by viewing a peak frame at >=2x.
+- **`check-inset-ring.mjs` after every encode and every re-encode** (see the pipeline above). Judge
+  its FLAT-EDGE flags by eye — it ranks, it does not convict.
+- **Decoding alpha needs `-c:v libvpx-vp9` explicitly.** VP9 alpha is an out-of-band track, so
+  `ffprobe` reports `pix_fmt yuv420p` and the DEFAULT decoder silently drops it — any alpha filter
+  then fails on EVERY clip. That uniform failure is the tell. (Same family as the standing rule
+  "do NOT test alpha via `pix_fmt`", which once flagged 119 of 119 healthy clips as broken.)
+- **`ffmpeg drawtext` needs an explicit `fontfile=` on this machine.** Fontconfig has no default
+  config; without it drawtext fails and a tiling step silently produces an empty directory. Use
+  `fontfile='C\:/Windows/Fonts/consola.ttf'`.
 
 ## PROMPT LENGTH — AN OPEN QUESTION, **NOT** THE RISK I FIRST CALLED IT (phase 175, CORRECTED phase 176)
 

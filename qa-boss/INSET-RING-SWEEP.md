@@ -98,12 +98,52 @@ argued past. It was actually the ANSWER — but at the level of the individual C
 clips are legitimate overruns and its special/throw clips are genuine effect cuts. **Character-level
 reasoning cannot resolve this; only looking at each clip can.**
 
-## What is NOT established
+## ✔ THE PATTERN, CROSS-TABBED — it tracks PROP SIZE, not effects (phase 241)
 
-- **The FLAT/WATCH boundary is unvalidated between run 100 and 133.** 134 is the lowest run confirmed
-  visible; 100 was chosen for margin below it, not fitted to a gap in the data. The 3 WATCH clips
-  viewed at the boundary (thorn strike-b r95, thorn block-b r66, ir37 block r60) were ALL props, so
-  no evidence yet says the boundary is in the wrong place — but none tested a low-run EFFECT.
+Re-analysis of the same sweep, no new decoding. "No feather at the border" by character:
+
+| character | flagged / total | |
+|---|---|---|
+| satoshi-odachi | **10 / 13** | giant odachi — prop-EXTENDED |
+| sora-yari | **9 / 10** | long yari — prop-EXTENDED |
+| ir56-lion-serpent | **9 / 12** | serpent tail — prop-EXTENDED |
+| thorn-warden | **7 / 11** | big thorn club |
+| eclipse-ofuda | 4 / 13 | |
+| ir37-pink-tessen | 3 / 13 | |
+| lady-kurotachi | 3 / 13 | |
+| hollow-pale | 2 / 13 | |
+| **ir48-hex-paper-lord** | **0 / 13** | a COMPLETE, effect-heavy final-boss kit, entirely clean |
+| lich-scythe · oni-tetsubo · gargoyle-spear | 0 / 3 · 0 / 3 · 0 / 1 | small samples |
+
+**The top three are exactly the three prop-EXTENDED characters** named in `ANCHOR-BUDGETS.md`.
+That is independent structural confirmation of the phase-240 reclassification, from data already on
+disk: the flags cluster on LONG PROPS, not on effect-heavy characters. **ir48 proves a full kit can
+be spotless**, so this was never a blanket pipeline failure.
+
+**And a free negative control: `idle` is 0 / 12.** Every idle on every character is feathered — the
+one state with no prop swing and no effect never reaches a border. An instrument that flagged those
+would have been wrong.
+
+## ✔ THE BOUNDARY QUESTION IS CLOSED (phase 241)
+
+Phase 240 left this open: the 100-133 band had only ever been probed with PROP clips, never an
+EFFECT. Only two WATCH-tier clips carry effect content, and both were viewed over dark at full size:
+
+| clip | run | what is at the border |
+|---|---|---|
+| lady-kurotachi/special-b | 12 | one floating debris shard grazing the edge — soft, tapered, no wall |
+| hollow-pale/special | 14 | the bone blade tapering naturally — no wall |
+
+**Neither is a cut.** Across 17 of the 47 no-feather clips now viewed (15 FLAT + these 2),
+**no sliced effect has been observed below run 137**, and all 5 confirmed cuts sit at 137+. Nothing
+argues the threshold is in the wrong place.
+
+## What is still NOT established
+
+- 30 of the 47 no-feather clips remain unviewed — all WATCH tier, all run < 100, and the two lowest-
+  risk of them were the two just checked. Low residual risk, but not zero.
+- Nothing was checked **in motion, in-arena, or at device truth**. Static peak frames only. A cut can
+  read differently when it sweeps across the stage than it does frozen.
 - **The 32 WATCH clips are a to-look-at list, not a defect count.** Do not quote that number.
 - **The BOTTOM edge is excluded from every verdict** — these clips are union-bbox cropped, so a
   standing character's feet sit exactly on the bottom border, and judging BOT flagged every clean
