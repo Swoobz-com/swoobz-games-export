@@ -258,10 +258,13 @@ if (has('--json')) {
 }
 
 // ############################################################################################
-// # EXIT CODE (phase 230). This script had NO process.exit at all — it fell off the end, so it #
-// # returned 0 unconditionally: on a missing anchor, on an unreadable clip, and even when it   #
-// # printed its own alarm "KIT IS INTERNALLY INCONSISTENT". A gate that cannot fail cannot     #
-// # gate, and in a chain (`check-facing && next`) it waved everything through.                 #
+// # EXIT CODE (phase 230; wording corrected phase 233). This script had no TERMINAL exit — it   #
+// # carried exactly ONE process.exit, the usage guard at the top, and then fell off the end of  #
+// # the file, so every completed run returned 0 unconditionally: on a missing anchor, on an     #
+// # unreadable clip, and even when it printed its own alarm "KIT IS INTERNALLY INCONSISTENT".   #
+// # A gate that cannot fail cannot gate, and in a chain (`check-facing && next`) it waved       #
+// # everything through. (The first version of this comment said "NO process.exit at all", which #
+// # an independent verifier refuted against git history — the usage guard was always there.)    #
 // #                                                                                            #
 // # Deliberately conservative: only the two conditions the script ALREADY treats as wrong get  #
 // # a nonzero code. Uniform mirroring vs the anchor stays informational — the manifest's        #

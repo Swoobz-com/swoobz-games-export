@@ -1,6 +1,251 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 23 — START HERE (2026-08-03) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 24 — START HERE (2026-08-03, late) ★★★★★★★★★★
+
+**40 prompt files · 428 buildable states · SHIPPED 100 · QUEUE 328 · ledger 69 (OK 24 · REJECTED 36 ·
+TIM 9) · 19 commits, phases 216-232 (`8206f54`..`d0686d2`).**
+**Zero clips fired — the account is still blocked.** Every line below came out of blocked cycles.
+
+> **READ `qa-boss/FIRE-PLAN.md` NEXT.** This block is state + learnings. **FIRE-PLAN is the
+> procedure**: the transport of record (MCP `generate_video`, never the browser), the exact fire
+> params, the 3-role plate convention, the non-interference rule and the per-clip numeric acceptance.
+> Nothing here replaces it. The autonomous loop prompt says to read it first, and it is right.
+
+**Reconciling the three clip numbers, because they measure different things:**
+`SHIPPED 100` = `qa-boss/fire-queue.mjs`'s count of wired kit STATES over its 35 working kits
+(36 base kits, 4 `-REROLL` variants excluded). `118` = actual `.webm` FILES under
+`public/assets/characters/` excluding `/old/`. `119` = including `satoshi-odachi/old/`. A file can
+exist without counting toward SHIPPED when its character/state is outside those 35 kits.
+
+---
+
+### ⛔ 1. FIRING IS BLOCKED. THE ERROR MESSAGE NOW LIES ABOUT ITS SUBJECT.
+
+`use_unlim:true` no longer says "start the trial". It now returns:
+
+> **"Unlimited generations aren't supported for seedance_2_0."**
+
+That reads as a MODEL capability verdict (`unlim_not_supported`) and invites a model swap. **The
+evidence says account-level:** firing `kling3_0` — a different provider — in the same minute produced
+the *identical* model-shaped refusal, and both advertise `supports_unlim: true` in the catalog.
+
+- **To tell model-level from account-level, FIRE A SECOND UNRELATED MODEL.** Same refusal on both
+  points at the account. That is the whole diagnostic, and it is free.
+- ⚠ **Confidence: n=2, one minute.** Two models refusing identically is strong but is also consistent
+  with a shared upstream entitlement class or a transient outage. Treat "account-level" as the working
+  hypothesis, not a proof. Re-run the two-model probe if behaviour changes.
+- **Do NOT pre-check `models_explore`'s `unlim` block.** `~/.claude/memory/higgsfield-unlim-trial-video-constraints.md`
+  records it reading `false` while unlim jobs were *succeeding*. Not evidence in either direction.
+  **The fire IS the test.**
+- **A model swap buys nothing** — mini / kling3_0 / wan2_7 all sit behind the same refusal, and
+  swapping trades away seedance's 3-role identity lock.
+- `balance` held at **710** across every attempt. ⚠ Note honestly: **zero jobs completed**, so this is
+  evidence that a REFUSED request is not charged — it says nothing about charging on success.
+- Third day boundary tested; waiting has not cleared it. Most likely resolutions are Tim starting the
+  trial, or the session landing on the entitled account.
+
+**⚠ DETECTING THE UNBLOCK IS CIRCULAR — know this before you plan around it.** `balance` sat at 710
+through every blocked attempt, so **`balance` cannot tell you it has cleared.** Only an actual fire
+can. So: check `balance`/`show_generations` for NON-INTERFERENCE (is someone else working?), then
+spend your ONE probe per session on a real fire. There is no cheaper trigger.
+
+### ⛔ 2. TWO STANDING ITEMS IN THE LOOP PROMPT ARE ALREADY DONE
+
+The autonomous prompt re-issues both every cycle. **Check here before acting on it.**
+
+- **Its 6-clip QUEUE is 100% shipped** (verified file-by-file; eclipse-ofuda and ir37-pink-tessen are
+  both 13/13). Firing it would re-roll shipped clips. **Derive the real gap with
+  `node qa-boss/fire-queue.mjs`** — note that script only REPORTS (`SUPPLY − SHIPPED`); it does not
+  fire. The fire procedure is in FIRE-PLAN.md.
+- **The "raiju faint rectangle" warning is not reproducible.** The plate is a still, so the keyer runs
+  on it for free: keys with margin (p99 28.7 vs TIGHT 45), glow-survival 5514/5514 = 100%, and the
+  mask viewed at full size is a clean silhouette with no rectangular alpha edge. ⚠ That is a
+  **still-plate result**; raiju has never been rendered, so "clear to fire" is a well-supported
+  prediction, not an observation. Check its first keyed clip anyway.
+- **The prompt's SKIP list** (satoshi-odachi, sora-yari, ir56-lion-serpent — prop-EXTENDED, anchors
+  touch the frame edge) is still live and is Tim's pending re-plate ruling. See
+  `qa-boss/ANCHOR-BUDGETS.md`.
+
+---
+
+### ★ 3. `resolution` IS A PIXEL BUDGET — a 1:1 "720p" is 960x960
+
+Off 278 raws: 276 are 960x960 (1:1), 2 are 1280x720 (16:9). `960x960 = 1280x720 = 921,600` **exactly**.
+The label fixes a pixel COUNT; `aspect_ratio` spends it. So `square side = sqrt(W16x9 * H16x9)`, giving
+**1080p square = 1440**. A square render buys **1.33x the LINEAR resolution** of the same-label 16:9.
+(Verified at the 720p tier across two aspect ratios; carrying it to 1080p is principled extrapolation.)
+
+### ★ 4. THE FILL HOLD IS PRICED — AND LOOKING AT IT *DOWNGRADED* IT
+
+`golem-mace` 0.50 / `nurikabe-shield` 0.55 / `violet-contract` 0.62 are held on FILL. Phase 143's rule
+still governs — **a fresh measurement is not a fresh decision** — so nothing was re-screened. What was
+missing was the price.
+
+- Delivered character px = **`fill x 960`**, confirmed against four shipped webms within ~1%.
+- On-screen figure is **560px** at 1920x1080 (measured; the stills carry 6-8% transparent padding —
+  an earlier 600px figure was corrected).
+- Shipped bosses run **1.47-1.58x** headroom; standard 0.68 MK runs **1.17x** — the whole MK wave sits
+  below every accepted boss, not just the held three.
+- **Rendered at true deploy size and compared: no visible deficit at 0.68.** Simulated 0.94x and 0.86x
+  are indistinguishable at deploy size too; they separate only at **3x zoom**.
+- **The viewport outweighs the fill choice.** At 4K the ACCEPTED bosses are themselves upscaled
+  (0.79x), and 1080p→4K costs a boss more headroom than the entire boss-vs-golem-mace gap. **A quality
+  bar stated without a viewport is not a bar.**
+- ⚠ **Unresolved dependency:** whether **1080p is inside the unlim-COVERED configs** cannot be
+  determined from this account — `models_explore` returns no "Unlim configs" list while
+  `unlim.available` is false. **Check it the moment the account works**, before planning a re-render.
+
+Full tables: `qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md` (phases 217-222).
+
+### ★ 5. `iron-vow` — its hold is a taste call, and fill is NOT the blocker
+
+Held on *duplicate weapon class vs oni-tetsubo*. Rendered both plates side by side: the clash is
+**weapon-family only** (two-handed blunt club). Body, palette and silhouette are maximally distinct —
+bare-chested red horned oni vs bald armoured human with a metal jaw-guard and a caped white-crescent
+mantle. Re-measured: **standard 0.68 fill**, roomy L362/R362, cleanest p99 (5.1) of the held set,
+glow-survival 136/136.
+
+To be precise against §4: iron-vow sits at **exactly the 0.68 standard**, so it carries the same
+1.17x headroom as the whole MK wave — which §4 showed is **not visibly deficient**. It has no fill
+problem *beyond the wave-wide one*, and no Tier-C fill exception. **On a "distinct enough" ruling it
+is kit-ready the same day** — but that ruling is Tim's (§9.3); do not proceed without it.
+
+### ⬜ 6. FREE WIN WAITING ON ONE YES — the stills discard 41% of their LINEAR resolution
+
+`scripts/key-enemies.mjs:390` hardcodes `scale=-1:900`, but Tim's supplied source art in
+`input/characters/playable characters/npc boss/` is **1536px tall** — a 0.586 factor, i.e. **41% of
+linear resolution discarded (~66% of pixel area, in §3's terms)**.
+
+Raising that one constant and re-running `node scripts/key-enemies.mjs` recovers it — deterministic,
+local, **no account** — and it regenerates the `qa-phase20/shots/` QA sheets so despill/halo stays
+verifiable. **1440 is the value to use if you want to match §3's 1080p square budget; 1536 keeps every
+source pixel.** Pick deliberately — 1440 still discards 96px of a 1536 source.
+
+**Verified by eye, not just arithmetic:** at 4K the current stills lose INTERIOR detail (blossom
+petals, face tattoo, bark grain) — and keying/despill only touch edges, so it cannot be blamed on the
+matte. Fine at 1920x1080; it is a **high-DPI win**, landing hardest on `prefers-reduced-motion`
+players, for whom `.fr-reduced .fr-state-video { display: none }` (`src/ui/fight.css`) makes the still
+the ENTIRE character for the whole match. **NOT actioned: it rewrites accepted webps in
+`public/assets/enemies/`. One atomic yes = edit the constant + re-run + eyeball the QA sheets.**
+
+---
+
+### 🎬 7. THE ONLY CLIP WORK THAT NEEDS NO ACCOUNT — `kitsune-tanto`
+
+`fire-queue.mjs` flags it and it is easy to miss: **12 `kitsune-tanto-*.mp4` raws are already on disk**
+in `qa-boss/raw/` (10 distinct states — block-a/b, hit, idle ×3 takes, ko, strike-a/b, throw-a/b,
+victory; no specials), plus a matte test. **Nothing is wired** — there is no
+`public/assets/characters/kitsune-tanto/` directory at all.
+
+**This needs KEYING + WIRING, not firing, so it does NOT depend on account access.** Phases 183/201
+measured them as technically shippable: they key cleanly (residual greenExcess mean −35, p99 0, 0.00%
+hot) and agree with their own plate BETTER than accepted clips do (idle .920/.917, strike_a .937/.938
+vs lich strike_a v3 ACCEPTED at .902/.905).
+
+⚠ **It is still a TIM call, on identity, not on technique:** the PLATE shows a glowing yellow-green
+blade; every RAW shows plain steel. Which is canonical is a design ruling. The glow-survival screen
+(phase 201) removed the technical dimension entirely — the blade glow is 100% surviving, i.e. opaque
+material, never a keying risk. **Do not wire these without the ruling**, and note a re-fire today
+would pin the glowing plate at f0 via the 3-role transport and might reintroduce the hazard these
+older raws happen to dodge.
+
+### 🔧 8. TOOLING FIXED THIS SESSION — read before trusting any gate
+
+Four defects, all one family: **a failure whose signature equals the normal case.**
+
+| file | defect | fix |
+|---|---|---|
+| `qa-boss/harvest.mjs` | `USER` was a hardcoded const pinned to the ~10-credit account. The account FLIPS. Harvest under the wrong prefix 404s on EVERY url — and 404 is this poll's *normal* case — so it looks identical to "not finished" and times out blaming the window. | `--user` flag, prefix PRINTED up front, TIMEOUT now names **WRONG ACCOUNT first**. Also fixed positional parsing (the old `/^\d+$/` test would have swallowed `--user user_ABC` as the jobId). |
+| `scripts/check-prompt-coherence.mjs` | Printed the **ALL-CLEAR over a file it never read** — `(no prompts file)`, then `No BLOCK findings.`, then exit 0. Fires only in SINGLE-character mode: the mode used to vet one character before firing it. | counts unevaluated inputs, refuses the all-clear, **exit 2** |
+| `scripts/check-facing.mjs` | Had **no TERMINAL exit**: it carried one `process.exit(2)` usage guard, but after printing its verdict it fell off the end of the file and **always returned 0** — on a missing anchor, an unreadable clip, and even while printing its own alarm `KIT IS INTERNALLY INCONSISTENT`. **A gate that cannot fail cannot gate.** | **exit 2** not-evaluated, **exit 1** inconsistent, **0** clean |
+| coherence matcher | A single `.exec` over the body reported the FIRST positional phrase. Every kit opens with the anchor-stance clause, so boilerplate always won — **and masked any genuine detached-effect phrase later in the same state.** | scans ALL occurrences; three narrowings, **35 → 25 BLOCK** |
+
+**⚠ THE METHOD MATTERS MORE THAN THE FIXES.** Every narrowing was proven by *reading every finding it
+moved*. One silenced two REAL violations (`"a wind-arc just IN FRONT OF HER that fades"`, `"a crescent
+of steel light up IN FRONT OF HIM that fades"`) because `that` was read as a possessed noun. **It
+survived my own reasoning and died only at the verification step.** Never change a gate's matcher
+without diffing findings before/after and reading each one.
+
+### ✔ 9. CLEAN NEGATIVES — DO NOT RE-INVESTIGATE
+
+- **Asset integrity:** 138/138 assets referenced by the 11 registered characters exist; registration
+  consistent; no complete-but-unregistered character. `gorvak`/`volta` are intentional still-only
+  stand-ins (`assets/fighter-1-keyed.png`, `fighter-2-keyed.png`, zero clips).
+- **Shipped clip corpus:** all **118** webms (excluding `/old/`) decode, carry `alpha_mode=1`, and
+  have >=24 packets.
+  > ⚠ **Do NOT test alpha via `pix_fmt`** — a VP9 alpha webm reports `yuv420p`, not `yuva420p` (alpha
+  > is an out-of-band track). That assertion flagged **119 of 119 clips as broken**, all of them fine.
+  > **A 100% result in EITHER direction is an instrument error, not a finding** — which also means the
+  > two 100% clean negatives above deserve a second look if you ever come to depend on them.
+- **Kit queue is exhausted under the guard:** every `WRITE`-verdict plate already has a kit. The 9
+  without one are 5 REJECTED + 4 TIM. Always run `node qa-boss/may-i-write-kit.mjs <char>` first.
+- **The fire-ready queue carries no coherence defect I could find.** All 9 BLOCKs on unfired `WRITE`
+  kits were read against context: **8 of 9 read as false positives** (body-anchored phrases like
+  *"her front talon"*, *"her planted foot"*). ⚠ That is ONE reviewer's read, and §8 documents that the
+  same reviewer's matcher judgement survived its own reasoning and died at verification — so treat
+  "do not fix those prompts" as a strong prior, not a settled fact.
+- **No unharvested clips on the account** — it holds exactly 8 generations, all 2026-07-29, for
+  characters already 13/13.
+- **MK FINAL kits vs the repaired gates:** re-run post-fix, **5 of 6 exit 0** (oni-tetsubo,
+  raiju-naginata, minotaur-axe, skullrend-orcus, pale-choir). **`jin-goldenhand` exits 1** — its 2
+  BLOCKs are the body-anchored false-positive family above. Not "all 6 gate-clean".
+
+### ⏸ 10. DECISIONS OWED BY TIM (all decision-ready — none needs more analysis)
+
+1. **The account** — start the trial, or land the session on the entitled account. *All firing is
+   blocked on this.*
+2. **`kitsune-tanto` canonical look** — glowing blade (plate) vs plain steel (all 12 raws). **This is
+   the only one that unlocks work needing NO account** (§7).
+3. **Fill trio** — `golem-mace` / `nurikabe-shield` / `violet-contract`, priced per-viewport (§4).
+4. **`iron-vow`** — weapon-class overlap only; no other blocker (§5).
+5. **The stills cap** — one atomic yes (§6).
+6. **`onryo-katana` idle: *"Feet hovering just above the ground."*** Canonical for a vengeful spirit,
+   but it contradicts the feet-flat rule every other kit carries (see any kit's acting lines in
+   `qa-boss/prompts/`, e.g. `thorn-warden.md`: "HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP")
+   and it bears on anchor-lock, where ground contact is what the pose is measured against.
+   **Decide before onryo fires.**
+7. **The prop-EXTENDED re-plate ruling** — satoshi / sora / ir56 (`qa-boss/ANCHOR-BUDGETS.md`). It also
+   decides ir56's last clip, `attack_throw_b`, whose raw is already on disk.
+8. **"12 bosses"** — Tim expects 12; `CAMPAIGN_NODES` in `src/characters/rosterGating.ts` has 10
+   entries and node 2 is `volta`, a stand-in, leaving **9 boss slots**. Unreconciled; asked, not
+   answered.
+
+### ▶ 11. WHAT TO DO NEXT, IN ORDER
+
+1. **Read `qa-boss/FIRE-PLAN.md`.** It has the fire procedure this block deliberately does not repeat.
+2. **Non-interference check:** `balance` + `show_generations(type:'video', size:5)`. If the balance
+   moved and the loop did not cause it, call **`transactions`** — the video history showed "all clear"
+   while a human was spending on IMAGES. Do not fire that cycle.
+3. **Spend one probe on a real fire** (see the circularity note in §1 — `balance` cannot detect the
+   unblock). If refused, do NOT hammer; use the cycle for §7 or the backlog.
+4. **If it fires — `thorn-warden special_1`, then `special_3`.** Kit built and verified
+   (`node qa-boss/build-prompt.mjs qa-boss/prompts/thorn-warden.md special_1` → `LEN=4590`), not on the
+   SKIP list, and it takes the roster to **7 of 9 bosses at 13/13**. Highest-value pair on the board.
+5. **RE-UPLOAD THE PLATE** (`qa-boss/anchors/thorn-warden-anchor-green.png`) via
+   `media_upload` → PUT the bytes → `media_confirm`. `media_id`s do NOT survive an account flip
+   (`Media input not found`). Pass the SAME id in all three roles: `start_image`, `end_image`, `image`.
+6. **Harvest:** `node qa-boss/harvest.mjs <jobId> <outFile> [--user <id>]`. Pass `--user` if the
+   account differs from the default — read the id from the path segment after the host in any
+   `show_generations` CDN url (`https://d8j0ntlcm91z4.cloudfront.net/<USER_ID>/hf_...mp4`).
+7. **Then gate, key, wire, commit** exactly as FIRE-PLAN §STEP 3 prescribes — gates first, VIEW frames
+   at full size, record in clipdata, one commit per verified clip.
+8. **Then MK FINAL kits** — all 6 exist and need clips, not authoring (see the `jin-goldenhand` caveat
+   in §9).
+
+### 🧠 12. TRANSFERABLE LEARNINGS (also saved to `~/.claude/memory/`)
+
+- **A computed gap is not a verdict.** Render at TRUE deploy size and look. It went BOTH ways this
+  session — looking *downgraded* the fill concern and *upgraded* the stills one.
+  → `computed-gap-is-not-a-verdict.md`
+- **A metric pinned at a perfect value — pass OR fail — is an instrument error, not a finding.**
+- **Interior detail loss = resolution; edge-only loss = matte/keying.** That test tells them apart.
+- **Diagnose account-vs-model by firing a second unrelated model.**
+- **A fresh measurement is not a fresh decision** (phase 143, still governing).
+- **Never narrow a gate's matcher without diffing its findings and reading every one that moved.**
+
+---
+
+## ★★★★★★★★★★ SESSION 23 (2026-08-03) — superseded by the block above, kept for provenance ★★★★★★★★★★
 
 **40 prompt files · 428 buildable states · 100 shipped · QUEUE 328 · ledger 69 (OK 24 · REJECTED 36 ·
 TIM 9) · 11 commits this session.**
