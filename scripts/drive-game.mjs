@@ -17,6 +17,9 @@
 //   --out <png>      required
 //   --port <n>       dev server port (default 5310). Start it yourself; this never spawns one.
 //   --node <name>    campaign node to enter, by its on-screen name. Omitted = stop at the map.
+//   --no-stake       stop on the NODE CARD / stake screen instead of entering the fight. That screen
+//                    carries the defence preview, win chance and payout, so it is where a campaign
+//                    or odds change is verified.
 //   --until <js>     PLAY (cycling STRIKE/THROW/BLOCK) until this page expression is truthy.
 //   --picks <n>      how many picks to try before giving up (default 40).
 //   --clip x,y,w,h   crop region in CSS px. Omitted = full viewport.
@@ -84,7 +87,11 @@ if (nodeName) {
     console.error(`ERROR: no campaign node matching "${nodeName}" on the map.`);
     await browser.close(); process.exit(2);
   }
-  await click('STAKE', 3400);        // stake screen -> vs intro -> fight
+  if (!has('no-stake')) await click('STAKE', 3400);   // stake screen -> vs intro -> fight
+}
+if (has('no-stake') && opt('until', null)) {
+  console.error('ERROR: --until needs a fight; it cannot be combined with --no-stake.');
+  await browser.close(); process.exit(2);
 }
 
 const untilExpr = opt('until', null);
