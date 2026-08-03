@@ -559,3 +559,34 @@ noun it is anchored to the fighter; if it terminates at punctuation or a clause 
 space. That is the next narrowing to make, and it should be proven the same way the last three were —
 apply, diff, and READ every finding that changes. Not done this phase on purpose: the triage above is
 the deliverable, and folding a fourth matcher change into the same cycle would muddy its attribution.
+
+### ✔ POSSESSIVE-NOUN DISCRIMINATOR APPLIED — AND IT CAUGHT ME INTRODUCING A FALSE NEGATIVE (phase 232)
+
+Applied the narrowing phase 231 specified: a positional phrase that runs ON into a noun the fighter
+possesses is anchored; one that ENDS the clause is free space. **30 -> 25 BLOCK, 5 suppressed, 0 added.**
+All five verified against their own context — `her front talon`, `her planted foot`,
+`her leading slipper`, `her rear hip` x2.
+
+**THE FIRST CUT WAS WRONG AND THE VERIFICATION IS THE ONLY REASON I KNOW.** It stop-listed only
+CONJUNCTIONS, so it silenced two REAL violations:
+
+```
+"a SMALL compact hot-pink-and-white wind-arc just IN FRONT OF HER that fades within frame"
+"a short contained crescent of steel light up IN FRONT OF HIM that fades within frame"
+```
+
+Both are detached effects thrown into open space. `that` is a relative pronoun, not a possessed
+noun — the rule read "her that" as "her <noun>" and suppressed them. **That is the exact
+false-negative this gate must never produce**, and it survived one round of my own reasoning; it died
+only because every suppressed finding gets READ against its context before the change is kept.
+Stop-list now covers relative pronouns and adverbs (`that|which|who|again|once|still|just|only|...`)
+as well as conjunctions. Both effects confirmed BACK in the output.
+
+Deliberately conservative fallout: *"war-fan open **beside her again**"* is flagged once more, because
+`again` is now a function word. It is a held weapon and probably noise — **under-suppressing is the
+correct policy for this gate**, so it stays.
+
+Regression: nonexistent -> 2, real character -> 0, unchanged.
+
+**Running total across 230 / 230b / 230c / 231 / 232: 35 -> 25 BLOCK**, two vacuous-pass holes closed,
+one masking blind spot removed, and every single change proven by reading the findings it moved.

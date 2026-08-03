@@ -130,8 +130,30 @@ function checkCharacter(id) {
           // "...in front of her OWN CHEST" / "beside her OWN HIP" is BODY-ANCHORED — it is the exact
           // form this gate's own FIX text prescribes ("erupt AROUND HIS OWN BODY"), and
           // requiredEffectAnchoring lists it as the CURE. Flagging it as the disease is backwards.
-          const after = body.slice(m.index + m[0].length, m.index + m[0].length + 24);
+          const after = body.slice(m.index + m[0].length, m.index + m[0].length + 30);
           if (/^\s+own\b/i.test(after)) return false;
+          // POSSESSIVE-NOUN CONTINUATION (phase 232). Triaging every finding on the fire-ready queue
+          // showed one shape behind 7 of 8 false positives: the phrase runs ON into a noun the
+          // fighter possesses — "in front of her FRONT TALON", "beside her REAR HIP", "in front of
+          // her LEADING SLIPPER". A GENUINE detached placement instead ENDS the clause: "in front of
+          // her, then snaps back". So: continues into a possessed noun = anchored; terminates at
+          // punctuation = free space. Objective, not a doctrine call.
+          //
+          // Applied ONLY to phrases ending in him/her. "in the air" must never be tested this way —
+          // in "burn away IN THE AIR in front of her, then snaps back" the match is "in the air" and
+          // the following word is "in", which would wrongly read as a possessed noun. That clip is a
+          // real violation and must stay flagged.
+          // The conjunction list is excluded because those continue the SENTENCE rather than name a
+          // possessed noun, so they leave the phrase pointing at open space.
+          // The stop-list must cover RELATIVE PRONOUNS and ADVERBS too, not just conjunctions.
+          // First cut listed only conjunctions and silenced two REAL violations — "a wind-arc just
+          // in front of her THAT FADES within frame" and "a crescent of steel light up in front of
+          // him THAT FADES within frame" — because "that" was read as a possessed noun. Both are
+          // detached effects. Caught by re-reading every suppressed finding; that verification step
+          // is the only reason this narrowing is safe to make at all.
+          const FUNCTION_WORD = /^\s+(?:and|then|as|so|while|with|but|before|after|until|to|that|which|who|whom|whose|again|once|still|just|only|now|there|here|briefly|momentarily|in|at|on|into|toward|towards|for)\b/i;
+          if (/(him|her)$/i.test(m[0]) && !FUNCTION_WORD.test(after) &&
+              /^\s+[a-z][a-z-]*/i.test(after)) return false;
           return true;
         }) || null;
       const anchored = U.requiredEffectAnchoring.mustContainOneOf.some((p) => low.includes(p));
