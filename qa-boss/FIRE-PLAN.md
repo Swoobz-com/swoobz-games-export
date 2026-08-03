@@ -28,6 +28,45 @@ On the third account `use_unlim: true` returns:
 So it has a big credit balance and NO unlimited entitlement. Firing there would spend Tim's
 credits, which the loop protocol forbids outright ("use_unlim:true, never credits").
 
+### ⚠ THE REJECTION NOW COMES BACK NAMING THE **MODEL**. IT IS STILL THE ACCOUNT. (phase 216, 2026-08-03)
+
+Same account, same `use_unlim: true`, **different wording**:
+
+> Error starting generation: Unlimited generations aren't supported for seedance_2_0.
+
+That reads as a MODEL capability verdict — `unlim_not_supported` in the tool's own vocabulary, whose
+docs define it as "the model has no unlim path". Taken at face value it sends a session to swap
+models, or to abandon seedance. **Do not take it at face value.**
+
+**PROVEN BY FIRING A SECOND MODEL, NOT BY READING A FIELD.** `kling3_0` — a different provider, and
+the model this project's own notes rate the best fallback — returned the *identical* model-shaped
+refusal in the same minute:
+
+> Error starting generation: Unlimited generations aren't supported for kling3_0.
+
+Both models advertise `supports_unlim: true` in the catalog. Two independent models cannot both have
+lost their unlim path between one call and the next. **The refusal is account-wide, rendered as a
+model-level string.** Nothing changed on 2026-08-03 — this is the phase-160 blocker in new words,
+now tested across a third day boundary, same verdict. `balance` held at 710 across both attempts:
+the never-silently-charged guarantee held again.
+
+**DO NOT "CHECK" THIS WITH `models_explore` FIRST.** Its top-level `unlim` block reads
+`{available: false}` right now, but that field is **known unreliable** — `~/.claude/memory/`
+`higgsfield-unlim-trial-video-constraints.md` records it reading `false` while unlim generations
+were demonstrably succeeding, and the tool contract says the same: send the flag and let the backend
+answer. The field is not evidence in either direction. **The fire IS the test, and it is free.**
+
+What the catalog IS good for: telling you the error string is lying about its subject.
+`supports_unlim` is a property of the MODEL; the entitlement is a property of the ACCOUNT.
+
+Corollary for the queue: **a model swap buys nothing.** `seedance_2_0_mini`, `kling3_0` and `wan2_7`
+all advertise unlim and all sit behind the same account-level zero — and swapping would also trade
+away the 3-role identity lock seedance was chosen for. Stay on seedance; the blocker is the account.
+
+No `recovery_tool` was offered on either rejection — the docs say `unlim_trial_available` returns one
+pointing at the trial offer. Its absence is consistent with the trial being unavailable on this
+account rather than merely unstarted, which is why **starting it remains Tim's call.**
+
 **THE PROTECTION WORKED AND THAT IS THE POINT.** The request was rejected loudly and nothing was
 charged — which is exactly why `use_unlim` is mandatory on every call. Had it been omitted, this
 would have silently spent credits on a clip.
