@@ -385,6 +385,36 @@ would have certified it.**
 the peak frame composited over dark. Never sign the repair off on this gate's exit code.**
 `scripts/edge-feather.mjs` (straight band) stays legal ONLY for prop overflow, never for an effect.
 
+### ✔ THE FIX PATH IS PROVEN END-TO-END (phase 248) — recipe, with numbers
+
+Dry-run on `thorn-warden/attack-block` (f40-58 window, cut at f48), entirely in scratch, no shipped
+asset touched. `radial-feather.mjs` takes a **frames directory of PNGs**, not a webm, so the chain is:
+
+```
+ffmpeg -c:v libvpx-vp9 -i <clip>.webm -vsync 0 -pix_fmt rgba  frames/f%03d.png
+node scripts/radial-feather.mjs frames/            # defaults; exit 0, "19/19 frames"
+ffmpeg -framerate 24 -i frames/f%03d.png -c:v libvpx-vp9 -pix_fmt yuva420p \
+       -b:v 0 -crf 30 -auto-alt-ref 0 -an  out.webm
+```
+
+Result, measured and then VIEWED:
+
+| | i2 | i10 | i25 | i49 | i80 | gate |
+|---|---|---|---|---|---|---|
+| before | **255**/314 | 255/314 | 255/310 | 255/298 | 255/266 | FLAT RIGHT |
+| after | **22**/0 | 95/0 | 167/0 | 230/0 | 255/129 | **clean** |
+
+That after-row is the textbook healthy ramp this file's own gate section describes (~1/30/128/236/255).
+**And the contour was confirmed CURVED by eye** — the bloom thins along its own curvature and the
+thorn tips fade instead of being amputated. That check is not optional: the gate cannot tell a curved
+fade from a straight one (proven above), so the numbers alone would equally have passed a non-fix.
+
+⚠ **Scope of this dry-run, stated honestly:** ONE clip, a 19-frame window, at DEFAULT parameters.
+The defaults are character-centred (`cx 0.5 cy 0.56 rx 0.53 ryUp 0.61 ryDown 0.68`) and a character
+who stands off-centre or whose effect sits high will need them tuned — check the fade does not eat
+the figure. Re-run the inset-ring gate after the re-encode, and remember to rename the asset (`-r2`)
+and update the manifest url so no browser cache serves the old clip.
+
 ## Standing verification discipline
 
 - **`check-containment.mjs` processes ONE argument.** A glob prints "scanned 1 | clean 1" and silently
