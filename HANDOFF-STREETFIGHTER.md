@@ -3548,6 +3548,38 @@ New (phases 18-19, 2026-07-21/22):
 
 ## 5. What to do next (Tim's likely priorities — ask him which)
 
+### ⬜ BACKLOG (phase 224, 2026-08-03) — THE STILLS THROW AWAY ~37% OF THEIR RESOLUTION
+
+**Not actioned deliberately: this changes SHIPPED, ACCEPTED assets, which is Tim's call, not the
+loop's.** Measured, ready to execute on a yes.
+
+Five of the six 13/13 bosses have plates carrying a **~1320px** subject, but their `def.still` webp
+carries only **~830px**. The still is a downscale of art that has far more detail available:
+
+| character | still subject | plate subject | wasted | 4K still headroom now → re-authored |
+|---|---|---|---|---|
+| eclipse-ofuda | 835 | 1319 | **37%** | 0.74x → **1.17x** |
+| ir37-pink-tessen | 828 | 1319 | **37%** | 0.74x → **1.17x** |
+| lady-kurotachi | 829 | 1321 | **37%** | 0.74x → **1.18x** |
+| ir48-hex-paper-lord | 849 | 1318 | **36%** | 0.76x → **1.17x** |
+| satoshi-odachi | 819 | 1192 | **31%** | 0.73x → **1.06x** |
+| hollow-pale | 843 | 662 | none | 0.75x → 0.75x (its plate is 720², the odd one out — no gain) |
+
+**WHY IT MATTERS, AND WHY IT IS NOT COSMETIC.** `def.still` renders in three places
+(`FightExperience.tsx:1089`, `:1268`, `:1380`), and one of them is the accessibility path:
+`.fr-reduced .fr-state-video { display: none }` — **under `prefers-reduced-motion` the still is the
+ENTIRE character presentation**, permanently. On a 1920x1080 viewport the current stills are fine
+(843/561 = 1.50x headroom). On 1440p and 4K they are **upscaled** (0.74x), so a reduced-motion player
+on a high-DPI display sees a soft character for the whole match, with the sharper pixels sitting
+unused on disk.
+
+**THE FIX IS FREE — no generation, no account.** Re-export each still from its existing anchor plate
+at the plate's native subject height instead of ~830px. hollow-pale is excluded (nothing to gain).
+
+Related: the viewport analysis this depends on is in `qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md`
+(phases 217-222) — the same measurement showing the CLIPS also upscale above 1080p, which is a
+generation-side problem and NOT free.
+
 **ACTIVE (2026-07-23): boss character CLIP GENERATION — see the "## PHASE 23" section
 above for the full resume instructions. That is the live task.** Items 0-1 below are the
 older framing of it; the phase-23 section supersedes them with the FREE browser-Unlimited
