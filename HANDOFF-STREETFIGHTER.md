@@ -3,13 +3,34 @@
 ## ★★★★★★★★★★ SESSION 25 — START HERE (2026-08-03, later) ★★★★★★★★★★
 
 **TIM WAS IN THE ROOM AND RULED ON SIX OPEN ITEMS. Five of them are HOLDS. The asset pipeline is
-deliberately parked; do not restart it on your own initiative.** One commit landed (phase 235,
-`7ae744e`); zero clips fired; the account is still blocked.
+deliberately parked; do not restart it on your own initiative.** **12 commits, phases 235-246
+(`7ae744e`..`4086702`); ZERO clips fired; the account is still blocked.**
 
-> **Read `qa-boss/FIRE-PLAN.md` for procedure, and the SESSION 24 block below for state.** This
-> block records what Tim DECIDED and four corrections to things SESSION 24 asserted. Where they
+> **Read `qa-boss/FIRE-PLAN.md` for procedure, and the SESSION 24 block below for older state.**
+> This block records what Tim DECIDED and the corrections to things SESSION 24 asserted. Where they
 > disagree, this block wins — every correction here was re-verified by hand, and the specific
 > commands are quoted so you can re-run them rather than trust me.
+
+### 📋 0. WHAT SHIPPED THIS SESSION — the index, because §1-§12 below were written at phase 236
+
+| phase | what landed | detail lives in |
+|---|---|---|
+| 235 | Tim's onryo ruling applied — and his PLATE shows feet PLANTED, so "hover in idle" had to be encoded as planted-at-both-ends | §1, `qa-boss/prompts/onryo-katana.md` |
+| 236 | this block: six rulings + four corrections to SESSION 24 | §1-§12 |
+| **237** | **corrects 236** — `fire-queue.mjs` was NEVER wrong; I nearly "fixed" a working tool | §3 correction box |
+| 238 | playable-after-beaten was ALREADY built and works (9 of 10 nodes); added `CONQUER ALL` to the map dev bar (`?dev`) | §7, commit body |
+| 239 | built `qa-boss/check-inset-ring.mjs` — a ship-gate the skill mandates that this repo never had — and swept all 118 clips | `qa-boss/INSET-RING-SWEEP.md` |
+| **240** | **corrects 239** — 5 sliced effects, not 15; the other 10 are props crossing the edge | INSET-RING-SWEEP header |
+| 241 | the pattern tracks PROP SIZE not effects; `idle` is 0/12 (free negative control); gate entered FIRE-PLAN's pipeline | INSET-RING-SWEEP |
+| 242 | the 5 cuts ARE player-visible at true deploy over their arena; corrects 236's "~860px from any screen edge" | INSET-RING-SWEEP |
+| 243 | DWELL measured — run length is NOT the severity order; thorn's cut is ONE frame (42ms) | INSET-RING-SWEEP |
+| 244 | Tim's HOLD moved to the top of FIRE-PLAN (where the loop enters); `check-facing` was blind to every MK plate — fixed | FIRE-PLAN top, `scripts/check-facing.mjs` |
+| 245 | `arsenal.json` covers 10 of 40 kits; ALL SIX MK FINAL kits undeclared — deliberately not bulk-filled | FIRE-PLAN §arsenal |
+| **246** | **the inset-ring gate CANNOT sign off the fix** — a soft STRAIGHT fade turns it green, proven with a control | `check-inset-ring.mjs` header |
+
+**The through-line, if you read nothing else: four of these twelve phases CORRECT an earlier one of
+them** (237→236, 240→239, 242→236, 246→own gate). Every correction came from opening the thing
+rather than trusting the write-up about it. Treat this block the same way.
 
 ### ⛔ 1. TIM'S RULINGS — ALL SIX. DO NOT RE-ASK, DO NOT QUIETLY REVERSE.
 
