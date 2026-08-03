@@ -142,8 +142,27 @@ measured them as technically shippable: they key cleanly (residual greenExcess m
 hot) and agree with their own plate BETTER than accepted clips do (idle .920/.917, strike_a .937/.938
 vs lich strike_a v3 ACCEPTED at .902/.905).
 
-⚠ **It is still a TIM call, on identity, not on technique:** the PLATE shows a glowing yellow-green
-blade; every RAW shows plain steel. Which is canonical is a design ruling. The glow-survival screen
+⚠ **It is still a TIM call, on identity, not on technique — but the question is NOT the one the
+ledger recorded (corrected phase 234).** The old framing was "glowing plate vs plain-steel clips".
+Measured and then VIEWED this phase, that is wrong for the ACTION clips. Bright saturated
+yellow-green pixels per raw (plate = 1052 for calibration):
+
+```
+idle / idle-v2 / idle-v3    0-41     ko 31-45     victory 9-42     -> genuinely PLAIN STEEL
+block-a 34-245   block-b 177-337   hit 188-230
+strike-a 178-274 strike-b 71-185   throw-a 110-260  throw-b 148-386 -> the blade IS GLOWING
+```
+
+Confirmed at full size: `throw-b` @2.0s has a clearly glowing yellow-orange blade edge, and
+`strike-a` @2.0s has the glowing blade **plus a sweeping yellow-green arc trail through the air**
+(a detached energy trail — its own doctrine question).
+
+**So the real finding is that THE KIT IS INTERNALLY INCONSISTENT: the blade is plain steel at
+rest and ignites during every attack.** That is visible DURING PLAY, not merely between the still
+and the animation — a stronger reason to rule, and a different question than the one on file.
+Tim's options: **(a)** accept "blade ignites on attack" as canonical and keep both looks;
+**(b)** plain steel everywhere — then the ACTION clips are what must be re-fired, not the plate;
+**(c)** glowing everywhere — then idle/ko/victory must be re-fired. The glow-survival screen
 (phase 201) removed the technical dimension entirely — the blade glow is 100% surviving, i.e. opaque
 material, never a keying risk. **Do not wire these without the ruling**, and note a re-fire today
 would pin the glowing plate at f0 via the 3-role transport and might reintroduce the hazard these

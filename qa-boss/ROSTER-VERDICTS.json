@@ -1,299 +1,299 @@
 {
-  "_README": [
-    "MACHINE-READABLE ROSTER VERDICTS (phase 179). The screening verdicts used to live ONLY as prose",
-    "in qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md, so no tool could read them and every filesystem-based",
-    "survey missed them. That failed FOUR times: nurikabe-shield (caught mid-write), kira-foxflare (a",
-    "full kit was written and committed for a REJECTED character), umbra-jelly (agent stopped), and",
-    "drake-glaive (agent stopped). The prose ledger even carried a warning about this exact failure.",
-    "",
-    "The prose file remains the reasoning of record. THIS file is the machine-readable index of it,",
-    "and qa-boss/may-i-write-kit.mjs is the guard that reads it. Keep them in sync: when you add a",
-    "verdict to the prose, add it here in the same commit.",
-    "",
-    "status: OK          = screened, viewed, cleared to write a kit",
-    "        REJECTED    = do not write a kit; reopening is a DECISION, not a fresh measurement",
-    "        TIM         = gated on Tim's ruling; do not write a kit unilaterally",
-    "        UNVIEWED    = numbers are clean but nobody has LOOKED. 50% of numerically-clean plates",
-    "                      fail the view, so this is NOT permission — view it first.",
-    "Anything absent from this file is treated as REFUSED by the guard, deliberately: 'not in the",
-    "reject list' must never be readable as 'approved'."
-  ],
-  "verdicts": {
-    "hector-warhammer": {
-      "status": "OK",
-      "why": "BEST IN SET — chosen on the view, not the numbers (phase 165)"
-    },
-    "reef-maw": {
-      "status": "OK",
-      "why": "viewed + kit written and verified phase 177"
-    },
-    "shiro-gale": {
-      "status": "OK",
-      "why": "viewed + kit written and verified phase 176"
-    },
-    "elara-frostplate": {
-      "status": "OK",
-      "why": "was on the unviewed list; kit in progress phase 177"
-    },
-    "kira-foxflare": {
-      "status": "REJECTED",
-      "why": "DUPLICATE ARCHETYPE — kitsune samurai with dual tanto, collides with kitsune-tanto (phase 169). A full kit was written for it anyway in phase 175b before this index existed; the kit is retained but MUST NOT be fired unless Tim overrules the duplication call."
-    },
-    "umbra-jelly": {
-      "status": "REJECTED",
-      "why": "view reject — the roomiest plate in the entire set and unusable (phase 165)"
-    },
-    "drake-glaive": {
-      "status": "REJECTED",
-      "why": "BAKED EMISSIVE 5.26%, rejected phase 109. NOTE: phase 173c re-inspected it and argued the emission is baked RIM LIGHT, not flame, and that rim light ships when pinned inline (raiju 1.97%, lich 0.77%). That argument was made WITHOUT knowing a rejection existed. Overturning it is a DECISION to be taken explicitly, not a side effect of a survey."
-    },
-    "iron-vow": {
-      "status": "TIM",
-      "why": "duplicate WEAPON class (collides with oni-tetsubo); recorded as a Tim call rather than an auto-reject"
-    },
-    "violet-contract": {
-      "status": "TIM",
-      "why": "viable, best p99 on disk, but fill 0.62 — Tim call; cloak also needs a bounded sway"
-    },
-    "golem-mace": {
-      "status": "TIM",
-      "why": "VIABLE WITH FILL FLAGGED — not silently promoted to Tier A"
-    },
-    "nurikabe-shield": {
-      "status": "TIM",
-      "why": "TIER C fill; an agent was already stopped mid-write on this once"
-    },
-    "satoshi-odachi": {
-      "status": "TIM",
-      "why": "prop-EXTENDED — anchor touches the frame edge, specials cannot pass containment without a re-plate"
-    },
-    "sora-yari": {
-      "status": "TIM",
-      "why": "prop-EXTENDED — same as satoshi"
-    },
-    "ir56-lion-serpent": {
-      "status": "TIM",
-      "why": "prop-EXTENDED — same as satoshi"
-    },
-    "kira-frostveil": {
-      "status": "REJECTED",
-      "why": "Viewed phase 184. BAKED MIST/VAPOUR rendered into the character — her paired sai are translucent ICE with visible vapour streaming off the blades. That is the banned effect class rendered into the plate, the exact ground that rejected Ghast Flail (baked smoke/mist around the base). It also explains her 11.49 translucency, the highest of the unviewed set: the WEAPONS themselves are see-through, so they will fringe badly and may partially key away. Body is also quite open to camera."
-    },
-    "skeleton-nodachi": {
-      "status": "REJECTED",
-      "why": "DOUBLE COLLISION, viewed phase 184. WEAPON: nodachi and odachi are the SAME weapon (大太刀), so it collides with the SHIPPED satoshi-odachi — the exact ground that rejected Tengu Naginata (same weapon as raiju-naginata). CREATURE: skeletal undead, colliding with lich-scythe. Secondary: bare bone limbs, individual finger bones and split lower-leg bones are all thin fringe-prone struts, and p99 13.2 was already the highest of the unviewed set."
-    },
-    "ningara-silk": {
-      "status": "REJECTED",
-      "why": "Viewed phase 184. COSTUME IS THE DECISIVE GROUND, and it is not technical: a sheer lace lingerie bodysuit, stockings and high heels — a pin-up render, tonally incompatible with a roster of armoured samurai, knights and creatures. Also, independently: the sheer lace is GENUINELY translucent across the whole torso (this is what the measured 7.67 will-fringe was detecting — real see-through fabric, not a green-dominant confound); high heels give no stable ground contact for the feet-flat beats every kit requires; and the spear collides with the SHIPPED sora-yari."
-    },
-    "Godflame_Liu": {
-      "status": "REJECTED",
-      "why": "baked emissive 2.74 — head is on fire, flame-bladed weapon"
-    },
-    "Emberpaw Kage": {
-      "status": "REJECTED",
-      "why": "baked emissive 1.80 — sword is a burning flame blade"
-    },
-    "Lira_Astraea": {
-      "status": "REJECTED",
-      "why": "baked emissive 1.88 — glowing white/silver figure"
-    },
-    "Ashrune Belakor": {
-      "status": "REJECTED",
-      "why": "baked emissive 0.89 — flaming horns + magma-lit mace"
-    },
-    "Warlord_Kharos": {
-      "status": "REJECTED",
-      "why": "baked emissive 0.62 — flaming crown"
-    },
-    "Sol Ofuda": {
-      "status": "REJECTED",
-      "why": "duplicate archetype — same hat + hanging ofuda + katana as eclipse-ofuda"
-    },
-    "Antler_Mire": {
-      "status": "REJECTED",
-      "why": "duplicate archetype — antlered figure, collides with thorn-warden"
-    },
-    "Azure_Ling": {
-      "status": "REJECTED",
-      "why": "duplicate archetype — war-fan, collides with ir37-pink-tessen"
-    },
-    "Tengu Naginata": {
-      "status": "REJECTED",
-      "why": "duplicate weapon — same as raiju-naginata"
-    },
-    "Horned Ruin Vex": {
-      "status": "REJECTED",
-      "why": "duplicate archetype — red horned demon, collides with oni-tetsubo"
-    },
-    "Lilith_Palehorn": {
-      "status": "REJECTED",
-      "why": "no clear arsenal — ribbons/cloth, no weapon"
-    },
-    "Symbiote_Vex": {
-      "status": "REJECTED",
-      "why": "no clear arsenal — bare claws, and pale-choir already owns the claw archetype"
-    },
-    "Ghast Flail": {
-      "status": "REJECTED",
-      "why": "baked smoke/mist around the base — the banned effect class rendered into the character"
-    },
-    "ir41-kasa-oni": {
-      "status": "REJECTED",
-      "why": "FRONTAL plate — no side to mirror; carries a BLOCKED: marker so build-prompt refuses it (exit 3)"
-    },
-    "oni-tetsubo": {
-      "status": "OK",
-      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates (BRIEF-mk-final-playables.md)"
-    },
-    "raiju-naginata": {
-      "status": "OK",
-      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates. WATCH: padded plate retains a faint rectangle; check the first keyed clip for a rectangular alpha edge (plate alpha itself was inspected clean, phase 172)"
-    },
-    "minotaur-axe": {
-      "status": "OK",
-      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
-    },
-    "skullrend-orcus": {
-      "status": "OK",
-      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
-    },
-    "pale-choir": {
-      "status": "OK",
-      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
-    },
-    "jin-goldenhand": {
-      "status": "OK",
-      "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
-    },
-    "lich-scythe": {
-      "status": "OK",
-      "why": "empirically cleared — 3 clips fired and ACCEPTED (idle v2, strike v3, strike_b v3), parked unwired in qa-boss/raw/"
-    },
-    "gargoyle-spear": {
-      "status": "OK",
-      "why": "empirically cleared — idle ACCEPTED on the first take, parked unwired in qa-boss/raw/"
-    },
-    "kitsune-tanto": {
-      "status": "TIM",
-      "why": "THE BLOCKER DID NOT MATERIALISE — needs a canonical-look ruling, not a re-screen. Its PLATE carries a live yellow-green blade glow (5.28% emissive, the highest in the roster, and the character the \"kitsune blocker\" class is named after). But the 13 RAWS ON DISK DO NOT REPRODUCE IT: the raw frames show plain steel before any keying, so the model never rendered the glow. Consequence, all measured phase 183: the clips key CLEANLY (soft fur tails crisp, blade intact and not carved into, residual greenExcess mean -35, p99 0, 0.00% hot), and they agree with their own plate BETTER than accepted clips do (idle .920/.917, strike_a .937/.938 vs lich strike_a v3 ACCEPTED at .902/.905; ko .370/.347 is expected since he collapses). So they are technically shippable. THE ONLY OPEN QUESTION IS A DESIGN ONE: the plate shows a glowing blade and every clip shows plain steel, so the canonical look is inconsistent between the still and the animation. Tim rules on which is canonical. NOTE these raws predate the 3-role start/end/image transport, so a RE-FIRE today would pin the glowing plate at f0 and might reintroduce the hazard the existing raws happen to dodge. ⚠ UPDATED phase 201 by the new glow-survival screen: its blade glow is 100% SURVIVING, i.e. OPAQUE MATERIAL, not semi-transparent glow. So it was never a keying risk at all — unlike ir52-umbra-pinions, whose membranes key away at 42.8%. That removes the technical dimension from this decision entirely and leaves ONLY the identity question: the plate has a glowing blade, the clips have plain steel, and which is canonical is Tim call."
-    },
-    "jorogumo-kusarigama": {
-      "status": "OK",
-      "why": "NEW CANDIDATE from the previously-unscreened MYTHIC tier, screened + viewed + padded phase 185. Distinct archetype (jorogumo spider-woman, four extra spider legs, kusarigama chain-sickle) with NO roster collision — nothing shipped is a spider or wields a chain-sickle. Raw art was 96% fill / 34px margins (unusable, normal for input/MK FINAL/); PADDED to 1536 gives fill 68%, L212 R212 T468, all margins >=200px. Keys with margin (opaque 12.56, emis 0.25, p99 5.9). Translucency 5.98 inspect-band with grnDom only 8.9 — so it is REAL mild see-through from the cyan web membranes between arm and torso, not a green confound. KIT MUST: bound the four spider legs (they own the LEFT edge) and the sickle tip (owns the RIGHT edge, and the chain is a long extending prop — the classic containment hazard); pin the cyan web membranes and cyan limb rim-light as fixed-brightness, fixed-opacity features. Span ceiling 1.38x is tight, same class as elara-frostplate. WATCH: hydra-flail is also a chain weapon, but sickle-vs-weight and spider-vs-hydra are distinct enough that this is a watch, not a collision — and hydra has never shipped."
-    },
-    "Zephiron": {
-      "status": "REJECTED",
-      "why": "Viewed phase 186. BAKED LIGHTNING — brilliant blue arcs crackle around BOTH staves, plus glowing eyes. Kitsune-blocker class. ⚠ THE SCREEN MISSED THIS: it measured only 1.11% emissive and filed it in the mild \"has a lit feature, pin it\" band, because lightning is THIN FILAMENTS and a percentage-of-subject measure under-weights thin bright features badly (compare Godflame_Liu at 14.09% for a head that is simply on fire). The number is not wrong, it is the wrong statistic for this shape of defect."
-    },
-    "Wight Spear": {
-      "status": "REJECTED",
-      "why": "Viewed phase 186. DOUBLE COLLISION, the same pattern that rejected skeleton-nodachi: the spear collides with the SHIPPED sora-yari (the Tengu Naginata ground), and undead/wight collides with lich-scythe. NOT a baked-emissive reject — its 3.36% is pale blue FROST RIME on the armour, correctly rim-light class, so the screen was right to route it to a look. Secondary: the spear is fully extended across the frame (prop-EXTENDED, would need padding), and the art reads noticeably lower-fidelity than the rest of the roster."
-    },
-    "Stormlord_Rex": {
-      "status": "REJECTED",
-      "why": "Viewed phase 186. TRIPLE REJECT. (1) BAKED LIGHTNING — bright yellow electrical arcs crawl the full length of his spear. That is literally the kitsune-blocker class the standing loop prompt names as disqualifying. (2) FRONTAL plate — chest square to camera, both feet forward: no side to mirror, the ir41-kasa-oni failure. (3) spear collides with the SHIPPED sora-yari."
-    },
-    "Captain_Nyra": {
-      "status": "REJECTED",
-      "why": "Viewed phase 188. SETTING INCONSISTENCY — a naval officer in a modern WHITE DRESS UNIFORM with medal ribbons, thigh straps and knee boots, carrying a cavalry sabre. The roster is consistently feudal-Japanese / dark-fantasy (ronin, oni, lich, gargoyle, undead knights). Note this is NOT a too-anime complaint — ir37-pink-tessen is anime-styled and shipped — it is that MODERN MILITARY DRESS is a setting element that appears nowhere in the roster. Secondary: very long streaming hair plus a long ribbon owning the left edge, the shiro-gale consistency/containment class. Technically she is the CLEANEST plate in the whole pool (0.08% emissive, good side profile facing screen-right, clear arsenal), so this is a TASTE call and Tim can overrule it — it is recorded as a judgement, not a defect."
-    },
-    "Bone Ledger": {
-      "status": "REJECTED",
-      "why": "Viewed phase 192. STRUCTURAL: a LASH weapon whose only vocabulary is GAINING REACH, plus a large flowing cloak — so BOTH frame edges are owned by things that must move. Padding fixes absolute margins but not this: containment forbids gaining reach, and a lash that may never extend has no beats left. That is a BEAT-LEVEL impossibility, the same class as a projectile character, not a tight budget. Contrast jorogumo-kusarigama, which survived the same shape because her chain HANGS IN A LOOP close to the body and she has spider legs and a sickle to build beats from — the chain is not her only vocabulary. His SEGMENTED SPINE-FLAIL ending in twin skulls is thrown wide across the right half and the chain-embroidered cloak sweeps the left third. Secondary: the flail collides with hydra-flail (kit written), and a gaunt undead spellcaster reads close to lich-scythe. Clean emissive 0.51 and a good side profile otherwise."
-    },
-    "Yokai Kama": {
-      "status": "REJECTED",
-      "why": "Viewed phase 188. DOUBLE COLLISION. (1) ANTLERED FIGURE — an antlered wood/forest yokai, colliding with the SHIPPED thorn-warden. That is the exact recorded ground on which Antler_Mire was rejected. (2) TWIN KAMA — a kama IS a sickle, colliding with jorogumo-kusarigama (chain-sickle), cleared and kitted phase 185-187. Setting fit is otherwise excellent. TECHNICAL NOTE, and it is a narrower claim than the disproven alpha-holes one: he is green-dominant on a GREEN plate, which by itself is harmless (the keyer is a border-seeded flood, so interior green is never a candidate) — but the THIN GREEN LEAF SPROUTS off his vine-wrapped blades are protrusions SURROUNDED BY BACKGROUND, so they ARE reachable by the flood and would key away. That is the real shape of the green-on-green hazard."
-    },
-    "Kenji Ashblade": {
-      "status": "REJECTED",
-      "why": "Viewed phase 197. WEAPON COLLISION — a katana against three shipped katana wielders (onryo-katana, lady-kurotachi, satoshi-odachi). Secondary: his blade carries BAKED EMBER/FIRE VEINING along its length. ⚠ THIRD CONFIRMATION OF THE THIN-FEATURE BLIND SPOT: it measured 0.90 emissive, squarely in the clean band, because the veining is thin filaments on a blade — after Zephiron (1.11, both staves fully electrified) and Dragon_Emperor (1.44, floating embers). Thin, sparse and filament bright features all under-read on a percentage-of-subject statistic."
-    },
-    "Charm Ronin": {
-      "status": "REJECTED",
-      "why": "Viewed phase 194. TRIPLE. (1) THE HAT+OFUDA MOTIF AGAIN — wide straw conical hat with hanging paper charm talismans, which is eclipse-ofuda signature and eclipse is SHIPPED with 13 clips. Third rejection on this exact motif after Sol Ofuda and Ink Sovereign. (2) SETTING INCONSISTENCY — modern military bomber jacket with squadron patches, cargo pants, combat boots: the Captain_Nyra ground, modern military dress in a feudal/dark-fantasy roster. (3) his bowie/tanto collides with kitsune-tanto."
-    },
-    "Kappa Bo": {
-      "status": "REJECTED",
-      "why": "Viewed phase 189. WEAPON COLLISION, and that is the whole reason: he carries a studded KANABO/TETSUBO club, colliding with the SHIPPED oni-tetsubo. Same weapon class, the Tengu Naginata ground. Everything else about him is good — turtle kappa is a distinct creature with no roster collision, setting fit is perfect, emissive 0.95 clean, and he has one of the best true side profiles in the pool. ⚠ MY GREEN CONCERN WAS MEASURED AND DISMISSED: he is 48.0% green-dominant on a green plate, but only 0.72% of his pixels sit within 120 (L1) of the plate colour — BETTER separated than hydra-flail, which is 49.6% grnDom at 2.20% proximity and keys CLEAN. His deep saturated green is a different green from the bright plate. Do not re-raise it."
-    },
-    "Pyre Seal": {
-      "status": "REJECTED",
-      "why": "Viewed phase 194. WEAPON COLLISION — a KATANA, colliding with three shipped/kitted katana wielders (onryo-katana, lady-kurotachi, satoshi-odachi). The Tengu Naginata ground. Secondary: a large flowing cloak (cloth hazard, though plain-painted rather than patterned so milder than Hexlun Veil), and sutra/talisman PAPER SEALS wrapped along the blade, which is the eclipse-ofuda motif transposed onto the weapon. NOT an emissive reject — despite the name Pyre there is NO baked flame, and the 0.96 screen reading was accurate. The design also reads as a strong Berserk homage, noted but not the ground."
-    },
-    "Hexlun Veil": {
-      "status": "TIM",
-      "why": "Viewed phase 193. VIABLE, HELD ON THE violet-contract PRECEDENT (recorded there as \"viable; cloak needs a bounded sway\"). Dark-armoured warlock/assassin, long black hair, hex-patterned cloak, wielding a rigid CRESCENT HOOKED BLADE with an eye motif. Good side profile facing screen-right, emis 1.18. CRUCIALLY IT PASSES THE LASH TEST that killed Null Mire and Bone Ledger: the weapon is a rigid blade held close in, so plenty of contained beats exist that never gain reach. THE RISK IS THE CLOAK, and it is the highest-risk cloth in the pool: it is the dominant visual mass AND it is GEOMETRICALLY PATTERNED (hex/cube lattice). Pattern consistency across 97 frames is materially harder than plain cloth — a lattice on flowing fabric morphs visibly where plain cloth does not, and the identity lock demands the same pattern every frame. Long streaming hair is a second flowing element. NOTE satoshi-odachi shipped 13 clips with a straw cape, so a cape is not disqualifying; but nothing with a LARGE PATTERNED flowing cloak has ever shipped a clip, so the mitigation is unvalidated. Tim rules."
-    },
-    "Ash Choir": {
-      "status": "REJECTED",
-      "why": "Viewed phase 197. WEAPON COLLISION — a naginata/glaive, the exact weapon that rejected Tengu Naginata (same weapon as raiju-naginata, which has a kit). Secondary: a large flowing cloak PATTERNED with purple eye-sigils (the Hexlun Veil hazard class), and the glaive spans nearly the full frame width (prop-EXTENDED). NAME IS A RED HERRING: pale-choir owns the CLAW archetype, so despite the shared word there is no creature collision — the reject is on the weapon."
-    },
-    "Null Mire": {
-      "status": "REJECTED",
-      "why": "Viewed phase 192. STRUCTURAL: a LASH weapon whose only vocabulary is GAINING REACH, plus a large flowing cloak — so BOTH frame edges are owned by things that must move. Padding fixes absolute margins but not this: containment forbids gaining reach, and a lash that may never extend has no beats left. That is a BEAT-LEVEL impossibility, the same class as a projectile character, not a tight budget. Contrast jorogumo-kusarigama, which survived the same shape because her chain HANGS IN A LOOP close to the body and she has spider legs and a sickle to build beats from — the chain is not her only vocabulary. His THORNED WHIP is thrown in a huge S-curve across the entire right half of the frame and the tattered cloak sweeps the entire left third. Secondary: the thorn motif collides with the SHIPPED thorn-warden. A genuine shame — bald pale sorcerer, red-sigil cloak, and one of the best side profiles in the whole pool."
-    },
-    "Thalyss_Nox": {
-      "status": "REJECTED",
-      "why": "Viewed phase 193. DUPLICATE ARCHETYPE vs elara-frostplate, which was cleared and kitted THIS SESSION: both are armoured ELF WOMEN wielding a BLADE — same creature, same broad silhouette, differing mainly in palette (elara silver/gold, this blue-teal scale). Her curved sabre also collides with the roster blade wielders. Otherwise clean: no cloak, decent side profile, feet flat, emis 1.40. Art reads a little more generic than the roster best."
-    },
-    "Ink Sovereign": {
-      "status": "REJECTED",
-      "why": "Viewed phase 191. DUPLICATE ARCHETYPE — the exact collision that already rejected Sol Ofuda. Silver-haired woman in a WIDE STRAW CONICAL HAT WITH HANGING PAPER OFUDA TALISMANS and black tassels, holding a talisman in her free hand. That is eclipse-ofuda whole silhouette, and eclipse-ofuda is SHIPPED with 13 wired clips. Secondary: her weapon is a naginata/glaive, colliding with raiju-naginata; and she is in HIGH HEELS, the same no-stable-ground-contact problem as ningara-silk."
-    },
-    "Dragon_Emperor": {
-      "status": "REJECTED",
-      "why": "Viewed phase 191. TWO INDEPENDENT GROUNDS. (1) FRONTAL BODY — chest squared to camera, both feet planted forward and apart, hips square, only the head turned to profile. No side to mirror: the ir41-kasa-oni failure. (2) BAKED FLOATING EMBERS — free orange sparks scattered in the AIR around him, DETACHED from his body. Banned effect class rendered into the plate (the Ghast Flail ground), and worse than a body-attached glow: detached particles surrounded by chroma either key away or leave debris, and they violate the nothing-parked-in-air rule outright. Secondary: dual curved dao collide with the roster blade wielders, and the large red cape is a flowing-cloth containment/consistency hazard. NOTE his emissive measured only 1.44% — the embers are small and scattered, so this is the SAME thin-feature blind spot that missed Zephiron lightning at 1.11%."
-    },
-    "Troll Hammer": {
-      "status": "REJECTED",
-      "why": "Viewed phase 195. DOUBLE COLLISION, both verified against the actual kits rather than assumed. (1) ARCHETYPE: a huge green orc/troll brute — skullrend-orcus is literally \"a huge ORC-BRUTE\" in its own shared prefix, and minotaur-axe is \"a huge bull-brute\", so the big-humanoid-brute slot already has two occupants. (2) WEAPON: a stone maul, colliding with hector-warhammer (kit written and verified) and golem-mace (TIM). Otherwise fine: good side profile, no baked flame."
-    },
-    "wolfmark-hild": {
-      "status": "OK",
-      "why": "Viewed, padded and fully screened phase 195. THE BEST PLATE SCREENED THIS SESSION. Norse SHIELDMAIDEN — blonde braids, wolf face-paint, grey fur mantle, leather armour, ROUND WOODEN SHIELD and a runed arming sword. DISTINCT ARCHETYPE: nothing in the roster is Norse. NEW WEAPON CLASS: nothing shipped or kitted uses a SHIELD, which also supplies naturally containable block states — the hardest state class to write. PADDED BUDGET IS THE ROOMIEST IN THE ROSTER: fill 68%, L476 R476 T468, span ceiling 2.63x (jorogumo 1.38x, umbra-jelly 2.21x) because she is a compact upright figure, 584w on a 1536 plate. KEYING IS THE CLEANEST TOO: opaque 13.23, emis 0.14, transl 3.12 with grnDom only 6.5, p99 5.7. SETTING: the roster is NOT purely Japanese — it already holds a European knight (hector), an elf (elara), a gargoyle, a minotaur and an orc — so Norse fits that mix. This is materially different from Captain_Nyra, whose MODERN MILITARY dress has no analogue anywhere. KIT MUST: treat the FUR MANTLE with the shiro-gale treatment (rides with the body, never billows, no wind); pin the wolf thigh tattoo and the runed blade as identity details; and build the blocks around the shield, which is the signature."
-    },
-    "hydra-flail": {
-      "status": "OK",
-      "why": "Backfilled phase 199 FROM THE KIT HEADER ITSELF, not invented. The kit states it was written off a PADDED plate that was \"pre-screened before this kit was written\", with the numbers recorded inline (phase 112): opaque 13.29%, p99 backdrop distance 5.4, against the keyer TIGHT=45 / LOOSE=70. That is a documented clearance from the XG/MK wave that simply predates this machine-readable ledger."
-    },
-    "ir12-rose-lance": {
-      "status": "OK",
-      "why": "Backfilled phase 199 FROM THE KIT HEADER ITSELF, not invented. The kit states it was written off a PADDED plate that was \"pre-screened before this kit was written\", with the numbers recorded inline (phase 96): opaque 8.42%, p99 backdrop distance 5.2, emissive 0.82%, against the keyer TIGHT=45 / LOOSE=70. That is a documented clearance from the XG/MK wave that simply predates this machine-readable ledger."
-    },
-    "ir05-fullbarge-titan": {
-      "status": "OK",
-      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 17.41, emis 1.16, p99 8.1 — keys with margin, with a lit feature to PIN."
-    },
-    "ir08-bonepipe-grunt": {
-      "status": "OK",
-      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 17.87, emis 0.29, p99 7.9 — keys with margin, clean."
-    },
-    "ir13-junkyard-king": {
-      "status": "OK",
-      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 9.74, emis 0.45, p99 7.3 — keys with margin, clean."
-    },
-    "ir21-shirogiri-ace": {
-      "status": "OK",
-      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 12.45, emis 2.57, p99 5.1 — keys with margin, with a lit feature to PIN."
-    },
-    "ir22-akayari-vanguard": {
-      "status": "OK",
-      "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 5.20, emis 0.04, p99 5.7 — keys with margin, clean. NB opaque 5.20 is the thinnest subject of the XG set."
-    },
-    "ir60-tiger-mantis": {
-      "status": "OK",
-      "why": "Backfilled phase 199 by re-measuring. ⚠ ITS 15.26% EMISSIVE IS THE HIGHEST NUMBER IN THE PROJECT AND IT IS MOSTLY A FALSE POSITIVE. Viewed: a tiger-striped mech whose whole body is bright saturated ORANGE, plus two curved blades with molten-orange lit EDGES. Tested body-paint pixels directly against the emissive rule (max>=215 AND max-min>=70): torso rgb(225,132,25) TRIPS, chest rgb(251,189,108) TRIPS. So bright saturated BODY PAINT satisfies the test, and most of the 15.26% is bodywork rather than emission. THE REAL LIT FEATURE IS THE BLADE EDGES — a fixed material property, the drake-glaive rim-light class, so PIN them inline (\"stay exactly as bright as in the reference image\") and separately ban flame/fire/ember by name. Keys with margin otherwise: opaque 12.93, p99 5.2."
-    },
-    "ir52-umbra-pinions": {
-      "status": "OK",
-      "why": "✔ FIXED AND PROVEN phase 203 — and this OVERTURNS my own phase-200 diagnosis, which was wrong about the mechanism and therefore wrong about the fix. I said its magenta wing membranes keyed away because a semi-transparent glow blends into the backdrop. THAT IS NOT WHAT HAPPENS. The membranes are rgb(254,0,249) — pure saturated magenta sitting a DISTANCE OF 420 from the plate colour, when the keyer's LOOSE threshold is 70. They are nowhere near the backdrop. They are removed by the keyer's HARDCODED MAGENTA-FAMILY ESCAPE, `min(r-g, b-g) > 45`, which they trip at 249. 51,252 subject pixels are caught that way. MEASURED BOTH WAYS: with the escape, glow survival 42.8%; WITHOUT it, 100.0% — and backdrop removal is UNAFFECTED (376 vs 381 backdrop pixels left opaque), because the green plate is removed by the DISTANCE test, not the escape. THE FIX IS ONE FLAG AT KEYING TIME, not a re-plate, not accepting the gutted look, and not dropping the character — all three of which I previously recorded as the options. KEY THIS CHARACTER WITH THE MAGENTA-FAMILY ESCAPE DISABLED. ⚠ IT MUST BE PER-CHARACTER, NOT GLOBAL: the escape is what lets MAGENTA PLATES key (onryo-katana uses one), so switching it off everywhere would break those. The rule is — plate green + character identity colour magenta → escape OFF; magenta plate → escape ON. Nothing else in the roster trips this: the glow-survival sweep found ir52 is the only plate under 94.7%. ✔ FIX NOW IMPLEMENTED AND VALIDATED (phase 204), not just documented: scripts/key-idle-clips.mjs takes --no-magenta, which gates BOTH magenta mechanisms (the flood-candidacy escape AND the interior pocket suppress — both carry the same caveat in that file). KEY THIS CHARACTER WITH: node scripts/key-idle-clips.mjs <framesdir> <keyeddir> --still qa-boss/anchors/xg/ir52-umbra-pinions-anchor-green.png --no-magenta . VALIDATED BOTH WAYS through the real keyer: negative control gargoyle-idle (no magenta) is BYTE-IDENTICAL with and without the flag, so it is a safe no-op elsewhere; positive control on this plate recovers magenta from 14,087 to 65,937 surviving pixels (4.7x) and +38,089 opaque. The keyer had ALREADY asked for this gate in its own comments — SAFE ONLY while no character wears magenta, gate per character then — and this character is the case it anticipated. ✔ AND THE ORIGINAL ALARM IS EXPLAINED TOO (phase 205): the p99 404.6 vs max 424 warning that started this entire investigation was ITSELF caused by the magenta escape. Flooding magenta SUBJECT pixels — which sit far from the screen colour — inflated the distance distribution the p99 is computed over. With --no-magenta the same plate reads p99 6.4 and the verdict changes from \"backdrop may survive\" to \"keys with margin\". One flag resolves the warning AND the gutted membranes, because they were always the same defect seen from two angles. Both screens (check-plate-key.mjs and screen-glow-survival.mjs) now accept --no-magenta so the fixed configuration can be modelled without firing anything; verified a no-op on non-magenta plates (lich, hector, onryo all 100% either way)."
-    },
-    "onryo-katana": {
-      "status": "OK",
-      "why": "Backfilled phase 202 by re-screening with current tools — the last verdict gap in the ledger. Map-4 boss, onryo (vengeful ghost) samurai. SCREENS EXCELLENTLY on both its plates: opaque 19.52 / emis 0.66 on the MAGENTA anchor and 18.76 / 1.00 on the green one, with p99 backdrop distance 0.0 on BOTH — the cleanest keying numbers in the roster, a perfectly uniform backdrop. Glow-survival 100% on both. THE MAGENTA PLATE IS A DELIBERATE AND CORRECT CHOICE, and this validates it: the character carries a katana wreathed in GREEN spectral flame, and on a magenta backdrop that green sits maximally far from the plate colour, so the flame is opaque to the keyer and survives whole. On a green plate it would have been the ir52 hazard. NB its kit header also describes a translucent ghostly lower body, which is a fringe risk in principle — but the character has already FIRED clips (account history, 2026-07-29), so it has been through this empirically. Kit is node-4 scoped: NO specials, 2 takes per non-idle state."
-    }
+ "_README": [
+  "MACHINE-READABLE ROSTER VERDICTS (phase 179). The screening verdicts used to live ONLY as prose",
+  "in qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md, so no tool could read them and every filesystem-based",
+  "survey missed them. That failed FOUR times: nurikabe-shield (caught mid-write), kira-foxflare (a",
+  "full kit was written and committed for a REJECTED character), umbra-jelly (agent stopped), and",
+  "drake-glaive (agent stopped). The prose ledger even carried a warning about this exact failure.",
+  "",
+  "The prose file remains the reasoning of record. THIS file is the machine-readable index of it,",
+  "and qa-boss/may-i-write-kit.mjs is the guard that reads it. Keep them in sync: when you add a",
+  "verdict to the prose, add it here in the same commit.",
+  "",
+  "status: OK          = screened, viewed, cleared to write a kit",
+  "        REJECTED    = do not write a kit; reopening is a DECISION, not a fresh measurement",
+  "        TIM         = gated on Tim's ruling; do not write a kit unilaterally",
+  "        UNVIEWED    = numbers are clean but nobody has LOOKED. 50% of numerically-clean plates",
+  "                      fail the view, so this is NOT permission — view it first.",
+  "Anything absent from this file is treated as REFUSED by the guard, deliberately: 'not in the",
+  "reject list' must never be readable as 'approved'."
+ ],
+ "verdicts": {
+  "hector-warhammer": {
+   "status": "OK",
+   "why": "BEST IN SET — chosen on the view, not the numbers (phase 165)"
+  },
+  "reef-maw": {
+   "status": "OK",
+   "why": "viewed + kit written and verified phase 177"
+  },
+  "shiro-gale": {
+   "status": "OK",
+   "why": "viewed + kit written and verified phase 176"
+  },
+  "elara-frostplate": {
+   "status": "OK",
+   "why": "was on the unviewed list; kit in progress phase 177"
+  },
+  "kira-foxflare": {
+   "status": "REJECTED",
+   "why": "DUPLICATE ARCHETYPE — kitsune samurai with dual tanto, collides with kitsune-tanto (phase 169). A full kit was written for it anyway in phase 175b before this index existed; the kit is retained but MUST NOT be fired unless Tim overrules the duplication call."
+  },
+  "umbra-jelly": {
+   "status": "REJECTED",
+   "why": "view reject — the roomiest plate in the entire set and unusable (phase 165)"
+  },
+  "drake-glaive": {
+   "status": "REJECTED",
+   "why": "BAKED EMISSIVE 5.26%, rejected phase 109. NOTE: phase 173c re-inspected it and argued the emission is baked RIM LIGHT, not flame, and that rim light ships when pinned inline (raiju 1.97%, lich 0.77%). That argument was made WITHOUT knowing a rejection existed. Overturning it is a DECISION to be taken explicitly, not a side effect of a survey."
+  },
+  "iron-vow": {
+   "status": "TIM",
+   "why": "duplicate WEAPON class (collides with oni-tetsubo); recorded as a Tim call rather than an auto-reject"
+  },
+  "violet-contract": {
+   "status": "TIM",
+   "why": "viable, best p99 on disk, but fill 0.62 — Tim call; cloak also needs a bounded sway"
+  },
+  "golem-mace": {
+   "status": "TIM",
+   "why": "VIABLE WITH FILL FLAGGED — not silently promoted to Tier A"
+  },
+  "nurikabe-shield": {
+   "status": "TIM",
+   "why": "TIER C fill; an agent was already stopped mid-write on this once"
+  },
+  "satoshi-odachi": {
+   "status": "TIM",
+   "why": "prop-EXTENDED — anchor touches the frame edge, specials cannot pass containment without a re-plate"
+  },
+  "sora-yari": {
+   "status": "TIM",
+   "why": "prop-EXTENDED — same as satoshi"
+  },
+  "ir56-lion-serpent": {
+   "status": "TIM",
+   "why": "prop-EXTENDED — same as satoshi"
+  },
+  "kira-frostveil": {
+   "status": "REJECTED",
+   "why": "Viewed phase 184. BAKED MIST/VAPOUR rendered into the character — her paired sai are translucent ICE with visible vapour streaming off the blades. That is the banned effect class rendered into the plate, the exact ground that rejected Ghast Flail (baked smoke/mist around the base). It also explains her 11.49 translucency, the highest of the unviewed set: the WEAPONS themselves are see-through, so they will fringe badly and may partially key away. Body is also quite open to camera."
+  },
+  "skeleton-nodachi": {
+   "status": "REJECTED",
+   "why": "DOUBLE COLLISION, viewed phase 184. WEAPON: nodachi and odachi are the SAME weapon (大太刀), so it collides with the SHIPPED satoshi-odachi — the exact ground that rejected Tengu Naginata (same weapon as raiju-naginata). CREATURE: skeletal undead, colliding with lich-scythe. Secondary: bare bone limbs, individual finger bones and split lower-leg bones are all thin fringe-prone struts, and p99 13.2 was already the highest of the unviewed set."
+  },
+  "ningara-silk": {
+   "status": "REJECTED",
+   "why": "Viewed phase 184. COSTUME IS THE DECISIVE GROUND, and it is not technical: a sheer lace lingerie bodysuit, stockings and high heels — a pin-up render, tonally incompatible with a roster of armoured samurai, knights and creatures. Also, independently: the sheer lace is GENUINELY translucent across the whole torso (this is what the measured 7.67 will-fringe was detecting — real see-through fabric, not a green-dominant confound); high heels give no stable ground contact for the feet-flat beats every kit requires; and the spear collides with the SHIPPED sora-yari."
+  },
+  "Godflame_Liu": {
+   "status": "REJECTED",
+   "why": "baked emissive 2.74 — head is on fire, flame-bladed weapon"
+  },
+  "Emberpaw Kage": {
+   "status": "REJECTED",
+   "why": "baked emissive 1.80 — sword is a burning flame blade"
+  },
+  "Lira_Astraea": {
+   "status": "REJECTED",
+   "why": "baked emissive 1.88 — glowing white/silver figure"
+  },
+  "Ashrune Belakor": {
+   "status": "REJECTED",
+   "why": "baked emissive 0.89 — flaming horns + magma-lit mace"
+  },
+  "Warlord_Kharos": {
+   "status": "REJECTED",
+   "why": "baked emissive 0.62 — flaming crown"
+  },
+  "Sol Ofuda": {
+   "status": "REJECTED",
+   "why": "duplicate archetype — same hat + hanging ofuda + katana as eclipse-ofuda"
+  },
+  "Antler_Mire": {
+   "status": "REJECTED",
+   "why": "duplicate archetype — antlered figure, collides with thorn-warden"
+  },
+  "Azure_Ling": {
+   "status": "REJECTED",
+   "why": "duplicate archetype — war-fan, collides with ir37-pink-tessen"
+  },
+  "Tengu Naginata": {
+   "status": "REJECTED",
+   "why": "duplicate weapon — same as raiju-naginata"
+  },
+  "Horned Ruin Vex": {
+   "status": "REJECTED",
+   "why": "duplicate archetype — red horned demon, collides with oni-tetsubo"
+  },
+  "Lilith_Palehorn": {
+   "status": "REJECTED",
+   "why": "no clear arsenal — ribbons/cloth, no weapon"
+  },
+  "Symbiote_Vex": {
+   "status": "REJECTED",
+   "why": "no clear arsenal — bare claws, and pale-choir already owns the claw archetype"
+  },
+  "Ghast Flail": {
+   "status": "REJECTED",
+   "why": "baked smoke/mist around the base — the banned effect class rendered into the character"
+  },
+  "ir41-kasa-oni": {
+   "status": "REJECTED",
+   "why": "FRONTAL plate — no side to mirror; carries a BLOCKED: marker so build-prompt refuses it (exit 3)"
+  },
+  "oni-tetsubo": {
+   "status": "OK",
+   "why": "cleared by the standing loop prompt — one of the 6 verified padded plates (BRIEF-mk-final-playables.md)"
+  },
+  "raiju-naginata": {
+   "status": "OK",
+   "why": "cleared by the standing loop prompt — one of the 6 verified padded plates. WATCH: padded plate retains a faint rectangle; check the first keyed clip for a rectangular alpha edge (plate alpha itself was inspected clean, phase 172)"
+  },
+  "minotaur-axe": {
+   "status": "OK",
+   "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+  },
+  "skullrend-orcus": {
+   "status": "OK",
+   "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+  },
+  "pale-choir": {
+   "status": "OK",
+   "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+  },
+  "jin-goldenhand": {
+   "status": "OK",
+   "why": "cleared by the standing loop prompt — one of the 6 verified padded plates"
+  },
+  "lich-scythe": {
+   "status": "OK",
+   "why": "empirically cleared — 3 clips fired and ACCEPTED (idle v2, strike v3, strike_b v3), parked unwired in qa-boss/raw/"
+  },
+  "gargoyle-spear": {
+   "status": "OK",
+   "why": "empirically cleared — idle ACCEPTED on the first take, parked unwired in qa-boss/raw/"
+  },
+  "kitsune-tanto": {
+   "status": "TIM",
+   "why": "TIM CALL — canonical-look ruling. *** PREMISE CORRECTED phase 234: the previous text said 'the 13 RAWS ON DISK DO NOT REPRODUCE IT ... the model never rendered the glow'. THAT IS WRONG for the ACTION clips and was measured, then VIEWED, this phase. *** Bright saturated yellow-green pixel counts per raw (plate = 1052 for calibration): idle/idle-v2/idle-v3 0-41, ko 31-45, victory 9-42 -> genuinely plain steel; but block-a 34-245, block-b 177-337, hit 188-230, strike-a 178-274, strike-b 71-185, throw-a 110-260, throw-b 148-386 -> the blade IS glowing. Confirmed by eye at full size: throw-b @2.0s shows a clearly glowing yellow-orange blade edge, and strike-a @2.0s shows the glowing blade PLUS a sweeping yellow-green arc trail through the air (a detached energy trail, which is its own doctrine question). So the real situation is NOT 'glowing plate vs plain-steel clips'. It is: THE KIT IS INTERNALLY INCONSISTENT — the blade is plain steel at rest and ignites during every attack. That is visible DURING PLAY, not just between the still and the animation, which makes it a stronger reason to rule and a different question than the one previously recorded. Tim's options are now (a) accept 'blade ignites on attack' as canonical and keep both looks, (b) plain steel everywhere -> the action clips are the ones that must be re-fired, not the plate, (c) glowing everywhere -> idle/ko/victory must be re-fired. STILL TECHNICALLY SHIPPABLE either way: phase 183 measured the clips keying cleanly (residual greenExcess mean -35, p99 0, 0.00% hot) and agreeing with their own plate better than accepted clips do (idle .920/.917, strike_a .937/.938 vs lich strike_a v3 ACCEPTED at .902/.905), and phase 201's glow-survival screen showed the PLATE's blade glow is 100% surviving, i.e. opaque material and never a keying risk. NOTE these raws predate the 3-role start/end/image transport, so a re-fire today would pin the glowing plate at f0. NEEDS KEYING + WIRING, NOT FIRING — this is the only clip work that does not depend on account access."
+  },
+  "jorogumo-kusarigama": {
+   "status": "OK",
+   "why": "NEW CANDIDATE from the previously-unscreened MYTHIC tier, screened + viewed + padded phase 185. Distinct archetype (jorogumo spider-woman, four extra spider legs, kusarigama chain-sickle) with NO roster collision — nothing shipped is a spider or wields a chain-sickle. Raw art was 96% fill / 34px margins (unusable, normal for input/MK FINAL/); PADDED to 1536 gives fill 68%, L212 R212 T468, all margins >=200px. Keys with margin (opaque 12.56, emis 0.25, p99 5.9). Translucency 5.98 inspect-band with grnDom only 8.9 — so it is REAL mild see-through from the cyan web membranes between arm and torso, not a green confound. KIT MUST: bound the four spider legs (they own the LEFT edge) and the sickle tip (owns the RIGHT edge, and the chain is a long extending prop — the classic containment hazard); pin the cyan web membranes and cyan limb rim-light as fixed-brightness, fixed-opacity features. Span ceiling 1.38x is tight, same class as elara-frostplate. WATCH: hydra-flail is also a chain weapon, but sickle-vs-weight and spider-vs-hydra are distinct enough that this is a watch, not a collision — and hydra has never shipped."
+  },
+  "Zephiron": {
+   "status": "REJECTED",
+   "why": "Viewed phase 186. BAKED LIGHTNING — brilliant blue arcs crackle around BOTH staves, plus glowing eyes. Kitsune-blocker class. ⚠ THE SCREEN MISSED THIS: it measured only 1.11% emissive and filed it in the mild \"has a lit feature, pin it\" band, because lightning is THIN FILAMENTS and a percentage-of-subject measure under-weights thin bright features badly (compare Godflame_Liu at 14.09% for a head that is simply on fire). The number is not wrong, it is the wrong statistic for this shape of defect."
+  },
+  "Wight Spear": {
+   "status": "REJECTED",
+   "why": "Viewed phase 186. DOUBLE COLLISION, the same pattern that rejected skeleton-nodachi: the spear collides with the SHIPPED sora-yari (the Tengu Naginata ground), and undead/wight collides with lich-scythe. NOT a baked-emissive reject — its 3.36% is pale blue FROST RIME on the armour, correctly rim-light class, so the screen was right to route it to a look. Secondary: the spear is fully extended across the frame (prop-EXTENDED, would need padding), and the art reads noticeably lower-fidelity than the rest of the roster."
+  },
+  "Stormlord_Rex": {
+   "status": "REJECTED",
+   "why": "Viewed phase 186. TRIPLE REJECT. (1) BAKED LIGHTNING — bright yellow electrical arcs crawl the full length of his spear. That is literally the kitsune-blocker class the standing loop prompt names as disqualifying. (2) FRONTAL plate — chest square to camera, both feet forward: no side to mirror, the ir41-kasa-oni failure. (3) spear collides with the SHIPPED sora-yari."
+  },
+  "Captain_Nyra": {
+   "status": "REJECTED",
+   "why": "Viewed phase 188. SETTING INCONSISTENCY — a naval officer in a modern WHITE DRESS UNIFORM with medal ribbons, thigh straps and knee boots, carrying a cavalry sabre. The roster is consistently feudal-Japanese / dark-fantasy (ronin, oni, lich, gargoyle, undead knights). Note this is NOT a too-anime complaint — ir37-pink-tessen is anime-styled and shipped — it is that MODERN MILITARY DRESS is a setting element that appears nowhere in the roster. Secondary: very long streaming hair plus a long ribbon owning the left edge, the shiro-gale consistency/containment class. Technically she is the CLEANEST plate in the whole pool (0.08% emissive, good side profile facing screen-right, clear arsenal), so this is a TASTE call and Tim can overrule it — it is recorded as a judgement, not a defect."
+  },
+  "Bone Ledger": {
+   "status": "REJECTED",
+   "why": "Viewed phase 192. STRUCTURAL: a LASH weapon whose only vocabulary is GAINING REACH, plus a large flowing cloak — so BOTH frame edges are owned by things that must move. Padding fixes absolute margins but not this: containment forbids gaining reach, and a lash that may never extend has no beats left. That is a BEAT-LEVEL impossibility, the same class as a projectile character, not a tight budget. Contrast jorogumo-kusarigama, which survived the same shape because her chain HANGS IN A LOOP close to the body and she has spider legs and a sickle to build beats from — the chain is not her only vocabulary. His SEGMENTED SPINE-FLAIL ending in twin skulls is thrown wide across the right half and the chain-embroidered cloak sweeps the left third. Secondary: the flail collides with hydra-flail (kit written), and a gaunt undead spellcaster reads close to lich-scythe. Clean emissive 0.51 and a good side profile otherwise."
+  },
+  "Yokai Kama": {
+   "status": "REJECTED",
+   "why": "Viewed phase 188. DOUBLE COLLISION. (1) ANTLERED FIGURE — an antlered wood/forest yokai, colliding with the SHIPPED thorn-warden. That is the exact recorded ground on which Antler_Mire was rejected. (2) TWIN KAMA — a kama IS a sickle, colliding with jorogumo-kusarigama (chain-sickle), cleared and kitted phase 185-187. Setting fit is otherwise excellent. TECHNICAL NOTE, and it is a narrower claim than the disproven alpha-holes one: he is green-dominant on a GREEN plate, which by itself is harmless (the keyer is a border-seeded flood, so interior green is never a candidate) — but the THIN GREEN LEAF SPROUTS off his vine-wrapped blades are protrusions SURROUNDED BY BACKGROUND, so they ARE reachable by the flood and would key away. That is the real shape of the green-on-green hazard."
+  },
+  "Kenji Ashblade": {
+   "status": "REJECTED",
+   "why": "Viewed phase 197. WEAPON COLLISION — a katana against three shipped katana wielders (onryo-katana, lady-kurotachi, satoshi-odachi). Secondary: his blade carries BAKED EMBER/FIRE VEINING along its length. ⚠ THIRD CONFIRMATION OF THE THIN-FEATURE BLIND SPOT: it measured 0.90 emissive, squarely in the clean band, because the veining is thin filaments on a blade — after Zephiron (1.11, both staves fully electrified) and Dragon_Emperor (1.44, floating embers). Thin, sparse and filament bright features all under-read on a percentage-of-subject statistic."
+  },
+  "Charm Ronin": {
+   "status": "REJECTED",
+   "why": "Viewed phase 194. TRIPLE. (1) THE HAT+OFUDA MOTIF AGAIN — wide straw conical hat with hanging paper charm talismans, which is eclipse-ofuda signature and eclipse is SHIPPED with 13 clips. Third rejection on this exact motif after Sol Ofuda and Ink Sovereign. (2) SETTING INCONSISTENCY — modern military bomber jacket with squadron patches, cargo pants, combat boots: the Captain_Nyra ground, modern military dress in a feudal/dark-fantasy roster. (3) his bowie/tanto collides with kitsune-tanto."
+  },
+  "Kappa Bo": {
+   "status": "REJECTED",
+   "why": "Viewed phase 189. WEAPON COLLISION, and that is the whole reason: he carries a studded KANABO/TETSUBO club, colliding with the SHIPPED oni-tetsubo. Same weapon class, the Tengu Naginata ground. Everything else about him is good — turtle kappa is a distinct creature with no roster collision, setting fit is perfect, emissive 0.95 clean, and he has one of the best true side profiles in the pool. ⚠ MY GREEN CONCERN WAS MEASURED AND DISMISSED: he is 48.0% green-dominant on a green plate, but only 0.72% of his pixels sit within 120 (L1) of the plate colour — BETTER separated than hydra-flail, which is 49.6% grnDom at 2.20% proximity and keys CLEAN. His deep saturated green is a different green from the bright plate. Do not re-raise it."
+  },
+  "Pyre Seal": {
+   "status": "REJECTED",
+   "why": "Viewed phase 194. WEAPON COLLISION — a KATANA, colliding with three shipped/kitted katana wielders (onryo-katana, lady-kurotachi, satoshi-odachi). The Tengu Naginata ground. Secondary: a large flowing cloak (cloth hazard, though plain-painted rather than patterned so milder than Hexlun Veil), and sutra/talisman PAPER SEALS wrapped along the blade, which is the eclipse-ofuda motif transposed onto the weapon. NOT an emissive reject — despite the name Pyre there is NO baked flame, and the 0.96 screen reading was accurate. The design also reads as a strong Berserk homage, noted but not the ground."
+  },
+  "Hexlun Veil": {
+   "status": "TIM",
+   "why": "Viewed phase 193. VIABLE, HELD ON THE violet-contract PRECEDENT (recorded there as \"viable; cloak needs a bounded sway\"). Dark-armoured warlock/assassin, long black hair, hex-patterned cloak, wielding a rigid CRESCENT HOOKED BLADE with an eye motif. Good side profile facing screen-right, emis 1.18. CRUCIALLY IT PASSES THE LASH TEST that killed Null Mire and Bone Ledger: the weapon is a rigid blade held close in, so plenty of contained beats exist that never gain reach. THE RISK IS THE CLOAK, and it is the highest-risk cloth in the pool: it is the dominant visual mass AND it is GEOMETRICALLY PATTERNED (hex/cube lattice). Pattern consistency across 97 frames is materially harder than plain cloth — a lattice on flowing fabric morphs visibly where plain cloth does not, and the identity lock demands the same pattern every frame. Long streaming hair is a second flowing element. NOTE satoshi-odachi shipped 13 clips with a straw cape, so a cape is not disqualifying; but nothing with a LARGE PATTERNED flowing cloak has ever shipped a clip, so the mitigation is unvalidated. Tim rules."
+  },
+  "Ash Choir": {
+   "status": "REJECTED",
+   "why": "Viewed phase 197. WEAPON COLLISION — a naginata/glaive, the exact weapon that rejected Tengu Naginata (same weapon as raiju-naginata, which has a kit). Secondary: a large flowing cloak PATTERNED with purple eye-sigils (the Hexlun Veil hazard class), and the glaive spans nearly the full frame width (prop-EXTENDED). NAME IS A RED HERRING: pale-choir owns the CLAW archetype, so despite the shared word there is no creature collision — the reject is on the weapon."
+  },
+  "Null Mire": {
+   "status": "REJECTED",
+   "why": "Viewed phase 192. STRUCTURAL: a LASH weapon whose only vocabulary is GAINING REACH, plus a large flowing cloak — so BOTH frame edges are owned by things that must move. Padding fixes absolute margins but not this: containment forbids gaining reach, and a lash that may never extend has no beats left. That is a BEAT-LEVEL impossibility, the same class as a projectile character, not a tight budget. Contrast jorogumo-kusarigama, which survived the same shape because her chain HANGS IN A LOOP close to the body and she has spider legs and a sickle to build beats from — the chain is not her only vocabulary. His THORNED WHIP is thrown in a huge S-curve across the entire right half of the frame and the tattered cloak sweeps the entire left third. Secondary: the thorn motif collides with the SHIPPED thorn-warden. A genuine shame — bald pale sorcerer, red-sigil cloak, and one of the best side profiles in the whole pool."
+  },
+  "Thalyss_Nox": {
+   "status": "REJECTED",
+   "why": "Viewed phase 193. DUPLICATE ARCHETYPE vs elara-frostplate, which was cleared and kitted THIS SESSION: both are armoured ELF WOMEN wielding a BLADE — same creature, same broad silhouette, differing mainly in palette (elara silver/gold, this blue-teal scale). Her curved sabre also collides with the roster blade wielders. Otherwise clean: no cloak, decent side profile, feet flat, emis 1.40. Art reads a little more generic than the roster best."
+  },
+  "Ink Sovereign": {
+   "status": "REJECTED",
+   "why": "Viewed phase 191. DUPLICATE ARCHETYPE — the exact collision that already rejected Sol Ofuda. Silver-haired woman in a WIDE STRAW CONICAL HAT WITH HANGING PAPER OFUDA TALISMANS and black tassels, holding a talisman in her free hand. That is eclipse-ofuda whole silhouette, and eclipse-ofuda is SHIPPED with 13 wired clips. Secondary: her weapon is a naginata/glaive, colliding with raiju-naginata; and she is in HIGH HEELS, the same no-stable-ground-contact problem as ningara-silk."
+  },
+  "Dragon_Emperor": {
+   "status": "REJECTED",
+   "why": "Viewed phase 191. TWO INDEPENDENT GROUNDS. (1) FRONTAL BODY — chest squared to camera, both feet planted forward and apart, hips square, only the head turned to profile. No side to mirror: the ir41-kasa-oni failure. (2) BAKED FLOATING EMBERS — free orange sparks scattered in the AIR around him, DETACHED from his body. Banned effect class rendered into the plate (the Ghast Flail ground), and worse than a body-attached glow: detached particles surrounded by chroma either key away or leave debris, and they violate the nothing-parked-in-air rule outright. Secondary: dual curved dao collide with the roster blade wielders, and the large red cape is a flowing-cloth containment/consistency hazard. NOTE his emissive measured only 1.44% — the embers are small and scattered, so this is the SAME thin-feature blind spot that missed Zephiron lightning at 1.11%."
+  },
+  "Troll Hammer": {
+   "status": "REJECTED",
+   "why": "Viewed phase 195. DOUBLE COLLISION, both verified against the actual kits rather than assumed. (1) ARCHETYPE: a huge green orc/troll brute — skullrend-orcus is literally \"a huge ORC-BRUTE\" in its own shared prefix, and minotaur-axe is \"a huge bull-brute\", so the big-humanoid-brute slot already has two occupants. (2) WEAPON: a stone maul, colliding with hector-warhammer (kit written and verified) and golem-mace (TIM). Otherwise fine: good side profile, no baked flame."
+  },
+  "wolfmark-hild": {
+   "status": "OK",
+   "why": "Viewed, padded and fully screened phase 195. THE BEST PLATE SCREENED THIS SESSION. Norse SHIELDMAIDEN — blonde braids, wolf face-paint, grey fur mantle, leather armour, ROUND WOODEN SHIELD and a runed arming sword. DISTINCT ARCHETYPE: nothing in the roster is Norse. NEW WEAPON CLASS: nothing shipped or kitted uses a SHIELD, which also supplies naturally containable block states — the hardest state class to write. PADDED BUDGET IS THE ROOMIEST IN THE ROSTER: fill 68%, L476 R476 T468, span ceiling 2.63x (jorogumo 1.38x, umbra-jelly 2.21x) because she is a compact upright figure, 584w on a 1536 plate. KEYING IS THE CLEANEST TOO: opaque 13.23, emis 0.14, transl 3.12 with grnDom only 6.5, p99 5.7. SETTING: the roster is NOT purely Japanese — it already holds a European knight (hector), an elf (elara), a gargoyle, a minotaur and an orc — so Norse fits that mix. This is materially different from Captain_Nyra, whose MODERN MILITARY dress has no analogue anywhere. KIT MUST: treat the FUR MANTLE with the shiro-gale treatment (rides with the body, never billows, no wind); pin the wolf thigh tattoo and the runed blade as identity details; and build the blocks around the shield, which is the signature."
+  },
+  "hydra-flail": {
+   "status": "OK",
+   "why": "Backfilled phase 199 FROM THE KIT HEADER ITSELF, not invented. The kit states it was written off a PADDED plate that was \"pre-screened before this kit was written\", with the numbers recorded inline (phase 112): opaque 13.29%, p99 backdrop distance 5.4, against the keyer TIGHT=45 / LOOSE=70. That is a documented clearance from the XG/MK wave that simply predates this machine-readable ledger."
+  },
+  "ir12-rose-lance": {
+   "status": "OK",
+   "why": "Backfilled phase 199 FROM THE KIT HEADER ITSELF, not invented. The kit states it was written off a PADDED plate that was \"pre-screened before this kit was written\", with the numbers recorded inline (phase 96): opaque 8.42%, p99 backdrop distance 5.2, emissive 0.82%, against the keyer TIGHT=45 / LOOSE=70. That is a documented clearance from the XG/MK wave that simply predates this machine-readable ledger."
+  },
+  "ir05-fullbarge-titan": {
+   "status": "OK",
+   "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 17.41, emis 1.16, p99 8.1 — keys with margin, with a lit feature to PIN."
+  },
+  "ir08-bonepipe-grunt": {
+   "status": "OK",
+   "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 17.87, emis 0.29, p99 7.9 — keys with margin, clean."
+  },
+  "ir13-junkyard-king": {
+   "status": "OK",
+   "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 9.74, emis 0.45, p99 7.3 — keys with margin, clean."
+  },
+  "ir21-shirogiri-ace": {
+   "status": "OK",
+   "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 12.45, emis 2.57, p99 5.1 — keys with margin, with a lit feature to PIN."
+  },
+  "ir22-akayari-vanguard": {
+   "status": "OK",
+   "why": "Backfilled phase 199 by RE-MEASURING the padded plate with current tools, not by archaeology on the old wording. Its kit header documents it was \"Generated OFF THE PADDED PLATE ... never the raw\", with the raw-art budget and padding rationale recorded inline. Re-measured: opaque 5.20, emis 0.04, p99 5.7 — keys with margin, clean. NB opaque 5.20 is the thinnest subject of the XG set."
+  },
+  "ir60-tiger-mantis": {
+   "status": "OK",
+   "why": "Backfilled phase 199 by re-measuring. ⚠ ITS 15.26% EMISSIVE IS THE HIGHEST NUMBER IN THE PROJECT AND IT IS MOSTLY A FALSE POSITIVE. Viewed: a tiger-striped mech whose whole body is bright saturated ORANGE, plus two curved blades with molten-orange lit EDGES. Tested body-paint pixels directly against the emissive rule (max>=215 AND max-min>=70): torso rgb(225,132,25) TRIPS, chest rgb(251,189,108) TRIPS. So bright saturated BODY PAINT satisfies the test, and most of the 15.26% is bodywork rather than emission. THE REAL LIT FEATURE IS THE BLADE EDGES — a fixed material property, the drake-glaive rim-light class, so PIN them inline (\"stay exactly as bright as in the reference image\") and separately ban flame/fire/ember by name. Keys with margin otherwise: opaque 12.93, p99 5.2."
+  },
+  "ir52-umbra-pinions": {
+   "status": "OK",
+   "why": "✔ FIXED AND PROVEN phase 203 — and this OVERTURNS my own phase-200 diagnosis, which was wrong about the mechanism and therefore wrong about the fix. I said its magenta wing membranes keyed away because a semi-transparent glow blends into the backdrop. THAT IS NOT WHAT HAPPENS. The membranes are rgb(254,0,249) — pure saturated magenta sitting a DISTANCE OF 420 from the plate colour, when the keyer's LOOSE threshold is 70. They are nowhere near the backdrop. They are removed by the keyer's HARDCODED MAGENTA-FAMILY ESCAPE, `min(r-g, b-g) > 45`, which they trip at 249. 51,252 subject pixels are caught that way. MEASURED BOTH WAYS: with the escape, glow survival 42.8%; WITHOUT it, 100.0% — and backdrop removal is UNAFFECTED (376 vs 381 backdrop pixels left opaque), because the green plate is removed by the DISTANCE test, not the escape. THE FIX IS ONE FLAG AT KEYING TIME, not a re-plate, not accepting the gutted look, and not dropping the character — all three of which I previously recorded as the options. KEY THIS CHARACTER WITH THE MAGENTA-FAMILY ESCAPE DISABLED. ⚠ IT MUST BE PER-CHARACTER, NOT GLOBAL: the escape is what lets MAGENTA PLATES key (onryo-katana uses one), so switching it off everywhere would break those. The rule is — plate green + character identity colour magenta → escape OFF; magenta plate → escape ON. Nothing else in the roster trips this: the glow-survival sweep found ir52 is the only plate under 94.7%. ✔ FIX NOW IMPLEMENTED AND VALIDATED (phase 204), not just documented: scripts/key-idle-clips.mjs takes --no-magenta, which gates BOTH magenta mechanisms (the flood-candidacy escape AND the interior pocket suppress — both carry the same caveat in that file). KEY THIS CHARACTER WITH: node scripts/key-idle-clips.mjs <framesdir> <keyeddir> --still qa-boss/anchors/xg/ir52-umbra-pinions-anchor-green.png --no-magenta . VALIDATED BOTH WAYS through the real keyer: negative control gargoyle-idle (no magenta) is BYTE-IDENTICAL with and without the flag, so it is a safe no-op elsewhere; positive control on this plate recovers magenta from 14,087 to 65,937 surviving pixels (4.7x) and +38,089 opaque. The keyer had ALREADY asked for this gate in its own comments — SAFE ONLY while no character wears magenta, gate per character then — and this character is the case it anticipated. ✔ AND THE ORIGINAL ALARM IS EXPLAINED TOO (phase 205): the p99 404.6 vs max 424 warning that started this entire investigation was ITSELF caused by the magenta escape. Flooding magenta SUBJECT pixels — which sit far from the screen colour — inflated the distance distribution the p99 is computed over. With --no-magenta the same plate reads p99 6.4 and the verdict changes from \"backdrop may survive\" to \"keys with margin\". One flag resolves the warning AND the gutted membranes, because they were always the same defect seen from two angles. Both screens (check-plate-key.mjs and screen-glow-survival.mjs) now accept --no-magenta so the fixed configuration can be modelled without firing anything; verified a no-op on non-magenta plates (lich, hector, onryo all 100% either way)."
+  },
+  "onryo-katana": {
+   "status": "OK",
+   "why": "Backfilled phase 202 by re-screening with current tools — the last verdict gap in the ledger. Map-4 boss, onryo (vengeful ghost) samurai. SCREENS EXCELLENTLY on both its plates: opaque 19.52 / emis 0.66 on the MAGENTA anchor and 18.76 / 1.00 on the green one, with p99 backdrop distance 0.0 on BOTH — the cleanest keying numbers in the roster, a perfectly uniform backdrop. Glow-survival 100% on both. THE MAGENTA PLATE IS A DELIBERATE AND CORRECT CHOICE, and this validates it: the character carries a katana wreathed in GREEN spectral flame, and on a magenta backdrop that green sits maximally far from the plate colour, so the flame is opaque to the keyer and survives whole. On a green plate it would have been the ir52 hazard. NB its kit header also describes a translucent ghostly lower body, which is a fringe risk in principle — but the character has already FIRED clips (account history, 2026-07-29), so it has been through this empirically. Kit is node-4 scoped: NO specials, 2 takes per non-idle state."
   }
+ }
 }
