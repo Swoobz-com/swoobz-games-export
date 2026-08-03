@@ -27,6 +27,18 @@
 // makes, and skipping it would have sent someone to re-feather 10 clips that are working as
 // intended. That is why the output says FLAT-EDGE, not CUT.
 //
+// ⛔⛔ THIS GATE CANNOT SIGN OFF THE FIX. IT DETECTS THE CUT; IT DOES NOT VERIFY THE REPAIR. ⛔⛔
+// PROVEN with a control, phase 246, not assumed:
+//     injected cut (clip cropped through the body)        -> i2 255/620  FLAT  exit 1   caught
+//     same clip + a 60px SOFT STRAIGHT alpha ramp         -> i2 255/80   watch exit 0   CLEARED
+// A straight soft fade makes this gate go GREEN. But the project's twice-learned lesson is that a
+// soft fade along a STRAIGHT line still reads as "ends at an invisible box" — the eye reads the
+// CONTOUR, not the hardness. That exact non-fix shipped once already (phase 11b straight feather ->
+// Tim re-reported it -> phase 14b radial feather). **So this gate would have certified it.**
+// Use `scripts/radial-feather.mjs` (curved, character-centred) for effects, and verify the repair by
+// VIEWING the peak frame composited over dark — never by this gate's exit code. The straight-band
+// `scripts/edge-feather.mjs` stays legal only for prop overflow (a weapon tip), never for an effect.
+//
 // This tool MEASURES ONLY. It never writes a clip. Numbers convict; the eye judges — VIEW the
 // peak frame of anything it flags before acting (that is the standing rule for this defect class).
 //

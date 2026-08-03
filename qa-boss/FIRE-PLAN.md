@@ -374,6 +374,17 @@ exactly like a cut does) — of 15 flagged clips, 10 were props and legitimately
 named frame over DARK at full size and classify it before acting.** Full evidence and the
 classification of all 15: `qa-boss/INSET-RING-SWEEP.md`.
 
+⛔ **AND ITS PASS IS NOT A FIX.** Proven with a control (phase 246): a clip cropped through the body
+scores `i2 255/620` and exits 1, and the SAME clip with a 60px **soft straight** alpha ramp scores
+`i2 255/80` and **exits 0**. So a straight feather turns this gate green — while the defect remains,
+because a soft fade along a straight line still reads as "ends at an invisible box" (the eye reads
+the CONTOUR, not the hardness). **That non-fix already shipped once on this repo** — phase 11b's
+straight feather, which Tim re-reported, replaced by the radial one in phase 14b — **and this gate
+would have certified it.**
+**So: fix effects with `scripts/radial-feather.mjs` (curved, character-centred) and verify by VIEWING
+the peak frame composited over dark. Never sign the repair off on this gate's exit code.**
+`scripts/edge-feather.mjs` (straight band) stays legal ONLY for prop overflow, never for an effect.
+
 ## Standing verification discipline
 
 - **`check-containment.mjs` processes ONE argument.** A glob prints "scanned 1 | clean 1" and silently
