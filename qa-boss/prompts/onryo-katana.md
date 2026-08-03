@@ -29,45 +29,66 @@ Shared suffix (facing lock applied proactively):
 ## idle
 IDLE COMBAT-READY LOOP: an eerie floating combat stance, his long hair and tattered robe drifting
 slowly as if underwater, the green flame flickering softly along the katana, only very subtle weight
-shifts. Feet hovering just above the ground. Returns to the exact start pose so it loops seamlessly.
-Slow, ghostly, subtle motion.
+shifts. HE BEGINS WITH BOTH BARE FEET FLAT ON THE GROUND EXACTLY AS IN THE REFERENCE IMAGE; he then
+drifts SLOWLY UPWARD until his feet hang no more than a hand's width clear of the ground, hangs there
+weightless for a beat, and settles back down so that BOTH FEET ARE FLAT ON THE GROUND AGAIN ON THE
+VERY LAST FRAME. That rise and fall is ONE single slow continuous motion - he never bobs twice, never
+drifts sideways, and apart from that one small rise his head stays at its normal standing height.
+Returns to the exact start pose so it loops seamlessly. Slow, ghostly, subtle motion.
 
 ## attack_strike A  (flaming diagonal slash)
 STRIKE (diagonal slash): he cuts the green-flamed katana in a fast downward diagonal slash, the flame
-trailing the blade, then recovers to the starting stance. One sharp committed cut.
+trailing the blade, then recovers to the starting stance. One sharp committed cut. HIS FEET STAY FLAT
+ON THE GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never jumps and never lifts either
+foot off the ground; he only shifts his weight.
 
 ## attack_strike B  (flaming horizontal cut)
 STRIKE (horizontal cut): he sweeps the green-flamed katana in a wide horizontal arc across the front,
-flame trailing, then recovers to the starting stance. One clean sweeping cut.
+flame trailing, then recovers to the starting stance. One clean sweeping cut. HIS FEET STAY FLAT ON
+THE GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never jumps and never lifts either
+foot off the ground; he only shifts his weight.
 
 ## attack_throw A  (spectral grab-hurl, solo-safe)
 THROW (spectral grab): keeping the katana in his right hand, he thrusts his free pale hand forward
 through EMPTY AIR, clamps as if seizing an unseen foe by the throat, then hurls down and around, then
-returns to the starting stance. NO opponent, no second figure, empty air only.
+returns to the starting stance. NO opponent, no second figure, empty air only. HIS FEET STAY FLAT ON
+THE GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never jumps and never lifts either
+foot off the ground; he only shifts his weight.
 
 ## attack_throw B  (ghostly shove-barge, solo-safe)
-THROW (ghostly barge): he surges forward in a gliding spectral shove through EMPTY AIR, then thrusts
-down and away and recovers to the starting stance. Alone, no opponent, empty air only.
+THROW (ghostly barge): he drives his weight forward into a heavy spectral shove through EMPTY AIR,
+then thrusts down and away and recovers to the starting stance. Alone, no opponent, empty air only.
+HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never glides,
+never jumps and never lifts either foot off the ground; he only shifts his weight.
 
 ## attack_block A  (katana parry into counter)
 BLOCK-COUNTER: he raises the green-flamed katana into a hard deflecting parry across his body, then
-instantly cuts back with a short counter slash, then returns to the starting stance.
+instantly cuts back with a short counter slash, then returns to the starting stance. HIS FEET STAY
+FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never jumps and never lifts
+either foot off the ground; he only shifts his weight.
 
 ## attack_block B  (bracer deflect into rising cut)
 BLOCK-COUNTER: he sweeps his iron-bracered forearm across in a deflecting guard to the side, then
-swings a short rising katana cut, then recovers to the starting stance.
+swings a short rising katana cut, then recovers to the starting stance. HIS FEET STAY FLAT ON THE
+GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never jumps and never lifts either foot
+off the ground; he only shifts his weight.
 
 ## hit  (ghostly flinch)
 HIT REACTION: his head and torso recoil sharply as he takes a blow, hair and tattered robe whipping,
 a ghostly flinch that quickly resolves back toward his guard stance. Stays upright, NOT a slow topple.
-Ends at the stance.
+Ends at the stance. HIS FEET STAY FLAT ON THE GROUND FOR THE ENTIRE CLIP - he never floats, never
+hovers, never jumps and never lifts either foot off the ground; he is rocked, not lifted.
 
 ## ko  (spirit dissolves, ends collapsed)
 DEFEAT COLLAPSE: utterly spent, his form wavers and sinks, the katana's green flame guttering out, and
 he crumples down to the ground and stays there, motionless, like a fading spirit. NO blow, no impact,
 no opponent, only his own collapse. Begins on the reference stance but ends collapsed/sunken on the
-ground and holds there (does NOT return to standing).
+ground and holds there (does NOT return to standing). HE BEGINS WITH BOTH FEET FLAT ON THE GROUND
+EXACTLY AS IN THE REFERENCE IMAGE and NEVER floats, hovers or rises at any point - every part of this
+collapse travels DOWNWARD toward the ground, never upward.
 
 ## victory  (raise flaming katana)
 VICTORY TAUNT: he raises the green-flamed katana high in an eerie, proud flourish, hair and robe
-billowing, then settles back to the starting stance. Alone, no opponent.
+billowing, then settles back to the starting stance. Alone, no opponent. HIS FEET STAY FLAT ON THE
+GROUND FOR THE ENTIRE CLIP - he never floats, never hovers, never jumps and never lifts either foot
+off the ground; only the katana and his robe rise.
