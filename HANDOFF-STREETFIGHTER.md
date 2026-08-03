@@ -3601,6 +3601,35 @@ in `qa-phase20/shots/` too, so the despill/halo result stays verifiable.
 assets disagree, and running it rewrites 12 accepted webps — so both halves are one atomic yes from
 Tim, not a loop action. hollow-pale still gains nothing (its own source is the 720² outlier).
 
+### ✔ AND UNLIKE THE FILL CONCERN, THIS ONE IS VISIBLE (phase 226)
+
+The fill analysis in `MK-FINAL-WAVE2-SCREEN.md` was rendered and LOOKED at, and looking **downgraded**
+it — the arithmetic gap did not show at deploy size. The same test was run here before asking Tim to
+rewrite 12 assets, and it came out the other way.
+
+`thorn-warden`, both scaled so the character is **1123px** (its true height on a 3840x2160 stage),
+head region compared:
+
+```
+source  Thorn_Warden.png  1536x1536, subject 1490h   <- 1.70x the linear detail
+still   thorn-warden.webp  900x900,  subject  875h
+```
+
+| | current 900px still (upscaled to 4K size) | source 1536 (downscaled to same size) |
+|---|---|---|
+| antler tines | soft, haloed edges | hard, clean edges |
+| cherry blossoms | smeared; petal boundaries and yellow centres lost | distinct petals, crisp centres |
+| face tattoo | soft, slightly doubled linework | sharp, continuous lines |
+| bark grain | muted | visible |
+
+**The loss is in INTERIOR detail — petals, tattoo, bark grain — not only at the silhouette edge.**
+That distinction matters: keying and despill only affect edges, so this cannot be blamed on the matte.
+It is resolution, and the fix above recovers it.
+
+Scope of the win, stated honestly: at **1920x1080 the current stills are fine** (1.50x headroom) and
+nobody sees this. It is a **high-DPI / 4K** improvement, and it lands hardest on `prefers-reduced-
+motion` players, for whom the still is the entire character for the whole match.
+
 Related: the viewport analysis this depends on is in `qa-boss/anchors/MK-FINAL-WAVE2-SCREEN.md`
 (phases 217-222) — the same measurement showing the CLIPS also upscale above 1080p, which is a
 generation-side problem and NOT free.
