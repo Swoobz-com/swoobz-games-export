@@ -634,3 +634,74 @@ carries a near-certain collision with something already shipped:
   `Charm Ronin`. This is NOT a "too anime" rule — `ir37-pink-tessen` is anime-styled and shipped.
 - **High heels** give no stable ground contact for the feet-flat beats every kit requires. Cost
   `ningara-silk` and contributed to `Ink Sovereign`.
+
+---
+
+## ★ FILL, PRICED (phase 217, 2026-08-03) — the ruling input, NOT the ruling
+
+The four held characters (`golem-mace` 0.50, `nurikabe-shield` 0.55, `violet-contract` 0.62, plus
+`iron-vow` on other grounds) wait on Tim. Phase 143 above is emphatic and still governs: **a fresh
+measurement is not a fresh decision.** Nothing below promotes anyone. What was missing is that
+"fill is a resolution budget" was never converted into pixels, so the call had no price tag.
+
+### The chain, end to end — all of it measured, none of it assumed
+
+1. **Renders are 960x960, not 720x720.** `resolution:'720p'` at `aspect_ratio:'1:1'` yields a 960
+   square. Read off six raws in `qa-boss/raw/`. Every px figure below follows from this.
+2. **Delivered character height = `fill x 960`.** Confirmed against four shipped webms — the keyer
+   crops to the subject, so the webm's own height IS the delivered character:
+
+   | character | plate fill | predicted `fill x 960` | actual webm h |
+   |---|---|---|---|
+   | hollow-pale | 0.919 | 882 | **890** |
+   | eclipse-ofuda | 0.859 | 825 | **834** |
+   | lich-scythe | 0.68 | 653 | **660** |
+   | oni-tetsubo | 0.68 | 653 | **670** |
+
+   Four for four within ~1% (the slack is motion headroom in the crop). The model is sound.
+3. **On-screen the character is ~600px.** `.fr-stage` is `height: min(100vh, 100vw/1.83333)` = 1047px
+   at 1920x1080; `CAL.fighterP1.h = 58` makes the square fighter box ~607px; the still is
+   `object-fit: contain` in that box, so the character occupies ~600px of it.
+4. **So headroom = `fill x 960 / 600`.** Note `cal.h` does NOT rescue a low fill — it is ~100 for
+   BOTH a 0.92-fill character (hollow-pale 100.08) and a 0.68-fill one (oni-tetsubo 102.77).
+
+### What that prices
+
+| | fill | delivered px | headroom | status |
+|---|---|---|---|---|
+| hollow-pale | 0.919 | 882 | **1.47x** | SHIPPED 13/13, accepted |
+| eclipse-ofuda | 0.859 | 825 | **1.37x** | SHIPPED 13/13, accepted |
+| standard MK | 0.68 | 653 | 1.09x | below every shipped boss |
+| violet-contract | 0.62 | 595 | 0.99x | at parity — no headroom left |
+| nurikabe-shield | 0.55 | 528 | 0.88x | upscaled on screen |
+| golem-mace | 0.50 | 480 | 0.80x | upscaled 1.25x |
+
+**The finding that outranks the held three: even the STANDARD 0.68 MK fill (1.09x) ships below every
+accepted boss (1.37-1.47x).** The held characters are the tail of a gap the whole MK wave already
+has — because an MK plate spends 32% of frame height on padding where an original boss spends ~8%.
+
+### THE LEVER NOBODY COSTED: RENDER AT 1080p
+
+Seedance `mode:'std'` supports 1080p. If the 960-at-720p ratio holds, 1080p gives a 1440 square:
+
+| | fill | @1080p | headroom | vs shipped bar |
+|---|---|---|---|---|
+| standard MK | 0.68 | 979 | 1.63x | **above both bosses** |
+| violet-contract | 0.62 | 893 | 1.49x | **matches hollow-pale's 1.47x** |
+| nurikabe-shield | 0.55 | 792 | 1.32x | just under eclipse's 1.37x |
+| golem-mace | 0.50 | 720 | 1.20x | still lowest, but above today's 0.68@720p |
+
+So the honest framing of Tim's call is **not** "is 0.50 acceptable" but "**do we re-render the MK wave
+at 1080p**" — which lifts every MK character above the shipped bar and moves two of the three held
+ones into range. `iron-vow` is untouched by this: its hold is duplicate weapon class vs oni-tetsubo,
+a roster-composition question no pixel count answers.
+
+### Stated limits — do not over-read this
+- **1440@1080p is INFERRED from the 960@720p ratio, not measured.** Verify with one render before
+  committing the wave. It is the one load-bearing number here that is not observed.
+- Assumes a 1920x1080 viewport. A taller display shrinks every headroom figure proportionally;
+  the RANKING is viewport-independent, the absolute multiples are not.
+- No MK character has a still yet, so its `cal.h` is not yet derived. The ~600px on-screen figure
+  comes from the existing tight-crop still convention (all are 900px tall, varying widths).
+- **This changes no verdict.** golem-mace / nurikabe-shield / violet-contract remain TIM in
+  ROSTER-VERDICTS.json, and `may-i-write-kit.mjs` still refuses them.
