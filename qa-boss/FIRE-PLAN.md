@@ -473,3 +473,40 @@ phantom-object defect is far worse than one that cries wolf. The fix wants a tar
 match inside the held-weapon anchor clause is not a detached effect) plus a re-run against all 35.
 **Until then, read this gate's BLOCKs by hand; do not treat its exit 1 as authoritative.**
 Scope of this check, stated honestly: ONE character sampled, not all 35 findings audited.
+
+### ✔ COHERENCE MATCHER NARROWED — 8 FALSE POSITIVES OUT, 4 MASKED REAL ONES IN (phase 230b)
+
+Phase 230 deferred this as "a doctrine judgment". On re-reading, the core of it is not: doctrine says
+an effect must be anchored to the character, and **a HELD weapon is anchored by definition**, so
+flagging it was a precision bug. And the false-negative risk was VERIFIABLE — capture findings before,
+narrow, capture after, then read every finding that changed.
+
+**The masking bug was the serious half.** The matcher was a single `.exec` over the whole state body,
+so it reported the FIRST positional phrase. Every kit opens with the anchor-stance clause, so the
+boilerplate always won — **and any genuine detached-effect phrase later in the same state was never
+surfaced.** The gate was blind exactly where it was meant to look.
+
+Two exclusions, each proven by diff:
+
+| exclusion | rationale | evidence |
+|---|---|---|
+| phrase modifies something **HELD** | held = anchored, by doctrine | *"katana **held** point-down in front of her"* x2, *"the war-fan **held** OPEN beside her"* x2 |
+| phrase followed by **"own &lt;body part&gt;"** | this is the CURE the gate's own FIX text prescribes ("erupt AROUND HIS OWN BODY") | *"in front of her **own chest**"*, *"beside her **own hip**"* |
+
+```
+BEFORE 35 BLOCK   ->   FINAL 31 BLOCK
+  -8 false positives removed (all 8 read and confirmed against their context)
+  +4 GENUINE findings surfaced that the boilerplate had been masking
+```
+Regression-checked: nonexistent -> exit 2, real character -> exit 0, both unchanged.
+
+**RESIDUAL NOISE — NAMED, NOT TUNED.** Reading all 19 surviving detached-effect findings, some are
+still false. Left alone deliberately: each needs a judgement call, and over-narrowing this gate buys
+a false NEGATIVE, which is far worse than noise. The families:
+1. **Negation under-reach.** *"none ever hangs **in the air**, none travels sideways away from her"* is
+   the prompt FORBIDDING the thing; `negated()` did not catch it.
+2. **Body-anchored without the word "own".** *"beside her **planted foot**"*, *"in front of her
+   **front talon**"* — anchored to the fighter, but the "own" test misses them.
+3. **Held-weapon cues outside the HELD_CUE list.** *"war-fan **open** beside her again"* — "open" is
+   not currently a held cue.
+**So: still read this gate's BLOCKs by hand.** It is now materially better signal, not yet clean.

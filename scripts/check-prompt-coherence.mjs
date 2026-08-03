@@ -98,9 +98,38 @@ function checkCharacter(id) {
     // DETACHED-EFFECT PLACEMENT: an effect noun parked in SPACE rather than on him.
     // This is the exact "rocket" signature (hollow-pale sp3 v1, ir48 sp2 v1).
     if (/^special/i.test(state)) {
-      const placedInSpace = /(in front of (?:him|her)|beside (?:him|her)|at (?:his|her) feet|onto the air|in the air)/i.exec(body);
+      // ########################################################################################
+      // # PRECISION FIX (phase 230b). This used to be a single .exec over the whole body, so it #
+      // # reported the FIRST positional phrase it saw. Every kit opens with the anchor-stance    #
+      // # clause — "katana held point-down IN FRONT OF HER exactly as in the reference" — which  #
+      // # describes a HELD WEAPON, not a detached effect. Two consequences, and the second is    #
+      // # the dangerous one:                                                                     #
+      // #   1. false BLOCKs on nearly every kit (23 of 35 findings), which turned this gate into #
+      // #      noise that gets ignored;                                                          #
+      // #   2. because .exec stops at the FIRST hit, that boilerplate MASKED any genuine         #
+      // #      detached-effect phrase later in the same state. The gate was blind exactly where  #
+      // #      it was supposed to look.                                                          #
+      // # So: scan ALL occurrences, drop the ones anchored to something the fighter HOLDS, and   #
+      // # report the first that survives. This makes the gate MORE sensitive, not less.          #
+      // # A held item is anchored to the character BY DEFINITION — that is the doctrine, not a   #
+      // # loosening of it.                                                                       #
+      // ########################################################################################
+      const HELD_CUE = /(held|holds|holding|grips?|gripped|griping|in (?:his|her) hands?|point-down|point down|raised|carries|carrying|clutch(?:ed|es)?|braced)/i;
+      const placedInSpace = [...body.matchAll(/(in front of (?:him|her)|beside (?:him|her)|at (?:his|her) feet|onto the air|in the air)/gi)]
+        .find((m) => {
+          if (negated(m.index)) return false;
+          // Look back a short window: if the phrase modifies something being HELD, it is attached.
+          const before = body.slice(Math.max(0, m.index - 70), m.index);
+          if (HELD_CUE.test(before)) return false;
+          // "...in front of her OWN CHEST" / "beside her OWN HIP" is BODY-ANCHORED — it is the exact
+          // form this gate's own FIX text prescribes ("erupt AROUND HIS OWN BODY"), and
+          // requiredEffectAnchoring lists it as the CURE. Flagging it as the disease is backwards.
+          const after = body.slice(m.index + m[0].length, m.index + m[0].length + 24);
+          if (/^\s+own\b/i.test(after)) return false;
+          return true;
+        }) || null;
       const anchored = U.requiredEffectAnchoring.mustContainOneOf.some((p) => low.includes(p));
-      if (placedInSpace && !negated(placedInSpace.index)) {
+      if (placedInSpace) {
         findings.push({ state, level: 'BLOCK', kind: 'detached-effect-placement', hit: placedInSpace[0],
           ctx: body.slice(Math.max(0, placedInSpace.index - 60), placedInSpace.index + 80).replace(/\s+/g, ' '),
           fix: 'Anchor the effect to the character: erupt AROUND HIS OWN BODY / flare ON the weapon in his hand / trace ALONG the blade.' });
