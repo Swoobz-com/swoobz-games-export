@@ -517,3 +517,45 @@ a false NEGATIVE, which is far worse than noise. The families:
 3. **Held-weapon cues outside the HELD_CUE list.** *"war-fan **open** beside her again"* — "open" is
    not currently a held cue.
 **So: still read this gate's BLOCKs by hand.** It is now materially better signal, not yet clean.
+
+### ✔ TRIAGED: THE FIRE-READY QUEUE CARRIES NO REAL COHERENCE DEFECT (phase 231)
+
+30 BLOCKs remain and I said they must be read by hand. Done — for the subset that actually gates
+future work. **Findings on SHIPPED kits are moot** (those clips are generated, viewed, accepted and
+wired). What matters is UNFIRED kits with a `WRITE` verdict, because firing one carrying a genuine
+phantom-object defect burns a generation. That is **9 findings across 5 kits**, and they were read
+against their own context:
+
+| kit | finding | actual context | verdict |
+|---|---|---|---|
+| ir52-umbra-pinions | `projectile-wording: "launches"` | *"she **launches her whole body** forward off her rear talon"* | FALSE — her own body |
+| ir52-umbra-pinions | `"in front of her"` | *"...bite into the ground just in front of her **front talon**"* | FALSE — body-anchored |
+| ir52-umbra-pinions | `"beside her"` | *"STAMPS that talon down into the ground beside her **planted foot**"* | FALSE — body-anchored |
+| jin-goldenhand | `"in front of her"` | *"...into the stone floor just in front of her **leading slipper**"* | FALSE — body-anchored |
+| jin-goldenhand | `"in front of her"` | *"her leading leg stays long in front of her with its **slipper**..."* | FALSE — her own limb |
+| jorogumo-kusarigama | `projectile-wording: "hovering"` | *"their pointed tips hovering just ahead of her **own shoulders**"* | FALSE — her own limbs |
+| wolfmark-hild x2 | `"beside her"` | *"the EXACT low extension and line it has in the reference image beside her **rear hip**"* | FALSE — body-anchored |
+| **onryo-katana** | `projectile-wording: "hovering"` | *"**Feet hovering just above the ground.**"* | **MISLABELLED BUT REAL — see below** |
+
+**CONCLUSION: 8 of 9 are false positives, and no unfired kit carries a real detached-effect or
+projectile defect.** The fire-ready queue is clean on this axis. Do not spend a cycle "fixing" these
+prompts.
+
+**THE ONE THAT IS NOT NOISE — `onryo-katana` idle, and it is not a projectile.** *"Feet hovering just
+above the ground"* is canonical for an onryo (a vengeful spirit), but it contradicts the
+**FEET STAY FLAT ON THE GROUND** rule every other kit in the roster carries, and it bears on
+anchor-lock, where ground contact is what the pose is measured against. **This wants a deliberate
+decision before onryo fires**, not a silent inheritance of a line no other character has.
+
+### AND THE RESIDUAL NOISE NOW HAS A SPECIFIED FIX (evidence: 7 of the 8 above)
+
+Every body-anchored false positive has the same shape: the positional phrase is **immediately
+followed by a possessive noun** — `her front talon`, `her planted foot`, `her leading slipper`,
+`her rear hip`, `her own shoulders`. A GENUINE detached placement instead ends the clause:
+*"in the air in front of her**,** then snaps back"*, *"in front of her**,** a burst of talismans"*.
+
+**So the discriminator is objective, not a doctrine call:** if the phrase continues into a possessed
+noun it is anchored to the fighter; if it terminates at punctuation or a clause boundary it is free
+space. That is the next narrowing to make, and it should be proven the same way the last three were —
+apply, diff, and READ every finding that changes. Not done this phase on purpose: the triage above is
+the deliverable, and folding a fourth matcher change into the same cycle would muddy its attribution.
