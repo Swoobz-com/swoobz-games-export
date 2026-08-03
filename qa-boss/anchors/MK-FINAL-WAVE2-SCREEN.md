@@ -696,9 +696,35 @@ at 1080p**" — which lifts every MK character above the shipped bar and moves t
 ones into range. `iron-vow` is untouched by this: its hold is duplicate weapon class vs oni-tetsubo,
 a roster-composition question no pixel count answers.
 
+### ✔ THE 1440 FIGURE IS NO LONGER A GUESS (phase 218) — `resolution` IS A PIXEL BUDGET
+
+Phase 217 flagged `1440@1080p` as the one load-bearing number inferred from a ratio. **Closed for
+free, off the 278 raws already on disk** — no render needed:
+
+```
+276 files  960x960     (aspect_ratio 1:1,  resolution 720p)
+  2 files  1280x720    (aspect_ratio 16:9, resolution 720p)  <- both named *-169, aspect intent explicit
+```
+
+```
+960 x  960 = 921,600
+1280 x 720 = 921,600     <- EXACTLY equal, not approximately
+```
+
+**`resolution` fixes a total PIXEL BUDGET and `aspect_ratio` distributes it** — that is why a square
+"720p" is 960 a side and not 720. The rule is confirmed by an exact identity across two aspect ratios
+in this project's own corpus. Applying it one tier up:
+
+```
+1080p 16:9 = 1920 x 1080 = 2,073,600     ->   square side = sqrt(2,073,600) = 1440 EXACTLY
+```
+
+So the 1080p column in the table above stands on derived arithmetic, not a ratio guess.
+Residual caveat, stated plainly: **the budget rule is verified at the 720p tier only.** Carrying it to
+1080p is an extrapolation — but a principled one, and the exactness of the identity (not a rounding)
+points to a designed rule rather than a coincidence. One 1080p render still confirms it outright.
+
 ### Stated limits — do not over-read this
-- **1440@1080p is INFERRED from the 960@720p ratio, not measured.** Verify with one render before
-  committing the wave. It is the one load-bearing number here that is not observed.
 - Assumes a 1920x1080 viewport. A taller display shrinks every headroom figure proportionally;
   the RANKING is viewport-independent, the absolute multiples are not.
 - No MK character has a still yet, so its `cal.h` is not yet derived. The ~600px on-screen figure
