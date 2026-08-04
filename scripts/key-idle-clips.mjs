@@ -176,6 +176,29 @@ let first = PNG.sync.read(fs.readFileSync(keyedPaths[0]));
 bx1 = Math.min(first.width - 1, bx1 + pad); by1 = Math.min(first.height - 1, by1 + pad);
 let cw = bx1 - bx0 + 1, ch = by1 - by0 + 1;
 if (cw % 2) cw--; if (ch % 2) ch--;
+
+// ⛔ A FULL-FRAME UNION BBOX MEANS THE KEY DID NOT KEY (TOOLCHAIN-AUDIT §2, guard added phase 271).
+// The union bbox spanning the entire source frame means survivors at EVERY extreme — top, bottom,
+// left AND right. A real subject never does that: the plate is built with headroom, so the top edge
+// is always clear even for the prop-EXTENDED characters that reach left and right.
+// MEASURED on 12 real hollow-pale frames (qa-boss/raw/hollow-pale-block-a.mp4, 960x960 source):
+//   this keyer         -> bbox x0 y0 960x960   exit 0   check-plate-retention: FAIL
+//   key-clips-green-pinksafe on the SAME frames -> bbox x162 y46 782x888  exit 0  retention: PASS
+// So the tool FIRE-PLAN names unconditionally fails on a live character while reporting success, and
+// the two documents disagree with the run-book winning. This guard does not settle WHICH keyer is
+// canonical per character — that is a routing decision — it just stops the wrong one passing silently.
+if (cw >= first.width - 2 && ch >= first.height - 2) {
+  console.error(`\n⛔ REFUSING — THE KEY FAILED. The union bbox is ${cw}x${ch} on a ${first.width}x${first.height} source:`);
+  console.error('  plate survived at every extreme, so nothing was actually keyed out. A matte this');
+  console.error('  shape is unusable, and it is the exact shape that used to exit 0.');
+  console.error(`  The uncropped pass-1 frames are in ${outDir} — they are NOT a usable result; delete them.`);
+  console.error('  TRY THE OTHER KEYER: scripts/key-clips-green-pinksafe.mjs handles the characters this');
+  console.error('  one cannot (hollow-pale is the measured case). ⚠ It is not a general keyer either —');
+  console.error('  it is a black+hot-pink fork and it silently GREYSCALES an orange subject (the kitsune');
+  console.error('  fox), so check the result, do not just swap tools. See TOOLCHAIN-AUDIT §2.');
+  process.exit(1);
+}
+
 for (const kp of keyedPaths) {
   const src = PNG.sync.read(fs.readFileSync(kp));
   const dst = new PNG({ width: cw, height: ch });
