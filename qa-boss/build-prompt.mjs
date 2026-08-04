@@ -164,9 +164,21 @@ const TELEMETRY_TELL = [
 // ask for `attack_strike_b` and get nothing at all rather than an error they would notice.
 // Fixed here rather than by renaming 24 headings: one change, backwards-compatible, and the A/B
 // wording in the files stays readable. `<base>_b` now also matches `## <base> B`.
+// ⛔ AND THE BASE STATE USED TO SWALLOW ITS OWN B SECTION (TOOLCHAIN-AUDIT §11, fixed phase 270).
+// `^## attack_strike\b` puts the word boundary at the SPACE, so it matched `## attack_strike B` too —
+// the base state's pattern captured the second take. Whichever section carries the higher vN then
+// wins the sort at stateBody(), so the collision is invisible until a re-roll bumps the B heading.
+// REPRODUCED on the real eclipse-ofuda kit: with `## attack_strike B v5` (a routine re-roll rename),
+// `attack_strike` and `attack_strike_b` built BYTE-IDENTICAL prompts (md5 a000d276…) and
+// check-prompt-sections still exited 0 — two states, one acting line, every gate green.
+// ⚠ It was ONLY safe before by luck: eclipse's A heading happens to read "— v4 ACTING LINE", so it
+// outranked a `B v2`. A `B v5` beat it. Do not read "zero current collisions" as "cannot collide".
+// The exclusion is [B-Z], not just B: the convention is `<base>` = take A and `<base>_b` = take B
+// (32 kits spell the first take `## <state> A`), so the base must keep matching ` A` and a bare
+// heading while never matching any OTHER letter suffix.
 function headingPattern(st) {
   const m = st.match(/^(.*)_b$/);
-  if (!m) return '^## ' + st + '\\b.*$';
+  if (!m) return '^## ' + st + '(?! [B-Z]\\b)\\b.*$';
   return '^## (?:' + st + '|' + m[1] + ' B)\\b.*$';
 }
 
