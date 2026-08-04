@@ -22,8 +22,20 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(path.join(HERE, '..', 'noop.js'));
 const { PNG } = require('pngjs');
 
-const A_THR = 8;   // must match key-idle-clips.mjs
-const COV = 1;     // must match key-idle-clips.mjs
+// ⛔ THESE MUST MATCH key-idle-clips.mjs AND FOR A LONG TIME THEY DID NOT (TOOLCHAIN-AUDIT §6, fixed
+// phase 269). This file shipped A_THR=8 / COV=1 while key-idle-clips.mjs:191-192 uses 128 / 3, under a
+// header claiming the math was "copied verbatim below, same A_THR/COV". Comparability with the keyer
+// is this tool's ENTIRE PURPOSE, so the mismatch attacked the one thing it exists to do: the shipped
+// cals were produced by the KEYER's thresholds, and re-deriving with different ones makes the tool
+// disagree with a correct value.
+// MEASURED on real keyed dirs, 8/1 vs 128/3 on identical inputs:
+//   hollow-pale-attack-throw-b  left 56.89 -> 57.10   h 93.27 -> 92.83   bottom 1.55 -> 1.77
+//   hollow-pale-idle            left 54.17 -> 54.33   h 93.27 -> 93.04
+//   hollow-pale-hit             left 53.22 -> 53.38   h 95.17 -> 94.93
+// Every one of those deltas is at or past the 0.2 accept band below, so the drift ALONE could flip a
+// verdict to "DRIFTED" against a cal that was right. If you change one file, change both.
+const A_THR = 128; // must match key-idle-clips.mjs:191 — verified, not assumed
+const COV = 3;     // must match key-idle-clips.mjs:192 — verified, not assumed
 
 function contentBBox(png) {
   const { width: W, height: H, data: d } = png;
@@ -69,12 +81,43 @@ const emitted = ei >= 0 ? JSON.parse(process.argv[ei + 1]) : null;
 const frames = fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort();
 if (!frames.length) { console.error('no frames in ' + dir); process.exit(2); }
 
+// ⛔ BOTH INPUTS MUST CARRY ALPHA, AND NOTHING USED TO CHECK (TOOLCHAIN-AUDIT §6, fixed phase 269).
+// contentBBox finds the ALPHA content box. Handed a fully-opaque image it degenerates to the whole
+// frame — and the result still LOOKS right: on an UNKEYED frames dir the old tool emitted h 98.95 /
+// drift 7.98 / "DRIFTED — use the re-derived cal" at exit 0, and h≈99 is the correct ballpark, so
+// nothing on screen said the number was meaningless. Pointed at the WRONG CHARACTER's still it gave
+// h 74.04 / drift 26.04 with the same confident verdict. This tool's output is hand-transcribed into
+// src/characters/<char>.ts as `cal: {h, bottom, left}`, which positions every clip on screen — a
+// plausible wrong answer here puts a fighter's feet through the arena floor.
+const readKeyed = (file, what) => {
+  const png = PNG.sync.read(fs.readFileSync(file));
+  let clear = 0;
+  for (let i = 3; i < png.data.length; i += 4) if (png.data[i] < A_THR) clear += 1;
+  if (clear === 0) {
+    console.error(`\n⛔ REFUSING — the ${what} has NO pixel below alpha ${A_THR}: ${file}`);
+    console.error('  It is fully opaque, so the alpha content box degenerates to the entire frame and');
+    console.error('  every number derived from it is meaningless — while still landing in a plausible');
+    console.error('  range (an unkeyed dir reads h~99). This is the UNKEYED-INPUT trap, not a drift.');
+    console.error('  Point this at the FINAL KEYED frames and the character\'s KEYED still.');
+    process.exit(2);
+  }
+  const bb = contentBBox(png);
+  if (bb.x1 < bb.x0 || bb.y1 < bb.y0) {
+    console.error(`\n⛔ REFUSING — the ${what} has no content at all above alpha ${A_THR}: ${file}`);
+    process.exit(2);
+  }
+  return bb;
+};
+
 // The anchor frame is frame 0 of the crop, matching key-idle-clips.mjs's own convention.
-const anchor = contentBBox(PNG.sync.read(fs.readFileSync(path.join(dir, frames[0]))));
-const still = contentBBox(PNG.sync.read(fs.readFileSync(stillPath)));
+const anchor = readKeyed(path.join(dir, frames[0]), 'anchor frame');
+const still = readKeyed(stillPath, 'still');
 const cal = computeCal(still, anchor);
 
-const out = { dir, frames: frames.length, cal };
+// `still` and `anchorFrame` are echoed because NOTHING binds the frames dir to the still: pass another
+// character's still and you get a confident, plausible, wrong cal. The pairing is the caller's
+// responsibility, so it has to be visible in the record the caller pastes into the ledger.
+const out = { dir, still: stillPath, anchorFrame: frames[0], frames: frames.length, cal };
 if (emitted) {
   const d = {
     h: +(cal.h - emitted.h).toFixed(2),
