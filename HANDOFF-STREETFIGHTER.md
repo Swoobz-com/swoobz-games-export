@@ -1,6 +1,200 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 25 — START HERE (2026-08-03, later) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 26 — START HERE (2026-08-03 → 08-04) ★★★★★★★★★★
+
+**24 commits, phases 235-258 (`7ae744e`..`faff885`). ZERO clips fired — the account is blocked AND
+Tim has ruled to wait. Corpus unchanged at 118 shipped webms / 328 queued states / 40 kits.**
+**The work that moved was GAMEPLAY, UI and TOOLING, not clips.**
+
+> **Read `qa-boss/FIRE-PLAN.md` next — its top is a STOP block.** Then §1 below before you touch any
+> keying tool. Everything else here is index, learnings and next steps.
+
+---
+
+### ⛔ 1. READ THIS BEFORE YOU KEY ANYTHING: THE PIPELINE DESTROYS MAGENTA CHARACTERS
+
+`qa-boss/cut-bloom-plate.mjs` — a **mandatory step** in FIRE-PLAN's keying pipeline — deleted
+**28.06% of ir56-lion-serpent's visible pixels (its entire green armour) and exited 0.**
+`check-plate-retention --plate magenta` still reported `0.00% clean` afterwards. Its colour test is
+green-family; it has no `--plate` flag; `grep -c magenta` on it returns **0**.
+
+**THREE characters are magenta-plate** (`grep -l "solid saturated MAGENTA" qa-boss/prompts/*.md`):
+`ir56-lion-serpent` · `onryo-katana` · **`pale-choir` — which is one of the six MK FINAL kits the
+loop prompt's STEP 4 fires NEXT.** The very next character through the documented pipeline would have
+been silently mutilated with every gate green.
+
+**Do not run `cut-bloom-plate` on those three until it is plate-aware.** Full report, plus 12 more
+findings across ~20 tools: **`qa-boss/TOOLCHAIN-AUDIT.md`**.
+
+### ⛔ 2. TIM'S STANDING RULINGS — SIX HOLDS. DO NOT QUIETLY REVERSE THEM.
+
+| # | question | ruling |
+|---|---|---|
+| 1 | the blocked Higgsfield account | **"let's wait with generating"** — no trial, no credits, no firing, **stop probing** |
+| 2 | `onryo-katana` idle feet | "hover in idle only" — APPLIED (phase 235) |
+| 3 | prop-EXTENDED re-plate (satoshi/sora/ir56) | "we will generate the characters later" |
+| 4 | `kitsune-tanto`'s 11 raws | "leave until generating resumes" — do NOT key or wire |
+| 5 | the green halo on `enemies/kitsune-tanto.webp` | "leave it" |
+| 6 | the stills cap (`key-enemies.mjs:390`) | "leave it at 900" |
+
+**Consequence: the entire no-account ASSET queue is closed by ruling.** Do not re-derive the evidence
+for these — it is already rendered and it did not change his mind.
+
+### ✅ 3. WHAT TIM ASKED FOR THIS SESSION, AND WHAT SHIPPED
+
+**a) "make it harder the game 3-10"** → phases 251. The old ladder spent FOUR of ten nodes on the
+easiest rung (1-4 all to2/no-defence/50%), so the first 40% was flat. Shifted every rung LEFT by two
+nodes; only 4 rows changed (3, 4, 6, 8). **No multiplier was invented** — each rung kept the price it
+already carried, so the change is purely which node gets which `(defence, roundsToWin, multBps)`
+triple. RTP proven by the 20M-match battery: all ten in **[95.85%, 96.03%]**.
+
+  1-2 `to2 none` 50.00% x1.92 · 3-5 `to2 +1` 27.33% x3.51 · 6-7 `to3 +1` 22.55% x4.25
+  · 8-9 `to2 +2` 13.07% x7.34 · 10 `to3 +2` 8.04% x11.94
+
+**b) "isn't the RTP higher since it's sometimes 50/50?"** → No. Fair odds on a 50% chance are
+**x2.000**; the game pays **x1.920**. `actual ÷ fair = 96%` on every single node — that 4% gap IS the
+edge. Rounds are only 50/50 on maps 1-2 (defence makes a round 34.4% or 22.7%), and winning a round
+is not winning the match (map 10: 22.7% per round, 8.04% per match).
+
+**c) "the shield UI looks too ugly"** → phases 252-255. Rebuilt as **kabuto lamellar**: gold lacquered
+plates seated FLUSH on the enemy HP bar, spent = an empty black socket. Full-vs-spent is now
+**mass, not hue**, so it survives greyscale and colour-blindness.
+
+**d) "first do research about mortal kombat"** → phase 254, and it caught a defect I had shipped.
+
+### 🧭 4. THE MK REFERENCE, AND THE DEFECT IT CAUGHT
+
+Researched before finishing the UI (sources in the phase-254 commit body). What matters:
+- **Resource is discrete chunks you COUNT**, never a continuous fill (MK1: 3 super-meter sections;
+  MK11: two 2-bar meters), and the chunks are **big** so counting is instant.
+- **One repeated diagonal is the system.** MK11's teardown credits its 45° with the "stableness of
+  mark" and cuts even round letterforms sharp to match.
+- **Accessibility is first-class** — MK1 ships Protanopia/Deuteranopia/Tritanopia HUD presets.
+- **Typography: there is NO nameable commercial face in the MK HUD.** NetherRealm draws custom
+  letterforms. Only **Bourbon Rough** (fatality text) and **Odense** (MK1 menus) are confirmed
+  commercial. STANDOFF's JetBrains Mono numerals are an independent choice, not an imitation — and
+  they genuinely resolve (probed 960px vs 879.7px generic mono), no silent fallback.
+
+**THE DEFECT.** I had designed the shield from the game's COLOUR tokens without checking its
+GEOMETRY tokens:
+
+```
+enemy HP segment  clip-path polygon(14% 0, 100% 0, 86% 100%, 0 100%) @ 179.3x37.6px
+                  -> 25.1px run over 37.6px height = 33.7deg, leaning  /
+shield lame       transform: skewX(10deg)          = 10.0deg, leaning  \
+```
+
+Wrong on **both** axes — 3.4x too shallow AND leaning the opposite way to the bar it is welded to.
+Fixed to `skewX(-33.7deg)` (phase 254) and scaled 13.8x15.5 → **35.9x23.6px, 63% of the segment
+height** (phase 255), because MK chunks are big on purpose.
+
+### 📋 5. EVERY PHASE THIS SESSION
+
+| phase | what landed |
+|---|---|
+| 235 | Tim's onryo ruling — and his PLATE shows feet PLANTED, so "hover" had to be encoded as planted-at-both-ends |
+| 236 | SESSION 25 block: six rulings + four corrections to SESSION 24 |
+| **237** | **corrects 236** — `fire-queue.mjs` was never wrong; I nearly "fixed" a working tool |
+| 238 | playable-after-beaten was ALREADY built (9 of 10 nodes); added `CONQUER ALL` to the `?dev` map bar |
+| 239 | built `qa-boss/check-inset-ring.mjs` — a ship-gate the skill mandates and the repo never had — swept all 118 clips |
+| **240** | **corrects 239** — 5 sliced effects, not 15; the other 10 are props crossing the edge |
+| 241 | the pattern tracks PROP SIZE; `idle` is 0/12 (free negative control); gate entered the run-book |
+| 242 | the 5 cuts ARE player-visible in-arena; corrects 236's "~860px from any screen edge" |
+| 243 | DWELL measured — run length is NOT the severity order; thorn's cut is ONE frame (42ms) |
+| 244 | Tim's HOLD moved to the top of FIRE-PLAN; `check-facing` was blind to every MK plate — fixed |
+| 245 | `arsenal.json` covers 10 of 40 kits; ALL SIX MK FINAL kits undeclared |
+| **246** | **the inset-ring gate CANNOT sign off the fix** — a soft STRAIGHT fade turns it green |
+| 247 | handoff entry point said "one commit" while twelve had landed |
+| 248 | dry-ran `radial-feather.mjs` end-to-end — the prescribed fix had never been run |
+| 249 | verified `harvest.mjs` against a real completed job — its phase-229 patch had never been exercised |
+| **250** | **TOOLCHAIN AUDIT** — 6 agents over ~20 tools; found the magenta destroyer in §1 |
+| 251 | campaign difficulty shifted left, RTP held at 96%, monotonicity test added |
+| 252 | shield redesign (kabuto lamellar) |
+| 253 | spent state verified in the RUNNING GAME, not just a harness |
+| **254** | **MK research** — the shield leaned the wrong way; fixed |
+| 255 | sized the shield to genre weight |
+| 256 | `scripts/drive-game.mjs` — this session hand-wrote that driver FOUR times before making it real |
+| 257 | `--no-stake` so the node card can be captured; re-shot every preview image (several were stale) |
+| 258 | `--burst`, fixed its probe reading the ARENA loop, and reported that it does NOT close the in-motion question |
+
+**Five of these correct an earlier phase of the same session** (237→236, 240→239, 242→236, 246→own
+gate, 254→252). Every correction came from OPENING the thing rather than trusting the write-up about
+it. Treat this block the same way.
+
+### 🔧 6. TOOLS THAT NOW EXIST (use them; do not re-invent)
+
+| tool | what it is for |
+|---|---|
+| `qa-boss/check-inset-ring.mjs` | the effect-clip edge-cut gate. ⚠ its PASS is not a fix — a straight feather turns it green (phase 246) |
+| `scripts/render-hud-element.mjs` | a static HUD element against the real `fight.css` at real `--sw`/`--sh` and real stage proportions |
+| `scripts/drive-game.mjs` | drives the RUNNING app (`?dev` → CONQUER ALL → node), can PLAY until a page condition, `--no-stake`, `--burst` |
+
+**You can SEE the game without the Chrome extension** — `puppeteer-core` is installed, Chrome is at
+the default path. Start `npx vite --port 5310 --strictPort` yourself; neither tool spawns a server.
+
+### 🧠 7. LEARNINGS (the ones that changed an outcome)
+
+1. **`$?` after a pipeline is the LAST command's status — I hit this FOUR times in one session**,
+   twice after writing the memory entry about it. It printed `exit 0` for a gate whose own stdout
+   read "This is NOT a pass", and later for a brand-new tool that was correctly exiting 1 — I was one
+   keystroke from "fixing" a guard that already worked. **Never read an exit code through a pipe.**
+2. **A gate that measures MAGNITUDE cannot sign off a SHAPE fix.** Proven with a control: a clip
+   cropped through the body scores `i2 255/620` and fails; the same clip with a soft STRAIGHT fade
+   scores `255/80` and PASSES — while the box is still visibly there. That non-fix already shipped
+   once on this repo.
+3. **Verify the EFFECT, not the markup.** The shield's spent socket only counted once I PLAYED until
+   a boss absorbed a hit. Make the check able to fail: the driver exits 1 with "inconclusive, NOT a
+   pass" if the state never occurs.
+4. **A CSS fallback is not the live value** — `--stage-ar: 1.83333` sat in the stylesheet while
+   `FightExperience.tsx:2111` overrode it unconditionally with the real arena aspect.
+5. **Harness artifacts masquerade as design defects.** A short mock stage clipped an element
+   positioned at `top: 9.4%` of a 1071px stage; the `position: static` workaround then re-parented an
+   absolutely-positioned `::before` and painted a full-width black band. Both were my instrument.
+6. **Diff the change, never grep the result.** A `sed` on `height: calc(var(--sh) * 1.45)` is not
+   unique to one block; the diff proved it hit only 4 lines, the grep looked like it hit 5.
+7. **git status clean ≠ nothing was written.** Large working dirs here are untracked, so an overwrite
+   under `qa-boss/webm/**` shows up in neither `git status` nor a file count. Sweep by mtime.
+8. **An append-only phase log manufactures contradictions** — 2 of 3 agents "discovered" doc conflicts
+   the same file already corrected 400+ lines later. Grep the value, read from its HIGHEST line.
+
+Saved to `~/.claude/memory/`: `gate-vacuous-pass` (4th shape + the recurrence note),
+`effect-clip-edge-cut` (a detector cannot verify a contour fix), `documented-const-vs-implemented-const`
+(fallback-vs-live), `chronological-log-manufactures-contradictions`, `node-server-hygiene`
+(a harness "killed" status does not mean the child died — verify by PORT).
+
+### ▶ 8. WHAT TO DO NEXT, IN ORDER
+
+1. **Do not fire.** Ruling 1. Do not probe the account either.
+2. **If Tim lifts a hold, the highest-value one is `kitsune-tanto`** — 11 distinct raws on disk (idle
+   and idle-v3 are byte-identical), needing keying + wiring only, and it is the last campaign node
+   still fought against a `volta` placeholder.
+3. **Before ANY magenta character is keyed, make `cut-bloom-plate` plate-aware** (§1). This is the
+   single highest-value no-account code task on the board.
+4. **The defence +3 tier is offered and unanswered.** `q = 37/256` → P **5.66%** (to2) / **2.40%**
+   (to3) → x16.95 / **x39.96**. It needs a type widen (`amount: 1 | 2 | 3`), one new `q` row, and a
+   battery re-run. It would give map 10 a x39.96 finale instead of sharing a rung with map 9.
+5. **When asset work reopens, fix the 5 sliced effects** — recipe verified end-to-end in phase 248
+   and written into FIRE-PLAN. RADIAL feather only; verify by VIEWING, never by the gate's exit code.
+6. **Declare an arsenal entry as the first step of firing any undeclared kit** (§FIRE-PLAN) — derive
+   `wields` from the PLATE, never from the character's name.
+
+### ✘ 9. WHAT IS **NOT** ESTABLISHED — do not report these as settled
+
+- **The in-motion perceptibility of the 5 cuts.** Screenshots cost 200-600ms; the beat dwells 208ms.
+  The instrument is an order of magnitude too slow. Needs a video capture or a human watching.
+- **30 of the 47 no-feather clips are unviewed** (all WATCH tier, run < 100). Low residual risk; the
+  two lowest-risk were checked and were benign.
+- **Only 3 of ir56's 12 clips were scanned** for the flame-amputation defect.
+- **The fill/headroom work in `MK-FINAL-WAVE2-SCREEN.md` is priced on 560px**, which phase 236 showed
+  is wrong (the box is 621.5px, square, `object-fit: contain`, so wide stills are WIDTH-limited).
+  Re-price before acting on it. ⚠ That correction applies to the STILL; CLIPS are sized by their own
+  `cal`, never contain-fitted.
+- **`arsenal.json` covers 10 of 40 kits**, so 30 fire without a per-character contract. The universal
+  melee-roster BLOCK rules still apply; only `def.banned` is silently absent.
+
+---
+
+## ★★★★★★★★★★ SESSION 25 (2026-08-03) — superseded by the block above ★★★★★★★★★★
 
 **TIM WAS IN THE ROOM AND RULED ON SIX OPEN ITEMS. Five of them are HOLDS. The asset pipeline is
 deliberately parked; do not restart it on your own initiative.** **12 commits, phases 235-246
