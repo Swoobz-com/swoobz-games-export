@@ -2476,6 +2476,46 @@
    NO rotate() anywhere: the old mark authored its detail in unrotated space and then shipped it
    rotated 45deg, which is why its "crack" came out as a horizontal minus sign. skewX shears x
    only, so every authored horizontal edge stays horizontal on screen.
+
+   ✔ THREE LAMES FIT UNCHANGED (phase 261, the DEFENCE +3 finale on map 10). MK's rule is that a
+   resource is discrete chunks you COUNT and the chunks are BIG, so the third lame had to arrive by
+   RE-FLOWING, never by shrinking the other two. Measured against this stylesheet at the real node-10
+   stage (sanctum 2752x1536 -> 1920x1071.6, --sw 19.2px --sh 10.716px):
+     lame boxes        layout 20.0 x 23.8px (calc 1.05*sw x 2.2*sh); PAINTED ~35.9 x 23.8px — the
+                       extra ~15.9px of width is the skew's horizontal reach, h * tan(33.7).
+                       INVARIANT IN N, proven by pixels not by reasoning: lames 1 and 2 are
+                       byte-identical between the 2-lame strip (RED MIST GORGE) and the 3-lame strip
+                       (ZERO CITADEL). Nothing shrank; the third lame arrived by RE-FLOW, because the
+                       strip is a shrink-to-fit absolute box that grows rightward instead of dividing
+                       a fixed width.
+     pitch             17.00px (sub-pixel autocorrelation, sd 0.033 over 32 rows).
+     strip width       50.00px (2 lames) -> 68.00px (3).
+                       ⚠ THE DELTA IS 18.00 BUT THE PITCH IS 17.00, AND BOTH ARE CORRECT. They are two
+                       INDEPENDENT device-pixel roundings of the same un-snapped 0.9*--sw = 17.28.
+                       NEVER derive one from the other — that inconsistency is the paint, not a bug.
+     seating           the strip's left border-box edge is PIXEL-IDENTICAL to the p2 HP bar's own left
+                       edge (57.40% of stage); right edge 60.94%; the bar runs far past it, so the
+                       strip can never overflow it.
+     clearance         95.0px (4.95pp) to the p2 nameplate's PAINTED left edge at 65.89% — which is
+                       NOT CAL.nameP2.x0 (69.0%): NamePlate expands it by pctRectPad 0.7 +
+                       CENTER_REACH 2.4. Use the painted edge, never the CAL value.
+     overflow cut      the outermost lames lose a corner to this strip's own overflow:hidden — <1% of
+                       a lame's ~480px^2 painted area. ⚠ WHICH corners depends on the skew SIGN: after
+                       the phase-262 flip it is the leftmost lame's TOP-LEFT (~4px^2) and the rightmost
+                       lame's BOTTOM-RIGHT (~3px^2). Before the flip it was the opposite pair.
+     greyscale         full lame Rec.709 luma 168.4/255 vs a spent socket's 3.9/255 — a 43.6x MASS
+                       ratio, so full-vs-spent survives desaturation and colour-blindness.
+   ⚠ MEASURE THESE WITH MULTI-EDGE CORRELATION, NOT A THRESHOLDED EDGE SCAN. A leftmost-gold-pixel fit
+   on these lames returns a bogus dx/dy of +0.98, because the plate's gradient ends at #5c3f08 and its
+   bottom third falls below any gold threshold. That is a third way this element fools a reader,
+   alongside the two sign mistakes recorded below.
+   Verified in the RUNNING game, not just the harness: drove node 10 (ZERO CITADEL) and played until
+   the boss actually soaked a hit — the strip shows two gold plates beside one black empty socket —
+   then 2/3, 1/3 and 0/3 in turn. The seat animation was proved by PAUSING it at currentTime=40ms: all
+   three lames lifted 2.0px and at ~0.6 opacity, and the shear measured +33.76deg, i.e. it does not
+   change mid-animation. Translate and fade only, no jump.
+   Reproduce: scripts/drive-game.mjs --node "ZERO CITADEL" --clip 1080,50,400,120
+     --until "document.querySelectorAll('.fr-shieldpip-filled').length < document.querySelectorAll('.fr-shieldpip').length"
    ============================================================================================ */
 .fr-shieldpips {
   position: absolute;
@@ -2520,8 +2560,19 @@
   flex: 0 0 auto;
   width: calc(var(--sw) * 1.05);
   height: calc(var(--sh) * 2.2);
-  /* Same lean as the p2 HP plates (clip-path 0 0, 86% 0, 100% 100%, 14% 100%). */
-  transform: skewX(-33.7deg);
+  /* Same lean as the p2 HP plates (clip-path 0 0, 86% 0, 100% 100%, 14% 100%).
+     ⛔ THE SIGN HAS NOW BEEN WRONG TWICE. DERIVE IT, DO NOT COPY IT FROM A COMMIT BODY.
+     The two bars are MIRRORED on purpose (fight.css:266 "mirrored per side so both bars lean
+     toward screen center"), so quoting the wrong side inverts the answer:
+       p1 polygon(14% 0, 100% 0, 86% 100%, 0 100%)  left edge (14%,0)->(0,100%)   dx/dy < 0  "/"
+       p2 polygon(0 0, 86% 0, 100% 100%, 14% 100%)  left edge (0,0)->(14%,100%)   dx/dy > 0  "\"
+     skewX(a) is x' = x + y*tan(a), so x must GROW with y to match p2 => a is POSITIVE.
+     This element is the ENEMY's shield (ShieldPips renders aria-label "Enemy shield" immediately
+     after the p2 HealthBar, FightExperience.tsx:2338-2346), so it welds to the p2 bar — never p1.
+     Phase 254 shipped skewX(-33.7deg) after quoting the p1 polygon while labelling it "enemy"
+     (commit 62e6eee), which mirrored the defect instead of fixing it; measured live, the lames ran
+     -33.70 against a p2 segment at +33.78. Verify against the p2 bar in a real render, not the CSS. */
+  transform: skewX(33.7deg);
   border-radius: calc(var(--sw) * 0.04);
   /* SPENT: an empty socket — opaque void, hard shadow under the top rim, a lit steel lip at the
      bottom. Light from above hitting the BOTTOM of a shape is what makes it read as a hole. */
@@ -2583,11 +2634,11 @@
 /* The one motion: at round start each restored lame drops back into its socket. */
 @keyframes fr-shieldpip-seat {
   0% {
-    transform: skewX(-33.7deg) translateY(calc(var(--sh) * -0.5));
+    transform: skewX(33.7deg) translateY(calc(var(--sh) * -0.5));
     opacity: 0;
   }
   100% {
-    transform: skewX(-33.7deg) translateY(0);
+    transform: skewX(33.7deg) translateY(0);
     opacity: 1;
   }
 }

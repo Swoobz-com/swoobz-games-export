@@ -25,7 +25,7 @@
 //
 // EXACT MATH (regression-tested): with a fair-coin decisive exchange, the round-win probability is
 // q = P(player lands 3+S hits before taking 3), S = defense amount:
-//   S=0: q = 1/2      S=1: q = 11/32      S=2: q = 29/128
+//   S=0: q = 1/2   S=1: q = 11/32   S=2: q = 29/128   S=3: q = 37/256
 // Match win: first-to-2 P = q^2(3-2q); first-to-3 P = q^3(1 + 3(1-q) + 6(1-q)^2).
 
 import type { MatchState, Move } from './fightEngine';
@@ -38,7 +38,9 @@ export type CampaignMatchResult = 'met' | 'failed' | 'open';
  *  `kind` is PRESENTATION ONLY — the interception math is identical for both kinds. */
 export interface CampaignDefense {
   kind: 'shield' | 'bulk';
-  amount: 1 | 2;
+  /** 3 is the FINALE rung (Tim, 2026-08-04): widened from `1 | 2` so map 10 can own a rung instead
+   *  of sharing maps 8-9's defense at a longer format. Every value here needs a ROUND_Q row. */
+  amount: 1 | 2 | 3;
 }
 
 /** A cosmetic cross-game unlock attached to a node (swoobz-engagement-layer: EV-NEUTRAL —
@@ -81,9 +83,11 @@ export interface CampaignNodeDef {
 }
 
 // The 10 playable nodes (RONIN ZERO season theme; names in a Japanese sengoku register). The
-// phase-17 ladder: escalation via format + defense, kinds mixed for variety (Tim's addendum) —
-// n1-4 plain x1.92 | n5 bulk+1 x3.51 | n6 shield1 x3.51 | n7 bulk+1 first-to-3 x4.25 |
-// n8 shield1 first-to-3 x4.25 | n9 bulk+2 x7.34 | n10 RONIN ZERO shield2 first-to-3 x11.94.
+// ladder escalates via format + defense, kinds mixed for variety (Tim's addendum). SIX rungs as of
+// the DEFENCE +3 finale (Tim, 2026-08-04) — map 10 no longer shares maps 8-9's defense:
+//   n1-2  to2 none      50.00%  x1.92      n6-7  to3 +1      22.55%  x4.25
+//   n3-5  to2 +1        27.33%  x3.51      n8-9  to2 +2      13.07%  x7.34
+//   n10   to3 +3         2.40% x39.95   <- its OWN rung (was to3 +2, 8.04%, x11.94)
 export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // NOTE: the demo cosmetic rewards (AUTOMAT packs on nodes 2 + 8) were REMOVED for now
   // (Tim, 2026-07-21). The CampaignReward type, `reward?` field, UI surfaces and the webp
@@ -100,7 +104,11 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // Tim's ruling (2026-07-22): the finalboss art IS the final boss - IR-48 HEX PAPER LORD is the
   // name; the lore line follows the other nodes' register. RONIN ZERO stays as the SEASON brand
   // (map header), not the boss identity.
-  { id: 10, name: 'ZERO CITADEL', title: 'Lord of the Zero Citadel', roundsToWin: 3, defense: { kind: 'shield', amount: 2 }, multBps: 119400n, fighterId: 'ir48-hex-paper-lord', arenaId: 'sanctum', enemy: { id: 'ir48-hex-paper-lord', name: 'IR-48 HEX PAPER LORD' } },
+  // THE FINALE RUNG (Tim, 2026-08-04): defense 3 / first-to-3. P = 13207617791/549755813888 =
+  // 2.4024%, so the largest ladder-convention price (multiple of 10) under the 96% ceiling is
+  // 399590n -> RTP 95.9996%. 399600n would be 96.0020% and is OUT of band. Stake/price surfaces,
+  // arena, enemy and fighterId are untouched; only defense.amount and multBps moved.
+  { id: 10, name: 'ZERO CITADEL', title: 'Lord of the Zero Citadel', roundsToWin: 3, defense: { kind: 'shield', amount: 3 }, multBps: 399590n, fighterId: 'ir48-hex-paper-lord', arenaId: 'sanctum', enemy: { id: 'ir48-hex-paper-lord', name: 'IR-48 HEX PAPER LORD' } },
 ];
 
 /** The number of nodes in the campaign (frontier bookkeeping + persistence array length). */
@@ -190,10 +198,18 @@ export function campaignPayout(stake: bigint, multBps: bigint): bigint {
 // Round-win probability q per defense amount, as exact rationals: q = P(player lands 3+S decisive
 // hits before taking 3) on a fair coin. Derived by first-step enumeration (regression-tested by
 // independent recomputation in fightCampaign.test.ts).
+//
+// SECOND, CLOSED DERIVATION (the one that prices a new rung in one line): conditioned on being
+// decisive, an exchange is a fair coin, and the race is always settled inside (3+S)+3-1 = S+5
+// decisive exchanges — so pad it to exactly S+5 tosses (tosses after the race ends cannot change
+// who got there first) and q(S) = [sum over j = 3+S..S+5 of C(S+5, j)] / 2^(S+5). Always exactly
+// three terms, one per enemy life. Both derivations agree on all four rows below.
 const ROUND_Q: Record<number, { num: bigint; den: bigint }> = {
-  0: { num: 1n, den: 2n },
-  1: { num: 11n, den: 32n },
-  2: { num: 29n, den: 128n },
+  0: { num: 1n, den: 2n }, // (C(5,3)+C(5,4)+C(5,5))/32  = (10+5+1)/32  = 16/32
+  1: { num: 11n, den: 32n }, // (C(6,4)+C(6,5)+C(6,6))/64  = (15+6+1)/64  = 22/64
+  2: { num: 29n, den: 128n }, // (C(7,5)+C(7,6)+C(7,7))/128 = (21+7+1)/128
+  // The DEFENCE +3 finale rung (Tim, 2026-08-04), map 10 only.
+  3: { num: 37n, den: 256n }, // (C(8,6)+C(8,7)+C(8,8))/256 = (28+8+1)/256 = 0.14453125
 };
 
 /** Exact match-win probability for a defense amount + format, as a bigint rational.
@@ -222,7 +238,9 @@ export function formatWinChance(amount: number, roundsToWin: 2 | 3): string {
   return `${whole.toString()}.${frac.toString()}`;
 }
 
-/** PAYS display string (two decimals, e.g. "1.92", "11.94") from multBps — bigint, floor to cents. */
+/** PAYS display string (two decimals, e.g. "1.92", "39.95") from multBps — bigint, floor to cents.
+ *  FLOORS, never rounds: 399590n -> "39.95", not "39.96". Anything re-deriving a displayed price with
+ *  toFixed(2) will disagree with the game by a cent and land on a price the 96% ceiling forbids. */
 export function formatMult(multBps: bigint): string {
   const whole = multBps / 10000n;
   const frac = (multBps % 10000n) / 100n; // floor to two decimals

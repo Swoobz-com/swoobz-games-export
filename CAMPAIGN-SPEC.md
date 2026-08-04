@@ -48,8 +48,13 @@ the node card (Glass Box):
   health bar) — SAME math, presentation only.
 
 Round-win probability q = P(player lands 3+S decisive hits before taking 3), decisive
-exchanges 50/50: q(0) = 1/2, q(1) = 11/32, q(2) = 29/128.
+exchanges 50/50: q(0) = 1/2, q(1) = 11/32, q(2) = 29/128, q(3) = 37/256.
 Match win: first-to-2 P = q^2(3-2q); first-to-3 P = q^3(1 + 3(1-q) + 6(1-q)^2).
+
+Closed form for a new rung (the second derivation, and the cheap one): conditioned on
+being decisive an exchange is a fair coin, and the race is always settled inside
+(3+S)+3-1 = S+5 decisive exchanges, so pad it to exactly S+5 fair tosses and
+q(S) = [sum over j = 3+S..S+5 of C(S+5, j)] / 2^(S+5) — three terms, one per enemy life.
 
 | rung        | S | R | q exact | P exact                  | P        | multBps | pays   | RTP     |
 |-------------|---|---|---------|--------------------------|----------|---------|--------|---------|
@@ -57,11 +62,23 @@ Match win: first-to-2 P = q^2(3-2q); first-to-3 P = q^3(1 + 3(1-q) + 6(1-q)^2).
 | defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35120   | x3.51  | 95.97%  |
 | defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42530   | x4.25  | 95.92%  |
 | defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73430   | x7.34  | 96.00%  |
-| boss        | 2 | 3 | 29/128  | 1380490567/17179869184   | 8.035%   | 119400  | x11.94 | 95.94%  |
+| finale      | 3 | 3 | 37/256  | 13207617791/549755813888 | 2.402%   | 399590  | x39.95 | 96.00%  |
 
-All exact fractions are regression-tested against a first-principles enumeration
-(fightCampaign.test.ts), and every rung satisfies multBps * P <= 0.96 in exact bigint
-arithmetic.
+(The retired boss rung, S=2 R=3, was P = 1380490567/17179869184 = 8.035% at x11.94. Its
+math is still exercised by the tests; no node stands on it.)
+
+All exact fractions are regression-tested against TWO independent first-principles
+derivations (fightCampaign.test.ts: a (need, lives) recursion and the binomial closed
+form above), and every rung satisfies multBps * P <= 0.96 in exact bigint arithmetic.
+
+PRICE IS DERIVED, NEVER CHOSEN. For a rung with exact P: maxBps = floor(0.96 * den / num),
+then floor to the ladder's multiple-of-10 convention. The finale: maxBps = 399591 (399592
+breaks the ceiling, so the bound is tight) -> 399590, RTP 95.9996%. Two traps recorded so
+nobody "fixes" them back:
+- `formatMult` FLOORS to cents, so 399590 displays **x39.95**. `(399590/10000).toFixed(2)`
+  ROUNDS and says "39.96"; 399600 (the bps that would honestly display 39.96) returns
+  96.0020% and is OUT of band. x39.96 is unreachable at this P.
+- P renders as 2.4024% truncated to 4dp (2.4025% rounded); `formatWinChance` shows "2.4".
 
 ## 2. The map (10 nodes + 2 locked bonus isles) — RONIN ZERO season theme
 
@@ -82,6 +99,21 @@ each rung kept the multiplier it already carried, so RTP stays 96% everywhere an
 invented. Verified: `npx vite-node scripts/campaign-rtp-sim.mjs`, 2,000,000 matches/node, all 10 in
 [95.85%, 96.03%].
 
+**BATTERY RE-RUN FOR THE DEFENCE +3 FINALE (2026-08-04).** Same command, 2,000,000 matches/node
+(20,000,000 matches), 61s, PASS on the sim's own [95.0%, 96.1%] gate for all ten nodes. Node 10
+measured P = 2.397% against the exact 2.402%, RTP 95.800%; nodes 1-9 landed in 95.902% .. 96.027%.
+
+READ THE NODE-10 NUMBER CORRECTLY — this is the trap this rung introduces. **95.800% is outside the
+[95.85%, 96.03%] band quoted above, and that is Monte-Carlo noise, not a mispricing.** RTP is
+measured P times a 39.959x multiplier, so the multiplier magnifies the sampling error: at
+N = 2,000,000 the standard error of node 10's RTP is +/- 0.4327 percentage points, while that band
+is only 0.18 points WIDE. The band was calibrated on a ladder whose rarest node was 8.04% (SE
++/- 0.23 pts) and it does not transfer to a 2.40% node at the same sample size. 95.800% is -0.46
+sigma from exact. Re-run at N = 100,000,000 (398s): P = 2.40182% vs exact 2.40245%, **RTP 95.9742%,
+inside the band, -0.42 sigma** — the same noise level with a 7x tighter error bar. The EXACT RTP is
+95.9996%, proven in bigint by the test suite; the battery can only ever corroborate it. To judge
+node 10 from the battery alone, use the sim's own [95.0%, 96.1%] gate, or raise N.
+
 | node | name              | title (enemy card)           | format | defense   | P(win)  | pays   | fighterId |
 |------|-------------------|------------------------------|--------|-----------|---------|--------|-----------|
 | 1    | KUROHAMA DOCKS    | Dockmaster of Kurohama       | to 2   | none      | 50.00%  | x1.92  | volta     |
@@ -93,14 +125,21 @@ invented. Verified: `npx vite-node scripts/campaign-rtp-sim.mjs`, 2,000,000 matc
 | 7    | BURNED PAGODA     | Ash Warden of the Pagoda     | to 3   | bulk +1   | 22.56%  | x4.25  | volta     |
 | 8    | RED MIST GORGE    | Tyrant of the Red Mist       | to 2   | shield 2  | 13.07%  | x7.34  | volta     |
 | 9    | CRIMSON GATES     | Warlord of the Crimson Gates | to 2   | bulk +2   | 13.07%  | x7.34  | volta     |
-| 10   | ZERO CITADEL      | RONIN ZERO (season boss)     | to 3   | shield 2  | 8.04%   | x11.94 | volta     |
+| 10   | ZERO CITADEL      | RONIN ZERO (season boss)     | to 3   | shield 3  | 2.40%   | x39.95 | volta     |
 
-**The engine supports exactly five rungs** — defense 0/1/2 x to2/to3, giving P of 50.00 / 27.33 /
-22.56 / 13.07 / 8.04%. (`to3` with NO defense is still exactly 50%: the match is symmetric, so more
-rounds cannot help — rounds-to-win is a difficulty AMPLIFIER on an existing asymmetry, never a
-source.) `defense.amount` is typed `1 | 2` and `matchWinProbability` throws on 3, so **node 10 is the
-hardest fight the engine can currently express**; a sixth rung needs a type widen + a new `q` row +
-a battery re-run.
+**DEFENCE +3 FINALE (Tim, 2026-08-04).** Map 10 used to share maps 8-9's rung shape — the same
+defense (+2), differing only by format — so the ladder's top was one rung wearing two hats. It now
+owns rung six: defense 3 / first-to-3 / 2.4024% / x39.95. This is the sixth rung the note that used
+to stand here called impossible: `defense.amount` was typed `1 | 2` and `matchWinProbability` threw
+on 3. Both were widened, `ROUND_Q` gained `q(3) = 37/256`, and the price was derived from P and the
+96% ceiling (see §1). Nothing else on the ladder moved — maps 1-9 keep their exact configs and
+prices, and node 10's stake console, arena and enemy are untouched.
+
+**The engine supports six rungs** — defense 0/1/2/3 x to2/to3, of which the ladder stands on
+50.00 / 27.33 / 22.56 / 13.07 / 2.40%. (`to3` with NO defense is still exactly 50%: the match is
+symmetric, so more rounds cannot help — rounds-to-win is a difficulty AMPLIFIER on an existing
+asymmetry, never a source.) A seventh rung is now a one-row job: add `ROUND_Q[4]` (the binomial
+closed form in §1 gives it in one line), widen `amount`, derive the price, re-run the battery.
 | B1   | (locked NW isle)  | COMING SOON                  | -      | -         | -      | -         |
 | B2   | (locked SE isle)  | COMING SOON                  | -      | -         | -      | -         |
 
@@ -167,14 +206,15 @@ once.
   one-line copy), WIN CHANCE % (Glass Box: the exact ladder percentage), PAYS xN.NN,
   stake console (existing BetConsole flow), FIGHT.
 - During the fight: round pips show the node's REAL format (3 slots per side on
-  first-to-3 nodes); shield nodes draw the enemy's shield pips above his HP bar (refill
-  each round); bulk nodes draw his longer 3+S segment bar. A minimal strip under the
+  first-to-3 nodes); shield nodes draw the enemy's shield lames above his HP bar (refill
+  each round; node 10 carries THREE — the kabuto strip grows rightward, the lames never
+  shrink, measured in src/ui/fight.css); bulk nodes draw his longer 3+S segment bar. A minimal strip under the
   timer reads "FIRST TO R ROUNDS - PAYS xM.MM" (+ the defense hint on defended nodes)
   per cover-plate law (fresh-player-comprehension law).
 - CAMPAIGN RECEIPT: VICTORY (gold) / DEFEAT (blood), node name, stake, mult, payout,
   net, bank; buttons: [NEXT NODE] (on win, if a next node exists) / [RETRY] / [MAP];
   reward-unlocked card on winning a reward node. Value-independent celebration (RG-C5):
-  identical fanfare for x1.92 and x11.94.
+  identical fanfare for x1.92 and x39.95.
 - Map + receipt disclose RTP ("each trial returns 96% to players over time" line or
   the existing PLAY SAFE surface).
 

@@ -577,7 +577,7 @@ export function useFightController(
   // Guarded by campaignSettledRef (same one-shot pattern as settleMatch's settledRef). On met the
   // node is marked beaten and persisted. Plain callback, never a setState updater. The celebration
   // (playVictory earlier + playPayout here) is value-INDEPENDENT: identical fanfare for x1.92 and
-  // x11.94 (RG-C5). P1 is ALWAYS the player, so the judge always scores the player.
+  // x39.95 (RG-C5). P1 is ALWAYS the player, so the judge always scores the player.
   const settleCampaign = useCallback((result: CampaignMatchResult) => {
     if (result === 'open') return; // never settle an open match
     if (campaignSettledRef.current) return;

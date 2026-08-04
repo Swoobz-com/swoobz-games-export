@@ -104,7 +104,11 @@ for (const node of CAMPAIGN_NODES) {
       pad(node.defense ? `${node.defense.kind}+${node.defense.amount}` : 'none', 10) +
       padL((pMet * 100).toFixed(3) + '%', 9) +
       padL((expP * 100).toFixed(3) + '%', 9) +
-      padL(mult.toFixed(2) + 'x', 8) +
+      // FLOOR, never toFixed. formatMult (fightCampaign.ts) renders with integer division, so the
+      // game shows 39.95 for 399590n while toFixed(2) rounds it to "39.96" — a price the ladder
+      // cannot legally pay (399600n is 96.0020% RTP, over the ceiling). This sim printing a rounded
+      // number is how "x39.96" got into the handoff and was carried for two sessions.
+      padL((Math.floor(Number(node.multBps) / 100) / 100).toFixed(2) + 'x', 8) +
       padL((rtp * 100).toFixed(3) + '%', 9) +
       '  ' +
       (ok ? 'ok' : 'FAIL'),

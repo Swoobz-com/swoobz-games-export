@@ -3000,7 +3000,7 @@ export function FightExperience(): JSX.Element {
           <div className="fr-overlay">
             <div className="fr-scrim" />
             <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 1.8)' }}>
-              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.92 and x11.94. */}
+              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.92 and x39.95. */}
               <div
                 className={`fr-banner ${ctl.campaignReceipt.met ? 'fr-banner-gold' : 'fr-banner-danger'}`}
                 style={{ fontSize: 'calc(var(--sh) * 8.5)' }}
