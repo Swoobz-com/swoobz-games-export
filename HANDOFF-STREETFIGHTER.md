@@ -1,6 +1,81 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 27 — START HERE (2026-08-04) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 28 — START HERE (2026-08-04) ★★★★★★★★★★
+
+**1 commit, phase 273. ZERO clips fired, ZERO assets touched. The hold still holds.**
+**SESSION 27 §5.4 (`lady-kurotachi`, "nobody has looked") is CLOSED — and it was THREE defects, not one.**
+Corpus unchanged: 118 shipped webms / 328 queued states / 40 kits. Tree green: typecheck 0, **168/168**.
+
+> Full write-up with every measurement: **`qa-boss/LK-ANCHOR-TRIAGE.md`**. Read that, not this summary,
+> before touching her kit. Three new read-only tools are committed so the numbers keep a live derivation.
+
+### 1. WHAT §5.4 ACTUALLY WAS — both its hypotheses were wrong
+
+Not "her clips are genuinely dissimilar to its idle", not "the recalibration sits tight for it".
+`MIN_AGREE 0.60` is **correct — do not re-tune it off this kit.** The kit is tightly anchor-locked; the
+REFERENCE is off. `idle.webm` is **0.375** against the pose the other ten hold at **388x824 / aspect 0.471**
+(exactly, all ten), and it **never exceeds 0.578 at ANY of its 97 frames** against the plate. Corroborated
+by two witnesses SESSION 14 never cited: the anchor plate (far arm OUT, viewed) and the HUD still (**0.935**).
+
+**THE REFUSAL WAS HIDING TWO MORE DEFECTS.** `check-anchor-lock` refuses this kit (the only refusal in 9
+kits), and `:157` returns BEFORE the per-clip loop. Substituting an on-pose idle into a scratch COPY:
+`hit.webm 0.515` and `ko.webm 0.575` — both **START POSE BROKEN**, the other ten 0.934-0.955. Neither has
+ever been gated. **A gate that refuses must still print the rows it measured.**
+
+| defect | fix | needs a fire? |
+|---|---|---|
+| `idle` off-plate whole-clip | **DECISION — both existing raws are DISQUALIFIED** (v2 near-static ruled superseded; v3 is `fail:frontal-rotation`) | see the 4 options in the triage |
+| `hit` START POSE BROKEN | **NO FREE FIX.** On-anchor frames are f0-f4 ONLY, immediately followed by the phantom bolt f5-f9; `trim:10` starts at f10 which is already 0.51 | accept or re-fire |
+| `ko` START POSE BROKEN | raw f0 is already 0.573 — off-plate at generation | re-fire |
+
+**NO CLIP TURNS.** At `--min-agree 0.10` (full admission) `hit.webm` is **0/87**; the 8 that convict at 0.10
+sit at gains 0.157-0.373, inside §3c's false-positive band, and the worst-gain frame of all 8 was VIEWED —
+she faces screen-right in every one. §5.4's worry is a clean negative.
+
+### 2. THE TWO MISTAKES THIS PHASE MADE, because the mechanism matters more than the row
+
+1. **I reported the core fact as NEW. It was recorded at SESSION 14** (`HANDOFF:2522-2527`, *"HER IDLE IS THE
+   OUTLIER"*, same 0.932), in `check-anchor-lock.mjs:136-166`, and in `ir48-hex-paper-lord.ts:16`. My
+   loop-guard grep covered `qa-boss/*.md` and **missed the handoff itself and the tool sources.**
+   **A grep whose path excludes the biggest document in the repo is not a loop-guard.**
+   What SESSION 14 left open (`:2606`, *"Which pose is her true anchor? This is a decision, not a re-roll"*)
+   went undecided through 14-15 (`:2334`) and then **fell off the open-items list. Never declined — dropped.**
+2. **My "the correct idle take already exists" was an f0-ONLY claim.** `idle-v3` scores **0.967 at f0** and is
+   a recorded `fail:frontal-rotation` — my own test would have shipped a known-bad take. **An f0 anchor score
+   qualifies the START pose and nothing else.** The full-timeline probe reproduces v3's collapse exactly
+   (0.97 → 0.345 @f22), which is what validates the method: **it convicts the labelled negative.**
+
+Same shape both times, and the same shape as SESSION 27 §4: **a precise, correct number supporting a wrong
+proposition.** Raw `hit` f0 = 0.974 is TRUE and "so a smaller trim fixes it" is FALSE — the frames between
+the anchor and the clean region are exactly the contaminated ones.
+
+### 3. WHAT TO DO NEXT, IN ORDER
+
+1. **Do not fire. Do not probe.** Unchanged. The loop prompt does not outrank Tim.
+2. **FOUR DECISIONS ARE WAITING ON TIM, all decision-ready** — the idle (4 priced options, `LK-ANCHOR-TRIAGE.md` §3),
+   and three gate/doc truth-fixes (§6 there): `check-anchor-lock:157` swallowing rows, `check-turn:730`'s
+   false prose, `flip-lk.mjs:2-3`'s measurably wrong header. **None applied — the first changes a shipped
+   gate's output contract.**
+3. **`hollow-pale` is the next thing worth measuring.** Its HUD still vs its own idle is **0.596** — second-worst
+   on the roster behind lady-kurotachi's 0.383, everything else is 0.905-0.979. Unexplained. Not claimed to be
+   the same defect.
+4. ⚠ **`flip-lk.mjs` STILL has no argument guard** (§0.4). Running it bare re-keys the kit.
+
+### 4. WHAT IS **NOT** ESTABLISHED
+
+- **Whether the pose gap is visible in the running game.** The mechanism is documented
+  (`ir48-hex-paper-lord.ts:15`: on-anchor f0/fLast is *"so no crossfade snaps"*) and she is a LIVE node
+  (map 9, CRIMSON GATES; the engine returns to `'idle'` after every action). **But nobody has watched it.**
+  That is the one cheap check left and it needs no account.
+- **Whether an internal f5-f9 cut on `hit` reads acceptably.** Measured as a 0.97→0.51 splice; not viewed.
+- **`ko`'s START.** Its END is exempt by spec and `clipdata:111` calls the collapse off-anchor BY DESIGN —
+  that covers the END. The START breaking is not covered, and the same note's *"f0 exact anchor facing
+  right"* is refuted at 0.573.
+- Everything SESSION 27 §6 listed is still not established. Nothing there was re-tested this phase.
+
+---
+
+## ★★★★★★★★★★ SESSION 27 (2026-08-04) — superseded by the block above ★★★★★★★★★★
 
 **11 commits, phases 261-271 (`90ad547`..`a4334b3`). ZERO clips fired. The hold still holds.**
 **Tim answered ONE standing question — the defence +3 tier — and it is built and shipped.**
@@ -177,13 +252,20 @@ MEASUREMENT — guard the verdict, not the argv).
    closed on correctness (§§1,3,4,5,6,7,10,11 + §2's silent half). Do not go looking for a big tooling
    job — there isn't one left. **If you find yourself inventing scope, stop and ask Tim instead.**
 
-4. **THE ONE OPEN ITEM THAT COULD STILL BE HIDING SOMETHING — `lady-kurotachi`.**
-   `check-turn public/assets/characters/lady-kurotachi` exits 0 but warns **10 of 13 clips NEVER
+4. ~~**THE ONE OPEN ITEM THAT COULD STILL BE HIDING SOMETHING — `lady-kurotachi`.**~~
+   ⛔ **CLOSED IN PHASE 273 — AND BOTH HYPOTHESES BELOW ARE WRONG. See `qa-boss/LK-ANCHOR-TRIAGE.md`.**
+   It is neither "genuinely dissimilar" nor a tight recalibration: `idle.webm` is OFF THE PLATE (0.375,
+   and never above 0.578 at any of its frames) while the other ten are anchor-locked at 388x824. The
+   abstention is a downstream SYMPTOM. `MIN_AGREE 0.60` is correct — the instruction not to re-tune it
+   was right. **And the gate's refusal was hiding two more defects: `hit` 0.515 and `ko` 0.575, both
+   START POSE BROKEN.** ⚠ It was also NOT unexamined — SESSION 14 recorded the outlier at `:2522-2527`;
+   the "nobody has looked" below is true only of the check-turn warning, not of the underlying fact.
+   ~~`check-turn public/assets/characters/lady-kurotachi` exits 0 but warns **10 of 13 clips NEVER
    REACHED `--min-agree 0.60`** (best fits 0.421-0.592). Every other kit clears it comfortably. Either
    that kit's clips are genuinely dissimilar to its idle (it is the kit whose 11 clips were HFLIPPED and
    re-keyed in the phase-227 facing fix — see `qa-boss/flip-lk.mjs`), or the recalibration sits tight
    for it. **Nobody has looked.** Composite a few of those clips against its idle f0 and judge by eye;
-   do NOT re-tune `MIN_AGREE` off this alone — 0.60 was measured against the one real turn on disk.
+   do NOT re-tune `MIN_AGREE` off this alone — 0.60 was measured against the one real turn on disk.~~
 
 5. **DECISION FOR TIM, NOT WORK — TOOLCHAIN-AUDIT §2 routing.** `key-idle-clips` fails on hollow-pale;
    `key-clips-green-pinksafe` works there but silently GREYSCALES an orange subject (the kitsune fox).
@@ -223,7 +305,10 @@ MEASUREMENT — guard the verdict, not the argv).
   gives `h≈93` against a shipped `99.85`. That is NOT a bug to "fix" by transcribing 93 — feeding the
   wrong still produces exactly that shape of disagreement (audit §6), and I could not establish the
   still of record. **Establish it before trusting any drift verdict against a shipped cal.**
-- **`lady-kurotachi`'s 10-of-13 sub-threshold clips** (§5.4). Measured, unexplained, unviewed.
+- ~~**`lady-kurotachi`'s 10-of-13 sub-threshold clips** (§5.4). Measured, unexplained, unviewed.~~
+  ⛔ **EXPLAINED AND VIEWED IN PHASE 273** — downstream of an off-plate `idle`; no clip turns (`hit` is
+  0/87 at full admission). What replaces it: her `idle` needs a DECISION, and `hit`/`ko` are two newly
+  surfaced START-POSE breaks. `qa-boss/LK-ANCHOR-TRIAGE.md`.
 - A test run reporting **157/168 and exit 1 is not automatically a regression.** One did this session:
   13 of 14 files passed with every test green and vitest reported `Worker exited unexpectedly` from
   tinypool under ffmpeg load. Clean re-run gave 168/168. **The distinguishing evidence is the `Errors`
