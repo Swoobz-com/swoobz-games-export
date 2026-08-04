@@ -10,6 +10,39 @@ sweep (0 writes) and unmoved HEAD.
 
 ---
 
+## ✅ STATUS AS OF PHASE 264 — MOST OF THIS AUDIT IS CLOSED. READ THIS BEFORE ACTING ON ANY SECTION.
+
+This file is the phase-250 FINDINGS record and is kept verbatim below as the evidence. It is **not**
+a current to-do list. What happened since:
+
+| § | finding | status |
+|---|---|---|
+| 1 | `cut-bloom-plate` destroys magenta-plate characters | **FIXED** phase 260 — `--plate` required, blast-radius ceiling, measure→check→write |
+| 3 | four gates print a failure verdict and exit 0 | **FIXED** phases 261-264 — every gate now exits 1 on its own failing verdict |
+| 4 | silent under-measurement; zero-frame exit 0; NaN misparses | **FIXED** — denominators printed, zero-work exits 2, all argument parsing shared |
+| 5 | wrong-plate inversions pass silently | **FIXED** — `--plate` required where it decides the answer, degenerate full-frame masks refused |
+| 8 | measurement-scale traps | **PARTLY** — domain+scale now printed; see the ⚠ correction in §8, its stated DIRECTION was wrong |
+| 9 | destructive step has a non-destructive equal | **DOCUMENTED** in FIRE-PLAN; prefer `green-despill` |
+| 11 | latent `build-prompt` A/B collision | **STILL OPEN** — no current collisions across 40 kits; a trap for the next re-roll |
+| 2, 6, 7, 10 | keyer selection · `rederive-cal` guards · `pad-anchor-plate` writes-when-refusing · 16 hardcoded absolute paths | **STILL OPEN** |
+
+**All twelve hardened gates now share ONE argument validator — `qa-boss/lib/argcheck.mjs`.** Import
+it; do not fork it. The class this audit is largely about ("a gate that cannot fail") recurred FOUR
+times because each fix covered only the files that round owned, and a shared validator is what finally
+closed it. Exit contract everywhere: **0 pass · 1 real detected failure · 2 refused / measured nothing.**
+
+⛔ **KNOWN LIMITATIONS SHIPPED DELIBERATELY, so nobody reports them as new:**
+- `check-extra-objects`' `ko` exemption is decided by FILENAME, so a renamed clip is exempt. Its
+  `--expect-detached` budget also cannot be closed by a numeric band — both calibrated known-bads shed
+  exactly ONE piece while the legitimate tail needs ELEVEN, so no threshold separates them. Measured,
+  not assumed.
+- The ~15 other `.mjs` tools in `qa-boss/` and `scripts/` that are NOT gates (drive/flip/harvest
+  scripts) do not import argcheck and were never attacked.
+- `argcheck.num()` accepts hex (`0x20` → 32) while `check-extra-objects`' positional check rejects it.
+  Inconsistent; not a disarm on today's data.
+
+---
+
 ## ⛔ 1. THE ONE THAT DESTROYS ASSETS: `cut-bloom-plate` DELETES MAGENTA-PLATE CHARACTERS
 
 `node qa-boss/cut-bloom-plate.mjs <ir56-keyed-dir>` → `cutPx=6836697 (28.06% of visible)`, **exit 0**.
@@ -127,6 +160,12 @@ session reading "refused" would assume nothing landed. **Always run it on a copy
 
 ## ⚠ 8. MEASUREMENT-SCALE TRAPS
 
+- ⚠ **CORRECTED (phase 264): the NON-COMPARABILITY is real, the DIRECTION below is not.** "Less
+  sensitive on a webm" does not generalise — a measured counter-example (a 2px pure-green fringe on a
+  960x960 subject) read **1.33% as a frames dir and 2.65% as the same content in a VP9 webm**, i.e.
+  the VIDEO number was HIGHER. A resample can concentrate a saturated fringe as easily as average it
+  away. The conclusion — never compare a webm number to a frames-dir number — stands and is now
+  enforced: the tool prints which domain and scale it measured on its summary line.
 - **`check-plate-retention` is ~100x less sensitive on a webm than on a frames dir.** Same content:
   PNG frames full-res **1.29% WATCH** · decoded-after-VP9 as a dir **0.13%** · the webm itself
   (internal `scale=240:-1`) **0.00% clean**. The file's own "roster baseline … ALL CLEAN 0.00%" was

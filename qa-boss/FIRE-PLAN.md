@@ -418,19 +418,43 @@ mentions.** It cost kitsune **−72% of its partial-alpha (feather)** and 624k d
 on kitsune while deleting **0 px** and keeping the feather intact (verified through encode+decode).
 Prefer despill; reach for neutralize only if despill leaves plate residue.
 
-⚠ **Four exit-code liars in this chain** — `check-turn` prints "face the wrong way" and exits 0;
-`check-extra-objects` prints "EXTRA OBJECT PRESENT" and exits 0; `cmp-alpha` exits 0 after comparing
-nothing on a dims mismatch; `check-plate-retention` prints "all clean" and exits 0 while a clip is
-WATCH (1–5% band). **Read the rows, never the exit code, for these four.**
+✅ **THE FOUR EXIT-CODE LIARS ARE FIXED — READ THE EXIT CODE (phases 261-264).** This block used to
+end *"Read the rows, never the exit code, for these four"*, which is now the DANGEROUS instruction:
+it tells you to ignore a real failure. `check-turn`, `check-extra-objects`, `cmp-alpha` and
+`check-plate-retention` all now exit non-zero on their own failing verdict. The shared contract
+across every gate is:
 
-⚠ **Five mutating tools exit 0 after processing ZERO frames** when handed an empty dir or a dir of
-mp4s (`green-neutralize`, `cut-bloom-plate`, `edge-feather`, `green-despill`, `magenta-neutralize`).
-In a `&&` chain a wrong path is a green light. Check the `frames=N/N` count on every step.
+| exit | meaning |
+|---|---|
+| **0** | pass |
+| **1** | a real detected failure — the thing the gate exists to catch |
+| **2** | REFUSED TO RUN, or measured nothing. Never read this as either a pass or a defect. |
 
-⚠ **`check-plate-retention` measures ~100x weaker on a WEBM than on a frames dir** (same content:
-1.29% as frames, 0.00% as the webm — its internal `scale=240:-1` plus VP9 4:2:0 averages the fringe
-away). Its own "roster baseline ALL CLEAN 0.00%" was measured on webms and is **not comparable** to
-the frames-dir number this pipeline's BEFORE step produces.
+⚠ **Exit 2 is now common and it is not a bug.** Every gate rejects a missing/blank/duplicate/
+non-finite/out-of-band argument, an unknown flag (a typo'd `--min-ruu` no longer runs silently at the
+default), a wrong or missing `--plate`, a zero-clip selection, and a wrong media domain. All twelve
+share ONE validator, `qa-boss/lib/argcheck.mjs` — do not fork it, import it.
+
+⚠ **Five mutating tools used to exit 0 after processing ZERO frames** (`green-neutralize`,
+`cut-bloom-plate`, `edge-feather`, `green-despill`, `magenta-neutralize`). Fixed — a wrong path now
+exits 2 instead of being a green light in an `&&` chain. Still check the `frames=N/N` count; the
+denominator is the cheapest lie-detector you have.
+
+⛔ **`edge-feather` HAS DESTROYED FRAMES WHILE REPORTING SUCCESS.** `--top 999999` once erased every
+visible pixel and printed `feathered 6/6 frames` at exit 0; a *legitimate* `--top 48` erased 90% of a
+single frame whose subject sat high, and reported it as `0.038%` because the ceiling averaged over
+the whole directory. Both are fixed (per-frame accounting, measure→check→write). **Run it on a copy
+anyway, and diff the visible-pixel count.** This is the same class as the phase-260 `cut-bloom-plate`
+magenta disaster; it has now bitten twice.
+
+⚠ **`check-plate-retention` is NOT comparable between a WEBM and a frames dir** — measured 1.29% as
+frames vs 0.00% as the webm on the same content (its internal `scale=240:-1` plus VP9 4:2:0). Its own
+"roster baseline ALL CLEAN 0.00%" was measured on webms, so it cannot be compared to the frames-dir
+number this pipeline's BEFORE step produces. ⚠ **The DIRECTION does not generalise** — an earlier
+version of this line said the resample "averages the fringe away", implying the video number is always
+lower; a measured counter-example (a 2px pure-green fringe on a 960x960 subject) read **1.33% as
+frames and 2.65% as the webm**. The resample can concentrate a fringe as easily as spread it. The
+tool now prints which domain and scale it measured, on the summary line — read it.
 Then `node qa-boss/rederive-cal.mjs` — **the keyer's emitted `.cal.json` files are all STALE**,
 because neutralize deletes pixels after the cal is computed.
 
@@ -492,8 +516,16 @@ and update the manifest url so no browser cache serves the old clip.
 
 ## Standing verification discipline
 
-- **`check-containment.mjs` processes ONE argument.** A glob prints "scanned 1 | clean 1" and silently
-  ignores the rest. Loop one file at a time.
+- ✅ **`check-containment.mjs` now scans N arguments — DO NOT loop one file at a time.** The old
+  workaround here was "a glob prints scanned 1 and silently ignores the rest, loop one at a time";
+  that is fixed (phase 261) and looping is now just slower. `scanned N` equals the clips resolved from
+  every argument, the inputs line prints each argument's expansion, and an errored clip reaches the
+  exit code instead of passing as clean.
+  ⚠ **When it was fixed, the honest denominator appeared: 47 of the 118 shipped clips are OVER
+  threshold, across 8 of 12 kits.** Those are NOT new defects and NOT a regression — the old
+  `scanned 1` bug meant a 12-argument sweep opened ONE file, so 105 of 118 had never been measured at
+  all. Rows are byte-identical to the old tool wherever it could reach them. **Nobody has VIEWED these
+  47 yet**; `CONTAINMENT-TRIAGE.md` owns that step and it is owed.
 - **Frame-inspect every motion-energy argmax** — 5 of 7 checked on IR-48 were the recovery or the tail
   of a sustained effect, not the blow.
 - **Composite the frame and LOOK.** Every one of the three session-15 mistakes, and the session-14
