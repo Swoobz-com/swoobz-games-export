@@ -95,11 +95,24 @@ MEASUREMENT — guard the verdict, not the argv).
 ### ▶ 5. WHAT TO DO NEXT, IN ORDER
 
 1. **Do not fire. Do not probe.** Ruling 1. The loop prompt will keep asking; it does not outrank Tim.
-2. **The 47 containment reds need a HUMAN VIEW.** `check-containment` legitimately flags 47 of 118
-   shipped clips across 8 kits. **They are NOT new and NOT a regression** — the old `scanned 1` bug
-   meant a 12-argument sweep opened ONE file, so 105 of 118 had never been measured at all. Rows are
-   byte-identical where the old tool could reach them. `CONTAINMENT-TRIAGE.md` owns this and nobody
-   has looked. **This is the highest-value no-account task on the board.**
+2. ~~**The 47 containment reds need a HUMAN VIEW.**~~ ⛔ **CORRECTED SAME SESSION — THEY HAVE ALREADY
+   BEEN VIEWED. DO NOT RE-DO THIS.** `check-containment` does legitimately flag 47 of 118 clips across
+   8 kits, and they are NOT new and NOT a regression (the old `scanned 1` bug meant a 12-argument
+   sweep opened ONE file). **But the view was done at phase 240.** `qa-boss/INSET-RING-SWEEP.md:104`
+   carries the identical per-character table from a different tool — satoshi 10/13 · sora 9/10 ·
+   ir56 9/12 · thorn-warden 7/11 · eclipse 4/13 · ir37 3/13 · lady-kurotachi 3/13 · hollow-pale 2/13
+   = the same 47 — and phase 240 VIEWED the flagged clips and made the effect-vs-prop call:
+   **5 are genuinely sliced EFFECTS (already on the fix list, §5.5); the rest are a big PROP or BODY
+   crossing the edge, which is the known ACCEPTED overrun condition, not a defect.**
+   28 of the 47 are the three prop-EXTENDED kits `ANCHOR-BUDGETS.md:32` already exempts.
+   ⚠ That sweep's own header warns about exactly this mistake: *"Acting on the uncorrected number
+   would have re-feathered 10 clips that are working as intended, and re-encoding a healthy clip is
+   exactly how the 48px feather got crushed to 8px last time."*
+   **HOW THIS WRONG ITEM GOT HERE, because the mechanism matters more than the row:** a round-4
+   verifier correctly reported that IT had not judged the rows and that check-containment had never
+   opened them — then inferred "the human view is still owed", and I propagated that inference into
+   this list without checking whether a DIFFERENT tool had already swept the same 118 clips. It had.
+   **Grep INSET-RING-SWEEP and CONTAINMENT-TRIAGE before treating any containment row as unexamined.**
 3. `lady-kurotachi` has **10 of 13 clips below the new MIN_AGREE 0.60** (best fits 0.421-0.592).
    Warning only, exit 0 — but it is a thin margin and may mean that kit's clips are genuinely
    dissimilar to its idle. Worth a look before trusting `check-turn` on it.
@@ -112,8 +125,9 @@ MEASUREMENT — guard the verdict, not the argv).
 
 - **Whether the GENERATOR reproduces the pad seam** into a clip's own background. The keying-stage
   question is closed (7.6x inside the keyer's cut); the conditioning-image question needs a fire.
-- **The 47 containment rows have never been VIEWED** — the measurements are sound, the judgement of
-  whether any individual slice is acceptable has not been made.
+- ~~The 47 containment rows have never been VIEWED~~ — **WRONG, corrected in §5.2: they were viewed at
+  phase 240 and the effect-vs-prop call was made.** What genuinely remains is the 5 sliced effects,
+  which are a FIX blocked by the asset hold, not a judgement waiting to be made.
 - **`check-extra-objects`' `--expect-detached` cannot be closed by any threshold** — measured: both
   calibrated known-bads shed exactly ONE piece while the legitimate tail needs ELEVEN. Shipped as a
   documented limitation, along with its FILENAME-based `ko` exemption.
