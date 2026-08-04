@@ -208,3 +208,29 @@ All three are READ-ONLY on the repo (they write only to a path you name), all us
 N=64 bbox-normalised alpha>8 math, and all four/three argument guards were tripped with constructed inputs
 before use. `raw-timeline-probe` carries the v3 labelled-negative note in its header: **an f0-only anchor
 score is not a qualification.**
+
+---
+
+## 9. ⚠ CALIBRATION — HER ON-SCREEN CUT IS MILDER THAN THE ROSTER'S WORST (phase 274)
+
+**Read this before you price her idle.** Everything above is measured in bbox-NORMALISED space, which is
+translation- and scale-free: it measures POSE. What a player actually sees is pose composed with
+PLACEMENT (`cal`), and **no gate measures the two together.** `qa-boss/cut-sim.mjs` does — it reproduces
+the engine's CSS placement offline and agrees with the live DOM to **≤1px**.
+
+STANDOFF has **no crossfade** (`.fr-state-video` transitions `filter` only; opacity is a binary toggle),
+so every state change is a **one-frame hard cut**. Measured, `attack-block` LAST → `idle` f0:
+
+| kit | on-screen cut | `check-anchor-lock` |
+|---|---|---|
+| ir48-hex-paper-lord | 0 / 0 px, IoU 0.984 | clean |
+| satoshi-odachi | −2 / +2 px, IoU 0.956 | 1 clip breaks |
+| **lady-kurotachi** | **+18 / −18 px symmetric narrowing, ZERO vertical movement** | REFUSES |
+| **ir37-pink-tessen** | **−79 / +1 px, BOTTOM +31 px — the FEET LIFT OFF THE FLOOR LINE** | **CLEAN, exit 0** |
+
+**Her defect is real but it is an 18px symmetric narrowing — the far arm pulling in — with no translation
+and no vertical move. ir37, which gates clean, is worse and lifts the feet off the floor.** That does not
+excuse her idle, but it does mean **the idle swap is not the roster's most urgent visual fix**, and a
+decision that trades away her aliveness (option B) buys less than §3 alone suggests.
+
+⚠ Do not read `cut-sim`'s LEFT/RIGHT literally for a mirrored slot — they swap; magnitudes hold.

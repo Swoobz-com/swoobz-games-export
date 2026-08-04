@@ -2,76 +2,262 @@
 
 ## ★★★★★★★★★★ SESSION 28 — START HERE (2026-08-04) ★★★★★★★★★★
 
-**1 commit, phase 273. ZERO clips fired, ZERO assets touched. The hold still holds.**
-**SESSION 27 §5.4 (`lady-kurotachi`, "nobody has looked") is CLOSED — and it was THREE defects, not one.**
-Corpus unchanged: 118 shipped webms / 328 queued states / 40 kits. Tree green: typecheck 0, **168/168**.
+**2 commits, phases 273-274. ZERO clips fired, ZERO probes, ZERO assets touched. The hold still holds.**
+**SESSION 27 §5.4 (`lady-kurotachi`) is CLOSED — it was THREE defects, not one.**
+**Two findings outrank it: this repo SILENTLY LOSES TIM'S DECISIONS (§4), and there is a real
+on-screen defect class NO GATE MEASURES, whose worst confirmed case is a kit that gates CLEAN (§5).**
+Measured this session, not carried: **118 shipped webm** under `public/assets/characters/` ·
+`qa-boss/prompts/` = **41 files = 36 base kits + 4 REROLL + 1 stale `.bak`** · 328 queued states.
+Tree green: typecheck 0, **168/168**.
 
-> Full write-up with every measurement: **`qa-boss/LK-ANCHOR-TRIAGE.md`**. Read that, not this summary,
-> before touching her kit. Three new read-only tools are committed so the numbers keep a live derivation.
+> Read **§0** (how to work here — it will save you a cycle), **§1** (the hold), then **§4** (the decision
+> register). Full lady-kurotachi write-up: **`qa-boss/LK-ANCHOR-TRIAGE.md`**.
 
-### 1. WHAT §5.4 ACTUALLY WAS — both its hypotheses were wrong
+---
 
-Not "her clips are genuinely dissimilar to its idle", not "the recalibration sits tight for it".
-`MIN_AGREE 0.60` is **correct — do not re-tune it off this kit.** The kit is tightly anchor-locked; the
-REFERENCE is off. `idle.webm` is **0.375** against the pose the other ten hold at **388x824 / aspect 0.471**
-(exactly, all ten), and it **never exceeds 0.578 at ANY of its 97 frames** against the plate. Corroborated
-by two witnesses SESSION 14 never cited: the anchor plate (far arm OUT, viewed) and the HUD still (**0.935**).
+### 🧭 0. HOW TO WORK IN THIS REPO — read before you touch anything
 
-**THE REFUSAL WAS HIDING TWO MORE DEFECTS.** `check-anchor-lock` refuses this kit (the only refusal in 9
-kits), and `:157` returns BEFORE the per-clip loop. Substituting an on-pose idle into a scratch COPY:
-`hit.webm 0.515` and `ko.webm 0.575` — both **START POSE BROKEN**, the other ten 0.934-0.955. Neither has
-ever been gated. **A gate that refuses must still print the rows it measured.**
+SESSION 27 said three of its phases existed only because it skipped one of these. This session added
+five rules and **broke two of the existing ones anyway.** Treat the list as load-bearing.
 
-| defect | fix | needs a fire? |
+1. **LOOP-GUARD FIRST — and grep the REPO ROOT and the TOOL SOURCES, not just `qa-boss/*.md`.**
+   I reported this session's core finding as new. It was already at SESSION 14, in
+   `check-anchor-lock.mjs`'s own source, and in `ir48-hex-paper-lord.ts`. My grep covered `qa-boss/*.md`
+   and missed the 4900-line handoff at repo root and every `.mjs`/`.ts` header.
+   **A grep whose path excludes the biggest document in the repo is not a loop-guard.** Sweep:
+   `HANDOFF-STREETFIGHTER.md` · `qa-boss/**/*.md` · `qa-boss/*.mjs` · `scripts/*.mjs` ·
+   `src/characters/*.ts` · **`qa-boss/*clipdata.json`** (its QA notes hold findings that exist nowhere else).
+2. **A REFUSAL IS NOT AN EMPTY RESULT.** A gate that refuses has usually already measured things it then
+   threw away. `check-anchor-lock`'s degenerate-anchor refusal hid TWO real defects for the whole life of
+   a shipped character. **Detector: copy the kit to scratch, substitute a healthy reference, re-run —
+   whatever appears was being hidden.** One command, touches nothing.
+3. **NEVER read an exit code through a pipe.** `cmd > out.txt 2>&1; echo "EXIT=$?"`. Burned six times.
+4. **NEVER bare-run a repo `.mjs` as a "does it load" check. Use `node --check`.** Far worse than
+   SESSION 27 knew — see §0b. `flip-lk.mjs` is not the only one, and it is not the worst.
+5. **`git add -A` over a large untracked tree is never right here.** Stage named paths.
+6. **Prove a mechanical change with a full-corpus md5 diff**, not by inspection.
+7. **A recorded number whose derivation no longer exists is not evidence, however precise.** This session
+   refuted three by measuring them (`clipdata` "ends at anchor" → max 0.578; `ko` "f0 exact anchor" →
+   0.573; `flip-lk`'s plate provenance → 0.984 vs `-r`).
+8. **AN f0-ONLY SCORE IS NOT A QUALIFICATION.** It qualifies the START pose and nothing else. Scoring
+   candidate idles at f0, a take recorded `fail:frontal-rotation` came back **0.967** — f0 IS the anchor;
+   it rotates by f6. Sample the whole timeline.
+9. **VALIDATE A NEW METRIC AGAINST A LABELLED-BAD ARTEFACT, not only a known-good one.** The labelled
+   negatives are free — `clipdata.json` is full of `fail:` verdicts. A metric that PASSES a known-bad
+   take is the metric's fault, and it ships.
+10. **A RELATIVE MEASUREMENT MEANS NOTHING UNTIL A CONTROL HAS BEEN THROUGH IT.** Twice this session a
+    reproducible number supported a false conclusion, and **the control caught it both times** (§5).
+11. **WHEN TWO METHODS DISAGREE, PUBLISH NEITHER — say they disagree.** Two of this session's numbers are
+    contested and are marked as such in §7 rather than reported as findings.
+12. **Run mutating tools on a COPY and diff the pixel count.** Three tools were caught damaging or faking
+    an asset and exiting 0 in one prior session. Assume the next one can too.
+
+#### 0b. THE DANGEROUS TOOLS — measured this session. Do not bare-run these.
+
+`node --check` is safe on anything. Running these with **no arguments** is not.
+
+| tool | what a BARE run does |
+|---|---|
+| **`scripts/prep-boss-anchors.mjs`** | ⛔ **OVERWRITES ALL 10 GENERATION ANCHOR PLATES** (`qa-boss/anchors/<id>-anchor-green.png`). `argv[2]` only picks magenta-vs-green — nothing is required. `:136` is a bare `writeFileSync`, no existence check, no `--force`, and it re-derives with the OLD phase-23 recipe (no ≥200px margin law). `pad-anchor-plate.mjs`'s header calls these plates **irreplaceable**. **The worst one in the repo.** |
+| **`qa-boss/flip-lk.mjs`** | Recursive `rmSync` on lady-kurotachi's frame + keyed dirs at the TOP of each loop iteration, then re-keys 11 clips. A run that dies on the first ffmpeg has already deleted a keyed dir. |
+| **`scripts/radial-feather.mjs`** | Rewrites **every PNG in place** with reduced alpha. **ZERO guards** — no `--dry`, no blast ceiling, no zero-frame refusal — unlike sibling `edge-feather.mjs` which has four. ⚠ **FIRE-PLAN's sliced-effect recipe says "RADIAL feather only", so the recipe of record points straight at the unguarded tool.** |
+| `scripts/key-enemies.mjs` · `prep-arenas.mjs` · `key-fighters.mjs` | Overwrite shipped `public/assets/**` webp/png via `ffmpeg -y`. |
+| `qa-boss/decisions/stills-res/measure.mjs` | Takes no argv at all; a bare run rewrites `metrics.json`. |
+| ~20 `*-drive.mjs` | Overwrite screenshot dirs. Low blast radius, but still writes. |
+
+⚠ **`qa-boss/profile-containment.mjs:35` exits `0` on its usage path** — a bare run is a silent green
+light inside an `&&` chain. A SEVENTH shape of the `gate-vacuous-pass` class.
+
+---
+
+### ⛔ 1. THE HOLD IS UNCHANGED — and the loop prompt will keep asking
+
+Tim's *"let's wait with generating"* stands, and ruling 1 includes **"stop probing"** — so
+`show_generations` must NOT be called either. The autonomous clip loop fires every cycle and is
+**correctly declined every time**; that is not a stall. `qa-boss/FIRE-PLAN.md` opens with a STOP block.
+
+Three independent sufficient reasons, all still true:
+1. Tim's hold. 2. The account is blocked (`use_unlim` refused across four day boundaries) — **do not
+re-probe.** 3. The loop's own 6-clip queue is **100% shipped**; firing any would re-roll a live clip.
+Derive the real gap with `node qa-boss/fire-queue.mjs` (it REPORTS, it does not fire) — never from the
+loop prompt's list, never from a filename you assembled yourself.
+
+---
+
+### ✅ 2. WHAT SHIPPED
+
+| phase | what landed |
+|---|---|
+| **273** | §5.4 closed — lady-kurotachi is THREE defects; the gate's refusal was hiding two. `qa-boss/LK-ANCHOR-TRIAGE.md` + `measure-vs-anchor` · `raw-timeline-probe` · `f0-grid` |
+| **274** | this handoff — the decision REGISTER (§4), the on-screen cut class (§5), the dangerous-tools table (§0b), and `qa-boss/cut-sim.mjs` |
+
+---
+
+### 🔍 3. LADY-KUROTACHI — three defects, three different fixes
+
+Both of §5.4's hypotheses were wrong. **`MIN_AGREE 0.60` is correct — do not re-tune it off this kit.**
+The kit is tightly anchor-locked (ten action clips at **exactly 388x824, aspect 0.471**); the REFERENCE
+is off. Every command in `qa-boss/LK-ANCHOR-TRIAGE.md`.
+
+**a) `idle.webm` is off the kit's plate** — 0.375 against the pose the other ten hold, and it **never
+exceeds 0.578 at any of its 97 frames.** Two witnesses SESSION 14 never cited settle which pose is
+right: the anchor plate (far arm OUT, viewed) and the HUD still (**0.935** vs the action pose, **0.383**
+vs idle). Roster, still-vs-own-idle: ir56 0.979 · sora 0.974 · satoshi 0.973 · thorn 0.963 ·
+eclipse 0.960 · ir37 0.927 · ir48 0.905 · **hollow-pale 0.596** · **lady-kurotachi 0.383**.
+
+**b) THE REFUSAL WAS HIDING TWO MORE.** `check-anchor-lock:157` returns BEFORE the per-clip loop.
+Substituting an on-pose idle into a scratch COPY: **`hit` 0.515**, **`ko` 0.575**, both *** START POSE
+BROKEN ***; the other ten 0.934-0.955. Neither had ever been gated.
+- **`hit` has NO FREE FIX.** Its only on-anchor frames are **f0-f4 (0.97)**, immediately followed by a
+  phantom projectile at **f5-f9** (`clipdata:127`), and `flip-lk.mjs:25 trim:10` starts the shipped clip
+  at **f10, already 0.51**, degrading to 0.33. A smaller trim re-admits the bolt; an internal f5-f9 cut
+  splices 0.97 straight to 0.51 — that IS the snap, moved four frames later. **Accept or re-fire.**
+- **`ko`** raw f0 is already 0.573 — off-plate at generation. Re-fire. (Its END is exempt by spec; its
+  START is not.)
+
+**c) NO CLIP TURNS — a clean negative.** At `--min-agree 0.10` (full admission) `hit.webm` is **0/87**.
+The eight convicting at 0.10 sit at gains 0.157-0.373, inside §3c's known false-positive band, and **the
+worst-gain frame of all eight was VIEWED** — she faces screen-right in every one. The abstention is a
+downstream symptom of (a): re-point `--anchor` at `attack-block.webm` and 10 of 12 non-anchor clips clear
+0.95 (only idle 0.568 and ko 0.595 below), against **0 of 12, max 0.632** on the shipped idle anchor.
+
+**d) THE IDLE DECISION — both existing raws are DISQUALIFIED.** `idle-v2`/`idle-v3` are on-plate at f0
+(0.966/0.967) but **v2 is a frozen pose** (frame-to-frame 1-IoU mean **0.003**; `clipdata:323` already
+ruled it superseded) and **v3 is a recorded `fail:frontal-rotation`** (0.97 → **0.345 @f22**). The
+shipped v4 was chosen deliberately — *"alive — draws katana up to chest, inspects + re-grips finger by
+finger… profile LOCKED all frames"* — and **v4 exists because it solved v3's rotation.** Its only fault
+is that its resting pose is not the plate's. **Aliveness and anchor-lock are one axis; there is no free swap.**
+
+---
+
+### 🚨 4. THIS REPO SILENTLY LOSES TIM'S DECISIONS — six are dropped
+
+The lady-kurotachi anchor question was raised at SESSION 13/14, carried through 14-15, then **fell off
+the open-items list without ever being answered**, and SESSION 27 rediscovered a downstream symptom of it
+without recognising the cause. **A full-file sweep found six.**
+
+**And I did it again in the same commit that documented it.** SESSION 28's first draft said
+*"hollow-pale is the next thing worth measuring — still vs idle 0.596, unexplained."* It is not
+unexplained: **SESSION 17 §8.3 (`HANDOFF:2190`) diagnosed it** — hollow-pale's plate is **720x720, the
+only one in the roster** (I re-measured all 11; every other is 1536x1536), tightest framing, 91.9% fill,
+*"his f0 cannot beat 0.873 across two rolls … The gap is the plate, not the acting"* — fix named
+(`pad-anchor-plate` to 1536x1536, ≥200px margins). Raised S17, carried S18/S19, **dropped**.
+
+> **THE RULE THIS BUYS YOU: the newest block's "what to do next" is NOT the index of open work.**
+> Derive the register from `qa-boss/ROSTER-VERDICTS.json` (`status: TIM` rows), the older blocks'
+> open-for-Tim sections, and `qa-boss/TOOLCHAIN-AUDIT.md`'s status header. **Then restate every item in
+> your own block, even the boring ones — an item unmentioned for one session is gone.**
+
+| # | decision owed by Tim | raised | status |
+|---|---|---|---|
+| 1 | **lady-kurotachi's idle** — 4 priced options (`LK-ANCHOR-TRIAGE.md` §3) | S13/14 | OPEN, **dropped once** |
+| 2 | **kitsune-tanto's canonical look** — (a) blade ignites on attack, keep both · (b) plain steel → re-fire 7 clips · (c) glowing → re-fire idle/ko/victory | **S8** | **DROPPED**; `ROSTER-VERDICTS.json` still says `TIM`. ⚠ Later blocks mutated it to *"needs keying + wiring only"*, losing the identity ruling that must come FIRST. **Blocks node 2, the only placeholder node.** |
+| 3 | **RE-PLATE hollow-pale** 720x720 → 1536x1536, at the cost of 12 shipped clips no longer anchor-locking | S17 | **DROPPED**; its symptom was rediscovered this session |
+| 4 | **Keyer routing** — `key-idle-clips` fails on hollow-pale; `key-clips-green-pinksafe` silently GREYSCALES an orange subject. Neither is general | S26/27 | **DROPPED AFTER ONE SESSION — by me.** Blocks keying ANY character |
+| 5 | **The FILL TRIO** — accept/reject golem-mace (0.50), nurikabe-shield (0.55), violet-contract (0.62) | S20 | **DROPPED**; `may-i-write-kit.mjs` REFUSES on a `TIM` verdict |
+| 6 | **iron-vow** — a taste call ("distinct enough" vs oni-tetsubo). Fill and keying are explicitly NOT blockers | S20 | **DROPPED**; kit-ready the day it is answered |
+| 7 | `check-anchor-lock:157` should print the rows it measured (changes a shipped gate's output contract) | S28 | OPEN |
+| 8 | `check-turn:730`'s prose is false in the no-margin case (correct wording exists at `:626`) | S28 | OPEN |
+| 9 | `flip-lk.mjs:2-3`'s plate provenance is measurably wrong (still vs `-r` 0.984, vs non-`-r` 0.192) | S28 | OPEN |
+| 10 | lady-kurotachi `clipdata` QA notes assert anchor conformance measurement refutes | S28 | OPEN |
+
+---
+
+### 🆕 5. A REAL DEFECT CLASS NO GATE MEASURES — and the worst case gates CLEAN
+
+**STANDOFF has NO crossfade.** `fight.css` `.fr-state-video` transitions **`filter` only** (the two
+opacity transitions in that file belong to `.fr-stage-video` and `.fr-pick`), and FightExperience sets
+`opacity: key === activeKey ? 1 : 0` with no transition. **Every state change is a ONE-FRAME HARD CUT**,
+with no dissolve to hide a mismatch. Idle also carries `loop`+`autoPlay` unconditionally, so it runs at
+opacity 0 and resumes at an **arbitrary frame** — both the entry and the return cut land on a random
+idle frame. ⚠ **The repo's own vocabulary — "will SNAP on crossfade" (`check-anchor-lock:187`), "so no
+crossfade snaps" (`ir48-hex-paper-lord.ts:15`) — is inherited from the slot pipeline and is WRONG here.
+The requirement is STRICTER, not looser.**
+
+So "is the pose gap visible" = "how far does the silhouette move in one frame, in CSS px".
+**`check-anchor-lock` cannot answer that: it compares bbox-NORMALISED silhouettes, so it measures POSE
+and is blind to PLACEMENT. `cal` governs placement. NOTHING measures the two composed** — which is
+exactly what the player sees. `qa-boss/cut-sim.mjs` (new) does; it agrees with the live DOM to ≤1px.
+
+| kit, `attack-block` LAST → `idle` f0 | on-screen cut | `check-anchor-lock` |
 |---|---|---|
-| `idle` off-plate whole-clip | **DECISION — both existing raws are DISQUALIFIED** (v2 near-static ruled superseded; v3 is `fail:frontal-rotation`) | see the 4 options in the triage |
-| `hit` START POSE BROKEN | **NO FREE FIX.** On-anchor frames are f0-f4 ONLY, immediately followed by the phantom bolt f5-f9; `trim:10` starts at f10 which is already 0.51 | accept or re-fire |
-| `ko` START POSE BROKEN | raw f0 is already 0.573 — off-plate at generation | re-fire |
+| ir48-hex-paper-lord | 0 / 0 px, IoU 0.984 — a perfect lock | clean |
+| satoshi-odachi | −2 / +2 px, IoU 0.956 | 1 clip breaks |
+| **lady-kurotachi** | **+18 / −18 px symmetric narrowing, ZERO vertical** | REFUSES |
+| **ir37-pink-tessen** | **−79 / +1 px, and BOTTOM +31 px — the FEET LIFT OFF THE FLOOR LINE for one frame** | **CLEAN, exit 0** |
 
-**NO CLIP TURNS.** At `--min-agree 0.10` (full admission) `hit.webm` is **0/87**; the 8 that convict at 0.10
-sit at gains 0.157-0.373, inside §3c's false-positive band, and the worst-gain frame of all 8 was VIEWED —
-she faces screen-right in every one. §5.4's worry is a clean negative.
+**ir37 is the worst confirmed instance and it gates clean.** Both methods agree independently (live DOM
+B +30.3; offline B +31). ⚠ **And note the calibration this forces: lady-kurotachi's on-screen cut is
+MILDER than ir37's** — an 18px symmetric narrowing with no translation and no vertical move. That
+lowers the urgency of her idle swap relative to what §3 alone implies. Weight a moving BOTTOM edge
+heavily: feet leaving the floor reads far worse than a width change of the same size.
 
-### 2. THE TWO MISTAKES THIS PHASE MADE, because the mechanism matters more than the row
+---
 
-1. **I reported the core fact as NEW. It was recorded at SESSION 14** (`HANDOFF:2522-2527`, *"HER IDLE IS THE
-   OUTLIER"*, same 0.932), in `check-anchor-lock.mjs:136-166`, and in `ir48-hex-paper-lord.ts:16`. My
-   loop-guard grep covered `qa-boss/*.md` and **missed the handoff itself and the tool sources.**
-   **A grep whose path excludes the biggest document in the repo is not a loop-guard.**
-   What SESSION 14 left open (`:2606`, *"Which pose is her true anchor? This is a decision, not a re-roll"*)
-   went undecided through 14-15 (`:2334`) and then **fell off the open-items list. Never declined — dropped.**
-2. **My "the correct idle take already exists" was an f0-ONLY claim.** `idle-v3` scores **0.967 at f0** and is
-   a recorded `fail:frontal-rotation` — my own test would have shipped a known-bad take. **An f0 anchor score
-   qualifies the START pose and nothing else.** The full-timeline probe reproduces v3's collapse exactly
-   (0.97 → 0.345 @f22), which is what validates the method: **it convicts the labelled negative.**
+### 🧠 6. THE LEARNINGS
 
-Same shape both times, and the same shape as SESSION 27 §4: **a precise, correct number supporting a wrong
-proposition.** Raw `hit` f0 = 0.974 is TRUE and "so a smaller trim fixes it" is FALSE — the frames between
-the anchor and the clean region are exactly the contaminated ones.
+**The recurring shape, three times this session: a precise, correct number supporting a wrong proposition.**
+- Raw `hit` f0 = 0.974 is TRUE; *"so a smaller trim fixes it"* is FALSE.
+- `idle-v3` f0 = 0.967 is TRUE; *"so it is a drop-in"* is FALSE.
+- `cut-sim`'s first numbers were reproducible; *"so lady-kurotachi's cut is the worst"* was FALSE — the
+  model resolved cal% against the STAGE when `.fr-fighter` is a **square 607x607 box**, inflating h/bottom
+  1.724x and left 3.161x. **The control caught it: three healthy kits went through and ir37 scored worse.**
+  A second bug hid behind the first (canvas conflated with percentage basis, so legitimate overflow
+  clipped and every delta read 0 — a vacuous pass in my own tool, caught by its own guard).
 
-### 3. WHAT TO DO NEXT, IN ORDER
+The defence is never a better number: a **control** (§0.10), a **labelled negative** (§0.9), and asking
+*what else would produce this number*.
 
-1. **Do not fire. Do not probe.** Unchanged. The loop prompt does not outrank Tim.
-2. **FOUR DECISIONS ARE WAITING ON TIM, all decision-ready** — the idle (4 priced options, `LK-ANCHOR-TRIAGE.md` §3),
-   and three gate/doc truth-fixes (§6 there): `check-anchor-lock:157` swallowing rows, `check-turn:730`'s
-   false prose, `flip-lk.mjs:2-3`'s measurably wrong header. **None applied — the first changes a shipped
-   gate's output contract.**
-3. **`hollow-pale` is the next thing worth measuring.** Its HUD still vs its own idle is **0.596** — second-worst
-   on the roster behind lady-kurotachi's 0.383, everything else is 0.905-0.979. Unexplained. Not claimed to be
-   the same defect.
-4. ⚠ **`flip-lk.mjs` STILL has no argument guard** (§0.4). Running it bare re-keys the kit.
+Saved to `~/.claude/memory/`: `gate-vacuous-pass` gained a **SIXTH shape** (the refusal that swallows its
+rows); `aliveness-vs-anchorlock-clip-recipe` gained the **shipped-asset counterpart** (an idle promoted
+for aliveness can sit off the kit anchor — measure against the PLATE, never a peer clip, never the clip's
+own f0) and the **PASSES-a-known-bad** inverse.
 
-### 4. WHAT IS **NOT** ESTABLISHED
+---
 
-- **Whether the pose gap is visible in the running game.** The mechanism is documented
-  (`ir48-hex-paper-lord.ts:15`: on-anchor f0/fLast is *"so no crossfade snaps"*) and she is a LIVE node
-  (map 9, CRIMSON GATES; the engine returns to `'idle'` after every action). **But nobody has watched it.**
-  That is the one cheap check left and it needs no account.
+### ▶ 7. WHAT TO DO NEXT, IN ORDER
+
+1. **Do not fire. Do not probe.** §1. The loop prompt does not outrank Tim.
+2. **PUT §4's REGISTER IN FRONT OF TIM.** Six dropped decisions, two of which block a campaign node and
+   every future keying job. Highest value on the board, costs one message. **Do not decide any unilaterally.**
+3. **SWEEP THE ON-SCREEN CUT CLASS ACROSS THE ROSTER** (§5) — `qa-boss/cut-sim.mjs`, every state → idle,
+   all 9 full kits. It is read-only, needs no account, and the one case measured outside `attack_block`
+   is already contested (§8). **`special` is NOT rare** — `FightExperience.tsx:1789` swaps it in on every
+   round-ending win. Then take the worst to Tim with the ir37 feet-lift as the exhibit.
+4. **WATCH THE GAME.** Still nobody has. Obey the DEV-SERVER HYGIENE LAW: find listening node/vite PIDs,
+   check each one's COMMAND LINE + cwd, kill ONLY this game's, `--strictPort`, kill your own PID in a
+   `finally`. Patterns: `qa-boss/n10-drive.mjs`, `phase28-drive.mjs`. The `?dev=1` **CONQUER NEXT** hook
+   reaches any node. ir37 = **node 7**, lady-kurotachi = **node 9**, satoshi = **node 5** (clean control).
+5. **`hollow-pale` — the diagnosis already exists** (§4 row 3). Do NOT re-investigate the 0.596; it is the
+   720x720 plate. It needs Tim's re-plate ruling, not more measurement.
+6. **Two live nodes have incomplete kits**, blocked only by the fire hold: **node 3 thorn-warden 11/13**
+   (missing `special_1`, `special_3`) and **node 8 ir56 12/13** (missing `attack_throw_b`).
+7. **WHEN ASSET WORK REOPENS:** the 5 sliced effects (⚠ the recipe says RADIAL feather and that tool has
+   ZERO guards — §0b: copy first, diff the pixel count) · declare an `arsenal.json` entry as the FIRST
+   step of firing any undeclared kit (**30 of 40 undeclared**) · `ir41-kasa-oni` is deliberately blocked
+   (`build-prompt` exits 3 — front-facing plate; needs a re-plate, not a fire).
+
+---
+
+### ✘ 8. WHAT IS **NOT** ESTABLISHED — do not report these as settled
+
+- **⚠ TWO CONTESTED NUMBERS. A live-DOM pass reported whole-body translations of ~+169px on
+  `ir48 victory → idle` and ~+163px on `satoshi special-b → idle`.** The offline model — which matches
+  that same live pass to ≤1px on FOUR other transitions including both of those characters — puts both at
+  **≈0 (IoU 0.983 / 0.945)**. **Two methods disagree; neither number is established.** Most likely a live
+  artefact (the stage carries `.fr-ko-zoom-active { transform: scale(1.15) }`, and `victory`/`special-b`
+  are exactly the states where a KO zoom can be mid-flight). **Re-measure with the zoom state controlled
+  before believing either.**
+- **Whether any of this is visible to a player.** The cut magnitudes are now measured and cross-validated,
+  but **nobody has ever watched the running build** (§7.4).
 - **Whether an internal f5-f9 cut on `hit` reads acceptably.** Measured as a 0.97→0.51 splice; not viewed.
-- **`ko`'s START.** Its END is exempt by spec and `clipdata:111` calls the collapse off-anchor BY DESIGN —
-  that covers the END. The START breaking is not covered, and the same note's *"f0 exact anchor facing
-  right"* is refuted at 0.573.
-- Everything SESSION 27 §6 listed is still not established. Nothing there was re-tested this phase.
+- **`ko`'s START pose** — measured off-plate at 0.573, unexplained beyond "off-plate at generation".
+- **kitsune-tanto's raws are NOT all unkeyed** — correcting SESSION 27 §7: **2 of 10 are keyed and encoded**
+  (`idle`, `victory`, cals in `kitsune-tanto-clipdata.json`); 0 of 10 wired; the other 8 are `qa=FAIL` on
+  the glowing blade. The block is the anchor art, and above it Tim's ruling.
+- **`cut-sim` cannot model the mirror.** For a mirrored slot its LEFT/RIGHT are swapped versus what a
+  player sees; magnitudes are unaffected.
+- Everything SESSION 27 §6 listed is still not established. Nothing there was re-tested.
 
 ---
 
