@@ -23,8 +23,9 @@
 // placement convention.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = 'C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter';
+const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\/]+$/, '');
 const OUT = `${ROOT}/qa-boss/staged`;
 
 const JOBS = [

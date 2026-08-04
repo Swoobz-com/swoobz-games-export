@@ -13,8 +13,9 @@
 // `node qa-boss/flip-eclipse.mjs flip special_1` reproduced the shipped cal exactly.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = 'C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter';
+const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\/]+$/, '');
 const STILL = `${ROOT}/qa-boss/anchors/eclipse-ofuda-anchor-green-r.png`;
 const OUT = `${ROOT}/qa-boss/flip-ec/sp-v2`;
 

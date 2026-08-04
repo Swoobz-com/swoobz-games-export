@@ -199,7 +199,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import os from 'node:os';
-const require = createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter/package.json');
+const require = createRequire(new URL('../package.json', import.meta.url));
 const { PNG } = require('pngjs');
 
 const argv = process.argv.slice(2);

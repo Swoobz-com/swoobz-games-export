@@ -163,7 +163,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 import { makeArgs } from '../qa-boss/lib/argcheck.mjs';
-const require = createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter/package.json');
+const require = createRequire(new URL('../package.json', import.meta.url));
 const { PNG } = require('pngjs');
 
 const USAGE = 'usage: node scripts/edge-feather.mjs <keyedFramesDir> [--top N] [--bottom N] [--left N] [--right N] [--allow-large]';

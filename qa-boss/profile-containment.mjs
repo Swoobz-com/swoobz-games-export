@@ -25,9 +25,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const require = createRequire(
-  'C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter/package.json',
-);
+const require = createRequire(new URL('../package.json', import.meta.url));
 const { PNG } = require('pngjs');
 
 const argv = process.argv.slice(2);
@@ -174,7 +172,9 @@ function collect(p) {
 
 const files = collect(target);
 const tmpRoot = path.join(process.env.TEMP || '.', `profile_containment_${process.pid}`);
-const repoRoot = 'C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter';
+// Derived, not hardcoded (TOOLCHAIN-AUDIT §10). Forward slashes because the line below normalises
+// separators before stripping this prefix.
+const repoRoot = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '..').replace(/\\/g, '/');
 const rel = (f) => path.resolve(f).replace(/\\/g, '/').replace(repoRoot + '/', '')
   .replace('public/assets/characters/', '');
 const W = 44; // clip-name column width

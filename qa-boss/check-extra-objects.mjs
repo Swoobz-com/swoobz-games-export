@@ -258,7 +258,7 @@ import { makeArgs } from './lib/argcheck.mjs';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import path from 'node:path'; import os from 'node:os';
-const require=createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter/package.json');
+const require=createRequire(new URL('../package.json', import.meta.url));
 const {PNG}=require('pngjs');
 const isGreen=(r,g,b)=>g>110&&g>r+40&&g>b+40;
 const USAGE='usage: node qa-boss/check-extra-objects.mjs <green-plate-raw.mp4> [minPx] [--expect-detached <n>]';

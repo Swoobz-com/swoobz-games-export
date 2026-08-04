@@ -5,7 +5,7 @@
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
-const require = createRequire('C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter/package.json');
+const require = createRequire(new URL('../package.json', import.meta.url));
 const { PNG } = require('pngjs');
 
 const [dir, outPrefix, list] = process.argv.slice(2);

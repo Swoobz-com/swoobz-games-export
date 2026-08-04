@@ -28,7 +28,7 @@ import { execFileSync } from 'node:child_process';
 // Relative, not the hardcoded absolute path this file used to carry (TOOLCHAIN-AUDIT §10: 16 scripts
 // embed a OneDrive path with a locale-dependent folder name — "Bureaublad" — so a re-path or a
 // rename kills them all at import). This is the form the sibling qa-boss scripts already use.
-const require = createRequire(path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\//, '')), '..', 'package.json'));
+const require = createRequire(new URL('../package.json', import.meta.url));
 const { PNG } = require('pngjs');
 
 // ⛔ THIS TOOL USED TO DESTROY PLATES AND CALL IT A REFUSAL (TOOLCHAIN-AUDIT §7, fixed phase 267).

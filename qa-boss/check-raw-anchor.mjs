@@ -51,8 +51,9 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = 'C:/Users/Erstr/OneDrive/Bureaublad/swoobz-games-export/swoobz-games-export/streetfighter';
+const ROOT = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const require = createRequire(`${ROOT}/package.json`);
 const { PNG } = require('pngjs');
 
