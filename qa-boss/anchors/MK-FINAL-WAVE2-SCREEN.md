@@ -881,3 +881,69 @@ golem-mace and nurikabe-shield, which would still carry their fill question.
 
 Unchanged: **this is ruling INPUT, not a ruling.** `iron-vow` stays TIM in ROSTER-VERDICTS.json and
 `may-i-write-kit.mjs` still refuses it.
+
+### ✅ THE LAST THREE UNVIEWED CANDIDATES — ALL VIEWED, ALL REJECTED (phase 263)
+
+The rows at "PHASE 185" left three candidates carrying an `unviewed` note. Viewed at full size this
+cycle (no account needed, nothing generated). **All three rejected — mythic and legendary are now
+genuinely exhausted, and this time the pool really is empty.**
+
+| plate | numbers said | the view said |
+|---|---|---|
+| **Stormlord_Rex** | emis 4.46, highest in the set | **REJECT — baked lightning, the kitsune-blocker class.** Yellow-white arcs are rendered INTO the plate along the whole spear shaft and both blades. Same precedent as the kira-frostveil rejection ("the banned effect class rendered into the plate"). SECOND independent blocker: the pose is near-frontal/three-quarter, torso and face to camera — the `ir41-kasa-oni` frontal-plate blocker, not the native side-profile-facing-screen-right the roster requires. |
+| **Zephiron** | emis 1.11, "keys clean" | **REJECT — baked lightning.** Blue-white arcs along BOTH staves, rendered in. Also near-frontal. Its low emis score is the interesting part — see the metric note below. |
+| **Wight Spear** | emis 3.36 | **REJECT — double collision**, the exact precedent that killed `skeleton-nodachi`: undead humanoid collides with the shipped `lich-scythe`, and the spear collides with the shipped `sora-yari` AND `gargoyle-spear`. No baked emissive (the frost rime is opaque paint, not glow), and it is a clean side-profile facing screen-right — but the archetype ground is taken twice over. Its flatter, lower-fidelity render is also a cohesion break against the photoreal roster. |
+
+**Running tally now: of everything that passed the numeric screens, ~50% has died on sight.** That
+figure has been stable across three waves. Screens 1-3 remain a CHEAP FILTER, never a shortlist.
+
+### ⚠ WHY THE NUMBER DID NOT CATCH EITHER LIGHTNING CHARACTER — AREA IS THE WRONG QUANTITY
+
+Both rejected-for-lightning plates carry a defect that is obvious in one second of looking, and
+neither is separable by a pixel-FRACTION metric. Measured on the raw plates, subject pixels only,
+reproducing this file's stated metric (near-white all>=250; hot r>=235,g>=200,b<160) plus a mirrored
+COOL test (bright and blue-dominant):
+
+```
+character          subj%   nearWhite    hot      coolMirror
+Stormlord_Rex       20.6      0.11      0.16        0.25      <- baked lightning, BOTH metrics say clean
+Zephiron            16.9      0.25      0.25        3.38      <- baked lightning
+Wight Spear         22.6      0.00      0.00       12.62      <- NO glow at all (opaque rime)
+Raiju Naginata      19.1      0.00      0.00        5.15      <- ACCEPTED playable
+Kitsune Tanto       25.4      0.00      0.52        0.00      <- the blocker the class is named after
+Eclipse Ofuda / Oni Tetsubo / Gargoyle Spear  all 0.00 across the board
+```
+
+**Three things follow, and two of them kill an obvious "fix":**
+
+1. **A thin filament is a tiny AREA.** Lightning arcs are lines. Stormlord's are unmistakable to the
+   eye and reach 0.16% of subject pixels. No area threshold can separate that from noise without
+   drowning in false positives. **The quantity to measure would be local contrast / filament
+   structure, not fraction** — and until such a screen exists, THE VIEW IS THE ONLY DETECTOR for this
+   class. Do not let a low emis number stand in for looking.
+2. **A "cool mirror" metric does NOT work — do not build one.** It scores `Wight Spear` 12.62% (which
+   has no glow whatsoever, only pale opaque frost paint) and the ACCEPTED `raiju-naginata` 5.15%. It
+   cannot tell cool-COLOURED from cool-EMISSIVE, so it would reject good plates and still miss
+   Stormlord at 0.25%.
+3. ⚠ **THE RECORDED `emis` COLUMN CANNOT BE REPRODUCED AT ALL. DO NOT TUNE OR TRUST IT.**
+   It records Stormlord **4.46** / Wight Spear **3.36** / Zephiron **1.11**. I tried SIX plausible
+   formulas (this file's stated hot-test over subject pixels and over the whole frame; near-white
+   only; Rec.709 luma >=200 and >=180; any-channel >=250) across all THREE file variants
+   (`<name>.png`, ` PFP`, ` TCG`) — **eighteen combinations, and not one reproduces all three
+   recorded values.** The stated formula gives Stormlord 0.16 against a recorded 4.46, a 28x gap.
+   The single apparent hit (luma>=200 on `Zephiron PFP` = 0.82) is coincidence: the same metric gives
+   Stormlord 0.94 and Wight 2.41, not 4.46 and 3.36.
+   So this is not "documented over a different denominator" — **the formula as documented is not the
+   formula as run, and the real one is not recoverable from what is written here.** Every `emis`
+   number in this file is therefore an UNVERIFIABLE historical artifact. Do not re-run it, do not
+   tune a threshold against it, and do not let a low value clear a plate. Re-derive from scratch or
+   view. The per-plate VERDICTS in this file rest on the VIEW and are unaffected.
+
+**AND THE OBVIOUS FOLLOW-UP IS ALREADY DONE — do not re-screen `rare` and `Epic` looking for missed
+filament emissive.** It is tempting to conclude that a warm/area metric this unreliable must have let
+something through those two tiers. It did not get the chance: phase 184 recorded **"THE POOL IS NOW
+FULLY VIEWED — UNVIEWED = 0"**, and the ~50% on-sight rejection rate across three waves is precisely
+the record of the view overriding the numbers. Every `rare` and `Epic` candidate was looked at by a
+human eye regardless of its score. **No candidate in this file was ever cleared on the number alone.**
+The lesson is about what the numbers are worth, not about a gap in coverage — the coverage held
+because nobody trusted them.
