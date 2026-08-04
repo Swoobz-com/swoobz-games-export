@@ -1,6 +1,131 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 26 — START HERE (2026-08-03 → 08-04) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 27 — START HERE (2026-08-04) ★★★★★★★★★★
+
+**4 commits, phases 261-264 (`90ad547`..`b73e5d8`). ZERO clips fired. The hold still holds.**
+**Tim answered ONE standing question — the defence +3 tier — and it is built and shipped.**
+Corpus unchanged: 118 shipped webms / 328 queued states / 40 kits.
+
+> **The autonomous clip loop fired ~13 times this session and was declined every time.** That is the
+> correct behaviour, not a stall — see §1. Read `qa-boss/FIRE-PLAN.md` (its top is a STOP block), then
+> §2 for what Tim decided.
+
+### ⛔ 1. THE HOLD IS UNCHANGED, AND STEP 1 OF THE LOOP PROMPT IS ALSO REFUSED
+
+Tim's *"let's wait with generating"* still stands, and ruling 1 includes **"stop probing"** — so
+`show_generations` was NOT called either, on any cycle. Three independent sufficient reasons, all
+re-verified this session:
+
+1. Tim's hold.
+2. The account is blocked (`use_unlim` refused across four day boundaries).
+3. **The loop's 6-clip QUEUE is 100% SHIPPED** — re-verified with `fire-queue.mjs`: eclipse-ofuda,
+   ir37-pink-tessen and hollow-pale are all **13/13 complete**. Firing any would re-roll a shipped clip.
+   ⚠ My first check reported 4 of 6 "MISSING" because I guessed the paths as `special-1/2/3`. The wired
+   basenames are `special` / `special-b` / `special-c`. **The tool was right and the path guess was
+   wrong** — use `fire-queue.mjs`, never a filename you assembled.
+
+### ✅ 2. WHAT TIM DECIDED, AND WHAT SHIPPED
+
+**The defence +3 tier (§8.4 of SESSION 26) was offered and Tim said BUILD IT.** Map 10 now has its own
+rung instead of sharing a shape with 8-9:
+
+```
+10  ZERO CITADEL  to3 shield+2  8.04% x11.94   ->   to3 shield+3  2.4025% x39.95
+```
+
+⚠ **THE PRICE IS x39.95, NOT THE x39.96 THIS HANDOFF QUOTED FOR TWO SESSIONS — AND A TOOL PUT IT
+THERE.** `maxBps = floor(9600*den/num) = 399591`, so the ladder value is `399590n` at RTP 95.9996%.
+`formatMult` FLOORS and renders "39.95". x39.96 needs `399600n` = **96.0020% RTP, above the
+never-exceed-96% invariant the ladder's own test asserts** — an illegal price, not a rounding taste.
+It entered the handoff from `campaign-rtp-sim.mjs` printing `mult.toFixed(2)`, which ROUNDS. **A
+rounding bug in a REPORTING script became a spec and survived two sessions.** Both independent
+derivers flagged the trap unprompted. Sim fixed to floor.
+
+| phase | what landed |
+|---|---|
+| **261** | the +3 finale · **and the shield lean, wrong since 254** |
+| 262 | the raiju WATCH closed — pad seam is real on 5 of 6 plates, harmless at the key |
+| 263 | last 3 MK FINAL candidates viewed + rejected; the `emis` column is unreproducible |
+| **264** | **one validator for 12 gates · `edge-feather` stopped erasing frames while reporting success** |
+
+### 🔍 3. THE THREE FINDINGS WORTH YOUR TIME
+
+**a) `edge-feather` DESTROYED ASSETS AND REPORTED SUCCESS — twice.**
+`--top 999999` → `feathered 6/6 frames`, EXIT 0, visiblePx 919381 → **0**. Fixed with a directory-wide
+ceiling — and it was STILL live through `--top 48`, **the documented house feather**: 90% of one frame
+erased, reported as `0.038%`, because 96 intact frames average the wipe away. The fix changes the
+ACCOUNTING UNIT (per-frame ceiling, before the write pass), bar measured over 57504 frame×band results
+(worst legitimate frame 3.542%, zero above 4%, defeat at 90%). Same class as phase 260's magenta
+disaster. **It has now bitten twice — run mutating tools on a copy and diff the pixel count.**
+
+**b) THE SHIELD HAD BEEN LEANING THE WRONG WAY SINCE PHASE 254 — the "fix" aimed at the wrong bar.**
+Phase 254's commit, titled *"the shield leaned the WRONG WAY"*, quotes
+`polygon(14% 0, 100% 0, 86% 100%, 0 100%)` as the "enemy HP segment". **That is the p1 (PLAYER) rule
+at `fight.css:267`.** The bars are deliberately mirrored, so it moved the shield from one wrong lean
+to a different wrong lean, and every artefact agreed it was fixed. Caught by measuring lame `-33.70`
+against the p2 segment's `+33.78` in one rendered frame. Now `skewX(33.7deg)`, with the derivation
+pinned in the stylesheet so a third session cannot flip it back.
+
+**c) NO SHIPPED CLIP HAS A TURN DEFECT — and `check-turn` measures the wrong quantity.**
+All three clips it reddened are FALSE POSITIVES. **The bbox is set by the PROP:** a blade swinging to
+the other side moves the body into the opposite half of the normalised square, so as-is IoU collapses
+to 0.099 while the hat brim, nose and both feet stay screen-right in every frame. `MIN_AGREE` 0.45 had
+been interpolated into a void (no sample between ir48's 0.290 and ir37's 0.611); these three are the
+first real data in it. Raised to **0.60** — the real turn still convicts at 0.983, the false positives
+sit at 0.451-0.523.
+
+### 🧠 4. THE ONE LEARNING THAT COST FIVE ROUNDS
+
+**"A gate that cannot fail" was fixed FOUR times and defeated FOUR times. The code was right every
+time; the COVERAGE was wrong.** An agent fixes the files it owns and the class survives in the rest. A
+round-3 agent wrote the diagnosis without noticing: *"I could not create a third shared module without
+editing a file I do not own, so the validator is duplicated verbatim."*
+**The fix was structural, not another guard:** `qa-boss/lib/argcheck.mjs`, ONE validator all twelve
+gates import. Exit contract everywhere: **0 pass · 1 real failure · 2 refused/measured nothing.**
+
+Sibling learning, three instances this session: **a recorded number whose derivation no longer exists
+is not evidence, however precise it looks** — the ladder's x39.96, the shield's geometry figures (all
+refuted on re-measure), and `MK-FINAL-WAVE2-SCREEN.md`'s `emis` column, which **18 formula×variant
+combinations failed to reproduce**.
+
+Saved to `~/.claude/memory/`: `floor-vs-round-display-divergence`, `mirrored-pair-wrong-reference`,
+and a FIFTH shape appended to `gate-vacuous-pass` (validating the ARGUMENT is not validating the
+MEASUREMENT — guard the verdict, not the argv).
+
+### ▶ 5. WHAT TO DO NEXT, IN ORDER
+
+1. **Do not fire. Do not probe.** Ruling 1. The loop prompt will keep asking; it does not outrank Tim.
+2. **The 47 containment reds need a HUMAN VIEW.** `check-containment` legitimately flags 47 of 118
+   shipped clips across 8 kits. **They are NOT new and NOT a regression** — the old `scanned 1` bug
+   meant a 12-argument sweep opened ONE file, so 105 of 118 had never been measured at all. Rows are
+   byte-identical where the old tool could reach them. `CONTAINMENT-TRIAGE.md` owns this and nobody
+   has looked. **This is the highest-value no-account task on the board.**
+3. `lady-kurotachi` has **10 of 13 clips below the new MIN_AGREE 0.60** (best fits 0.421-0.592).
+   Warning only, exit 0 — but it is a thin margin and may mean that kit's clips are genuinely
+   dissimilar to its idle. Worth a look before trusting `check-turn` on it.
+4. TOOLCHAIN-AUDIT §§2, 6, 7, 10, 11 are still open (keyer selection · `rederive-cal` guards ·
+   `pad-anchor-plate` writes-when-refusing · 16 hardcoded absolute paths · the `build-prompt` A/B trap).
+5. When asset work reopens: fix the 5 sliced effects (recipe in FIRE-PLAN), and declare an arsenal
+   entry as the first step of firing any undeclared kit.
+
+### ✘ 6. WHAT IS **NOT** ESTABLISHED — do not report these as settled
+
+- **Whether the GENERATOR reproduces the pad seam** into a clip's own background. The keying-stage
+  question is closed (7.6x inside the keyer's cut); the conditioning-image question needs a fire.
+- **The 47 containment rows have never been VIEWED** — the measurements are sound, the judgement of
+  whether any individual slice is acceptable has not been made.
+- **`check-extra-objects`' `--expect-detached` cannot be closed by any threshold** — measured: both
+  calibrated known-bads shed exactly ONE piece while the legitimate tail needs ELEVEN. Shipped as a
+  documented limitation, along with its FILENAME-based `ko` exemption.
+- **~15 non-gate scripts do not import argcheck** and were never attacked. Round 5's sweep says that
+  is where a round 6 should look; it was declined as scope, not as safety.
+- **`MK-FINAL-WAVE2-SCREEN.md`'s `emis` column is unusable.** Do not tune a threshold against it.
+- Both `edge-feather` blast guards count VISIBILITY CROSSINGS, not alpha mass: a ramp taking a frame
+  from alpha 200 to 100 destroys a third of the mass and registers zero erased px.
+
+---
+
+## ★★★★★★★★★★ SESSION 26 (2026-08-03 → 08-04) — superseded by the block above ★★★★★★★★★★
 
 **24 commits, phases 235-258 (`7ae744e`..`faff885`). ZERO clips fired — the account is blocked AND
 Tim has ruled to wait. Corpus unchanged at 118 shipped webms / 328 queued states / 40 kits.**
@@ -2295,8 +2420,15 @@ defects. The gate now carries a DEGENERATE-ANCHOR SELF-CHECK that refuses to jud
 action clips agree among themselves but the anchor disagrees with all of them. **This is the same trap
 session 9 hit with eclipse's still. It will recur. Assume it.**
 
-**Also: `check-containment.mjs` processes ONE argument.** Passing a glob prints "scanned 1 | clean 1"
-and silently ignores the rest. Loop one file at a time or you are reporting a pass for unexamined clips.
+~~**Also: `check-containment.mjs` processes ONE argument.** Passing a glob prints "scanned 1 | clean 1"
+and silently ignores the rest. Loop one file at a time or you are reporting a pass for unexamined clips.~~
+✅ **FIXED, phase 261 — DO NOT LOOP ONE AT A TIME.** N arguments are all scanned, `scanned N` equals
+the clips resolved, and an errored clip now reaches the exit code instead of passing as clean.
+⚠ **This paragraph was right about the consequence and nobody had measured it: when the bug was fixed,
+47 of the 118 shipped clips turned out to be OVER threshold, across 8 of 12 kits.** A 12-argument
+sweep really had been "reporting a pass for unexamined clips" — 105 of 118 were never opened. Those 47
+are pre-existing measurements, byte-identical to the old tool wherever it could reach them, and NOBODY
+HAS VIEWED THEM. See SESSION 27 §5.2.
 
 ---
 
