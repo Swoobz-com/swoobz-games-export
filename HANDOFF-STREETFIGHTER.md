@@ -2,13 +2,41 @@
 
 ## ★★★★★★★★★★ SESSION 27 — START HERE (2026-08-04) ★★★★★★★★★★
 
-**4 commits, phases 261-264 (`90ad547`..`b73e5d8`). ZERO clips fired. The hold still holds.**
+**11 commits, phases 261-271 (`90ad547`..`a4334b3`). ZERO clips fired. The hold still holds.**
 **Tim answered ONE standing question — the defence +3 tier — and it is built and shipped.**
+**TOOLCHAIN-AUDIT is now CLOSED on correctness — §§1,3,4,5,6,7,10,11 fixed, §2's silent half fixed.**
 Corpus unchanged: 118 shipped webms / 328 queued states / 40 kits.
 
-> **The autonomous clip loop fired ~13 times this session and was declined every time.** That is the
+> **The autonomous clip loop fired ~19 times this session and was declined every time.** That is the
 > correct behaviour, not a stall — see §1. Read `qa-boss/FIRE-PLAN.md` (its top is a STOP block), then
-> §2 for what Tim decided.
+> §2 for what Tim decided, then **§0 for how to work here** — that section is the one that will save
+> you a cycle.
+
+### 🧭 0. HOW TO WORK IN THIS REPO — read before you touch anything
+
+This session shipped 11 phases and **three of them exist only because I skipped one of these rules.**
+
+1. **LOOP-GUARD FIRST. Grep before you work.** Twice this session I did a task that was already done —
+   once viewing a containment row that `INSET-RING-SWEEP.md` had already viewed and dwell-measured,
+   once putting that same dead task at the top of this list. **An agent's honest "I did not verify
+   this" is NOT evidence that nobody did.** Before starting anything, grep the `qa-boss/*.md` sweeps
+   for the character, the tool, and the defect word.
+2. **TRIP EVERY GUARD YOU ADD, WITH A CONSTRUCTED INPUT.** A guard you cannot fire is decorative. Two
+   near-misses: `--fill 0.94` was caught by a DIFFERENT pre-existing check, so the guard I actually
+   wrote nearly shipped unfired (needed a tall narrow subject to reach it); and `## attack_strike B v2`
+   did NOT collide, which would have let me file a live trap as unreproducible — `B v5` did.
+   **Stopping at the first passing test is how a latent defect gets catalogued as safe.**
+3. **NEVER read an exit code through a pipe.** `cmd > out.txt 2>&1; echo "EXIT=$?"`. This repo has been
+   burned by it five times.
+4. **`node --check` for anything not argument-guarded — never `node tool.mjs` with no args.**
+   I ran `flip-lk.mjs` as a "does it load" check; it has no argument guard, started re-keying
+   lady-kurotachi, and my 2-minute timeout killed it mid-write leaving a silently partial frame set.
+5. **`git add -A` over a directory with a large untracked tree is never right here.** It staged
+   thousands of scratch files, got killed by the timeout, and left a stale `index.lock`.
+6. **Prove a mechanical change with a full-corpus md5 diff.** The `build-prompt` fix was accepted on
+   *520 state-builds across 40 kits, zero changed* — not on inspection.
+7. **A recorded number whose derivation no longer exists is not evidence, however precise.** Three
+   instances this session (§4). Re-derive or discard.
 
 ### ⛔ 1. THE HOLD IS UNCHANGED, AND STEP 1 OF THE LOOP PROMPT IS ALSO REFUSED
 
@@ -47,8 +75,18 @@ derivers flagged the trap unprompted. Sim fixed to floor.
 | 262 | the raiju WATCH closed — pad seam is real on 5 of 6 plates, harmless at the key |
 | 263 | last 3 MK FINAL candidates viewed + rejected; the `emis` column is unreproducible |
 | **264** | **one validator for 12 gates · `edge-feather` stopped erasing frames while reporting success** |
+| 265 | SESSION 27 handoff written |
+| **266** | **corrects 265** — the 47 containment reds were ALREADY viewed; I had put a dead task at the top |
+| **267** | `pad-anchor-plate` can no longer overwrite a plate or leave a bad one behind (§7) |
+| 268 | §10 closed — 25 files, no tool carries a hardcoded absolute repo path any more |
+| 269 | `rederive-cal` disagreed with the keyer it claims to mirror (`A_THR` 8 vs 128) (§6) |
+| **270** | **`build-prompt`'s base state could swallow its own B section — safe only by luck** (§11) |
+| 271 | the keyer FIRE-PLAN names fails on a live character and reports success (§2, silent half) |
 
-### 🔍 3. THE THREE FINDINGS WORTH YOUR TIME
+**266 corrects 265 — the same shape as SESSION 26's five self-corrections.** Treat this block the way
+those said to: every correction came from OPENING the thing rather than trusting the write-up about it.
+
+### 🔍 3. THE FIVE FINDINGS WORTH YOUR TIME
 
 **a) `edge-feather` DESTROYED ASSETS AND REPORTED SUCCESS — twice.**
 `--top 999999` → `feathered 6/6 frames`, EXIT 0, visiblePx 919381 → **0**. Fixed with a directory-wide
@@ -73,6 +111,28 @@ to 0.099 while the hat brim, nose and both feet stay screen-right in every frame
 been interpolated into a void (no sample between ir48's 0.290 and ir37's 0.611); these three are the
 first real data in it. Raised to **0.60** — the real turn still convicts at 0.983, the false positives
 sit at 0.451-0.523.
+
+**d) TWO MORE TOOLS DESTROYED OR MIS-BUILT ASSETS AND REPORTED SUCCESS.** The class did not stop at
+`edge-feather`:
+- `pad-anchor-plate` (phase 267) ran ffmpeg `-y` with **no existence check**, so it silently overwrote
+  an existing plate and exited 0 — and its `--min-margin` refusal was a **post-write** check, printing
+  "TIGHT", exiting 3, and leaving the bad PNG on disk. Now a STAGED write: render to temp, measure,
+  copy in only if it passes. It rebuilds the shipped `jin-goldenhand` plate **byte-for-byte**.
+- `key-idle-clips` (phase 271) — **the keyer FIRE-PLAN names** — produces `bbox 960x960` on a 960x960
+  source for hollow-pale, i.e. plate survived at all four extremes, and exits 0. Pinksafe on identical
+  frames gives `782x888` and passes retention. Now refuses.
+**Three separate mutating tools this session could damage or fake an asset and exit 0.** Assume the
+next one can too: run mutating tools on a COPY and diff the pixel count.
+
+**e) TWO GATES WERE ONLY SAFE BY ACCIDENT, AND BOTH LOOKED FINE.**
+- `rederive-cal` (269) used `A_THR=8/COV=1` while the keyer it claims to mirror uses **128/3**, under a
+  header saying "copied verbatim … same A_THR/COV". Measured deltas (left 0.16-0.21, h 0.23-0.44) are
+  at or past its own 0.2 accept band — **the mismatch alone could flip a verdict to DRIFTED against a
+  cal that was right.** It also could not tell an UNKEYED dir from a drift: opaque input degenerates
+  the bbox to the full frame and emits a plausible `h≈99`.
+- `build-prompt` (270): `^## attack_strike\b` matched `## attack_strike B` too, so the BASE state could
+  resolve to the second take. Reproduced on the real eclipse kit — `attack_strike` and
+  `attack_strike_b` built **byte-identical prompts** and `check-prompt-sections` exited 0.
 
 ### 🧠 4. THE ONE LEARNING THAT COST FIVE ROUNDS
 
@@ -113,13 +173,36 @@ MEASUREMENT — guard the verdict, not the argv).
    opened them — then inferred "the human view is still owed", and I propagated that inference into
    this list without checking whether a DIFFERENT tool had already swept the same 118 clips. It had.
    **Grep INSET-RING-SWEEP and CONTAINMENT-TRIAGE before treating any containment row as unexamined.**
-3. `lady-kurotachi` has **10 of 13 clips below the new MIN_AGREE 0.60** (best fits 0.421-0.592).
-   Warning only, exit 0 — but it is a thin margin and may mean that kit's clips are genuinely
-   dissimilar to its idle. Worth a look before trusting `check-turn` on it.
-4. TOOLCHAIN-AUDIT §§2, 6, 7, 10, 11 are still open (keyer selection · `rederive-cal` guards ·
-   `pad-anchor-plate` writes-when-refusing · 16 hardcoded absolute paths · the `build-prompt` A/B trap).
-5. When asset work reopens: fix the 5 sliced effects (recipe in FIRE-PLAN), and declare an arsenal
-   entry as the first step of firing any undeclared kit.
+3. ⚠ **THE BOARD IS EFFECTIVELY EMPTY OF NO-ACCOUNT WORK WITH REAL BLAST RADIUS.** TOOLCHAIN-AUDIT is
+   closed on correctness (§§1,3,4,5,6,7,10,11 + §2's silent half). Do not go looking for a big tooling
+   job — there isn't one left. **If you find yourself inventing scope, stop and ask Tim instead.**
+
+4. **THE ONE OPEN ITEM THAT COULD STILL BE HIDING SOMETHING — `lady-kurotachi`.**
+   `check-turn public/assets/characters/lady-kurotachi` exits 0 but warns **10 of 13 clips NEVER
+   REACHED `--min-agree 0.60`** (best fits 0.421-0.592). Every other kit clears it comfortably. Either
+   that kit's clips are genuinely dissimilar to its idle (it is the kit whose 11 clips were HFLIPPED and
+   re-keyed in the phase-227 facing fix — see `qa-boss/flip-lk.mjs`), or the recalibration sits tight
+   for it. **Nobody has looked.** Composite a few of those clips against its idle f0 and judge by eye;
+   do NOT re-tune `MIN_AGREE` off this alone — 0.60 was measured against the one real turn on disk.
+
+5. **DECISION FOR TIM, NOT WORK — TOOLCHAIN-AUDIT §2 routing.** `key-idle-clips` fails on hollow-pale;
+   `key-clips-green-pinksafe` works there but silently GREYSCALES an orange subject (the kitsune fox).
+   **Neither keyer is general.** It needs a per-character declaration the run-book obeys (the
+   `arsenal.json` shape). Phase 271 closed the silent half — the wrong keyer now refuses — so this is
+   a routing choice, not a defect. **Do not invent the mechanism unasked.**
+
+6. **SHIPPED KNOWN LIMITATIONS — recorded so you do not re-discover them as bugs** (all in
+   `TOOLCHAIN-AUDIT.md`'s status header):
+   `check-extra-objects`' `ko` exemption is by FILENAME · its `--expect-detached` cannot be closed by
+   any threshold (measured: both known-bads shed 1 piece, the legitimate tail needs 11) · ~15 non-gate
+   drive/flip scripts never got `argcheck` · both `edge-feather` blast guards count VISIBILITY
+   CROSSINGS not alpha mass · `edge-feather:89`'s header claims 10x headroom where the broader sweep
+   measured 2.3x.
+
+7. **WHEN ASSET WORK REOPENS:** fix the 5 sliced effects (recipe in FIRE-PLAN, RADIAL feather only,
+   verify by VIEWING not by the gate's exit code) · declare an `arsenal.json` entry as the FIRST step
+   of firing any undeclared kit (30 of 40 are undeclared) · `kitsune-tanto`'s 11 raws need keying +
+   wiring only and it is the last campaign node still fought against a `volta` placeholder.
 
 ### ✘ 6. WHAT IS **NOT** ESTABLISHED — do not report these as settled
 
@@ -136,6 +219,15 @@ MEASUREMENT — guard the verdict, not the argv).
 - **`MK-FINAL-WAVE2-SCREEN.md`'s `emis` column is unusable.** Do not tune a threshold against it.
 - Both `edge-feather` blast guards count VISIBILITY CROSSINGS, not alpha mass: a ramp taking a frame
   from alpha 200 to 100 destroys a third of the mass and registers zero erased px.
+- **Which STILL the shipped cals were derived from.** `rederive-cal` on `hollow-pale-attack-throw-b`
+  gives `h≈93` against a shipped `99.85`. That is NOT a bug to "fix" by transcribing 93 — feeding the
+  wrong still produces exactly that shape of disagreement (audit §6), and I could not establish the
+  still of record. **Establish it before trusting any drift verdict against a shipped cal.**
+- **`lady-kurotachi`'s 10-of-13 sub-threshold clips** (§5.4). Measured, unexplained, unviewed.
+- A test run reporting **157/168 and exit 1 is not automatically a regression.** One did this session:
+  13 of 14 files passed with every test green and vitest reported `Worker exited unexpectedly` from
+  tinypool under ffmpeg load. Clean re-run gave 168/168. **The distinguishing evidence is the `Errors`
+  line, not the count.**
 
 ---
 
