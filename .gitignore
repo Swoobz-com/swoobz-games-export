@@ -9,6 +9,12 @@ qa-boss/raw/
 # 122MB / 313 files and fully regenerable from the raws + plates — the FINDINGS go in the
 # handoff, the pixels stay local.
 qa-boss/decisions/
+# session-30 keying staging (phase 275): 2.4GB of frames + keyed PNGs + webm for the 35
+# harvested clips. Same rule as above — fully regenerable by
+#   node qa-boss/key-s30-harvest.mjs --char <id>
+# from qa-boss/raw/ (itself re-downloadable via SESSION30-HARVEST-MANIFEST.tsv), so the
+# FINDINGS go in SESSION30-GATE-REPORT.md and the pixels stay local.
+qa-boss/staged-s30/
 
 # editor/agent backups — never tracked (swept in once by a directory add, phase 137)
 *.bak

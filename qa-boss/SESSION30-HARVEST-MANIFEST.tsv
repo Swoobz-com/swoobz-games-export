@@ -1,0 +1,77 @@
+# SESSION 30 harvest manifest — the 35 session-29 clips, located in Higgsfield History
+#
+# SOURCE OF TRUTH for this file: the Higgsfield jobs API, not the DOM.
+#   GET https://fnf-api-gw.higgsfield.ai/fnf/jobs/accessible?job_set_type=seedance_2_0&...&size=50&cursor=<created_at>
+#   Authorization: Bearer <window.Clerk.session.getToken()>   (page context, higgsfield.ai origin)
+#   Paged 330 jobs back to 2026-07-23. Each job carries params.prompt and results.raw.url.
+#
+# DOWNLOAD URL = https://d8j0ntlcm91z4.cloudfront.net/user_3FzP62OkeSn8OYHW3kjt3xDrWKK/<stem>.mp4
+#   The CloudFront url is UNSIGNED — no query string, no token. results.raw.url is that url verbatim.
+#   ⚠ NOT cdn.higgsfield.ai — that host serves only the _thumbnail.webp and 404s on the .mp4.
+#   Verified by HEAD on the last clip: 200 OK, Content-Type video/mp4, Content-Length 2654056.
+#
+# SELECTION RULE (how mine were separated from Tim's parallel run on the same account):
+#   created_at within 2026-08-05 01:40Z..19:10Z AND params.prompt contains an ALLCAPS beat string.
+#   That yields exactly 35 — matching qa-boss/SESSION29-FIRE-LEDGER.md. Tim's clips in the same
+#   window have no beat string (they open "CAMERA LOCKED, extreme macro..." / "CAMERA ABSOLUTELY
+#   LOCKED AND STATIC...") and several were fired 4-at-a-second, so they are unambiguous.
+#
+# CROSS-CHECK THAT PASSED: every beat below is the beat the ledger names for that state, and the
+#   ledger's VOID clip is independently confirmed by the API as job 2026-08-05T01:18:40Z with
+#   params.prompt LENGTH 0 — the prompt-drop defect, visible in the data. It is NOT in this list.
+#
+# All 35 jobs report status "completed". None was per-frame QA'd — see HANDOFF §5.4.
+#
+# ===== HARVEST VERIFICATION (session 30) — all 35 downloaded and objectively checked =====
+# DOWNLOAD:  35/35 OK, 0 failed, 0 name collisions. Landed as qa-boss/raw/<char>-<state>.mp4.
+# FFPROBE:   35/35 identical — 960x960, 24/1 fps, 97 frames, duration 4.041667s. 0 outliers.
+# CHROMA:    the gate the VOID clip taught. 40x40 corner average, TOP-LEFT and TOP-RIGHT, on
+#            BOTH frame 0 and frame 96 (the last). A scene render cannot pass this; the VOID
+#            clip was a ruined-city storm scene and would have failed all four samples.
+#            Measured (f0 -> f96, corners agree to within ~2):
+#              ir56-lion-serpent  158,0,92 -> 154,0,92    MAGENTA held   (plate 163,0,95)
+#              thorn-warden       0,166,59 -> 0,161,57    GREEN held     (plate 0,177,64)
+#              lich-scythe        0,199,0  -> 0,193,0     GREEN held     (plate 1,216,0)
+#              oni-tetsubo        0,172,30 -> 0,167,30    GREEN held     (plate 0,186,33)
+#              gargoyle-spear     0,232,1  -> 0,228,1     GREEN held     (plate 2,251,3)
+#            All plates read ~6-8% darker than the source plate and drift ~4-5 units darker from
+#            f0 to f96 — generation + compression, consistent across all 35, not a defect.
+# 35/35 PASS. No clip shows the VOID failure mode. Content QA (pose/anchor/debris) is separate
+# and belongs to the keying + gate stage, not here.
+#
+# char	state	stem	beat
+ir56-lion-serpent	attack_throw_b	hf_20260805_014602_19236143-cc82-4c03-9e9d-2d4f653b0a8f	THROW (shoulder barge)
+thorn-warden	special_1	hf_20260805_022205_f459a6ba-f680-4a1d-9565-947ab021cf1e	SPECIAL FINISHER (thornbreak)
+thorn-warden	special_3	hf_20260805_025237_64c763a3-cf6b-4541-bf46-e7165d5d9829	SPECIAL FINISHER (rootfall)
+lich-scythe	attack_throw	hf_20260805_032624_8e6df079-fcd3-44bb-a53b-445225fd9980	THROW A (dead-weight drive)
+lich-scythe	attack_throw_b	hf_20260805_035829_045a2912-e61c-429f-bb10-be04a41dd79f	THROW B (bone-hand seize)
+lich-scythe	attack_block	hf_20260805_043137_9a777e62-7ea4-4210-b5ac-0a5b301d95ca	BLOCK-COUNTER A (haft brace)
+lich-scythe	attack_block_b	hf_20260805_050148_3d817609-ae5b-411e-9e5c-5bdb8d7640a6	BLOCK-COUNTER B (crown guard)
+lich-scythe	hit	hf_20260805_053217_88d83036-c49b-4976-bf26-6ef19ffbd8f6	HIT (stagger)
+lich-scythe	ko	hf_20260805_060232_d92089e2-db56-4ca2-91da-c971482b61a4	KO (collapse)
+lich-scythe	victory	hf_20260805_062823_22009c04-227d-465c-be37-62cb96fed3a4	VICTORY (reaper's stillness)
+lich-scythe	special_1	hf_20260805_070319_b91cc20c-99fb-4dda-bb41-6956e9c92106	SPECIAL FINISHER (grave furrow)
+lich-scythe	special_2	hf_20260805_073749_75a6431b-08a1-4f06-8dc7-27c3ad11bcb4	SPECIAL FINISHER (the tithe)
+lich-scythe	special_3	hf_20260805_080939_54c2e4f3-74e4-4c2d-83c3-a90a49a9e8d6	SPECIAL FINISHER (the hollow crown)
+oni-tetsubo	attack_strike	hf_20260805_084137_93c996a3-50a8-4a84-be32-5dbea6da16b2	STRIKE (downward slam)
+oni-tetsubo	attack_strike_b	hf_20260805_090505_96efaec2-83e3-4d58-b9ad-9add1996a9d4	STRIKE (low sweep)
+oni-tetsubo	attack_throw	hf_20260805_092838_b863ca58-50e7-4ba9-8cbd-307c6e0b10eb	THROW (seize and slam)
+oni-tetsubo	attack_throw_b	hf_20260805_095656_355b7f80-de98-40d3-be40-074e2d59fa6e	THROW (shoulder barge)
+oni-tetsubo	attack_block	hf_20260805_102024_7a5cf280-4b98-47f7-8a29-3c5a4f4b8dce	BLOCK-COUNTER (haft brace into low counter)
+oni-tetsubo	attack_block_b	hf_20260805_104407_ed8e3c84-c6c5-4ae7-b5f9-edb566648a29	BLOCK-COUNTER (bracer guard)
+oni-tetsubo	hit	hf_20260805_111244_48121285-3394-4412-bd91-6bd6d6f7ed75	HIT (stagger)
+oni-tetsubo	special_1	hf_20260805_114125_0f45de1b-ba6a-4606-a050-fcf946f5ae90	SPECIAL FINISHER (earthshaker)
+oni-tetsubo	special_2	hf_20260805_120519_2fd8914c-7ff9-498b-87fa-c3f239ae2983	SPECIAL FINISHER (spike driver)
+oni-tetsubo	special_3	hf_20260805_123359_5203eea2-6f7a-49df-a046-cd239bfe83fb	SPECIAL FINISHER (ogre stomp)
+gargoyle-spear	attack_strike	hf_20260805_131132_6d4ce559-11ce-4b66-8887-8423a8ee8f0d	STRIKE A (falling arc)
+gargoyle-spear	attack_strike_b	hf_20260805_134426_037d577e-897d-469e-84ae-a965b253930f	STRIKE B (butt-spike bite)
+gargoyle-spear	attack_throw	hf_20260805_141629_dceb6753-d867-41ec-8af9-7ca3f9d1bc39	THROW A (floor-ram)
+gargoyle-spear	attack_throw_b	hf_20260805_144816_3153ff18-fef1-4f9e-8992-a8b2b2d0db68	THROW B (horn toss)
+gargoyle-spear	attack_block	hf_20260805_152008_f5d2f4ce-9d90-4a1f-8bfa-6e99936f47d0	BLOCK-COUNTER A (shaft brace)
+gargoyle-spear	attack_block_b	hf_20260805_155204_b8b8553d-6156-4ec8-af93-9e56bd5a854b	BLOCK-COUNTER B (pauldron guard)
+gargoyle-spear	hit	hf_20260805_162417_17a46805-f52a-4dcc-8931-7d8b9f862803	HIT (stagger)
+gargoyle-spear	ko	hf_20260805_165659_6ddeb8ba-a652-49d3-b91d-4ae8dd494331	KO (collapse)
+gargoyle-spear	victory	hf_20260805_172854_8a04b046-eeab-494c-abd4-825ac83a7908	VICTORY (grounding the standard)
+gargoyle-spear	special_1	hf_20260805_180145_b26a3050-1b3f-445b-bf21-a8e5297e7d5f	SPECIAL FINISHER (the herald's spin)
+gargoyle-spear	special_2	hf_20260805_183418_977f94f9-64a0-4985-8d6d-be67348f30bc	SPECIAL FINISHER (the fallen lintel)
+gargoyle-spear	special_3	hf_20260805_190546_c6e77f72-e629-46c7-9049-77a12a1867f3	SPECIAL FINISHER (the cathedral perch)
