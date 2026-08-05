@@ -79,6 +79,54 @@ top-green-bin share, and the emissive screen reached about hue.
 
 ---
 
+## ✅ SHORTLIST PLATE PASS — all 7 padded and key-tested (phase 276, 2026-08-06)
+
+Tim: *"start with them all."* All seven now have padded plates in `qa-boss/anchors/xg/`.
+
+| plate | fill | subject px | plate green sampled | opaque% | emis% | white% | p99 | verdict |
+|---|---|---|---|---|---|---|---|---|
+| ir08-bonepipe-grunt | 0.68 | — | — | 17.87 | 0.29 | 0.01 | 7.9 | keys with margin ✅ |
+| ir13-junkyard-king | 0.68 | — | — | 9.74 | 0.45 | 0.02 | 7.3 | keys with margin ✅ |
+| ir12-rose-lance | 0.68 | — | — | 8.42 | 0.82 | 0.00 | 5.2 | keys with margin ✅ |
+| ir10-night-howl | 0.68 | 886x1044 | rgb(36,245,18) | 12.74 | 0.42 | 0.01 | 7.3 | keys with margin ✅ |
+| ir16-crown-valiant | 0.68 | 586x1044 | rgb(25,242,17) | 11.19 | 1.02 | 0.01 | 5.5 | keys, **emissive feature — LOOKED**: the glow ring at the staff head. Small, localized, solid in the mask. ✅ |
+| ir57-wolf-raven | **0.43** | 1114x660 | **rgb(68,184,74)** | 8.58 | 0.41 | 0.00 | **24.5** | keys with margin, but see ⚠ below |
+| ir55-storm-valk | **0.53** | 1113x814 | rgb(1,207,3) | 11.74 | **1.29** | **0.39** | **21.4** | ⛔ **BLOCKED — see below** |
+
+### ⛔ ir55-storm-valk is BLOCKED. The emissive screen passed it on the wrong denominator.
+SCREEN 1 scored it **0.57% → "CLEAN"**. On the keyed-subject denominator (`check-plate-key`, which
+§step-2 already calls *"the more correct denominator"*) it is **1.29% and trips `emissive feature —
+LOOK`** — 2.3x worse, and across the CLEAN/BORDERLINE line. It also carries the highest `white%` in
+the set at 0.39.
+
+**AND THE MASK CONFIRMS IT.** Its baked yellow-white energy blade-trails key into **detached islands
+of alpha** — isolated speckle clusters trailing off the wing and blade edges, visible at 2x on
+`qa-boss/frames/platekey/ir55-storm-valk-anchor-green-alpha.png`. The body and helmet edges are clean
+and solid, so this is not the keyer: it is the baked glow specifically. Those islands render in-game
+as floating white specks around the fighter. This is the kitsune-blocker class the screen exists to
+catch, and only opening the mask caught it — exactly what §step-2 says ("**OPEN THE MASK**") and what
+the number alone said was fine.
+
+Its kit therefore carries a `BLOCKED:` line so `build-prompt.mjs` REFUSES (exit 3) and it cannot fire
+by accident — the phase-108 IR-41 law: *"a warning a tool cannot read is a warning that gets fired
+anyway."* **To override: delete that one line.** No re-plate can fix it; the glow is baked into the
+source art.
+
+### ⚠ ir57-wolf-raven — usable, but the two weakest numbers in the set, for two separate reasons
+1. **Its plate green is DESATURATED — `rgb(68,184,74)`** — against ir10's `rgb(36,245,18)` and ir16's
+   `rgb(25,242,17)`. Less distance between plate and subject, which is what the **p99 of 24.5** (vs
+   ir10's 7.3) is measuring. Its mask shows mild speckling along the polearm blade. Key one clip and
+   LOOK before batching. Do NOT assume the green constant from a sibling — this plate is its own colour.
+2. **It is WIDE-and-SHORT: 1114x660 at fill 0.43.** Per the resolution-budget rule below, 0.43 fill on
+   a 960x960 render leaves roughly **410px of actual character height**. That is under the ~1.8x
+   headroom the project wants over the on-screen figure, so its linework will ship softer than its
+   peers. Not a blocker, a known cost.
+
+ir55 needed the same lowered fill (0.53) for the same wide-subject reason; both refused at the default
+0.68, which is `pad-anchor-plate` behaving correctly rather than silently shrinking the margins.
+
+---
+
 ## BEFORE WRITING ANY KIT FROM THIS LIST
 1. `node qa-boss/pad-anchor-plate.mjs <raw> qa-boss/anchors/xg/<slug>-anchor-green.png --min-margin 200`
    — it REFUSES rather than silently shrinking margins. **If it demands a low `--fill`, that is a
