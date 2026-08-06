@@ -174,6 +174,112 @@
 // # follows the convention of the line it is joining. That keeps every run in which nothing    #
 // # errored BYTE-IDENTICAL to before this edit, which is how the change was verified.          #
 // ############################################################################################
+// ############################################################################################
+// # ⛔ AND A CLIP THAT IS FRONTAL FROM FRAME 0 PASSED, BECAUSE THE BASELINE IS FRAME 0.       #
+// #    (phase 281 — the FRONTAL-AT-f0 check below)                                            #
+// #                                                                                            #
+// # THE DEFECT, IN ONE LINE. Every signal above is a DELTA against the clip's OWN frame 0, so  #
+// # a clip that is square to camera in frame 0 AND STAYS THERE has nothing to deviate from.    #
+// # The gate's own output on the worst clip in the gargoyle kit, a clip independently recorded  #
+// # in SESSION30-GATE-REPORT.md as frontal for its ENTIRE length, both wings spread, anchor    #
+// # 0.431 at f0 AND fLAST:                                                                     #
+// #     [ ok  ] gargoyle-spear-attack_block.mp4  sym 0.565->0.591  aspect 0.98->1.24  run 0/97 #
+// # It PASSES WHILE BEING THE DEFECT. `run 0/97` is arithmetically correct and completely       #
+// # wrong: the pose the gate exists to catch arrived PRE-INSTALLED at the baseline. Same class  #
+// # as everything else in this file — a gate that cannot fail — reached this time not by a      #
+// # threshold or an undecodable file but by the choice of BASELINE.                             #
+// #                                                                                            #
+// # THE SIGNAL. The ABSOLUTE f0 selfSym, read against THE CHARACTER'S OWN POPULATION. Frame 0   #
+// # of every clip in a kit is the SAME anchor pose by spec, so a kit's f0 selfSym values are a  #
+// # control group with a real n. MEASURED over the 16 gargoyle-spear raws, --plate green:       #
+// #     0.1427 attack_block-r2      0.1860 hit                  0.1878 special_3               #
+// #     0.1580 attack_strike_b-r2   0.1863 attack_strike        0.2048 attack_throw             #
+// #     0.1837 ko                   0.1863 attack_throw_b       0.2131 attack_block_b           #
+// #     0.1843 special_1            0.1868 victory              0.2206 attack_strike_b          #
+// #     0.1855 special_2            ---------------------------------------------------------   #
+// #     0.1858 attack_block_b-r2    0.5464 hit-r2      FRONTAL  0.5648 attack_block   FRONTAL   #
+// # 14 clips inside 0.143-0.221; the two frontal ones at ~3x the median (0.1863). Bimodal, and  #
+// # the mode boundary is EMPTY over a range four times wider than the whole side-on cluster.    #
+// # This is §0.10 again: THE POPULATION IS THE CONTROL. Both frontal reads were then confirmed  #
+// # BY EYE on the raw f0 frames (square to camera, both wings spread, spear across the chest,   #
+// # against a clean right-facing side profile in attack_block-r2 at 0.1427) — the number is not #
+// # doing the convicting on its own.                                                            #
+// #                                                                                            #
+// # WHY MAD IS **NOT** THE SPREAD MEASURE, MEASURED. The population's median absolute deviation #
+// # is 0.0023 on gargoyle, because f0 IS the shared anchor: the spread inside the cluster is    #
+// # decode noise, not pose variation (the tightest kit measured, oni-tetsubo, is at MAD 0.0004). #
+// # At MAD 0.0023 the highest CORRECT clip (0.2206) sits 14.9 MAD above the median and the      #
+// # lowest correct one (0.1427) sits 19.0 MAD below it, so any k-MAD rule loose enough to spare #
+// # them is far looser than the bar below, and any tighter one convicts good clips. A robust-   #
+// # sigma rule is unusable here for a MEASURED reason, not a taste reason. MAD is still PRINTED  #
+// # on every run, so a reader can see this for the kit in front of them.                        #
+// #                                                                                            #
+// # THE BAR: the kit's MEDIAN f0 selfSym + DEFAULTS.symMargin (0.12), one-sided (only ABOVE     #
+// # convicts; a LOWER f0 selfSym is a MORE asymmetric silhouette, i.e. more side-on, which is   #
+// # not this defect). It is NOT a number chosen to split the gargoyle gap. 0.12 is this gate's  #
+// # OWN already-calibrated, already-banded unit of "a symmetry rise worth flagging" — the       #
+// # phase-264 re-derivation on ir48 strike_b. The statement the check makes is therefore exact: #
+// # A CLIP WHOSE FRAME 0 ALREADY SITS A FLAGGABLE RISE ABOVE ITS KIT'S ANCHOR IS ALREADY IN THE #
+// # POSE THIS GATE WOULD HAVE CONVICTED HAD IT ARRIVED THERE MID-CLIP. The blind spot is closed #
+// # with the constant that defines the blind spot's edge, so the two can never drift apart.     #
+// #                                                                                            #
+// # AND IT IS NOT FITTED TO TWO POINTS. Measured on 203 raws across 11 characters (both plates), #
+// # every number below READ OFF THIS TOOL'S OWN OUTPUT — each correct clip's clearance BELOW its #
+// # kit's bar, and each conviction's clearance ABOVE it:                                         #
+// #     kit                 n   median   MAD      bar     highest correct   fires                #
+// #     thorn-warden       13   0.1293  0.0006  0.2493    0.133  (-0.116)   none                  #
+// #     sora-yari  (mag)   10   0.0608  0.0006  0.1808    0.062  (-0.119)   none                  #
+// #     lich-scythe        10   0.0758  0.0021  0.1958    0.078  (-0.118)   none                  #
+// #     oni-tetsubo        14   0.1164  0.0004  0.2364    0.117  (-0.119)   none                  #
+// #     ir56-lion  (mag)   14   0.2870  0.0017  0.4070    0.290  (-0.117)   none                  #
+// #     gargoyle-spear     16   0.1863  0.0023  0.3063    0.221  (-0.085)   0.546 (+0.240)        #
+// #                                                                        0.565 (+0.259)        #
+// #     kitsune-tanto      12   0.3139  0.0012  0.4339    0.324  (-0.110)   0.518 (+0.084)        #
+// #     hollow-pale        23   0.0706  0.0021  0.1906    0.075  (-0.116)   0.286 (+0.095)        #
+// #     ir37-pink-tessen   23   0.1484  0.0008  0.2684    0.153  (-0.115)   0.370 (+0.102)        #
+// #     eclipse-ofuda      41   0.2373  0.0062  0.3573    0.276  (-0.081)   0.441 (+0.084)        #
+// #     lady-kurotachi     27   0.1848  0.0026  0.3048    0.207  (-0.098)   0.544 (+0.239)        #
+// # Worst clearance on the CORRECT side 0.081, worst on the CONVICTED side 0.084. On every one   #
+// # of the 11 kits the bar sits inside an empty band at least 0.165 wide and is roughly CENTRED  #
+// # in it. That is the property a threshold has to have, and it was checked on 11 populations,   #
+// # not on 2 numbers. (`highest correct` excludes `ko`, which can never be convicted here.)      #
+// #                                                                                            #
+// # THE SEVEN FIRINGS ARE CORROBORATED BY THE REPO'S OWN HISTORY, INDEPENDENTLY OF ME. Every    #
+// # single clip this check fires on is a clip a human already superseded with a re-roll:         #
+// #   gargoyle-spear-attack_block -> attack_block-r2 exists   hollow-pale-special-2 -> v2, v3   #
+// #   ir37-pink-tessen-victory    -> v2, v3, v4, v5 exist     eclipse-ofuda-idle    -> v2,v3,v4 #
+// #   lady-kurotachi-strike-b     -> v2, v3, v4 exist         kitsune-tanto-idle-v2 -> v3       #
+// # Six firings, six clips that were re-rolled. Nothing about the threshold knows that.         #
+// # gargoyle-spear-hit-r2 is the seventh and it proves the point from the other direction: it   #
+// # IS the re-roll, and it came back frontal too (confirmed by eye at f0).                      #
+// # Of the seven, THREE were previously `[ ok  ]` and are NEWLY convicted — attack_block,        #
+// # kitsune-tanto-idle-v2, eclipse-ofuda-idle, each at `run 0/97`, i.e. each invisible to every  #
+// # delta signal in this file. The other four were already [FRONT] and only gain an annotation.  #
+// #                                                                                            #
+// # ⚠ WHAT IT CANNOT SEE, MEASURED. selfSym is a SILHOUETTE symmetry, so a big asymmetric PROP  #
+// # dominates it and can hide a frontal torso. lady-kurotachi-strike-b-v2 reads 0.1876 — deep   #
+// # inside the clean cluster — while its torso is arguably as square to camera as the 0.5438 v1 #
+// # this check convicts; the difference is that v2 holds the katana out to the side. So a LOW   #
+// # f0 selfSym is NOT evidence of a side profile. This check convicts; it never clears.         #
+// #                                                                                            #
+// # THE ANTI-VACUOUS RULE. The control group is the OTHER CLIPS IN THE RUN, so a run with too   #
+// # few clips of a character HAS NO CONTROL and the check MUST NOT report anything about them.  #
+// # Below F0_MIN_POP (4) the row is tagged [NOPOP], NOT `[ ok  ]`, and a banner says so on both #
+// # streams. A single-clip run therefore no longer prints `[ ok  ]` — it cannot honestly do so. #
+// # ⚠ RESIDUAL, STATED PLAINLY: [NOPOP] does NOT change the exit code, because this edit is     #
+// # additive and may only move the exit for clips it CONVICTS. So a small run still exits 0 and #
+// # the banner is the only signal. In a && chain, `check-frontturn <one clip>` remains a pass.  #
+// #                                                                                            #
+// # `ko` IS EXEMPT FROM CONVICTION, for the reason the header already gives — a ko ends prone   #
+// # and compact and can never pass this gate. Its f0 is still the anchor pose, so a ko DOES     #
+// # count towards its kit's median (measured: gargoyle ko f0 0.1837, dead inside the cluster).  #
+// # A ko above its kit's bar is ANNOTATED and never convicted.                                  #
+// #                                                                                            #
+// # NOT TUNABLE, DELIBERATELY. No --f0-* flag exists. Every threshold this file ever exposed    #
+// # became a door out of the gate (see the four blocks above), and this one has no legitimate   #
+// # per-run value: it is the kit's own median plus a constant this file already defends with a  #
+// # measured band. There is nothing for a caller to set, so there is nothing to disarm.          #
+// ############################################################################################
 import { makeArgs } from './lib/argcheck.mjs';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
@@ -303,6 +409,15 @@ const N = 64;
 // A mask covering this share of the WHOLE FRAME is the key inverted, not a fighter. See the
 // measured table in the header: worst real subject 26.8%, both inversions 99.9%.
 const FULL_FRAME_PCT = 90;
+// FRONTAL AT f0 — n=4 is the smallest population whose MEDIAN is not decided by one clip. MEASURED
+// tolerance on gargoyle, taking the two frontal clips plus n-2 correct ones: at n=4 (50% frontal)
+// the median is (0.2206+0.5464)/2 = 0.3835, bar 0.5035, and BOTH frontal clips still convict; at
+// n=5 (40%) and above the median is a side-on value outright. Below 4 the check refuses to speak.
+const F0_MIN_POP = 4;
+// DEFAULTS.symMargin, NOT the supplied SYM_MARGIN. This bar must not move when a caller tunes the
+// mid-clip margin: --sym-margin 0.001 would otherwise drop it onto the median and convict half a
+// clean kit, and the whole point of the constant is that phase 264 already measured its band.
+const F0_MARGIN = DEFAULTS.symMargin;
 
 // EVERY argument is expanded: a directory contributes its clips, a file contributes itself. A path
 // that cannot be opened stops the run — a mistyped path contributing zero clips is the same
@@ -421,7 +536,14 @@ function scan(file, tmpDir) {
   }
   fs.rmSync(tmpDir, { recursive: true, force: true });
 
-  const base = rows.find((r) => !r.empty) || { sym: 0, aspect: 1 };
+  // WHICH frame the baseline came from is now needed, not just its values: the FRONTAL-AT-f0 check
+  // may only put a clip into its kit's control population if that clip's baseline frame was really
+  // measured. An all-empty mask falls back to sym 0 (which would drag a median DOWN until the check
+  // fires on everything) and a full-frame mask reads ~0.999 (which would drag it UP until nothing
+  // can fire). Same value as before for every existing consumer — `rows.findIndex` returns the index
+  // of exactly the row `rows.find` returned.
+  const baseIdx = rows.findIndex((r) => !r.empty);
+  const base = baseIdx >= 0 ? rows[baseIdx] : { sym: 0, aspect: 1 };
   // The flag/run arithmetic, unchanged, but as a function of a THRESHOLD SET so the same code can
   // be re-run at the calibrated defaults for the suppression check below.
   const runFor = (t) => {
@@ -464,6 +586,7 @@ function scan(file, tmpDir) {
   const degen = fills.filter((v) => v >= FULL_FRAME_PCT).length;
   return {
     file, frames: rows.length, baseSym: base.sym, baseAspect: base.aspect,
+    baseIdx, baseFill: baseIdx >= 0 ? fills[baseIdx] : 100,
     peakSym, peakAspect, dropPct,
     run: supplied.best, runStart: supplied.bestStart, flagged: supplied.flagged,
     dfltRun: dflt.best, dfltRunStart: dflt.bestStart,
@@ -475,7 +598,10 @@ console.log('=== FRONT-TURN GATE ===');
 console.log('    selfSym = IoU(silhouette, its own mirror). side profile LOW, square-to-camera HIGH.');
 console.log('    aspect  = bbox width / height. a frontal stance spreads the arms and widens the box.');
 console.log(`    baseline = each clip's OWN frame 0; flag if sym > base+${SYM_MARGIN} or aspect > base*${1 + ASPECT_MARGIN}`);
-console.log(`    a flagged run of >= ${MIN_RUN} frames is a defect\n`);
+console.log(`    a flagged run of >= ${MIN_RUN} frames is a defect`);
+console.log('    AND, because frame 0 is that baseline, a clip that is FRONTAL FROM FRAME 0 has nothing to');
+console.log(`    deviate from: also flag any clip whose ABSOLUTE f0 selfSym > its character's median + ${F0_MARGIN}`);
+console.log(`    over the clips of that character IN THIS RUN. Needs >= ${F0_MIN_POP} of them or it cannot speak.\n`);
 // NOTE the header stays HERE, above the measurement, and the --allow-unreachable-thresholds stamps
 // are printed further down instead. Moving this block below the refusals would have been tidier but
 // it would change the bytes of the existing inversion-refusal path, which is verified byte-identical
@@ -577,12 +703,90 @@ if (!ALLOW_UNREACHABLE) {
   }
 }
 
+// ############################################################################################
+// # FRONTAL AT f0 — the ABSOLUTE f0 selfSym against the run's own population. See the big block #
+// # at the top of this file for the defect, the measured populations and the derivation of the   #
+// # bar. Computed HERE: after every refusal, before a single verdict is printed, and with no     #
+// # output of its own, so it cannot reorder or pre-empt anything above it.                       #
+// ############################################################################################
+// The kit key is the basename up to its first STATE token. Under-grouping is safe (a small bucket
+// just refuses to speak); over-grouping would judge a clip against another character's anchor, so
+// only the canonical state words are tokens — `eclipse-sp1-ofuda` gets its own bucket on purpose.
+const STATE_TOKEN = /(?:^|[-_])(idle|hit|ko|victory|block|strike|throw|special|attack)(?=$|[-_])/i;
+const KO_CLIP = /(?:^|[-_])ko(?:$|[-_])/i;
+// The EXTENSION MUST COME OFF FIRST and that is not cosmetic: measured, `KO_CLIP` tested against the
+// raw basename "kitsune-tanto-ko.mp4" does NOT match, because what follows `ko` is a dot and the
+// boundary class is [-_] or end-of-string. The ko exemption was silently dead until a scratch copy
+// with the bar lowered to 0.02 put kitsune's ko (f0 0.388) over it and it was COUNTED as a front.
+// It could not be caught on real data because no ko on the roster is currently above its kit's bar.
+const stem = (file) => path.basename(file).replace(/\.(webm|mp4)$/i, '');
+const kitKey = (file) => {
+  const b = stem(file);
+  const m = STATE_TOKEN.exec(b);
+  return m && m.index > 0 ? b.slice(0, m.index) : b;
+};
+const median = (xs) => {
+  const s = [...xs].sort((a, b) => a - b);
+  const h = s.length >> 1;
+  return s.length % 2 ? s[h] : (s[h - 1] + s[h]) / 2;
+};
+const f0Usable = new Set(measured.filter((r) => r.baseIdx >= 0 && r.baseFill < FULL_FRAME_PCT));
+const f0Pop = new Map();
+for (const r of f0Usable) {
+  const k = kitKey(r.file);
+  if (!f0Pop.has(k)) f0Pop.set(k, []);
+  f0Pop.get(k).push(r.baseSym);
+}
+const f0Stat = new Map();
+for (const [k, syms] of f0Pop) {
+  const med = median(syms);
+  f0Stat.set(k, { n: syms.length, med, mad: median(syms.map((s) => Math.abs(s - med))), bar: med + F0_MARGIN });
+}
+// Per clip: 'front' convicts, 'exempt' is a ko, 'nopop' means NO CONTROL GROUP — never "ok".
+const f0 = new Map();
+for (const r of measured) {
+  const key = kitKey(r.file);
+  const st = f0Stat.get(key);
+  if (!f0Usable.has(r)) { f0.set(r.file, { state: 'unmeasured', key }); continue; }
+  if (!st || st.n < F0_MIN_POP) { f0.set(r.file, { state: 'nopop', key, n: st ? st.n : 0 }); continue; }
+  const over = r.baseSym > st.bar;
+  if (KO_CLIP.test(stem(r.file))) { f0.set(r.file, { state: 'exempt', key, over, ...st }); continue; }
+  f0.set(r.file, { state: over ? 'front' : 'ok', key, over, ...st });
+}
+const f0Blind = measured.filter((r) => ['nopop', 'unmeasured'].includes(f0.get(r.file).state));
+// THE ANTI-VACUOUS BANNER. A population-relative check with no population is exactly the
+// gate-vacuous-pass class this file is a museum of, so it says so before the rows, on both streams.
+if (f0Blind.length) {
+  const lines = [
+    `\n⛔ THE FRONTAL-AT-f0 CHECK DID NOT RUN ON ${f0Blind.length} of ${measured.length} MEASURED CLIP(S) — THEY ARE NOT CLEARED BY IT.`,
+    `  It reads each clip's ABSOLUTE f0 selfSym against the OTHER clips of the same character in the`,
+    `  SAME invocation, so it needs at least ${F0_MIN_POP} of them. With fewer there is no control group and a`,
+    '  constant frontal pose is INDISTINGUISHABLE from a correct side profile — the delta signals above',
+    '  cannot see it either, because frame 0 is their baseline. These clips are tagged [NOPOP], not ok:',
+  ];
+  for (const r of f0Blind) {
+    const v = f0.get(r.file);
+    lines.push(v.state === 'unmeasured'
+      ? `    ${path.basename(r.file)}: frame ${r.baseIdx < 0 ? '0 mask is EMPTY' : `0 mask covers ${r.baseFill.toFixed(1)}% of the FRAME`} — its own f0 is not a usable reading`
+      : `    ${path.basename(r.file)}: only ${v.n} clip(s) of "${v.key}" in this run (need ${F0_MIN_POP})`);
+  }
+  lines.push(`  FIX: hand it the whole kit at once, e.g.  node qa-boss/check-frontturn.mjs $(ls qa-boss/raw/<kit>-*.mp4) --plate green`);
+  for (const l of lines) console.error(l);
+}
+
 // PASS 2 — REPORT.
 // Stamped on STDOUT, not just stderr, because these rows are what get pasted into a handoff and an
 // "[ ok  ]" row produced under a suppressed threshold must carry its warning with it.
 if (relaxed.length) console.log('  ⛔ THRESHOLD OUT OF BAND (--allow-unreachable-thresholds): ' + relaxed.join('; '));
 if (hidden.length) console.log(`  ⛔ SUPPRESSED (--allow-unreachable-thresholds): ${hidden.map((r) => `${path.basename(r.file)} flags at the defaults (run ${r.dfltRun})`).join('; ')}`);
-let bad = 0, degenClips = 0, frontTurns = 0, errored = 0;
+// The f0 populations, on STDOUT, so the bar every row below was judged against is IN the paste. MAD
+// is printed because it is the number that shows why MAD is not the bar (see the header block).
+for (const [k, st] of [...f0Stat].sort((a, b) => a[0].localeCompare(b[0]))) {
+  if (st.n < F0_MIN_POP) continue;
+  console.log(`  f0 population "${k}": n=${st.n}  median selfSym ${st.med.toFixed(4)}  (MAD ${st.mad.toFixed(4)})  -> frontal-at-f0 bar ${st.bar.toFixed(4)}`);
+}
+if (f0Blind.length) console.log(`  ⛔ frontal-at-f0 check DID NOT RUN on ${f0Blind.length} clip(s) (no population of >= ${F0_MIN_POP}) — tagged [NOPOP], NOT cleared. See stderr.`);
+let bad = 0, degenClips = 0, frontTurns = 0, errored = 0, f0Fronts = 0;
 for (const r of results) {
   // AN ERRORED CLIP IS NOT A CLEAN CLIP. It was handed in, it was never opened, and nothing about
   // it was measured — so it must reach the exit code. It used to `continue` past `bad` entirely.
@@ -592,21 +796,40 @@ for (const r of results) {
   const partial = r.degen > 0
     ? `  <- ${r.degen}/${r.frames} frames MEASURED THE WHOLE FRAME (>= ${FULL_FRAME_PCT}% fill): not cleared`
     : '';
-  const isBad = r.run >= MIN_RUN || r.degen > 0;
+  // FRONTAL AT f0 — additive. It can only ever turn what WOULD have been `[ ok  ]` into a
+  // conviction; a [DEGEN] or [FRONT] row keeps its tag and only gains an annotation, so no existing
+  // verdict moves and a clip the f0 check clears prints a byte-identical row.
+  const v = f0.get(r.file);
+  const f0Bad = v.state === 'front';
+  if (f0Bad) f0Fronts++;
+  const isBad = r.run >= MIN_RUN || r.degen > 0 || f0Bad;
   if (isBad) bad++;
   if (r.degen > 0) degenClips++; else if (r.run >= MIN_RUN) frontTurns++;
-  const tag = r.degen > 0 ? '[DEGEN]' : (isBad ? '[FRONT]' : '[ ok  ]');
+  const tag = r.degen > 0 ? '[DEGEN]'
+    : (r.run >= MIN_RUN ? '[FRONT]'
+      : (f0Bad ? '[FRNT0]'
+        : (v.state === 'nopop' || v.state === 'unmeasured' ? '[NOPOP]' : '[ ok  ]')));
   // A fold/crouch/prone collapses bbox HEIGHT; a genuine turn to camera does not. So a big drop
   // means the sym/aspect reading is confounded and must be settled by eye, not by the number.
   const confound = r.dropPct >= 15
     ? `  drop ${r.dropPct.toFixed(0)}% <- SINK/FOLD: sym+aspect CONFOUNDED, judge by eye`
     : '';
-  console.log(`  ${tag} ${path.basename(r.file).padEnd(44)} sym ${r.baseSym.toFixed(3)}->${r.peakSym.toFixed(3)}  aspect ${r.baseAspect.toFixed(2)}->${r.peakAspect.toFixed(2)}  run ${r.run}/${r.frames}${r.run >= MIN_RUN ? ` @f${r.runStart}` : ''}${confound}${partial}`);
+  // Appended LAST so that a clip the f0 check engaged on and cleared prints the row it always did.
+  const f0note = f0Bad
+    ? `  <- FRONTAL AT f0: ${r.baseSym.toFixed(3)} > "${v.key}" median ${v.med.toFixed(3)} + ${F0_MARGIN} = ${v.bar.toFixed(3)} (n=${v.n}). Frame 0 IS the baseline, so the delta signals cannot see this. VIEW f${r.baseIdx}.`
+    : v.state === 'exempt' && v.over
+      ? `  <- f0 ${r.baseSym.toFixed(3)} is over the "${v.key}" frontal-at-f0 bar ${v.bar.toFixed(3)}, but a ko is EXEMPT (it ends prone) — not convicted`
+      : v.state === 'nopop'
+        ? `  <- NOT CLEARED: frontal-at-f0 check did not run, only ${v.n} clip(s) of "${v.key}" in this run (need ${F0_MIN_POP})`
+        : v.state === 'unmeasured'
+          ? '  <- NOT CLEARED: frame 0 itself is not a usable mask, so it cannot join its kit\'s f0 population'
+          : '';
+  console.log(`  ${tag} ${path.basename(r.file).padEnd(44)} sym ${r.baseSym.toFixed(3)}->${r.peakSym.toFixed(3)}  aspect ${r.baseAspect.toFixed(2)}->${r.peakAspect.toFixed(2)}  run ${r.run}/${r.frames}${r.run >= MIN_RUN ? ` @f${r.runStart}` : ''}${confound}${partial}${f0note}`);
 }
 // THE UNMEASURED COUNT SITS NEXT TO THE VERDICT, not only in the [ERR ] row above it. `scanned N`
 // counts clips that were HANDED IN, and an errored clip is in that N while contributing no
 // measurement at all — so without this the denominator and the verdict disagree in silence.
-console.log(`\nscanned ${files.length}  |  front-turns ${frontTurns}${degenClips ? `  |  DEGENERATE (measured the frame, not the fighter) ${degenClips}` : ''}${errored ? `  |  errored (NOT measured) ${errored}` : ''}`);
+console.log(`\nscanned ${files.length}  |  front-turns ${frontTurns}${f0Fronts ? `  |  FRONTAL AT f0 (invisible to the delta signals) ${f0Fronts}` : ''}${degenClips ? `  |  DEGENERATE (measured the frame, not the fighter) ${degenClips}` : ''}${errored ? `  |  errored (NOT measured) ${errored}` : ''}${f0Blind.length ? `  |  f0 check NOT RUN (no population) ${f0Blind.length}` : ''}`);
 // Verbatim from scripts/check-containment.mjs, so the two gates say the same thing about the same
 // input. See the phase-265 block at the top of this file for the measured before-behaviour.
 if (errored) console.error(`${errored} clip(s) could not be decoded and were NOT measured — this is not a clean result.`);

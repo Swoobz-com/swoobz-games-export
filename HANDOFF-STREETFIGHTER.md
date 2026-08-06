@@ -1,6 +1,65 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 30 — START HERE (2026-08-06) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 31 — START HERE (2026-08-06) ★★★★★★★★★★
+
+**gargoyle-spear is DONE at 5 of 6 re-rolled states. 12/12 keyed, 0 refused, nothing wired.**
+Full detail — 12 findings, every number measured — is in **`qa-boss/SESSION30-FIRE-LEDGER.md`**.
+Read that before touching the browser or any gate. `qa-boss/CHARACTER-OVERVIEW.md` (new) is the
+measured status of all 51 characters.
+
+### The one thing that outranks everything else here
+**7 of 7 re-rolls fixed their named defect and broke a DIFFERENT one.** hit fixed a 222px overrun and
+went frontal; throw_b lost its pavement and leapt 82px; throw A cleared its debris and put the spear
+overhead. **Gate every re-roll on the FULL suite, never on its target defect.** That was not luck —
+it is this pipeline's base rate.
+
+### THREE defect classes had NO detector before this session. All three now do.
+| new gate | catches | why nothing caught it |
+|---|---|---|
+| `qa-boss/check-floor-growth.mjs` | a floor GROWING IN under the feet | it is attached to the footprint, so extra-objects reads ONE object and containment sees no edge run |
+| `qa-boss/check-feet-planted.mjs` | a mid-clip LEAP | a leap moves AWAY from edges, adds no object, and returns to the anchor perfectly |
+| `qa-boss/check-anchor-pair.mjs` | a clip whose f0 is OFF-ANCHOR | `check-anchor-lock` is UNUSABLE on a character with no shipped population |
+Also FIXED: **`check-frontturn` was passing the known-frontal clip as `[ ok ] run 0/97`** — it baselines
+each clip on its OWN f0, so a constant defect is invisible. Now flags FRONTAL-AT-f0 vs the kit median.
+Also NEW: **`qa-boss/gate-control.mjs`** — per-character calibration. **5 of 12 characters have a
+MISCALIBRATED or unusable anchor-lock band**, including two whose *idle* clip is off-model.
+
+### ⛔ AND THE LIMIT OF ALL OF THEM (FINDING 12)
+`attack_throw` v7 passed **all six geometric gates** — feet 1px, containment CLEAN, anchor-pair 0.998,
+floor −0.03pp, extra-objects CLEAN — while the spear was **fully vertical, head UP, butt planted,
+one-handed**, breaking four bounds its prompt states in capitals. **The gates measure WHERE things are,
+never WHAT THE MOVE IS.** Reading the montage by eye is the only check that caught it. Never drop it.
+
+### Tim's two rulings this session (both held permanently once made)
+1. **THROW A: the ram stops on NOTHING** — no floor, no debris; the dead stop and the hold carry the
+   impact. Debris and floor never came back in v4-v7.
+2. **THROW B: re-choreograph CONTAINED** — delete the rise, jab from a still body. **Passed first try
+   after 4 failures.** The general law: contained beats pass in 1-2 tries; explosive beats do not pass.
+   ⛔ `attack_throw` is PARKED after 7 generations; its keyed clip is the **v1** take (rubble-persist +
+   LEFT 34px). Do NOT read it as accepted.
+
+### Browser-fire corrections that will cost you a clip if you miss them
+* **"An early fire is LOST" is WRONG — it is cleanly REFUSED** with a toast; no job, no credits, prompt
+  intact. Unlimited allows **1 concurrent generation account-wide across video+image+audio**.
+* **The toast LINGERS**, so it is not evidence. **The jobs API is the only authority**, matched on
+  `params.prompt.length === WANT && cost === null`.
+* **A CDP timeout on the guarded-fire call does NOT mean it failed — it fired 3 times this session.**
+  Always check `already` FIRST after a timeout; never re-click. Build `c7: already === 0` into the guard.
+* **The API status is `in_progress`, NOT `processing`** — the old poll would fire early.
+* **The window resizes mid-session** (innerWidth 2129→1766). A cached click coordinate then silently
+  misses and the type reports success into an EMPTY editor. **Recompute the click from a fresh rect
+  every time, and probe with 6 chars before theorising.** (protocol §13)
+
+### Still open / not done
+`src/` and `public/` are **byte-untouched**; nothing is wired. gargoyle + lich remain blocked on
+decision #13 (campaign node vs roster). `oni-tetsubo.ts` exists but is **NOT in the FIGHTERS registry**
+— cheapest character to make playable. Decision-register **#12 is unactionable as written**: there is
+no ir55 kit to delete a `BLOCKED:` line from. Two keyer defects recorded in FINDING 4 (`rederive-cal`
+is a NO-OP for every character; `--state` TRUNCATES the summary and already destroyed 8 oni rows).
+
+---
+
+## ★★★★★★★★★★ SESSION 30 (2026-08-06) — superseded by SESSION 31 above, kept in full ★★★★★★★★★★
 
 **Session 29's 35 clips are HARVESTED, KEYED and GATED. The re-roll run is FIRING — 2 of 12 done.**
 **All 12 re-roll prompts and all 6 usable Gundam kits are written and verified: 90 clips of prompts

@@ -173,6 +173,69 @@ of ~1000 chars each. Each stays well under the 30s CDP ceiling, and the caret su
 ⚠ Do NOT fall back to `execCommand`/`paste` to dodge this: that is §3, the empty-prompt defect that
 fires a clip with no prompt at all.
 
+## ⚠ ELEVENTH FACT — THE ANCHOR THUMB IS NOT AN `<img>`, AND ONE BANNER LOOKS LIKE A LOST PLATE (2026-08-06, session 31)
+Two independent ways to wrongly conclude the anchor plate is gone. Both cost a guard refusal on a
+VALID, fire-ready state (safe direction, but it stalls the loop):
+
+1. **The reference-slot thumbnail is NOT an `<img>` element.** A guard asserting
+   `document.querySelectorAll('img')` in the left panel returns **0** while the plate is loaded and
+   visible on screen. Probe by POSITION instead and walk up the ancestors accepting a
+   `background-image`, an `<img>`, or a `<canvas>`:
+   ```js
+   const S=1456/innerWidth;                       // screenshot px -> CSS px
+   let n=document.elementFromPoint(Math.round(153/S),Math.round(240/S)), hit=false;
+   for(let i=0;i<6&&n;i++){const cs=getComputedStyle(n);
+     if((cs.backgroundImage&&cs.backgroundImage!=='none')||n.querySelector('img')||
+        n.querySelector('canvas')||n.tagName==='IMG'||n.tagName==='CANVAS'){hit=true;break;}
+     n=n.parentElement;}
+   ```
+2. **`ERROR WHILE LOADING THE MEDIA...` in the top-left card is NOT the anchor.** That card is the
+   MODEL/preset tile (`GENERAL · Seedance 2.0`) and the error is its promo video failing to load.
+   The anchor lives in the SECOND box down, beside the `+` button. Cosmetic; ignore it.
+   ⚠ Confirm the plate with a SCREENSHOT — eyes are the evidence here, not a selector.
+
+⚠ **Also: never return a URL from `javascript_tool`.** Reading the thumb's `src` (a signed CloudFront
+URL with a query string) gets the whole tool result replaced by `[BLOCKED: Cookie/query string data]`
+and you lose the entire measurement. Return booleans.
+
+## ⚠ TWELFTH FACT — AFTER A FIRE-RELOAD THE EDITOR IS SCROLLED OUT OF THE VIEWPORT (2026-08-06, s31)
+Post-fire the prompt box measured `rect.y = -4026` while `window.scrollY === 0` — it sits in a
+scrolled ANCESTOR, so `window.scrollTo(0,0)` does nothing. A click at the stale coordinate lands
+nowhere and the type then goes into the void (§3's failure with yet another cause).
+**Fix: `ed.scrollIntoView({block:'center'})`, then RE-MEASURE the rect and derive the click point
+from it** (`screenshotX = cssX * 1456/innerWidth`). Never reuse a coordinate across a fire.
+
+## ⛔ THIRTEENTH FACT — THE WINDOW RESIZES MID-SESSION, AND A CACHED CLICK COORDINATE THEN SILENTLY MISSES (2026-08-06, s31)
+**This produces the EXACT symptom of §9 — `computer type` reports FULL SUCCESS, echoing the whole
+prompt, into an editor at `domLen 0` — but the cause and the fix are completely different.** If you
+diagnose it as §9 you will keep re-clicking the same dead pixel forever.
+
+MEASURED. Mid-run the automation window changed size on its own:
+
+| | before | after |
+|---|---|---|
+| `innerWidth` | 2129 | **1766** |
+| screenshot width | 1456 | **1360** |
+| scale (`shot/inner`) | 0.684 | **0.770** |
+| correct editor click | (187, 359) | **(136, 367)** |
+
+Firing the cached **(187, 359)** typed **0 chars** three times — including a 6-char `PROBE2`, which rules
+out §9's caret theory and rules out the length/wedge theories too. Recomputing the point from a fresh
+rect and clicking **(136, 367)** landed `PROBE3` at `domLen 6, lexLen 6` on the first try.
+
+**THE RULE: never reuse a click coordinate. Recompute it from a FRESH `getBoundingClientRect()` before
+every click, and derive the scale from the CURRENT screenshot width, not a remembered one:**
+```js
+const S = shotWidth / innerWidth;              // shotWidth = width of the screenshot you just took
+const r = ed.getBoundingClientRect();
+const click = { x: Math.round((r.x + r.width/2) * S), y: Math.round((r.y + r.height/2) * S) };
+```
+**And when a type lands 0 chars, PROBE WITH 6 CHARS before theorising.** A failed 6-char probe means the
+coordinate or the editor is wrong (not the caret, not the length, not the renderer); a 6-char probe that
+LANDS while a long type does not is the wedge. That one cheap call separates three different faults.
+⚠ Related trigger: this happened right after a `Debugger is not attached to the tab` error and its
+recovery, so treat any extension reconnect as invalidating every cached coordinate.
+
 ## ⚠ EIGHTH FACT — "Promise was collected" ON THE GUARDED-FIRE CALL IS AMBIGUOUS
 The fire helper uses `await new Promise(setTimeout)` between the Unlimited re-arm and the click.
 That call can die with `{"code":-32000,"message":"Promise was collected"}` — leaving it UNKNOWN

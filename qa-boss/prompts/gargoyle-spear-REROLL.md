@@ -151,7 +151,7 @@ no slab, no step and no platform anywhere beneath him, only flat empty green und
 feet - so that he is already standing completely still in the reference pose well before the clip
 ends. Short, brutal, downward.
 
-## attack_throw_b (THROW B, horn toss — v2, NO FLOOR)
+## attack_throw_b (THROW B, horn toss — v5, CONTAINED: head-and-neck only, body does not move)
 # REJECTED (v1): a tiled stone pavement / flagstone floor grew in under his feet by the last frame
 # (anchor f0 0.935 -> fLast 0.474 - clean at the start, contaminated by the end). THE FIX: the same
 # no-surface ban as strike_b, stated once at the open and again - harder - at the settle, since that
@@ -159,20 +159,40 @@ ends. Short, brutal, downward.
 THROW B (horn toss): he begins in the EXACT reference stance, angled to camera exactly as in the
 reference image and facing screen-right, and HE STANDS ON NOTHING: there is NO floor, NO tiles, NO
 flagstones, NO paving and NO ground surface of any kind visible anywhere beneath or around his feet
-in this first frame - only flat empty green, exactly as it is in the reference image. There is NO
+in this first frame - only flat empty green, exactly as it is in the reference image. THE VERY FIRST
+FRAME IS THE REFERENCE STANCE EXACTLY: the same bent-knee crouch, the same body height, the same head
+height and the same distance from camera as the reference image - he does NOT begin standing taller,
+straighter or higher in frame than the reference image, and THE LAST FRAME OF THE CLIP MATCHES THAT
+FIRST FRAME EXACTLY, the same height and the same footing, as if the clip could loop. THE LINE OF HIS
+TWO SHOULDERS AND THE LINE OF HIS TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE
+IMAGE IN EVERY SINGLE FRAME - his near shoulder never comes forward, his far shoulder never swings
+round, and his chest NEVER squares up or opens toward the camera at any point, not even for one frame;
+he may DIP and JAB, but he never TURNS. There is NO
 opponent, NO second figure and NO body anywhere in the frame at any time - his horns strike NOTHING,
 and NOTHING is ever caught, lifted, tossed or thrown; the jab passes through empty air only, and
-nothing new ever appears in the shot. IN THE FIRST THIRD he coils STRAIGHT DOWN into a deep crouch
-over both planted feet, knees folding, his horned head dipping low toward the shaft held across his
-body - and the spear takes no part in this beat: it stays locked in both stone hands, riding DOWN
-with the crouch and holding its exact reference angle, neither end ever swinging toward either side
-edge. THEN he erupts STRAIGHT UP out of both bent legs - rising ONLY back to his own full standing
-height and no further, both feet staying flat and planted on the same bare green spot they started
-on - and as he rises his horned head SNAPS up in one savage horn-jab through the empty air on his
-screen-right side, horns leading, his muzzle staying pointed toward screen-right the whole way: his
-face NEVER tips up toward the sky, NEVER turns toward the camera, and his horn-tips rise no higher
-than the crest of his own folded wings has in the reference image. THE JAB PEAKS BY THE HALFWAY
-POINT, and it lands on NOTHING - no floor cracks, no surface breaks, nothing bursts loose and nothing
+nothing new ever appears in the shot. THIS IS A CONTAINED BEAT: the ONLY thing that really travels in
+this whole clip is his HEAD AND NECK. HIS BODY BARELY MOVES AT ALL - his torso, hips, legs and wings
+hold the reference stance from the first frame to the last, and his SILHOUETTE NEVER GROWS: he never
+gets bigger in frame, never comes closer to the camera and never spreads wider than he is in the
+reference image. IN THE FIRST QUARTER he DIPS his horned head a short way DOWN toward the shaft held
+across his body - a small, low dip, his knees softening only a fraction beneath him - and the spear
+takes no part in this beat: it stays locked in both stone hands at its exact reference angle, riding
+with him and never swinging toward either side edge. HE DOES NOT COIL INTO A DEEP CROUCH, DOES NOT
+ERUPT, DOES NOT DRIVE UPWARD, DOES NOT RISE, DOES NOT JUMP, DOES NOT LEAP AND DOES NOT SPRING OFF THE
+GROUND at any point: he STAYS AT THE EXACT HEIGHT HE HAS IN THE REFERENCE IMAGE for the entire clip.
+HIS CLAWED FEET NEVER LOSE CONTACT WITH THE GROUND FOR EVEN ONE FRAME and the soles of his feet hold
+the exact same line in every single frame; the top of his horns never rises above where it sits in the
+reference image and the lowest point of his body never lifts off the green.
+THEN, FROM THAT STILL BODY, his horned head SNAPS forward in ONE short savage horn-jab through the
+empty air on his screen-right side, horns leading, driven from his thick neck and shoulders alone while
+his hips and both feet stay exactly where they are - his muzzle staying pointed toward screen-right the
+whole way: his face NEVER tips up toward the sky, NEVER turns toward the camera, and his horn-tips rise
+no higher than the crest of his own folded wings has in the reference image. HIS TWO WINGS STAY PRESSED
+FLAT AND FOLDED AGAINST HIS BACK THROUGH THE WHOLE JAB - they do not spread, do not open and do not
+swing out, and NO PART OF EITHER WING EVER TOUCHES OR CROSSES THE LEFT EDGE OF THE FRAME at any moment;
+the strip of green along the left edge stays completely empty and unbroken from the first frame to the
+last. THE JAB PEAKS BY THE HALFWAY POINT and it DEAD-STOPS there - the abrupt stop and the strain of
+the hold are what carry the impact, not travel - and it lands on NOTHING - no floor cracks, no surface breaks, nothing bursts loose and nothing
 is ever knocked up from beneath him; his foot-claws grip and flex against the bare green but nothing
 chips, splits or scatters anywhere in the frame. THROUGH THE THIRD QUARTER he settles his horned head
 back down onto his thick neck, the spear riding back up with him to the EXACT angle and height it has
@@ -181,7 +201,7 @@ AND AT THAT LAST FRAME, HARDER THAN AT ANY OTHER MOMENT IN THE CLIP, HE STANDS O
 no tiles, no flagstones, no paving, no ground surface, no plinth and no platform of any kind has
 appeared beneath, behind or around him at any point - the green beneath his own clawed feet stays
 exactly as flat, empty and unbroken as it was in the very first frame, so that he is already standing
-completely still in the reference pose well before the clip ends. Coiled, erupting, savage.
+completely still in the reference pose well before the clip ends. Low, still, savage.
 
 ## attack_block A (BLOCK-COUNTER A, shaft brace — v2, LOCKED ANGLE)
 # REJECTED (v1): FRONTAL for the entire clip - square to camera, both wings spread wide open, the
@@ -225,7 +245,11 @@ breaks. Braced, immovable, side-on.
 # toward screen-left than it sits in the reference image, restated at the peak of the hunch where the
 # old push happened.
 BLOCK-COUNTER B (pauldron guard): he begins in the EXACT reference stance, angled to camera exactly
-as in the reference image and facing screen-right; IN THE FIRST QUARTER he drops his horned head hard
+as in the reference image and facing screen-right. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS
+TWO HIPS HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - his
+near shoulder never comes forward, his far shoulder never swings round, and his chest NEVER squares
+up or opens toward the camera at any point, not even for one frame; he may HUNCH and SINK, but he
+never TURNS. IN THE FIRST QUARTER he drops his horned head hard
 toward his own chest, LIFTS his near shoulder straight up a fraction under its carved pauldron, and
 hunches his whole back down and IN toward his own leading side - never rocking back toward
 screen-left - so the carved pauldron and the swept stone horns are what meet the pressure, his weight
@@ -255,7 +279,11 @@ reference stance. Nothing sheds and nothing breaks. Compact, hunched, inboard.
 # THE FIX, following that ruling exactly: the recoil is rewritten as a small, contained flinch instead
 # of a real weighted stagger - less rotation, less distance, no compensating swing the other way.
 HIT (small flinch): he begins in the EXACT reference stance, angled to camera exactly as in the
-reference image and facing screen-right; his horned head and both shoulders twitch back toward
+reference image and facing screen-right. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS
+HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - his near
+shoulder never comes forward, his far shoulder never swings round, and his chest NEVER squares up or
+opens toward the camera at any point, not even for one frame; he may FLINCH, but he never TURNS. His
+horned head and both shoulders twitch back toward
 screen-LEFT in ONE small, short, contained flinch - NOT a real stagger, NOT a deep lean and NOT a
 weighted recoil - the motion is SHALLOW and BRIEF, his spine barely creasing and his knees only
 softening a fraction under him. BOTH FEET STAY EXACTLY WHERE THEY STAND: he does not step back, does
@@ -273,46 +301,95 @@ EIGHTH OF THE CLIP, and for the rest of the clip he simply holds still and settl
 further lean, no second recoil and no drift toward either side edge at any point. IN THE LAST THIRD
 he straightens back up out of that small tilt and flows in one eased, minimal recovery back into the
 EXACT same reference stance, his body never having left the small patch of ground it started on. His
-snarling face leads the flinch; his back is never shown and his chest never squares up toward the
-camera. Nothing sheds and nothing breaks. He is ALONE in an empty frame - nothing whatsoever enters,
+snarling face leads the flinch; he holds a STRICT SIDE PROFILE from the first frame to the last,
+exactly as in the reference image, and his chest never squares up or opens toward the camera at any
+point. Nothing sheds and nothing breaks. He is ALONE in an empty frame - nothing whatsoever enters,
 crosses or appears in the frame at any time, and there is no light, no flare, no wisp and no streak
 anywhere in the shot. Only his own body and his own weapon move, and only a little.
 
-## attack_throw A (THROW A, floor-ram — v2, DEBRIS CLEARED + NO DRIFT)
-# REJECTED (v1): loose broken-rock debris was still visibly lying on the ground at the last frame,
-# and the beat drifted toward screen-left late in the clip. THE FIX: a positively-stated
-# debris-cleared assertion placed at the point in the beat where v1 failed (the recovery, late in the
-# clip), and an explicit stay-planted bound restated through the hold and the recovery, where the
-# drift happened.
-THROW A (floor-ram): he begins in the EXACT reference stance, angled to camera exactly as in the
-reference image and facing screen-right. There is NO opponent, NO second figure and NO body anywhere
+## attack_throw A (THROW A, dead-stop ram — v7, CONTAINED: first third is DEAD STILL, only the spear turns)
+# REJECTED (v1): debris still lying on the ground at the last frame + drift toward screen-left.
+# REJECTED (v2): rubble-persist and LEFT both FIXED, but a chip escaped the RIGHT edge (72px @f40,
+#                ground level, measured at col959 y836-907).
+# REJECTED (v3): WORSE — containment breached THREE edges (TOP 96px @f42 x816-911, LEFT 6px @f40,
+#                RIGHT 50px @f38 y678-727), and the frames showed WHY: a flagstone SLAB rendered under
+#                his feet from f0 (f0 floor-band 26.59% vs ~15.8% on every other clip in the kit) and
+#                the chips came out HEAD-SIZED and shoulder-high, against a prompt demanding
+#                "no bigger than one of his own toe-claws" and "no higher than his own knee".
+#                v3 already carried FIVE debris bounds; a sixth was not a plan.
+# ROOT CAUSE: the beat asked for a violent floor-ram with shattering stone ON A GREEN CHROMA PLATE, and
+#                the prompt's own "the ONLY thing his weapon touches is the bare flagstone floor" is
+#                what cued the slab. The state was fighting itself.
+# TIM'S RULING (2026-08-06, session 31): THE RAM STOPS ON NOTHING. No floor, no chips; the weight and
+#                the HOLD carry the impact. This is exactly how `attack_strike_b` is written, and both
+#                clips in this kit that strike NOTHING passed clean — strike_b (extra-objects CLEAN,
+#                containment CLEAR, best-in-kit stance 0.158) and throw_b (floor-growth -0.03pp,
+#                1 blob, containment CLEAR). THE FIX: every floor and every debris clause deleted, the
+#                no-surface ban stated at the FIRST frame and again at the LAST, and the third-quarter
+#                hold rewritten to carry the impact.
+THROW A (dead-stop ram): he begins in the EXACT reference stance, angled to camera exactly as in the
+reference image and facing screen-right, and HE STANDS ON NOTHING: there is NO floor, NO flagstone, NO
+tiles, NO paving, NO slab, NO plinth and NO ground surface of any kind visible anywhere beneath, behind
+or around his feet in this first frame - his bare clawed feet touch nothing but flat empty green,
+exactly as they do in the reference image. THE LINE OF HIS TWO SHOULDERS AND THE LINE OF HIS TWO HIPS
+HOLD THE SAME ANGLE TO CAMERA THEY HAVE IN THE REFERENCE IMAGE IN EVERY SINGLE FRAME - his near
+shoulder never comes forward, his far shoulder never swings round, and his chest NEVER squares up or
+opens toward the camera at any point, not even for one frame; he may WRENCH and RAM, but he never
+TURNS. There is NO opponent, NO second figure and NO body anywhere
 in this clip - he seizes nothing, grips nothing new, and nothing is ever caught, carried or dragged on
-the spear at any time; the ONLY thing his weapon touches is the bare flagstone floor. IN THE FIRST
-THIRD he turns the spear a short way head-down about his locked REAR hand - that rear hand staying
-closed low on the shaft, held in close at his own waist, never travelling out away from his own body -
-until the barbed head points DOWN at the flagstone just ahead of his own leading foot's claws, the
-head at every moment NEARER to his own body than it sits in the reference image and never further
+the spear at any time, and HIS WEAPON TOUCHES NOTHING AT ALL from the first frame to the last.
+THERE IS NO WIND-UP AND NO PREPARATION IN THIS CLIP: he does NOT gather himself, does NOT draw back,
+does NOT rise, does NOT straighten and does NOT lift ANY part of himself before the ram. IN THE FIRST
+THIRD HIS BODY DOES NOT MOVE AT ALL - his torso, hips, legs, feet, head and wings hold the exact
+reference stance, dead still, at the exact reference height, and the ONLY thing that moves in that
+first third is THE SPEAR TURNING IN HIS HANDS. His silhouette does not grow, he does not come closer
+to the camera and his wings do not open a crack while the spear turns.
+THROUGH THAT STILL FIRST THIRD he turns the spear a short way head-down about his locked REAR hand -
+that rear hand
+staying closed low on the shaft, held in close at his own waist, never travelling out away from his own
+body - until the barbed head points DOWN at the empty green just ahead of his own leading foot's claws,
+the head at every moment NEARER to his own body than it sits in the reference image and never further
 toward screen-right, while at the far end the BUTT-SPIKE swings a short way up and IN toward his own
 hip, never rising above his own hip and never travelling further toward screen-left than it sits in
-the reference image. THEN he wrenches his entire stone tonnage straight DOWN through both folding
-knees and RAMS the barbed head into the flagstone at that spot - THE RAM HAS LANDED BY THE HALFWAY
-POINT - the point biting deep into the floor-stone, and EXACTLY FIVE chips of solid grey flagstone
-burst UPWARD around the buried head, each chip no bigger than one of his own toe-claws and each one
-SOLID, OPAQUE and sharp-edged - never a puff, never a cloud, never dust, never smoke, never haze -
-rising no higher than his own knee, staying within one hand's-breadth of the impact point and never
-further toward screen-right than the barbed head sits in the reference image - every chip crumbling
-away to nothing in mid-air as it falls. THERE ARE NEVER MORE THAN FIVE PIECES OF DEBRIS IN THE FRAME
-AT ONCE. HE STAYS EXACTLY WHERE HE PLANTED HIMSELF FOR THE WHOLE CLIP: through the hold and through
+the reference image. THEN he wrenches his entire stone tonnage straight DOWN through both folding knees
+and RAMS the barbed head DOWN THROUGH EMPTY AIR until it STOPS SHARPLY a hand's width above the bare
+green just ahead of his own leading foot's claws - THE RAM HAS LANDED BY THE HALFWAY POINT - and it
+stops the instant it reaches that low point: IT DOES NOT BURY ITSELF, DOES NOT CRACK ANYTHING, DOES NOT
+STRIKE ANY SURFACE, and NOTHING
+bursts, chips, splits, breaks loose or scatters anywhere in the frame at any moment. THE BARBED HEAD IS
+THE END THAT GOES DOWN, AND IT STAYS DOWN: from the moment it starts travelling until the final quarter
+the barbed head is the LOWEST part of the spear, pointing DOWN at the green near his own leading foot,
+and IT NEVER RISES ABOVE HIS OWN HIP at any point in the ram, the hold or the recovery. THERE IS NO
+UPWARD WIND-UP OF HIS BODY BEFORE THE RAM: he does NOT rise, does NOT lift, does NOT grow taller and
+does NOT come up onto his toes at any point before or during the drive - the ram is loaded by FOLDING
+DOWN, never by going up first. HE STAYS AT THE EXACT HEIGHT HE HAS IN THE REFERENCE IMAGE OR LOWER FOR
+THE ENTIRE CLIP and never above it, and HIS CLAWED FEET NEVER LOSE CONTACT WITH THE GROUND FOR EVEN ONE
+FRAME - the soles of his feet hold the exact same line they hold in the reference image in every single
+frame, the lowest point of his body never lifts off the green, and he never jumps, never leaps, never
+hops and never springs off the ground. THE SPEAR IS
+NEVER SWUNG FULLY VERTICAL, NEVER RAISED OVERHEAD, NEVER LIFTED ABOVE HIS OWN SHOULDERS AND NEVER
+PLANTED BUTT-DOWN LIKE A STANDARD: it stays low and across his body on its shallow diagonal, and NO
+PART OF THE SPEAR - not the barbed head, not the wing-vanes, not the shaft and not the butt-spike -
+EVER TOUCHES OR CROSSES THE TOP EDGE OF THE FRAME, or rises above the crest of his own folded wings, at
+any moment of the clip; the strip of green along the top edge stays completely empty and unbroken from
+the first frame to the last. THERE IS NO
+DEBRIS IN THIS CLIP AT ALL: no chip, no shard, no rubble, no dust, no cloud, no haze, no smoke and no
+loose stone of any kind ever appears anywhere in the shot, and the green along the top, left and right
+edges of the frame stays completely empty and unbroken from the first frame to the last. THE DEAD STOP
+AND THE HOLD ARE WHAT CARRY THE IMPACT - his whole stone mass arrives and halts, and the weight is
+read in the abrupt stop and in the strain of the hold, never in flying stone. HE STAYS EXACTLY WHERE HE
+PLANTED HIMSELF FOR THE WHOLE CLIP: through the hold and through
 the recovery alike he never drifts toward screen-left, never edges toward screen-right and never
 travels from the spot his feet found at the ram - both feet stay on that same patch of ground from the
 first frame to the last. He may FOLD and SINK, but he never TURNS - his chest never squares up toward
 the camera. He HOLDS THE LOW FINISH through the third quarter, his whole weight bearing down the shaft
-onto the buried point, his stone shoulders juddering under his own load, while the last chips crumble
-away to nothing well before the hold ends. BY THE START OF THE FINAL QUARTER EVERY SINGLE CHIP HAS
-ALREADY VANISHED: none is falling, none is settling and none is resting anywhere in the frame. Only in
-the final quarter does he draw the point back up out of the stone, turn the spear back about his rear
+onto the stopped point, his stone shoulders juddering under his own load, the spear dead still and the
+frame around him completely empty. Only in
+the final quarter does he draw the point back up, turn the spear back about his rear
 hand to the EXACT angle and height it has in the reference image and rise into the EXACT same
-reference stance, staying on that same planted spot the whole time - AND THE LAST FRAME SHOWS THE
-FLAGSTONE CLEAN: no chip, no shard, no rubble, no broken stone and nothing that ever broke off is left
-lying anywhere in the frame, only he and his spear exactly as the first frame shows them. Grounded,
-crushing, final.
+reference stance, staying on that same planted spot the whole time - AND AT THAT LAST FRAME, EXACTLY AS
+AT THE FIRST, HE STANDS ON NOTHING: no floor, no flagstone, no tiles, no paving, no slab, no plinth and
+no ground surface has appeared beneath, behind or around him at any point, and nothing whatsoever is
+left lying anywhere in the frame - only he and his spear, exactly as the first frame shows them, the
+green beneath his own clawed feet as flat, empty and unbroken as it was in the very first frame.
+Grounded, crushing, final.

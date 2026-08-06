@@ -75,8 +75,45 @@ if (!dir || !stillPath) {
   console.error('usage: rederive-cal.mjs <finalFramesDir> <still.png> [--emitted <json>]');
   process.exit(2);
 }
+// ⛔ IF THE COMPARISON CANNOT BE DONE IT MUST REFUSE, NOT PRINT A VERDICT (decision-register #14, the
+// `gate-vacuous-pass` class). `--emitted` is HAND-PASTED (HANDOFF:3242), and every malformed shape used
+// to produce a CONFIDENT VERDICT AT EXIT 0: `cal.h - undefined` is NaN, `NaN <= 0.2` is false, and the
+// DRIFTED branch is the else. MEASURED before this guard — all four exited 0:
+//   --emitted '{"h":101.2}'          -> delta.bottom/left null, drift null, verdict "DRIFTED"
+//   --emitted '{}'                   -> every delta null,       drift null, verdict "DRIFTED"
+//   --emitted '{"h":"101.2","bottom":"x","left":null}' -> delta.left FABRICATED as 50 out of a null
+//   --emitted 'null'                 -> the requested comparison is SILENTLY SKIPPED, no verdict at all
+// (NaN serialises to `null` through JSON.stringify, so even the drift column looks merely "unmeasured"
+// while the verdict beside it reads as measured.) That verdict is hand-transcribed into
+// src/characters/<char>.ts, so "use the re-derived cal" off a comparison that never happened is the
+// same false PASS as the unkeyed-dir trap above. Refuse with 2 — this repo's cannot-run code, per
+// pad-anchor-plate.mjs:76 "usage error, NOT 1 — 1 is reserved for a real detected failure".
 const ei = process.argv.indexOf('--emitted');
-const emitted = ei >= 0 ? JSON.parse(process.argv[ei + 1]) : null;
+let emitted = null;
+if (ei >= 0) {
+  const raw = process.argv[ei + 1];
+  try {
+    emitted = JSON.parse(raw);
+  } catch (e) {
+    console.error(`\n⛔ REFUSING — --emitted is not valid JSON: ${JSON.stringify(raw ?? null)}`);
+    console.error(`  ${e.message}`);
+    process.exit(2);
+  }
+  const bad = (!emitted || typeof emitted !== 'object' || Array.isArray(emitted))
+    ? `not a JSON object: ${JSON.stringify(emitted)}`
+    : ['h', 'bottom', 'left']
+        .filter((k) => typeof emitted[k] !== 'number' || !Number.isFinite(emitted[k]))
+        .map((k) => `${k}=${JSON.stringify(emitted[k])}`)
+        .join(' ');
+  if (bad) {
+    console.error(`\n⛔ REFUSING — --emitted cannot be compared: ${bad}`);
+    console.error('  It needs a FINITE NUMBER for h, bottom AND left. A missing or non-numeric field makes');
+    console.error('  the delta NaN, which serialises to null and falls through to the DRIFTED branch — a');
+    console.error('  confident "use the re-derived cal" on a comparison that never happened.');
+    console.error('  Pass the whole cal, or drop --emitted to re-derive only (that still exits 0).');
+    process.exit(2);
+  }
+}
 
 const frames = fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort();
 if (!frames.length) { console.error('no frames in ' + dir); process.exit(2); }

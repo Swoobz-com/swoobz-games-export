@@ -162,6 +162,24 @@ if (others.length >= 3) {
       ', but all disagree with ' + idleName + ' (median ' + medianVsAnchor.toFixed(3) + ').');
     console.log('That means ' + idleName + ' is the OUTLIER, not the ' + others.length + ' clips it disagrees with.');
     console.log('FIX THE IDLE CLIP (or re-point the anchor) before reading any per-clip result here.');
+    // ############################################################################################
+    // # DECISION-REGISTER #7 — SHOW THE ROWS YOU MEASURED. ADDITIVE OUTPUT ONLY.                  #
+    // # This branch used to announce a verdict on the whole kit without printing a single         #
+    // # per-clip number, so a reader could not tell whether the conclusion rested on ONE outlier  #
+    // # or on the entire population. That blindness is exactly how lich-scythe's f0body artifact  #
+    // # survived a whole cycle (10 "defects" that were one mis-calibrated column). Every number   #
+    // # below was ALREADY measured above — all-pixel f0-vs-anchor, and each clip's median IoU     #
+    // # against its peers; the body columns are not computed on this path, so they are not shown. #
+    // # Printing only: no threshold, comparison, verdict string or exit code is touched here.     #
+    // ############################################################################################
+    console.log('');
+    console.log('MEASURED ROWS (all-pixel; the body columns are not computed on this path):');
+    console.log('clip'.padEnd(30) + '   f0all   peerMED');
+    for (const f of others) {
+      const peers = others.filter((o) => o !== f).map((o) => iou(f0s[f], f0s[o])).sort((a, b) => a - b);
+      console.log(f.padEnd(30) + iou(anchor, f0s[f]).toFixed(3).padStart(8) +
+        (peers.length ? peers[peers.length >> 1] : 0).toFixed(3).padStart(10));
+    }
     process.exit(1);
   }
 }
