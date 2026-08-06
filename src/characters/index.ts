@@ -4,12 +4,15 @@
 import type { Move } from '../engine/fightEngine';
 import type { FighterDef, FighterState } from './types';
 import { ECLIPSE_OFUDA } from './eclipse-ofuda';
+import { GARGOYLE_SPEAR } from './gargoyle-spear';
 import { GORVAK } from './gorvak';
 import { HOLLOW_PALE } from './hollow-pale';
 import { IR37_PINK_TESSEN } from './ir37-pink-tessen';
 import { IR48_HEX_PAPER_LORD } from './ir48-hex-paper-lord';
 import { IR56_LION_SERPENT } from './ir56-lion-serpent';
 import { LADY_KUROTACHI } from './lady-kurotachi';
+import { LICH_SCYTHE } from './lich-scythe';
+import { ONI_TETSUBO } from './oni-tetsubo';
 import { SATOSHI_ODACHI } from './satoshi-odachi';
 import { SORA_YARI } from './sora-yari';
 import { THORN_WARDEN } from './thorn-warden';
@@ -23,9 +26,19 @@ export type { ClipCal, FighterClip, FighterDef, FighterFxImpact, FighterPortrait
 // unconditionally — but they are GATED in the charSelect PICK grid: a boss becomes a selectable tile
 // only after its campaign node is beaten (see rosterGating.ts). The gate is UI-side only; this
 // registry stays identity-agnostic.
+// FREE-ROSTER ADDITIONS (phase 282, Tim's ruling 2026-08-06). gargoyle-spear, lich-scythe and
+// oni-tetsubo take NO campaign node, so rosterGating.bossNodeId() returns null for them and
+// isFighterSelectable() is unconditionally true — they are selectable from a fresh profile alongside
+// GORVAK and VOLTA. That is a deliberate product choice, not an oversight: all ten campaign nodes were
+// already assigned. Re-gating any of them later is a data change (add a node with its fighterId), not
+// a code change. Each ships an honest, documented kit — see the per-character file for exactly which
+// states are wired and which are knowingly absent.
 export const FIGHTERS: Record<string, FighterDef> = {
   gorvak: GORVAK,
   volta: VOLTA,
+  'gargoyle-spear': GARGOYLE_SPEAR,
+  'lich-scythe': LICH_SCYTHE,
+  'oni-tetsubo': ONI_TETSUBO,
   'satoshi-odachi': SATOSHI_ODACHI,
   'ir37-pink-tessen': IR37_PINK_TESSEN,
   'ir48-hex-paper-lord': IR48_HEX_PAPER_LORD,
