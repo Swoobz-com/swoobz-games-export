@@ -29,7 +29,7 @@ Defect column = the MEASURED reason v1 was rejected (see SESSION30-GATE-REPORT.m
 | # | char | state | LEN | measured defect being fixed | result |
 |---|---|---|---|---|---|
 | 1 | gargoyle-spear | hit | 7372 | LEFT 230px @f7 + RIGHT 66px @f3 overrun | **FIRED + card-confirmed** (beat count 2) |
-| 2 | gargoyle-spear | attack_strike_b | 7935 | stone statue PLINTH under his feet, f0→f97 | queued |
+| 2 | gargoyle-spear | attack_strike_b | 7935 | stone statue PLINTH under his feet, f0→f97 | **ARMED — typed + verified 7935/7935 in both stores WHILE clip 1 generated.** Fire on `busy===0`. |
 | 3 | gargoyle-spear | attack_block | 7737 | FRONTAL whole clip, wings spread, anchor 0.431 | queued |
 | 4 | gargoyle-spear | attack_block_b | 7384 | LEFT 366px overrun @f12 | queued |
 | 5 | gargoyle-spear | attack_throw | 8233 | rubble persists to last frame + LEFT 42px | queued |
