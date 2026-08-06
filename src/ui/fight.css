@@ -1132,9 +1132,13 @@
 }
 .fr-picks {
   display: flex;
-  gap: calc(var(--sw) * 1.2);
+  gap: max(8px, calc(var(--sw) * 1.2));
   justify-content: center;
-  align-items: flex-end;
+  /* `stretch`, not `flex-end`: once the tip font hits its legibility floor on a phone the three tips
+     wrap to different line counts (BLOCK's wraps to 3), and bottom-aligning unequal cards made the
+     BLOCK plate visibly jut upward out of the row. Screenshot-caught, not gate-caught — the geometry
+     measured fine. Inert on desktop, where all three cards already come out the same height. */
+  align-items: stretch;
   width: 100%;
 }
 /* Pick buttons (RONIN ZERO lacquer-blade language, phase 19). NOT over baked HUD art, so the plate
@@ -1143,16 +1147,26 @@
    classes (fr-pick-chosen / fr-pick-dim), the >=44px hit target and the icon/label/tip structure are
    all unchanged; only the skin moves to the 17b family. Hover/chosen glows use filter drop-shadow so
    they follow the bladed silhouette (a clipped box-shadow would be cut off). */
+/* PHASE 283 — LEGIBILITY FLOORS ON THE PICK CONTROLS.
+   Every size in this file derives from --sw (stage width / 100), and .fr-stage is deliberately locked
+   to the ARENA ART's aspect (2816/1536) so the background never crops. The consequence, MEASURED on
+   the production build: a 393x852 portrait phone gets a 393x214 stage, so --sw is 3.93px and the fight
+   controls render at 3-5px type — the STRIKE label at 5.31px, the RPS badge at 3.38px, its glyph at
+   4.52px. Unreadable, and the RPS icons might as well not be there.
+   The stage aspect is NOT the thing to change (that is what fixed Tim's "backgrounds are getting
+   cropped" report). Instead the CONTROLS decouple from the stage below a legible minimum.
+   `max(floor, fluid)` is chosen precisely so the floors are INERT above phone sizes: at desktop
+   --sw = 14.4px every fluid value already exceeds its floor, so the desktop layout is unchanged. */
 .fr-pick {
   position: relative;
   flex: 1 1 0;
-  max-width: calc(var(--sw) * 15);
+  max-width: max(104px, calc(var(--sw) * 15));
   min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(var(--sh) * 0.5);
-  padding: calc(var(--sh) * 1) calc(var(--sw) * 0.9) calc(var(--sh) * 1.4);
+  gap: max(3px, calc(var(--sh) * 0.5));
+  padding: max(6px, calc(var(--sh) * 1)) max(8px, calc(var(--sw) * 0.9)) max(8px, calc(var(--sh) * 1.4));
   cursor: pointer;
   background: transparent;
   border: none;
@@ -1201,7 +1215,7 @@
   font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 900;
   letter-spacing: 0.08em;
-  font-size: calc(var(--sw) * 1.35);
+  font-size: max(12px, calc(var(--sw) * 1.35)); /* floor: see .fr-pick — 5.31px on a portrait phone */
 }
 /* ROCK-PAPER-SCISSORS badge on the pick buttons (Tim, 2026-08-07) — tells a new player what beats what
    at a glance. Sits between the move name and its tip: quieter than the name, louder than the tip.
@@ -1213,7 +1227,7 @@
   gap: 0.4em;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
-  font-size: calc(var(--sw) * 0.86);
+  font-size: max(10px, calc(var(--sw) * 0.86)); /* floor: 3.38px on a portrait phone without it */
   letter-spacing: 0.1em;
   color: var(--fr-ice-1, #7fd4ff);
   opacity: 0.92;
@@ -1222,7 +1236,7 @@
 .fr-pick-rps-glyph {
   /* Emoji ignore `color`, so the glyph carries its own colour — keep it a touch larger than the label
      so it reads as an icon rather than punctuation. */
-  font-size: calc(var(--sw) * 1.15);
+  font-size: max(13px, calc(var(--sw) * 1.15)); /* floor: 4.52px on a portrait phone without it */
   line-height: 1;
   filter: saturate(0.85);
 }
@@ -1232,15 +1246,15 @@
 .fr-pick-tip {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
-  font-size: calc(var(--sw) * 0.82);
+  font-size: max(9px, calc(var(--sw) * 0.82)); /* floor: 3.22px on a portrait phone without it */
   color: var(--fr-steel-2);
   text-align: center;
   line-height: 1.15;
   min-height: calc(var(--sw) * 2);
 }
 .fr-pick .fr-move-icon {
-  width: calc(var(--sw) * 3.4);
-  height: calc(var(--sw) * 3.4);
+  width: max(26px, calc(var(--sw) * 3.4));
+  height: max(26px, calc(var(--sw) * 3.4));
   color: var(--fr-ice);
 }
 /* Chosen = decisive blood lock (the season red): blood hairline + darkened blood plate + red glow. */
@@ -1313,6 +1327,10 @@
   left: calc(var(--sw) * 2);
   top: calc(var(--sh) * 2);
   z-index: 55;
+  /* MEASURED 18x44px on a 393px-wide phone — 18px of tappable width fails even the WCAG 2.5.8 AA
+     24px floor, let alone the 44px Apple HIG target. Inert on desktop, where it is already wider. */
+  min-width: 44px;
+  min-height: 44px;
 }
 
 /* ---------------- Stake screen ---------------- */
@@ -1710,7 +1728,10 @@
   position: relative;
   width: calc(var(--sw) * 8.5);
   aspect-ratio: 16 / 9;
-  min-width: 44px;
+  /* 44px wide at 16/9 is only 25px tall. 64px lifts the short edge to 36px — past the WCAG 2.5.8 AA
+     24px bar with margin, while keeping the 11 tiles wrapping tidily instead of one-per-row. The row
+     already wraps and its scene container scrolls, so extra rows are safe. */
+  min-width: 64px;
   padding: 0;
   overflow: hidden;
   background: var(--fr-plate);
