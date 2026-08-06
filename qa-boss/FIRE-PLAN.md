@@ -1,6 +1,30 @@
 # FIRE PLAN
 
-## ⛔⛔⛔ STOP — DO NOT FIRE. TIM RULED THIS ON 2026-08-03. ⛔⛔⛔
+## ✅ THE 2026-08-03 HOLD WAS LIFTED BY TIM ON 2026-08-05 — SUPERSEDED (SESSION 29)
+
+**Tim's words, direct: _"you r able to use chrome extension to create the remaining clips"_ + `GO`.**
+The browser Unlimited path was used, ZERO credits, and **35 clips were fired** — every remaining state
+of the five IN-PROGRESS characters (ir56-lion-serpent, thorn-warden, lich-scythe, oni-tetsubo,
+gargoyle-spear). Per-clip record: **`qa-boss/SESSION29-FIRE-LEDGER.md`**.
+
+⚠ **BEFORE YOU FIRE ANYTHING, READ TWO THINGS:**
+1. **`HANDOFF-STREETFIGHTER.md` §1 of SESSION 29** — `fire-queue.mjs` still reports `QUEUE 328`
+   because the 35 raws were never downloaded. **That is not a contradiction and NOT a licence to
+   re-fire them.**
+2. **`qa-boss/BROWSER-FIRE-PROTOCOL.md`** — the browser path silently drops the prompt unless you type
+   with the real keyboard and verify against Lexical's own store. It cost one clip before it was found.
+
+**Tim's standing scope rule (2026-08-05): _"dont use new characters … when all clips finished let me
+know so i pick character."_ The five in-progress kits are done and he has been told. DO NOT start a
+new character on your own initiative — that is his call.**
+
+The account/credit warnings below (the third account, `use_unlim` refusals) still stand and are still
+the reason the BROWSER path is the only sanctioned one. The historical STOP text is kept below for
+provenance.
+
+---
+
+## ⛔ (HISTORICAL — LIFTED 2026-08-05, see above) STOP — DO NOT FIRE. TIM RULED THIS ON 2026-08-03. ⛔
 
 **Tim's words, asked directly and answered directly: _"let's wait with generating."_**
 No trial, no credit spend, no clips. This is a HUMAN HOLD, not a technical blocker, and it

@@ -110,7 +110,7 @@ describe('WsTransport against a live relay', () => {
     // Do NOT await createRoom: send the profile immediately so it is queued before the socket
     // opens (flushed right after the create frame), then buffered server-side until pairing.
     const codePromise = host.createRoom();
-    host.sendProfile('volta');
+    host.sendProfile('gargoyle-spear');
     const code = await codePromise;
 
     const guest = make();
@@ -120,7 +120,7 @@ describe('WsTransport against a live relay', () => {
     });
     await guest.join(code);
     await waitUntil(() => opponentProfile !== null);
-    expect(opponentProfile).toBe('volta');
+    expect(opponentProfile).toBe('gargoyle-spear');
   });
 
   it('auto-reconnects after an unexpected socket drop: peer sees peerLost then peerBack, and a pick sent during the gap arrives after resume', async () => {

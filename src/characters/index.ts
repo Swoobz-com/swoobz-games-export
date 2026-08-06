@@ -5,7 +5,6 @@ import type { Move } from '../engine/fightEngine';
 import type { FighterDef, FighterState } from './types';
 import { ECLIPSE_OFUDA } from './eclipse-ofuda';
 import { GARGOYLE_SPEAR } from './gargoyle-spear';
-import { GORVAK } from './gorvak';
 import { HOLLOW_PALE } from './hollow-pale';
 import { IR37_PINK_TESSEN } from './ir37-pink-tessen';
 import { IR48_HEX_PAPER_LORD } from './ir48-hex-paper-lord';
@@ -16,26 +15,29 @@ import { ONI_TETSUBO } from './oni-tetsubo';
 import { SATOSHI_ODACHI } from './satoshi-odachi';
 import { SORA_YARI } from './sora-yari';
 import { THORN_WARDEN } from './thorn-warden';
-import { VOLTA } from './volta';
 
 export type { ClipCal, FighterClip, FighterDef, FighterFxImpact, FighterPortrait, FighterState } from './types';
 
-// GORVAK + VOLTA are the always-available roster fighters. The boss fighters (satoshi-odachi,
-// ir37-pink-tessen, eclipse-ofuda, lady-kurotachi, ...) are ALSO registered here so the campaign can
-// render them in-fight by `fighterId` and the Experience can resolve them for RENDERING
-// unconditionally — but they are GATED in the charSelect PICK grid: a boss becomes a selectable tile
-// only after its campaign node is beaten (see rosterGating.ts). The gate is UI-side only; this
-// registry stays identity-agnostic.
-// FREE-ROSTER ADDITIONS (phase 282, Tim's ruling 2026-08-06). gargoyle-spear, lich-scythe and
-// oni-tetsubo take NO campaign node, so rosterGating.bossNodeId() returns null for them and
-// isFighterSelectable() is unconditionally true — they are selectable from a fresh profile alongside
-// GORVAK and VOLTA. That is a deliberate product choice, not an oversight: all ten campaign nodes were
-// already assigned. Re-gating any of them later is a data change (add a node with its fighterId), not
-// a code change. Each ships an honest, documented kit — see the per-character file for exactly which
-// states are wired and which are knowingly absent.
+// THE ALWAYS-AVAILABLE ROSTER IS gargoyle-spear + lich-scythe + oni-tetsubo (phase 283, Tim's ruling
+// 2026-08-07: "gorvak and volta can't be characters so remove those 2"). GORVAK and VOLTA were the two
+// placeholder house fighters; both are GONE — manifests deleted, not merely unregistered.
+//
+// The boss fighters (satoshi-odachi, ir37-pink-tessen, eclipse-ofuda, lady-kurotachi, ...) are ALSO
+// registered here so the campaign can render them in-fight by `fighterId` and the Experience can
+// resolve them for RENDERING unconditionally — but they are GATED in the charSelect PICK grid: a boss
+// becomes a selectable tile only after its campaign node is beaten (see rosterGating.ts). The gate is
+// UI-side only; this registry stays identity-agnostic.
+//
+// ⚠ REMOVING A FIGHTER FROM THIS REGISTRY IS A BREAKING CHANGE, not a cosmetic one, because getFighter()
+// THROWS on an unknown id by contract (no silent fallback). Two things pointed at the deleted pair and
+// both were repointed in the same commit:
+//   · src/engine/fightCampaign.ts node 2 ASHEN TORII had fighterId:'volta' as its in-fight body
+//     -> now 'oni-tetsubo' (its enemy identity stays KITSUNE TANTO — name and map art unchanged).
+//   · src/ui/FightExperience.tsx's default playerId was 'gorvak' -> now 'gargoyle-spear'.
+// oni-tetsubo consequently HAS a campaign node, which would normally gate it. It stays selectable
+// because ALWAYS_AVAILABLE_FIGHTER_IDS is checked FIRST in bossNodeId() — exactly the role volta used
+// to fill ("a node body that is nonetheless always selectable").
 export const FIGHTERS: Record<string, FighterDef> = {
-  gorvak: GORVAK,
-  volta: VOLTA,
   'gargoyle-spear': GARGOYLE_SPEAR,
   'lich-scythe': LICH_SCYTHE,
   'oni-tetsubo': ONI_TETSUBO,

@@ -10,7 +10,7 @@
 // Resources (the transport) are created/destroyed in effect setup/cleanup so a StrictMode
 // mount -> cleanup -> mount cycle simply recreates a fresh, non-disposed instance.
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ExchangeOutcome, MatchState, Move } from '../engine/fightEngine';
 import { applyExchange, createMatch, randomMove, startNextRound } from '../engine/fightEngine';
 import { secureRandom } from '../engine/secureRng';
@@ -150,28 +150,95 @@ export interface CampaignState {
   frontier: number;
   defenseRemaining: number;
   absorbed: boolean;
+  /** The stake this run's progress is locked to (Tim's rule): entering the map ABOVE this wipes
+   *  progress, the same or lower keeps it. null = no progress yet, so any stake is free to pick. */
+  lockStakeLamports: bigint | null;
+  /** True for the entry that just wiped progress, so the UI can say WHY the map reset. */
+  stakeReset: boolean;
 }
 
-// Campaign progression persistence (spec §5). Shape { v:1, beaten: boolean[10] }; corrupt/missing =
-// fresh. Balance stays the shared practice bank (BALANCE_STORAGE_KEY) via the existing paths.
+// Campaign progression persistence (spec §5). Shape { v:2, beaten: boolean[10], lockStake: string };
+// corrupt/missing/older-version = fresh. Balance stays the shared practice bank
+// (BALANCE_STORAGE_KEY) via the existing paths. The KEY NAME is deliberately unchanged — the internal
+// `v` carries the schema version, per the "never rebrand the keys" rule above.
 const CAMPAIGN_STORAGE_KEY = 'frozen-requiem.campaign.v1';
 
-/** Corrupt-safe parse of the persisted campaign progress into a fixed-length beaten[] (pure —
- *  exported for unit tests). Anything malformed (bad JSON, wrong version, non-array) => all-false. */
-export function parseCampaignBeaten(raw: string | null): boolean[] {
-  const fresh = (): boolean[] => new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(false);
-  if (raw == null) return fresh();
+/** Campaign progress plus THE STAKE THE RUN IS LOCKED TO.
+ *  `lockStakeLamports` is null only for a run with no progress yet (nothing to protect). */
+export interface CampaignProgress {
+  beaten: boolean[];
+  lockStakeLamports: bigint | null;
+}
+
+const freshBeaten = (): boolean[] => new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(false);
+
+/** Corrupt-safe parse of the persisted campaign progress (pure — exported for unit tests). Anything
+ *  malformed (bad JSON, unknown version, non-array) => fresh progress with no lock.
+ *
+ *  ⚠ A v1 payload is INTENTIONALLY treated as corrupt and reset, not migrated. v1 stored `beaten`
+ *  with NO stake stamp, so migrating it would hand the player one free re-stamp: progress earned at a
+ *  low stake could adopt an arbitrarily high stake on the next entry, which is precisely the exploit
+ *  the lock exists to close. Discarding it also matches this parser's own established contract that an
+ *  unrecognised version is fresh. */
+export function parseCampaignProgress(raw: string | null): CampaignProgress {
+  const none = (): CampaignProgress => ({ beaten: freshBeaten(), lockStakeLamports: null });
+  if (raw == null) return none();
   try {
     const data = JSON.parse(raw) as unknown;
-    if (typeof data !== 'object' || data === null) return fresh();
-    const rec = data as { v?: unknown; beaten?: unknown };
-    if (rec.v !== 1 || !Array.isArray(rec.beaten)) return fresh();
-    const beaten = fresh();
+    if (typeof data !== 'object' || data === null) return none();
+    const rec = data as { v?: unknown; beaten?: unknown; lockStake?: unknown };
+    if (rec.v !== 2 || !Array.isArray(rec.beaten)) return none();
+    const beaten = freshBeaten();
     for (let i = 0; i < CAMPAIGN_NODE_COUNT; i += 1) beaten[i] = rec.beaten[i] === true;
-    return beaten;
+    // The stamp is stored as a decimal STRING — JSON has no BigInt, and a Number would silently lose
+    // precision on large lamport values.
+    let lock: bigint | null = null;
+    if (typeof rec.lockStake === 'string' && /^\d+$/.test(rec.lockStake)) {
+      try { lock = BigInt(rec.lockStake); } catch { lock = null; }
+    }
+    // Progress with no readable stamp cannot be trusted for the same reason v1 cannot: drop it.
+    if (lock === null && beaten.some((b) => b)) return none();
+    return { beaten, lockStakeLamports: lock };
   } catch {
-    return fresh();
+    return none();
   }
+}
+
+/** Corrupt-safe parse of just the beaten[] — kept for the existing callers and their tests. */
+export function parseCampaignBeaten(raw: string | null): boolean[] {
+  return parseCampaignProgress(raw).beaten;
+}
+
+/** THE STAKE LOCK (Tim's rule, 2026-08-07): a campaign run is locked to the stake it was played at.
+ *  Entering the map at a HIGHER stake than the run is locked to WIPES progress and starts again; the
+ *  same stake or LOWER keeps it.
+ *
+ *  Why it exists: node payouts are fixed multipliers of the stake (`campaignPayout` = stake*multBps/1e4,
+ *  and node 10 is 39.959x). Without this, a player could conquer nodes 1-9 at a trivial stake and then
+ *  raise the stake enormously for the final node, collecting a huge multiplier on progress that was
+ *  never paid for at that level. Locking progress to its stake removes that entirely, while still
+ *  letting a player drop DOWN to a cheaper stake whenever they like.
+ *
+ *  PURE. Returns the progress to persist and whether a reset happened (the UI announces it).
+ *  A run with nothing beaten simply adopts the stake — there is no progress to protect yet. */
+export function applyCampaignStakeLock(
+  progress: CampaignProgress,
+  stakeLamports: bigint,
+): { progress: CampaignProgress; reset: boolean } {
+  const hasProgress = progress.beaten.some((b) => b);
+  if (!hasProgress) return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: false };
+  const lock = progress.lockStakeLamports;
+  if (lock === null) {
+    // Unreachable via parseCampaignProgress (it drops unstamped progress), but keep the branch honest
+    // rather than assuming: adopt the stake and wipe, which is the safe direction.
+    return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: true };
+  }
+  if (stakeLamports > lock) {
+    return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: true };
+  }
+  // Same stake or lower: progress survives and the lock does NOT move down, so a player who drops to a
+  // cheaper stake can return to their original level without being punished for it.
+  return { progress, reset: false };
 }
 
 /** The frontier index: the first unbeaten node (0-based), or the count when all are conquered. Pure. */
@@ -187,19 +254,24 @@ export function markBeaten(beaten: boolean[], nodeId: number): boolean[] {
   return next;
 }
 
-function loadCampaignBeaten(): boolean[] {
+function loadCampaignProgress(): CampaignProgress {
   try {
-    if (typeof localStorage === 'undefined') return parseCampaignBeaten(null);
-    return parseCampaignBeaten(localStorage.getItem(CAMPAIGN_STORAGE_KEY));
+    if (typeof localStorage === 'undefined') return parseCampaignProgress(null);
+    return parseCampaignProgress(localStorage.getItem(CAMPAIGN_STORAGE_KEY));
   } catch {
-    return parseCampaignBeaten(null);
+    return parseCampaignProgress(null);
   }
 }
 
-function saveCampaignBeaten(beaten: boolean[]): void {
+function saveCampaignProgress(beaten: boolean[], lockStakeLamports: bigint | null): void {
   try {
     if (typeof localStorage === 'undefined') return;
-    localStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify({ v: 1, beaten }));
+    localStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify({
+      v: 2,
+      beaten,
+      // decimal string: JSON has no BigInt and a Number would lose lamport precision
+      lockStake: lockStakeLamports === null ? null : lockStakeLamports.toString(),
+    }));
   } catch {
     /* storage unavailable (private mode / quota) — progress stays in-memory only */
   }
@@ -377,7 +449,15 @@ export function useFightController(
 
   // --- Campaign layer state. Progress is read from localStorage ONCE at init (corrupt-safe). ---
   const [campaignNodeId, setCampaignNodeId] = useState<number | null>(null);
-  const [campaignBeaten, setCampaignBeaten] = useState<boolean[]>(loadCampaignBeaten);
+  const initialCampaign = useMemo(loadCampaignProgress, []);
+  const [campaignBeaten, setCampaignBeaten] = useState<boolean[]>(() => initialCampaign.beaten);
+  // THE STAKE LOCK: the stake this run's progress was earned at. Entering the map above it wipes
+  // progress (see applyCampaignStakeLock). null = no progress yet, so nothing to protect.
+  const [campaignLockStake, setCampaignLockStake] = useState<bigint | null>(
+    () => initialCampaign.lockStakeLamports);
+  // True for the entry that just wiped progress, so the UI can tell the player WHY the map reset
+  // instead of silently showing them a fresh map.
+  const [campaignStakeReset, setCampaignStakeReset] = useState<boolean>(false);
   const [campaignReceipt, setCampaignReceipt] = useState<CampaignReceipt | null>(null);
   // Enemy absorb buffer left this round (shield pips / bulk extra segments) + whether the exchange
   // currently resolving was absorbed (the UI's absorb-beat flag; reset per exchange).
@@ -400,6 +480,9 @@ export function useFightController(
   // --- Campaign refs (synchronous reads inside plain callbacks / timer bodies). ---
   const campaignNodeIdRef = useRef<number | null>(null);
   const campaignBeatenRef = useRef<boolean[]>(campaignBeaten);
+  // Mirrors campaignLockStake for synchronous reads inside commitStake (the lock decision must
+  // happen in the same synchronous body that deducts the stake, never in a setState updater).
+  const campaignLockStakeRef = useRef<bigint | null>(campaignLockStake);
   // The enemy's absorb buffer for the CURRENT round (refilled to the node's defense amount at
   // every round start; drained by applyCampaignExchange — the shared shield/bulk math).
   const campaignDefenseRef = useRef<number>(0);
@@ -420,8 +503,8 @@ export function useFightController(
 
   // Persist campaign progress on every change (idempotent; StrictMode-safe; same pattern as balance).
   useEffect(() => {
-    saveCampaignBeaten(campaignBeaten);
-  }, [campaignBeaten]);
+    saveCampaignProgress(campaignBeaten, campaignLockStake);
+  }, [campaignBeaten, campaignLockStake]);
 
   // Refs mirror the state above for synchronous reads inside callbacks/timer bodies --
   // updated directly alongside every setState call, never lagging behind a render.
@@ -1103,6 +1186,19 @@ export function useFightController(
     } else if (pending.kind === 'friendJoin') {
       beginFriendJoin(pending.code);
     } else {
+      // THE STAKE LOCK (Tim's rule): a campaign run is locked to the stake it was played at. Entering
+      // the map ABOVE that stake wipes progress; the same or lower keeps it. Decided HERE — in the same
+      // synchronous body that already deducted the stake — so the map the player is taken to already
+      // reflects the reset, and `stake` is the CLAMPED value actually charged, never the raw input.
+      const applied = applyCampaignStakeLock(
+        { beaten: campaignBeatenRef.current, lockStakeLamports: campaignLockStakeRef.current },
+        stake,
+      );
+      campaignBeatenRef.current = applied.progress.beaten;
+      campaignLockStakeRef.current = applied.progress.lockStakeLamports;
+      setCampaignBeaten(applied.progress.beaten);
+      setCampaignLockStake(applied.progress.lockStakeLamports);
+      setCampaignStakeReset(applied.reset);
       beginCampaignMatch(pending.nodeId);
     }
   }, [beginCpuMatch, beginFriendCreate, beginFriendJoin, beginCampaignMatch]);
@@ -1331,6 +1427,8 @@ export function useFightController(
   const campaign: CampaignState = {
     nodeId: campaignNodeId,
     beaten: campaignBeaten,
+    lockStakeLamports: campaignLockStake,
+    stakeReset: campaignStakeReset,
     frontier: frontierOf(campaignBeaten),
     defenseRemaining: campaignDefense,
     absorbed: campaignAbsorbed,

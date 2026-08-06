@@ -136,12 +136,12 @@ describe('attachMatchRelay', () => {
   it('buffers a profile sent before pairing and delivers it on pairing', async () => {
     const { code, ws: a } = await createRoom();
     // Creator announces its fighter BEFORE anyone joins: the server must buffer it.
-    send(a, { t: 'profile', fighterId: 'volta' });
+    send(a, { t: 'profile', fighterId: 'gargoyle-spear' });
     const b = await connect();
     const inB = new Inbox(b);
     send(b, { t: 'join', code });
     const profile = await inB.waitFor((m) => m.t === 'profile');
-    expect(profile.fighterId).toBe('volta');
+    expect(profile.fighterId).toBe('gargoyle-spear');
   });
 
   it('a third client joining a full room gets joinFail', async () => {

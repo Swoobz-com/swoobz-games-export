@@ -93,7 +93,10 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // (Tim, 2026-07-21). The CampaignReward type, `reward?` field, UI surfaces and the webp
   // assets all remain wired — re-adding a reward is one registry-row edit.
   { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 19200n, fighterId: 'sora-yari', arenaId: 'docks', enemy: { id: 'sora-yari', name: 'SORA YARI' } },
-  { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'volta', arenaId: 'torii', enemy: { id: 'kitsune-tanto', name: 'KITSUNE TANTO' } },
+  // phase 283: fighterId was 'volta' (a deleted placeholder house fighter). Repointed to oni-tetsubo,
+  // which is a real 11-clip kit. The ENEMY IDENTITY is unchanged — the map card, name and reveal art
+  // stay KITSUNE TANTO; only the animated body that fights you is now the oni.
+  { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'oni-tetsubo', arenaId: 'torii', enemy: { id: 'kitsune-tanto', name: 'KITSUNE TANTO' } },
   { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'thorn-warden', arenaId: 'bamboo', enemy: { id: 'thorn-warden', name: 'THORN WARDEN' } },
   { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'hollow-pale', arenaId: 'snowfang', enemy: { id: 'hollow-pale', name: 'HOLLOW PALE' } },
   { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'satoshi-odachi', arenaId: 'kawa', enemy: { id: 'satoshi-odachi', name: 'SATOSHI ODACHI' } },

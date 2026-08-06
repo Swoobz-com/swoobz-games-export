@@ -472,6 +472,22 @@ const MOVE_TIP: Record<Move, string> = {
 };
 const MOVE_ORDER: Move[] = ['strike', 'throw', 'block'];
 
+// ROCK-PAPER-SCISSORS MAPPING (Tim, 2026-08-07: "add the rock paper scissor icon in there to pick so
+// you know"). STANDOFF's triangle IS rock-paper-scissors, and showing that on the pick buttons is the
+// fastest way for a new player to know what beats what without reading three tips.
+//
+// DERIVED FROM THE ENGINE, not chosen by taste — fightEngine.ts BEATS is
+//   strike -> throw,  throw -> block,  block -> strike
+// and RPS is rock -> scissors, scissors -> paper, paper -> rock. Lining the two cycles up gives exactly
+// one solution: strike=ROCK, throw=SCISSORS, block=PAPER. Verified as a cycle in fightEngine.test.ts's
+// companion assertion — if BEATS is ever re-pointed, that test fails rather than this label going quietly
+// wrong. Glyphs are the standard hand emoji so they read instantly at any size, including mobile.
+const MOVE_RPS: Record<Move, { glyph: string; name: string }> = {
+  strike: { glyph: '✊', name: 'ROCK' },      // ✊ rock crushes scissors  == strike beats throw
+  throw: { glyph: '✌️', name: 'SCISSORS' }, // ✌️ scissors cut paper == throw beats block
+  block: { glyph: '✋', name: 'PAPER' },      // ✋ paper covers rock      == block beats strike
+};
+
 interface PersonalityInfo {
   key: AiPersonality;
   name: string;
@@ -546,6 +562,47 @@ function useReducedMotion(): boolean {
     return () => mq.removeEventListener?.('change', update);
   }, []);
   return reduced;
+}
+
+/** True when we should NOT eagerly download every character take (phase 283).
+ *
+ *  WHY: each take is its own <video>, so `preload="auto"` across a kit pulls the fighter's whole kit, and
+ *  a fight mounts two. MEASURED on the production build (gargoyle-spear vs the node-1 boss, bytes to the
+ *  first punch, real encoded transfer): desktop 36.8MB, of which 26.7MB is character clips — thrifty
+ *  mobile 27.3MB / 17.2MB, a 9.5MB (25.9%) saving, with all 26 elements still reaching readyState 4 so
+ *  nothing is starved. Desktop keeps the original eager behaviour, so the zero-stutter design the
+ *  §10 VARIANT LAW was written for is untouched where bandwidth is cheap.
+ *
+ *  MEASURING THIS: sum `Network.loadingFinished.encodedDataLength`, NOT the `content-length` header. A
+ *  `preload="metadata"` element issues a range request whose 206 still advertises the FULL file length,
+ *  so header-summing reports mobile and desktop as identical (36.7MB both) and hides the entire effect.
+ *
+ *  Signals, in order of authority: the user's explicit Data Saver, then a genuinely slow effective
+ *  connection, then a phone-sized viewport as the fallback (coarse pointer AND narrow, so a small
+ *  desktop window does not trip it). All feature-detected — `connection` is not in Safari, and this must
+ *  not throw during SSR or in a test env. */
+function useThriftyMedia(): boolean {
+  const [thrifty, setThrifty] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const conn = (navigator as unknown as {
+      connection?: { saveData?: boolean; effectiveType?: string; addEventListener?: (t: string, f: () => void) => void; removeEventListener?: (t: string, f: () => void) => void };
+    }).connection;
+    const narrow = window.matchMedia?.('(max-width: 820px), (pointer: coarse) and (max-width: 1100px)');
+    const update = () => {
+      const saveData = conn?.saveData === true;
+      const slow = typeof conn?.effectiveType === 'string' && /(^|-)(2g|3g)$/.test(conn.effectiveType);
+      setThrifty(saveData || slow || narrow?.matches === true);
+    };
+    update();
+    narrow?.addEventListener?.('change', update);
+    conn?.addEventListener?.('change', update);
+    return () => {
+      narrow?.removeEventListener?.('change', update);
+      conn?.removeEventListener?.('change', update);
+    };
+  }, []);
+  return thrifty;
 }
 
 // Keep --sw / --sh (stage width/height per 1%) in sync so all sizing scales with the stage box.
@@ -998,6 +1055,8 @@ function Fighter({
   // opacity 0 and their onEnded still fires — acting on those would cut live clips).
   onClipEnd: (state: FighterState, varIdx: number) => void;
 }): JSX.Element {
+  // Mobile/metered clients defer the non-critical takes instead of downloading the whole kit.
+  const thriftyMedia = useThriftyMedia();
   // The still stays underneath until the idle loop is actually rendering frames, so a
   // slow decode (or a browser without VP9 alpha) never shows an empty fighter slot — it is
   // also the ultimate fallback when a character has no clips at all (contract §4 ladder).
@@ -1109,7 +1168,15 @@ function Fighter({
               loop={isIdle}
               autoPlay={isIdle}
               playsInline
-              preload="auto"
+              // Eager only where a stall would be VISIBLE, lazy elsewhere. Costs measured in the
+              // `useThriftyMedia` doc block above — 36.8MB desktop vs 27.3MB thrifty to the first punch.
+              //  · idle — always eager. It is the state on screen at fight start and the ladder's only
+              //    fallback, so a stall here shows as an empty stage.
+              //  · hit  — always eager. It fires on nearly every exchange and gates the clip beat.
+              //  · everything else — 'metadata' on a data-saving/narrow client, 'auto' otherwise.
+              // `metadata` still fetches headers, so cal/duration are known and the element is ready to
+              // buffer the moment its state is picked; only the payload is deferred.
+              preload={isIdle || state === 'hit' || !thriftyMedia ? 'auto' : 'metadata'}
               onPlaying={isIdle ? () => setLive(true) : undefined}
               onEnded={isIdle ? undefined : () => onClipEnd(state, i)}
               style={{
@@ -1448,7 +1515,10 @@ export function FightExperience(): JSX.Element {
   // hardcoded pair. With N characters the CPU opponent is simply the first OTHER registry entry,
   // so adding a third manifest needs zero edits here. Everything character-specific below
   // (stills, clips, cals, names, quotes, fx bursts, mirroring) flows from these two defs + slot.
-  const [playerId, setPlayerId] = useState<string>('gorvak');
+  // phase 283: was 'gorvak', a placeholder house fighter Tim removed. This id MUST exist in FIGHTERS —
+  // getFighter() throws on an unknown id by contract, so a stale default here is a hard crash on boot,
+  // not a soft fallback.
+  const [playerId, setPlayerId] = useState<string>('gargoyle-spear');
   // Selected arena (background). Read from localStorage ONCE at init; persisted on change. Lives
   // HERE in the Experience (never the provider — the provider stays identity-agnostic, like it
   // never learns the picked fighter). The stage background everywhere resolves from this.
@@ -2428,12 +2498,18 @@ export function FightExperience(): JSX.Element {
                     className={`fr-pick${chosen ? ' fr-pick-chosen' : ''}${dim ? ' fr-pick-dim' : ''}`}
                     disabled={playerPick.locked}
                     onClick={() => ctl.pick(m)}
-                    title={MOVE_TIP[m]}
-                    aria-label={`${MOVE_LABEL[m]}: ${MOVE_TIP[m]}`}
+                    title={`${MOVE_LABEL[m]} = ${MOVE_RPS[m].name} · ${MOVE_TIP[m]}`}
+                    aria-label={`${MOVE_LABEL[m]}, ${MOVE_RPS[m].name}: ${MOVE_TIP[m]}`}
                   >
                     {chosen && <span className="fr-locked-tag">LOCKED</span>}
                     <MoveIcon move={m} />
                     <span className="fr-pick-label">{MOVE_LABEL[m]}</span>
+                    {/* The RPS badge: the glyph is decorative (the name next to it carries the meaning
+                        for a screen reader, and the whole button's aria-label states it too). */}
+                    <span className="fr-pick-rps">
+                      <span className="fr-pick-rps-glyph" aria-hidden="true">{MOVE_RPS[m].glyph}</span>
+                      {MOVE_RPS[m].name}
+                    </span>
                     <span className="fr-pick-tip">{MOVE_TIP[m]}</span>
                   </button>
                 );

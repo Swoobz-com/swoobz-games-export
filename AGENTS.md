@@ -1,0 +1,115 @@
+# AGENTS.md — working in STANDOFF
+
+Entry point for any agent (or human) touching this repo. Read this, then the spec for the area you are
+changing. Everything here is a rule that cost real debugging time to learn — none of it is style advice.
+
+**STANDOFF** is a two-sided rock-paper-scissors fighting game. Vite + React 18 + TypeScript, no runtime
+deps beyond React. Two fighters occupy a p1 (left) and p2 (right) slot; STRIKE/THROW/BLOCK is an RPS
+triangle; a campaign of 10 nodes sits on top, with real stake/payout math.
+
+## Verify before you claim anything
+
+```bash
+npx tsc --noEmit      # must be 0
+npx vitest run        # must be all-green (220 tests / 16 files as of phase 283)
+npm run build          # tsc --noEmit && vite build
+```
+
+Gates live in `qa-boss/` and `scripts/`. **A gate that cannot do its job is not a pass.** This repo has
+found and fixed EIGHT instances of a tool that refuses and then `exit 0` — it calls the class
+`gate-vacuous-pass`. If a tool can't run, report it; never infer success from silence.
+
+## The non-negotiables
+
+**Money is BigInt lamports. Never a float, never a Number.** Payouts are integer BPS math with
+floor truncation (`campaignPayout = stake * multBps / 10000n`). Floor-vs-round divergence has already
+produced a wrong number that became a spec — if you display money, call the real formatter.
+
+**`getFighter(id)` THROWS on an unknown id, by contract — no silent fallback.** Removing or renaming a
+fighter is therefore a BREAKING change: check `src/engine/fightCampaign.ts` (node `fighterId`s),
+`src/ui/FightExperience.tsx` (the default `playerId`), and `src/characters/rosterGating.ts`.
+
+**THE FACING RULE.** `FightExperience.tsx` computes
+`isMirrored = def.faces !== (slot === 'p1' ? 'right' : 'left')` and applies ONE mirror to the whole
+fighter stack. So **every clip in a kit must NATIVELY face the direction `faces:` states** — clips
+disagreeing with *each other* is the bug. Roster convention: every fighter is `faces:'right'`.
+Decide it by measuring (`node scripts/check-facing.mjs <id> --still`), never by eye — eyeballing was
+wrong 2/2 on this project, measuring right 4/4. Full doctrine: `.claude/skills/standoff-clip-facing`.
+
+**Clip lookup is EXACT-MATCH with no aliasing** (`types.ts` `clipVariants` is a bare `def.clips[state]`
+index). A clip filed under a state the engine never emits, or a `url` pointing at a file that is not on
+disk, throws nothing and logs nothing — the fighter just renders a still forever. `src/characters/
+freeRosterFighters.test.ts` guards this; extend it when you add a character.
+
+**Two clip states are load-bearing beyond their own animation:**
+- `idle` — the ONLY fallback in the display ladder. Without it, a missing state mounts no video at all.
+- `hit` — gates the entire clip beat as a *defender* (`useClipChoreo = attackerHasClip && defenderHasHit`).
+  A fighter with no `hit` silently never triggers clip choreography against ANY opponent.
+
+**`still` is mandatory.** Four unguarded consumers (fighter box, select tile, select preview, both HUD
+medallions) and it is the whole character under `prefers-reduced-motion`.
+
+**THE CAMPAIGN STAKE LOCK.** A run is locked to the stake it was played at. Entering the map at a
+HIGHER stake wipes progress; the same or lower keeps it. It exists because node payouts are fixed
+multipliers (node 10 is 39.959x) — without it a player could conquer cheap nodes and then cash the final
+multiplier at a huge stake. Pure logic + tests: `applyCampaignStakeLock` in `src/provider/fightProvider.ts`
+and `src/provider/campaignStakeLock.test.ts`. Persisted schema is `{v:2, beaten, lockStake}`; **a v1
+payload is rejected on purpose** (no stamp ⇒ untrusted).
+
+## Generated-asset discipline
+
+**Never commit generated pixels.** `qa-boss/raw/`, `qa-boss/staged-s30/`, `qa-boss/frames/` and
+`qa-boss/decisions/` are gitignored and regenerable. Findings go in the markdown; the pixels stay local.
+Shipped clips under `public/assets/` ARE tracked.
+
+**Re-generating an artifact relocates its defect.** Measured 7 of 7: every re-roll fixed its named defect
+and broke a *different* constraint the previous version satisfied (fixed a 222px overrun → went frontal;
+removed a floor → leapt 82px off the ground). **Gate every re-roll on the FULL suite, never on the defect
+it was written to fix.**
+
+**Geometric gates measure WHERE things are, never WHAT the artifact IS.** One clip passed all six
+(containment, feet-planted, floor-growth, extra-objects, anchor-pair, chroma) while being the wrong
+move entirely — spear vertical, inverted, one-handed. Keep the by-eye montage read; it cannot be
+replaced by adding more gates.
+
+**Calibrate per character before trusting a gate verdict.** `node qa-boss/gate-control.mjs --all` runs a
+character's ALREADY-SHIPPED clips through a gate as a control. 5 of 12 characters have a miscalibrated or
+unusable band — a shipped, accepted clip that fails a band convicts the BAND, not the clip.
+
+## Dev-server hygiene
+
+Start your OWN server on your OWN port with `--strictPort` (`vite.config.ts` pins 5340). Before killing
+anything, verify via the PID's **command line** that it belongs to this project — other projects and
+other agents run servers on neighbouring ports. Kill your own PID when you finish.
+
+## Adding a character
+
+1. Keyed clips → `public/assets/characters/<id>/`. Filenames use HYPHENS and the take ordinal is spelled
+   *nothing / `-b` / `-c`*; the three specials map **positionally** to `special` / `special-b` / `special-c`.
+2. Cutout → `public/assets/enemies/<id>.webp` (height 900) + `<id>-pfp.webp` (512², NOT keyed), via
+   `scripts/key-enemies.mjs`.
+3. Manifest `src/characters/<id>.ts` — model it on `oni-tetsubo.ts`, which documents its own provenance
+   honestly. State per clip whether `cal` is re-derived or the keyer's emitted value.
+4. Measure `contacts` for the `attack_*` states (`scripts/measure-contacts.mjs`) and frame-check the
+   argmax — a contact must fire at the impact plane, not the wind-up.
+5. Register in `src/characters/index.ts`. No campaign node ⇒ freely selectable; add it to
+   `ALWAYS_AVAILABLE_FIGHTER_IDS` if it *is* a node body but should stay pickable.
+6. Run `check-facing --still`, then the pixel gates, then extend `freeRosterFighters.test.ts`.
+
+## Map
+
+| path | what |
+|---|---|
+| `src/engine/` | pure game + campaign math (BigInt, no DOM) |
+| `src/provider/fightProvider.ts` | state machine, stake/balance, persistence |
+| `src/ui/FightExperience.tsx` | the whole presentation layer, incl. the facing rule |
+| `src/characters/` | manifests + registry + gating |
+| `qa-boss/` | gates, prompt kits, session ledgers |
+| `HANDOFF-STREETFIGHTER.md` | session-to-session state; **read its top block first** |
+
+Specs: `PRODUCT.md`, `DESIGN.md`, `FIGHT-SPEC.md`, `CAMPAIGN-SPEC.md`, `CHARACTER-CONTRACT.md`.
+
+## Reporting
+
+Quote real output. Distinguish measured from inferred. Say what you did NOT do. A plausible wrong number
+is worse than an admitted gap — this repo's worst incidents all began with a confident unverified claim.

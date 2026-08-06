@@ -1203,6 +1203,32 @@
   letter-spacing: 0.08em;
   font-size: calc(var(--sw) * 1.35);
 }
+/* ROCK-PAPER-SCISSORS badge on the pick buttons (Tim, 2026-08-07) — tells a new player what beats what
+   at a glance. Sits between the move name and its tip: quieter than the name, louder than the tip.
+   Sized in --sw like everything else here, so it scales with the stage instead of needing a mobile
+   override. */
+.fr-pick-rps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: calc(var(--sw) * 0.86);
+  letter-spacing: 0.1em;
+  color: var(--fr-ice-1, #7fd4ff);
+  opacity: 0.92;
+  line-height: 1;
+}
+.fr-pick-rps-glyph {
+  /* Emoji ignore `color`, so the glyph carries its own colour — keep it a touch larger than the label
+     so it reads as an icon rather than punctuation. */
+  font-size: calc(var(--sw) * 1.15);
+  line-height: 1;
+  filter: saturate(0.85);
+}
+.fr-pick-dim .fr-pick-rps {
+  opacity: 0.45;
+}
 .fr-pick-tip {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 500;

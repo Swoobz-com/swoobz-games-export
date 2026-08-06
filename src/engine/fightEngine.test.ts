@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   applyExchange,
+  BEATS,
   createMatch,
   HP_MAX,
   MOVES,
@@ -175,5 +176,24 @@ describe('mulberry32 + randomMove determinism', () => {
     for (let i = 0; i < 200; i += 1) {
       expect(MOVES).toContain(randomMove(rng));
     }
+  });
+});
+
+// ── THE RPS MAPPING SHOWN ON THE PICK BUTTONS (phase 283) ──────────────────────────────────────
+// src/ui/FightExperience.tsx labels the three moves strike=ROCK, throw=SCISSORS, block=PAPER. That
+// mapping is DERIVED from BEATS below, not chosen: lining STANDOFF's cycle up with rock-paper-scissors
+// admits exactly one solution. These assertions exist so that re-pointing BEATS fails HERE instead of
+// leaving the on-screen labels quietly telling the player the wrong thing.
+describe('the move triangle is rock-paper-scissors, in the orientation the UI labels', () => {
+  it('BEATS is a total 3-cycle (every move beats exactly one and loses to exactly one)', () => {
+    expect(new Set(MOVES.map((m) => BEATS[m])).size).toBe(3);
+    for (const m of MOVES) expect(BEATS[m]).not.toBe(m);
+    // Walking the cycle three times returns to the start.
+    for (const m of MOVES) expect(BEATS[BEATS[BEATS[m]]]).toBe(m);
+  });
+  it('strike=ROCK beats throw=SCISSORS beats block=PAPER beats strike=ROCK', () => {
+    expect(BEATS.strike).toBe('throw'); // rock crushes scissors
+    expect(BEATS.throw).toBe('block'); // scissors cut paper
+    expect(BEATS.block).toBe('strike'); // paper covers rock
   });
 });

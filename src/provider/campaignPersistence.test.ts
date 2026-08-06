@@ -16,25 +16,28 @@ describe('parseCampaignBeaten — corrupt-input recovery (spec §5)', () => {
     expect(parseCampaignBeaten('null')).toEqual(FRESH);
   });
   it('wrong version or missing beaten array => fresh', () => {
-    expect(parseCampaignBeaten(JSON.stringify({ v: 2, beaten: [true, true] }))).toEqual(FRESH);
+    expect(parseCampaignBeaten(JSON.stringify({ v: 99, beaten: [true, true] }))).toEqual(FRESH);
+    // v1 is REJECTED ON PURPOSE: it carried no stake stamp, so migrating it would grant one
+    // free re-stamp at any stake — exactly the exploit the stake lock closes.
+    expect(parseCampaignBeaten(JSON.stringify({ v: 1, beaten: [true, true] }))).toEqual(FRESH);
     expect(parseCampaignBeaten(JSON.stringify({ v: 1 }))).toEqual(FRESH);
     expect(parseCampaignBeaten(JSON.stringify({ v: 1, beaten: 'nope' }))).toEqual(FRESH);
   });
   it('valid payload round-trips, clamped to node count', () => {
     const beaten = [true, true, false, false, false, false, false, false, false, false];
-    expect(parseCampaignBeaten(JSON.stringify({ v: 1, beaten }))).toEqual(beaten);
+    expect(parseCampaignBeaten(JSON.stringify({ v: 2, beaten, lockStake: '1000' }))).toEqual(beaten);
   });
   it('only strict boolean true counts (truthy junk is not conquered)', () => {
-    const parsed = parseCampaignBeaten(JSON.stringify({ v: 1, beaten: [1, 'yes', true, {}, null] }));
+    const parsed = parseCampaignBeaten(JSON.stringify({ v: 2, beaten: [1, 'yes', true, {}, null], lockStake: '1000' }));
     expect(parsed).toEqual([false, false, true, false, false, false, false, false, false, false]);
   });
   it('an over-long stored array is truncated to the node count', () => {
-    const parsed = parseCampaignBeaten(JSON.stringify({ v: 1, beaten: new Array(20).fill(true) }));
+    const parsed = parseCampaignBeaten(JSON.stringify({ v: 2, beaten: new Array(20).fill(true), lockStake: '1000' }));
     expect(parsed).toHaveLength(CAMPAIGN_NODE_COUNT);
     expect(parsed.every((b) => b === true)).toBe(true);
   });
   it('a short stored array pads the rest with false', () => {
-    const parsed = parseCampaignBeaten(JSON.stringify({ v: 1, beaten: [true] }));
+    const parsed = parseCampaignBeaten(JSON.stringify({ v: 2, beaten: [true], lockStake: '1000' }));
     expect(parsed[0]).toBe(true);
     expect(parsed.slice(1).every((b) => b === false)).toBe(true);
     expect(parsed).toHaveLength(CAMPAIGN_NODE_COUNT);

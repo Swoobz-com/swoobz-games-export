@@ -8,8 +8,18 @@
 
 import { CAMPAIGN_NODES } from '../engine/fightCampaign';
 
-/** The always-available roster fighters — never gated, selectable from a fresh profile. */
-export const ALWAYS_AVAILABLE_FIGHTER_IDS: readonly string[] = ['gorvak', 'volta'];
+/** The always-available roster fighters — never gated, selectable from a fresh profile.
+ *  phase 283 (Tim: "gorvak and volta can't be characters so remove those 2"): the two placeholder
+ *  house fighters are gone and these three replace them.
+ *  ⚠ `oni-tetsubo` IS node 2's in-fight body (fightCampaign.ts), which would normally gate it. It stays
+ *  selectable because this list is checked FIRST in bossNodeId() below — the same "node body that is
+ *  nonetheless always selectable" role volta used to fill. Removing it from this list would silently
+ *  lock it behind node 2. */
+export const ALWAYS_AVAILABLE_FIGHTER_IDS: readonly string[] = [
+  'gargoyle-spear',
+  'lich-scythe',
+  'oni-tetsubo',
+];
 
 /** The 1-based campaign node id a fighter is GATED behind, or null when the fighter is not a gated
  *  boss. Single source: it reads CAMPAIGN_NODES.fighterId. An always-available fighter is never a

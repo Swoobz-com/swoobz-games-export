@@ -8,7 +8,7 @@ import { CAMPAIGN_NODE_COUNT } from '../engine/fightCampaign';
 import type { FighterDef, FighterState } from './types';
 
 // PHASE 282 — the three free-roster fighters wired on Tim's ruling (2026-08-06): they take NO campaign
-// node, so they are selectable from a fresh profile alongside gorvak/volta.
+// node (oni is node 2's body but is always-available), so all three are selectable from a fresh profile.
 //
 // This file exists because every defect it guards is SILENT. A clip filed under a state the engine
 // never emits, or a url pointing at a file that is not on disk, throws nothing and logs nothing — the

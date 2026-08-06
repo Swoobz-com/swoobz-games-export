@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ALWAYS_AVAILABLE_FIGHTER_IDS, bossNodeId, isFighterSelectable } from './rosterGating';
+import { FIGHTERS } from './index';
 import { parseCampaignBeaten } from '../provider/fightProvider';
 import { CAMPAIGN_NODES, CAMPAIGN_NODE_COUNT } from '../engine/fightCampaign';
 
@@ -14,9 +15,19 @@ function beatenWith(...nodeIds: number[]): boolean[] {
 
 describe('bossNodeId — fighter id -> gating node (single source: CAMPAIGN_NODES)', () => {
   it('always-available fighters are never bosses', () => {
-    expect(bossNodeId('gorvak')).toBeNull();
-    // VOLTA fills many node fighterId slots as the in-fight stand-in but is always selectable.
-    expect(bossNodeId('volta')).toBeNull();
+    // phase 283: gorvak + volta were DELETED. These are the three that replaced them.
+    expect(bossNodeId('gargoyle-spear')).toBeNull();
+    expect(bossNodeId('lich-scythe')).toBeNull();
+    // ONI-TETSUBO IS node 2's in-fight body, so this is the load-bearing case: it must STILL read as
+    // "not a boss" because ALWAYS_AVAILABLE_FIGHTER_IDS is checked BEFORE the CAMPAIGN_NODES lookup.
+    // If that order ever flips, oni silently locks behind node 2 and this assertion is the tripwire.
+    expect(CAMPAIGN_NODES.find((n) => n.fighterId === 'oni-tetsubo')?.id).toBe(2);
+    expect(bossNodeId('oni-tetsubo')).toBeNull();
+  });
+  it('the deleted placeholder fighters are gone from the registry', () => {
+    // Guards against a half-revert leaving one of them resolvable again.
+    expect(FIGHTERS['gorvak']).toBeUndefined();
+    expect(FIGHTERS['volta']).toBeUndefined();
   });
   it('a wired boss maps to the node it is the enemy of', () => {
     expect(bossNodeId('satoshi-odachi')).toBe(5);
@@ -65,7 +76,7 @@ describe('isFighterSelectable — playable-after-beaten gate', () => {
     expect(isFighterSelectable('eclipse-ofuda', node9)).toBe(false);
   });
   it('beating an unrelated node never unlocks a boss', () => {
-    // Nodes 1-4 (VOLTA stand-in enemies) beaten but not 5 => satoshi stays locked.
+    // Nodes 1-4 beaten but not 5 => satoshi stays locked.
     expect(isFighterSelectable('satoshi-odachi', beatenWith(1, 2, 3, 4))).toBe(false);
   });
   it('corrupt storage falls back to all-locked bosses (via parseCampaignBeaten)', () => {
@@ -74,8 +85,10 @@ describe('isFighterSelectable — playable-after-beaten gate', () => {
     expect(isFighterSelectable('eclipse-ofuda', fromGarbage)).toBe(false);
     expect(isFighterSelectable('ir37-pink-tessen', fromGarbage)).toBe(false);
     expect(isFighterSelectable('lady-kurotachi', fromGarbage)).toBe(false);
-    // ...but the always-available fighters survive a corrupt read.
-    expect(isFighterSelectable('gorvak', fromGarbage)).toBe(true);
-    expect(isFighterSelectable('volta', fromGarbage)).toBe(true);
+    // ...but the always-available fighters survive a corrupt read — including oni, which is a node
+    // body and would otherwise be locked by an all-false beaten[].
+    expect(isFighterSelectable('gargoyle-spear', fromGarbage)).toBe(true);
+    expect(isFighterSelectable('lich-scythe', fromGarbage)).toBe(true);
+    expect(isFighterSelectable('oni-tetsubo', fromGarbage)).toBe(true);
   });
 });
