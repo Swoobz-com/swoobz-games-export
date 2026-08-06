@@ -13,8 +13,23 @@ Generate button MUST read `GenerateUnlimited`. `Generate2418` = CREDITS = never 
 3. Verify `domLen === lexLen === WANT` (Lexical's store, not just the DOM).
 4. Re-arm Unlimited — it resets to OFF on every fire-reload.
 5. Guarded fire in ONE js task: all 9 checks must pass or it does not click.
-6. POST-CHECK by beat count in `document.body.innerText`: **2 = editor + ONE history card = LANDED.**
-   1 = editor only = did NOT land, re-fire.
+6. POST-CHECK **BY THE JOBS API, NOT BY BEAT COUNT.**
+   ⛔ **The protocol's §8 beat-count test is BROKEN and I proved it this session.** It says
+   "2 occurrences = editor + ONE history card = LANDED". Measured on clip 2 BEFORE it was fired:
+   `body.innerText` contained the beat **twice** while the API showed **no such job at all**. One of
+   the two lives inside an `<li>`, so even "is it in a card element" does not separate them — the app
+   renders the current prompt somewhere that looks like a card. Trusting it would have SKIPPED clip 2
+   entirely (or, in the mirror case, double-fired). Use this instead — it is authoritative:
+   ```js
+   const tok = await window.Clerk.session.getToken();
+   const qs = ['seedance_2_0','seedance_2_unlimited','seedance_unlimited']
+       .map(t=>'job_set_type='+t).join('&') + '&size=3';
+   const j = await (await fetch('https://fnf-api-gw.higgsfield.ai/fnf/jobs/accessible?'+qs,
+       {headers:{Authorization:'Bearer '+tok}, credentials:'include'})).json();
+   // newest job: check params.prompt.length === WANT, status, and cost === null (free)
+   ```
+   A fired clip appears as a job whose `params.prompt.length` equals the LEN you typed and whose
+   `cost` is `null`. `plen === 0` is the dropped-prompt defect.
 
 ## Pipelining (Tim, 2026-08-06): *"work in the type you r waiting for the clip"*
 Generation is serialized at ~20 min/clip and the editor is FREE the whole time. So the loop is:
@@ -28,8 +43,8 @@ Defect column = the MEASURED reason v1 was rejected (see SESSION30-GATE-REPORT.m
 
 | # | char | state | LEN | measured defect being fixed | result |
 |---|---|---|---|---|---|
-| 1 | gargoyle-spear | hit | 7372 | LEFT 230px @f7 + RIGHT 66px @f3 overrun | **FIRED + card-confirmed** (beat count 2) |
-| 2 | gargoyle-spear | attack_strike_b | 7935 | stone statue PLINTH under his feet, f0→f97 | **ARMED — typed + verified 7935/7935 in both stores WHILE clip 1 generated.** Fire on `busy===0`. |
+| 1 | gargoyle-spear | hit | 7372 | LEFT 230px @f7 + RIGHT 66px @f3 overrun | **DONE** — API `completed`, plen 7372, cost null |
+| 2 | gargoyle-spear | attack_strike_b | 7935 | stone statue PLINTH under his feet, f0→f97 | **FIRED** — API `queued`, plen 7935, cost null. Typed WHILE clip 1 generated. |
 | 3 | gargoyle-spear | attack_block | 7737 | FRONTAL whole clip, wings spread, anchor 0.431 | queued |
 | 4 | gargoyle-spear | attack_block_b | 7384 | LEFT 366px overrun @f12 | queued |
 | 5 | gargoyle-spear | attack_throw | 8233 | rubble persists to last frame + LEFT 42px | queued |
