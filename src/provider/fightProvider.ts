@@ -47,6 +47,7 @@ import {
   campaignPayout,
   CAMPAIGN_NODE_COUNT,
   defenseAmount,
+  guardAmount,
   evaluateCampaignMatch,
   getCampaignNode,
 } from '../engine/fightCampaign';
@@ -150,6 +151,10 @@ export interface CampaignState {
   frontier: number;
   defenseRemaining: number;
   absorbed: boolean;
+  /** The PLAYER's guard buffer left THIS round (bonus HP). Drives the longer p1 health bar. */
+  guardRemaining: number;
+  /** True iff the ENEMY's decisive hit was absorbed by the player's guard this exchange. */
+  guarded: boolean;
   /** The stake this run's progress is locked to (Tim's rule): entering the map ABOVE this wipes
    *  progress, the same or lower keeps it. null = no progress yet, so any stake is free to pick. */
   lockStakeLamports: bigint | null;
@@ -489,6 +494,11 @@ export function useFightController(
   // currently resolving was absorbed (the UI's absorb-beat flag; reset per exchange).
   const [campaignDefense, setCampaignDefense] = useState<number>(0);
   const [campaignAbsorbed, setCampaignAbsorbed] = useState<boolean>(false);
+  /** The PLAYER's guard buffer this round (bonus HP). Mirror of campaignDefense — the ~4x LADDER
+   *  (2026-08-07) prices the early nodes on it, so if it were not wired the player would win those
+   *  fights at 50% while being paid for 72%, i.e. a silent under-payment. */
+  const [campaignGuard, setCampaignGuard] = useState<number>(0);
+  const [campaignGuarded, setCampaignGuarded] = useState<boolean>(false);
 
   // Refs mirror balance/stake for synchronous reads inside plain callbacks (the
   // commit deduction + settle credit must never live in a setState updater).
@@ -520,6 +530,7 @@ export function useFightController(
   // The enemy's absorb buffer for the CURRENT round (refilled to the node's defense amount at
   // every round start; drained by applyCampaignExchange — the shared shield/bulk math).
   const campaignDefenseRef = useRef<number>(0);
+  const campaignGuardRef = useRef<number>(0);
   // The campaign enemy's UNIFORM-RANDOM pick source (randomMove ONLY, never aiPick — spec §0.2
   // money law). CSPRNG per the unpredictability law (secureRng.ts): no seed, no recoverable
   // state — the old Date.now-seeded mulberry32 let observed picks predict all future picks.
@@ -754,11 +765,14 @@ export function useFightController(
       let next: MatchState;
       let absorbed = false;
       if (modeRef.current === 'campaign') {
-        const r = applyCampaignExchange(prev, p1Move, p2Move, campaignDefenseRef.current);
+        const r = applyCampaignExchange(prev, p1Move, p2Move, campaignDefenseRef.current, campaignGuardRef.current);
         next = r.state;
         absorbed = r.absorbed;
         campaignDefenseRef.current = r.absorbRemaining;
         setCampaignDefense(r.absorbRemaining);
+        campaignGuardRef.current = r.guardRemaining;
+        setCampaignGuard(r.guardRemaining);
+        setCampaignGuarded(r.guarded);
         setCampaignAbsorbed(absorbed);
       } else {
         next = applyExchange(prev, p1Move, p2Move);
@@ -816,6 +830,10 @@ export function useFightController(
               const refill = defenseAmount(node);
               campaignDefenseRef.current = refill;
               setCampaignDefense(refill);
+              const refillGuard = guardAmount(node);
+              campaignGuardRef.current = refillGuard;
+              setCampaignGuard(refillGuard);
+              setCampaignGuarded(false);
               setMatchStateNow(startNextRound(next));
               startRoundIntro();
             }, ROUND_END_MS);
@@ -1038,6 +1056,9 @@ export function useFightController(
     campaignSettledRef.current = false;
     campaignDefenseRef.current = 0;
     setCampaignDefense(0);
+    campaignGuardRef.current = 0;
+    setCampaignGuard(0);
+    setCampaignGuarded(false);
     setCampaignAbsorbed(false);
     setCampaignReceipt(null);
     setFriend({ roomCode: null, connected: false, joinFailed: false, opponentFighterId: null, connectionLost: false, autoPlay: false });
@@ -1078,6 +1099,10 @@ export function useFightController(
       const refill = defenseAmount(getCampaignNode(nodeId));
       campaignDefenseRef.current = refill;
       setCampaignDefense(refill);
+      const refillGuard = guardAmount(getCampaignNode(nodeId));
+      campaignGuardRef.current = refillGuard;
+      setCampaignGuard(refillGuard);
+      setCampaignGuarded(false);
       setCampaignAbsorbed(false);
       // No per-match reseed: the pick source is the CSPRNG (secureRng.ts) — seedless by design.
       setMatchStateNow(createMatch());
@@ -1275,6 +1300,9 @@ export function useFightController(
         setLastOutcome(null);
         campaignDefenseRef.current = 0;
         setCampaignDefense(0);
+        campaignGuardRef.current = 0;
+        setCampaignGuard(0);
+        setCampaignGuarded(false);
         setCampaignAbsorbed(false);
         setPhaseNow('campaignMap');
         return;
@@ -1374,6 +1402,9 @@ export function useFightController(
     setLastOutcome(null);
     campaignDefenseRef.current = 0;
     setCampaignDefense(0);
+    campaignGuardRef.current = 0;
+    setCampaignGuard(0);
+    setCampaignGuarded(false);
     setCampaignAbsorbed(false);
     pendingStartRef.current = { kind: 'campaign', nodeId };
     enterStake();
@@ -1395,6 +1426,9 @@ export function useFightController(
     setLastOutcome(null);
     campaignDefenseRef.current = 0;
     setCampaignDefense(0);
+    campaignGuardRef.current = 0;
+    setCampaignGuard(0);
+    setCampaignGuarded(false);
     setCampaignAbsorbed(false);
     pendingStartRef.current = { kind: 'campaign', nodeId: nextId };
     enterStake();
@@ -1407,6 +1441,9 @@ export function useFightController(
     setLastOutcome(null);
     campaignDefenseRef.current = 0;
     setCampaignDefense(0);
+    campaignGuardRef.current = 0;
+    setCampaignGuard(0);
+    setCampaignGuarded(false);
     setCampaignAbsorbed(false);
     setPhaseNow('campaignMap');
   }, [clearAllTimers, setPhaseNow, setMatchStateNow]);
@@ -1494,6 +1531,9 @@ export function useFightController(
     campaignSettledRef.current = false;
     campaignDefenseRef.current = 0;
     setCampaignDefense(0);
+    campaignGuardRef.current = 0;
+    setCampaignGuard(0);
+    setCampaignGuarded(false);
     setCampaignAbsorbed(false);
     setCampaignReceipt(null);
     exchangeIdxRef.current = 0;
@@ -1524,6 +1564,8 @@ export function useFightController(
     frontier: frontierOf(campaignBeaten),
     defenseRemaining: campaignDefense,
     absorbed: campaignAbsorbed,
+    guardRemaining: campaignGuard,
+    guarded: campaignGuarded,
   };
 
   return {

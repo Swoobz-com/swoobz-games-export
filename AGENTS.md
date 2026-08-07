@@ -74,10 +74,12 @@ prior guard was a 2M-match script nobody runs in CI. If you touch a `multBps`, t
 
 **There is NO RTP FLOOR, and the campaign is NOT uniform 96%** (Tim, 2026-08-07). `MAX_MULT_BPS` caps
 every payout at **4.00x** while the win chances are untouched, and since RTP = P x mult that pushes five
-nodes below the old line ON PURPOSE: nodes 6/7 return 90.2%, 8/9 return 52.2%, and the finale returns
-**9.61%** (2.4025% to win, paying 4.00x where its fair price is 39.959x). The mean across the ladder is
-77.45%. Do not "fix" this by restoring the fair prices — it is a deliberate ruling, and
-`fightCampaign.test.ts` asserts the cap binds on exactly nodes 6-10.
+tiers below the old line ON PURPOSE. The price ASCENDS 1.92 -> 3.512 -> 3.70 -> 3.85 -> 4.00 across the
+five difficulty tiers, and tiers C/D/E are priced BELOW their ceilings so it has room to climb: nodes 6/7
+return 83.4%, 8/9 return 50.3%, and the finale returns **9.61%** (2.4025% to win, paying 4.00x where its
+fair price is 39.959x). Mean across the ladder 84.4%; tiers A and B are untouched at ~96%. Do not "fix"
+this by restoring the fair prices — it is a deliberate ruling. `fightCampaign.test.ts` asserts the price
+never drops, that the top rung IS the cap, and that there are exactly five distinct prices.
 
 **Never type an RTP into the UI.** Because the return now varies per node, every RTP the player sees is
 derived by `nodeRtpPercent()` / `campaignRtpRange()` from the same exact rationals that price the ladder.

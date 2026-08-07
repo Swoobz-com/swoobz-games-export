@@ -25,19 +25,26 @@ max win to 4 ... keep the difficulty as it is, dont increase win chance or anyth
 Since **RTP = P(win) x multiplier** and every win chance is UNCHANGED, capping the multiplier
 necessarily lowers the return on the five nodes whose fair price exceeded the cap:
 
-| node | win %      | pays (was)      | RTP now | (was)  |
-|------|------------|-----------------|---------|--------|
-| 1,2  | 50.0000%   | x1.92           | 96.00%  | 96.00% |
-| 3,4,5| 27.3254%   | x3.51           | 95.97%  | 95.97% |
-| 6,7  | 22.5546%   | x4.00 (x4.25)   | 90.22%  | 95.92% |
-| 8,9  | 13.0733%   | x4.00 (x7.34)   | 52.29%  | 96.00% |
-| 10   | 2.4025%    | x4.00 (x39.95)  |  9.61%  | 96.00% |
+| tier | nodes | win % (UNCHANGED) | ceiling | pays (was)     | RTP now | (was)  |
+|------|-------|-------------------|---------|----------------|---------|--------|
+| A    | 1,2   | 50.0000%          | 1.92x   | x1.92          | 96.00%  | 96.00% |
+| B    | 3,4,5 | 27.3254%          | 3.513x  | x3.512         | 95.97%  | 95.97% |
+| C    | 6,7   | 22.5546%          | 4.256x  | x3.70 (x4.25)  | 83.45%  | 95.92% |
+| D    | 8,9   | 13.0733%          | 7.343x  | x3.85 (x7.34)  | 50.33%  | 96.00% |
+| E    | 10    | 2.4025%           | 39.959x | x4.00 (x39.95) |  9.61%  | 96.00% |
+
+The price now ASCENDS 1.92 -> 3.512 -> 3.70 -> 3.85 -> 4.00 ("no i want it in ladder"). Tiers C/D/E
+are priced BELOW their ceilings on purpose — that headroom is the only room the ladder has to climb
+once the top is pinned at 4.00x. FIVE rungs across ten nodes: ten distinct prices would need ten
+distinct win chances, and the win chances are frozen.
 
 Consequences of record:
-- **The campaign is no longer a uniform-96% game.** Mean across the ten nodes is 77.45%; the
+- **The campaign is no longer a uniform-96% game.** Mean across the ten nodes is 84.4%; the
   finale returns 9.61%. Max win on a $5 stake fell $199.79 -> $20.00, on $25 $998.98 -> $100.00.
-- **Payout is decoupled from odds**, so the old "harder always pays more" property is gone: nodes
-  6..10 span 22.6% down to 2.4% and all pay 4.00x.
+  Tiers A and B are UNCHANGED and still return ~96%.
+- **Payout is decoupled from odds** on tiers C-E: they pay less than their difficulty is worth. The
+  "harder pays more" property SURVIVES (the price still ascends); what is gone is "every node returns
+  the same 96%".
 - **Every RTP shown to the player is now COMPUTED** (`nodeRtpPercent` / `campaignRtpRange`), never a
   literal. The map's "returns 96% to players over time" and the node card gained a RETURNS stat,
   because shipping the old copy would have made the game state a number its own math contradicts.
@@ -95,8 +102,8 @@ is worth at 96% and is retained because it is the number the exact fractions act
 |-------------|---|---|---------|--------------------------|----------|---------|---------|--------|---------|
 | plain       | 0 | 2 | 1/2     | 1/2                      | 50.000%  | 19200   | 19200   | x1.92  | 96.00%  |
 | defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35132   | 35120   | x3.51  | 95.97%  |
-| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42563   | 40000   | x4.00  | 90.22%  |
-| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73432   | 40000   | x4.00  | 52.29%  |
+| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42563   | 37000   | x3.70  | 83.45%  |
+| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73432   | 38500   | x3.85  | 50.33%  |
 | finale      | 3 | 3 | 37/256  | 13207617791/549755813888 | 2.402%   | 399590  | 40000   | x4.00  |  9.61%  |
 
 (The retired boss rung, S=2 R=3, was P = 1380490567/17179869184 = 8.035% at x11.94. Its

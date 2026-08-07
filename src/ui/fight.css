@@ -2827,3 +2827,17 @@
   background: linear-gradient(180deg, #29e6ff 0%, #0ea5e9 100%);
   box-shadow: 0 0 calc(var(--sw) * 0.15) rgba(41, 230, 255, 0.4);
 }
+
+/* THE PLAYER'S GUARD, disclosed. Mirrors .fr-nodecard-defense but reads as YOURS, not the enemy's:
+   ice/steel instead of the enemy's gold-and-blood register, so a glance tells you which side the
+   handicap favours. Added with the ~4x ladder, which prices nodes 1-4 and 6-8 on this buffer. */
+.fr-nodecard-guard .fr-nodecard-defense-line {
+  color: var(--fr-ice-1, #7fd4ff);
+}
+.fr-nodecard-guard-seg {
+  background: var(--fr-ice-1, #7fd4ff);
+  opacity: 0.85;
+}
+.fr-guard-hint {
+  color: var(--fr-ice-1, #7fd4ff);
+}

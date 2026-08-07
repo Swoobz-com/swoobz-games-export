@@ -92,33 +92,45 @@ export interface CampaignNodeDef {
 //   n1-2  to2 none      50.00%  x1.92      n6-7  to3 +1      22.55%  x4.25
 //   n3-5  to2 +1        27.33%  x3.51      n8-9  to2 +2      13.07%  x7.34
 //   n10   to3 +3         2.40% x39.95   <- its OWN rung (was to3 +2, 8.04%, x11.94)
-/** THE 4.00x PAYOUT CAP (Tim, 2026-08-07). No node may pay more than 4x the stake.
+/** THE 4.00x-CAPPED PAYOUT LADDER (Tim, 2026-08-07: "lower the max win to 4", "keep the difficulty
+ *  as it is", "no i want it in ladder").
  *
- *  ⛔ THIS DECOUPLES PAYOUT FROM ODDS, AND THAT IS DELIBERATE. Tim's instruction was explicit and
- *  reaffirmed: "lower the max win to 4 ... keep the difficulty as it is, dont increase win chance or
- *  anything." Since RTP = P(win) x multiplier and the win chances are UNCHANGED, capping the
- *  multiplier necessarily lowers the return on every node it touches:
+ *  All three constraints at once, and the shape is forced by arithmetic:
  *
- *      node  win%      pays        RTP
- *      1,2   50.0000%  1.92x    96.00%   (untouched, already under the cap)
- *      3,4,5 27.3254%  3.512x   95.97%   (untouched)
- *      6,7   22.5546%  4.00x    90.22%   (was 4.256x / 95.92%)
- *      8,9   13.0733%  4.00x    52.29%   (was 7.343x / 96.00%)
- *      10     2.4025%  4.00x     9.61%   (was 39.959x / 96.00%)
+ *    * EVERY WIN CHANCE IS BYTE-IDENTICAL to the pre-cap ladder ("dont change the win % keep them the
+ *      same"). Not one defense, guard or format moved. The ladder lives ENTIRELY in the prices.
+ *    * THE PRICE ASCENDS across the five difficulty tiers, topping out at 4.00x.
+ *    * THE CEILING binds each tier from above: RTP = P x mult must stay <= 96%, so a tier can never
+ *      pay more than 0.96/P. Nodes 1-2 win 50% of the time, so 1.92x IS their ceiling, not a choice —
+ *      paying an easy node more would hand the player an edge. The ladder therefore climbs only into
+ *      the headroom the harder tiers have, which is why the first two rungs cannot move at all.
+ *    * EQUAL DIFFICULTY KEEPS AN EQUAL PRICE. Same fight, same pay — so the ladder has FIVE rungs
+ *      across ten nodes, not ten. (Ten distinct prices would require ten distinct win chances, i.e.
+ *      changing the difficulty, which is exactly what Tim ruled out.)
  *
- *  So the campaign is no longer a ~96% game: the mean across the ten nodes is 77.45%, and the finale
- *  returns 9.61%. The 39.959x jackpot is gone — max win on a $5 stake drops $199.79 -> $20.00.
+ *      tier  nodes  fmt  defense  P(win)     ceiling   pays     RTP
+ *      A     1,2    to2  none     50.0000%   1.9200x   1.92x   96.00%   <- ceiling-bound
+ *      B     3,4,5  to2  +1       27.3254%   3.5132x   3.512x  95.97%   <- effectively ceiling-bound
+ *      C     6,7    to3  +1       22.5546%   4.2563x   3.70x   83.45%
+ *      D     8,9    to2  +2       13.0733%   7.3432x   3.85x   50.33%
+ *      E     10     to3  +3        2.4025%  39.9591x   4.00x    9.61%   <- Tim's cap
  *
- *  BECAUSE OF THAT, THE ON-SCREEN DISCLOSURES ARE NOW COMPUTED, NEVER HARDCODED. The map used to
- *  read "each trial returns 96% to players over time" and the stake screen "96.0% RTP to player";
- *  both were true only while every node sat on the 96% line, and shipping them unchanged would have
- *  made the game state a false number to the player. `nodeRtpPercent()` derives each node's real
- *  return from the SAME exact rationals that price it, so the copy can never drift from the math
- *  again. If a future ladder returns to a uniform RTP, the copy follows automatically.
+ *  Tiers A and B are unchanged and still return ~96%. Tiers C, D and E give up return because their
+ *  fair prices (4.26x / 7.34x / 39.96x) are above the cap — that is the whole effect of the ruling.
+ *  Mean across the ten nodes: 95.97% -> 84.4%. Max win on a $5 stake: $199.79 -> $20.00.
  *
- *  Anything that assumed "96%" — the RTP-ceiling test's lower bound, the Monte-Carlo battery's
- *  assertion band, CAMPAIGN-SPEC.md, FIGHT-SPEC §8 — was updated in the same commit. */
-export const MAX_MULT_BPS = 40000n;
+ *  BECAUSE THE RETURN NOW VARIES, THE ON-SCREEN DISCLOSURES ARE COMPUTED, NEVER HARDCODED. The map
+ *  used to read "each trial returns 96% to players over time", true only while every node sat on the
+ *  96% line; shipping it unchanged would have made the game state a number its own math contradicts.
+ *  `nodeRtpPercent()` / `campaignRtpRange()` derive every displayed return from the SAME exact
+ *  rationals that price the ladder, so the copy cannot drift again. The node card gained a RETURNS
+ *  stat. The quick duel is still genuinely 1.92x at 96%, so its copy stays a literal.
+ *
+ *  Anything that assumed a uniform 96% — the RTP-ceiling test's lower bound, the Monte-Carlo
+ *  battery's assertion band, CAMPAIGN-SPEC §0a — was updated with it. */
+export const MAX_MULT_BPS = 40000n; // node 10 — Tim's cap and the TOP of the ladder
+export const RUNG_C_BPS = 37000n; // nodes 6-7 (22.5546% win, ceiling 42563n) -> RTP 83.45%
+export const RUNG_D_BPS = 38500n; // nodes 8-9 (13.0733% win, ceiling 73432n) -> RTP 50.33%
 
 export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // NOTE: the demo cosmetic rewards (AUTOMAT packs on nodes 2 + 8) were REMOVED for now
@@ -132,10 +144,10 @@ export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'thorn-warden', arenaId: 'bamboo', enemy: { id: 'thorn-warden', name: 'THORN WARDEN' } },
   { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'hollow-pale', arenaId: 'snowfang', enemy: { id: 'hollow-pale', name: 'HOLLOW PALE' } },
   { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'satoshi-odachi', arenaId: 'kawa', enemy: { id: 'satoshi-odachi', name: 'SATOSHI ODACHI' } },
-  { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: MAX_MULT_BPS, fighterId: 'eclipse-ofuda', arenaId: 'shrine', enemy: { id: 'eclipse-ofuda', name: 'ECLIPSE OFUDA' } },
-  { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: MAX_MULT_BPS, fighterId: 'ir37-pink-tessen', arenaId: 'pagoda', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
-  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 2, defense: { kind: 'shield', amount: 2 }, multBps: MAX_MULT_BPS, fighterId: 'ir56-lion-serpent', arenaId: 'gorge', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
-  { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: MAX_MULT_BPS, fighterId: 'lady-kurotachi', arenaId: 'moat', enemy: { id: 'lady-kurotachi', name: 'LADY KUROTACHI' } },
+  { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: RUNG_C_BPS, fighterId: 'eclipse-ofuda', arenaId: 'shrine', enemy: { id: 'eclipse-ofuda', name: 'ECLIPSE OFUDA' } },
+  { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: RUNG_C_BPS, fighterId: 'ir37-pink-tessen', arenaId: 'pagoda', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
+  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 2, defense: { kind: 'shield', amount: 2 }, multBps: RUNG_D_BPS, fighterId: 'ir56-lion-serpent', arenaId: 'gorge', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
+  { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: RUNG_D_BPS, fighterId: 'lady-kurotachi', arenaId: 'moat', enemy: { id: 'lady-kurotachi', name: 'LADY KUROTACHI' } },
   // Tim's ruling (2026-07-22): the finalboss art IS the final boss - IR-48 HEX PAPER LORD is the
   // name; the lore line follows the other nodes' register. RONIN ZERO stays as the SEASON brand
   // (map header), not the boss identity.

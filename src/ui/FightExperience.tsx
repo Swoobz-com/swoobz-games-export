@@ -22,6 +22,7 @@ import {
   defenseAmount,
   formatMult,
   formatWinChance,
+  guardAmount,
   nodeRtpPercent,
   campaignRtpRange,
   getCampaignNode,
@@ -243,6 +244,15 @@ function defenseLine(node: CampaignNodeDef): string | null {
   return d.kind === 'shield'
     ? `HIS SHIELD ABSORBS THE FIRST ${d.amount} ${d.amount === 1 ? 'HIT' : 'HITS'} EACH ROUND`
     : `TOUGHER FOE: HIS HEALTH BAR HAS ${3 + d.amount} SEGMENTS`;
+}
+
+/** The PLAYER's guard one-liner, the mirror of defenseLine. Disclosed for the same reason: the ~4x
+ *  ladder prices the early nodes on this buffer, and a handicap in the player's favour is exactly as
+ *  load-bearing to the odds as one against him. Same middle-dot register, never an em-dash. */
+function guardLine(node: CampaignNodeDef): string | null {
+  const g = node.guard ?? 0;
+  if (g <= 0) return null;
+  return `YOUR GUARD: ${3 + g} SEGMENTS, YOU SOAK THE FIRST ${g} ${g === 1 ? 'HIT' : 'HITS'} EACH ROUND`;
 }
 
 // ============================================================================================
@@ -1568,6 +1578,13 @@ export function FightExperience(): JSX.Element {
   const bulkAmount = campaignNode?.defense?.kind === 'bulk' ? campaignNode.defense.amount : 0;
   const p2BarTotal = 3 + bulkAmount;
   const p2BarHp = ctl.matchState.p2.hp + (bulkAmount > 0 ? ctl.campaign.defenseRemaining : 0);
+  // THE PLAYER'S GUARD as a longer p1 bar — the exact mirror of the enemy's 'bulk' presentation.
+  // The ~4x ladder prices nodes 1-4 and 6-8 on this buffer, so it MUST be visible: a player handed
+  // +4 HP and not shown it cannot tell why an early node is winnable. There is no player-side pip
+  // variant on purpose — one presentation, and "my bar is longer" reads instantly.
+  const p1GuardTotal = ctl.mode === 'campaign' ? guardAmount(campaignNode) : 0;
+  const p1BarTotal = 3 + p1GuardTotal;
+  const p1BarHp = ctl.matchState.p1.hp + (p1GuardTotal > 0 ? ctl.campaign.guardRemaining : 0);
   const opponentId =
     ctl.mode === 'campaign' && campaignNode
       ? campaignNode.fighterId
@@ -2404,7 +2421,7 @@ export function FightExperience(): JSX.Element {
                 identity (the animated body stays the fighterId clip set, VOLTA — identity layer
                 only). Quick duel + friend keep the FighterDef name (unchanged). */}
             <NamePlate name={mode === 'campaign' && campaignNode ? campaignNode.enemy.name : p2Def.name} side="p2" />
-            <HealthBar hp={matchState.p1.hp} side="p1" reduced={reduced} />
+            <HealthBar hp={p1BarHp} side="p1" reduced={reduced} total={p1BarTotal} />
             {/* Enemy bar: on campaign BULK nodes the absorb buffer renders as extra segments of one
                 seamless longer bar (display hp = engine hp + buffer); everywhere else this is the
                 exact 3-segment bar as before. */}
@@ -2431,6 +2448,7 @@ export function FightExperience(): JSX.Element {
                   FIRST TO {campaignNode.roundsToWin} ROUNDS · PAYS x{formatMult(campaignNode.multBps)}
                 </span>
                 {campaignNode.defense && <span className="fr-objective-hint">{defenseLine(campaignNode)}</span>}
+                {guardLine(campaignNode) && <span className="fr-objective-hint fr-guard-hint">{guardLine(campaignNode)}</span>}
               </div>
             )}
             {/* One banner slot, two states. GRACE (connectionLost): the rival's socket dropped
@@ -2727,6 +2745,16 @@ export function FightExperience(): JSX.Element {
                   <div className="fr-nodecard-format">FIRST TO {campaignNode.roundsToWin} ROUNDS</div>
                   {/* Defense preview (Glass Box: the handicap is fully disclosed before staking).
                       Shield = diamond pips; bulk = a mini 3+N segment bar, visibly longer. */}
+                  {guardLine(campaignNode) && (
+                    <div className="fr-nodecard-defense fr-nodecard-guard">
+                      <span className="fr-nodecard-defense-line">{guardLine(campaignNode)}</span>
+                      <span className="fr-nodecard-defense-bar" aria-hidden="true">
+                        {Array.from({ length: 3 + (campaignNode.guard ?? 0) }, (_, i) => (
+                          <span key={i} className="fr-nodecard-defense-seg fr-nodecard-guard-seg" />
+                        ))}
+                      </span>
+                    </div>
+                  )}
                   {campaignNode.defense && (
                     <div className="fr-nodecard-defense">
                       <span className="fr-nodecard-defense-line">{defenseLine(campaignNode)}</span>
