@@ -1,6 +1,161 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 32 — START HERE (2026-08-07) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 33 — START HERE (2026-08-07) ★★★★★★★★★★
+
+**Read `AGENTS.md` first**, then this block. Session 32 and below are still true and are kept below as
+history. This session cleared the ENTIRE session-32 backlog (items 1-6), and then a seven-agent
+adversarial pass found three real defects in that same work, which phase 296 fixes.
+
+Branch `main`, four commits this session: phases **293, 294, 295, 296**. HEAD = `2e2e168`.
+
+| gate | result | how to run |
+|---|---|---|
+| typecheck | **0** | `npx tsc --noEmit` |
+| tests | **286/286 across 17 files** (was 260/16) | `npx vitest run --pool=forks --poolOptions.forks.singleFork=true` |
+| build | **exit 0** — JS 266.57 kB (gzip 79.18), CSS 59.05 kB (gzip 10.15) | `npm run build` |
+| campaign math | **2M matches/node PASS**, all ten on-model | `npx vite-node scripts/campaign-rtp-sim.mjs` |
+| render gate | **46/46** real Chrome | `node scripts/qa-phase294.mjs` (needs a dev server; `--port`/`QA_PORT`) |
+| receipt gate | **6/6** (plays real matches) | `node scripts/qa-phase294-receipt.mjs --port <p> [--finale]` |
+| production serve | boots, relay works | `npm run build && npm start` |
+
+⚠ A plain `npx vitest run` with a dev server up dies with `Worker exited unexpectedly` and reports
+something like `1 passed (2)`. It happened again this session **even with the fork flags**, under load.
+Stop your own dev server and re-run before believing a bad number.
+
+### ▶ BOTH OF TIM'S OPEN DECISIONS ARE NOW ANSWERED
+
+- **The 51.2% mean return is CONFIRMED** (phase 293). It was re-derived from the shipped exact-rational
+  functions — the session-32 table was correct to the decimal — and put back to Tim beside its three
+  legal alternatives: steepest legal geometric ladder 1.75x→4.00x (**mean 60.5%**), max-return ladder
+  1.91x→4.00x hugging every ceiling (**mean 77.1%**, rejected: its steps degenerate to one-cent
+  increments and it reads as four plateaus), and raising node 10's win chance (4.00x needs **24.00%**
+  for a ~96% return, i.e. a finale easier than node 6). **He kept the shipped ladder.** Do not re-derive
+  these three again.
+- **Portrait gets a ROTATE PROMPT** (phase 293/294). A portrait layout and cropping the art were both
+  declined.
+
+### ▶ WHAT SHIPPED (the whole session-32 backlog)
+
+**294 — the progression the game never showed.** Beating a node is the ONLY character-unlock mechanic
+(9 of 12 fighters) and nothing said so. New pure `fighterUnlockedByNode(nodeId)` reads `node.fighterId`,
+NEVER `node.enemy.id` — they diverge on node 2, whose enemy id `kitsune-tanto` is not in the registry at
+all, so announcing it would throw inside the victory render. A FIGHTER UNLOCKED card on the receipt; the
+9 earnable locked select tiles now read `NODE 1 / NODE 3 / … / NODE 10` (number only — the map fogs
+names); node 10 prints `VICTORY / ISLAND CONQUERED`; the map gains a CLEARED title and a gold plate; a
+conquered node card carries a CONQUERED · REPLAY badge; the arena picker is gone from the campaign
+detour (it was silently overwriting the player's saved quick-duel arena). Also moved the dev bar
+bottom-left → top-right, because the new plate had pushed the RTP compliance line into it.
+
+**295 — VS FRIEND can exist in production.** `attachMatchRelay` was referenced only by `vite.config.ts`.
+New `src/server/staticServer.ts` + `server.mjs` + `npm start`, with Range/206/416 (dist carries 257MB of
+clips and iOS Safari will not play video from a server that answers a Range with a full 200), an
+extension-gated SPA fallback, and a resolve+separator traversal guard. **`ws` moved to `dependencies`** —
+it was imported at module scope from devDependencies, so `npm ci --omit=dev && npm start` crashed on
+boot. 21 new tests.
+
+**296 — the three things the adversarial pass proved wrong.** See below; this is the part to read.
+
+### ⛔ THE THREE DEFECTS THE VERIFIERS FOUND, and why review would not have
+
+Seven agents were told to REFUTE, not confirm, with "default to refuted if unsure". Four claims came
+back refuted. Every fix in 296 has a measured reproduction behind it, not a suspicion.
+
+1. **THE RUN-WIPE WAS INVISIBLE UNTIL IT FIRED, AND IT IS THE DEFAULT PATH.** Committing above a run's
+   `lockStake` wipes all ten nodes. The stake is not persisted, so a returning player locked at $1
+   re-arms at `DEFAULT_STAKE` $5, opens a conquered node, and the one obvious button destroys the run —
+   proven: storage `[true x10]` → `[false x10]`, char select 12 selectable → 3. `lockStakeLamports` was
+   rendered NOWHERE, so the risk could not be computed. Now warned before the button.
+2. **THE SHOT-CLOCK PAUSE STRANDED THE OTHER PLAYER.** Phase 294 paused in every mode. The relay's 10s
+   grace fires on ws `'close'` only and there is no heartbeat, so a connected-but-idle peer is invisible:
+   the victim's clock hit 0, `tryReveal` blocked forever, and 26s past the grace there was no settle and
+   no receipt, stake committed. The pause is now single-player only.
+3. **THE CURTAIN WAS A PICTURE, NOT A BARRIER.** One Tab reached a covered STRIKE and activating it
+   committed a move against a committed stake. `.fr-stage` + PLAY SAFE are now `inert`.
+
+Also fixed: a measured 39ms flash where the letterboxed game painted before the curtain (`useEffect`
+runs after paint; `useLayoutEffect` does not), and `aria-label` on a bare div for the labelled tiles.
+
+**AND THE GATES THEMSELVES WERE THE WORST FINDING** — mutation testing showed deleting the shot-clock
+freeze left the render driver at 30/30, exit 0. Full pattern list is now in AGENTS.md under
+"Gates that cannot fail". The drivers are 46/46 and 6/6 today and DO fail on all five mutations tried.
+
+### LEARNINGS THAT WILL SAVE YOU A WRONG CLAIM
+
+1. **Adversarial verification is worth more than the build.** Seven skeptics on already-committed,
+   already-render-verified, already-green work found a money-adjacent trap, a multiplayer hostage bug,
+   and a gate that could not fail. None of it was reachable by "does it look right".
+2. **Ask what the gate would say if the feature were DELETED.** If the answer is "still green", it is
+   not a gate. Mutation-test it in a throwaway `git worktree` — never in the main tree.
+3. **"In view" is not "visible".** A fully-overlapped element passes every containment check. Assert box
+   intersection, and look at the screenshot — that is FINDING 12 for the third time.
+4. **Verify with the user's input device.** `element.click()` fires on an `inert` node, so a click-based
+   inert probe measures nothing and silently commits a real pick.
+5. **A driver must prove WHICH app it measured.** An `::1` vs `127.0.0.1` split defeats `--strictPort`
+   and produced a confident 13/30 against the wrong build.
+6. **Copy is a correctness surface.** Two of my own strings were simply false in a reachable state. If a
+   sentence asserts what the code does, it needs the same conditional the code has.
+7. **A rare hero state can be verified without a dev hook.** Node 10's 2.4% receipt was reached by
+   temporarily weakening the node, checking the render, restoring, and re-checking the blob SHA
+   (`7aedcc08`). The render path is identical; only P(reaching it) changes.
+
+### ▶ WHAT TO DO NEXT — in this order
+
+1. **ASK TIM WHERE THIS DEPLOYS.** `npm start` now exists and works, but a repo-wide search found NO
+   deploy config (no Dockerfile/Procfile/netlify/vercel/render/fly/CI). If the target is a purely static
+   host, no Node server is deployable there and VS FRIEND needs a hosting decision instead. This is the
+   one open question blocking item 295 from being real.
+2. **Residual from the verifiers, not yet fixed** (all measured, none critical):
+   - At **800x600 / 4:3** the node card clips above the aspect-locked stage. Pre-existing, but the new
+     CONQUERED badge + replay note make it ~38px worse, so the new copy is what disappears. Invisible at
+     every 16:9 / 16:10 size measured.
+   - The stake screen still shows **"PAYS ON WIN $6.60" next to "RESTART THE RUN AT $5.00"** — the
+     warning and button are unambiguous, but that row is contradictory in the wipe state.
+   - `.fr-select-gate` bottoms out at its **7px floor** at ≤1024px stage width. Fits, never clipped,
+     but small for a legibility-sensitive signpost.
+   - Server nits, all unreachable by any URL the game emits: `bytes=5-3` answers 416 (spec says 200),
+     `BYTES=` is matched case-sensitively, and the SPA fallback swallows real directories.
+   - Locked tiles are not focusable, so a keyboard user never encounters the NODE N signpost.
+3. **`?dev=1` mobile QA screenshots are now pictures of the rotate prompt.** The 36 PNGs in
+   `qa-boss/qa-mobile/` were shot in portrait; anyone re-running that harness must switch it to
+   landscape or will think the game broke.
+4. **Give node 2 something to grant.** It is the one node whose victory unlocks nothing (its body,
+   `oni-tetsubo`, is always-available). Correct today, and the receipt correctly stays silent, but a
+   player may notice the gap.
+
+### WHAT I DID NOT DO — so you do not assume it
+
+- **No clips were generated and no character was added.** Nothing in `qa-boss/` was fired.
+- **No engine file changed.** All 12 files in `src/engine/` are byte-identical to the phase-293
+  baseline, verified per file with `git hash-object`. The ladder, the 96% ceiling and every win chance
+  are untouched — the 2M sim re-measures 66.0 / 74.6 / 46.1 / 52.1 / 59.0 / 55.1 / 62.3 / 40.8 / 46.2 /
+  9.6 exactly.
+- **No browser has played a video through the new server's Range implementation.** Byte-exact 206/416
+  were verified with curl on a real 705,763-byte clip; the iOS-Safari claim that motivates it is
+  untested (no device here).
+- **`npm ci --omit=dev && npm start` was not run** (it would have deleted `node_modules` under
+  concurrent work). The `ws` dependency claim is from grepping the boot chain, not measured.
+- **`engines: ">=22.18"` is inferred**, not tested — only Node v24.15.0 was available.
+- **The finale banner was verified with a temporarily weakened node 10**, not by winning a real 2.4%
+  fight. `fightCampaign.ts` was restored and re-checked (`7aedcc08`).
+- **`RESET PRACTICE BANK` is still ungated and `DEV_MODE` is still a `?dev` query param.** Deliberate,
+  and neither is a money leak.
+
+### DECISION REGISTER — carried forward, restate these or they evaporate
+
+- **Tim, 2026-08-07:** payouts capped at 4.00x; ladder 1.32x → 4.00x; win chances frozen.
+- **Tim, 2026-08-07 (session 33): the 51.2% mean return / 48.8% house edge is CONFIRMED** against three
+  costed alternatives. Closed.
+- **Tim, 2026-08-07 (session 33):** portrait gets a **ROTATE PROMPT**; landscape untouched.
+- **Tim, 2026-08-07:** FROZEN CATHEDRAL is out of the arena roster.
+- **Tim, 2026-08-07:** the stake lock rule — a higher stake wipes the run, same-or-lower keeps it. The
+  lock deliberately does NOT ratchet down.
+- **Tim, 2026-08-06:** `gorvak` and `volta` can never be characters.
+- **Tim, 2026-08-06:** the three free-roster fighters stay selectable from a fresh profile.
+- **Open, never answered:** where this deploys (item 1 above), and whether real money is ever attached.
+  If it is, the minimum is a server-held balance + server-side settle re-derived from the server's own
+  node table, then dev-gate `resetBank` and add commit-reveal for PvP picks.
+
+## ★★★★★★★★★★ SESSION 32 (2026-08-07) ★★★★★★★★★★
 
 **Read `AGENTS.md` first.** It is the top-level entry doc and every rule in it cost real debugging
 time. Then read this block. Sessions 31 and below are clip-generation history and are still true, but

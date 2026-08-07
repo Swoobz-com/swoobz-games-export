@@ -10,10 +10,17 @@ triangle; a campaign of 10 nodes sits on top, with real stake/payout math.
 ## Verify before you claim anything
 
 ```bash
-npx tsc --noEmit      # must be 0
-npx vitest run        # must be all-green (220 tests / 16 files as of phase 283)
-npm run build          # tsc --noEmit && vite build
+npx tsc --noEmit                                              # must be 0
+npx vitest run --pool=forks --poolOptions.forks.singleFork=true  # 286 tests / 17 files as of phase 296
+npm run build                                                 # tsc --noEmit && vite build
+npm start                                                     # serve dist + the VS FRIEND relay (PORT, default 5340)
 ```
+
+⚠ **Use those vitest flags whenever a dev server or Chrome is running.** The shared worker pool
+otherwise dies with `Worker exited unexpectedly` and reports something like `1 passed (2)` — one file
+silently unreported, which looks exactly like a real failure. Reproduced repeatedly; it is
+environmental, and it still happens WITH the flags under enough load. If you see it, stop your own dev
+server and re-run before believing the number.
 
 Gates live in `qa-boss/` and `scripts/`. **A gate that cannot do its job is not a pass.** This repo has
 found and fixed EIGHT instances of a tool that refuses and then `exit 0` — it calls the class
@@ -120,6 +127,32 @@ on what the caller does with the return value, the CALLER'S DECISION must itself
 function — otherwise the tests guard the arithmetic and the hole stays open. And play the thing: this
 was found by playing the campaign, not by any gate.
 
+**THE STAKE LOCK MUST BE DISCLOSED BEFORE THE BUTTON, NOT AFTER THE WIPE.** Committing above a run's
+`lockStake` wipes all ten nodes and re-locks every fighter earned. The trap is the DEFAULT path, not an
+exotic one: the stake is not persisted, so a returning player whose run was locked at $1 re-arms at
+`DEFAULT_STAKE` $5, opens a conquered node, and the single obvious button destroys the run. For weeks
+that was announced only afterwards, on the map's RUN RESTARTED plate, and `lockStakeLamports` was
+rendered NOWHERE — the player could not even compute the risk. The node card now carries
+`.fr-stake-wipewarn` above the picker, the hint switches to "THIS STAKE RESTARTS THE RUN", and the
+commit button reads RESTART THE RUN AT $X. **Any new copy about replaying must stay conditional on
+`stakeWipesRun`**: above the lock, "costs the same stake and pays the same" is FALSE — nothing is
+charged and nothing is paid, because the match never starts.
+
+**NEVER STALL A MATCH THAT HAS A SECOND HUMAN IN IT.** The portrait rotate prompt freezes the 5s shot
+clock so a curtained player's committed stake is not spent on random auto-picks. It is deliberately
+SINGLE-PLAYER ONLY. The first version paused in every mode on the reasoning that a stalled friend match
+is "a mutual timeout"; measured, it is not. The relay's 10s reconnect grace and auto-play doctrine fire
+on ws `'close'` ONLY and there is no heartbeat, so a CONNECTED-but-idle peer is invisible to them — the
+victim's clock hit 0, `tryReveal` blocked forever on `if (p1 && p2)`, and 26s past the grace there was
+still no settle and no receipt, with their stake committed. If you ever add another pause, ask first
+who else is waiting on it.
+
+**A VISUAL COVER IS NOT A BARRIER.** The rotate curtain is opaque and full-viewport, and the covered
+pick buttons were still in the tab order and the accessibility tree: one Tab reached a hidden STRIKE and
+activating it committed a move against an already-committed stake. `.fr-stage` and the PLAY SAFE pill
+carry `inert` while the curtain is up. Probe this with REAL keyboard Tabs — `element.click()` still
+dispatches on an inert node, so a `.click()`-based probe measures nothing AND silently commits a pick.
+
 ## Generated-asset discipline
 
 **Never commit generated pixels.** `qa-boss/raw/`, `qa-boss/staged-s30/`, `qa-boss/frames/` and
@@ -134,7 +167,33 @@ it was written to fix.**
 **Geometric gates measure WHERE things are, never WHAT the artifact IS.** One clip passed all six
 (containment, feet-planted, floor-growth, extra-objects, anchor-pair, chroma) while being the wrong
 move entirely — spear vertical, inverted, one-handed. Keep the by-eye montage read; it cannot be
-replaced by adding more gates.
+replaced by adding more gates. Same class in the UI: an "is the RTP line in view?" check passed while
+that line sat fully underneath 44px of dev buttons — a completely overlapped element is perfectly in
+view. Assert real box INTERSECTION, and look at the screenshot.
+
+## Gates that cannot fail
+
+`scripts/qa-phase294.mjs` (46 render assertions) and `scripts/qa-phase294-receipt.mjs` (plays real
+matches) are the ONLY mechanical guard on `FightExperience.tsx`: there is no jsdom and vitest only
+matches `src/**/*.test.ts`, so **JSX has zero unit coverage and a green `vitest` proves nothing about
+it.** Four holes were found in those drivers by mutation-testing them in a throwaway `git worktree`,
+and every one is a pattern worth re-checking in any gate you write here:
+
+1. **Gate the thing that MATTERS, not the thing that is easy to see.** Deleting the shot-clock freeze —
+   the safety half of the portrait feature — left the suite at 30/30, exit 0. It checked the curtain
+   existed and was opaque; it never entered a match. Part F now plays one, with a landscape CONTROL
+   proving the clock runs before asserting that it stops.
+2. **Case.** "No locked tile leaks a name" was `/[A-Z]{3,}/` over textContent, so a lowercase source
+   string uppercased by CSS `text-transform` passed while every boss name was on screen.
+3. **Liveness.** 11 of 30 assertions passed against an EMPTY PAGE — every "X must NOT be present" check
+   is also true of a blank document. Each now carries an app-mounted term.
+4. **Build identity.** Neither driver checked WHICH app it was measuring; a stale server on a port
+   shared via an `::1` vs `127.0.0.1` split produced a confident 13/30 against a pre-phase-294 build.
+   The suite now aborts (exit 2) if the served source lacks the markers it is testing.
+
+**Verify with the user's input device, not with the DOM API.** `element.click()` dispatches on an
+`inert` node, so an inert check written that way measures nothing — and worse, it commits a real pick
+and silently advances the match under the rest of the run.
 
 **Calibrate per character before trusting a gate verdict.** `node qa-boss/gate-control.mjs --all` runs a
 character's ALREADY-SHIPPED clips through a gate as a control. 5 of 12 characters have a miscalibrated or
