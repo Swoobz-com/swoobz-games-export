@@ -1374,15 +1374,27 @@ function CharacterTile({
 // ⚠ THE NODE NUMBER ONLY, NEVER THE NODE NAME OR THE FIGHTER. The conquest map hides a fogged node's
 // name and labels it "unknown enemy"; printing "BURNED PAGODA" or the boss's name here would leak
 // precisely what the map withholds.
+// ⚠ aria on the LABELLED variant: it carries role="img" + aria-label rather than a bare aria-label on
+// a <div>. ARIA 1.2 PROHIBITS aria-label on role=generic (which a plain div computes to) and NVDA and
+// VoiceOver do not reliably announce it — Chrome happens to honour it, which is exactly the kind of
+// thing that passes a spot check and fails for a real user. role="img" is a legitimate labelled
+// element and is what a decorative plate with a meaning actually is. The UNLABELLED plates stay
+// aria-hidden: they are pure grid filler with nothing behind them, and announcing 10 empty tiles
+// would bury the 9 that matter.
 function LockedTile({ nodeId }: { nodeId?: number }): JSX.Element {
   return (
     <div
       className="fr-select-tile fr-select-locked"
-      aria-hidden={nodeId == null ? true : undefined}
-      aria-label={nodeId == null ? undefined : `Locked fighter, win conquest node ${nodeId} to unlock`}
+      {...(nodeId == null
+        ? { 'aria-hidden': true as const }
+        : { role: 'img', 'aria-label': `Locked fighter, win conquest node ${nodeId} to unlock` })}
     >
-      <span className="fr-select-qmark">?</span>
-      {nodeId != null && <span className="fr-select-gate">NODE {nodeId}</span>}
+      <span className="fr-select-qmark" aria-hidden="true">?</span>
+      {nodeId != null && (
+        <span className="fr-select-gate" aria-hidden="true">
+          NODE {nodeId}
+        </span>
+      )}
     </div>
   );
 }
@@ -1582,6 +1594,20 @@ export function FightExperience(): JSX.Element {
   // not survive) a stake-lock wipe at four separate CampaignProgress construction sites; deriving it
   // means the finale shows exactly while 10/10 is true, which is the honest state.
   const islandConquered = ctl.campaign.frontier >= CAMPAIGN_NODE_COUNT;
+  // ⚠ THE RUN IS ABOUT TO BE WIPED, AND UNTIL PHASE 296 NOTHING SAID SO. A run is locked to the
+  // stake it was played at; committing ABOVE that lock wipes every node and re-locks every fighter
+  // earned (applyCampaignStakeLock). The trap is not exotic, it is the DEFAULT PATH: the stake is not
+  // persisted, so a returning player whose run was locked at $1 re-arms at DEFAULT_STAKE $5, opens a
+  // conquered node, and the one obvious button on the screen destroys the run. It was disclosed only
+  // AFTER it fired, on the map's RUN RESTARTED plate. Everything else about this decision (win
+  // chance, pays, returns, defense) is disclosed BEFORE the stake — this is the one irreversible
+  // consequence and it was the only one hidden.
+  const runLockStake = ctl.campaign.lockStakeLamports;
+  const stakeWipesRun =
+    ctl.mode === 'campaign' &&
+    runLockStake != null &&
+    ctl.campaign.beaten.some(Boolean) &&
+    ctl.stakeLamports > runLockStake;
   const friendOpponentId = ctl.friend.opponentFighterId;
   // The active campaign node (campaign mode only): drives the enemy identity, the match format,
   // the defense presentation and the node-card copy. VOLTA fills every slot this phase.
@@ -2230,7 +2256,20 @@ export function FightExperience(): JSX.Element {
 
   return (
     <div className="fr-viewport">
-      <div ref={stageRef} className={stageClasses} style={stageStyle}>
+      {/* `inert` while the rotate curtain is up. Without it the curtain is a VISUAL cover only: the
+          covered STRIKE/THROW/BLOCK buttons stay in the tab order and in the accessibility tree, so a
+          keyboard or screen-reader user can focus one and commit a move — spending an already-
+          committed stake on a screen they cannot see. Measured: one Tab from the curtain landed on a
+          button behind it and clicking it registered a pick. `inert` removes focus, pointer events
+          and AT exposure for the whole subtree in one attribute. React 18 does not type it, hence the
+          cast; it degrades to a no-op on browsers without support, where the opaque curtain still
+          blocks the pointer. */}
+      <div
+        ref={stageRef}
+        className={stageClasses}
+        style={stageStyle}
+        {...(ctl.portraitBlocked ? ({ inert: '' } as Record<string, string>) : {})}
+      >
         {/* STAGE LIVING LAYER (phase 22): the arena's ambient loop, over the still bg and under
             everything else (fighters, fx, HUD, overlays — all later in DOM). Gated OFF on the
             campaign MAP (its overlay has its OWN fr-map-video; never decode two stage videos at
@@ -2810,7 +2849,12 @@ export function FightExperience(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  {ctl.campaign.beaten[campaignNode.id - 1] && (
+                  {/* Both clauses are conditional on the stake, and saying them unconditionally was
+                      wrong: above the run's lock NOTHING is charged and NOTHING is paid, because the
+                      match never starts — the run is wiped instead. The wipe warning below the stake
+                      picker owns that case, so this note steps aside for it rather than contradicting
+                      it two inches higher up the screen. */}
+                  {ctl.campaign.beaten[campaignNode.id - 1] && !stakeWipesRun && (
                     <div className="fr-nodecard-replay-note">
                       you already hold this node · a replay costs the same stake and pays the same
                       x{formatMult(campaignNode.multBps)}, but unlocks nothing new
@@ -2912,10 +2956,26 @@ export function FightExperience(): JSX.Element {
                   )}
                 </div>
               </div>
+              {/* THE ONLY IRREVERSIBLE CONSEQUENCE ON THIS SCREEN, disclosed BEFORE the button that
+                  causes it. Shown live off the stake picker, so stepping up to a wiping amount makes
+                  it appear and stepping back down makes it go. It also states what does NOT happen —
+                  no stake is taken, because the match never starts — since a warning that reads as
+                  "you are about to lose money" would be its own kind of lie. */}
+              {stakeWipesRun && runLockStake != null && (
+                <div className="fr-stake-wipewarn" role="alert">
+                  <span aria-hidden="true">&#9888;</span> THIS RUN IS LOCKED TO {formatUsd(runLockStake)} ·
+                  staking {formatUsd(ctl.stakeLamports)} restarts it from node 1 and re-locks every fighter
+                  you have earned. Nothing is taken from your bank · lower the stake to keep the run.
+                </div>
+              )}
               <BetConsole
                 theme={FR_BET_THEME}
                 eyebrow="STAKE THIS NODE"
-                hint="WIN THE MATCH TO GET PAID. LOSE AND THE STAKE IS GONE."
+                hint={
+                  stakeWipesRun
+                    ? 'THIS STAKE RESTARTS THE RUN. LOWER IT TO PLAY THIS NODE.'
+                    : 'WIN THE MATCH TO GET PAID. LOSE AND THE STAKE IS GONE.'
+                }
                 wagerLabel="YOUR STAKE"
                 wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
                 onStepDown={() => ctl.stepStake('down')}
@@ -2930,7 +2990,11 @@ export function FightExperience(): JSX.Element {
                 }}
                 balanceLabel="BANK"
                 balanceValue={formatUsd(ctl.balanceLamports)}
-                commitLabel={`STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`}
+                commitLabel={
+                  stakeWipesRun
+                    ? `RESTART THE RUN AT ${formatUsd(ctl.stakeLamports)}`
+                    : `STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`
+                }
                 onCommit={ctl.commitStake}
                 commitDisabled={!ctl.canStake}
                 disabledLabel="NOT ENOUGH IN BANK"
@@ -3099,11 +3163,14 @@ export function FightExperience(): JSX.Element {
             {/* ALL TEN CONQUERED. The counterpart of the reset plate above: the one message on this
                 screen that reports something the player WON. It can never collide with the reset
                 notice — a reset returns freshBeaten(), so stakeReset implies frontier 0.
-                It says the nodes stay open ON PURPOSE: conquered nodes remain replayable and this
-                must not read as "you are done" while the map is still live. */}
+                ⚠ It used to end "every node stays open to replay". That was FALSE on the default
+                path: the stake is not persisted, so a returning player whose run was locked at $1
+                re-arms at $5, and the first conquered node they open offers to wipe the run rather
+                than replay it. The node card now warns before that button; this line no longer
+                promises something the stake lock can refuse. */}
             {islandConquered && (
               <div className="fr-map-conquest" role="status" style={{ fontSize: 'calc(var(--sh) * 1.4)' }}>
-                ISLAND CONQUERED · ZERO CITADEL INCLUDED · every node stays open to replay
+                ISLAND CONQUERED · ZERO CITADEL INCLUDED · every fighter you beat is yours to pick
               </div>
             )}
             <div className="fr-map-rtp" style={{ fontSize: 'calc(var(--sh) * 1.3)' }}>
@@ -3379,12 +3446,16 @@ export function FightExperience(): JSX.Element {
 
 
       {/* Page-fixed PLAY SAFE pill (bottom-right, >=44px touch target). No-op
-          href for this mockup — it never navigates. */}
+          href for this mockup — it never navigates.
+          Inerted with the stage under the rotate curtain: it is the only other focusable thing on the
+          page, and the curtain covers it at z-100, so leaving it tabbable would put focus on an
+          invisible control. */}
       <a
         className="fr-playsafe"
         href="#"
         onClick={(e) => e.preventDefault()}
         aria-label="Play safe. Even stakes, winner takes the pot. This is a practice bank, not real funds."
+        {...(ctl.portraitBlocked ? ({ inert: '' } as Record<string, string>) : {})}
       >
         PLAY SAFE
       </a>
@@ -3428,7 +3499,19 @@ export function FightExperience(): JSX.Element {
           <div className="fr-rotate-sub">
             STANDOFF is built for landscape · turn your phone sideways to fight
           </div>
-          <div className="fr-rotate-note">your match is paused, nothing is being played for you</div>
+          {/* THE NOTE MUST BE TRUE OR ABSENT. It originally said "your match is paused, nothing is
+              being played for you" unconditionally, which was false three ways: on the title/mode/map
+              screens there is no match at all; in friend mode the clock deliberately keeps running;
+              and once a pick is LOCKED the exchange resolves and a fresh round arms behind the
+              curtain — only the shot clock is ever frozen, never the match. So it is rendered from
+              ctl.clockPaused, which is the actual state of the actual timer. */}
+          {ctl.clockPaused ? (
+            <div className="fr-rotate-note">your pick is waiting · nothing is being played for you</div>
+          ) : inFight && mode === 'friend' ? (
+            <div className="fr-rotate-note">your opponent is still waiting · the clock is running</div>
+          ) : inFight ? (
+            <div className="fr-rotate-note">this round is still playing out</div>
+          ) : null}
         </div>
       )}
     </div>

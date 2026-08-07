@@ -10,7 +10,7 @@
 // Resources (the transport) are created/destroyed in effect setup/cleanup so a StrictMode
 // mount -> cleanup -> mount cycle simply recreates a fresh, non-disposed instance.
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { ExchangeOutcome, MatchState, Move } from '../engine/fightEngine';
 import { applyExchange, createMatch, randomMove, startNextRound } from '../engine/fightEngine';
 import { secureRandom } from '../engine/secureRng';
@@ -400,10 +400,17 @@ export const PORTRAIT_BLOCK_QUERY = '(orientation: portrait) and (pointer: coars
 
 /** Live `true` while the game is unplayably letterboxed on a phone in portrait. Feature-detected the
  *  same way useThriftyMedia is: matchMedia is absent in the node test env, and this must never throw
- *  there. Defaults to FALSE, so anything that cannot measure behaves exactly as it does today. */
+ *  there. Defaults to FALSE, so anything that cannot measure behaves exactly as it does today.
+ *
+ *  ⚠ useLayoutEffect, NOT useEffect, and the difference is visible. The initial state is false, so a
+ *  useEffect version paints the game BEFORE the curtain mounts — measured as a real flash on a
+ *  393x852 phone: the letterboxed 25%-height stage was on screen at t=142ms and the curtain only
+ *  arrived at t=181ms. A layout effect flushes before paint, so the first frame a portrait phone ever
+ *  shows is the prompt. (useStageMetrics is useLayoutEffect for exactly this reason — a first paint
+ *  at the wrong size.) There is no SSR here, so the usual layout-effect warning does not apply. */
 function usePortraitBlocked(): boolean {
   const [blocked, setBlocked] = useState(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return;
     const mq = window.matchMedia(PORTRAIT_BLOCK_QUERY);
     const update = (): void => setBlocked(mq.matches);
@@ -424,6 +431,11 @@ export interface FightController {
    *  ~25% of the screen and the game is covered by a rotate prompt. It lives on the controller (not
    *  purely in CSS) for one reason: the shot clock. See the shot-clock effect. */
   portraitBlocked: boolean;
+  /** True only while the shot clock is ACTUALLY frozen by the rotate prompt. Distinct from
+   *  `portraitBlocked` because friend mode deliberately keeps ticking (a stalled peer has no
+   *  timeout that can rescue them). The curtain reads THIS before telling the player their match is
+   *  paused, so that sentence can never be a comforting fiction. */
+  clockPaused: boolean;
   lastOutcome: ExchangeOutcome | null;
   playerPick: PlayerPickState;
   friend: FriendState;
@@ -1005,20 +1017,29 @@ export function useFightController(
   // Shot clock countdown: active only while picking and unlocked. Standard setup/cleanup
   // effect (no side effects inside a setState updater) -- safe under StrictMode.
   //
-  // ⚠ portraitBlocked FREEZES THE CLOCK, and that is not cosmetic. The rotate prompt is an opaque
-  // curtain over the whole viewport: the player can see nothing and tap nothing. Without this guard
-  // the clock would keep ticking behind it and, at zero, play a UNIFORMLY RANDOM move for them —
-  // against a stake that is already committed — and it would do that once per exchange until the
-  // match ended. Rotating a phone must never spend the player's money on moves they did not choose.
-  // The clock resumes from where it stopped the moment the device is turned back.
+  // ⚠ portraitBlocked FREEZES THE CLOCK — IN SINGLE-PLAYER ONLY. That is not cosmetic. The rotate
+  // prompt is an opaque curtain over the whole viewport: the player can see nothing and tap nothing.
+  // Without this guard the clock would keep ticking behind it and, at zero, play a UNIFORMLY RANDOM
+  // move for them against a stake that is already committed, once per exchange until the match ended.
+  // Rotating a phone must never spend your money on moves you did not choose. The clock resumes from
+  // where it stopped the moment the device is turned back.
   //
-  // This is why portraitBlocked lives on the controller rather than being pure CSS: a `display:none`
-  // curtain hides the buttons but cannot reach this effect. It is a strict pause, in every mode. In
-  // friend mode a peer who rotates does stall the match, but they stall it for BOTH sides and can see
-  // nothing themselves, so it is a mutual timeout and not an edge — and the relay's disconnect grace
-  // and auto-play doctrine are untouched, since the socket stays up.
+  // This is why portraitBlocked lives on the controller and not purely in CSS: a `display:none`
+  // curtain hides the buttons but cannot reach this effect.
+  //
+  // ⚠ AND WHY FRIEND MODE IS EXCLUDED — this was measured, not assumed. The first version paused in
+  // every mode, on the reasoning that a stalled friend match is "a mutual timeout". It is not: the
+  // relay's 10s reconnect grace and auto-play doctrine fire on ws 'close' ONLY, and there is no
+  // heartbeat, so a peer who is CONNECTED but idle is invisible to them. Driving it proved the
+  // victim is stranded outright — their own clock hit 0, tryReveal blocked forever on `if (p1 && p2)`,
+  // and 26 seconds past the grace there was still no settle and no receipt, with their stake
+  // committed. One player's screen orientation must not be able to hold another player's money
+  // hostage indefinitely. In friend mode the clock therefore keeps running and auto-picks, exactly as
+  // it did before this feature existed: the rotating player accepts the pre-existing cost of turning
+  // their phone mid-match, and the person waiting on them is not made to pay for it.
+  const pauseClock = portraitBlocked && mode !== 'friend';
   useEffect(() => {
-    if (phase !== 'picking' || playerPick.locked || portraitBlocked) {
+    if (phase !== 'picking' || playerPick.locked || pauseClock) {
       return;
     }
     if (shotClockMs <= 0) {
@@ -1031,7 +1052,7 @@ export function useFightController(
     }, CLOCK_TICK_INTERVAL_MS);
     timersRef.current.push(handle);
     return () => clearTimeout(handle);
-  }, [phase, playerPick.locked, shotClockMs, pick, portraitBlocked]);
+  }, [phase, playerPick.locked, shotClockMs, pick, pauseClock]);
 
   // Match lifecycle events from the transport's reconnect-grace / auto-play layer. NO refunds
   // and NO early settle mid-match: when the rival is unreachable for good ('peerGone'), the
@@ -1649,6 +1670,8 @@ export function useFightController(
     aiPersonality,
     shotClockSeconds,
     portraitBlocked,
+    // Reported only when the clock is genuinely frozen AND there is a live pick to freeze.
+    clockPaused: pauseClock && phase === 'picking' && !playerPick.locked,
     lastOutcome,
     playerPick,
     friend,

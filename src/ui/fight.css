@@ -3026,3 +3026,26 @@
   color: var(--fr-steel-3);
   max-width: 32ch;
 }
+
+/* THE STAKE-LOCK WIPE WARNING (phase 296). Sits directly above the stake picker that causes it.
+   Blood, not gold: this is the .fr-map-reset message moved to BEFORE the irreversible thing rather
+   than after it. Every other consequence on this screen (win chance, pays, returns, defense) was
+   already disclosed pre-stake; this was the only one the player learned afterwards. */
+.fr-stake-wipewarn {
+  position: relative;
+  z-index: 2;
+  max-width: calc(var(--sw) * 46);
+  margin: 0 auto calc(var(--sh) * 0.8);
+  padding: max(6px, calc(var(--sh) * 0.7)) max(10px, calc(var(--sw) * 1.2));
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: max(9px, calc(var(--sh) * 1.15));
+  letter-spacing: 0.05em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--fr-steel-1);
+  background: rgba(120, 18, 14, 0.34);
+  border: 1px solid var(--fr-danger);
+  border-radius: 2px;
+}
