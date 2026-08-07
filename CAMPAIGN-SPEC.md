@@ -16,41 +16,53 @@ the player's first S decisive hits each round, presented either as a SHIELD (pip
 deflection beat) or as BULK (a visibly longer 3+S segment health bar). Same math, two
 presentations, priced into RTP exactly as before.
 
-## 0a. ⛔ THE 4.00x PAYOUT CAP SUPERSEDES THE UNIFORM-96% LAW (Tim, 2026-08-07)
+## 0a. ⛔ THE 1.32x -> 4.00x PAYOUT LADDER SUPERSEDES THE UNIFORM-96% LAW (Tim, 2026-08-07)
 
-**Read this before believing any "96%" in the rest of this document.** Tim capped every payout
-at **4.00x** (`MAX_MULT_BPS` in `fightCampaign.ts`) with the instruction, given twice: *"lower the
-max win to 4 ... keep the difficulty as it is, dont increase win chance or anything."*
+**Read this before believing any "96%" in the rest of this document.** Tim's instructions, across
+four messages: *"lower the max win to 4"*, *"keep the difficulty as it is"*, *"dont change the win %
+keep them the same"*, *"go from 1.32 first round to 4x make it ladder"*. All four hold below.
 
-Since **RTP = P(win) x multiplier** and every win chance is UNCHANGED, capping the multiplier
-necessarily lowers the return on the five nodes whose fair price exceeded the cap:
+Since **RTP = P(win) x multiplier** and every win chance is UNCHANGED, rewriting the prices is the
+only free variable — and it moves the return on EVERY node:
 
-| tier | nodes | win % (UNCHANGED) | ceiling | pays (was)     | RTP now | (was)  |
-|------|-------|-------------------|---------|----------------|---------|--------|
-| A    | 1,2   | 50.0000%          | 1.92x   | x1.92          | 96.00%  | 96.00% |
-| B    | 3,4,5 | 27.3254%          | 3.513x  | x3.512         | 95.97%  | 95.97% |
-| C    | 6,7   | 22.5546%          | 4.256x  | x3.70 (x4.25)  | 83.45%  | 95.92% |
-| D    | 8,9   | 13.0733%          | 7.343x  | x3.85 (x7.34)  | 50.33%  | 96.00% |
-| E    | 10    | 2.4025%           | 39.959x | x4.00 (x39.95) |  9.61%  | 96.00% |
+| node | fmt | defense | win % (UNCHANGED) | ceiling | pays  | RTP    |
+|------|-----|---------|-------------------|---------|-------|--------|
+| 1    | to2 | none    | 50.0000%          | 1.9200x | x1.32 | 66.00% |
+| 2    | to2 | none    | 50.0000%          | 1.9200x | x1.49 | 74.65% |
+| 3    | to2 | +1      | 27.3254%          | 3.5132x | x1.68 | 46.15% |
+| 4    | to2 | +1      | 27.3254%          | 3.5132x | x1.91 | 52.19% |
+| 5    | to2 | +1      | 27.3254%          | 3.5132x | x2.16 | 59.05% |
+| 6    | to3 | +1      | 22.5546%          | 4.2563x | x2.44 | 55.12% |
+| 7    | to3 | +1      | 22.5546%          | 4.2563x | x2.76 | 62.34% |
+| 8    | to2 | +2      | 13.0733%          | 7.3432x | x3.12 | 40.87% |
+| 9    | to2 | +2      | 13.0733%          | 7.3432x | x3.53 | 46.23% |
+| 10   | to3 | +3      |  2.4025%          | 39.959x | x4.00 |  9.61% |
 
-The price now ASCENDS 1.92 -> 3.512 -> 3.70 -> 3.85 -> 4.00 ("no i want it in ladder"). Tiers C/D/E
-are priced BELOW their ceilings on purpose — that headroom is the only room the ladder has to climb
-once the top is pinned at 4.00x. FIVE rungs across ten nodes: ten distinct prices would need ten
-distinct win chances, and the win chances are frozen.
+TEN distinct prices, strictly ascending from 1.32x to the 4.00x cap in even multiplicative steps
+(ratio ~1.131). Paying BELOW a ceiling is always legal — it only lowers that node's return, which is
+what makes a 1.32x opener possible at an unchanged 50% win chance.
 
 Consequences of record:
-- **The campaign is no longer a uniform-96% game.** Mean across the ten nodes is 84.4%; the
-  finale returns 9.61%. Max win on a $5 stake fell $199.79 -> $20.00, on $25 $998.98 -> $100.00.
-  Tiers A and B are UNCHANGED and still return ~96%.
-- **Payout is decoupled from odds** on tiers C-E: they pay less than their difficulty is worth. The
-  "harder pays more" property SURVIVES (the price still ascends); what is gone is "every node returns
-  the same 96%".
+- **The campaign is no longer a ~96% game anywhere.** Mean across the ten nodes is 51.22% (a 48.78%
+  house edge), down from 95.97%. Max win on a $5 stake fell $199.79 -> $20.00, on $25 $998.98 -> $100.00.
+- **RTP is NON-MONOTONIC** (node 2 returns 74.65%, node 3 returns 46.15%): the price climbs smoothly
+  while the win chances step down in chunks, so the ratio between them saws.
+- **Identical fights now pay different amounts.** Nodes 3/4/5 are the same 27.3254% fight paying
+  1.68x/1.91x/2.16x, so "same fight, same pay" is gone by construction. For a player REPLAYING a
+  conquered node the later node of a tier is strictly better value, making the earlier ones pointless
+  to farm. Not an exploit (every rung is under the 96% ceiling) but a real consequence.
+- **Payout is fully decoupled from odds.** "Harder pays more" SURVIVES (the price strictly ascends);
+  what is gone is "the return is the same everywhere".
 - **Every RTP shown to the player is now COMPUTED** (`nodeRtpPercent` / `campaignRtpRange`), never a
   literal. The map's "returns 96% to players over time" and the node card gained a RETURNS stat,
   because shipping the old copy would have made the game state a number its own math contradicts.
 - **The RTP FLOOR was removed** from the test suite and the Monte-Carlo battery (the ceiling stays).
-  The battery's real gate — measured P within 0.003 of the exact closed form — still passes on all
-  ten nodes, which is what proves the difficulty was untouched.
+  The battery's real gate — measured P within 0.003 of the exact closed form — still passes on all ten
+  nodes with the P column byte-identical to the pre-cap run, which is what proves the difficulty was
+  untouched. The battery no longer asserts an RTP band at all: RTP there is measured-P x mult, so P's
+  sampling noise is magnified by the multiplier, and an exact-math ceiling cannot be gated on a noisy
+  estimate (it failed two correctly-priced nodes that way). The ceiling is proven in bigint by
+  `fightCampaign.test.ts`.
 - The exploit argument in law 1 below **still holds**: no node pays better than 96%, so cheap early
   bets still cannot buy better-value later bets.
 
@@ -98,13 +110,16 @@ q(S) = [sum over j = 3+S..S+5 of C(S+5, j)] / 2^(S+5) — three terms, one per e
 The `multBps` / `pays` / `RTP` columns below are POST-CAP (§0a). The `fair` column is what the rung
 is worth at 96% and is retained because it is the number the exact fractions actually derive.
 
-| rung        | S | R | q exact | P exact                  | P        | fair    | multBps | pays   | RTP     |
-|-------------|---|---|---------|--------------------------|----------|---------|---------|--------|---------|
-| plain       | 0 | 2 | 1/2     | 1/2                      | 50.000%  | 19200   | 19200   | x1.92  | 96.00%  |
-| defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35132   | 35120   | x3.51  | 95.97%  |
-| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42563   | 37000   | x3.70  | 83.45%  |
-| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73432   | 38500   | x3.85  | 50.33%  |
-| finale      | 3 | 3 | 37/256  | 13207617791/549755813888 | 2.402%   | 399590  | 40000   | x4.00  |  9.61%  |
+| rung        | S | R | q exact | P exact                  | P        | fair    | nodes | pays (per node)        |
+|-------------|---|---|---------|--------------------------|----------|---------|-------|------------------------|
+| plain       | 0 | 2 | 1/2     | 1/2                      | 50.000%  | 19200   | 1,2   | x1.32, x1.49           |
+| defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35132   | 3,4,5 | x1.68, x1.91, x2.16    |
+| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42563   | 6,7   | x2.44, x2.76           |
+| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73432   | 8,9   | x3.12, x3.53           |
+| finale      | 3 | 3 | 37/256  | 13207617791/549755813888 | 2.402%   | 399590  | 10    | x4.00 (the cap)        |
+
+A rung no longer carries ONE price: the ten-step ladder gives each node its own, all under the rung's
+`fair` ceiling. See §0a for the per-node returns.
 
 (The retired boss rung, S=2 R=3, was P = 1380490567/17179869184 = 8.035% at x11.94. Its
 math is still exercised by the tests; no node stands on it.)

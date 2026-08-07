@@ -97,27 +97,42 @@ export interface CampaignNodeDef {
  *
  *  All three constraints at once, and the shape is forced by arithmetic:
  *
+ *  Tim's final shape, after two wrong attempts: "go from 1.32 first round to 4x make it ladder".
+ *
  *    * EVERY WIN CHANCE IS BYTE-IDENTICAL to the pre-cap ladder ("dont change the win % keep them the
  *      same"). Not one defense, guard or format moved. The ladder lives ENTIRELY in the prices.
- *    * THE PRICE ASCENDS across the five difficulty tiers, topping out at 4.00x.
- *    * THE CEILING binds each tier from above: RTP = P x mult must stay <= 96%, so a tier can never
- *      pay more than 0.96/P. Nodes 1-2 win 50% of the time, so 1.92x IS their ceiling, not a choice —
- *      paying an easy node more would hand the player an edge. The ladder therefore climbs only into
- *      the headroom the harder tiers have, which is why the first two rungs cannot move at all.
- *    * EQUAL DIFFICULTY KEEPS AN EQUAL PRICE. Same fight, same pay — so the ladder has FIVE rungs
- *      across ten nodes, not ten. (Ten distinct prices would require ten distinct win chances, i.e.
- *      changing the difficulty, which is exactly what Tim ruled out.)
+ *    * TEN DISTINCT PRICES, strictly ascending from 1.32x on node 1 to 4.00x on node 10, in even
+ *      multiplicative steps (ratio ~1.131 per node), rounded to clean bps.
+ *    * THE CEILING still binds from above: RTP = P x mult must stay <= 96%, so no rung may exceed
+ *      0.96/P. Paying BELOW a ceiling is always legal — it simply lowers that node's return, which is
+ *      what makes a 1.32x opener possible at an unchanged 50% win chance.
  *
- *      tier  nodes  fmt  defense  P(win)     ceiling   pays     RTP
- *      A     1,2    to2  none     50.0000%   1.9200x   1.92x   96.00%   <- ceiling-bound
- *      B     3,4,5  to2  +1       27.3254%   3.5132x   3.512x  95.97%   <- effectively ceiling-bound
- *      C     6,7    to3  +1       22.5546%   4.2563x   3.70x   83.45%
- *      D     8,9    to2  +2       13.0733%   7.3432x   3.85x   50.33%
- *      E     10     to3  +3        2.4025%  39.9591x   4.00x    9.61%   <- Tim's cap
+ *      node  fmt  defense  P(win)     ceiling   pays     RTP
+ *       1    to2  none     50.0000%   1.9200x   1.32x   66.00%
+ *       2    to2  none     50.0000%   1.9200x   1.49x   74.65%
+ *       3    to2  +1       27.3254%   3.5132x   1.68x   46.15%
+ *       4    to2  +1       27.3254%   3.5132x   1.91x   52.19%
+ *       5    to2  +1       27.3254%   3.5132x   2.16x   59.05%
+ *       6    to3  +1       22.5546%   4.2563x   2.44x   55.12%
+ *       7    to3  +1       22.5546%   4.2563x   2.76x   62.34%
+ *       8    to2  +2       13.0733%   7.3432x   3.12x   40.87%
+ *       9    to2  +2       13.0733%   7.3432x   3.53x   46.23%
+ *      10    to3  +3        2.4025%  39.9591x   4.00x    9.61%   <- Tim's cap
  *
- *  Tiers A and B are unchanged and still return ~96%. Tiers C, D and E give up return because their
- *  fair prices (4.26x / 7.34x / 39.96x) are above the cap — that is the whole effect of the ruling.
- *  Mean across the ten nodes: 95.97% -> 84.4%. Max win on a $5 stake: $199.79 -> $20.00.
+ *  ⛔ TWO CONSEQUENCES TO UNDERSTAND BEFORE EDITING THIS TABLE:
+ *
+ *  1. THE MEAN RETURN IS 51.22% (a 48.78% house edge), down from 95.97%, and it is NON-MONOTONIC —
+ *     node 2 returns 74.65% while node 3 returns 46.15%. That is arithmetic, not an error: the price
+ *     climbs smoothly while the win chances step down in chunks, so the ratio between them saws.
+ *  2. IDENTICAL FIGHTS NOW PAY DIFFERENT AMOUNTS. Nodes 3, 4 and 5 are the same 27.3254% fight paying
+ *     1.68x / 1.91x / 2.16x. The old "same fight, same pay" rule is gone by construction — ten
+ *     distinct prices over five distinct difficulties requires it. For a player REPLAYING a conquered
+ *     node this makes the later node of a tier strictly better value (node 5 returns 59.05% where node
+ *     3 returns 46.15%), so the earlier ones are pointless to farm. Not an exploit — every rung is
+ *     still under the 96% ceiling, so there is no positive-EV play anywhere — but it is a real
+ *     consequence of decoupling price from odds.
+ *
+ *  Max win on a $5 stake: $199.79 -> $20.00. On $25: $998.98 -> $100.00.
  *
  *  BECAUSE THE RETURN NOW VARIES, THE ON-SCREEN DISCLOSURES ARE COMPUTED, NEVER HARDCODED. The map
  *  used to read "each trial returns 96% to players over time", true only while every node sat on the
@@ -129,25 +144,23 @@ export interface CampaignNodeDef {
  *  Anything that assumed a uniform 96% — the RTP-ceiling test's lower bound, the Monte-Carlo
  *  battery's assertion band, CAMPAIGN-SPEC §0a — was updated with it. */
 export const MAX_MULT_BPS = 40000n; // node 10 — Tim's cap and the TOP of the ladder
-export const RUNG_C_BPS = 37000n; // nodes 6-7 (22.5546% win, ceiling 42563n) -> RTP 83.45%
-export const RUNG_D_BPS = 38500n; // nodes 8-9 (13.0733% win, ceiling 73432n) -> RTP 50.33%
 
 export const CAMPAIGN_NODES: CampaignNodeDef[] = [
   // NOTE: the demo cosmetic rewards (AUTOMAT packs on nodes 2 + 8) were REMOVED for now
   // (Tim, 2026-07-21). The CampaignReward type, `reward?` field, UI surfaces and the webp
   // assets all remain wired — re-adding a reward is one registry-row edit.
-  { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 19200n, fighterId: 'sora-yari', arenaId: 'docks', enemy: { id: 'sora-yari', name: 'SORA YARI' } },
+  { id: 1, name: 'KUROHAMA DOCKS', title: 'Dockmaster of Kurohama', roundsToWin: 2, multBps: 13200n, fighterId: 'sora-yari', arenaId: 'docks', enemy: { id: 'sora-yari', name: 'SORA YARI' } },
   // phase 283: fighterId was 'volta' (a deleted placeholder house fighter). Repointed to oni-tetsubo,
   // which is a real 11-clip kit. The ENEMY IDENTITY is unchanged — the map card, name and reveal art
   // stay KITSUNE TANTO; only the animated body that fights you is now the oni.
-  { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 19200n, fighterId: 'oni-tetsubo', arenaId: 'torii', enemy: { id: 'kitsune-tanto', name: 'KITSUNE TANTO' } },
-  { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'thorn-warden', arenaId: 'bamboo', enemy: { id: 'thorn-warden', name: 'THORN WARDEN' } },
-  { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 35120n, fighterId: 'hollow-pale', arenaId: 'snowfang', enemy: { id: 'hollow-pale', name: 'HOLLOW PALE' } },
-  { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 35120n, fighterId: 'satoshi-odachi', arenaId: 'kawa', enemy: { id: 'satoshi-odachi', name: 'SATOSHI ODACHI' } },
-  { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: RUNG_C_BPS, fighterId: 'eclipse-ofuda', arenaId: 'shrine', enemy: { id: 'eclipse-ofuda', name: 'ECLIPSE OFUDA' } },
-  { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: RUNG_C_BPS, fighterId: 'ir37-pink-tessen', arenaId: 'pagoda', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
-  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 2, defense: { kind: 'shield', amount: 2 }, multBps: RUNG_D_BPS, fighterId: 'ir56-lion-serpent', arenaId: 'gorge', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
-  { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: RUNG_D_BPS, fighterId: 'lady-kurotachi', arenaId: 'moat', enemy: { id: 'lady-kurotachi', name: 'LADY KUROTACHI' } },
+  { id: 2, name: 'ASHEN TORII', title: 'Keeper of the Ashen Torii', roundsToWin: 2, multBps: 14930n, fighterId: 'oni-tetsubo', arenaId: 'torii', enemy: { id: 'kitsune-tanto', name: 'KITSUNE TANTO' } },
+  { id: 3, name: 'WHISPERING BAMBOO', title: 'Blade of the Bamboo Sea', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 16890n, fighterId: 'thorn-warden', arenaId: 'bamboo', enemy: { id: 'thorn-warden', name: 'THORN WARDEN' } },
+  { id: 4, name: 'SNOWFANG PASS', title: 'Sentinel of Snowfang', roundsToWin: 2, defense: { kind: 'shield', amount: 1 }, multBps: 19100n, fighterId: 'hollow-pale', arenaId: 'snowfang', enemy: { id: 'hollow-pale', name: 'HOLLOW PALE' } },
+  { id: 5, name: 'KAWA CROSSING', title: 'Duelist of the Crossing', roundsToWin: 2, defense: { kind: 'bulk', amount: 1 }, multBps: 21610n, fighterId: 'satoshi-odachi', arenaId: 'kawa', enemy: { id: 'satoshi-odachi', name: 'SATOSHI ODACHI' } },
+  { id: 6, name: 'HOLLOW SHRINE', title: 'Phantom of the Hollow Shrine', roundsToWin: 3, defense: { kind: 'shield', amount: 1 }, multBps: 24440n, fighterId: 'eclipse-ofuda', arenaId: 'shrine', enemy: { id: 'eclipse-ofuda', name: 'ECLIPSE OFUDA' } },
+  { id: 7, name: 'BURNED PAGODA', title: 'Ash Warden of the Pagoda', roundsToWin: 3, defense: { kind: 'bulk', amount: 1 }, multBps: 27640n, fighterId: 'ir37-pink-tessen', arenaId: 'pagoda', enemy: { id: 'ir37-pink-tessen', name: 'IR-37 PINK TESSEN' } },
+  { id: 8, name: 'RED MIST GORGE', title: 'Tyrant of the Red Mist', roundsToWin: 2, defense: { kind: 'shield', amount: 2 }, multBps: 31260n, fighterId: 'ir56-lion-serpent', arenaId: 'gorge', enemy: { id: 'ir56-lion-serpent', name: 'IR-56 LION-SERPENT' } },
+  { id: 9, name: 'CRIMSON GATES', title: 'Warlord of the Crimson Gates', roundsToWin: 2, defense: { kind: 'bulk', amount: 2 }, multBps: 35360n, fighterId: 'lady-kurotachi', arenaId: 'moat', enemy: { id: 'lady-kurotachi', name: 'LADY KUROTACHI' } },
   // Tim's ruling (2026-07-22): the finalboss art IS the final boss - IR-48 HEX PAPER LORD is the
   // name; the lore line follows the other nodes' register. RONIN ZERO stays as the SEASON brand
   // (map header), not the boss identity.

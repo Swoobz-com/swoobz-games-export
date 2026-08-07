@@ -12,8 +12,6 @@ import {
   guardAmount,
   matchWinProbability,
   MAX_MULT_BPS,
-  RUNG_C_BPS,
-  RUNG_D_BPS,
   nodeRtpPercent,
   campaignRtpRange,
   roundWinProbability,
@@ -134,22 +132,24 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
     // ROUND_Q gained q(3) = 37/256. The one NEW number, 399590n, is DERIVED from P and the 96%
     // ceiling in that order (proven in the finale describe below), never chosen to look nice.
     //
-    // THE 4.00x PAYOUT CAP (Tim, 2026-08-07, reaffirmed). Every DIFFICULTY below is byte-identical to
-    // the previous ladder — Tim's instruction was "keep the difficulty as it is, dont increase win
-    // chance or anything" — and only the prices moved, down to MAX_MULT_BPS wherever the fair price
-    // exceeded it. Five rows were cut: 6/7 from 42530n, 8/9 from 73430n, 10 from 399590n.
-    // This DECOUPLES payout from odds on those five, so their RTP is no longer ~96% (90.2% / 52.2% /
-    // 9.6%). That is the decision, not a defect; the derived-price test below is what keeps it exact.
+    // THE 1.32x -> 4.00x PAYOUT LADDER (Tim, 2026-08-07: "go from 1.32 first round to 4x make it
+    // ladder", plus "dont change the win % keep them the same"). Every DIFFICULTY below is
+    // byte-identical to the previous ladder — not one defense or format moved — and ALL TEN prices
+    // were rewritten as even multiplicative steps (ratio ~1.131) from 13200n to 40000n.
+    // This DECOUPLES payout from odds everywhere, so RTP is no longer ~96% on any node: it runs
+    // 66.0 / 74.6 / 46.1 / 52.1 / 59.0 / 55.1 / 62.3 / 40.8 / 46.2 / 9.6, mean 51.2%. Non-monotonic
+    // because the price climbs smoothly while the win chances step down in chunks. That is the
+    // decision, not a defect; the pinned-returns test below is what keeps it exact.
     expect(rows).toEqual([
-      [1, 2, 'none', 0, 19200n],
-      [2, 2, 'none', 0, 19200n],
-      [3, 2, 'bulk', 1, 35120n],
-      [4, 2, 'shield', 1, 35120n],
-      [5, 2, 'bulk', 1, 35120n],
-      [6, 3, 'shield', 1, RUNG_C_BPS],
-      [7, 3, 'bulk', 1, RUNG_C_BPS],
-      [8, 2, 'shield', 2, RUNG_D_BPS],
-      [9, 2, 'bulk', 2, RUNG_D_BPS],
+      [1, 2, 'none', 0, 13200n],
+      [2, 2, 'none', 0, 14930n],
+      [3, 2, 'bulk', 1, 16890n],
+      [4, 2, 'shield', 1, 19100n],
+      [5, 2, 'bulk', 1, 21610n],
+      [6, 3, 'shield', 1, 24440n],
+      [7, 3, 'bulk', 1, 27640n],
+      [8, 2, 'shield', 2, 31260n],
+      [9, 2, 'bulk', 2, 35360n],
       [10, 3, 'shield', 3, MAX_MULT_BPS],
     ]);
   });
@@ -176,9 +176,12 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
     expect(CAMPAIGN_NODES[CAMPAIGN_NODE_COUNT - 1].multBps).toBe(MAX_MULT_BPS);
     // Exactly one node sits at the cap, and it is the finale — or the ladder has a flat top.
     expect(CAMPAIGN_NODES.filter((n) => n.multBps === MAX_MULT_BPS).map((n) => n.id)).toEqual([10]);
-    // FIVE distinct prices across ten nodes: ten would require ten distinct win chances, which is
-    // exactly what "dont change the win %" rules out.
-    expect(new Set(CAMPAIGN_NODES.map((n) => n.multBps)).size).toBe(5);
+    // TEN distinct prices, STRICTLY ascending, opening at 1.32x and closing at the 4.00x cap.
+    expect(new Set(CAMPAIGN_NODES.map((n) => n.multBps)).size).toBe(10);
+    expect(CAMPAIGN_NODES[0].multBps).toBe(13200n);
+    for (let i = 1; i < CAMPAIGN_NODES.length; i += 1) {
+      expect(CAMPAIGN_NODES[i].multBps > CAMPAIGN_NODES[i - 1].multBps, `node ${i + 1} must pay strictly more`).toBe(true);
+    }
   });
 
   it('the general two-knob formula reproduces the RETIRED ROUND_Q table exactly', () => {
@@ -226,10 +229,13 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
   it('the per-node RETURN is exactly this, and the map/card disclose it', () => {
     // Pinned so a price or difficulty edit cannot quietly move what the player is told. These are the
     // numbers nodeRtpPercent() renders on the node card and campaignRtpRange() renders on the map.
+    // NON-MONOTONIC BY CONSTRUCTION: the price climbs smoothly while the win chances step down in
+    // chunks, so the ratio saws (node 2 returns 74.6%, node 3 returns 46.1%). Pinned so a price edit
+    // cannot quietly move what the player is told.
     expect(CAMPAIGN_NODES.map((n) => nodeRtpPercent(n))).toEqual([
-      '96.0', '96.0', '95.9', '95.9', '95.9', '83.4', '83.4', '50.3', '50.3', '9.6',
+      '66.0', '74.6', '46.1', '52.1', '59.0', '55.1', '62.3', '40.8', '46.2', '9.6',
     ]);
-    expect(campaignRtpRange()).toEqual({ min: '9.6', max: '96.0' });
+    expect(campaignRtpRange()).toEqual({ min: '9.6', max: '74.6' });
     // And the displayed number must never OVERSTATE the real return (it floors).
     for (const n of CAMPAIGN_NODES) {
       const shown = Number(nodeRtpPercent(n)) / 100;
@@ -251,8 +257,11 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
       entry.prices.push(n.multBps);
       byConfig.set(key, entry);
     }
+    // ONE-PRICE-PER-CONFIG IS GONE (Tim, 2026-08-07: ten distinct prices over five distinct win
+    // chances requires it). Nodes 3/4/5 are the same 27.3254% fight paying 1.68x/1.91x/2.16x. What
+    // must still hold is the CEILING on every one of them, which the loop below asserts.
     for (const [key, { prices }] of byConfig) {
-      expect(new Set(prices).size, `config ${key} must carry ONE price, got ${[...new Set(prices)].join('/')}`).toBe(1);
+      expect(prices.length, `config ${key} must hold at least one node`).toBeGreaterThan(0);
     }
     // TEETH FOR A SINGLETON CONFIG. "One price per config" is VACUOUSLY true of a config holding a
     // single node — which map 10 became the moment it got its own defense-3 rung. Three assertions

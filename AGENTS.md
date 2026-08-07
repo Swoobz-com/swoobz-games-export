@@ -72,14 +72,17 @@ ever pay above its exact multiple — verified across every reachable stake incl
 integer arithmetic **with a positive control** (an over-priced node must fail the check), because the only
 prior guard was a 2M-match script nobody runs in CI. If you touch a `multBps`, that test is the gate.
 
-**There is NO RTP FLOOR, and the campaign is NOT uniform 96%** (Tim, 2026-08-07). `MAX_MULT_BPS` caps
-every payout at **4.00x** while the win chances are untouched, and since RTP = P x mult that pushes five
-tiers below the old line ON PURPOSE. The price ASCENDS 1.92 -> 3.512 -> 3.70 -> 3.85 -> 4.00 across the
-five difficulty tiers, and tiers C/D/E are priced BELOW their ceilings so it has room to climb: nodes 6/7
-return 83.4%, 8/9 return 50.3%, and the finale returns **9.61%** (2.4025% to win, paying 4.00x where its
-fair price is 39.959x). Mean across the ladder 84.4%; tiers A and B are untouched at ~96%. Do not "fix"
-this by restoring the fair prices — it is a deliberate ruling. `fightCampaign.test.ts` asserts the price
-never drops, that the top rung IS the cap, and that there are exactly five distinct prices.
+**There is NO RTP FLOOR, and NO node returns ~96% any more** (Tim, 2026-08-07). The ten prices form a
+strictly ascending ladder from **1.32x on node 1 to the 4.00x cap on node 10** (even multiplicative steps,
+ratio ~1.131), while EVERY win chance is byte-identical to before. Since RTP = P x mult, that puts the
+return at 66.0 / 74.6 / 46.1 / 52.1 / 59.0 / 55.1 / 62.3 / 40.8 / 46.2 / 9.6 — **mean 51.2%, a 48.8%
+house edge** — and it is NON-MONOTONIC, because the price climbs smoothly while the win chances step down
+in chunks. Two things follow: paying BELOW a node's ceiling is always legal (that is what allows a 1.32x
+opener at an unchanged 50% win chance), and **identical fights now pay different amounts** (nodes 3/4/5
+are the same 27.3254% fight at 1.68x/1.91x/2.16x), so "same fight, same pay" is gone and a replaying
+player should always farm the LAST node of a tier. Do not "fix" any of this by restoring fair prices — it
+is a deliberate ruling. `fightCampaign.test.ts` asserts ten distinct STRICTLY ascending prices, a 13200n
+opener, the 40000n close, and the exact per-node returns.
 
 **Never type an RTP into the UI.** Because the return now varies per node, every RTP the player sees is
 derived by `nodeRtpPercent()` / `campaignRtpRange()` from the same exact rationals that price the ladder.
