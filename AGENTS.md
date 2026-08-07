@@ -1,13 +1,170 @@
 # AGENTS.md — working in STANDOFF
 
-Entry point for any agent (or human) touching this repo. Read this, then the spec for the area you are
-changing. Everything here is a rule that cost real debugging time to learn — none of it is style advice.
+Entry point for anyone touching this repo — CTO, engineer or agent. **Sections 1-5 are the orientation:
+what this is, how to run it, how it works, what the money does, and what is actually proven.** Everything
+from "The non-negotiables" down is a rule that cost real debugging time to learn — none of it is style
+advice, and each one is written with the incident that produced it.
 
-**STANDOFF** is a two-sided rock-paper-scissors fighting game. Vite + React 18 + TypeScript, no runtime
-deps beyond React. Two fighters occupy a p1 (left) and p2 (right) slot; STRIKE/THROW/BLOCK is an RPS
-triangle; a campaign of 10 nodes sits on top, with real stake/payout math.
+---
 
-## Verify before you claim anything
+## 1. What this is
+
+**STANDOFF** is a two-sided rock-paper-scissors fighting game dressed as a Mortal-Kombat-style versus
+fighter. Two fighters occupy a p1 (left) and p2 (right) slot. Each exchange both sides secretly pick
+**STRIKE / THROW / BLOCK** — an RPS triangle — and the winner lands a hit. First to 2 or 3 round wins
+takes the match.
+
+On top of that sits a **10-node campaign** ("CONQUEST · RONIN ZERO") with real stake/payout maths: you
+wager from a practice bank, beat a boss, and get paid a fixed multiplier. Beating a boss also **unlocks
+that boss as a playable fighter** — that is the game's whole progression loop.
+
+Three modes: **VERSUS CPU** (quick duel, flat 1.92x at 96% RTP), **CONQUEST** (the staked campaign), and
+**VS FRIEND** (real-time PvP over a websocket relay, room codes, winner-takes-the-pot).
+
+| | |
+|---|---|
+| Stack | Vite + React 18 + TypeScript. **No runtime deps beyond React.** `ws` for the relay server. |
+| Size | ~8.7k lines across the four files that matter (see the Map). 12 fighters, 10 arenas, 10 campaign nodes. |
+| Money | A **practice bank**, not real funds. $1000, restorable in one click. Nothing here touches a payment rail. |
+| Repo | Its own git repo. Remote `export` → `Swoobz-com/swoobz-games-export`, branch **`standoff`**. |
+| State | Phase 297. `tsc` 0 · 286 tests / 17 files · build clean · 2M-match math sim passing. |
+
+## 2. Running it
+
+```bash
+npm install
+npm run dev        # http://localhost:5340  (vite.config.ts pins the port, strictPort)
+npm run dev -- --port 5342 --strictPort   # if 5340 is taken — see Dev-server hygiene
+
+npm run build      # tsc --noEmit && vite build  ->  dist/
+npm start          # PRODUCTION: serves dist AND carries the VS FRIEND relay on one port
+                   # PORT (default 5340) and HOST (default 0.0.0.0) come from the environment
+```
+
+Append `?dev=1` for the dev hooks (CONQUER NEXT / CONQUER ALL / RESET PROGRESS on the campaign map).
+They touch campaign progress only, never money.
+
+**Verify before you claim anything:**
+
+```bash
+npx tsc --noEmit                                                 # must be 0
+npx vitest run --pool=forks --poolOptions.forks.singleFork=true  # 286 tests / 17 files as of phase 296
+npm run build                                                    # tsc --noEmit && vite build
+npx vite-node scripts/campaign-rtp-sim.mjs                       # 2M matches/node, proves the economy
+
+# The UI gates need a dev server already running, and drive real Chrome against it:
+node scripts/qa-phase294.mjs                    # 46 render assertions   (QA_PORT, default 5342)
+node scripts/qa-phase294-receipt.mjs --port N   # plays real matches to reach the receipt states
+```
+
+⚠ **Use those vitest flags whenever a dev server or Chrome is running.** The shared worker pool
+otherwise dies with `Worker exited unexpectedly` and reports something like `1 passed (2)` — one file
+silently unreported, which looks exactly like a real failure. Reproduced repeatedly; it is
+environmental, and it still happens WITH the flags under enough load. If you see it, stop your own dev
+server and re-run before believing the number.
+
+Gates live in `qa-boss/` and `scripts/`. **A gate that cannot do its job is not a pass.** This repo has
+found and fixed EIGHT instances of a tool that refuses and then `exit 0` — it calls the class
+`gate-vacuous-pass`. If a tool can't run, report it; never infer success from silence.
+
+## 3. How it works — the architecture
+
+Three layers, and the separation is load-bearing rather than decorative:
+
+```
+  src/engine/          PURE. BigInt money, no DOM, no React. The rules and the maths.
+      |                fightEngine (RPS + rounds) · fightCampaign (nodes, payouts, probabilities)
+      |                fightAi (CPU personalities) · fightStakes · secureRng
+      v
+  src/provider/        THE STATE MACHINE. One hook, useFightController().
+  fightProvider.ts     Owns: phase, match state, balance/stake, campaign progress, persistence,
+      |                the shot clock, and the friend-mode transport. Identity-agnostic — it never
+      |                learns WHICH fighter you picked.
+      v
+  src/ui/              PRESENTATION ONLY. One big component + one stylesheet.
+  FightExperience.tsx  Every screen, the fighter/clip choreography, the facing rule, all copy.
+  fight.css
+```
+
+**The phase machine** (`Phase` in fightProvider.ts) is the spine of the whole app:
+
+```
+title -> mode -> [ campaignMap -> ] charSelect -> stake -> vsIntro -> roundIntro
+      -> fightBanner -> picking -> reveal -> resolve -> roundEnd -> matchEnd
+```
+
+`picking` is where the player acts; a **5s shot clock** auto-picks a uniformly random move if they
+don't. `matchEnd` renders the receipt. `mode` is `'cpu' | 'friend' | 'campaign'` and gates which
+receipt and which economy apply.
+
+**Money flow, single path:** `commitStake` deducts and freezes `committedStakeRef` → the match runs →
+`settleCampaign` / `settleMatch` credits the payout exactly once (one-shot ref guard) → the receipt is
+frozen at settle and the UI only reads it. Refunds exist only for matches that never started.
+
+**Persistence** is three localStorage keys, all corrupt-safe: campaign progress `{v:2, beaten,
+lockStake}`, the practice bank, and the chosen arena. A `v1` campaign payload is **rejected on purpose**.
+
+**Characters** are data, not code. Each fighter is a manifest in `src/characters/<id>.ts` pointing at a
+still, a cutout, a portrait and a set of alpha-WebM clips per state (idle / attacks / hit / ko / …).
+The UI picks a clip by exact state match. Adding one is a documented 6-step process (see below).
+
+**VS FRIEND** is a thin relay, not a server-authoritative game: `src/server/matchRelay.ts` pairs two
+sockets by room code and forwards picks. Both clients run the same engine. It carries **no money**. It
+attaches to any Node `http.Server` — vite's in dev, and `server.mjs` in production.
+
+## 4. The money model — read this before touching a `multBps`
+
+The campaign is the only staked surface. Each node has a fixed win probability (set by its difficulty)
+and a fixed payout multiplier. **The one equation that governs everything is `RTP = P(win) × multiplier`.**
+The multiplier is not a free dial.
+
+| node | fight | win chance | pays | returns |
+|---|---|---|---|---|
+| 1 KUROHAMA DOCKS | to2, no defense | 50.0000% | x1.32 | 66.0% |
+| 2 ASHEN TORII | to2, no defense | 50.0000% | x1.49 | 74.6% |
+| 3 WHISPERING BAMBOO | to2, +1 | 27.3254% | x1.68 | 46.1% |
+| 4 SNOWFANG PASS | to2, +1 | 27.3254% | x1.91 | 52.1% |
+| 5 KAWA CROSSING | to2, +1 | 27.3254% | x2.16 | 59.0% |
+| 6 HOLLOW SHRINE | to3, +1 | 22.5546% | x2.44 | 55.1% |
+| 7 BURNED PAGODA | to3, +1 | 22.5546% | x2.76 | 62.3% |
+| 8 RED MIST GORGE | to2, +2 | 13.0733% | x3.12 | 40.8% |
+| 9 CRIMSON GATES | to2, +2 | 13.0733% | x3.53 | 46.2% |
+| 10 ZERO CITADEL | to3, +3 | **2.4025%** | **x4.00** | **9.6%** |
+
+**Mean return 51.2%, a 48.8% house edge.** Verified two ways: exact bigint rationals in
+`fightCampaign.test.ts`, and a 2M-matches-per-node Monte Carlo (`scripts/campaign-rtp-sim.mjs`) that
+lands within 0.003pp of the closed form on every node. **Tim confirmed this number in session 33** against
+three costed alternatives — it is a decision, not a drift. Details under "The non-negotiables".
+
+Three invariants a CTO should know are enforced, not hoped for:
+- **No node may return more than 96%.** Pinned in exact integer arithmetic with a positive control.
+- **All money is BigInt lamports with floor truncation.** No float ever touches a payout.
+- **No RTP is ever typed into the UI.** Every percentage the player sees is derived from the same
+  rationals that price the ladder, so the screen cannot contradict the maths.
+
+## 5. What is proven, and what is not
+
+Stated plainly, because this repo's worst incidents all began with a confident unverified claim.
+
+**Proven by execution:** the economy (2M matches/node); the 96% ceiling (exact integer test + positive
+control); 286 unit tests over engine, provider, persistence, roster and the relay; 46 real-Chrome render
+assertions; the production server booted and probed (200/404/403/206/416 + two real websocket clients
+completing create → join → pair → pick).
+
+**Known gaps, none of them silent:**
+- **There is no deploy target.** `npm start` works, but the repo contains no Dockerfile, Procfile,
+  netlify/vercel/render/fly config or CI. If the target is a purely static host, no Node server runs
+  there and VS FRIEND needs a hosting decision. **This is the open question.**
+- **No browser has played video through the server's Range implementation.** Byte-exact 206/416 verified
+  with curl; the iOS-Safari behaviour that motivates it is untested.
+- **`npm ci --omit=dev && npm start` has not been run.** `ws` is now a real dependency, but that is
+  reasoned from the import graph, not measured.
+- **JSX has zero unit coverage** — no jsdom, and vitest only matches `src/**/*.test.ts`. A green
+  `vitest` says nothing about the UI. The two drivers in `scripts/` are the only mechanical guard.
+- **This is a practice bank.** Before real money: server-held balance, server-side settle re-derived
+  from the server's own node table, dev-gate `resetBank`, and commit-reveal for PvP picks.
+
+---
 
 ```bash
 npx tsc --noEmit                                              # must be 0
@@ -58,8 +215,9 @@ medallions) and it is the whole character under `prefers-reduced-motion`.
 
 **THE CAMPAIGN STAKE LOCK.** A run is locked to the stake it was played at. Entering the map at a
 HIGHER stake wipes progress; the same or lower keeps it. It exists because node payouts are fixed
-multipliers (node 10 is 39.959x) — without it a player could conquer cheap nodes and then cash the final
-multiplier at a huge stake. Pure logic + tests: `applyCampaignStakeLock` in `src/provider/fightProvider.ts`
+multipliers — without it a player could conquer cheap nodes and then cash the final multiplier at a huge
+stake. (It was written when node 10 paid 39.959x. Since phase 291 the cap is **4.00x**, so the leverage
+is far smaller, but the lock stays: the exploit shape is the same at any multiplier above the opener's.) Pure logic + tests: `applyCampaignStakeLock` in `src/provider/fightProvider.ts`
 and `src/provider/campaignStakeLock.test.ts`. Persisted schema is `{v:2, beaten, lockStake}`; **a v1
 payload is rejected on purpose** (no stamp ⇒ untrusted).
 
@@ -115,8 +273,9 @@ live in a production build. They touch `beaten[]` only, never money, and a dev-c
 by the stake lock (unstamped progress ⇒ reset ⇒ attempt cancelled, verified live). Before real money:
 server-held balance + server-side settle re-derived from the server's own node table; then dev-gate
 `resetBank` and add commit-reveal for PvP picks. Note PvP has no house exposure today — the relay carries
-no money and is attached only to the vite dev/preview servers (`vite.config.ts`), so a static `dist`
-deploy cannot even open a room.
+no money. (Until phase 295 the relay was attached ONLY to the vite dev/preview servers, so a static
+`dist` deploy could not open a room at all. `npm start` now serves `dist` and carries the relay on the
+same port; see "Running it" above.)
 
 **Money decisions read the CHARGED stake, never the live picker.** `committedStakeRef` is frozen at commit
 and is what both settles and the refund use; `setStake` is phase-guarded. `stakeRef` keeps moving with the
@@ -221,16 +380,38 @@ other agents run servers on neighbouring ports. Kill your own PID when you finis
 
 ## Map
 
-| path | what |
-|---|---|
-| `src/engine/` | pure game + campaign math (BigInt, no DOM) |
-| `src/provider/fightProvider.ts` | state machine, stake/balance, persistence |
-| `src/ui/FightExperience.tsx` | the whole presentation layer, incl. the facing rule |
-| `src/characters/` | manifests + registry + gating |
-| `qa-boss/` | gates, prompt kits, session ledgers |
-| `HANDOFF-STREETFIGHTER.md` | session-to-session state; **read its top block first** |
+| path | what | size |
+|---|---|---|
+| `src/engine/` | pure game + campaign math (BigInt, no DOM, no React) | ~1.5k |
+| `src/engine/fightCampaign.ts` | the node table, payouts, exact win probabilities, RTP derivation | 400 |
+| `src/provider/fightProvider.ts` | state machine, stake/balance, persistence, shot clock, transport | 1709 |
+| `src/ui/FightExperience.tsx` | the whole presentation layer, every screen, the facing rule | 3519 |
+| `src/ui/fight.css` | the whole stylesheet (real CSS file, no CSS-in-JS) | 3051 |
+| `src/characters/` | 12 fighter manifests + registry + the unlock gating | |
+| `src/server/` | `matchRelay.ts` (VS FRIEND websocket relay) + `staticServer.ts` (production HTTP) | |
+| `src/arenas/` | the 10 arena definitions | |
+| `server.mjs` | production entry — `npm start` | 41 |
+| `scripts/` | drivers + gates. `qa-phase294*.mjs` are the ONLY guard on the UI | |
+| `qa-boss/` | asset gates, prompt kits, session ledgers | |
+| `HANDOFF-STREETFIGHTER.md` | session-to-session state; **read its top block first** (429KB, only the top is current) | |
 
-Specs: `PRODUCT.md`, `DESIGN.md`, `FIGHT-SPEC.md`, `CAMPAIGN-SPEC.md`, `CHARACTER-CONTRACT.md`.
+Specs, in the order they are useful: `PRODUCT.md` (what the product is), `DESIGN.md`,
+`FIGHT-SPEC.md` (the combat rules), `CAMPAIGN-SPEC.md` (the staked layer),
+`CHARACTER-CONTRACT.md` (what a fighter must provide).
+
+## Where the bodies are buried — the five things most likely to bite
+
+A short index into the rules above, for someone who has to prioritise:
+
+1. **The stake lock can wipe a run on the default path** — and it is only safe because it is now
+   disclosed before the button. Any change to the stake screen must keep that disclosure.
+2. **`getFighter` throws by contract**, so removing or renaming a fighter is a breaking change across
+   three files.
+3. **A clip filed under a state the engine never emits fails silently** — no throw, no log, the fighter
+   just renders a still forever.
+4. **The UI has no unit tests.** Green `vitest` is not evidence about anything on screen.
+5. **The shot clock is a money surface.** It auto-picks against a committed stake, which is why the
+   portrait curtain freezes it in single-player and deliberately does NOT in friend mode.
 
 ## Reporting
 
