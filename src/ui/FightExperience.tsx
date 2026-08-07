@@ -12,7 +12,7 @@ import type { AiPersonality } from '../engine/fightAi';
 import type { Move } from '../engine/fightEngine';
 import { cpuWinPayout, formatUsd, potLamports, STAKE_PRESETS } from '../engine/fightStakes';
 import { ATTACK_STATE, FIGHTERS, getFighter } from '../characters';
-import { isFighterSelectable } from '../characters/rosterGating';
+import { bossNodeId, isFighterSelectable } from '../characters/rosterGating';
 import type { FighterDef, FighterState } from '../characters';
 import { ARENAS, getArena } from '../arenas/arenas';
 import {
@@ -1364,10 +1364,25 @@ function CharacterTile({
 // A locked "mystery" tile (reference's "?" plates): dark plate, a single big "?" glyph. At 20
 // tiles the bare glyph IS the mystery — an extra "SOON" label would just be noise — matching the
 // MK1 reference where empty roster slots are unlabeled question marks.
-function LockedTile(): JSX.Element {
+//
+// `nodeId` (phase 294) turns an anonymous plate into a SIGNPOST: this "?" is a real fighter and node
+// N is how you earn them. Beating a node is the game's only character-unlock mechanic and nothing on
+// screen ever said so, which left 19 of 22 tiles reading as permanent furniture. The grid still pads
+// with anonymous tiles (SELECT_ROSTER_SIZE is 22 against a 12-fighter registry), so the two kinds are
+// deliberately distinct: numbered = earnable now, bare = nothing behind it.
+//
+// ⚠ THE NODE NUMBER ONLY, NEVER THE NODE NAME OR THE FIGHTER. The conquest map hides a fogged node's
+// name and labels it "unknown enemy"; printing "BURNED PAGODA" or the boss's name here would leak
+// precisely what the map withholds.
+function LockedTile({ nodeId }: { nodeId?: number }): JSX.Element {
   return (
-    <div className="fr-select-tile fr-select-locked" aria-hidden="true">
+    <div
+      className="fr-select-tile fr-select-locked"
+      aria-hidden={nodeId == null ? true : undefined}
+      aria-label={nodeId == null ? undefined : `Locked fighter, win conquest node ${nodeId} to unlock`}
+    >
       <span className="fr-select-qmark">?</span>
+      {nodeId != null && <span className="fr-select-gate">NODE {nodeId}</span>}
     </div>
   );
 }
@@ -1555,6 +1570,18 @@ export function FightExperience(): JSX.Element {
   const selectableFighters = Object.values(FIGHTERS).filter((def) =>
     isFighterSelectable(def.id, ctl.campaign.beaten),
   );
+  // The complement, in node order: every boss still behind its node. These get NUMBERED locked tiles
+  // so the grid tells the player the roster is earnable and exactly where. Sorted by gating node so
+  // the mystery plates read as a ladder rather than registry order; bossNodeId is non-null for all of
+  // them by construction (a fighter is only here BECAUSE isFighterSelectable gated it on a node).
+  const lockedBosses = Object.values(FIGHTERS)
+    .filter((def) => !isFighterSelectable(def.id, ctl.campaign.beaten))
+    .sort((a, b) => (bossNodeId(a.id) ?? 0) - (bossNodeId(b.id) ?? 0));
+  // ALL TEN NODES CONQUERED. Derived from the frontier the provider already computes, never stored:
+  // frontierOf returns the count when nothing is unbeaten. A persisted flag would have to survive (or
+  // not survive) a stake-lock wipe at four separate CampaignProgress construction sites; deriving it
+  // means the finale shows exactly while 10/10 is true, which is the honest state.
+  const islandConquered = ctl.campaign.frontier >= CAMPAIGN_NODE_COUNT;
   const friendOpponentId = ctl.friend.opponentFighterId;
   // The active campaign node (campaign mode only): drives the enemy identity, the match format,
   // the defense presentation and the node-card copy. VOLTA fills every slot this phase.
@@ -2582,29 +2609,51 @@ export function FightExperience(): JSX.Element {
               {/* ARENA picker — same tile mechanics as the roster, but the pick PERSISTS
                   (localStorage) and switching it live-previews the stage backdrop behind the
                   scrim. Real arenas render a cropped 16:9 thumb; the rest are locked "?" tiles.
-                  Five wide slots total. */}
-              <div className="fr-arena-section">
-                <span className="fr-arena-heading">ARENA</span>
-                <div className="fr-arena-row">
-                  {ARENAS.map((arena) => (
-                    <ArenaTile
-                      key={arena.id}
-                      name={arena.name}
-                      thumbUrl={`${ASSET_BASE}${arena.file}`}
-                      selected={arena.id === arenaId}
-                      onSelect={() => {
-                        if (arena.id !== arenaId) {
-                          playPickTick();
-                          setArenaId(arena.id);
-                        }
-                      }}
-                    />
-                  ))}
-                  {Array.from({ length: Math.max(0, 5 - ARENAS.length) }, (_, i) => (
-                    <ArenaLockedTile key={`arena-locked-${i}`} />
-                  ))}
+                  Five wide slots total.
+
+                  ⚠ HIDDEN IN THE CAMPAIGN DETOUR (phase 294). Since phase 288 charSelect is
+                  reachable from the node card's CHANGE button, and a campaign node FORCES its own
+                  arena (effectiveArenaId reads campaignNode.arenaId, which stays truthy through the
+                  detour because enterCharSelect never clears the node). So the picker was not merely
+                  decorative there — it was actively harmful: clicking a tile showed NO live preview
+                  (the stage is node-forced) yet still ran setArenaId, whose unguarded persistence
+                  effect overwrote the player's saved QUICK-DUEL arena for good. Hiding it prevents
+                  the WRITE, which is the actual defect; greying the tiles would not. Same
+                  mode === 'campaign' test the BACK button above already uses. */}
+              {mode !== 'campaign' && (
+                <div className="fr-arena-section">
+                  <span className="fr-arena-heading">ARENA</span>
+                  <div className="fr-arena-row">
+                    {ARENAS.map((arena) => (
+                      <ArenaTile
+                        key={arena.id}
+                        name={arena.name}
+                        thumbUrl={`${ASSET_BASE}${arena.file}`}
+                        selected={arena.id === arenaId}
+                        onSelect={() => {
+                          if (arena.id !== arenaId) {
+                            playPickTick();
+                            setArenaId(arena.id);
+                          }
+                        }}
+                      />
+                    ))}
+                    {Array.from({ length: Math.max(0, 5 - ARENAS.length) }, (_, i) => (
+                      <ArenaLockedTile key={`arena-locked-${i}`} />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+              {/* In the campaign detour the node dictates the arena, so say which one instead of
+                  offering a choice the run will ignore. */}
+              {mode === 'campaign' && campaignNode && (
+                <div className="fr-arena-section">
+                  <span className="fr-arena-heading">ARENA</span>
+                  <span className="fr-arena-fixed">
+                    {getArena(campaignNode.arenaId).name} · SET BY NODE {campaignNode.id}
+                  </span>
+                </div>
+              )}
               {/* Roster strip. SELECTABLE tiles FIRST (registry order — always-available fighters +
                   any boss whose campaign node is beaten; a boss is unlocked as PLAYABLE only after
                   its node falls, gated by ctl.campaign.beaten via rosterGating). Not-yet-beaten
@@ -2625,9 +2674,19 @@ export function FightExperience(): JSX.Element {
                     }}
                   />
                 ))}
-                {Array.from({ length: Math.max(0, SELECT_ROSTER_SIZE - selectableFighters.length) }, (_, i) => (
-                  <LockedTile key={`locked-${i}`} />
+                {/* EARNABLE bosses next, each naming the node that unlocks it (phase 294). Still no
+                    name and no art — only the node number, so nothing the conquest map hides leaks. */}
+                {lockedBosses.map((def) => (
+                  <LockedTile key={def.id} nodeId={bossNodeId(def.id) ?? undefined} />
                 ))}
+                {/* Then anonymous plates to hold the grid at SELECT_ROSTER_SIZE. These have nothing
+                    behind them: 22 slots against a 12-fighter registry. */}
+                {Array.from(
+                  { length: Math.max(0, SELECT_ROSTER_SIZE - selectableFighters.length - lockedBosses.length) },
+                  (_, i) => (
+                    <LockedTile key={`locked-${i}`} />
+                  ),
+                )}
               </div>
             </div>
             <button
@@ -2738,7 +2797,25 @@ export function FightExperience(): JSX.Element {
                 <div className="fr-nodecard-info">
                   <div className="fr-nodecard-node">
                     NODE {campaignNode.id} · {campaignNode.name}
+                    {/* ALREADY CONQUERED (phase 294). A beaten node re-opened an IDENTICAL card, so a
+                        replay was indistinguishable from a first attempt. The copy is written against
+                        what the code actually does, because the tempting shorthand ("free replay") is
+                        false on every count: the stake IS charged again (commitStake has no beaten
+                        check) and a win IS paid in full at the same multiplier. What does NOT happen
+                        is progression — markBeaten on an already-true index is a no-op, so the
+                        frontier never moves and no new fighter unlocks. */}
+                    {ctl.campaign.beaten[campaignNode.id - 1] && (
+                      <span className="fr-nodecard-conquered">
+                        <span aria-hidden="true">&#9873;</span> CONQUERED · REPLAY
+                      </span>
+                    )}
                   </div>
+                  {ctl.campaign.beaten[campaignNode.id - 1] && (
+                    <div className="fr-nodecard-replay-note">
+                      you already hold this node · a replay costs the same stake and pays the same
+                      x{formatMult(campaignNode.multBps)}, but unlocks nothing new
+                    </div>
+                  )}
                   <div className="fr-nodecard-title">{campaignNode.enemy.name}</div>
                   <div className="fr-nodecard-lore">{campaignNode.title}</div>
                   <div className="fr-nodecard-objective">WIN THE MATCH</div>
@@ -3001,7 +3078,7 @@ export function FightExperience(): JSX.Element {
               BACK
             </button>
             <div className="fr-map-title fr-section-title" style={{ fontSize: 'calc(var(--sh) * 2.4)' }}>
-              CONQUEST · RONIN ZERO
+              CONQUEST · RONIN ZERO{islandConquered ? ' · CLEARED' : ''}
             </div>
             <CampaignMap
               beaten={ctl.campaign.beaten}
@@ -3017,6 +3094,16 @@ export function FightExperience(): JSX.Element {
               <div className="fr-map-reset" role="status" style={{ fontSize: 'calc(var(--sh) * 1.5)' }}>
                 RUN RESTARTED · you raised your stake above the one this run was played at, so the
                 island is locked again from the first node. Your stake was not taken.
+              </div>
+            )}
+            {/* ALL TEN CONQUERED. The counterpart of the reset plate above: the one message on this
+                screen that reports something the player WON. It can never collide with the reset
+                notice — a reset returns freshBeaten(), so stakeReset implies frontier 0.
+                It says the nodes stay open ON PURPOSE: conquered nodes remain replayable and this
+                must not read as "you are done" while the map is still live. */}
+            {islandConquered && (
+              <div className="fr-map-conquest" role="status" style={{ fontSize: 'calc(var(--sh) * 1.4)' }}>
+                ISLAND CONQUERED · ZERO CITADEL INCLUDED · every node stays open to replay
               </div>
             )}
             <div className="fr-map-rtp" style={{ fontSize: 'calc(var(--sh) * 1.3)' }}>
@@ -3161,16 +3248,47 @@ export function FightExperience(): JSX.Element {
           <div className="fr-overlay">
             <div className="fr-scrim" />
             <div className="fr-overlay-content" style={{ gap: 'calc(var(--sh) * 1.8)' }}>
-              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.92 and x39.95. */}
+              {/* Value-INDEPENDENT celebration (RG-C5): identical banner for x1.92 and x39.95.
+                  The finale line is keyed on the NODE, not on the payout — progression, not value —
+                  so it stays identical at $1 and $25. `.fr-banner` already sets white-space:pre-line,
+                  so the newline needs no CSS. Taking ZERO CITADEL is the rarest reachable event in
+                  the game (a 2.4025% fight) and it used to print the same word as node 1. */}
               <div
                 className={`fr-banner ${ctl.campaignReceipt.met ? 'fr-banner-gold' : 'fr-banner-danger'}`}
                 style={{ fontSize: 'calc(var(--sh) * 8.5)' }}
               >
-                {ctl.campaignReceipt.met ? 'VICTORY' : 'DEFEAT'}
+                {ctl.campaignReceipt.met
+                  ? ctl.campaignReceipt.nodeId === CAMPAIGN_NODE_COUNT && ctl.campaignReceipt.firstClear
+                    ? 'VICTORY\nISLAND CONQUERED'
+                    : 'VICTORY'
+                  : 'DEFEAT'}
               </div>
               <div className="fr-campaign-node-line" style={{ fontSize: 'calc(var(--sh) * 2)' }}>
                 NODE {ctl.campaignReceipt.nodeId} · {ctl.campaignReceipt.nodeName}
               </div>
+              {/* FIGHTER UNLOCKED. Beating a node is the game's only character-unlock mechanic (9 of
+                  the 12 fighters arrive this way) and until now the game never said so — the reward
+                  existed and was invisible. Non-null ONLY on a first clear of a node whose body is
+                  not already always-available, so a replay stays silent and node 2 (oni-tetsubo, in
+                  ALWAYS_AVAILABLE) correctly announces nothing. Identical card for node 1 and node
+                  10: no scaling by payout (RG-C5). */}
+              {ctl.campaignReceipt.unlockedFighterId && FIGHTERS[ctl.campaignReceipt.unlockedFighterId] && (
+                <div className="fr-unlock-card" role="status">
+                  <img
+                    className="fr-unlock-pfp"
+                    src={`${ASSET_BASE}assets/enemies/${ctl.campaignReceipt.unlockedFighterId}-pfp.webp`}
+                    alt=""
+                    draggable={false}
+                  />
+                  <div className="fr-unlock-copy">
+                    <span className="fr-unlock-eyebrow">FIGHTER UNLOCKED</span>
+                    <span className="fr-unlock-name">
+                      {FIGHTERS[ctl.campaignReceipt.unlockedFighterId].name}
+                    </span>
+                    <span className="fr-unlock-sub">yours to pick in CHOOSE YOUR FIGHTER</span>
+                  </div>
+                </div>
+              )}
               {/* Cosmetic unlock card on a MET objective (demo cross-game reward). Identical
                   choreography for every tier and every stake (RG-C5 value-independence). */}
               {ctl.campaignReceipt.met && getCampaignNode(ctl.campaignReceipt.nodeId)?.reward && (() => {
@@ -3270,6 +3388,49 @@ export function FightExperience(): JSX.Element {
       >
         PLAY SAFE
       </a>
+
+      {/* PORTRAIT ROTATE PROMPT (Tim, 2026-08-07, session 33). `.fr-stage` is aspect-locked to the
+          arena art so it never crops, which means a portrait phone gets a stage 100vw wide and only
+          100vw/1.79167 tall — 393x219 on a 393x852 device, a quarter of the screen. Phase 284 floored
+          the type so it stays legible; nothing can make the arena bigger without cropping the art or
+          rebuilding the layout, and Tim declined both.
+
+          It renders ONLY when ctl.portraitBlocked is true, so in landscape and on every desktop this
+          element is not in the tree at all — a stronger "landscape is unchanged" guarantee than a
+          display:none rule, which would still ship a node. The same boolean freezes the shot clock in
+          the provider; one signal, so the curtain and the clock can never disagree about whether the
+          game is playable.
+
+          It is a SIBLING of .fr-stage, never a child: the stage takes transform: scale() on the KO
+          zoom and a translate shake, and a transformed ancestor becomes the containing block for
+          position:fixed descendants — the curtain would shake and zoom along with it. */}
+      {ctl.portraitBlocked && (
+        <div className="fr-rotate" role="alertdialog" aria-label="Rotate your device">
+          {/* Two phones and an arrow: portrait (dimmed, where you are) turning into landscape
+              (solid, where you need to be). A single phone plus a curl reads as an ambiguous
+              squiggle at 72px; showing both END STATES cannot be misread. */}
+          <svg className="fr-rotate-icon" viewBox="0 0 48 48" aria-hidden="true">
+            <rect
+              x="4" y="16" width="15" height="24" rx="2.5"
+              fill="none" stroke="currentColor" strokeWidth="2.2" opacity="0.45"
+            />
+            <rect
+              x="24" y="21" width="21" height="14" rx="2.5"
+              fill="none" stroke="currentColor" strokeWidth="2.2"
+            />
+            <path
+              d="M10 11 Q24 2 38 11"
+              fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"
+            />
+            <path d="M38.8 12.2 L31.4 10.6 L36.2 5.2 Z" fill="currentColor" />
+          </svg>
+          <div className="fr-rotate-title">ROTATE YOUR DEVICE</div>
+          <div className="fr-rotate-sub">
+            STANDOFF is built for landscape · turn your phone sideways to fight
+          </div>
+          <div className="fr-rotate-note">your match is paused, nothing is being played for you</div>
+        </div>
+      )}
     </div>
   );
 }

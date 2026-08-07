@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { ALWAYS_AVAILABLE_FIGHTER_IDS, bossNodeId, isFighterSelectable } from './rosterGating';
+import {
+  ALWAYS_AVAILABLE_FIGHTER_IDS,
+  bossNodeId,
+  fighterUnlockedByNode,
+  isFighterSelectable,
+} from './rosterGating';
 import { FIGHTERS } from './index';
 import { parseCampaignBeaten } from '../provider/fightProvider';
 import { CAMPAIGN_NODES, CAMPAIGN_NODE_COUNT } from '../engine/fightCampaign';
@@ -90,5 +95,54 @@ describe('isFighterSelectable — playable-after-beaten gate', () => {
     expect(isFighterSelectable('gargoyle-spear', fromGarbage)).toBe(true);
     expect(isFighterSelectable('lich-scythe', fromGarbage)).toBe(true);
     expect(isFighterSelectable('oni-tetsubo', fromGarbage)).toBe(true);
+  });
+});
+
+describe('fighterUnlockedByNode — node -> the fighter it makes newly playable (phase 294)', () => {
+  it('every node but 2 unlocks exactly one fighter, and node 2 unlocks nothing', () => {
+    // Node 2's fighterId is oni-tetsubo, which is ALWAYS_AVAILABLE — so winning it genuinely grants
+    // no new pick. That is a real property of the roster, not a gap to paper over: the receipt must
+    // stay SILENT on node 2 rather than announce an unlock the select grid will not show.
+    expect(fighterUnlockedByNode(2)).toBeNull();
+    const unlockers = CAMPAIGN_NODES.filter((n) => fighterUnlockedByNode(n.id) !== null);
+    expect(unlockers.map((n) => n.id)).toEqual([1, 3, 4, 5, 6, 7, 8, 9, 10]);
+    // 9 unlockable bosses + the 3 always-available = the whole 12-fighter registry, no orphans.
+    expect(unlockers.length + ALWAYS_AVAILABLE_FIGHTER_IDS.length).toBe(Object.keys(FIGHTERS).length);
+  });
+
+  it('never returns an id that getFighter would throw on', () => {
+    // The receipt renders getFighter(id).name. getFighter THROWS on an unknown id by contract, and it
+    // would throw INSIDE the victory render — a white screen at the exact moment of winning. Node 2 is
+    // the live tripwire: its enemy.id is 'kitsune-tanto', which is NOT in the registry.
+    expect(FIGHTERS['kitsune-tanto']).toBeUndefined();
+    for (const node of CAMPAIGN_NODES) {
+      const id = fighterUnlockedByNode(node.id);
+      if (id !== null) expect(FIGHTERS[id]).toBeDefined();
+    }
+  });
+
+  it('reads fighterId, not enemy.id, wherever the two disagree', () => {
+    const node2 = CAMPAIGN_NODES.find((n) => n.id === 2)!;
+    expect(node2.fighterId).toBe('oni-tetsubo');
+    expect(node2.enemy.id).toBe('kitsune-tanto');
+    // If this ever starts returning the enemy id, the assertion above about getFighter fires too.
+    expect(fighterUnlockedByNode(2)).not.toBe(node2.enemy.id);
+  });
+
+  it('the announced fighter is exactly the one the select grid then offers', () => {
+    // The whole point: the receipt must not promise a pick the gate does not grant. For every node,
+    // the unlocked id is locked on a fresh profile and selectable once THAT node is beaten.
+    for (const node of CAMPAIGN_NODES) {
+      const id = fighterUnlockedByNode(node.id);
+      if (id === null) continue;
+      expect(isFighterSelectable(id, FRESH)).toBe(false);
+      expect(isFighterSelectable(id, beatenWith(node.id))).toBe(true);
+    }
+  });
+
+  it('an out-of-range node id is null, never a throw', () => {
+    expect(fighterUnlockedByNode(0)).toBeNull();
+    expect(fighterUnlockedByNode(CAMPAIGN_NODE_COUNT + 1)).toBeNull();
+    expect(fighterUnlockedByNode(-1)).toBeNull();
   });
 });

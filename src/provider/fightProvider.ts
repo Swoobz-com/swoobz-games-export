@@ -52,6 +52,7 @@ import {
   getCampaignNode,
 } from '../engine/fightCampaign';
 import type { CampaignMatchResult } from '../engine/fightCampaign';
+import { fighterUnlockedByNode } from '../characters/rosterGating';
 
 export type Phase =
   | 'title'
@@ -138,6 +139,14 @@ export interface CampaignReceipt {
   payoutLamports: bigint;
   netLamports: bigint;
   balanceAfterLamports: bigint;
+  /** The fighter this win made newly selectable, or null. Frozen at settle from the PRE-WIN beaten[]
+   *  (see settleCampaign) because the receipt cannot recompute it: by first render the node is
+   *  already marked beaten. null on a replay, on a loss, and on node 2 (whose body is always
+   *  available, so it grants no new pick). */
+  unlockedFighterId: string | null;
+  /** True only on the FIRST win of this node. Distinguishes a conquest from a replay for copy that
+   *  must not congratulate a player on ground they already hold. */
+  firstClear: boolean;
 }
 
 /** Campaign progression + live-fight campaign facts exposed to the UI. `beaten[i]` = node i+1
@@ -372,12 +381,49 @@ interface PendingPicks {
   p2: Move | null;
 }
 
+// THE PORTRAIT BLOCK (Tim, 2026-08-07, session 33). `.fr-stage` is aspect-locked to the arena art, so
+// in ANY portrait viewport the stage is 100vw wide and 100vw/1.79167 tall — on a 393x852 phone that is
+// 393x219, about a quarter of the screen. Phase 284 floored the type so it stays legible; it cannot
+// make the arena bigger. Tim declined a portrait layout and declined cropping the art, and chose a
+// rotate prompt.
+//
+// Three terms, each load-bearing:
+//   (orientation: portrait)  the condition itself.
+//   (pointer: coarse)        excludes a DESKTOP window that merely happens to be taller than wide — a
+//                            laptop reports `fine` even at 500x900, and a touchscreen laptop reports
+//                            `any-pointer: coarse` but `pointer: fine`, which is exactly why this is
+//                            `pointer` and not `any-pointer`. Same signal, same reasoning as the
+//                            existing useThriftyMedia in FightExperience.tsx.
+//   (max-width: 560px)       excludes tablets, which are big enough to play. Phones in portrait are
+//                            393-440 CSS px; tablets start at 744. 560 sits in the empty band.
+export const PORTRAIT_BLOCK_QUERY = '(orientation: portrait) and (pointer: coarse) and (max-width: 560px)';
+
+/** Live `true` while the game is unplayably letterboxed on a phone in portrait. Feature-detected the
+ *  same way useThriftyMedia is: matchMedia is absent in the node test env, and this must never throw
+ *  there. Defaults to FALSE, so anything that cannot measure behaves exactly as it does today. */
+function usePortraitBlocked(): boolean {
+  const [blocked, setBlocked] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia(PORTRAIT_BLOCK_QUERY);
+    const update = (): void => setBlocked(mq.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    return () => mq.removeEventListener?.('change', update);
+  }, []);
+  return blocked;
+}
+
 export interface FightController {
   phase: Phase;
   matchState: MatchState;
   mode: Mode | null;
   aiPersonality: AiPersonality | null;
   shotClockSeconds: number;
+  /** True while the viewport is a PHONE HELD IN PORTRAIT, where the arena-locked stage collapses to
+   *  ~25% of the screen and the game is covered by a rotate prompt. It lives on the controller (not
+   *  purely in CSS) for one reason: the shot clock. See the shot-clock effect. */
+  portraitBlocked: boolean;
   lastOutcome: ExchangeOutcome | null;
   playerPick: PlayerPickState;
   friend: FriendState;
@@ -461,6 +507,9 @@ export function useFightController(
   const [mode, setMode] = useState<Mode | null>(null);
   const [aiPersonality, setAiPersonality] = useState<AiPersonality | null>(null);
   const [shotClockMs, setShotClockMs] = useState<number>(SHOT_CLOCK_MS);
+  // Phone-in-portrait: the rotate prompt is up, so the game is neither visible nor tappable. Read
+  // here (not only in CSS) because it has to freeze the shot clock — see the shot-clock effect.
+  const portraitBlocked = usePortraitBlocked();
   const [lastOutcome, setLastOutcome] = useState<ExchangeOutcome | null>(null);
   const [playerPick, setPlayerPick] = useState<PlayerPickState>({ locked: false, move: null });
   const [friend, setFriend] = useState<FriendState>({
@@ -721,6 +770,16 @@ export function useFightController(
     const balanceAfter = balanceRef.current + payout;
     balanceRef.current = balanceAfter;
     setBalanceLamports(balanceAfter);
+    // ⚠ THIS READ MUST STAY ABOVE setCampaignReceipt AND ABOVE markBeaten. Conquered nodes are
+    // replayable, so {met, nodeId} alone would announce "FIGHTER UNLOCKED" on every single replay —
+    // the unlock is only real the FIRST time. campaignBeatenRef.current is still the PRE-WIN array
+    // here and this is the ONLY place that pre-win state exists: markBeaten flips it 15 lines below,
+    // and settleCampaign + setPhaseNow('matchEnd') run in the SAME batched timer body, so by the time
+    // the receipt overlay first renders beaten[nodeId-1] is already true. A UI-side diff is
+    // impossible; the flag has to be frozen onto the receipt at settle, like every other field here.
+    const alreadyConquered = node ? campaignBeatenRef.current[node.id - 1] === true : true;
+    const unlockedFighterId =
+      met && node && !alreadyConquered ? fighterUnlockedByNode(node.id) : null;
     setCampaignReceipt({
       nodeId: node ? node.id : campaignNodeIdRef.current ?? 0,
       nodeName: node ? node.name : '',
@@ -732,6 +791,8 @@ export function useFightController(
       payoutLamports: payout,
       netLamports: met ? payout - stake : -stake,
       balanceAfterLamports: balanceAfter,
+      unlockedFighterId,
+      firstClear: met && !alreadyConquered,
     });
     if (met) {
       playPayout();
@@ -943,8 +1004,21 @@ export function useFightController(
 
   // Shot clock countdown: active only while picking and unlocked. Standard setup/cleanup
   // effect (no side effects inside a setState updater) -- safe under StrictMode.
+  //
+  // ⚠ portraitBlocked FREEZES THE CLOCK, and that is not cosmetic. The rotate prompt is an opaque
+  // curtain over the whole viewport: the player can see nothing and tap nothing. Without this guard
+  // the clock would keep ticking behind it and, at zero, play a UNIFORMLY RANDOM move for them —
+  // against a stake that is already committed — and it would do that once per exchange until the
+  // match ended. Rotating a phone must never spend the player's money on moves they did not choose.
+  // The clock resumes from where it stopped the moment the device is turned back.
+  //
+  // This is why portraitBlocked lives on the controller rather than being pure CSS: a `display:none`
+  // curtain hides the buttons but cannot reach this effect. It is a strict pause, in every mode. In
+  // friend mode a peer who rotates does stall the match, but they stall it for BOTH sides and can see
+  // nothing themselves, so it is a mutual timeout and not an edge — and the relay's disconnect grace
+  // and auto-play doctrine are untouched, since the socket stays up.
   useEffect(() => {
-    if (phase !== 'picking' || playerPick.locked) {
+    if (phase !== 'picking' || playerPick.locked || portraitBlocked) {
       return;
     }
     if (shotClockMs <= 0) {
@@ -957,7 +1031,7 @@ export function useFightController(
     }, CLOCK_TICK_INTERVAL_MS);
     timersRef.current.push(handle);
     return () => clearTimeout(handle);
-  }, [phase, playerPick.locked, shotClockMs, pick]);
+  }, [phase, playerPick.locked, shotClockMs, pick, portraitBlocked]);
 
   // Match lifecycle events from the transport's reconnect-grace / auto-play layer. NO refunds
   // and NO early settle mid-match: when the rival is unreachable for good ('peerGone'), the
@@ -1574,6 +1648,7 @@ export function useFightController(
     mode,
     aiPersonality,
     shotClockSeconds,
+    portraitBlocked,
     lastOutcome,
     playerPick,
     friend,

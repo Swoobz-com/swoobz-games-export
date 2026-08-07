@@ -40,3 +40,21 @@ export function isFighterSelectable(fighterId: string, beaten: readonly boolean[
   if (nodeId == null) return true;
   return beaten[nodeId - 1] === true;
 }
+
+/** The INVERSE of bossNodeId: the fighter a node makes newly playable, or null when it makes none.
+ *  Beating a node is the game's only character-unlock mechanic (9 of the 12 fighters arrive this way)
+ *  and until phase 294 nothing on screen ever said so.
+ *
+ *  ⚠ It reads `node.fighterId`, NEVER `node.enemy.id`, because fighterId is what isFighterSelectable
+ *  actually gates on. The two diverge on node 2 (fighterId 'oni-tetsubo', enemy.id 'kitsune-tanto')
+ *  and 'kitsune-tanto' is not in the FIGHTERS registry at all — announcing the enemy id would hand
+ *  getFighter() an unknown id, which THROWS by contract (AGENTS.md), inside the victory render.
+ *
+ *  The bossNodeId round-trip is what makes node 2 correctly return null for free: oni-tetsubo is in
+ *  ALWAYS_AVAILABLE_FIGHTER_IDS, so bossNodeId gives null, which is not 2. That keeps the "one place
+ *  maps a fighter to its gating node" law — this function adds no second table to drift against. */
+export function fighterUnlockedByNode(nodeId: number): string | null {
+  const node = CAMPAIGN_NODES.find((n) => n.id === nodeId);
+  if (!node) return null;
+  return bossNodeId(node.fighterId) === nodeId ? node.fighterId : null;
+}
