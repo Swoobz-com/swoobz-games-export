@@ -2,95 +2,230 @@
 
 ## ★★★★★★★★★★ SESSION 32 — START HERE (2026-08-07) ★★★★★★★★★★
 
-**Read `AGENTS.md` first — it is new, top-level, and encodes every non-negotiable in this repo.**
-Everything below Session 31 is still true; this block is what changed. Shipped at **phase 284**, and
-`main` is pushed: `export/standoff` is at `eebc4a2`, remote/local **0/0 in sync** (362 commits landed).
+**Read `AGENTS.md` first.** It is the top-level entry doc and every rule in it cost real debugging
+time. Then read this block. Sessions 31 and below are clip-generation history and are still true, but
+NOTHING in this session was about generating clips — it was about making the game correct and shipped.
 
-### State: the game is playable and shipped
-| gate | result |
-|---|---|
-| `npx tsc --noEmit` | 0 |
-| `npx vitest run` | **220/220 across 16 files** |
-| `npm run build` | exit 0 — JS 258.87 kB (gzip 76.89), CSS 53.85 kB (gzip 9.45) |
+Branch `main` is pushed: `export/standoff` @ **`ae5c62a`**, remote/local **0/0 in sync**, tree clean.
+Nine commits this session, phases 283-291.
 
-**Roster: gorvak and volta are DELETED** (not disabled — both manifests gone). `getFighter()` throws on
-an unknown id by contract, so that was a breaking change: campaign node 2's body moved to
-`oni-tetsubo`, the default `playerId` to `gargoyle-spear`, and three test fixtures off `'volta'`.
-The three free-roster playables (`gargoyle-spear`, `lich-scythe`, `oni-tetsubo`) are wired and
-selectable from a fresh profile via `ALWAYS_AVAILABLE_FIGHTER_IDS`.
+| gate | result | how to run |
+|---|---|---|
+| typecheck | **0** | `npx tsc --noEmit` |
+| tests | **260/260 across 16 files** | `npx vitest run --pool=forks --poolOptions.forks.singleFork=true` |
+| build | **exit 0** — JS 262.14 kB (gzip 77.80), CSS 55.60 kB (gzip 9.75) | `npm run build` |
+| campaign math | **2M matches/node PASS** | `npx vite-node scripts/campaign-rtp-sim.mjs` |
 
-**THE CAMPAIGN STAKE LOCK (Tim's rule).** A run is stamped with the stake it was played at: a HIGHER
-stake wipes `beaten` and re-stamps, same-or-lower keeps it, and the lock does NOT ratchet down. It
-closes a live exploit — node 10 pays a fixed 39.959x, so cheap progress cashed at a huge stake was free
-money. `applyCampaignStakeLock` in `src/provider/fightProvider.ts`, 12 tests in
-`campaignStakeLock.test.ts`. Storage is `{v:2, beaten, lockStake}` and **a v1 payload is REJECTED on
-purpose** — unstamped progress cannot be verified. `lockStake` is a decimal STRING, never a Number.
+⚠ **Use `--pool=forks --poolOptions.forks.singleFork=true` whenever a dev server or Chrome is running.**
+The shared worker pool otherwise dies with `Worker exited unexpectedly` and you get 227/230 with one file
+silently unreported. Reproduced twice; the same file passes alone. It is environmental, not a regression —
+but a plain `npx vitest run` in that state looks like a real failure and will waste your time.
 
-**FACING verified on screen, not from manifests:** 3 free-roster fighters x 2 viewports, **6/6 PASS** —
-left slot unmirrored, right mirrored, correct asset per slot, each fighter seen in BOTH slots.
+⚠ **A dev server may still be listening on 5340** (`vite.config.ts` pins it, strictPort). Per the
+hygiene law, verify a PID's COMMAND LINE belongs to this project before killing it, and kill your own
+when you finish.
 
-### ⛔ The two measurement lessons of this session (both nearly shipped as wrong claims)
-1. **`content-length` header summing reports a `preload="metadata"` saving as EXACTLY ZERO.** The 206
-   partial still advertises the FULL file length. First measurement said 36.7MB on mobile AND desktop
-   and "the change does nothing"; re-measured on `Network.loadingFinished.encodedDataLength` (finished
-   bodies only) it is desktop **36.8MB** vs thrifty mobile **27.3MB** — a real 9.5MB / 25.9% saving.
-   A Fast-3G run is a NON-result: at 200KB/s neither arm finished a single clip body in the window.
-2. **The RPS badges Tim asked for were rendering at 4.5px and every gate passed.** All sizing derives
-   from `--sw` (stage width/100) and `.fr-stage` is aspect-locked to the arena art (do NOT change that
-   — it is what fixed the "backgrounds are getting cropped" report). A 393x852 phone gets a 393x214
-   stage → `--sw` 3.93px → label 5.31px, badge 3.38px, glyph 4.52px. Fixed with `max(floorPx,
-   calc(...))`, which is **provably inert at desktop `--sw`** (desktop measured identical before/after).
-   `.fr-back` was 18x44 (min 44x44 now); arena tiles were 44x25 (min-width 64 → 64x36).
-   **And the jutting BLOCK card was screenshot-only** — flooring the hint font changed its WRAPPING, and
-   `align-items: flex-end` bottom-aligned unequal cards while every geometric number stayed clean.
-   FINDING 12 again: gates measure WHERE, never WHAT.
+### ▶ WHAT THIS SESSION DID (nine phases, all pushed)
 
-### THE FULL CAMPAIGN WAS PLAYED, AND IT FOUND THE ONE BUG NO GATE DID
-Progress reset, then all 10 nodes driven on the production build (57 min, 941 exchanges, **0 page
-errors**). **8 of 10 nodes genuinely won**, including ZERO CITADEL at its real 2.4% (9 attempts). Nodes
-3 and 4 went 0/8 and 0/7 and were DEV-ADVANCED to continue the audit — that is variance, not a defect
-(both are 27.3% nodes; the sim below proves the rate). Final bank $1137.52, `beaten` all true.
+**283 — roster + stake lock + RPS icons + AGENTS.md.** `gorvak` and `volta` DELETED (manifests gone);
+`getFighter` throws on unknown ids so that was breaking — node 2's body moved to `oni-tetsubo`, the
+default `playerId` to `gargoyle-spear`, three test fixtures off `'volta'`. THE CAMPAIGN STAKE LOCK
+landed (raising your stake wipes the run; same-or-lower keeps it; the lock never ratchets down).
+ROCK / SCISSORS / PAPER glyphs on the pick buttons. `AGENTS.md` created.
 
-⛔ **THE STAKE LOCK SHIPPED WITH ITS EXPLOIT STILL OPEN.** `applyCampaignStakeLock` was correct and had
-12 passing tests; the provider wiped `beaten` and then **entered the selected node anyway**. Proven live:
-nine nodes at $1, open ZERO CITADEL, raise to $25 → progress wiped, lock re-stamped at $25, and the
-player handed the 39.95x final node AT $25 (bank $1000→$975). The phase-283 commit message claimed the
-opposite. Second symptom: winning that node wrote `beaten=[F,F,F,T,…]`, stranding a conquered island
-behind fogged nodes. FIXED: the decision is now the pure `campaignCommitAction`, whose `resetToMap`
-result carries **no `nodeId`** so no caller can start the match; the provider refunds (match never
-started) and returns to the map with a "RUN RESTARTED" notice — the wipe used to be SILENT.
-**Read the AGENTS.md note on this: a correct pure function is not a correct feature.**
+**284 — the mobile pass.** Every size derives from `--sw` (stage width/100) and `.fr-stage` is
+aspect-locked to the arena art, so a 393x852 phone got a 393x214 stage and the fight UI rendered at
+**3-5px type** — the RPS badges Tim had just asked for were a 7x5px smear. Fixed with `max(floor, fluid)`
+legibility floors, `.fr-back` 18x44 -> 44x44, arena tiles 44x25 -> 64x36.
 
-| audit | result |
-|---|---|
-| money on every match | **BigInt-EXACT** vs `floor(stake*multBps/10000)` — stake, payout, net, bank |
-| defense rendering, 6 node kinds | **6/6** — bulk N = 3+N enemy segs; shield N = 3 segs + N pips; player always 3 |
-| advertised odds vs real math | **10/10 on-model**, 2M matches/node, RTP 95.80-96.03%, bulk/shield pairs agree to 0.01% |
-| stake lock live (higher/same/lower) | **3/3**, and the lock correctly does NOT ratchet down |
-| fix non-regression | **4/4** — only the raised-stake case bounces, and it charges $0.00 |
-| first-to-3 format | max ROUND 4 reached on nodes 6, 7, 10 (plays past engine matchOver, as designed) |
+**285 — handoff block.** (Superseded by this one.)
 
-Clarity is strong: the node card states enemy, format, the defense rule in plain words, an honest win
-chance (2.4% on node 10) and the exact payout ($199.79); the fight HUD restates all of it plus
-`STRIKE > THROW > BLOCK > STRIKE`, and each pick shows glyph + ROCK/SCISSORS/PAPER + a reason.
-**Instrument note:** the HP segment class is `fr-hpseg` (no second hyphen) — a `[class*="hp-seg"]`
-selector silently matches nothing, which is why the driver's own hp-seg column read 0 all run.
+**286 — PLAYED THE WHOLE CAMPAIGN, and it found the one bug no gate did.** See the next section.
 
-### Still open on the campaign (small, not decided here)
-- **No completion moment.** After all 10 are conquered the map shows 10 flags and the same RTP line —
-  nothing marks that the season was finished, and the 39.95x boss deserves a beat.
-- **A conquered node re-opens with an identical card** (win chance + PAYS, no "already conquered" cue).
-  Replaying is economically fine — flat ~96% RTP per node means farming is not an exploit — but the card
-  should say so.
+**287 — economy audit.** 19 agents over five money surfaces raised 13 candidate exploits; **all 13 were
+refuted.** Hardened three latent shapes anyway: money now reads a frozen `committedStakeRef` (both
+settles and the refund used the LIVE stake picker), the campaign ladder is gated where the money moves
+(not just at the map click), and the 96% ceiling became a unit test with a positive control instead of a
+2M-match script nobody runs in CI.
 
-### Open, and deliberately NOT decided for Tim
-**Portrait phone is inherently cramped** — the stage is 214 of 852px (25% of screen, dead black above
-and below) and the pick row eats **51%** of the stage box vs 28% landscape and 19% desktop. Landscape
-is the good phone surface and looks right. Making portrait genuinely good means cropping the arena art
-or a portrait-specific layout; both reverse or complicate an earlier explicit decision. **Tim's call.**
+**288 — three things Tim hit while playing.** (a) The campaign had **no character select at all** —
+`enterCampaign` -> map and `startCampaignNode` -> stake, neither through charSelect, so a run silently
+used whatever fighter was last confirmed in the CPU flow. The node card now has a YOUR FIGHTER row with
+CHANGE, and charSelect's BACK is campaign-aware. (b) Select tiles scaled `def.still` by a hand-tuned
+`def.portrait` crop and **4 of 12 were mis-framed**; they now render the purpose-built
+`assets/enemies/<id>-pfp.webp`, so every character fits BY CONSTRUCTION. (c) **FROZEN CATHEDRAL removed**
+from the arena roster — it was `ARENAS[0]`, the default AND the `getArena` fallback, and the only entry
+at 2816x1536; LANTERN JETTY inherits, a stored `'cathedral'` degrades silently, `--stage-ar` moved to
+1.79167.
 
-Also still open: arena tiles are 64x36, past the WCAG 2.5.8 AA 24px bar but below the 44px AAA target —
-a recorded trade, because forcing 44px height multiplies rows past the portrait stage height.
+**289, 290, 291 — THE PAYOUT LADDER, three shapes before it landed.** Tim asked to lower the max win to
+4x. See the ECONOMY section below — this is the part most likely to be revisited, and the reasoning
+matters more than the numbers.
+
+### ⛔ THE BUG THAT MATTERS MOST — and why playing found it when no gate could
+
+Phase 283 shipped the stake lock with **its exploit still wide open.** `applyCampaignStakeLock` was
+correct and had 12 passing tests. The provider wiped `beaten` and then called
+`beginCampaignMatch(pending.nodeId)` ANYWAY. Proven live: conquer nodes 1-9 at $1, open ZERO CITADEL,
+raise to $25 -> progress wiped, lock re-stamped at $25, and the player dropped straight into the
+then-39.95x final node AT $25. The wipe punished the RECORD and let the CASH-OUT through.
+
+Fixed by moving the decision into the pure `campaignCommitAction`, whose `{kind:'resetToMap'}` result
+carries **no `nodeId`**, so no caller can start the match and `expect(action).not.toHaveProperty('nodeId')`
+is a real assertion. The provider refunds (the match never started) and returns to the map with a
+"RUN RESTARTED" notice — the wipe used to be completely SILENT.
+
+**THE GENERAL RULE, now in AGENTS.md: a correct pure function is not a correct feature.** If enforcement
+depends on what the caller does with a return value, the CALLER'S DECISION must itself be a tested pure
+function, and the forbidden path should be unrepresentable. A `reset: true` flag sitting next to a still-
+valid `nodeId` invites exactly this. The same shape bit again in 288 (`nextNode` bypasses
+`startCampaignNode`, so the node gate had to move into `commitStake` too).
+
+### THE ECONOMY — read this before touching a `multBps`
+
+**The one equation that governs everything: `RTP = P(win) x multiplier`.** The multiplier is NOT a free
+dial. Three consequences that cost three attempts to internalise:
+
+1. **You cannot lower a payout and keep the return.** Tim asked for max 4x with the difficulty kept; at a
+   2.4% win chance that forces the finale's return to 9.6%. Arithmetic, not preference.
+2. **You cannot raise an easy node's payout.** At a 50% win chance, 1.92x IS the 96% ceiling. Paying more
+   hands the player an edge.
+3. **You CAN pay below a ceiling** — legal, and it only lowers that node's return. That is the door that
+   made a 1.32x opener possible at an unchanged 50% win chance, and it is what the shipped ladder uses.
+
+**SHIPPED (phase 291): ten distinct STRICTLY ASCENDING prices, 1.32x -> 4.00x, every win chance
+byte-identical to before.**
+
+| node | fmt | defense | win % (UNCHANGED) | ceiling | pays | RETURNS |
+|---|---|---|---|---|---|---|
+| 1 | to2 | none | 50.0000% | 1.9200x | x1.32 | 66.0% |
+| 2 | to2 | none | 50.0000% | 1.9200x | x1.49 | 74.6% |
+| 3 | to2 | +1 | 27.3254% | 3.5132x | x1.68 | 46.1% |
+| 4 | to2 | +1 | 27.3254% | 3.5132x | x1.91 | 52.1% |
+| 5 | to2 | +1 | 27.3254% | 3.5132x | x2.16 | 59.0% |
+| 6 | to3 | +1 | 22.5546% | 4.2563x | x2.44 | 55.1% |
+| 7 | to3 | +1 | 22.5546% | 4.2563x | x2.76 | 62.3% |
+| 8 | to2 | +2 | 13.0733% | 7.3432x | x3.12 | 40.8% |
+| 9 | to2 | +2 | 13.0733% | 7.3432x | x3.53 | 46.2% |
+| 10 | to3 | +3 | **2.4025%** | 39.9591x | **x4.00** | **9.6%** |
+
+**Mean return 51.2% (a 48.8% house edge)**, down from 95.97%. NON-MONOTONIC by construction (node 2
+returns 74.6%, node 3 returns 46.1%) because the price climbs smoothly while the win chances step down in
+chunks. **Identical fights now pay different amounts** (nodes 3/4/5 are the same 27.3254% fight at
+1.68x/1.91x/2.16x), so "same fight, same pay" is gone and a replaying player should always farm the LAST
+node of a tier — not an exploit (every rung is under the 96% ceiling) but a real consequence.
+
+**The two shapes tried and rejected, so you do not re-derive them:**
+- A FLAT cap (everything above 4x pinned at 4x) satisfied "max win 4" + "keep difficulty" but was not a
+  ladder — nodes 6..10 all paid 4.00x.
+- A TEN-RUNG ladder opening at 1.32x with ~96% RTP throughout **does exist**, but only by giving the
+  player bonus HP on early nodes, i.e. by changing the win chances. Tim ruled that out. If he reverses
+  it, the machinery is already built and inert (below) and the full table is in the phase-290 commit.
+
+**`guard` — a wired but UNUSED second knob.** `roundWinProbability(enemyAbsorb, playerGuard)` replaced the
+hardcoded `ROUND_Q` table with the general race formula (the player needs `3+absorb` hits before the enemy
+lands `3+guard`); `applyCampaignExchange` has the symmetric player-side buffer; the provider tracks and
+refills it; the p1 health bar renders `3+guard` segments and the node card discloses "YOUR GUARD". **Every
+node is `guard: 0`, so all of it no-ops today.** Kept because it is the only way to price a rung between
+the coarse 3-HP steps (with the player fixed at 3 HP the only rungs are 50% / 27.3% / 22.6% / 13.1% /
+2.4%, whose ceilings jump 1.92x -> 3.51x -> 4.26x with nothing between). PROVEN, not trusted: with guard 0
+it reproduces the four retired `ROUND_Q` values exactly (1/2, 11/32, 29/128, 37/256), pinned as the oracle.
+
+**NEVER TYPE AN RTP INTO THE UI.** Because the return varies per node, every displayed return comes from
+`nodeRtpPercent()` / `campaignRtpRange()`. The map used to read "each trial returns 96% to players over
+time" and that became FALSE the moment the cap landed. The node card has a RETURNS stat; the map shows the
+computed range (currently 9.6% to 74.6%). The quick duel is still genuinely 1.92x at 96%, so its copy is a
+literal and that is fine.
+
+### LEARNINGS THAT WILL SAVE YOU A WRONG CLAIM
+
+1. **`content-length` header summing hides a `preload="metadata"` saving completely.** The 206 partial
+   still advertises the FULL file length, so header-summing reported mobile and desktop as identical
+   (36.7MB both) and I nearly wrote "the change does nothing". Sum CDP
+   `Network.loadingFinished.encodedDataLength`, and only for bodies that FINISHED. Real answer: desktop
+   36.8MB vs thrifty mobile 27.3MB, a 9.5MB / 25.9% saving. A throttled run that ends mid-payload is a
+   NON-result, not a pass.
+2. **Do not gate an exact-math property on a Monte-Carlo estimate.** My own RTP-ceiling check in the
+   battery failed nodes 7 and 9 while their P was on-model to 0.04pp: RTP there is measured-P x mult, so
+   P's ~0.033pp noise is MAGNIFIED by the multiplier. I nearly "fixed" it by nudging the prices, which
+   would have hidden a bad gate behind a distorted ladder. The ceiling is proven in bigint by the test
+   suite; the battery asserts what it can measure (P vs closed form).
+3. **Geometric numbers passed while the layout was visibly wrong.** Flooring the hint font changed its
+   WRAPPING, and `align-items: flex-end` made one pick card jut out of the row — no overflow, no escaped
+   bounds, no horizontal scroll, all clean. **Only the screenshot showed it.** FINDING 12 again: gates
+   measure WHERE, never WHAT it looks like.
+4. **Prefer a purpose-built asset over a hand-tuned crop.** The select tiles were 4-of-12 wrong because
+   each needed a per-character `portrait` guess. The `-pfp.webp` files are already head-framed, so the
+   tile is correct by construction and a NEW fighter needs no tuning.
+5. **Check the source art before regenerating it.** I called lady-kurotachi's pfp "headless" and was
+   about to regenerate; she is a MASKED character and the faceplate IS her face. I had misread dark
+   armour in a small montage.
+6. **The `lock === null` branch in `applyCampaignStakeLock` is LOAD-BEARING**, not defensive. Its comment
+   said "unreachable via parseCampaignProgress" — true of storage, false of memory: `devConquerAll`
+   fills `beaten` with no stamp. Verified live that `?dev=1` -> CONQUER ALL -> the finale at $25 hits
+   that branch and gets bounced with $0 spent.
+7. **RPS is three-way but the race is not.** Tim challenged the 96% figure with "rock paper scissor is
+   always 30%". Each exchange IS 1/3 win / 1/3 lose / 1/3 clash, but a clash does no damage and the round
+   continues — it REPLAYS the trial, lengthening the round without changing who reaches 3 hits first.
+   Conditioned on being decisive it is 1/2, and node 1 is a symmetric fight so its 50% is forced. The
+   battery rolls real clashes and measures 50.014%.
+8. **Play the game.** The campaign playthrough (57 min, 941 exchanges, 8 of 10 nodes genuinely won
+   including the 2.4% finale) found the stake-lock hole, the missing campaign character select, and the
+   mis-framed tiles. tsc, 260 tests, the build and every pixel gate were green through all of it.
+
+### ▶ WHAT TO DO NEXT — in this order
+
+1. **GET TIM TO CONFIRM THE 51.2% MEAN RETURN.** Highest-value thing you can do. He asked for a
+   1.32x -> 4x ladder with the win chances frozen and that is exactly what shipped, but the arithmetic
+   consequence is a 48.8% house edge, non-monotonic returns, and a finale that gives back 9.6%. It is
+   disclosed on screen, which is why it was safe to ship — but he may not have intended a number that
+   large. Show him the table above. **Do not silently "fix" it in either direction.**
+2. **Announce the character unlock.** Beating a node makes that boss playable (`isFighterSelectable`;
+   9 of 12 fighters unlock this way) and **the game never says so** — the only UNLOCK copy in the repo is
+   for the dormant bonus packs. The campaign receipt is right there and already renders. ~20-30 lines
+   against machinery that exists, and it turns an invisible reward into the core progression loop. Also
+   label locked select tiles with their gating node instead of a bare "?".
+3. **Make VS FRIEND exist in production.** `attachMatchRelay` is referenced ONLY by `vite.config.ts`, via
+   `configureServer`/`configurePreviewServer`, and the client dials `${location.host}/fr-ws`. There is no
+   `start`/`serve` script. So a static `dist` deploy CANNOT open a room — a mode with room codes, 10s
+   reconnect grace, the auto-play doctrine and 19 tests is dead on arrival. Fix is ~15 lines: a small
+   Node server that serves `dist` and calls the existing `attachMatchRelay`, plus a `start` script.
+4. **Decide portrait mobile.** Measured: the stage is 214 of 852px (25% of the screen) because it is
+   aspect-locked to the arena art. Landscape looks genuinely excellent. A rotate prompt is the small
+   honest fix; a portrait layout or cropping the art both reverse an explicit earlier ruling.
+5. **Give the finale a moment.** Conquering all ten yields a flag and the same RTP line, nothing else.
+6. **Smaller:** a conquered node re-opens with an identical card (no "already conquered" cue), and the
+   arena picker is reachable from the campaign charSelect detour even though campaign nodes force their
+   own arena.
+
+### WHAT I DID NOT DO — so you do not assume it
+
+- **No clips were generated.** Nothing in `qa-boss/` was fired; the browser-fire loop was not touched.
+- **No character was added.** The roster is the same 12; `gorvak`/`volta` were REMOVED.
+- **`assets/background.png` was NOT deleted** when FROZEN CATHEDRAL left the arena roster. It is the
+  original art and nothing references it now; removing an arena does not imply deleting a tracked asset.
+- **The `guard` knob is not used by any node.** It is wired end to end and inert.
+- **I did not re-verify the mobile byte numbers after phases 288-291.** The 27.3MB figure was measured at
+  phase 284; CSS/JS grew ~2kB since, which will not move it, but the clip payload was not re-measured.
+- **`RESET PRACTICE BANK` is still ungated and `DEV_MODE` is still a `?dev` query param.** Both are
+  deliberate for a practice-bank demo and both are recorded in AGENTS.md. Neither is a money leak (the
+  dev hooks touch `beaten[]` only, and a dev-conquered ladder is bounced by the stake lock).
+- **Nodes 3 and 4 were DEV-ADVANCED in the playthrough** (0/8 and 0/7 at their true 27.3% rate). Every
+  other node was genuinely won. That is variance, not a defect — the 2M battery proves the rate.
+
+### DECISION REGISTER — carried forward, restate these or they evaporate
+
+- **Tim, 2026-08-07:** payouts capped at 4.00x; ladder 1.32x -> 4.00x; win chances frozen. ⚠ The 51.2%
+  mean return is the UNCONFIRMED consequence (item 1 above).
+- **Tim, 2026-08-07:** FROZEN CATHEDRAL is out of the arena roster.
+- **Tim, 2026-08-07:** the stake lock rule — a higher stake wipes the run, same-or-lower keeps it. The
+  lock deliberately does NOT ratchet down (an audit item suggesting otherwise was DECLINED: it is Tim's
+  rule verbatim and has no EV consequence).
+- **Tim, 2026-08-06:** `gorvak` and `volta` can never be characters.
+- **Tim, 2026-08-06:** the three free-roster fighters stay selectable from a fresh profile.
+- **Open, never answered:** whether real money is ever attached. If it is, the minimum is a server-held
+  balance + server-side settle re-derived from the server's own node table, then dev-gate `resetBank`
+  and add commit-reveal for PvP picks.
 
 ## ★★★★★★★★★★ SESSION 31 (2026-08-06) ★★★★★★★★★★
 
