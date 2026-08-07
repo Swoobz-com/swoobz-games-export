@@ -22,6 +22,8 @@ import {
   defenseAmount,
   formatMult,
   formatWinChance,
+  nodeRtpPercent,
+  campaignRtpRange,
   getCampaignNode,
 } from '../engine/fightCampaign';
 import type { CampaignNodeDef } from '../engine/fightCampaign';
@@ -221,6 +223,11 @@ const MAP_LABEL: Record<number, { dx: number; dy: number }> = {
 // reset progress) so map progression is inspectable without grinding fights. Module-const, read
 // once; invisible to normal players.
 const DEV_MODE = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('dev');
+
+/** The ladder's return range, computed ONCE from the shipped node table. Module-const (RG-C5) and
+ *  derived, never typed: the 4.00x payout cap made the per-node return vary (96.0% .. 9.6%), so the
+ *  map's disclosure line has to follow the math instead of asserting a number. */
+const CAMPAIGN_RTP_RANGE = campaignRtpRange();
 
 // Ambient-life consts (module-const; RG-C5). Parallax: how far the SCENERY layer may lean toward
 // the cursor, in percent of its own size (the node pins never move - stable click targets). The
@@ -2747,6 +2754,15 @@ export function FightExperience(): JSX.Element {
                       <span className="fr-nodecard-stat-label">PAYS</span>
                       <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignNode.multBps)}</span>
                     </div>
+                    {/* RETURNS — this node's actual RTP, computed from the same rationals that price
+                        it (nodeRtpPercent). Added with the 4.00x payout cap, which made the return
+                        vary per node (96.0% down to 9.6%): the card already disclosed WIN CHANCE and
+                        PAYS honestly, but a player should not have to multiply them himself to learn
+                        what a node gives back. Glass Box. */}
+                    <div className="fr-nodecard-stat">
+                      <span className="fr-nodecard-stat-label">RETURNS</span>
+                      <span className="fr-nodecard-stat-value">{nodeRtpPercent(campaignNode)}%</span>
+                    </div>
                   </div>
                   {/* YOUR FIGHTER. The campaign had NO character pick anywhere in its flow —
                       `enterCampaign` goes straight to the map and `startCampaignNode` straight to the
@@ -2976,7 +2992,11 @@ export function FightExperience(): JSX.Element {
               </div>
             )}
             <div className="fr-map-rtp" style={{ fontSize: 'calc(var(--sh) * 1.3)' }}>
-              each trial returns 96% to players over time · practice bank, not real funds
+              {/* COMPUTED, never a literal. This used to read "returns 96% to players over time",
+                  which was true only while every node sat on the 96% line. The 4.00x payout cap
+                  (fightCampaign MAX_MULT_BPS) made the return per-node, so the copy is derived from
+                  the same exact rationals that price the ladder and cannot go stale. */}
+              nodes return {CAMPAIGN_RTP_RANGE.min}% to {CAMPAIGN_RTP_RANGE.max}% to players over time · each node shows its own · practice bank, not real funds
             </div>
             {DEV_MODE && (
               <div className="fr-map-devbar">

@@ -16,14 +16,46 @@ the player's first S decisive hits each round, presented either as a SHIELD (pip
 deflection beat) or as BULK (a visibly longer 3+S segment health bar). Same math, two
 presentations, priced into RTP exactly as before.
 
-## 0. Economic laws (non-negotiable, measured 2026-07-20)
+## 0a. ⛔ THE 4.00x PAYOUT CAP SUPERSEDES THE UNIFORM-96% LAW (Tim, 2026-08-07)
+
+**Read this before believing any "96%" in the rest of this document.** Tim capped every payout
+at **4.00x** (`MAX_MULT_BPS` in `fightCampaign.ts`) with the instruction, given twice: *"lower the
+max win to 4 ... keep the difficulty as it is, dont increase win chance or anything."*
+
+Since **RTP = P(win) x multiplier** and every win chance is UNCHANGED, capping the multiplier
+necessarily lowers the return on the five nodes whose fair price exceeded the cap:
+
+| node | win %      | pays (was)      | RTP now | (was)  |
+|------|------------|-----------------|---------|--------|
+| 1,2  | 50.0000%   | x1.92           | 96.00%  | 96.00% |
+| 3,4,5| 27.3254%   | x3.51           | 95.97%  | 95.97% |
+| 6,7  | 22.5546%   | x4.00 (x4.25)   | 90.22%  | 95.92% |
+| 8,9  | 13.0733%   | x4.00 (x7.34)   | 52.29%  | 96.00% |
+| 10   | 2.4025%    | x4.00 (x39.95)  |  9.61%  | 96.00% |
+
+Consequences of record:
+- **The campaign is no longer a uniform-96% game.** Mean across the ten nodes is 77.45%; the
+  finale returns 9.61%. Max win on a $5 stake fell $199.79 -> $20.00, on $25 $998.98 -> $100.00.
+- **Payout is decoupled from odds**, so the old "harder always pays more" property is gone: nodes
+  6..10 span 22.6% down to 2.4% and all pay 4.00x.
+- **Every RTP shown to the player is now COMPUTED** (`nodeRtpPercent` / `campaignRtpRange`), never a
+  literal. The map's "returns 96% to players over time" and the node card gained a RETURNS stat,
+  because shipping the old copy would have made the game state a number its own math contradicts.
+- **The RTP FLOOR was removed** from the test suite and the Monte-Carlo battery (the ceiling stays).
+  The battery's real gate — measured P within 0.003 of the exact closed form — still passes on all
+  ten nodes, which is what proves the difficulty was untouched.
+- The exploit argument in law 1 below **still holds**: no node pays better than 96%, so cheap early
+  bets still cannot buy better-value later bets.
+
+## 0. Economic laws (measured 2026-07-20; law 1 amended by §0a)
 
 1. **Every node is independently priced at <=96% RTP.** Payout multiplier = 0.96 /
-   P(match win), floored to clean bps. Because NO node ever pays better than 96%, there
+   P(match win), floored to clean bps, **then capped at 4.00x (§0a)**. Because NO node ever pays
+   better than 96%, there
    is no state where cheap early bets buy better-value later bets: the grind/stake-cap
    exploit Tim worried about is structurally impossible. Bet size is free at every
    unlocked node. (Phase 17: pricing follows the format+defense ladder below; the law is
-   unchanged.)
+   unchanged. 2026-08-07: the <=96% ceiling survives; the implied uniform 96% does not.)
 2. **Campaign enemies pick UNIFORM RANDOM (`randomMove`), never `aiPick`.** Measured on
    the frozen engine (200k matches/cell, seeded): an adaptive player beats BRUTE 88%
    (176% RTP at 2x) and WARDEN 73% (146% RTP). Personalities are exploitable and can
@@ -56,13 +88,16 @@ being decisive an exchange is a fair coin, and the race is always settled inside
 (3+S)+3-1 = S+5 decisive exchanges, so pad it to exactly S+5 fair tosses and
 q(S) = [sum over j = 3+S..S+5 of C(S+5, j)] / 2^(S+5) — three terms, one per enemy life.
 
-| rung        | S | R | q exact | P exact                  | P        | multBps | pays   | RTP     |
-|-------------|---|---|---------|--------------------------|----------|---------|--------|---------|
-| plain       | 0 | 2 | 1/2     | 1/2                      | 50.000%  | 19200   | x1.92  | 96.00%  |
-| defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35120   | x3.51  | 95.97%  |
-| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42530   | x4.25  | 95.92%  |
-| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73430   | x7.34  | 96.00%  |
-| finale      | 3 | 3 | 37/256  | 13207617791/549755813888 | 2.402%   | 399590  | x39.95 | 96.00%  |
+The `multBps` / `pays` / `RTP` columns below are POST-CAP (§0a). The `fair` column is what the rung
+is worth at 96% and is retained because it is the number the exact fractions actually derive.
+
+| rung        | S | R | q exact | P exact                  | P        | fair    | multBps | pays   | RTP     |
+|-------------|---|---|---------|--------------------------|----------|---------|---------|--------|---------|
+| plain       | 0 | 2 | 1/2     | 1/2                      | 50.000%  | 19200   | 19200   | x1.92  | 96.00%  |
+| defense 1   | 1 | 2 | 11/32   | 4477/16384               | 27.325%  | 35132   | 35120   | x3.51  | 95.97%  |
+| defense 1 war | 1 | 3 | 11/32 | 3784033/16777216         | 22.555%  | 42563   | 40000   | x4.00  | 90.22%  |
+| defense 2   | 2 | 2 | 29/128  | 137083/1048576           | 13.073%  | 73432   | 40000   | x4.00  | 52.29%  |
+| finale      | 3 | 3 | 37/256  | 13207617791/549755813888 | 2.402%   | 399590  | 40000   | x4.00  |  9.61%  |
 
 (The retired boss rung, S=2 R=3, was P = 1380490567/17179869184 = 8.035% at x11.94. Its
 math is still exercised by the tests; no node stands on it.)

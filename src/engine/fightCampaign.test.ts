@@ -9,7 +9,12 @@ import {
   formatMult,
   formatWinChance,
   getCampaignNode,
+  guardAmount,
   matchWinProbability,
+  MAX_MULT_BPS,
+  nodeRtpPercent,
+  campaignRtpRange,
+  roundWinProbability,
 } from './fightCampaign';
 import { CPU_WIN_BPS } from './fightStakes';
 import { applyExchange, createMatch, startNextRound } from './fightEngine';
@@ -126,18 +131,64 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
     // defense.amount is typed 1 | 2 and matchWinProbability throws on 3"). Both were widened and
     // ROUND_Q gained q(3) = 37/256. The one NEW number, 399590n, is DERIVED from P and the 96%
     // ceiling in that order (proven in the finale describe below), never chosen to look nice.
+    //
+    // THE 4.00x PAYOUT CAP (Tim, 2026-08-07, reaffirmed). Every DIFFICULTY below is byte-identical to
+    // the previous ladder — Tim's instruction was "keep the difficulty as it is, dont increase win
+    // chance or anything" — and only the prices moved, down to MAX_MULT_BPS wherever the fair price
+    // exceeded it. Five rows were cut: 6/7 from 42530n, 8/9 from 73430n, 10 from 399590n.
+    // This DECOUPLES payout from odds on those five, so their RTP is no longer ~96% (90.2% / 52.2% /
+    // 9.6%). That is the decision, not a defect; the derived-price test below is what keeps it exact.
     expect(rows).toEqual([
       [1, 2, 'none', 0, 19200n],
       [2, 2, 'none', 0, 19200n],
       [3, 2, 'bulk', 1, 35120n],
       [4, 2, 'shield', 1, 35120n],
       [5, 2, 'bulk', 1, 35120n],
-      [6, 3, 'shield', 1, 42530n],
-      [7, 3, 'bulk', 1, 42530n],
-      [8, 2, 'shield', 2, 73430n],
-      [9, 2, 'bulk', 2, 73430n],
-      [10, 3, 'shield', 3, 399590n],
+      [6, 3, 'shield', 1, MAX_MULT_BPS],
+      [7, 3, 'bulk', 1, MAX_MULT_BPS],
+      [8, 2, 'shield', 2, MAX_MULT_BPS],
+      [9, 2, 'bulk', 2, MAX_MULT_BPS],
+      [10, 3, 'shield', 3, MAX_MULT_BPS],
     ]);
+  });
+  it('THE PRICING LAW: bounded by the fair 96% price AND by the 4.00x cap, and the cap binds exactly', () => {
+    // Re-derives itself if a difficulty ever changes. NOTE the uncapped rows are not exactly the fair
+    // price — the original ladder chose slightly more conservative multiples (node 3 pays 35120n where
+    // fair is 35132n, i.e. 95.97% not 96.00%). So the law is an upper BOUND, not an equality; the
+    // 95.85% floor test above is what stops an uncapped row drifting too far the other way.
+    for (const n of CAMPAIGN_NODES) {
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin, guardAmount(n));
+      const fair = (9600n * p.den) / p.num; // price returning exactly 96% at this P
+      expect(n.multBps <= fair, `node ${n.id} pays ${n.multBps} > fair ${fair} (over 96%)`).toBe(true);
+      expect(n.multBps <= MAX_MULT_BPS, `node ${n.id} pays ${n.multBps} > cap ${MAX_MULT_BPS}`).toBe(true);
+      // Where the fair price EXCEEDS the cap, the cap must bind exactly — that is the whole change.
+      if (fair > MAX_MULT_BPS) {
+        expect(n.multBps, `node ${n.id}: fair ${fair} exceeds the cap so it must sit AT the cap`).toBe(MAX_MULT_BPS);
+      }
+    }
+    // The cap must bind on at least one node, or this test is decoration.
+    expect(CAMPAIGN_NODES.filter((n) => n.multBps === MAX_MULT_BPS).map((n) => n.id)).toEqual([6, 7, 8, 9, 10]);
+  });
+
+  it('the general two-knob formula reproduces the RETIRED ROUND_Q table exactly', () => {
+    // roundWinProbability replaced a hardcoded table when the player-guard knob landed. The retired
+    // values are kept HERE as the regression oracle, so the generalisation is proven rather than
+    // trusted — with guard 0 it must return the four numbers the ladder was priced from.
+    expect(roundWinProbability(0, 0)).toEqual({ num: 1n, den: 2n });
+    expect(roundWinProbability(1, 0)).toEqual({ num: 11n, den: 32n });
+    expect(roundWinProbability(2, 0)).toEqual({ num: 29n, den: 128n });
+    expect(roundWinProbability(3, 0)).toEqual({ num: 37n, den: 256n });
+    // Guard is the mirror of absorb: equal buffers are a symmetric fight, so q is exactly 1/2.
+    for (const k of [0, 1, 2, 3, 5]) expect(roundWinProbability(k, k)).toEqual({ num: 1n, den: 2n });
+    // And guard strictly HELPS the player at a fixed absorb.
+    const a = roundWinProbability(2, 0);
+    const b = roundWinProbability(2, 1);
+    expect(Number(b.num) / Number(b.den)).toBeGreaterThan(Number(a.num) / Number(a.den));
+  });
+  it('no node pays more than the 4.00x cap', () => {
+    for (const n of CAMPAIGN_NODES) expect(n.multBps <= MAX_MULT_BPS, `node ${n.id} pays ${n.multBps}`).toBe(true);
+    // The cap must actually BIND somewhere, or this test and the law above are vacuous.
+    expect(CAMPAIGN_NODES.some((n) => n.multBps === MAX_MULT_BPS)).toBe(true);
   });
   it('difficulty never goes DOWN as the map advances (monotonic curve)', () => {
     // The property Tim actually asked for. A later node must never be EASIER than an earlier one —
@@ -150,11 +201,30 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
       prev = pWin;
     }
   });
-  it('every node is priced inside [95.00%, 96.00%] RTP exactly (multBps * P vs 9500/9600 bps)', () => {
+  it('no node returns MORE than 96% (the ceiling survives the cap)', () => {
+    // The ceiling is still the law: the house never gives an edge away. The FLOOR is deliberately
+    // gone — the 4.00x cap pushes five nodes below it on purpose (down to 9.6%), so a lower bound
+    // here would just be a test asserting the design is something Tim decided it is not. The exact
+    // per-node returns are pinned in the test below instead, which catches drift without pretending
+    // the ladder is uniform.
     for (const n of CAMPAIGN_NODES) {
-      const p = matchWinProbability(defenseAmount(n), n.roundsToWin);
-      expect(n.multBps * p.num <= 9600n * p.den).toBe(true); // never better than 96%
-      expect(n.multBps * p.num >= 9500n * p.den).toBe(true); // never worse than 95%
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin, guardAmount(n));
+      expect(n.multBps * p.num <= 9600n * p.den, `node ${n.id} returns more than 96%`).toBe(true);
+    }
+  });
+  it('the per-node RETURN is exactly this, and the map/card disclose it', () => {
+    // Pinned so a price or difficulty edit cannot quietly move what the player is told. These are the
+    // numbers nodeRtpPercent() renders on the node card and campaignRtpRange() renders on the map.
+    expect(CAMPAIGN_NODES.map((n) => nodeRtpPercent(n))).toEqual([
+      '96.0', '96.0', '95.9', '95.9', '95.9', '90.2', '90.2', '52.2', '52.2', '9.6',
+    ]);
+    expect(campaignRtpRange()).toEqual({ min: '9.6', max: '96.0' });
+    // And the displayed number must never OVERSTATE the real return (it floors).
+    for (const n of CAMPAIGN_NODES) {
+      const shown = Number(nodeRtpPercent(n)) / 100;
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin, guardAmount(n));
+      const real = (Number(p.num) / Number(p.den)) * Number(n.multBps) / 10000;
+      expect(shown, `node ${n.id} shows ${shown} but returns ${real}`).toBeLessThanOrEqual(real + 1e-9);
     }
   });
   it('same-config nodes share one price, and a harder rung always pays MORE (singletons included)', () => {
@@ -187,29 +257,35 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
     for (const r of rungs) {
       expect(r.price % 10n, `config ${r.key} price ${r.price} must be a multiple of 10 bps`).toBe(0n);
     }
-    // (2) THE HOUSE EDGE IS UNIFORM ACROSS THE LADDER. The RTP band test only says [95, 96]; a full
-    // percentage point of slack is enough to hide a rung that quietly hands the player an extra
-    // 0.9% while every other assertion stays green. The shipped rungs sit inside a 0.08pp spread
-    // (95.9247% .. 96.0000%), so hold new rungs to the same standard: no rung may return less than
-    // 95.85%. A finale priced by feel rather than from P lands outside this immediately.
+    // (2) UNCAPPED RUNGS STILL SIT ON THE 96% LINE. The house-edge-uniformity check now applies only
+    // where the 4.00x cap does NOT bind — those rungs are still priced from P and must stay inside
+    // the old 0.08pp spread. A rung the cap DOES bind is exempt by construction: its return is
+    // whatever 4.00x happens to give, which is the point of the cap.
     for (const r of rungs) {
       const p = matchWinProbability(Number(r.key.split(':')[0]), Number(r.key.split(':')[1]) as 2 | 3);
       const rtpTimes1e4 = (r.price * p.num * 10000n) / (100n * p.den); // RTP %, truncated to 4dp
-      expect(rtpTimes1e4 >= 958500n, `config ${r.key} returns ${Number(rtpTimes1e4) / 1e4}% — below the 95.85% ladder floor`).toBe(true);
       expect(rtpTimes1e4 <= 960000n, `config ${r.key} returns ${Number(rtpTimes1e4) / 1e4}% — above the 96% ceiling`).toBe(true);
+      if (r.price < MAX_MULT_BPS) {
+        expect(rtpTimes1e4 >= 958500n, `UNCAPPED config ${r.key} returns ${Number(rtpTimes1e4) / 1e4}% — below the 95.85% floor`).toBe(true);
+      }
     }
-    // (3) ORDERING ACROSS CONFIGS: harder must pay more, and an equal win chance must cost the same.
+    // (3) ORDERING ACROSS CONFIGS, CAP-AWARE: harder pays more UNTIL the cap binds, and once two
+    // rungs are both capped they pay exactly the same. The old form ("harder ALWAYS pays more") is
+    // now false by design — nodes 6..10 span 22.6% down to 2.4% and all pay 4.00x — so asserting it
+    // would be asserting the pre-cap ladder. What must still hold: no rung pays more than a HARDER
+    // rung, i.e. price is non-increasing as the fight gets easier.
     for (let i = 1; i < rungs.length; i += 1) {
-      const prev = rungs[i - 1];
-      const cur = rungs[i];
+      const prev = rungs[i - 1]; // easier
+      const cur = rungs[i]; // harder
       if (Math.abs(cur.p - prev.p) < 1e-12) {
-        // Two configs, identical win chance (e.g. to2 and to3 with no defense are both exactly
-        // 1/2): the same fight for the player, so it must carry the same price.
         expect(cur.price, `${cur.key} and ${prev.key} are the same win chance and must share a price`).toBe(prev.price);
+      } else if (prev.price === MAX_MULT_BPS) {
+        // The easier rung is already at the cap, so the harder one cannot exceed it — it must EQUAL it.
+        expect(cur.price, `${cur.key} is harder than a capped rung so it must also sit at the cap`).toBe(MAX_MULT_BPS);
       } else {
         expect(
-          cur.price > prev.price,
-          `${cur.key} (P ${(cur.p * 100).toFixed(4)}%) is harder than ${prev.key} (P ${(prev.p * 100).toFixed(4)}%) so it must pay MORE: got ${cur.price} vs ${prev.price}`,
+          cur.price >= prev.price,
+          `${cur.key} (P ${(cur.p * 100).toFixed(4)}%) is harder than ${prev.key} (P ${(prev.p * 100).toFixed(4)}%) so it must not pay LESS: got ${cur.price} vs ${prev.price}`,
         ).toBe(true);
       }
     }
@@ -262,43 +338,49 @@ describe('the finale rung: defense 3 / first-to-3 (map 10, ZERO CITADEL)', () =>
     expect((P.num * 100n * 10000n) / P.den).toBe(24024n);
   });
 
-  it('399590n is DERIVED: the largest multiple of 10 whose RTP stays under the 96% ceiling', () => {
-    // Price follows P and the ceiling, in that order (never a number picked to look nice).
+  it('its FAIR price would be 399590n, and the 4.00x cap overrides it', () => {
+    // The derivation is kept because it still documents what this rung is WORTH: price follows P and
+    // the 96% ceiling, in that order. What changed (Tim, 2026-08-07) is that the ladder no longer
+    // pays what the rung is worth — MAX_MULT_BPS caps it at 4.00x, so the finale returns 9.6%.
     const maxBps = (9600n * P.den) / P.num;
     expect(maxBps).toBe(399591n);
-    expect(maxBps * P.num <= 9600n * P.den).toBe(true);
-    expect((maxBps + 1n) * P.num <= 9600n * P.den).toBe(false); // the bound is tight
-    expect((maxBps / 10n) * 10n).toBe(399590n); // ladder convention: multiples of 10
-    expect(NODE.multBps).toBe(399590n);
-    // And the next ladder step really is out of reach — 399590n is a ceiling, not a rounding.
-    expect(399600n * P.num <= 9600n * P.den).toBe(false);
+    expect((maxBps + 1n) * P.num <= 9600n * P.den).toBe(false); // the fair bound is still tight
+    const fairLadderPrice = (maxBps / 10n) * 10n; // ladder convention: multiples of 10
+    expect(fairLadderPrice).toBe(399590n);
+    // THE CAP WINS. This is the assertion that would fail if someone "restored" the fair price.
+    expect(NODE.multBps).toBe(MAX_MULT_BPS);
+    expect(NODE.multBps < fairLadderPrice).toBe(true);
   });
 
-  it('RTP at the shipped price is 95.9996% — inside [95.00%, 96.00%]', () => {
-    expect(NODE.multBps * P.num >= 9500n * P.den).toBe(true);
-    expect(NODE.multBps * P.num <= 9600n * P.den).toBe(true);
+  it('RTP at the CAPPED price is 9.61% — the deliberate consequence, pinned', () => {
+    expect(NODE.multBps * P.num <= 9600n * P.den).toBe(true); // ceiling still respected
     // RTP percent = multBps * num / (100 * den), truncated to four decimals in exact bigint.
-    expect((NODE.multBps * P.num * 10000n) / (100n * P.den)).toBe(959995n);
+    expect((NODE.multBps * P.num * 10000n) / (100n * P.den)).toBe(96098n); // 9.6098%
+    expect(nodeRtpPercent(NODE)).toBe('9.6');
   });
 
-  it('the player reads "2.4" win chance and "x39.95" pays — formatMult FLOORS, it never rounds', () => {
-    expect(formatWinChance(3, 3)).toBe('2.4');
-    expect(formatMult(NODE.multBps)).toBe('39.95');
-    // THE TRAP that keeps re-appearing in handoff text: toFixed ROUNDS 39.959 up to "39.96", and
-    // 399600n (the bps that would honestly display 39.96) is out of band per the test above. So
-    // x39.96 is unreachable at this P, and anyone "correcting" 39.95 to 39.96 is wrong.
-    expect((Number(NODE.multBps) / 10000).toFixed(2)).toBe('39.96');
-    expect(formatMult(399600n)).toBe('39.96');
+  it('the player reads "2.4" win chance and "x4.00" pays — and is TOLD the 9.6% return', () => {
+    expect(formatWinChance(3, 3)).toBe('2.4'); // difficulty untouched by the cap
+    expect(formatMult(NODE.multBps)).toBe('4.00');
+    expect(nodeRtpPercent(NODE)).toBe('9.6');
+    // formatMult still FLOORS — the lesson that outlived the price. 399590n would read 39.95, never
+    // 39.96, and toFixed(2) disagrees. Kept as a pure-function check now that no node carries it.
+    expect(formatMult(399590n)).toBe('39.95');
+    expect((399590 / 10000).toFixed(2)).toBe('39.96');
   });
 
-  it('it is the hardest node, the best-paying node, and the sole occupant of its rung', () => {
+  it('it is still the HARDEST node, but no longer the best-paying one', () => {
     const pWin = Number(P.num) / Number(P.den);
     for (const n of CAMPAIGN_NODES.filter((x) => x.id !== 10)) {
-      const p = matchWinProbability(defenseAmount(n), n.roundsToWin);
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin, guardAmount(n));
       expect(pWin, `node ${n.id} must be easier than the finale`).toBeLessThan(Number(p.num) / Number(p.den));
-      expect(NODE.multBps > n.multBps, `node ${n.id} must pay less than the finale`).toBe(true);
+      // Under the cap it merely must not pay MORE than the finale — nodes 6..9 now tie it at 4.00x.
+      expect(NODE.multBps >= n.multBps, `node ${n.id} must not out-pay the finale`).toBe(true);
     }
     expect(CAMPAIGN_NODES.filter((n) => defenseAmount(n) === 3).map((n) => n.id)).toEqual([10]);
+    // The finale is the WORST-returning node on the ladder now. That is the cap's whole effect.
+    const returns = CAMPAIGN_NODES.map((n) => Number(nodeRtpPercent(n)));
+    expect(Math.min(...returns)).toBe(Number(nodeRtpPercent(NODE)));
   });
 });
 
@@ -524,11 +606,15 @@ describe('THE RTP CEILING — no node may return more than 96% to the player', (
     return (P.num * node.multBps) / P.den;
   };
 
-  it('every shipped node is <= 96.00% and >= 95.5% RTP', () => {
+  it('every shipped node is <= 96.00% RTP (the ceiling; there is no floor any more)', () => {
+    // The >= 95.5% floor this test shipped with was REMOVED when Tim capped payouts at 4.00x
+    // (2026-08-07): five nodes now return 90.2% / 52.2% / 9.6% ON PURPOSE, so a floor here would
+    // assert a design that no longer exists. The ceiling is the surviving law — the house never
+    // hands an edge away — and the exact returns are pinned in the ladder suite instead.
     for (const node of CAMPAIGN_NODES) {
       const bps = rtpBps(node); // basis points of 1.0, i.e. 9600 == 96.00%
       expect(bps, `node ${node.id} ${node.name} RTP ${Number(bps) / 100}%`).toBeLessThanOrEqual(9600n);
-      expect(bps, `node ${node.id} ${node.name} RTP ${Number(bps) / 100}%`).toBeGreaterThanOrEqual(9550n);
+      expect(bps, `node ${node.id} ${node.name} RTP must be positive`).toBeGreaterThan(0n);
     }
   });
 

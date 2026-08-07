@@ -65,13 +65,26 @@ since `frontierOf` is the first unbeaten index). The decision now lives in the p
 `campaignCommitAction`, which returns `resetToMap` WITHOUT a `nodeId` so no caller can start the match;
 the provider refunds (the match never started) and returns to the map with the reset announced.
 
-**THE 96% CEILING is the reason this game is not a money printer, so treat it as an invariant.** Every
-node prices its own win chance at or under 96.0000% RTP, and all money is BigInt with FLOOR truncation, so
-no stake/multiplier pair can ever pay above its exact multiple — verified across every reachable stake
-including non-round ones (`clampStake` can pin the stake to a non-round *balance*). House edge is
-4.00-4.08% on all ten nodes plus the CPU duel. `fightCampaign.test.ts` now pins this in exact integer
-arithmetic **with a positive control** (an over-priced node must fail the check), because the only prior
-guard was a 2M-match script nobody runs in CI. If you touch a `multBps`, that test is the gate.
+**THE 96% CEILING is the reason this game is not a money printer, so treat it as an invariant.** No node
+returns more than 96.0000%, and all money is BigInt with FLOOR truncation, so no stake/multiplier pair can
+ever pay above its exact multiple — verified across every reachable stake including non-round ones
+(`clampStake` can pin the stake to a non-round *balance*). `fightCampaign.test.ts` pins this in exact
+integer arithmetic **with a positive control** (an over-priced node must fail the check), because the only
+prior guard was a 2M-match script nobody runs in CI. If you touch a `multBps`, that test is the gate.
+
+**There is NO RTP FLOOR, and the campaign is NOT uniform 96%** (Tim, 2026-08-07). `MAX_MULT_BPS` caps
+every payout at **4.00x** while the win chances are untouched, and since RTP = P x mult that pushes five
+nodes below the old line ON PURPOSE: nodes 6/7 return 90.2%, 8/9 return 52.2%, and the finale returns
+**9.61%** (2.4025% to win, paying 4.00x where its fair price is 39.959x). The mean across the ladder is
+77.45%. Do not "fix" this by restoring the fair prices — it is a deliberate ruling, and
+`fightCampaign.test.ts` asserts the cap binds on exactly nodes 6-10.
+
+**Never type an RTP into the UI.** Because the return now varies per node, every RTP the player sees is
+derived by `nodeRtpPercent()` / `campaignRtpRange()` from the same exact rationals that price the ladder.
+The map line and the node card's RETURNS stat both read from those. A hardcoded "96%" is precisely how a
+game ends up telling the player a number its own math contradicts — that string shipped for weeks and only
+stopped being true the moment the cap landed. The quick duel is still genuinely 1.92x at 96%, so its
+copy is a literal and that is fine.
 
 Two things are NOT leaks but must be understood: **`RESET PRACTICE BANK` restores $1000 in one click with
 no gate** (`FightExperience.tsx`), which is correct for a practice bank and is also what makes every other
