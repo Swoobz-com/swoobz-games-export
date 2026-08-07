@@ -1,6 +1,60 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 31 — START HERE (2026-08-06) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 32 — START HERE (2026-08-07) ★★★★★★★★★★
+
+**Read `AGENTS.md` first — it is new, top-level, and encodes every non-negotiable in this repo.**
+Everything below Session 31 is still true; this block is what changed. Shipped at **phase 284**, and
+`main` is pushed: `export/standoff` is at `eebc4a2`, remote/local **0/0 in sync** (362 commits landed).
+
+### State: the game is playable and shipped
+| gate | result |
+|---|---|
+| `npx tsc --noEmit` | 0 |
+| `npx vitest run` | **220/220 across 16 files** |
+| `npm run build` | exit 0 — JS 258.87 kB (gzip 76.89), CSS 53.85 kB (gzip 9.45) |
+
+**Roster: gorvak and volta are DELETED** (not disabled — both manifests gone). `getFighter()` throws on
+an unknown id by contract, so that was a breaking change: campaign node 2's body moved to
+`oni-tetsubo`, the default `playerId` to `gargoyle-spear`, and three test fixtures off `'volta'`.
+The three free-roster playables (`gargoyle-spear`, `lich-scythe`, `oni-tetsubo`) are wired and
+selectable from a fresh profile via `ALWAYS_AVAILABLE_FIGHTER_IDS`.
+
+**THE CAMPAIGN STAKE LOCK (Tim's rule).** A run is stamped with the stake it was played at: a HIGHER
+stake wipes `beaten` and re-stamps, same-or-lower keeps it, and the lock does NOT ratchet down. It
+closes a live exploit — node 10 pays a fixed 39.959x, so cheap progress cashed at a huge stake was free
+money. `applyCampaignStakeLock` in `src/provider/fightProvider.ts`, 12 tests in
+`campaignStakeLock.test.ts`. Storage is `{v:2, beaten, lockStake}` and **a v1 payload is REJECTED on
+purpose** — unstamped progress cannot be verified. `lockStake` is a decimal STRING, never a Number.
+
+**FACING verified on screen, not from manifests:** 3 free-roster fighters x 2 viewports, **6/6 PASS** —
+left slot unmirrored, right mirrored, correct asset per slot, each fighter seen in BOTH slots.
+
+### ⛔ The two measurement lessons of this session (both nearly shipped as wrong claims)
+1. **`content-length` header summing reports a `preload="metadata"` saving as EXACTLY ZERO.** The 206
+   partial still advertises the FULL file length. First measurement said 36.7MB on mobile AND desktop
+   and "the change does nothing"; re-measured on `Network.loadingFinished.encodedDataLength` (finished
+   bodies only) it is desktop **36.8MB** vs thrifty mobile **27.3MB** — a real 9.5MB / 25.9% saving.
+   A Fast-3G run is a NON-result: at 200KB/s neither arm finished a single clip body in the window.
+2. **The RPS badges Tim asked for were rendering at 4.5px and every gate passed.** All sizing derives
+   from `--sw` (stage width/100) and `.fr-stage` is aspect-locked to the arena art (do NOT change that
+   — it is what fixed the "backgrounds are getting cropped" report). A 393x852 phone gets a 393x214
+   stage → `--sw` 3.93px → label 5.31px, badge 3.38px, glyph 4.52px. Fixed with `max(floorPx,
+   calc(...))`, which is **provably inert at desktop `--sw`** (desktop measured identical before/after).
+   `.fr-back` was 18x44 (min 44x44 now); arena tiles were 44x25 (min-width 64 → 64x36).
+   **And the jutting BLOCK card was screenshot-only** — flooring the hint font changed its WRAPPING, and
+   `align-items: flex-end` bottom-aligned unequal cards while every geometric number stayed clean.
+   FINDING 12 again: gates measure WHERE, never WHAT.
+
+### Open, and deliberately NOT decided for Tim
+**Portrait phone is inherently cramped** — the stage is 214 of 852px (25% of screen, dead black above
+and below) and the pick row eats **51%** of the stage box vs 28% landscape and 19% desktop. Landscape
+is the good phone surface and looks right. Making portrait genuinely good means cropping the arena art
+or a portrait-specific layout; both reverse or complicate an earlier explicit decision. **Tim's call.**
+
+Also still open: arena tiles are 64x36, past the WCAG 2.5.8 AA 24px bar but below the 44px AAA target —
+a recorded trade, because forcing 44px height multiplies rows past the portrait stage height.
+
+## ★★★★★★★★★★ SESSION 31 (2026-08-06) ★★★★★★★★★★
 
 **gargoyle-spear is DONE at 5 of 6 re-rolled states. 12/12 keyed, 0 refused, nothing wired.**
 Full detail — 12 findings, every number measured — is in **`qa-boss/SESSION30-FIRE-LEDGER.md`**.
