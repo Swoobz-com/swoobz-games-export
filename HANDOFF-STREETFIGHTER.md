@@ -175,11 +175,11 @@ literal and that is fine.
 
 ### ▶ WHAT TO DO NEXT — in this order
 
-1. **GET TIM TO CONFIRM THE 51.2% MEAN RETURN.** Highest-value thing you can do. He asked for a
-   1.32x -> 4x ladder with the win chances frozen and that is exactly what shipped, but the arithmetic
-   consequence is a 48.8% house edge, non-monotonic returns, and a finale that gives back 9.6%. It is
-   disclosed on screen, which is why it was safe to ship — but he may not have intended a number that
-   large. Show him the table above. **Do not silently "fix" it in either direction.**
+1. ~~**GET TIM TO CONFIRM THE 51.2% MEAN RETURN.**~~ **DONE, session 33 — CONFIRMED.** The table was
+   re-derived from the shipped functions (it was correct) and put to him beside the three legal
+   alternatives: 1.75x->4.00x geometric (mean 60.5%), 1.91x->4.00x max-return (mean 77.1%, degenerate
+   one-cent steps), and raising node 10's win chance to 24.00% for a fair finale. **He kept the shipped
+   ladder.** See the decision register. Do not re-open or re-derive.
 2. **Announce the character unlock.** Beating a node makes that boss playable (`isFighterSelectable`;
    9 of 12 fighters unlock this way) and **the game never says so** — the only UNLOCK copy in the repo is
    for the dormant bonus packs. The campaign receipt is right there and already renders. ~20-30 lines
@@ -190,9 +190,10 @@ literal and that is fine.
    `start`/`serve` script. So a static `dist` deploy CANNOT open a room — a mode with room codes, 10s
    reconnect grace, the auto-play doctrine and 19 tests is dead on arrival. Fix is ~15 lines: a small
    Node server that serves `dist` and calls the existing `attachMatchRelay`, plus a `start` script.
-4. **Decide portrait mobile.** Measured: the stage is 214 of 852px (25% of the screen) because it is
-   aspect-locked to the arena art. Landscape looks genuinely excellent. A rotate prompt is the small
-   honest fix; a portrait layout or cropping the art both reverse an explicit earlier ruling.
+4. ~~**Decide portrait mobile.**~~ **DECIDED, session 33 — ROTATE PROMPT.** The stage is 214 of 852px
+   (25% of the screen) because it is aspect-locked to the arena art; landscape is genuinely excellent.
+   Tim chose the rotate prompt; a portrait layout and cropping the art were both declined. Landscape
+   must stay byte-identical.
 5. **Give the finale a moment.** Conquering all ten yields a flag and the same RTP line, nothing else.
 6. **Smaller:** a conquered node re-opens with an identical card (no "already conquered" cue), and the
    arena picker is reachable from the campaign charSelect detour even though campaign nodes force their
@@ -215,8 +216,16 @@ literal and that is fine.
 
 ### DECISION REGISTER — carried forward, restate these or they evaporate
 
-- **Tim, 2026-08-07:** payouts capped at 4.00x; ladder 1.32x -> 4.00x; win chances frozen. ⚠ The 51.2%
-  mean return is the UNCONFIRMED consequence (item 1 above).
+- **Tim, 2026-08-07:** payouts capped at 4.00x; ladder 1.32x -> 4.00x; win chances frozen.
+- **Tim, 2026-08-07 (session 33): the 51.2% mean return / 48.8% house edge is CONFIRMED.** It was
+  re-derived from the shipped exact-rational functions and put back to him beside its three legal
+  alternatives — steepest legal geometric ladder (1.75x -> 4.00x, **mean 60.5%**), max-return ladder
+  hugging every ceiling (1.91x -> 4.00x, **mean 77.1%**, but its steps degenerate to one-cent increments
+  and it reads as four plateaus), and raising node 10's win chance (4.00x needs **24.00%** for a ~96%
+  return, i.e. a finale easier than node 6). **He chose to keep the shipped ladder.** The open item is
+  CLOSED; do not re-derive these three options again.
+- **Tim, 2026-08-07 (session 33):** portrait mobile gets a **ROTATE PROMPT**. A portrait layout and
+  cropping the arena art were both declined; landscape stays byte-identical.
 - **Tim, 2026-08-07:** FROZEN CATHEDRAL is out of the arena roster.
 - **Tim, 2026-08-07:** the stake lock rule — a higher stake wipes the run, same-or-lower keeps it. The
   lock deliberately does NOT ratchet down (an audit item suggesting otherwise was DECLINED: it is Tim's

@@ -77,7 +77,17 @@ strictly ascending ladder from **1.32x on node 1 to the 4.00x cap on node 10** (
 ratio ~1.131), while EVERY win chance is byte-identical to before. Since RTP = P x mult, that puts the
 return at 66.0 / 74.6 / 46.1 / 52.1 / 59.0 / 55.1 / 62.3 / 40.8 / 46.2 / 9.6 — **mean 51.2%, a 48.8%
 house edge** — and it is NON-MONOTONIC, because the price climbs smoothly while the win chances step down
-in chunks. Two things follow: paying BELOW a node's ceiling is always legal (that is what allows a 1.32x
+in chunks.
+
+**THE 51.2% MEAN RETURN IS CONFIRMED, NOT INHERITED** (Tim, 2026-08-07, session 33). It shipped in phase
+291 as the arithmetic *consequence* of "cap at 4x + freeze the win chances" and had never been separately
+agreed, so it was re-derived from the shipped exact-rational functions and put back to Tim beside its three
+legal alternatives: the steepest legal geometric ladder (1.75x -> 4.00x, node 2 exactly at its 1.92x
+ceiling, **mean 60.5%**), the max-return ascending ladder (1.91x -> 4.00x hugging every ceiling, **mean
+77.1%**, rejected shape — its steps degenerate to one-cent increments and it reads as four plateaus, not
+ten rungs), and raising node 10's win chance (4.00x needs **24.00%** to return ~96%, which would make the
+finale easier than node 6). **Tim chose to keep the shipped ladder.** So 51.2% mean / 48.8% house edge is
+a decision, not a drift — do not "restore" it, and do not re-open it without a new ruling. Two things follow: paying BELOW a node's ceiling is always legal (that is what allows a 1.32x
 opener at an unchanged 50% win chance), and **identical fights now pay different amounts** (nodes 3/4/5
 are the same 27.3254% fight at 1.68x/1.91x/2.16x), so "same fight, same pay" is gone and a replaying
 player should always farm the LAST node of a tier. Do not "fix" any of this by restoring fair prices — it
