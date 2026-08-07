@@ -11,6 +11,7 @@ import {
   getCampaignNode,
   matchWinProbability,
 } from './fightCampaign';
+import { CPU_WIN_BPS } from './fightStakes';
 import { applyExchange, createMatch, startNextRound } from './fightEngine';
 import type { MatchState } from './fightEngine';
 
@@ -504,5 +505,51 @@ describe('display helpers', () => {
     expect(formatMult(42530n)).toBe('4.25');
     expect(formatMult(73430n)).toBe('7.34');
     expect(formatMult(399590n)).toBe('39.95'); // FLOORS: toFixed(2) would say 39.96
+  });
+});
+
+// ── THE RTP CEILING (economy audit, 2026-08-07) ───────────────────────────────────────────────
+// The whole reason STANDOFF is not a money printer is that EVERY node prices its own win chance at
+// or under 96%. That invariant lived only in a 2M-match script nobody runs in CI, so a one-character
+// slip in a multBps could ship a >100% node and no gate would notice. This pins it in exact integer
+// arithmetic — no Monte-Carlo, no float, no tolerance to argue about.
+//
+// RTP = P(win) * mult = (P.num/P.den) * (multBps/10000). Cross-multiplied to stay in BigInt:
+//   RTP <= C  <=>  P.num * multBps * 10000 <= C_bps * P.den * 10000  (with C in bps)
+describe('THE RTP CEILING — no node may return more than 96% to the player', () => {
+  const rtpBps = (node: (typeof CAMPAIGN_NODES)[number]): bigint => {
+    const P = matchWinProbability(defenseAmount(node), node.roundsToWin);
+    // (num/den) * (multBps/10000) expressed in basis points, floor — deliberately generous to the
+    // player, so a node sitting exactly on the line still passes and anything over it fails.
+    return (P.num * node.multBps) / P.den;
+  };
+
+  it('every shipped node is <= 96.00% and >= 95.5% RTP', () => {
+    for (const node of CAMPAIGN_NODES) {
+      const bps = rtpBps(node); // basis points of 1.0, i.e. 9600 == 96.00%
+      expect(bps, `node ${node.id} ${node.name} RTP ${Number(bps) / 100}%`).toBeLessThanOrEqual(9600n);
+      expect(bps, `node ${node.id} ${node.name} RTP ${Number(bps) / 100}%`).toBeGreaterThanOrEqual(9550n);
+    }
+  });
+
+  it('the CPU duel is exactly 96% (1.92x on a true 50/50)', () => {
+    // 0.5 * 1.92 == 0.96 exactly; assert on the integers so no float can hide a drift.
+    expect(CPU_WIN_BPS * 1n).toBe(19_200n);
+    expect((CPU_WIN_BPS * 5000n) / 10_000n).toBe(9_600n); // 50% of 1.92x, in bps
+  });
+
+  it('a deliberately over-priced node WOULD fail this test (the guard can actually fire)', () => {
+    // Positive control: the check is worthless if it cannot detect a bad row. 2.4% at 45x = 108%.
+    const overpriced = { ...CAMPAIGN_NODES[CAMPAIGN_NODE_COUNT - 1], multBps: 450_000n };
+    expect(rtpBps(overpriced)).toBeGreaterThan(9600n);
+  });
+
+  it('payout can never exceed stake * mult, at any stake (floor favours the house)', () => {
+    const stakes = [1n, 3n, 999_999n, 1_000_000n, 5_000_000n, 25_000_000n, 1_137_515_000n];
+    for (const node of CAMPAIGN_NODES) {
+      for (const s of stakes) {
+        expect(campaignPayout(s, node.multBps) * 10_000n).toBeLessThanOrEqual(s * node.multBps);
+      }
+    }
   });
 });

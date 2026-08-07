@@ -229,8 +229,12 @@ export function applyCampaignStakeLock(
   if (!hasProgress) return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: false };
   const lock = progress.lockStakeLamports;
   if (lock === null) {
-    // Unreachable via parseCampaignProgress (it drops unstamped progress), but keep the branch honest
-    // rather than assuming: adopt the stake and wipe, which is the safe direction.
+    // LOAD-BEARING, not defensive. This was documented as "unreachable via parseCampaignProgress",
+    // which is true of STORAGE but not of memory: `devConquerAll` (?dev=1) fills beaten[] WITHOUT
+    // stamping a lockStake, so a fresh profile can hold conquered-but-unstamped progress. Verified
+    // live: ?dev=1 -> CONQUER ALL -> open ZERO CITADEL at $25 -> this branch fires, the run resets and
+    // the attempt is cancelled, so the 39.959x node cannot be cashed off a dev-conquered ladder
+    // ($0 spent, bounced to the map). Wiping on an unverifiable stamp is the safe direction — keep it.
     return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: true };
   }
   if (stakeLamports > lock) {
@@ -498,6 +502,14 @@ export function useFightController(
   // by settle (win/loss, auto-play included) or by a never-started refund. No path can
   // path: no path can double-refund, refund-after-settle, or lose a committed stake silently.
   const stakeCommittedRef = useRef<boolean>(false);
+  /** The stake AS ACTUALLY CHARGED at commit — the only amount settle and refund may use.
+   *
+   *  `stakeRef` is the LIVE stake picker value and keeps moving as the player nudges the chips.
+   *  Paying out against the live value means "charged $1, settled on $25" the moment any future
+   *  change lets the picker move after commit; today the stake controls are mounted only in
+   *  `phase === 'stake'` (FightExperience.tsx:2621, :2687) so it is not reachable, and this snapshot
+   *  is what keeps it unreachable by construction instead of by that coincidence. Audit 2026-08-07. */
+  const committedStakeRef = useRef<bigint>(0n);
 
   // --- Campaign refs (synchronous reads inside plain callbacks / timer bodies). ---
   const campaignNodeIdRef = useRef<number | null>(null);
@@ -652,7 +664,7 @@ export function useFightController(
     settledRef.current = true;
     // The committed stake is consumed by this settle: no later path may refund it.
     stakeCommittedRef.current = false;
-    const stake = stakeRef.current;
+    const stake = committedStakeRef.current; // as CHARGED, never the live picker value
     const isCpu = modeRef.current === 'cpu';
     const playerWon = winner === 'p1';
     // The stake was already deducted at commit, so balanceRef is the post-commit balance. Friend
@@ -689,7 +701,7 @@ export function useFightController(
     campaignSettledRef.current = true;
     // The committed stake is consumed by this settle: no later path may refund it.
     stakeCommittedRef.current = false;
-    const stake = stakeRef.current;
+    const stake = committedStakeRef.current; // as CHARGED — this one multiplies by up to 39.959x
     const node = getCampaignNode(campaignNodeIdRef.current);
     const multBps = node ? node.multBps : 0n;
     const roundsToWin: 2 | 3 = node ? node.roundsToWin : 2;
@@ -726,7 +738,7 @@ export function useFightController(
   const refundStakeIfCommitted = useCallback(() => {
     if (!stakeCommittedRef.current) return;
     stakeCommittedRef.current = false;
-    const refunded = balanceRef.current + stakeRef.current;
+    const refunded = balanceRef.current + committedStakeRef.current; // refund exactly what was charged
     balanceRef.current = refunded;
     setBalanceLamports(refunded);
   }, []);
@@ -1160,6 +1172,10 @@ export function useFightController(
   }, [enterStake]);
 
   const setStake = useCallback((lamports: bigint) => {
+    // The wager is only choosable while choosing it. The UI already mounts the picker exclusively in
+    // the stake phase, so this changes no behaviour today — it stops a future caller from moving the
+    // stake mid-match, which is the shape that turns into "charged $1, paid out on $25".
+    if (phaseRef.current !== 'stake') return;
     const clamped = clampStake(lamports, balanceRef.current);
     stakeRef.current = clamped;
     setStakeLamports(clamped);
@@ -1191,6 +1207,8 @@ export function useFightController(
     const newBalance = balanceRef.current - stake;
     balanceRef.current = newBalance;
     stakeRef.current = stake;
+    // Freeze the charged amount. Every later money decision (both settles, the refund) reads THIS.
+    committedStakeRef.current = stake;
     setBalanceLamports(newBalance);
     setStakeLamports(stake);
     settledRef.current = false;
@@ -1212,6 +1230,21 @@ export function useFightController(
       // the map ABOVE that stake wipes progress; the same or lower keeps it. Decided HERE — in the same
       // synchronous body that already deducted the stake — so the map the player is taken to already
       // reflects the reset, and `stake` is the CLAMPED value actually charged, never the raw input.
+      // GATE THE NODE WHERE THE MONEY MOVES, not only at the map click. `startCampaignNode` validates,
+      // but `nextNode` writes pendingStartRef and calls enterStake() directly (it is sound today —
+      // only reachable after a win, so its target IS the frontier) — two entry paths, one gate. This
+      // is the same shape as the stake-lock bug: the rule has to live where the decision is made.
+      // Checked against PRE-lock progress on purpose; the lock is applied below and may reset it.
+      const preBeaten = campaignBeatenRef.current;
+      const nodeOk = pending.nodeId >= 1 && pending.nodeId <= preBeaten.length
+        && (preBeaten[pending.nodeId - 1] || pending.nodeId - 1 === frontierOf(preBeaten));
+      if (!nodeOk) {
+        refundStakeIfCommitted();
+        clearAllTimers();
+        setMatchStateNow(createMatch());
+        setPhaseNow('campaignMap');
+        return;
+      }
       const action = campaignCommitAction(
         { beaten: campaignBeatenRef.current, lockStakeLamports: campaignLockStakeRef.current },
         stake,
@@ -1310,6 +1343,14 @@ export function useFightController(
   // Map -> node card: arm the campaign match for this node and enter the (reused) stake flow.
   const startCampaignNode = useCallback(
     (nodeId: number) => {
+      // Gate the LADDER here, not in the map's render. The map disables locked discs
+      // (FightExperience.tsx:347, :361-362), but that is a presentation detail — the provider was
+      // taking any nodeId on trust, so the ONLY thing standing between a caller and the 39.959x node
+      // was a `disabled` attribute. Playable = already conquered (replayable, and every node is
+      // independently <=96% RTP so that is EV-negative, not a farm) or exactly the frontier.
+      const beaten = campaignBeatenRef.current;
+      const conquered = nodeId >= 1 && nodeId <= beaten.length && beaten[nodeId - 1];
+      if (!conquered && nodeId - 1 !== frontierOf(beaten)) return;
       clearAllTimers();
       modeRef.current = 'campaign';
       setMode('campaign');

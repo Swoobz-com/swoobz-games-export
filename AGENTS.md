@@ -65,6 +65,28 @@ since `frontierOf` is the first unbeaten index). The decision now lives in the p
 `campaignCommitAction`, which returns `resetToMap` WITHOUT a `nodeId` so no caller can start the match;
 the provider refunds (the match never started) and returns to the map with the reset announced.
 
+**THE 96% CEILING is the reason this game is not a money printer, so treat it as an invariant.** Every
+node prices its own win chance at or under 96.0000% RTP, and all money is BigInt with FLOOR truncation, so
+no stake/multiplier pair can ever pay above its exact multiple — verified across every reachable stake
+including non-round ones (`clampStake` can pin the stake to a non-round *balance*). House edge is
+4.00-4.08% on all ten nodes plus the CPU duel. `fightCampaign.test.ts` now pins this in exact integer
+arithmetic **with a positive control** (an over-priced node must fail the check), because the only prior
+guard was a 2M-match script nobody runs in CI. If you touch a `multBps`, that test is the gate.
+
+Two things are NOT leaks but must be understood: **`RESET PRACTICE BANK` restores $1000 in one click with
+no gate** (`FightExperience.tsx`), which is correct for a practice bank and is also what makes every other
+client-side trick pointless — and **`DEV_MODE` is a `?dev` query param**, so the CONQUER NEXT/ALL hooks are
+live in a production build. They touch `beaten[]` only, never money, and a dev-conquered ladder is bounced
+by the stake lock (unstamped progress ⇒ reset ⇒ attempt cancelled, verified live). Before real money:
+server-held balance + server-side settle re-derived from the server's own node table; then dev-gate
+`resetBank` and add commit-reveal for PvP picks. Note PvP has no house exposure today — the relay carries
+no money and is attached only to the vite dev/preview servers (`vite.config.ts`), so a static `dist`
+deploy cannot even open a room.
+
+**Money decisions read the CHARGED stake, never the live picker.** `committedStakeRef` is frozen at commit
+and is what both settles and the refund use; `setStake` is phase-guarded. `stakeRef` keeps moving with the
+chips, and paying out against it is the "charged $1, settled on $25" shape.
+
 **The general rule: a correct pure function is not a correct feature.** If a rule's enforcement depends
 on what the caller does with the return value, the CALLER'S DECISION must itself be a tested pure
 function — otherwise the tests guard the arithmetic and the hole stays open. And play the thing: this
