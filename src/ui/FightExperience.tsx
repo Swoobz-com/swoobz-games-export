@@ -1318,8 +1318,6 @@ function CharacterTile({
   selected: boolean;
   onSelect: () => void;
 }): JSX.Element {
-  const p = def.portrait;
-  const mirrored = isMirrored(def, 'p1');
   return (
     <button
       type="button"
@@ -1328,20 +1326,18 @@ function CharacterTile({
       aria-pressed={selected}
       aria-label={def.name}
     >
-      {/* Mirror the crop CONTAINER (not the img) so the head-centre math survives the flip,
-          exactly like the Portrait medallion. */}
-      <div className="fr-select-crop" style={{ transform: mirrored ? 'scaleX(-1)' : undefined }}>
-        <img
-          src={`${assetBase}${def.still}`}
-          alt=""
-          draggable={false}
-          style={{
-            width: `${p.zoom * 100}%`,
-            height: 'auto',
-            left: `${50 - p.headX * p.zoom * 100}%`,
-            top: `${50 - p.headY * p.zoom * 100}%`,
-          }}
-        />
+      {/* THE TILE USES THE PURPOSE-BUILT PFP, not a hand-tuned crop of the full-body still.
+          It used to scale `def.still` by def.portrait {zoom, headX, headY} — a per-character head
+          guess that has to be re-tuned by eye for every fighter, and four of twelve were wrong:
+          ir37 showed a pink fan with no face, ir48's head sat above the frame, ir56 read as a green
+          blob, lady-kurotachi as dark shoulders. `assets/enemies/<id>-pfp.webp` is a 512-square
+          head-and-shoulders crop produced by scripts/key-enemies.mjs and already used by the node
+          card, so every character is framed correctly BY CONSTRUCTION and a new fighter needs no
+          tuning at all. `def.portrait` still drives the in-fight HUD medallion, which is a circular
+          mask over the live still and genuinely does need the per-character centre.
+          Not mirrored: the PFP is authored facing the viewer, so a flip would only mirror the face. */}
+      <div className="fr-select-crop">
+        <img className="fr-select-pfp" src={`${assetBase}assets/enemies/${def.id}-pfp.webp`} alt="" draggable={false} />
       </div>
       {selected && <span className="fr-p1-chip">P1</span>}
     </button>
@@ -2525,7 +2521,10 @@ export function FightExperience(): JSX.Element {
             <button
               type="button"
               className="fr-btn fr-back"
-              onClick={ctl.enterModeSelect}
+              // In campaign mode charSelect is a DETOUR off the node card, so BACK must return to the
+              // run, not to mode select — that would drop the player out of the campaign entirely.
+              // No stake is committed during charSelect, so there is nothing to refund either way.
+              onClick={mode === 'campaign' ? ctl.backToMap : ctl.enterModeSelect}
               style={{ fontSize: 'calc(var(--sh) * 1.4)', padding: 'calc(var(--sh) * 0.6) calc(var(--sw) * 1)' }}
             >
               BACK
@@ -2748,6 +2747,34 @@ export function FightExperience(): JSX.Element {
                       <span className="fr-nodecard-stat-label">PAYS</span>
                       <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignNode.multBps)}</span>
                     </div>
+                  </div>
+                  {/* YOUR FIGHTER. The campaign had NO character pick anywhere in its flow —
+                      `enterCampaign` goes straight to the map and `startCampaignNode` straight to the
+                      stake screen, so the run silently used whichever fighter was last confirmed in the
+                      VERSUS CPU flow (default GARGOYLE SPEAR) with no way to change it. That also made
+                      the playable-after-beaten unlock useless in the very mode that grants it: you beat a
+                      boss, unlock them, and could only play them in a quick duel. The provider already
+                      supports this — `enterCharSelect` only sets the phase and the armed campaign
+                      PendingStart survives it, so CONFIRM lands right back on this card. */}
+                  <div className="fr-nodecard-yours">
+                    <img
+                      className="fr-nodecard-yours-pfp"
+                      src={`${ASSET_BASE}assets/enemies/${playerId}-pfp.webp`}
+                      alt=""
+                      draggable={false}
+                    />
+                    <span className="fr-nodecard-yours-copy">
+                      <span className="fr-nodecard-yours-label">YOUR FIGHTER</span>
+                      <span className="fr-nodecard-yours-name">{p1Def.name}</span>
+                    </span>
+                    <button
+                      type="button"
+                      className="fr-btn fr-nodecard-change"
+                      onClick={ctl.enterCharSelect}
+                      aria-label={`Change fighter. Currently ${p1Def.name}.`}
+                    >
+                      CHANGE
+                    </button>
                   </div>
                   {/* Cosmetic bonus unlock riding on this node (never changes the payout). */}
                   {campaignNode.reward && (

@@ -97,3 +97,28 @@ describe('free-roster fighters — the two states the engine cannot degrade past
     expect(clipVariants(getFighter(id), 'hit').length).toBeGreaterThan(0);
   });
 });
+
+// ── SELECT-TILE PORTRAITS (2026-08-07) ────────────────────────────────────────────────────────
+// The charSelect tile renders `assets/enemies/<id>-pfp.webp` directly (see CharacterTile). It used
+// to scale the full-body still by a hand-tuned def.portrait crop, and four of twelve fighters were
+// mis-framed — a face-less pink fan, a head above the frame, a green blob, dark shoulders. The pfp
+// is a purpose-built 512-square head crop, so the tile is correct by construction — but ONLY if the
+// file is actually there. A missing pfp is a SILENT broken image in the pick grid, so pin it for
+// EVERY registered fighter, not just the free roster.
+describe('every registered fighter has the pfp its select tile renders', () => {
+  const ALL = Object.keys(FIGHTERS);
+
+  it('the registry is non-empty (guard against a vacuous pass)', () => {
+    expect(ALL.length).toBeGreaterThanOrEqual(12);
+  });
+
+  it.each(Object.keys(FIGHTERS))('%s has assets/enemies/<id>-pfp.webp on disk', (id) => {
+    const rel = `assets/enemies/${id}-pfp.webp`;
+    expect(existsSync(join(PUBLIC, rel)), `${id}: MISSING ${rel} — its select tile will be blank`).toBe(true);
+  });
+
+  it.each(Object.keys(FIGHTERS))('%s also has its full cutout (used by the node card / previews)', (id) => {
+    const rel = `assets/enemies/${id}.webp`;
+    expect(existsSync(join(PUBLIC, rel)), `${id}: MISSING ${rel}`).toBe(true);
+  });
+});

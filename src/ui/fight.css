@@ -45,7 +45,7 @@
   /* Phase 22b: the box aspect follows the ARENA ART (--stage-ar set inline by the Experience;
      2816/1536 cathedral, 2752/1536 the clean arenas) so cover == contain = the art never crops.
      Tim's report: "backgrounds are getting cropped when entering the map [node]". */
-  --stage-ar: 1.83333; /* plain NUMBER (2816/1536): var() substitutes literal tokens, so a "w / h"
+  --stage-ar: 1.79167; /* plain NUMBER (2752/1536): var() substitutes literal tokens, so a "w / h"
      expression inside calc(100vw / var()) would double-divide. */
   width: min(100vw, calc(100vh * var(--stage-ar)));
   height: min(100vh, calc(100vw / var(--stage-ar)));
@@ -1554,6 +1554,16 @@
   position: absolute;
   pointer-events: none;
 }
+/* The 512-square PFP filling a 3:4 tile. `cover` scales to the tile HEIGHT (the taller axis), so the
+   whole head survives and the crop takes ~17% off each SIDE, which is margin in these portraits.
+   Nothing is cut vertically — that was the ask: every character fits its box. */
+.fr-select-pfp {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%; /* a touch above centre: horns/crowns/hats read better than chins */
+}
 .fr-p1-chip {
   position: absolute;
   top: calc(var(--sh) * 0.5);
@@ -2191,6 +2201,53 @@
   display: flex;
   gap: calc(var(--sw) * 2);
   margin-top: calc(var(--sh) * 0.3);
+}
+/* YOUR FIGHTER row — the card is the confrontation, so it now names BOTH sides. The campaign never
+   offered a character pick, so this is the only place in the run where you can change who you take in. */
+.fr-nodecard-yours {
+  display: flex;
+  align-items: center;
+  gap: max(8px, calc(var(--sw) * 0.8));
+  margin-top: calc(var(--sh) * 0.7);
+  padding-top: calc(var(--sh) * 0.7);
+  border-top: 1px solid var(--fr-line, rgba(255, 255, 255, 0.12));
+}
+.fr-nodecard-yours-pfp {
+  width: max(30px, calc(var(--sw) * 3));
+  height: max(30px, calc(var(--sw) * 3));
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--fr-gold, #d8a34a);
+  flex: 0 0 auto;
+}
+.fr-nodecard-yours-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  min-width: 0;
+}
+.fr-nodecard-yours-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: max(8px, calc(var(--sw) * 0.62));
+  letter-spacing: 0.14em;
+  color: var(--fr-steel-2);
+}
+.fr-nodecard-yours-name {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: max(11px, calc(var(--sw) * 1));
+  letter-spacing: 0.05em;
+  color: var(--fr-bone, #e8e3d9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fr-nodecard-change {
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-size: max(10px, calc(var(--sw) * 0.78));
+  padding: max(6px, calc(var(--sh) * 0.5)) max(10px, calc(var(--sw) * 1));
+  min-height: 44px; /* tap target */
 }
 .fr-nodecard-stat {
   display: flex;

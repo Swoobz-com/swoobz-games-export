@@ -23,14 +23,22 @@ export interface ArenaDef {
   height: number;
 }
 
-// The cathedral stays FIRST (the default fallback arena, with its baked HUD chrome). Phase 21
-// added Tim's 10 clean per-node RONIN ZERO arenas (input/characters/background/map 1..10 ->
+// Tim's 10 clean per-node RONIN ZERO arenas (input/characters/background/map 1..10 ->
 // scripts/prep-arenas.mjs -> assets/arenas/<id>.webp, 2752x1536 q85, NO baked HUD). Each is the
 // campaign node's fight background (fightCampaign.ts CampaignNodeDef.arenaId) and is also
 // selectable for quick duel in the ARENA picker. The mystery slots on the select screen are drawn
 // by the UI (locked '?' tiles), not listed here.
+//
+// FROZEN CATHEDRAL WAS REMOVED (Tim, 2026-08-07). It was the original baked-HUD backdrop
+// (assets/background.png, 2816x1536) and the first/default entry. Consequences, all handled:
+//   * LANTERN JETTY is now ARENAS[0], so it is the default AND the getArena() fallback — a stored
+//     'cathedral' in frozen-requiem.arena.v1 degrades to it silently instead of breaking the stage.
+//   * The whole roster is now a uniform 2752x1536 (1.79167), where the cathedral was the ONE
+//     outlier at 1.83333 — so the CSS `--stage-ar` default was moved to match.
+//   * No campaign node used it, and assets/background.png is now referenced by nothing. The file is
+//     left on disk deliberately (it is the original art, and deleting tracked assets is not implied
+//     by "remove it from the arena").
 export const ARENAS: ArenaDef[] = [
-  { id: 'cathedral', name: 'FROZEN CATHEDRAL', file: 'assets/background.png', width: 2816, height: 1536 },
   { id: 'docks', name: 'LANTERN JETTY', file: 'assets/arenas/docks.webp', loop: 'assets/arenas/docks-loop.mp4', width: 2752, height: 1536 },
   { id: 'torii', name: 'ASH GARDEN COURT', file: 'assets/arenas/torii.webp', loop: 'assets/arenas/torii-loop.mp4', width: 2752, height: 1536 },
   { id: 'bamboo', name: 'BAMBOO STREAM', file: 'assets/arenas/bamboo.webp', loop: 'assets/arenas/bamboo-loop.mp4', width: 2752, height: 1536 },

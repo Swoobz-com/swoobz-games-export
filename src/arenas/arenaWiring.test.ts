@@ -17,10 +17,23 @@ describe('phase-21 arena wiring', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('the cathedral stays the first / default arena', () => {
-    expect(ARENAS[0].id).toBe('cathedral');
-    // getArena falls back to the first entry for an unknown id — that fallback must be cathedral.
-    expect(getArena('no-such-arena').id).toBe('cathedral');
+  it('LANTERN JETTY is the first / default arena, and the cathedral is GONE', () => {
+    // FROZEN CATHEDRAL removed (Tim, 2026-08-07). docks inherits first-entry duty.
+    expect(ARENAS[0].id).toBe('docks');
+    // getArena falls back to the first entry for an unknown id — including the retired 'cathedral',
+    // which is what a profile that stored it before the removal will ask for.
+    expect(getArena('no-such-arena').id).toBe('docks');
+    expect(getArena('cathedral').id).toBe('docks');
+    expect(ARENAS.some((a) => a.id === 'cathedral')).toBe(false);
+  });
+
+  it('the roster is now a UNIFORM aspect (the cathedral was the only outlier)', () => {
+    // Every remaining arena is 2752x1536. This matters because .fr-stage takes the ART's aspect so
+    // the background never crops; a second aspect in the list means a second stage shape.
+    for (const a of ARENAS) {
+      expect(a.width, a.id).toBe(2752);
+      expect(a.height, a.id).toBe(1536);
+    }
   });
 
   it('every ARENAS file exists on disk under public/', () => {
@@ -49,8 +62,9 @@ describe('phase-21 arena wiring', () => {
   });
 });
 
-// Phase 22: the 10 non-cathedral arenas gained ambient video loops (assets/arenas/<id>-loop.mp4),
-// layered under the fight as living backgrounds. The cathedral (baked-HUD default) stays loop-less.
+// Phase 22: the 10 per-node arenas gained ambient video loops (assets/arenas/<id>-loop.mp4), layered
+// under the fight as living backgrounds. Since the cathedral's removal (2026-08-07) that is EVERY
+// arena — there is no loop-less entry left.
 describe('phase-22 arena loops', () => {
   const LOOPED = ['docks', 'torii', 'bamboo', 'snowfang', 'kawa', 'shrine', 'pagoda', 'gorge', 'moat', 'sanctum'];
 
@@ -63,12 +77,13 @@ describe('phase-22 arena loops', () => {
     }
   });
 
-  it('the 10 non-cathedral arenas each have a loop; cathedral has none', () => {
+  it('EVERY arena has a loop now (no loop-less entry survives the cathedral removal)', () => {
     for (const id of LOOPED) {
       const loop = getArena(id).loop;
       expect(loop, `${id} loop`).toBe(`assets/arenas/${id}-loop.mp4`);
     }
-    expect(getArena('cathedral').loop).toBeUndefined();
+    expect(ARENAS.every((a) => a.loop !== undefined)).toBe(true);
+    expect(ARENAS).toHaveLength(LOOPED.length);
   });
 
   it('exactly the 10 expected ids carry a loop (no more, no fewer)', () => {
