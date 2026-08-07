@@ -241,6 +241,28 @@ export function applyCampaignStakeLock(
   return { progress, reset: false };
 }
 
+/** What a campaign stake commit should DO — the whole decision, as data.
+ *
+ *  This exists because `applyCampaignStakeLock` being correct is NOT enough: the caller also has to
+ *  act on it. Shipping the lock while still entering the selected node left the exploit fully open,
+ *  and it was proven live — nine nodes conquered at $1, then ZERO CITADEL opened and the stake raised
+ *  to $25: progress wiped, and the player was handed the 39.95x final node AT $25 anyway. **A reset
+ *  cancels the attempt, it does not merely erase the record.** Keeping that rule in a pure function
+ *  makes it unit-testable without rendering the provider, which is how it went unnoticed the first time. */
+export type CampaignCommitAction =
+  | { kind: 'play'; nodeId: number; progress: CampaignProgress }
+  | { kind: 'resetToMap'; progress: CampaignProgress };
+
+export function campaignCommitAction(
+  progress: CampaignProgress,
+  stakeLamports: bigint,
+  nodeId: number,
+): CampaignCommitAction {
+  const applied = applyCampaignStakeLock(progress, stakeLamports);
+  if (applied.reset) return { kind: 'resetToMap', progress: applied.progress };
+  return { kind: 'play', nodeId, progress: applied.progress };
+}
+
 /** The frontier index: the first unbeaten node (0-based), or the count when all are conquered. Pure. */
 export function frontierOf(beaten: boolean[]): number {
   const idx = beaten.findIndex((b) => !b);
@@ -1190,18 +1212,44 @@ export function useFightController(
       // the map ABOVE that stake wipes progress; the same or lower keeps it. Decided HERE — in the same
       // synchronous body that already deducted the stake — so the map the player is taken to already
       // reflects the reset, and `stake` is the CLAMPED value actually charged, never the raw input.
-      const applied = applyCampaignStakeLock(
+      const action = campaignCommitAction(
         { beaten: campaignBeatenRef.current, lockStakeLamports: campaignLockStakeRef.current },
         stake,
+        pending.nodeId,
       );
-      campaignBeatenRef.current = applied.progress.beaten;
-      campaignLockStakeRef.current = applied.progress.lockStakeLamports;
-      setCampaignBeaten(applied.progress.beaten);
-      setCampaignLockStake(applied.progress.lockStakeLamports);
-      setCampaignStakeReset(applied.reset);
-      beginCampaignMatch(pending.nodeId);
+      campaignBeatenRef.current = action.progress.beaten;
+      campaignLockStakeRef.current = action.progress.lockStakeLamports;
+      setCampaignBeaten(action.progress.beaten);
+      setCampaignLockStake(action.progress.lockStakeLamports);
+      setCampaignStakeReset(action.kind === 'resetToMap');
+      if (action.kind === 'resetToMap') {
+        // A RESET MUST ALSO CANCEL THIS ATTEMPT — not just the record.
+        //
+        // Wiping `beaten` while still entering `pending.nodeId` left the exploit the lock exists to
+        // close WIDE OPEN, and it was proven live: conquer nodes 1-9 at $1, open ZERO CITADEL, raise
+        // to $25, commit. Progress wiped to all-false and the lock re-stamped at $25 — and the player
+        // was dropped straight into the 39.95x final node AT $25, i.e. cashing the big multiplier on a
+        // run they never earned at that stake. The wipe punished the record and let the cash-out
+        // through, which is exactly backwards. It also produced an unreachable map state: winning that
+        // node wrote beaten=[F,F,F,...,T], rendering a conquered island sitting behind fogged nodes.
+        //
+        // So on a reset: refund (this match NEVER started — the same one-shot doctrine as a failed
+        // join) and return to the map, which now shows the frontier back at node 1. `campaignStakeReset`
+        // stays true so the UI can tell the player WHY their run restarted.
+        refundStakeIfCommitted();
+        clearAllTimers();
+        setMatchStateNow(createMatch());
+        setLastOutcome(null);
+        campaignDefenseRef.current = 0;
+        setCampaignDefense(0);
+        setCampaignAbsorbed(false);
+        setPhaseNow('campaignMap');
+        return;
+      }
+      beginCampaignMatch(action.nodeId);
     }
-  }, [beginCpuMatch, beginFriendCreate, beginFriendJoin, beginCampaignMatch]);
+  }, [beginCpuMatch, beginFriendCreate, beginFriendJoin, beginCampaignMatch,
+    refundStakeIfCommitted, clearAllTimers, setMatchStateNow, setPhaseNow]);
 
   // ── Public entries (from mode select): remember the choice, go to char select ──
   const startCpu = useCallback(
@@ -1268,6 +1316,9 @@ export function useFightController(
       campaignNodeIdRef.current = nodeId;
       setCampaignNodeId(nodeId);
       pendingStartRef.current = { kind: 'campaign', nodeId };
+      // Opening a node is the player acknowledging the run-restarted notice, so retire it here.
+      // Otherwise it only cleared on the next stake commit and lingered across map<->node trips.
+      setCampaignStakeReset(false);
       enterStake();
     },
     [clearAllTimers, enterStake],

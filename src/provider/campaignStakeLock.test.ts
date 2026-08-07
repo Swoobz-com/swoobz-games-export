@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyCampaignStakeLock, parseCampaignProgress } from './fightProvider';
+import { applyCampaignStakeLock, campaignCommitAction, parseCampaignProgress } from './fightProvider';
 import { CAMPAIGN_NODES, CAMPAIGN_NODE_COUNT, campaignPayout } from '../engine/fightCampaign';
 import type { CampaignProgress } from './fightProvider';
 
@@ -81,6 +81,61 @@ describe('applyCampaignStakeLock — the exploit it exists to close', () => {
     const run = applyCampaignStakeLock(progress(nine(), cheap), huge);
     expect(run.reset).toBe(true);
     expect(run.progress.beaten.some((b) => b)).toBe(false);
+  });
+});
+
+// REGRESSION (found by playing the game, 2026-08-07). The lock function was correct and the exploit
+// was still WIDE OPEN, because the provider wiped `beaten` and then entered the selected node anyway.
+// Proven live: nine nodes conquered at $1, ZERO CITADEL opened, stake raised to $25 -> progress wiped,
+// lock re-stamped at $25, and the player dropped straight into the 39.95x final node AT $25.
+// The rule is therefore: A RESET CANCELS THE ATTEMPT, it does not merely erase the record.
+describe('campaignCommitAction — a reset must cancel the attempt, not just the record', () => {
+  const FINAL_NODE = CAMPAIGN_NODE_COUNT;
+
+  it('THE EXPLOIT: cheap progress + a raised stake on the final node NEVER returns "play"', () => {
+    const cheapRun = progress(nine(), 100n);
+    const action = campaignCommitAction(cheapRun, 100_000_000n, FINAL_NODE);
+    expect(action.kind).toBe('resetToMap');
+    // The decisive assertion: no nodeId is handed back at all, so no caller can start the match.
+    expect(action).not.toHaveProperty('nodeId');
+    expect(action.progress.beaten.some((b) => b)).toBe(false);
+    expect(action.progress.lockStakeLamports).toBe(100_000_000n);
+  });
+
+  it('one lamport over the lock already cancels the attempt', () => {
+    expect(campaignCommitAction(progress(nine(), 10n), 11n, FINAL_NODE).kind).toBe('resetToMap');
+    expect(campaignCommitAction(progress(nine(), 10n), 10n, FINAL_NODE).kind).toBe('play');
+  });
+
+  it('the same or a lower stake plays the node the player actually chose', () => {
+    for (const stake of [5_000n, 1n]) {
+      const action = campaignCommitAction(progress(nine(), 5_000n), stake, 7);
+      expect(action.kind).toBe('play');
+      if (action.kind === 'play') expect(action.nodeId).toBe(7);
+      expect(action.progress.beaten).toEqual(nine());
+      expect(action.progress.lockStakeLamports).toBe(5_000n); // never ratchets down
+    }
+  });
+
+  it('a fresh run adopts any stake and plays — there is nothing to protect yet', () => {
+    const action = campaignCommitAction(progress(FRESH, null), 999_999n, 1);
+    expect(action.kind).toBe('play');
+    if (action.kind === 'play') expect(action.nodeId).toBe(1);
+    expect(action.progress.lockStakeLamports).toBe(999_999n);
+  });
+
+  it('no raised stake can reach ANY node — the whole ladder is cancelled, not just the last one', () => {
+    for (let nodeId = 1; nodeId <= CAMPAIGN_NODE_COUNT; nodeId += 1) {
+      expect(campaignCommitAction(progress(nine(), 1n), 2n, nodeId).kind).toBe('resetToMap');
+    }
+  });
+
+  it('cannot strand a conquered node behind the new frontier', () => {
+    // Winning the node you were wrongly let into wrote beaten=[F,F,F,T,...] — a conquered island
+    // sitting behind fogged, locked ones. Unreachable now: the attempt never starts.
+    const action = campaignCommitAction(progress(nine(), 100n), 100_000n, 4);
+    expect(action.kind).toBe('resetToMap');
+    expect(action.progress.beaten).toEqual(FRESH);
   });
 });
 

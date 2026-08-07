@@ -56,6 +56,20 @@ multiplier at a huge stake. Pure logic + tests: `applyCampaignStakeLock` in `src
 and `src/provider/campaignStakeLock.test.ts`. Persisted schema is `{v:2, beaten, lockStake}`; **a v1
 payload is rejected on purpose** (no stamp ⇒ untrusted).
 
+**A RESET CANCELS THE ATTEMPT, it does not merely erase the record** — and getting this wrong left the
+exploit fully open while all 12 unit tests passed. The lock function was correct; the provider wiped
+`beaten` and then entered the selected node anyway. Proven by PLAYING it: nine nodes conquered at $1,
+open ZERO CITADEL, raise to $25 — progress wiped, lock re-stamped at $25, and the player handed the
+39.95x final node AT $25. It also stranded a conquered island behind fogged nodes (`beaten=[F,F,F,T,…]`,
+since `frontierOf` is the first unbeaten index). The decision now lives in the pure
+`campaignCommitAction`, which returns `resetToMap` WITHOUT a `nodeId` so no caller can start the match;
+the provider refunds (the match never started) and returns to the map with the reset announced.
+
+**The general rule: a correct pure function is not a correct feature.** If a rule's enforcement depends
+on what the caller does with the return value, the CALLER'S DECISION must itself be a tested pure
+function — otherwise the tests guard the arithmetic and the hole stays open. And play the thing: this
+was found by playing the campaign, not by any gate.
+
 ## Generated-asset discipline
 
 **Never commit generated pixels.** `qa-boss/raw/`, `qa-boss/staged-s30/`, `qa-boss/frames/` and

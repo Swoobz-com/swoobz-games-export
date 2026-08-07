@@ -2938,6 +2938,16 @@ export function FightExperience(): JSX.Element {
               assetBase={ASSET_BASE}
               onSelectNode={ctl.startCampaignNode}
             />
+            {/* THE RUN RESET, AND THE PLAYER IS TOLD WHY. Raising the stake above the one a run was
+                played at wipes it (see applyCampaignStakeLock). That used to happen SILENTLY — the
+                player simply found their conquered islands fogged again with no explanation. The
+                stake was refunded because the match never started, so say that too. */}
+            {ctl.campaign.stakeReset && (
+              <div className="fr-map-reset" role="status" style={{ fontSize: 'calc(var(--sh) * 1.5)' }}>
+                RUN RESTARTED · you raised your stake above the one this run was played at, so the
+                island is locked again from the first node. Your stake was not taken.
+              </div>
+            )}
             <div className="fr-map-rtp" style={{ fontSize: 'calc(var(--sh) * 1.3)' }}>
               each trial returns 96% to players over time · practice bank, not real funds
             </div>

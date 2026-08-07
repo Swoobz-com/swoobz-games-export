@@ -2040,6 +2040,25 @@
   border-radius: calc(var(--sw) * 0.25);
   padding: calc(var(--sh) * 0.12) calc(var(--sw) * 0.45);
 }
+/* Run-reset notice on the conquest map. Blood plate, because it is the one message on this screen
+   that reports something the player LOST — it must not read as ambient chrome like the RTP line. */
+.fr-map-reset {
+  position: relative;
+  z-index: 1;
+  max-width: calc(var(--sw) * 60);
+  margin: 0 auto;
+  padding: max(8px, calc(var(--sh) * 0.9)) max(12px, calc(var(--sw) * 1.6));
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--fr-bone, #e8e3d9);
+  background: rgba(120, 18, 14, 0.32);
+  border: 1px solid var(--fr-blood, #ff4135);
+  border-radius: 2px;
+}
 .fr-map-rtp {
   position: relative;
   z-index: 1;

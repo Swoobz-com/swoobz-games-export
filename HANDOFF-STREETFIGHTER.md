@@ -45,6 +45,44 @@ left slot unmirrored, right mirrored, correct asset per slot, each fighter seen 
    `align-items: flex-end` bottom-aligned unequal cards while every geometric number stayed clean.
    FINDING 12 again: gates measure WHERE, never WHAT.
 
+### THE FULL CAMPAIGN WAS PLAYED, AND IT FOUND THE ONE BUG NO GATE DID
+Progress reset, then all 10 nodes driven on the production build (57 min, 941 exchanges, **0 page
+errors**). **8 of 10 nodes genuinely won**, including ZERO CITADEL at its real 2.4% (9 attempts). Nodes
+3 and 4 went 0/8 and 0/7 and were DEV-ADVANCED to continue the audit — that is variance, not a defect
+(both are 27.3% nodes; the sim below proves the rate). Final bank $1137.52, `beaten` all true.
+
+⛔ **THE STAKE LOCK SHIPPED WITH ITS EXPLOIT STILL OPEN.** `applyCampaignStakeLock` was correct and had
+12 passing tests; the provider wiped `beaten` and then **entered the selected node anyway**. Proven live:
+nine nodes at $1, open ZERO CITADEL, raise to $25 → progress wiped, lock re-stamped at $25, and the
+player handed the 39.95x final node AT $25 (bank $1000→$975). The phase-283 commit message claimed the
+opposite. Second symptom: winning that node wrote `beaten=[F,F,F,T,…]`, stranding a conquered island
+behind fogged nodes. FIXED: the decision is now the pure `campaignCommitAction`, whose `resetToMap`
+result carries **no `nodeId`** so no caller can start the match; the provider refunds (match never
+started) and returns to the map with a "RUN RESTARTED" notice — the wipe used to be SILENT.
+**Read the AGENTS.md note on this: a correct pure function is not a correct feature.**
+
+| audit | result |
+|---|---|
+| money on every match | **BigInt-EXACT** vs `floor(stake*multBps/10000)` — stake, payout, net, bank |
+| defense rendering, 6 node kinds | **6/6** — bulk N = 3+N enemy segs; shield N = 3 segs + N pips; player always 3 |
+| advertised odds vs real math | **10/10 on-model**, 2M matches/node, RTP 95.80-96.03%, bulk/shield pairs agree to 0.01% |
+| stake lock live (higher/same/lower) | **3/3**, and the lock correctly does NOT ratchet down |
+| fix non-regression | **4/4** — only the raised-stake case bounces, and it charges $0.00 |
+| first-to-3 format | max ROUND 4 reached on nodes 6, 7, 10 (plays past engine matchOver, as designed) |
+
+Clarity is strong: the node card states enemy, format, the defense rule in plain words, an honest win
+chance (2.4% on node 10) and the exact payout ($199.79); the fight HUD restates all of it plus
+`STRIKE > THROW > BLOCK > STRIKE`, and each pick shows glyph + ROCK/SCISSORS/PAPER + a reason.
+**Instrument note:** the HP segment class is `fr-hpseg` (no second hyphen) — a `[class*="hp-seg"]`
+selector silently matches nothing, which is why the driver's own hp-seg column read 0 all run.
+
+### Still open on the campaign (small, not decided here)
+- **No completion moment.** After all 10 are conquered the map shows 10 flags and the same RTP line —
+  nothing marks that the season was finished, and the 39.95x boss deserves a beat.
+- **A conquered node re-opens with an identical card** (win chance + PAYS, no "already conquered" cue).
+  Replaying is economically fine — flat ~96% RTP per node means farming is not an exploit — but the card
+  should say so.
+
 ### Open, and deliberately NOT decided for Tim
 **Portrait phone is inherently cramped** — the stage is 214 of 852px (25% of screen, dead black above
 and below) and the pick row eats **51%** of the stage box vs 28% landscape and 19% desktop. Landscape
