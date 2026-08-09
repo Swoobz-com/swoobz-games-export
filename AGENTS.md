@@ -272,18 +272,27 @@ player should always farm the LAST node of a tier. Do not "fix" any of this by r
 is a deliberate ruling. `fightCampaign.test.ts` asserts ten distinct STRICTLY ascending prices, a 13200n
 opener, the 40000n close, and the exact per-node returns.
 
-**Never type an RTP into the UI.** Because the return now varies per node, every RTP the player sees is
-derived by `nodeRtpPercent()` / `campaignRtpRange()` from the same exact rationals that price the ladder.
-The map line and the node card's RETURNS stat both read from those. A hardcoded "96%" is precisely how a
-game ends up telling the player a number its own math contradicts — that string shipped for weeks and only
-stopped being true the moment the cap landed. The quick duel is still genuinely 1.92x at 96%, so its
-copy is a literal and that is fine.
+**Never type an RTP into the UI.** Because the return varies per node, every RTP the player sees is
+derived by `campaignRtpRange()` from the same exact rationals that price the ladder. A hardcoded "96%" is
+precisely how a game ends up telling the player a number its own math contradicts — that string shipped
+for weeks and only stopped being true the moment the cap landed. The quick duel is still genuinely 1.92x
+at 96%, so its copy is a literal and that is fine.
+(The node card carried a per-node RETURNS stat from `nodeRtpPercent()` until phase 299; Tim removed it —
+WIN CHANCE and PAYS are the two numbers a player acts on and RETURNS was their product. The map's
+computed range is now the only place a return is shown. If a per-node figure ever comes back, import
+`nodeRtpPercent` again rather than typing a number.)
 
 Two things are NOT leaks but must be understood: **`RESET PRACTICE BANK` restores $1000 in one click with
 no gate** (`FightExperience.tsx`), which is correct for a practice bank and is also what makes every other
 client-side trick pointless — and **`DEV_MODE` is a `?dev` query param**, so the CONQUER NEXT/ALL hooks are
-live in a production build. They touch `beaten[]` only, never money, and a dev-conquered ladder is bounced
-by the stake lock (unstamped progress ⇒ reset ⇒ attempt cancelled, verified live). Before real money:
+live in a production build. They touch `beaten[]` only, never money.
+⚠ **A dev-conquered ladder used to be bounced by the stake lock. That lock is gone (phase 300), so the
+hooks now hand out PERMANENT progress.** Measured: `?dev=1` -> CONQUER ALL -> reload without `?dev` gives
+`beaten` all-true and **12 of 12 fighters selectable, 0 locked**. Previously the next stake commit
+cancelled it. This is NOT a money leak — every node is -EV, so a free ladder only buys access to losing
+bets and a payout still requires winning the fight — but it does mean two clicks permanently unlock the
+whole roster, which is the progression the unlock announcement exists to make feel earned. Dev-gate the
+hooks properly before real money, or before anyone plays this who should not have them. Before real money:
 server-held balance + server-side settle re-derived from the server's own node table; then dev-gate
 `resetBank` and add commit-reveal for PvP picks. Note PvP has no house exposure today — the relay carries
 no money. (Until phase 295 the relay was attached ONLY to the vite dev/preview servers, so a static
