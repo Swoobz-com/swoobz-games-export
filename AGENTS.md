@@ -27,7 +27,7 @@ Three modes: **VERSUS CPU** (quick duel, flat 1.92x at 96% RTP), **CONQUEST** (t
 | Size | ~8.7k lines across the four files that matter (see the Map). 12 fighters, 10 arenas, 10 campaign nodes. |
 | Money | A **practice bank**, not real funds. $1000, restorable in one click. Nothing here touches a payment rail. |
 | Repo | Its own git repo. Remote `export` → `Swoobz-com/swoobz-games-export`, branch **`standoff`**. |
-| State | Phase 297. `tsc` 0 · 286 tests / 17 files · build clean · 2M-match math sim passing. |
+| State | Phase 300. `tsc` 0 · 276 tests / 17 files · build clean · 2M-match math sim passing. |
 
 ## 2. Running it
 
@@ -48,12 +48,12 @@ They touch campaign progress only, never money.
 
 ```bash
 npx tsc --noEmit                                                 # must be 0
-npx vitest run --pool=forks --poolOptions.forks.singleFork=true  # 286 tests / 17 files as of phase 296
+npx vitest run --pool=forks --poolOptions.forks.singleFork=true  # 276 tests / 17 files as of phase 300
 npm run build                                                    # tsc --noEmit && vite build
 npx vite-node scripts/campaign-rtp-sim.mjs                       # 2M matches/node, proves the economy
 
 # The UI gates need a dev server already running, and drive real Chrome against it:
-node scripts/qa-phase294.mjs                    # 46 render assertions   (QA_PORT, default 5342)
+node scripts/qa-phase294.mjs                    # 48 render assertions   (QA_PORT, default 5342)
 node scripts/qa-phase294-receipt.mjs --port N   # plays real matches to reach the receipt states
 ```
 
@@ -101,8 +101,10 @@ receipt and which economy apply.
 `settleCampaign` / `settleMatch` credits the payout exactly once (one-shot ref guard) → the receipt is
 frozen at settle and the UI only reads it. Refunds exist only for matches that never started.
 
-**Persistence** is three localStorage keys, all corrupt-safe: campaign progress `{v:2, beaten,
-lockStake}`, the practice bank, and the chosen arena. A `v1` campaign payload is **rejected on purpose**.
+**Persistence** is three localStorage keys, all corrupt-safe: campaign progress `{v:2, beaten}`, the
+practice bank, and the chosen arena. A `v1` campaign payload is **rejected on purpose**. (The campaign
+payload used to carry a `lockStake`; it is gone, and an old save that still has the key parses fine —
+the version deliberately stayed at 2 so nobody's run was disturbed by the removal.)
 
 **Characters** are data, not code. Each fighter is a manifest in `src/characters/<id>.ts` pointing at a
 still, a cutout, a portrait and a set of alpha-WebM clips per state (idle / attacks / hit / ko / …).
@@ -168,7 +170,7 @@ completing create → join → pair → pick).
 
 ```bash
 npx tsc --noEmit                                              # must be 0
-npx vitest run --pool=forks --poolOptions.forks.singleFork=true  # 286 tests / 17 files as of phase 296
+npx vitest run --pool=forks --poolOptions.forks.singleFork=true  # 276 tests / 17 files as of phase 300
 npm run build                                                 # tsc --noEmit && vite build
 npm start                                                     # serve dist + the VS FRIEND relay (PORT, default 5340)
 ```
@@ -213,22 +215,33 @@ freeRosterFighters.test.ts` guards this; extend it when you add a character.
 **`still` is mandatory.** Four unguarded consumers (fighter box, select tile, select preview, both HUD
 medallions) and it is the whole character under `prefers-reduced-motion`.
 
-**THE CAMPAIGN STAKE LOCK.** A run is locked to the stake it was played at. Entering the map at a
-HIGHER stake wipes progress; the same or lower keeps it. It exists because node payouts are fixed
-multipliers — without it a player could conquer cheap nodes and then cash the final multiplier at a huge
-stake. (It was written when node 10 paid 39.959x. Since phase 291 the cap is **4.00x**, so the leverage
-is far smaller, but the lock stays: the exploit shape is the same at any multiplier above the opener's.) Pure logic + tests: `applyCampaignStakeLock` in `src/provider/fightProvider.ts`
-and `src/provider/campaignStakeLock.test.ts`. Persisted schema is `{v:2, beaten, lockStake}`; **a v1
-payload is rejected on purpose** (no stamp ⇒ untrusted).
+**A STAKE CHANGE CAN NEVER DESTROY A RUN** (Tim, 2026-08-09). Pick any stake, any time. There is no
+lock, no wipe, and nothing to warn about. Persisted schema is `{v:2, beaten}`; **a v1 payload is
+rejected on purpose**. Guarded by `src/provider/campaignStakeFreedom.test.ts`, which is the old
+stake-lock suite rewritten to assert the opposite property, plus G0-G7 in `scripts/qa-phase294.mjs`
+(a legacy save committing at the MAX stake must lose nothing).
 
-**A RESET CANCELS THE ATTEMPT, it does not merely erase the record** — and getting this wrong left the
-exploit fully open while all 12 unit tests passed. The lock function was correct; the provider wiped
-`beaten` and then entered the selected node anyway. Proven by PLAYING it: nine nodes conquered at $1,
-open ZERO CITADEL, raise to $25 — progress wiped, lock re-stamped at $25, and the player handed the
-39.95x final node AT $25. It also stranded a conquered island behind fogged nodes (`beaten=[F,F,F,T,…]`,
-since `frontierOf` is the first unbeaten index). The decision now lives in the pure
-`campaignCommitAction`, which returns `resetToMap` WITHOUT a `nodeId` so no caller can start the match;
-the provider refunds (the match never started) and returns to the map with the reset announced.
+**THE STAKE LOCK EXISTED UNTIL 2026-08-09, AND IT COST A PLAYER A RUN. Read this before adding
+anything like it back.** A run was locked to the stake it was played at, and committing above that lock
+wiped all ten nodes and re-locked every fighter earned. It was written for a 39.959x finale, to stop
+"conquer nodes 1-9 cheap, then cash the final multiplier at a huge stake". Two things killed it:
+
+1. **It protected nothing.** Under the 4.00x cap every node returns under 100% — the best in the game
+   is node 2 at 74.6%, the finale is 9.6% — so cashing progress at a high stake is a WORSE bet, not a
+   better one. `fightCampaign.test.ts` pins that as "EVERY node is -EV at EVERY stake", and **that test
+   is the guard**: if a re-tune ever lifts a node to 100%, it fails, and a protection has to come back
+   with that change.
+2. **It destroyed real progress on the DEFAULT path.** The lock adopted the current stake whenever
+   progress was empty, and the stake is not persisted (every reload re-arms at `DEFAULT_STAKE` $5). So
+   one commit at a low stake while the run happened to be empty silently re-based the run, and
+   returning to the stake you had been playing at all along wiped it. Reproduced end to end: play at
+   $10 → run empty for any reason → rebuild at $5 → the lock is now $5 → click $10 → ten nodes and
+   nine fighters gone.
+
+**If a protection is ever needed again, cap the picker at the run's stake — do not wipe.** Disabling a
+chip protects the same invariant without ever taking a run away from someone. And note the parser rule
+that had to go with it: it used to DROP any progress carrying no readable stamp, which would have wiped
+every existing player's run the moment the stamp stopped being written.
 
 **THE 96% CEILING is the reason this game is not a money printer, so treat it as an invariant.** No node
 returns more than 96.0000%, and all money is BigInt with FLOOR truncation, so no stake/multiplier pair can
@@ -286,16 +299,10 @@ on what the caller does with the return value, the CALLER'S DECISION must itself
 function — otherwise the tests guard the arithmetic and the hole stays open. And play the thing: this
 was found by playing the campaign, not by any gate.
 
-**THE STAKE LOCK MUST BE DISCLOSED BEFORE THE BUTTON, NOT AFTER THE WIPE.** Committing above a run's
-`lockStake` wipes all ten nodes and re-locks every fighter earned. The trap is the DEFAULT path, not an
-exotic one: the stake is not persisted, so a returning player whose run was locked at $1 re-arms at
-`DEFAULT_STAKE` $5, opens a conquered node, and the single obvious button destroys the run. For weeks
-that was announced only afterwards, on the map's RUN RESTARTED plate, and `lockStakeLamports` was
-rendered NOWHERE — the player could not even compute the risk. The node card now carries
-`.fr-stake-wipewarn` above the picker, the hint switches to "THIS STAKE RESTARTS THE RUN", and the
-commit button reads RESTART THE RUN AT $X. **Any new copy about replaying must stay conditional on
-`stakeWipesRun`**: above the lock, "costs the same stake and pays the same" is FALSE — nothing is
-charged and nothing is paid, because the match never starts.
+**IF YOU EVER MAKE SOMETHING IRREVERSIBLE, DISCLOSE IT BEFORE THE BUTTON.** The stake lock shipped for
+weeks announcing its wipe only AFTERWARDS, on the map, past the point of no return — every other
+consequence on that screen (win chance, pays, defense) was disclosed before the stake. It was given a
+pre-commit warning in phase 296 and then removed entirely in phase 299; the rule it taught outlives it.
 
 **NEVER STALL A MATCH THAT HAS A SECOND HUMAN IN IT.** The portrait rotate prompt freezes the 5s shot
 clock so a curtained player's committed stake is not spent on random auto-picks. It is deliberately
@@ -332,7 +339,7 @@ view. Assert real box INTERSECTION, and look at the screenshot.
 
 ## Gates that cannot fail
 
-`scripts/qa-phase294.mjs` (46 render assertions) and `scripts/qa-phase294-receipt.mjs` (plays real
+`scripts/qa-phase294.mjs` (48 render assertions) and `scripts/qa-phase294-receipt.mjs` (plays real
 matches) are the ONLY mechanical guard on `FightExperience.tsx`: there is no jsdom and vitest only
 matches `src/**/*.test.ts`, so **JSX has zero unit coverage and a green `vitest` proves nothing about
 it.** Four holes were found in those drivers by mutation-testing them in a throwaway `git worktree`,
@@ -403,8 +410,9 @@ Specs, in the order they are useful: `PRODUCT.md` (what the product is), `DESIGN
 
 A short index into the rules above, for someone who has to prioritise:
 
-1. **The stake lock can wipe a run on the default path** — and it is only safe because it is now
-   disclosed before the button. Any change to the stake screen must keep that disclosure.
+1. **A stake change can never destroy a run** — the lock that used to do exactly that is gone. If you
+   think you need it back, read its obituary in `fightProvider.ts` first; it protected nothing and it
+   cost a real player a real run.
 2. **`getFighter` throws by contract**, so removing or renaming a fighter is a breaking change across
    three files.
 3. **A clip filed under a state the engine never emits fails silently** — no throw, no log, the fighter

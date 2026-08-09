@@ -226,6 +226,27 @@ describe('the node ladder (phase 17) — formats, defenses, multipliers', () => 
       expect(n.multBps * p.num <= 9600n * p.den, `node ${n.id} returns more than 96%`).toBe(true);
     }
   });
+  it('EVERY node is -EV at EVERY stake — this is what makes the stake lock unnecessary', () => {
+    // ⚠ THIS TEST IS MORE THAN IT LOOKS: it is the load-bearing justification for DELETING the
+    // campaign stake lock (Tim, 2026-08-09). That lock wiped a run whenever the player raised their
+    // stake above the one the run was played at, and it existed to stop "conquer nodes cheap at $1,
+    // then cash a big multiplier at $25". Under the 4.00x cap that threat does not exist: the BEST
+    // node in the game returns 74.6%, so cashing at a high stake is simply a worse bet, not a better
+    // one. There is no stake, and no order of play, that turns campaign progress into an edge.
+    //
+    // So if this test ever fails, the deletion is no longer safe. Any re-tune that lifts a node to or
+    // above 100% re-opens the exploit and the lock (or an equivalent) has to come back WITH it.
+    // The wipe cost a real player a real run before it was removed; do not restore it casually, and
+    // do not lift a node past 100% without restoring something.
+    for (const n of CAMPAIGN_NODES) {
+      const p = matchWinProbability(defenseAmount(n), n.roundsToWin, guardAmount(n));
+      // RTP = P x mult. Strictly below 1.0 means the player loses money in expectation, always.
+      expect(
+        n.multBps * p.num < 10_000n * p.den,
+        `node ${n.id} returns >= 100% — it is now +EV, so removing the stake lock is UNSAFE`,
+      ).toBe(true);
+    }
+  });
   it('the per-node RETURN is exactly this, and the map/card disclose it', () => {
     // Pinned so a price or difficulty edit cannot quietly move what the player is told. These are the
     // numbers nodeRtpPercent() renders on the node card and campaignRtpRange() renders on the map.

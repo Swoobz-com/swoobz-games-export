@@ -436,76 +436,81 @@ for (const dev of [
 }
 
 // ============================================================================================
-// PART G — THE STAKE-LOCK WIPE WARNING (phase 296). The trap is the DEFAULT path: the stake is not
-// persisted, so a returning player whose run was locked at $1 re-arms at $5, opens a conquered node,
-// and the one obvious button destroys the run. It used to be disclosed only AFTER it fired.
+// PART G — A STAKE CHANGE CANNOT DESTROY A RUN (Tim, 2026-08-09). This block used to assert the
+// pre-commit WIPE WARNING; the wipe itself was removed, so it now asserts the opposite and stronger
+// property: raise the stake as far as it goes on a fully-conquered run and every node survives.
 // ============================================================================================
 {
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
   await page.goto(`http://localhost:${PORT}/?dev=1`, { waitUntil: 'networkidle2' });
-  // ⚠ WAIT FOR THE APP TO MOUNT BEFORE SEEDING. The provider persists campaign progress in a mount
-  // effect, so a seed written into a still-booting page is overwritten by the app's own first write
-  // and the reload then loads the app's state instead of the fixture. That produced a G-block that
-  // reported "no warning" against a build whose warning was working perfectly — a driver race
-  // masquerading as a product regression, which is the most expensive kind of false red.
+  // Wait for the app to mount BEFORE seeding: the provider persists progress in a mount effect, so
+  // a seed written into a booting page is overwritten by the app's own first write and the reload
+  // then loads the app's state instead of the fixture. That produced a G block reporting "no
+  // warning" against a build whose warning worked perfectly — a driver race reading as a regression.
   await page.waitForSelector('.fr-viewport', { timeout: 10000 });
   await sleep(700);
-  // Seed a legitimate v2 payload: all ten conquered, run locked at $1.
+  // A LEGACY payload, still carrying the retired lockStake key at the LOWEST stake in the game.
+  // Under the old rule this run was one click away from being destroyed; it must now be untouchable.
   await page.evaluate(() => {
     localStorage.setItem('frozen-requiem.campaign.v1', JSON.stringify({ v: 2, beaten: new Array(10).fill(true), lockStake: '1000000' }));
   });
   await page.reload({ waitUntil: 'networkidle2' });
-  await sleep(400);
-  // Prove the fixture actually survived, so every assertion below is about the app, not the seed.
-  const seedOk = await page.evaluate(() => {
-    try { const c = JSON.parse(localStorage.getItem('frozen-requiem.campaign.v1') || 'null'); return c && c.lockStake === '1000000' && c.beaten.every(Boolean); } catch { return false; }
+  await sleep(500);
+  const seeded = await page.evaluate(() => {
+    try { const c = JSON.parse(localStorage.getItem('frozen-requiem.campaign.v1') || 'null'); return c && c.beaten.every(Boolean); } catch { return false; }
   });
-  rec('G0 the $1-locked, fully-conquered fixture survived the reload', seedOk === true, `seed intact = ${seedOk}`);
-  await sleep(1000);
+  rec('G0 a legacy $1-locked, fully-conquered save loads with its progress intact', seeded === true, `beaten all true = ${seeded}`);
+
   await clickText(page, 'PRESS TO BEGIN');
-  await sleep(800);
+  await sleep(700);
   await clickText(page, 'CONQUEST MAP');
   await sleep(900);
+  const onMap = await page.evaluate(() => ({
+    conquest: document.querySelectorAll('.fr-map-conquest').length,
+    resetPlate: document.querySelectorAll('.fr-map-reset').length,
+    title: (document.querySelector('.fr-map-title') || {}).textContent || '',
+  }));
+  rec('G1 the legacy save still shows all ten conquered', onMap.conquest === 1 && /CLEARED/.test(onMap.title), JSON.stringify(onMap));
+  rec('G2 the RUN RESTARTED plate no longer exists anywhere', onMap.resetPlate === 0, `.fr-map-reset = ${onMap.resetPlate}`);
+
+  // Open a node and raise the stake to the MAXIMUM. Under the old lock this was the wipe.
   await page.evaluate(() => {
     const el = [...document.querySelectorAll('.fr-map-node, [class*="fr-map"][role="button"]')]
       .find((e) => (e.getAttribute('aria-label') || '').toUpperCase().includes('KUROHAMA'));
     if (el) el.click();
   });
   await sleep(1000);
-  const warn = await page.evaluate(() => ({
-    onCard: !!document.querySelector('.fr-nodecard'),
-    warn: document.querySelectorAll('.fr-stake-wipewarn').length,
-    warnText: (document.querySelector('.fr-stake-wipewarn')?.textContent || '').replace(/\s+/g, ' ').trim(),
-    commit: (() => {
-      const b = [...document.querySelectorAll('button')].find((e) => /RESTART THE RUN|STAKE \$/.test(e.textContent || ''));
-      return (b?.textContent || '').replace(/\s+/g, ' ').trim();
-    })(),
-    replayNote: document.querySelectorAll('.fr-nodecard-replay-note').length,
-    lockShown: /\$1\.00/.test(document.querySelector('.fr-stake-wipewarn')?.textContent || ''),
-  }));
-  rec('G1 default $5 stake over a $1-locked run WARNS before the button', warn.onCard && warn.warn === 1, JSON.stringify(warn).slice(0, 220));
-  rec('G2 the warning names the run lock the player cannot otherwise see', warn.lockShown === true, `text = "${warn.warnText.slice(0, 130)}"`);
-  rec('G3 the commit button stops saying STAKE and says RESTART THE RUN', /RESTART THE RUN/.test(warn.commit), `button = "${warn.commit}"`);
-  rec('G4 the "costs the same stake, pays the same" note steps aside (it is false here)', warn.replayNote === 0, `replay notes = ${warn.replayNote}`);
-  await page.screenshot({ path: `${OUT}/J-stake-wipe-warning.png` });
-
-  // Lower the stake to the lock: the warning must go and the node must be playable again.
   await page.evaluate(() => {
-    const b = [...document.querySelectorAll('button')].find((e) => (e.textContent || '').trim() === '$1');
+    const b = [...document.querySelectorAll('button')].filter((e) => e.offsetParent !== null).find((e) => (e.textContent || '').trim() === '$25');
     if (b) b.click();
   });
-  await sleep(700);
-  const cleared = await page.evaluate(() => ({
+  await sleep(600);
+  const armed = await page.evaluate(() => ({
     warn: document.querySelectorAll('.fr-stake-wipewarn').length,
-    commit: (() => {
-      const b = [...document.querySelectorAll('button')].find((e) => /RESTART THE RUN|STAKE \$/.test(e.textContent || ''));
-      return (b?.textContent || '').replace(/\s+/g, ' ').trim();
-    })(),
+    commit: ([...document.querySelectorAll('button')].find((e) => /STAKE \$|RESTART THE RUN/.test(e.textContent || '')) || {}).textContent || '',
     replayNote: document.querySelectorAll('.fr-nodecard-replay-note').length,
   }));
-  rec('G5 lowering the stake to the lock clears the warning', cleared.warn === 0 && /STAKE \$/.test(cleared.commit), JSON.stringify(cleared));
-  rec('G6 and the honest replay note comes back', cleared.replayNote === 1, `replay notes = ${cleared.replayNote}`);
+  rec('G3 no wipe warning appears at the maximum stake', armed.warn === 0, JSON.stringify(armed));
+  rec('G4 the commit button still just says STAKE', /STAKE \$25/.test(armed.commit.replace(/\s+/g, ' ')), `button = "${armed.commit.trim()}"`);
+  rec('G5 the honest replay note shows (nothing contradicts it now)', armed.replayNote === 1, `replay notes = ${armed.replayNote}`);
+
+  // COMMIT at $25 over a $1 legacy lock — the exact action that used to destroy ten nodes.
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll('button')].filter((e) => e.offsetParent !== null && !e.disabled)
+      .find((e) => /STAKE \$|RESTART THE RUN/.test((e.textContent || '').trim()));
+    if (b) b.click();
+  });
+  await sleep(3000);
+  const after = await page.evaluate(() => {
+    let c = null;
+    try { c = JSON.parse(localStorage.getItem('frozen-requiem.campaign.v1') || 'null'); } catch { /* */ }
+    return { beaten: c ? c.beaten.map((x) => (x ? 1 : 0)).join('') : null, hasLockKey: c ? Object.prototype.hasOwnProperty.call(c, 'lockStake') : null };
+  });
+  rec('G6 committing at the MAX stake over a $1 legacy lock destroys NOTHING', after.beaten === '1111111111',
+    `beaten after commit = ${after.beaten} (must stay all 1s)`);
+  rec('G7 and the retired lockStake key is no longer written back', after.hasLockKey === false, `lockStake present = ${after.hasLockKey}`);
+  await page.screenshot({ path: `${OUT}/J-stake-free.png` });
   await page.close();
 }
 

@@ -164,55 +164,45 @@ export interface CampaignState {
   guardRemaining: number;
   /** True iff the ENEMY's decisive hit was absorbed by the player's guard this exchange. */
   guarded: boolean;
-  /** The stake this run's progress is locked to (Tim's rule): entering the map ABOVE this wipes
-   *  progress, the same or lower keeps it. null = no progress yet, so any stake is free to pick. */
-  lockStakeLamports: bigint | null;
-  /** True for the entry that just wiped progress, so the UI can say WHY the map reset. */
-  stakeReset: boolean;
 }
 
-// Campaign progression persistence (spec §5). Shape { v:2, beaten: boolean[10], lockStake: string };
+// Campaign progression persistence (spec §5). Shape { v:2, beaten: boolean[10] };
 // corrupt/missing/older-version = fresh. Balance stays the shared practice bank
 // (BALANCE_STORAGE_KEY) via the existing paths. The KEY NAME is deliberately unchanged — the internal
 // `v` carries the schema version, per the "never rebrand the keys" rule above.
+//
+// ⚠ `lockStake` USED TO LIVE IN THIS PAYLOAD and is gone (Tim, 2026-08-09 — see applyCampaignStakeLock's
+// obituary below). The version stays at 2 on purpose: an existing save that still carries a lockStake
+// key parses fine (the extra key is simply ignored), so nobody's run is disturbed by the removal.
 const CAMPAIGN_STORAGE_KEY = 'frozen-requiem.campaign.v1';
 
-/** Campaign progress plus THE STAKE THE RUN IS LOCKED TO.
- *  `lockStakeLamports` is null only for a run with no progress yet (nothing to protect). */
+/** Campaign progress: which nodes are conquered. Nothing else — a run is no longer bound to a stake. */
 export interface CampaignProgress {
   beaten: boolean[];
-  lockStakeLamports: bigint | null;
 }
 
 const freshBeaten = (): boolean[] => new Array<boolean>(CAMPAIGN_NODE_COUNT).fill(false);
 
 /** Corrupt-safe parse of the persisted campaign progress (pure — exported for unit tests). Anything
- *  malformed (bad JSON, unknown version, non-array) => fresh progress with no lock.
+ *  malformed (bad JSON, unknown version, non-array) => fresh progress.
  *
- *  ⚠ A v1 payload is INTENTIONALLY treated as corrupt and reset, not migrated. v1 stored `beaten`
- *  with NO stake stamp, so migrating it would hand the player one free re-stamp: progress earned at a
- *  low stake could adopt an arbitrarily high stake on the next entry, which is precisely the exploit
- *  the lock exists to close. Discarding it also matches this parser's own established contract that an
- *  unrecognised version is fresh. */
+ *  ⚠ A v1 payload is still treated as corrupt and reset rather than migrated — that predates the
+ *  stake lock and simply matches this parser's contract that an unrecognised version is fresh.
+ *
+ *  ⚠ THE "NO STAMP MEANS UNTRUSTED, DROP IT" RULE IS GONE, and removing it was mandatory rather than
+ *  tidy: it discarded any progress that carried no readable lockStake. Once the stamp stopped being
+ *  written, that rule would have silently wiped every player's run on their next load. */
 export function parseCampaignProgress(raw: string | null): CampaignProgress {
-  const none = (): CampaignProgress => ({ beaten: freshBeaten(), lockStakeLamports: null });
+  const none = (): CampaignProgress => ({ beaten: freshBeaten() });
   if (raw == null) return none();
   try {
     const data = JSON.parse(raw) as unknown;
     if (typeof data !== 'object' || data === null) return none();
-    const rec = data as { v?: unknown; beaten?: unknown; lockStake?: unknown };
+    const rec = data as { v?: unknown; beaten?: unknown };
     if (rec.v !== 2 || !Array.isArray(rec.beaten)) return none();
     const beaten = freshBeaten();
     for (let i = 0; i < CAMPAIGN_NODE_COUNT; i += 1) beaten[i] = rec.beaten[i] === true;
-    // The stamp is stored as a decimal STRING — JSON has no BigInt, and a Number would silently lose
-    // precision on large lamport values.
-    let lock: bigint | null = null;
-    if (typeof rec.lockStake === 'string' && /^\d+$/.test(rec.lockStake)) {
-      try { lock = BigInt(rec.lockStake); } catch { lock = null; }
-    }
-    // Progress with no readable stamp cannot be trusted for the same reason v1 cannot: drop it.
-    if (lock === null && beaten.some((b) => b)) return none();
-    return { beaten, lockStakeLamports: lock };
+    return { beaten };
   } catch {
     return none();
   }
@@ -223,63 +213,33 @@ export function parseCampaignBeaten(raw: string | null): boolean[] {
   return parseCampaignProgress(raw).beaten;
 }
 
-/** THE STAKE LOCK (Tim's rule, 2026-08-07): a campaign run is locked to the stake it was played at.
- *  Entering the map at a HIGHER stake than the run is locked to WIPES progress and starts again; the
- *  same stake or LOWER keeps it.
- *
- *  Why it exists: node payouts are fixed multipliers of the stake (`campaignPayout` = stake*multBps/1e4,
- *  and node 10 is 39.959x). Without this, a player could conquer nodes 1-9 at a trivial stake and then
- *  raise the stake enormously for the final node, collecting a huge multiplier on progress that was
- *  never paid for at that level. Locking progress to its stake removes that entirely, while still
- *  letting a player drop DOWN to a cheaper stake whenever they like.
- *
- *  PURE. Returns the progress to persist and whether a reset happened (the UI announces it).
- *  A run with nothing beaten simply adopts the stake — there is no progress to protect yet. */
-export function applyCampaignStakeLock(
-  progress: CampaignProgress,
-  stakeLamports: bigint,
-): { progress: CampaignProgress; reset: boolean } {
-  const hasProgress = progress.beaten.some((b) => b);
-  if (!hasProgress) return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: false };
-  const lock = progress.lockStakeLamports;
-  if (lock === null) {
-    // LOAD-BEARING, not defensive. This was documented as "unreachable via parseCampaignProgress",
-    // which is true of STORAGE but not of memory: `devConquerAll` (?dev=1) fills beaten[] WITHOUT
-    // stamping a lockStake, so a fresh profile can hold conquered-but-unstamped progress. Verified
-    // live: ?dev=1 -> CONQUER ALL -> open ZERO CITADEL at $25 -> this branch fires, the run resets and
-    // the attempt is cancelled, so the 39.959x node cannot be cashed off a dev-conquered ladder
-    // ($0 spent, bounced to the map). Wiping on an unverifiable stamp is the safe direction — keep it.
-    return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: true };
-  }
-  if (stakeLamports > lock) {
-    return { progress: { beaten: freshBeaten(), lockStakeLamports: stakeLamports }, reset: true };
-  }
-  // Same stake or lower: progress survives and the lock does NOT move down, so a player who drops to a
-  // cheaper stake can return to their original level without being punished for it.
-  return { progress, reset: false };
-}
-
-/** What a campaign stake commit should DO — the whole decision, as data.
- *
- *  This exists because `applyCampaignStakeLock` being correct is NOT enough: the caller also has to
- *  act on it. Shipping the lock while still entering the selected node left the exploit fully open,
- *  and it was proven live — nine nodes conquered at $1, then ZERO CITADEL opened and the stake raised
- *  to $25: progress wiped, and the player was handed the 39.95x final node AT $25 anyway. **A reset
- *  cancels the attempt, it does not merely erase the record.** Keeping that rule in a pure function
- *  makes it unit-testable without rendering the provider, which is how it went unnoticed the first time. */
-export type CampaignCommitAction =
-  | { kind: 'play'; nodeId: number; progress: CampaignProgress }
-  | { kind: 'resetToMap'; progress: CampaignProgress };
-
-export function campaignCommitAction(
-  progress: CampaignProgress,
-  stakeLamports: bigint,
-  nodeId: number,
-): CampaignCommitAction {
-  const applied = applyCampaignStakeLock(progress, stakeLamports);
-  if (applied.reset) return { kind: 'resetToMap', progress: applied.progress };
-  return { kind: 'play', nodeId, progress: applied.progress };
-}
+// ── THE STAKE LOCK IS GONE (Tim, 2026-08-09). Keep this obituary; it is the reason. ────────────
+//
+// `applyCampaignStakeLock` / `campaignCommitAction` used to live here. A campaign run was locked to
+// the stake it was played at, and committing ABOVE that lock wiped all ten nodes and re-locked every
+// fighter earned. It was written when node 10 paid 39.959x, to stop "conquer nodes 1-9 at a trivial
+// stake, then raise the stake enormously for the final node".
+//
+// TWO THINGS KILLED IT.
+//
+// 1. IT PROTECTED NOTHING. Under the 4.00x cap every node returns LESS than 100% — the best in the
+//    game is node 2 at 74.6%, and the finale is 9.6%. Cashing progress at a high stake is therefore a
+//    WORSE bet, not a better one; there is no stake and no order of play that turns campaign progress
+//    into an edge. `fightCampaign.test.ts` pins that explicitly ("EVERY node is -EV at EVERY stake"),
+//    and that test is now the guard: if a re-tune ever lifts a node to 100%, it fails, and the lock —
+//    or an equivalent — has to come back WITH that change.
+//
+// 2. IT DESTROYED A REAL PLAYER'S REAL RUN. The lock ADOPTED the current stake whenever progress was
+//    empty, and the stake is not persisted (every reload re-arms at DEFAULT_STAKE $5). So one commit
+//    made at a low stake while the run happened to be empty silently re-based the whole run to that
+//    stake, and returning to the stake you had been playing at all along then wiped it. Reproduced
+//    end to end: play at $10 -> run empty for any reason -> rebuild at $5 -> the lock is now $5 ->
+//    click $10 -> ten nodes and nine fighters gone. Tim hit exactly this.
+//
+// So: a stake change can no longer destroy progress, and there is nothing left to announce. The
+// player picks any stake they like, whenever they like. If the ladder is ever re-tuned upward, do NOT
+// restore this wipe — cap the picker at the run's stake instead, which protects the same invariant
+// without ever taking a run away from someone.
 
 /** The frontier index: the first unbeaten node (0-based), or the count when all are conquered. Pure. */
 export function frontierOf(beaten: boolean[]): number {
@@ -303,17 +263,12 @@ function loadCampaignProgress(): CampaignProgress {
   }
 }
 
-function saveCampaignProgress(beaten: boolean[], lockStakeLamports: bigint | null): void {
+function saveCampaignProgress(beaten: boolean[]): void {
   try {
     if (typeof localStorage === 'undefined') return;
-    localStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify({
-      v: 2,
-      beaten,
-      // decimal string: JSON has no BigInt and a Number would lose lamport precision
-      lockStake: lockStakeLamports === null ? null : lockStakeLamports.toString(),
-    }));
+    localStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify({ v: 2, beaten }));
   } catch {
-    /* storage unavailable (private mode / quota) — progress stays in-memory only */
+    /* storage unavailable (private mode / quota) — progress is best-effort */
   }
 }
 
@@ -543,13 +498,6 @@ export function useFightController(
   const [campaignNodeId, setCampaignNodeId] = useState<number | null>(null);
   const initialCampaign = useMemo(loadCampaignProgress, []);
   const [campaignBeaten, setCampaignBeaten] = useState<boolean[]>(() => initialCampaign.beaten);
-  // THE STAKE LOCK: the stake this run's progress was earned at. Entering the map above it wipes
-  // progress (see applyCampaignStakeLock). null = no progress yet, so nothing to protect.
-  const [campaignLockStake, setCampaignLockStake] = useState<bigint | null>(
-    () => initialCampaign.lockStakeLamports);
-  // True for the entry that just wiped progress, so the UI can tell the player WHY the map reset
-  // instead of silently showing them a fresh map.
-  const [campaignStakeReset, setCampaignStakeReset] = useState<boolean>(false);
   const [campaignReceipt, setCampaignReceipt] = useState<CampaignReceipt | null>(null);
   // Enemy absorb buffer left this round (shield pips / bulk extra segments) + whether the exchange
   // currently resolving was absorbed (the UI's absorb-beat flag; reset per exchange).
@@ -585,9 +533,6 @@ export function useFightController(
   // --- Campaign refs (synchronous reads inside plain callbacks / timer bodies). ---
   const campaignNodeIdRef = useRef<number | null>(null);
   const campaignBeatenRef = useRef<boolean[]>(campaignBeaten);
-  // Mirrors campaignLockStake for synchronous reads inside commitStake (the lock decision must
-  // happen in the same synchronous body that deducts the stake, never in a setState updater).
-  const campaignLockStakeRef = useRef<bigint | null>(campaignLockStake);
   // The enemy's absorb buffer for the CURRENT round (refilled to the node's defense amount at
   // every round start; drained by applyCampaignExchange — the shared shield/bulk math).
   const campaignDefenseRef = useRef<number>(0);
@@ -609,8 +554,8 @@ export function useFightController(
 
   // Persist campaign progress on every change (idempotent; StrictMode-safe; same pattern as balance).
   useEffect(() => {
-    saveCampaignProgress(campaignBeaten, campaignLockStake);
-  }, [campaignBeaten, campaignLockStake]);
+    saveCampaignProgress(campaignBeaten);
+  }, [campaignBeaten]);
 
   // Refs mirror the state above for synchronous reads inside callbacks/timer bodies --
   // updated directly alongside every setState call, never lagging behind a render.
@@ -1365,44 +1310,13 @@ export function useFightController(
         setPhaseNow('campaignMap');
         return;
       }
-      const action = campaignCommitAction(
-        { beaten: campaignBeatenRef.current, lockStakeLamports: campaignLockStakeRef.current },
-        stake,
-        pending.nodeId,
-      );
-      campaignBeatenRef.current = action.progress.beaten;
-      campaignLockStakeRef.current = action.progress.lockStakeLamports;
-      setCampaignBeaten(action.progress.beaten);
-      setCampaignLockStake(action.progress.lockStakeLamports);
-      setCampaignStakeReset(action.kind === 'resetToMap');
-      if (action.kind === 'resetToMap') {
-        // A RESET MUST ALSO CANCEL THIS ATTEMPT — not just the record.
-        //
-        // Wiping `beaten` while still entering `pending.nodeId` left the exploit the lock exists to
-        // close WIDE OPEN, and it was proven live: conquer nodes 1-9 at $1, open ZERO CITADEL, raise
-        // to $25, commit. Progress wiped to all-false and the lock re-stamped at $25 — and the player
-        // was dropped straight into the 39.95x final node AT $25, i.e. cashing the big multiplier on a
-        // run they never earned at that stake. The wipe punished the record and let the cash-out
-        // through, which is exactly backwards. It also produced an unreachable map state: winning that
-        // node wrote beaten=[F,F,F,...,T], rendering a conquered island sitting behind fogged nodes.
-        //
-        // So on a reset: refund (this match NEVER started — the same one-shot doctrine as a failed
-        // join) and return to the map, which now shows the frontier back at node 1. `campaignStakeReset`
-        // stays true so the UI can tell the player WHY their run restarted.
-        refundStakeIfCommitted();
-        clearAllTimers();
-        setMatchStateNow(createMatch());
-        setLastOutcome(null);
-        campaignDefenseRef.current = 0;
-        setCampaignDefense(0);
-        campaignGuardRef.current = 0;
-        setCampaignGuard(0);
-        setCampaignGuarded(false);
-        setCampaignAbsorbed(false);
-        setPhaseNow('campaignMap');
-        return;
-      }
-      beginCampaignMatch(action.nodeId);
+      // A STAKE CHANGE CAN NO LONGER DESTROY PROGRESS (Tim, 2026-08-09). This used to route through
+      // campaignCommitAction, which wiped every conquered node when the stake exceeded the run's lock
+      // and cancelled the attempt. See the obituary above applyCampaignStakeLock's old home: the lock
+      // protected nothing under the 4.00x cap (every node is -EV at every stake) and it cost a real
+      // player a real run. The node itself is still gated above — `nodeOk` — so a player still cannot
+      // open a node they have not reached.
+      beginCampaignMatch(pending.nodeId);
     }
   }, [beginCpuMatch, beginFriendCreate, beginFriendJoin, beginCampaignMatch,
     refundStakeIfCommitted, clearAllTimers, setMatchStateNow, setPhaseNow]);
@@ -1480,9 +1394,6 @@ export function useFightController(
       campaignNodeIdRef.current = nodeId;
       setCampaignNodeId(nodeId);
       pendingStartRef.current = { kind: 'campaign', nodeId };
-      // Opening a node is the player acknowledging the run-restarted notice, so retire it here.
-      // Otherwise it only cleared on the next stake commit and lingered across map<->node trips.
-      setCampaignStakeReset(false);
       enterStake();
     },
     [clearAllTimers, enterStake],
@@ -1654,8 +1565,6 @@ export function useFightController(
   const campaign: CampaignState = {
     nodeId: campaignNodeId,
     beaten: campaignBeaten,
-    lockStakeLamports: campaignLockStake,
-    stakeReset: campaignStakeReset,
     frontier: frontierOf(campaignBeaten),
     defenseRemaining: campaignDefense,
     absorbed: campaignAbsorbed,

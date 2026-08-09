@@ -1599,24 +1599,13 @@ export function FightExperience(): JSX.Element {
     .filter((def) => !isFighterSelectable(def.id, ctl.campaign.beaten))
     .sort((a, b) => (bossNodeId(a.id) ?? 0) - (bossNodeId(b.id) ?? 0));
   // ALL TEN NODES CONQUERED. Derived from the frontier the provider already computes, never stored:
-  // frontierOf returns the count when nothing is unbeaten. A persisted flag would have to survive (or
-  // not survive) a stake-lock wipe at four separate CampaignProgress construction sites; deriving it
-  // means the finale shows exactly while 10/10 is true, which is the honest state.
+  // frontierOf returns the count when nothing is unbeaten.
   const islandConquered = ctl.campaign.frontier >= CAMPAIGN_NODE_COUNT;
-  // ⚠ THE RUN IS ABOUT TO BE WIPED, AND UNTIL PHASE 296 NOTHING SAID SO. A run is locked to the
-  // stake it was played at; committing ABOVE that lock wipes every node and re-locks every fighter
-  // earned (applyCampaignStakeLock). The trap is not exotic, it is the DEFAULT PATH: the stake is not
-  // persisted, so a returning player whose run was locked at $1 re-arms at DEFAULT_STAKE $5, opens a
-  // conquered node, and the one obvious button on the screen destroys the run. It was disclosed only
-  // AFTER it fired, on the map's RUN RESTARTED plate. Everything else about this decision (win
-  // chance, pays, returns, defense) is disclosed BEFORE the stake — this is the one irreversible
-  // consequence and it was the only one hidden.
-  const runLockStake = ctl.campaign.lockStakeLamports;
-  const stakeWipesRun =
-    ctl.mode === 'campaign' &&
-    runLockStake != null &&
-    ctl.campaign.beaten.some(Boolean) &&
-    ctl.stakeLamports > runLockStake;
+  // `stakeWipesRun` USED TO BE COMPUTED HERE and drove a red warning plate, a hint swap and a
+  // "RESTART THE RUN AT $X" commit label. All three are gone because the thing they warned about is
+  // gone (Tim, 2026-08-09): no stake can destroy a run any more. See the obituary in
+  // fightProvider.ts. If a wipe is ever reintroduced, that disclosure must come back WITH it — the
+  // wipe shipped undisclosed for weeks and that is what made it dangerous.
   const friendOpponentId = ctl.friend.opponentFighterId;
   // The active campaign node (campaign mode only): drives the enemy identity, the match format,
   // the defense presentation and the node-card copy. VOLTA fills every slot this phase.
@@ -2867,7 +2856,7 @@ export function FightExperience(): JSX.Element {
                       match never starts — the run is wiped instead. The wipe warning below the stake
                       picker owns that case, so this note steps aside for it rather than contradicting
                       it two inches higher up the screen. */}
-                  {ctl.campaign.beaten[campaignNode.id - 1] && !stakeWipesRun && (
+                  {ctl.campaign.beaten[campaignNode.id - 1] && (
                     <div className="fr-nodecard-replay-note">
                       you already hold this node · a replay costs the same stake and pays the same
                       x{formatMult(campaignNode.multBps)}, but unlocks nothing new
@@ -2971,21 +2960,10 @@ export function FightExperience(): JSX.Element {
                   it appear and stepping back down makes it go. It also states what does NOT happen —
                   no stake is taken, because the match never starts — since a warning that reads as
                   "you are about to lose money" would be its own kind of lie. */}
-              {stakeWipesRun && runLockStake != null && (
-                <div className="fr-stake-wipewarn" role="alert">
-                  <span aria-hidden="true">&#9888;</span> THIS RUN IS LOCKED TO {formatUsd(runLockStake)} ·
-                  staking {formatUsd(ctl.stakeLamports)} restarts it from node 1 and re-locks every fighter
-                  you have earned. Nothing is taken from your bank · lower the stake to keep the run.
-                </div>
-              )}
               <BetConsole
                 theme={FR_BET_THEME}
                 eyebrow="STAKE THIS NODE"
-                hint={
-                  stakeWipesRun
-                    ? 'THIS STAKE RESTARTS THE RUN. LOWER IT TO PLAY THIS NODE.'
-                    : 'WIN THE MATCH TO GET PAID. LOSE AND THE STAKE IS GONE.'
-                }
+                hint="WIN THE MATCH TO GET PAID. LOSE AND THE STAKE IS GONE."
                 wagerLabel="YOUR STAKE"
                 wagerDisplay={<span>{formatUsd(ctl.stakeLamports)}</span>}
                 onStepDown={() => ctl.stepStake('down')}
@@ -3000,11 +2978,7 @@ export function FightExperience(): JSX.Element {
                 }}
                 balanceLabel="BANK"
                 balanceValue={formatUsd(ctl.balanceLamports)}
-                commitLabel={
-                  stakeWipesRun
-                    ? `RESTART THE RUN AT ${formatUsd(ctl.stakeLamports)}`
-                    : `STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`
-                }
+                commitLabel={`STAKE ${formatUsd(ctl.stakeLamports)} + FIGHT`}
                 onCommit={ctl.commitStake}
                 commitDisabled={!ctl.canStake}
                 disabledLabel="NOT ENOUGH IN BANK"
@@ -3160,24 +3134,12 @@ export function FightExperience(): JSX.Element {
               assetBase={ASSET_BASE}
               onSelectNode={ctl.startCampaignNode}
             />
-            {/* THE RUN RESET, AND THE PLAYER IS TOLD WHY. Raising the stake above the one a run was
-                played at wipes it (see applyCampaignStakeLock). That used to happen SILENTLY — the
-                player simply found their conquered islands fogged again with no explanation. The
-                stake was refunded because the match never started, so say that too. */}
-            {ctl.campaign.stakeReset && (
-              <div className="fr-map-reset" role="status" style={{ fontSize: 'calc(var(--sh) * 1.5)' }}>
-                RUN RESTARTED · you raised your stake above the one this run was played at, so the
-                island is locked again from the first node. Your stake was not taken.
-              </div>
-            )}
-            {/* ALL TEN CONQUERED. The counterpart of the reset plate above: the one message on this
-                screen that reports something the player WON. It can never collide with the reset
-                notice — a reset returns freshBeaten(), so stakeReset implies frontier 0.
-                ⚠ It used to end "every node stays open to replay". That was FALSE on the default
-                path: the stake is not persisted, so a returning player whose run was locked at $1
-                re-arms at $5, and the first conquered node they open offers to wipe the run rather
-                than replay it. The node card now warns before that button; this line no longer
-                promises something the stake lock can refuse. */}
+            {/* The RUN RESTARTED plate stood here, explaining why the island had just been locked
+                again from node 1. Removed with the stake lock itself (Tim, 2026-08-09) — no stake
+                can restart a run any more, so there is nothing left to explain. */}
+            {/* ALL TEN CONQUERED — the one message on this screen that reports something the player
+                WON. "every node stays open to replay" is true again now that no stake can refuse it,
+                but the line stays on the unlock because that is the reward players actually keep. */}
             {islandConquered && (
               <div className="fr-map-conquest" role="status" style={{ fontSize: 'calc(var(--sh) * 1.4)' }}>
                 ISLAND CONQUERED · ZERO CITADEL INCLUDED · every fighter you beat is yours to pick
