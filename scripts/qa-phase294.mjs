@@ -83,19 +83,26 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new'
     return { total: tiles.length, locked: document.querySelectorAll('.fr-select-locked').length, gates, lockedTexts };
   });
   rec('A2a grid still totals 22 tiles', grid.total === 22, `tiles = ${grid.total}, locked = ${grid.locked}`);
-  rec('A2b exactly 9 locked tiles name their gating node', grid.gates.length === 9, `gates = ${JSON.stringify(grid.gates)}`);
-  const gateSet = grid.gates.map((g) => g.replace('NODE ', '')).sort((a, b) => +a - +b).join(',');
-  rec('A2c the 9 gates are nodes 1,3,4,5,6,7,8,9,10 (node 2 unlocks nothing)', gateSet === '1,3,4,5,6,7,8,9,10', `gates = ${gateSet}`);
+  // NINE labelled tiles = the nine bosses that are actually earnable. Node 2's body (oni-tetsubo) is
+  // always-available, so beating it grants no new pick and it must NOT add a tenth plate. The label
+  // itself is "CONQUEST", not a node number (Tim, 2026-08-09) — the count is what carries the meaning.
+  rec('A2b exactly 9 locked tiles are marked earnable', grid.gates.length === 9, `gates = ${JSON.stringify(grid.gates)}`);
+  const allSayConquest = grid.gates.every((g) => /CONQUEST/i.test(g));
+  const noNodeNumbers = grid.gates.every((g) => !/NODE\s*\d/i.test(g));
+  rec('A2c every earnable tile names the MODE, and none prints a node number', allSayConquest && noNodeNumbers,
+    `distinct labels = ${JSON.stringify([...new Set(grid.gates)])}`);
   // ⚠ CASE-INSENSITIVE ON PURPOSE. The first version of this check was /[A-Z]{3,}/ over textContent,
   // and mutation testing defeated it in one move: a leak whose SOURCE string is lowercase but is
   // uppercased by CSS `text-transform` sailed through and the suite still reported 30/30, exit 0,
   // with every boss's name printed on screen. That shape is not hypothetical — .fr-nodecard-replay-note
   // ships exactly it. Compare against the real roster instead of guessing at letter case.
   const leaked = grid.lockedTexts.filter((t) => {
-    const stripped = t.replace(/NODE\s*\d*/gi, '').replace(/[?\s]/g, '');
+    // Allowed on a locked plate: the "?" glyph, the padlock, and the word CONQUEST. Anything else is
+    // a leak. Strip the permitted tokens and require nothing to remain.
+    const stripped = t.replace(/CONQUEST/gi, '').replace(/[?\s\u{1F512}]/gu, '');
     return stripped.length > 0;
   });
-  rec('A2d no locked tile leaks ANY text beyond "?" and its node number', leaked.length === 0, `suspicious = ${JSON.stringify(leaked)}`);
+  rec('A2d no locked tile leaks ANY text beyond "?" and the CONQUEST marker', leaked.length === 0, `suspicious = ${JSON.stringify(leaked)}`);
   // And the direct form: no locked tile may contain any registered fighter's name, in any case.
   const nameLeak = await page.evaluate(() => {
     const texts = [...document.querySelectorAll('.fr-select-locked')].map((e) => (e.textContent || '').toUpperCase());
@@ -208,7 +215,11 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new'
     storedArena: localStorage.getItem('frozen-requiem.arena.v1'),
   }));
   rec('B4a campaign detour: the arena PICKER is gone', detour.onSelect && detour.pickerRows === 0, `wentToSelect=${wentToSelect} rows = ${detour.pickerRows}`);
-  rec('B4b campaign detour: a fixed arena READOUT names the node', detour.fixed === 1 && /SET BY NODE/.test(detour.fixedText), `readout = "${detour.fixedText}"`);
+  rec('B4b campaign detour: a fixed arena READOUT, with no node number',
+    detour.fixed === 1
+      && /FIXED FOR THIS FIGHT/.test(detour.fixedText)
+      && !/NODE\s*\d/i.test(detour.fixedText),
+    `readout = "${detour.fixedText}"`);
   rec('B4c no arena tile exists to overwrite the quick-duel preference', detour.pickerRows === 0, `stored = ${detour.storedArena}`);
   await page.screenshot({ path: `${OUT}/D-detour-arena-readout.png` });
   await page.close();
@@ -432,12 +443,25 @@ for (const dev of [
 {
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
-  await page.goto(`http://localhost:${PORT}/?dev=1`, { waitUntil: 'domcontentloaded' });
+  await page.goto(`http://localhost:${PORT}/?dev=1`, { waitUntil: 'networkidle2' });
+  // ⚠ WAIT FOR THE APP TO MOUNT BEFORE SEEDING. The provider persists campaign progress in a mount
+  // effect, so a seed written into a still-booting page is overwritten by the app's own first write
+  // and the reload then loads the app's state instead of the fixture. That produced a G-block that
+  // reported "no warning" against a build whose warning was working perfectly — a driver race
+  // masquerading as a product regression, which is the most expensive kind of false red.
+  await page.waitForSelector('.fr-viewport', { timeout: 10000 });
+  await sleep(700);
   // Seed a legitimate v2 payload: all ten conquered, run locked at $1.
   await page.evaluate(() => {
     localStorage.setItem('frozen-requiem.campaign.v1', JSON.stringify({ v: 2, beaten: new Array(10).fill(true), lockStake: '1000000' }));
   });
   await page.reload({ waitUntil: 'networkidle2' });
+  await sleep(400);
+  // Prove the fixture actually survived, so every assertion below is about the app, not the seed.
+  const seedOk = await page.evaluate(() => {
+    try { const c = JSON.parse(localStorage.getItem('frozen-requiem.campaign.v1') || 'null'); return c && c.lockStake === '1000000' && c.beaten.every(Boolean); } catch { return false; }
+  });
+  rec('G0 the $1-locked, fully-conquered fixture survived the reload', seedOk === true, `seed intact = ${seedOk}`);
   await sleep(1000);
   await clickText(page, 'PRESS TO BEGIN');
   await sleep(800);

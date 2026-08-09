@@ -23,7 +23,10 @@ import {
   formatMult,
   formatWinChance,
   guardAmount,
-  nodeRtpPercent,
+  // nodeRtpPercent is deliberately NOT imported here any more — the node card's RETURNS stat was
+  // removed (2026-08-09). campaignRtpRange still drives the map's disclosure line, which is derived,
+  // never a literal. If a per-node return ever comes back to the UI, import it again rather than
+  // typing a number.
   campaignRtpRange,
   getCampaignNode,
 } from '../engine/fightCampaign';
@@ -1365,15 +1368,21 @@ function CharacterTile({
 // tiles the bare glyph IS the mystery — an extra "SOON" label would just be noise — matching the
 // MK1 reference where empty roster slots are unlabeled question marks.
 //
-// `nodeId` (phase 294) turns an anonymous plate into a SIGNPOST: this "?" is a real fighter and node
-// N is how you earn them. Beating a node is the game's only character-unlock mechanic and nothing on
-// screen ever said so, which left 19 of 22 tiles reading as permanent furniture. The grid still pads
-// with anonymous tiles (SELECT_ROSTER_SIZE is 22 against a 12-fighter registry), so the two kinds are
-// deliberately distinct: numbered = earnable now, bare = nothing behind it.
+// `nodeId` (phase 294) turns an anonymous plate into a SIGNPOST: this "?" is a real fighter you can
+// earn. Beating a node is the game's only character-unlock mechanic and nothing on screen ever said
+// so, which left 19 of 22 tiles reading as permanent furniture. The grid still pads with anonymous
+// tiles (SELECT_ROSTER_SIZE is 22 against a 12-fighter registry), so the two kinds stay deliberately
+// distinct: labelled = earnable, bare = nothing behind it.
 //
-// ⚠ THE NODE NUMBER ONLY, NEVER THE NODE NAME OR THE FIGHTER. The conquest map hides a fogged node's
-// name and labels it "unknown enemy"; printing "BURNED PAGODA" or the boss's name here would leak
-// precisely what the map withholds.
+// ⚠ THE LABEL IS "CONQUEST", NOT A NODE NUMBER (Tim, 2026-08-09: "dont call them node 1 to 10 in
+// character selection"). It shipped for one day as "NODE 7", which is internal dev vocabulary on a
+// player-facing screen — the player never sees a node called that anywhere else; the map names them
+// (KUROHAMA DOCKS, ZERO CITADEL). Naming the mode is the honest signpost.
+//
+// ⚠ AND NEVER THE NODE NAME OR THE FIGHTER. The conquest map hides a fogged node's name and labels
+// it "unknown enemy"; printing "BURNED PAGODA" or the boss's name here would leak precisely what the
+// map withholds. `nodeId` is still passed — it decides earnable-vs-filler and orders the tiles — it
+// is simply not rendered.
 // ⚠ aria on the LABELLED variant: it carries role="img" + aria-label rather than a bare aria-label on
 // a <div>. ARIA 1.2 PROHIBITS aria-label on role=generic (which a plain div computes to) and NVDA and
 // VoiceOver do not reliably announce it — Chrome happens to honour it, which is exactly the kind of
@@ -1387,12 +1396,12 @@ function LockedTile({ nodeId }: { nodeId?: number }): JSX.Element {
       className="fr-select-tile fr-select-locked"
       {...(nodeId == null
         ? { 'aria-hidden': true as const }
-        : { role: 'img', 'aria-label': `Locked fighter, win conquest node ${nodeId} to unlock` })}
+        : { role: 'img', 'aria-label': 'Locked fighter, beat them in Conquest to unlock' })}
     >
       <span className="fr-select-qmark" aria-hidden="true">?</span>
       {nodeId != null && (
         <span className="fr-select-gate" aria-hidden="true">
-          NODE {nodeId}
+          <span className="fr-select-gate-lock">&#128274;</span> CONQUEST
         </span>
       )}
     </div>
@@ -2688,8 +2697,12 @@ export function FightExperience(): JSX.Element {
               {mode === 'campaign' && campaignNode && (
                 <div className="fr-arena-section">
                   <span className="fr-arena-heading">ARENA</span>
+                  {/* Names the ARENA and says it is fixed — no node number. Same ruling as the locked
+                      tiles above (Tim, 2026-08-09): "node N" is internal vocabulary and this is a
+                      player-facing screen. The fight it belongs to is already named on the card the
+                      player just came from. */}
                   <span className="fr-arena-fixed">
-                    {getArena(campaignNode.arenaId).name} · SET BY NODE {campaignNode.id}
+                    {getArena(campaignNode.arenaId).name} · FIXED FOR THIS FIGHT
                   </span>
                 </div>
               )}
@@ -2903,15 +2916,12 @@ export function FightExperience(): JSX.Element {
                       <span className="fr-nodecard-stat-label">PAYS</span>
                       <span className="fr-nodecard-stat-value fr-nodecard-pays">x{formatMult(campaignNode.multBps)}</span>
                     </div>
-                    {/* RETURNS — this node's actual RTP, computed from the same rationals that price
-                        it (nodeRtpPercent). Added with the 4.00x payout cap, which made the return
-                        vary per node (96.0% down to 9.6%): the card already disclosed WIN CHANCE and
-                        PAYS honestly, but a player should not have to multiply them himself to learn
-                        what a node gives back. Glass Box. */}
-                    <div className="fr-nodecard-stat">
-                      <span className="fr-nodecard-stat-label">RETURNS</span>
-                      <span className="fr-nodecard-stat-value">{nodeRtpPercent(campaignNode)}%</span>
-                    </div>
+                    {/* RETURNS was a third stat here (this node's RTP from nodeRtpPercent). Removed on
+                        Tim's call, 2026-08-09: WIN CHANCE and PAYS are the two numbers a player acts
+                        on, and RETURNS is their product — it made the row read as three competing
+                        figures instead of an odds/payout pair. The disclosure itself is NOT gone: the
+                        conquest map still prints the computed range for every node, derived from the
+                        same rationals. Do not re-add it here without re-checking that row's width. */}
                   </div>
                   {/* YOUR FIGHTER. The campaign had NO character pick anywhere in its flow —
                       `enterCampaign` goes straight to the map and `startCampaignNode` straight to the
