@@ -18,3 +18,10 @@ qa-boss/staged-s30/
 
 # editor/agent backups — never tracked (swept in once by a directory add, phase 137)
 *.bak
+
+# CHARACTER SHOWCASE OUTPUT (phase 302). 86MB of art + clips COPIED out of public/assets by
+#   npx vite-node scripts/build-character-showcase.mjs
+# Same rule as every other generated-pixel folder here: the BUILDER is tracked, the copies are not.
+# Regenerate it any time; it derives the roster, the clip lists and the unlock gating from the
+# shipped manifests, so it cannot drift from the game.
+characters/

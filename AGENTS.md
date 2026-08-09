@@ -55,7 +55,17 @@ npx vite-node scripts/campaign-rtp-sim.mjs                       # 2M matches/no
 # The UI gates need a dev server already running, and drive real Chrome against it:
 node scripts/qa-phase294.mjs                    # 48 render assertions   (QA_PORT, default 5342)
 node scripts/qa-phase294-receipt.mjs --port N   # plays real matches to reach the receipt states
+
+# THE ROSTER SHOWCASE — a standalone page of all 12 fighters, for showing people the game:
+npx vite-node scripts/build-character-showcase.mjs          # -> characters/index.html (86MB, gitignored)
+npx vite-node scripts/build-character-showcase.mjs --full   # every take, not one per state (~162MB)
 ```
+
+The showcase is **generated from the shipped manifests** (`src/characters/index.ts`, `rosterGating.ts`,
+`fightCampaign.ts`), so it cannot drift: add a fighter or move a campaign node and re-running it is the
+whole update. It is self-contained (open the html directly, no server), responsive down to a 2-column
+phone layout, and loads no video until a state is tapped. Never hand-edit `characters/` — it is
+gitignored output, same rule as every other generated-pixel folder here.
 
 ⚠ **Use those vitest flags whenever a dev server or Chrome is running.** The shared worker pool
 otherwise dies with `Worker exited unexpectedly` and reports something like `1 passed (2)` — one file
