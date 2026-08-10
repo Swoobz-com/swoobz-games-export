@@ -1,50 +1,52 @@
 # HANDOFF — STANDOFF (RPS-as-MK-fighter), for a fresh Opus 5 session
 
-## ★★★★★★★★★★ SESSION 33 — START HERE (2026-08-07) ★★★★★★★★★★
+## ★★★★★★★★★★ SESSION 33 — START HERE (2026-08-07 → 08-09) ★★★★★★★★★★
 
-**Read `AGENTS.md` first**, then this block. Session 32 and below are still true and are kept below as
-history. This session cleared the ENTIRE session-32 backlog (items 1-6), and then a seven-agent
-adversarial pass found three real defects in that same work, which phase 296 fixes.
+**Read `AGENTS.md` first — all of it.** It now opens with five orientation sections (what this is, how
+to run it, the architecture, the money model, what is actually proven) before the rules, so it is the
+single entry point for a CTO, an engineer or an agent. Then read this block. Sessions 32 and below are
+kept below as history and are still true except where this block says otherwise.
 
-Branch `main`, four commits this session: phases **293, 294, 295, 296**. HEAD = `2e2e168`.
+Eleven commits, phases **293-303** (303 is this handoff). The last code commit is **`247c92a`**
+(phase 302). Branch `main` is pushed to **`export/standoff`**, 0/0 in sync, tracked tree clean.
+The remote is `export` → `Swoobz-com/swoobz-games-export`; push with `git push export main:standoff`.
 
 | gate | result | how to run |
 |---|---|---|
 | typecheck | **0** | `npx tsc --noEmit` |
-| tests | **286/286 across 17 files** (was 260/16) | `npx vitest run --pool=forks --poolOptions.forks.singleFork=true` |
-| build | **exit 0** — JS 266.57 kB (gzip 79.18), CSS 59.05 kB (gzip 10.15) | `npm run build` |
+| tests | **276 / 17 files** | `npx vitest run --pool=forks --poolOptions.forks.singleFork=true` |
+| build | **exit 0** — JS 264.37 kB (gzip 78.57), CSS 58.51 kB (gzip 10.11) | `npm run build` |
 | campaign math | **2M matches/node PASS**, all ten on-model | `npx vite-node scripts/campaign-rtp-sim.mjs` |
-| render gate | **46/46** real Chrome | `node scripts/qa-phase294.mjs` (needs a dev server; `--port`/`QA_PORT`) |
-| receipt gate | **6/6** (plays real matches) | `node scripts/qa-phase294-receipt.mjs --port <p> [--finale]` |
-| production serve | boots, relay works | `npm run build && npm start` |
+| render gate | **48/48** real Chrome | `node scripts/qa-phase294.mjs` (needs a dev server; `QA_PORT`) |
+| receipt gate | **6/6**, plays real matches | `node scripts/qa-phase294-receipt.mjs --port N [--finale]` |
+| roster showcase | **23/23** at 1440/1024/393/412 | `npx vite-node scripts/build-character-showcase.mjs` |
+| production serve | boots, ws relay works | `npm run build && npm start` |
 
-⚠ A plain `npx vitest run` with a dev server up dies with `Worker exited unexpectedly` and reports
-something like `1 passed (2)`. It happened again this session **even with the fork flags**, under load.
+⚠ The vitest worker crash (`Worker exited unexpectedly`, reports `1 passed (2)`) **still happens WITH
+the fork flags** under enough load. It bit once this session and looked exactly like a real failure.
 Stop your own dev server and re-run before believing a bad number.
 
-### ▶ BOTH OF TIM'S OPEN DECISIONS ARE NOW ANSWERED
+### ▶ TIM'S THREE RULINGS THIS SESSION — restate these or they evaporate
 
-- **The 51.2% mean return is CONFIRMED** (phase 293). It was re-derived from the shipped exact-rational
-  functions — the session-32 table was correct to the decimal — and put back to Tim beside its three
-  legal alternatives: steepest legal geometric ladder 1.75x→4.00x (**mean 60.5%**), max-return ladder
-  1.91x→4.00x hugging every ceiling (**mean 77.1%**, rejected: its steps degenerate to one-cent
-  increments and it reads as four plateaus), and raising node 10's win chance (4.00x needs **24.00%**
-  for a ~96% return, i.e. a finale easier than node 6). **He kept the shipped ladder.** Do not re-derive
-  these three again.
-- **Portrait gets a ROTATE PROMPT** (phase 293/294). A portrait layout and cropping the art were both
-  declined.
+1. **The 51.2% mean return is CONFIRMED** (phase 293). Re-derived from the shipped exact-rational
+   functions and put to him beside its three legal alternatives: steepest legal geometric ladder
+   1.75x→4.00x (mean 60.5%), max-return ladder hugging every ceiling 1.91x→4.00x (mean 77.1%, but its
+   steps degenerate to one-cent increments), and raising node 10's win chance (4.00x needs 24.00% for
+   a fair finale, i.e. easier than node 6). **He kept the shipped ladder.** Do not re-derive these.
+2. **Portrait gets a ROTATE PROMPT** (phase 293/294). A portrait layout and cropping the art were both
+   declined.
+3. **The stake lock is REMOVED** (phase 300) — see below. This reverses his own 2026-08-07 rule, on the
+   evidence that the rule protected nothing and had destroyed his run.
 
-### ▶ WHAT SHIPPED (the whole session-32 backlog)
+### ▶ WHAT SHIPPED
 
 **294 — the progression the game never showed.** Beating a node is the ONLY character-unlock mechanic
 (9 of 12 fighters) and nothing said so. New pure `fighterUnlockedByNode(nodeId)` reads `node.fighterId`,
 NEVER `node.enemy.id` — they diverge on node 2, whose enemy id `kitsune-tanto` is not in the registry at
-all, so announcing it would throw inside the victory render. A FIGHTER UNLOCKED card on the receipt; the
-9 earnable locked select tiles now read `NODE 1 / NODE 3 / … / NODE 10` (number only — the map fogs
-names); node 10 prints `VICTORY / ISLAND CONQUERED`; the map gains a CLEARED title and a gold plate; a
-conquered node card carries a CONQUERED · REPLAY badge; the arena picker is gone from the campaign
-detour (it was silently overwriting the player's saved quick-duel arena). Also moved the dev bar
-bottom-left → top-right, because the new plate had pushed the RTP compliance line into it.
+all, so announcing it would throw inside the victory render. A FIGHTER UNLOCKED card on the receipt;
+labelled locked select tiles; `VICTORY / ISLAND CONQUERED` on node 10; a CLEARED map title + gold plate;
+a CONQUERED · REPLAY badge on a re-opened node; the arena picker removed from the campaign detour (it
+was silently overwriting the player's saved quick-duel arena). Plus the portrait curtain.
 
 **295 — VS FRIEND can exist in production.** `attachMatchRelay` was referenced only by `vite.config.ts`.
 New `src/server/staticServer.ts` + `server.mjs` + `npm start`, with Range/206/416 (dist carries 257MB of
@@ -53,107 +55,171 @@ extension-gated SPA fallback, and a resolve+separator traversal guard. **`ws` mo
 it was imported at module scope from devDependencies, so `npm ci --omit=dev && npm start` crashed on
 boot. 21 new tests.
 
-**296 — the three things the adversarial pass proved wrong.** See below; this is the part to read.
+**296 — the three defects seven adversarial verifiers proved.** See the next section.
 
-### ⛔ THE THREE DEFECTS THE VERIFIERS FOUND, and why review would not have
+**298 — AGENTS.md became the CTO doc**, and two stale claims in it were corrected (node 10 "39.959x",
+and "a static dist deploy cannot even open a room", which 295 had fixed).
 
-Seven agents were told to REFUTE, not confirm, with "default to refuted if unsure". Four claims came
-back refuted. Every fix in 296 has a measured reproduction behind it, not a suspicion.
+**299 — the betting card.** RETURNS removed from the node card (WIN CHANCE and PAYS are the two numbers
+a player acts on; RETURNS was their product — the map's computed range still discloses it). All the card
+text now shares one left edge; it had no `text-align` so every line inherited `center` from the overlay.
+Character select stopped saying "NODE 7" — internal vocabulary on a player screen — and now reads a
+padlock + CONQUEST; the arena readout there went from "SET BY NODE 1" to "FIXED FOR THIS FIGHT".
 
-1. **THE RUN-WIPE WAS INVISIBLE UNTIL IT FIRED, AND IT IS THE DEFAULT PATH.** Committing above a run's
-   `lockStake` wipes all ten nodes. The stake is not persisted, so a returning player locked at $1
-   re-arms at `DEFAULT_STAKE` $5, opens a conquered node, and the one obvious button destroys the run —
-   proven: storage `[true x10]` → `[false x10]`, char select 12 selectable → 3. `lockStakeLamports` was
-   rendered NOWHERE, so the risk could not be computed. Now warned before the button.
-2. **THE SHOT-CLOCK PAUSE STRANDED THE OTHER PLAYER.** Phase 294 paused in every mode. The relay's 10s
-   grace fires on ws `'close'` only and there is no heartbeat, so a connected-but-idle peer is invisible:
-   the victim's clock hit 0, `tryReveal` blocked forever, and 26s past the grace there was no settle and
-   no receipt, stake committed. The pause is now single-player only.
-3. **THE CURTAIN WAS A PICTURE, NOT A BARRIER.** One Tab reached a covered STRIKE and activating it
-   committed a move against a committed stake. `.fr-stage` + PLAY SAFE are now `inert`.
+**300 — THE STAKE LOCK IS GONE.** The big one; read it below.
 
-Also fixed: a measured 39ms flash where the letterboxed game painted before the curtain (`useEffect`
-runs after paint; `useLayoutEffect` does not), and `aria-label` on a bare div for the labelled tiles.
+**301 — two claims the lock removal left false**, one of them a security statement.
 
-**AND THE GATES THEMSELVES WERE THE WORST FINDING** — mutation testing showed deleting the shot-clock
-freeze left the render driver at 30/30, exit 0. Full pattern list is now in AGENTS.md under
-"Gates that cannot fail". The drivers are 46/46 and 6/6 today and DO fail on all five mutations tried.
+**302 — the roster showcase.** `npx vite-node scripts/build-character-showcase.mjs` writes
+`./characters/index.html`: a standalone, double-clickable page of all 12 fighters with stills,
+portraits, unlock gating and playable clips. **Generated from the shipped manifests**, so it cannot
+drift. Responsive (4/3/2 columns), 44px touch targets, no video loaded until tapped. `characters/` is
+gitignored — the builder is tracked, the 86MB of copied pixels are not.
+
+### ⛔ THE STAKE LOCK REMOVAL — the most important thing to understand here
+
+Tim: *"i finished my 10 dollar stack to max and switched to 5, now my progress is done when i click 10
+again."*
+
+**Reproduced before fixing, and the first repro said NOT REPRODUCED — which was the useful result.**
+Going $10 → $5 → $10 with progress intact is genuinely safe; the lock does not ratchet down while a run
+exists. The real mechanism is the other branch: `applyCampaignStakeLock` **adopted the current stake
+whenever progress was empty**, and the stake is not persisted (every reload re-arms at `DEFAULT_STAKE`
+$5). So one commit at a lower stake while the run happened to be empty silently re-based the whole run,
+and returning to the stake you had been playing at all along then wiped it. Measured:
+
+```
+A. win node 1 at $10                      lock=$10  beaten=1000000000
+B. raise to $25 once (warned), run wipes  lock=$25  beaten=0000000000
+C. rebuild at $5                          lock=$5   beaten=1100000000   <- silent re-base
+D. click $10 again                        lock=$10  beaten=0000000000   <- ten nodes gone
+```
+
+**It protected nothing.** Under the 4.00x cap every node returns under 100% — the best is node 2 at
+74.6%, the finale is 9.6% — so cashing progress at a high stake is a WORSE bet, not a better one. That
+claim is now a test, not a comment: `fightCampaign.test.ts` asserts **"EVERY node is -EV at EVERY
+stake"**, and **that test is the guard** — if a re-tune ever lifts a node to 100% it fails with a message
+saying the removal is no longer safe.
+
+Removed: `applyCampaignStakeLock`, `campaignCommitAction`, the `resetToMap` branch, the lockStake
+state/ref/persistence, `CampaignState.lockStakeLamports` and `.stakeReset`, the RUN RESTARTED map plate,
+and phase 296's whole pre-commit wipe warning. `campaignStakeLock.test.ts` → `campaignStakeFreedom.test.ts`,
+rewritten to assert the opposite property with a tripwire that fails if either lock function is
+re-exported. **If a protection is ever needed again, CAP THE PICKER at the run's stake — do not wipe.**
+An obituary at the lock's old home in `fightProvider.ts` explains all of this.
+
+⚠ **One removal was mandatory rather than tidy:** `parseCampaignProgress` used to DROP any progress
+carrying no readable lockStake. The moment the stamp stopped being written, that rule would have
+silently wiped every existing player's run on their next load.
+
+### ⛔ WHAT THE ADVERSARIAL PASS FOUND (phase 296)
+
+Seven agents were pointed at already-committed, already-render-verified, already-green work and told to
+**REFUTE** one named claim each, defaulting to refuted if unsure. Four claims came back refuted.
+
+1. **The run-wipe was invisible until it fired, on the DEFAULT path** — the finding that led to 300.
+2. **My shot-clock pause stranded the other player.** The relay's 10s grace fires on ws `'close'` only
+   and there is no heartbeat, so a connected-but-idle peer is invisible to it: the victim's clock hit 0,
+   `tryReveal` blocked forever, and 26s past the grace there was no settle and no receipt, stake
+   committed. The pause is now **single-player only**; friend mode keeps ticking as it always did.
+3. **The curtain was a picture, not a barrier.** One Tab reached a covered STRIKE and activating it
+   committed a move against a committed stake. `.fr-stage` and the PLAY SAFE pill now carry `inert`.
+
+**And the worst finding was about the gates themselves:** deleting the shot-clock freeze — the safety
+half of the whole portrait feature — left the render driver at 30/30, exit 0. Four holes were found by
+mutation-testing it in a throwaway `git worktree`; all four are written up in AGENTS.md under
+"Gates that cannot fail".
 
 ### LEARNINGS THAT WILL SAVE YOU A WRONG CLAIM
 
-1. **Adversarial verification is worth more than the build.** Seven skeptics on already-committed,
-   already-render-verified, already-green work found a money-adjacent trap, a multiplayer hostage bug,
-   and a gate that could not fail. None of it was reachable by "does it look right".
-2. **Ask what the gate would say if the feature were DELETED.** If the answer is "still green", it is
-   not a gate. Mutation-test it in a throwaway `git worktree` — never in the main tree.
-3. **"In view" is not "visible".** A fully-overlapped element passes every containment check. Assert box
+1. **Adversarial verification is worth more than another gate.** Seven skeptics on green, shipped work
+   found a money-adjacent trap, a multiplayer hostage bug and a gate that could not fail. Run it on top
+   of green, not instead of it.
+2. **Ask what your gate would say if the feature were DELETED.** If the answer is "still green", it is
+   not a gate. Mutate in a throwaway worktree, never the live tree.
+3. **Removing a mechanism invalidates every claim that RESTED on it**, not just the claims that describe
+   it. Deleting the stake lock quietly falsified the *security argument* for leaving the `?dev=1` hooks
+   live. Grep for what leaned on a thing before you delete it.
+4. **Reproduce before fixing, and a failed repro is information.** "Not reproduced" on Tim's literal
+   steps is what pointed at the `!hasProgress` branch.
+5. **Verify with the user's real input device.** `element.click()` dispatches on an `inert` node, so a
+   click-based probe proves nothing AND silently commits a real action.
+6. **"In view" is not "visible."** A fully-overlapped element passes every containment check. Assert box
    intersection, and look at the screenshot — that is FINDING 12 for the third time.
-4. **Verify with the user's input device.** `element.click()` fires on an `inert` node, so a click-based
-   inert probe measures nothing and silently commits a real pick.
-5. **A driver must prove WHICH app it measured.** An `::1` vs `127.0.0.1` split defeats `--strictPort`
-   and produced a confident 13/30 against the wrong build.
-6. **Copy is a correctness surface.** Two of my own strings were simply false in a reachable state. If a
-   sentence asserts what the code does, it needs the same conditional the code has.
-7. **A rare hero state can be verified without a dev hook.** Node 10's 2.4% receipt was reached by
-   temporarily weakening the node, checking the render, restoring, and re-checking the blob SHA
-   (`7aedcc08`). The render path is identical; only P(reaching it) changes.
+7. **Copy is a correctness surface.** Two of my own strings were simply false in a reachable state. If a
+   sentence describes behaviour, it needs the same conditional the behaviour has.
+8. **A driver race reads exactly like a product regression.** Seeding localStorage before the app mounts
+   let the provider's mount-effect overwrite the fixture; the gate then reported a working feature as
+   broken. Assert the fixture survived before asserting anything about it.
+9. **Your own UI change can break your own driver silently.** Renaming the commit button to "RESTART THE
+   RUN AT $X" made a `"STAKE"` needle miss on exactly the path under test, so the first repro reported a
+   clean pass having clicked nothing.
+10. **A rare hero state can be verified without a dev hook**: temporarily weaken the gating condition,
+    check the render, restore, and re-check the file's blob SHA to prove the tree is untouched.
 
 ### ▶ WHAT TO DO NEXT — in this order
 
-1. **ASK TIM WHERE THIS DEPLOYS.** `npm start` now exists and works, but a repo-wide search found NO
-   deploy config (no Dockerfile/Procfile/netlify/vercel/render/fly/CI). If the target is a purely static
-   host, no Node server is deployable there and VS FRIEND needs a hosting decision instead. This is the
-   one open question blocking item 295 from being real.
-2. **Residual from the verifiers, not yet fixed** (all measured, none critical):
-   - At **800x600 / 4:3** the node card clips above the aspect-locked stage. Pre-existing, but the new
-     CONQUERED badge + replay note make it ~38px worse, so the new copy is what disappears. Invisible at
-     every 16:9 / 16:10 size measured.
-   - The stake screen still shows **"PAYS ON WIN $6.60" next to "RESTART THE RUN AT $5.00"** — the
-     warning and button are unambiguous, but that row is contradictory in the wipe state.
-   - `.fr-select-gate` bottoms out at its **7px floor** at ≤1024px stage width. Fits, never clipped,
-     but small for a legibility-sensitive signpost.
-   - Server nits, all unreachable by any URL the game emits: `bytes=5-3` answers 416 (spec says 200),
+1. **ASK TIM WHERE THIS DEPLOYS. Still the blocker.** `npm start` works and is verified, but a repo-wide
+   search finds NO deploy config — no Dockerfile, Procfile, netlify/vercel/render/fly, no CI. If the
+   target is a purely static host, no Node server runs there and VS FRIEND needs a hosting decision
+   instead of more code.
+2. **DECIDE WHETHER `?dev=1` SHOULD STILL HAND OUT THE ROSTER.** Measured after the lock removal:
+   `?dev=1` → CONQUER ALL → reload WITHOUT `?dev` gives all-true progress and **12 of 12 fighters
+   selectable, 0 locked**, and it persists. Previously the stake lock cancelled it on the next commit.
+   Not a money leak — every node is -EV and a payout still needs a win — but two clicks now permanently
+   unlock the progression phase 294 exists to make feel earned. Tim has not been asked about this.
+3. **Residuals from the verifiers**, all measured, none critical:
+   - At **800x600 / 4:3** the node card clips above the aspect-locked stage. Pre-existing, but the
+     CONQUERED badge + replay note make it ~38px worse. Invisible at every 16:9 / 16:10 size measured.
+   - `.fr-select-gate` sits at its 8px floor on stages under ~1024px — legible, but small.
+   - Server nits, none reachable by a URL the game emits: `bytes=5-3` answers 416 (spec says 200),
      `BYTES=` is matched case-sensitively, and the SPA fallback swallows real directories.
-   - Locked tiles are not focusable, so a keyboard user never encounters the NODE N signpost.
-3. **`?dev=1` mobile QA screenshots are now pictures of the rotate prompt.** The 36 PNGs in
-   `qa-boss/qa-mobile/` were shot in portrait; anyone re-running that harness must switch it to
-   landscape or will think the game broke.
-4. **Give node 2 something to grant.** It is the one node whose victory unlocks nothing (its body,
-   `oni-tetsubo`, is always-available). Correct today, and the receipt correctly stays silent, but a
-   player may notice the gap.
+   - Locked select tiles are not focusable, so a keyboard user never meets the CONQUEST signpost.
+4. **`qa-boss/qa-mobile/`'s 36 portrait screenshots are now pictures of the rotate prompt.** Anyone
+   re-running that harness must switch it to landscape or will think the game broke.
+5. **Node 2 grants nothing** — its body `oni-tetsubo` is always-available, so beating it unlocks no
+   fighter. Correct today and the receipt correctly stays silent, but a player may notice the gap.
+6. **Decide whether `characters/` should be committed.** It is gitignored (86MB, regenerable). If someone
+   should be able to clone-and-open without running the builder, un-ignore it.
 
 ### WHAT I DID NOT DO — so you do not assume it
 
 - **No clips were generated and no character was added.** Nothing in `qa-boss/` was fired.
-- **No engine file changed.** All 12 files in `src/engine/` are byte-identical to the phase-293
-  baseline, verified per file with `git hash-object`. The ladder, the 96% ceiling and every win chance
-  are untouched — the 2M sim re-measures 66.0 / 74.6 / 46.1 / 52.1 / 59.0 / 55.1 / 62.3 / 40.8 / 46.2 /
-  9.6 exactly.
-- **No browser has played a video through the new server's Range implementation.** Byte-exact 206/416
-  were verified with curl on a real 705,763-byte clip; the iOS-Safari claim that motivates it is
-  untested (no device here).
-- **`npm ci --omit=dev && npm start` was not run** (it would have deleted `node_modules` under
-  concurrent work). The `ws` dependency claim is from grepping the boot chain, not measured.
+- **No engine file changed all session.** All 12 files in `src/engine/` are byte-identical to the
+  phase-293 baseline, verified per file with `git hash-object`. The ladder, the 96% ceiling and every
+  win chance are untouched; the 2M sim re-measures 66.0 / 74.6 / 46.1 / 52.1 / 59.0 / 55.1 / 62.3 /
+  40.8 / 46.2 / 9.6 exactly. (`fightCampaign.test.ts` gained one test; the module did not change.)
+- **No browser has played a video through the production server's Range implementation.** Byte-exact
+  206/416 verified with curl on a real 705,763-byte clip; the iOS-Safari behaviour that motivates it is
+  untested — there is no device here.
+- **`npm ci --omit=dev && npm start` was not run** (it would delete `node_modules` under concurrent
+  work). The `ws` dependency claim is from grepping the boot chain, not measured.
 - **`engines: ">=22.18"` is inferred**, not tested — only Node v24.15.0 was available.
-- **The finale banner was verified with a temporarily weakened node 10**, not by winning a real 2.4%
-  fight. `fightCampaign.ts` was restored and re-checked (`7aedcc08`).
-- **`RESET PRACTICE BANK` is still ungated and `DEV_MODE` is still a `?dev` query param.** Deliberate,
-  and neither is a money leak.
+- **The node-10 finale banner was verified with a temporarily weakened node 10**, not by winning a real
+  2.4% fight. `fightCampaign.ts` was restored and its blob SHA re-checked (`7aedcc08`).
+- **The showcase page has not been opened on a real phone** — only Chrome device emulation at 393 and
+  412 with `isMobile`/`hasTouch`.
+- **A dev server may still be running on 5340** (PID 46084 at the time of writing). Its parent task was
+  killed but the vite process survived, so it is untracked by any harness. Verify a PID's command line
+  before killing anything.
 
-### DECISION REGISTER — carried forward, restate these or they evaporate
+### DECISION REGISTER — carried forward
 
 - **Tim, 2026-08-07:** payouts capped at 4.00x; ladder 1.32x → 4.00x; win chances frozen.
-- **Tim, 2026-08-07 (session 33): the 51.2% mean return / 48.8% house edge is CONFIRMED** against three
-  costed alternatives. Closed.
-- **Tim, 2026-08-07 (session 33):** portrait gets a **ROTATE PROMPT**; landscape untouched.
+- **Tim, 2026-08-07 (s33): the 51.2% mean return / 48.8% house edge is CONFIRMED** against three costed
+  alternatives. Closed — do not re-open without a new ruling.
+- **Tim, 2026-08-07 (s33):** portrait gets a **ROTATE PROMPT**; landscape untouched.
+- **Tim, 2026-08-09 (s33): THE STAKE LOCK IS REMOVED.** A stake change can never destroy a run. This
+  reverses his 2026-08-07 rule. If a protection is needed again, cap the picker — do not wipe.
+- **Tim, 2026-08-09 (s33):** the node card shows WIN CHANCE and PAYS only; **RETURNS is out**.
+- **Tim, 2026-08-09 (s33):** **no "NODE 1..10" vocabulary in character selection.**
 - **Tim, 2026-08-07:** FROZEN CATHEDRAL is out of the arena roster.
-- **Tim, 2026-08-07:** the stake lock rule — a higher stake wipes the run, same-or-lower keeps it. The
-  lock deliberately does NOT ratchet down.
 - **Tim, 2026-08-06:** `gorvak` and `volta` can never be characters.
 - **Tim, 2026-08-06:** the three free-roster fighters stay selectable from a fresh profile.
-- **Open, never answered:** where this deploys (item 1 above), and whether real money is ever attached.
-  If it is, the minimum is a server-held balance + server-side settle re-derived from the server's own
-  node table, then dev-gate `resetBank` and add commit-reveal for PvP picks.
+- **Open, never answered:** where this deploys (item 1), whether the `?dev=1` hooks should keep handing
+  out the roster (item 2), and whether real money is ever attached. If it is, the minimum is a
+  server-held balance + server-side settle re-derived from the server's own node table, then dev-gate
+  `resetBank` and add commit-reveal for PvP picks.
 
 ## ★★★★★★★★★★ SESSION 32 (2026-08-07) ★★★★★★★★★★
 
