@@ -1,0 +1,11 @@
+# Dependencies & build output
+node_modules/
+dist/
+*.log
+
+# QA evidence (screenshots/frames from probe runs — regenerated per run)
+shots*/
+
+# OS noise
+Thumbs.db
+desktop.ini
